@@ -1,6 +1,6 @@
 # Capital Projects Map
 
-Front end for Application Engineering's new capital projects map.
+Front end for Application Engineering's capital projects map.
 
 ## Dev setup
 - `nvm use`
