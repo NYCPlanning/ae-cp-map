@@ -1,6 +1,6 @@
-# Description
+# Capital Projects Map
 
-Template for Remix applications with Deck.gl and @nycplanning/streetscape (based on Chakra UI)
+Front end for Application Engineering's new capital projects map.
 
 ## Dev setup
 - `nvm use`
