@@ -8,7 +8,6 @@ import {
   isRouteErrorResponse,
   useRouteError,
 } from "@remix-run/react";
-import { Header } from "./components/header";
 import { Atlas } from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
 
@@ -45,7 +44,6 @@ export default function App() {
   return (
     <Document>
       <StreetscapeProvider>
-        <Header />
         <Outlet />
         <ClientOnly fallback={<h2>Loading map...</h2>}>
           {() => <Atlas />}
