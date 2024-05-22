@@ -10,6 +10,7 @@ import {
 } from "@remix-run/react";
 import { Atlas } from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
+import { Overlay } from "./components/Overlay";
 
 function Document({
   children,
@@ -22,6 +23,7 @@ function Document({
     <html lang="en">
       <head>
         <Meta />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{title}</title>
         {/* Silence /favicon.ico error by pointing to null image. Remove link to null image after creating valid favicon. */}
         <link
@@ -45,8 +47,12 @@ export default function App() {
     <Document>
       <StreetscapeProvider>
         <Outlet />
-        <ClientOnly fallback={<h2>Loading map...</h2>}>
-          {() => <Atlas />}
+        <ClientOnly>
+          {() => (
+            <>
+              <Atlas /> <Overlay />
+            </>
+          )}
         </ClientOnly>
       </StreetscapeProvider>
     </Document>

@@ -17,6 +17,7 @@
     "kubb:generate": "kubb generate"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@deck.gl/react": "^9.0.8",
     "@emotion/react": "^11.11.3",
     "@emotion/server": "^11.11.0",
