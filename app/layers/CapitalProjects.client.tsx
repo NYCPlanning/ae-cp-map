@@ -1,14 +1,25 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 
 export function useCapitalProjectsLayer() {
-  return new MVTLayer({
+  return new MVTLayer<{
+    managingCodeCapitalProjectId: string;
+    managingAgency: string;
+  }>({
     id: "capital-projects",
     data: `${import.meta.env.VITE_ZONING_API_URL}/api/capital-projects/{z}/{x}/{y}.pbf`,
-    // data: `${import.meta.env.VITE_TILE_BUCKET}/tax_lot/{z}/{x}/{y}.pbf`,
+    pickable: true,
     getFillColor: (f) => {
-      console.debug("feature", f);
-      return [120, 150, 180];
+      const agencyColorCode = f.properties.managingCodeCapitalProjectId
+        .slice(0, 3)
+        .split("")
+        .map((initial) => initial.charCodeAt(0) * 3) as [
+        number,
+        number,
+        number,
+      ];
+      agencyColorCode.push(200);
+      return agencyColorCode;
     },
-    getPointRadius: () => 3,
+    getPointRadius: () => 5,
   });
 }
