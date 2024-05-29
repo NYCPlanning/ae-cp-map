@@ -2,15 +2,13 @@ import { StreetscapeProvider, Box, Heading } from "@nycplanning/streetscape";
 import {
   Links,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
   useRouteError,
 } from "@remix-run/react";
-import { Atlas } from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
-import { Overlay } from "./components/Overlay";
+import Layout from "./root/layout";
 
 function Document({
   children,
@@ -33,7 +31,15 @@ function Document({
         />
         <Links />
       </head>
-      <body>
+      <body
+        style={{
+          height: "100vh",
+          width: "100vw",
+          maxWidth: "100%",
+          maxHeight: "100%",
+          overflow: "clip",
+        }}
+      >
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -46,11 +52,10 @@ export default function App() {
   return (
     <Document>
       <StreetscapeProvider>
-        <Outlet />
         <ClientOnly>
           {() => (
             <>
-              <Atlas /> <Overlay />
+              <Layout />
             </>
           )}
         </ClientOnly>

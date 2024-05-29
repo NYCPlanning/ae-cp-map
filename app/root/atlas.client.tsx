@@ -17,7 +17,7 @@ export function Atlas() {
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
-      style={{ height: "100vh", width: "100vw" }}
+      style={{ height: "100%", width: "100%" }}
       layers={[capitalProjectsLayer]}
     >
       <Map
