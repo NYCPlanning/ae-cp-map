@@ -1,6 +1,5 @@
 import { Flex, Heading } from "@nycplanning/streetscape";
 import { ReactNode } from "react";
-import { GeographyTypeSelector } from "./geography-type-selector";
 
 export function GeographyMenu({ children }: { children: ReactNode }) {
   return (

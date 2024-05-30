@@ -1,9 +1,4 @@
-import {
-  Heading,
-  FormControl,
-  FormLabel,
-  Select,
-} from "@nycplanning/streetscape";
+import { FormControl, FormLabel, Select } from "@nycplanning/streetscape";
 import { useLocation, useNavigate } from "@remix-run/react";
 import { ChangeEvent } from "react";
 
@@ -11,6 +6,8 @@ export function GeographyTypeSelector() {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
+  console.debug("geography selector pathname", pathname.split("/")[1]);
+  console.debug("geography selector location", location);
 
   return (
     <>
@@ -18,7 +15,7 @@ export function GeographyTypeSelector() {
         <FormLabel>Geography Type</FormLabel>
         <Select
           variant="base"
-          value={pathname}
+          value={`/${pathname.split("/")[1]}`}
           onChange={(e: ChangeEvent<HTMLSelectElement>) => {
             navigate(e.target.value);
           }}
