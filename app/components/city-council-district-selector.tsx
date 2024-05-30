@@ -20,7 +20,7 @@ export default function CityCouncilDistrictSelector() {
         <FormLabel>District</FormLabel>
         <Select
           variant="base"
-          value={`${pathname.split("/")[2]}`}
+          value={pathname.split("/")[2]}
           onChange={onUpdateSelector}
         >
           <option value={""}>-Select-</option>
