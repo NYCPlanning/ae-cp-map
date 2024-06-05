@@ -6,8 +6,8 @@ export function GeographyTypeSelector() {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
-  console.debug("geography selector pathname", pathname.split("/")[1]);
-  console.debug("geography selector location", location);
+  // console.debug("geography selector pathname", pathname.split("/")[1]);
+  // console.debug("geography selector location", location);
 
   return (
     <>
