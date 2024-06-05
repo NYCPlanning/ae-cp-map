@@ -3,6 +3,7 @@ import { GeographyMenu } from "../components/geography-menu";
 import { GeographyTypeSelector } from "../components/geography-type-selector";
 import BoroughSelector from "../components/borough-selector";
 import CommunityDistrictSelector from "../components/community-district-selector";
+import AdminBoundarySelector from "../components/admin-boundary-selector";
 
 export default function CommunityDistrictDefaultPath() {
   return (
@@ -17,8 +18,20 @@ export default function CommunityDistrictDefaultPath() {
         <GeographyMenu>
           <GeographyTypeSelector />
           <HStack spacing={2}>
-            <BoroughSelector />
-            <CommunityDistrictSelector />
+            <AdminBoundarySelector
+              activeBoundaryId={""}
+              boundaries={[]}
+              routePrefix={""}
+            >
+              Borough
+            </AdminBoundarySelector>
+            <AdminBoundarySelector
+              activeBoundaryId={""}
+              boundaries={[]}
+              routePrefix={""}
+            >
+              District
+            </AdminBoundarySelector>
           </HStack>
         </GeographyMenu>
       </GridItem>
