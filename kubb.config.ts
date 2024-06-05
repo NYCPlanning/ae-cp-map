@@ -1,37 +1,37 @@
 import { defineConfig } from "@kubb/core";
-import createSwagger from "@kubb/swagger";
-import createSwaggerTS from "@kubb/swagger-ts";
-import createSwaggerZod from "@kubb/swagger-zod";
-import createSwaggerClient from "@kubb/swagger-client";
-import createSwaggerFaker from "@kubb/swagger-faker";
-import createSwaggerMsw from "@kubb/swagger-msw";
+import { pluginTs } from "@kubb/swagger-ts";
+import { pluginZod } from "@kubb/swagger-zod";
+import { pluginClient } from "@kubb/swagger-client";
+import { pluginFaker } from "@kubb/swagger-faker";
+import { pluginOas } from "@kubb/plugin-oas";
+import { pluginMsw } from "@kubb/swagger-msw";
 
 export default defineConfig({
   root: ".",
   input: {
-    path: "",
+    path: "https://raw.githubusercontent.com/NYCPlanning/ae-zoning-api/main/openapi/openapi.yaml",
   },
   output: {
     path: "./app/gen",
     clean: true,
   },
   plugins: [
-    createSwagger({
+    pluginOas({
       output: false,
     }),
-    createSwaggerTS({}),
-    createSwaggerZod({
+    pluginTs({}),
+    pluginZod({
       output: {
         path: "./zod",
       },
     }),
-    createSwaggerClient({
+    pluginClient({
       output: {
         path: "./axios",
       },
     }),
-    createSwaggerFaker({}),
-    createSwaggerMsw({
+    pluginFaker({}),
+    pluginMsw({
       output: {
         path: "./mocks",
       },
