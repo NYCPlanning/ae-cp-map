@@ -1,16 +1,19 @@
 import { FormControl, FormLabel, Select } from "@nycplanning/streetscape";
-import { useLocation, useNavigate } from "@remix-run/react";
+import { useNavigate } from "@remix-run/react";
+import { CityCouncilDistrict } from "~/gen";
 
-const fakeCityCouncilDistricts = [{ id: "1" }, { id: "10" }];
+export interface CityCouncilDistrictSelector {
+  activeCityCouncilDistrictId: string;
+  cityCouncilDistricts: Array<CityCouncilDistrict>;
+}
 
-export default function CityCouncilDistrictSelector() {
+export default function CityCouncilDistrictSelector({
+  activeCityCouncilDistrictId,
+  cityCouncilDistricts,
+}: CityCouncilDistrictSelector) {
   const navigate = useNavigate();
-  const location = useLocation();
-  const { pathname } = location;
-  console.debug("pathname", pathname);
 
   const onUpdateSelector = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.debug(e.target.value);
     navigate(`/city-council-districts/${e.target.value}`);
   };
 
@@ -20,11 +23,11 @@ export default function CityCouncilDistrictSelector() {
         <FormLabel>District</FormLabel>
         <Select
           variant="base"
-          value={pathname.split("/")[2]}
+          value={activeCityCouncilDistrictId}
           onChange={onUpdateSelector}
         >
           <option value={""}>-Select-</option>
-          {fakeCityCouncilDistricts.map((district) => (
+          {cityCouncilDistricts.map((district) => (
             <option key={district.id}>{district.id}</option>
           ))}
         </Select>
