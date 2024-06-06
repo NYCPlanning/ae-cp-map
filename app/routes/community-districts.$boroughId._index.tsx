@@ -7,26 +7,8 @@ import {
   FindBoroughsQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
 } from "../gen";
-import { LoaderFunctionArgs } from "@remix-run/node";
 import { GoToGeography } from "../components/go-to-geography";
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const { boroughId } = params;
-  if (boroughId === undefined) throw new Error("failed to provide borough id");
-  //   return await findCommunityDistrictsByBoroughId(boroughId, {
-  //     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-  //   });
-  return {
-    communityDistricts: [
-      {
-        id: "01",
-      },
-      {
-        id: "05",
-      },
-    ],
-  };
-};
 export default function CommunityDistrictBoroughIdPath() {
   const { boroughId } = useParams<{ boroughId: string }>();
   if (boroughId === undefined) throw new Error("failed to provide borough id");

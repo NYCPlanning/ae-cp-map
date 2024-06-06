@@ -1,6 +1,6 @@
-import { Flex, GridItem, List, ListItem } from "@nycplanning/streetscape";
+import { Flex, GridItem } from "@nycplanning/streetscape";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData, useOutletContext, useParams } from "@remix-run/react";
+import { Outlet, useLoaderData, useOutletContext } from "@remix-run/react";
 import {
   FindBoroughsQueryResponse,
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
@@ -20,18 +20,12 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   };
 };
 export default function CommunityDistrictProjectsPath() {
-  const { boroughId, communityDistrictId } = useParams();
-  if (boroughId === undefined || communityDistrictId === undefined)
-    throw new Error("failed to provide borough id or community district id");
   const loaderData =
     useLoaderData<FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse>();
   const contextData = useOutletContext<
     FindBoroughsQueryResponse & FindCommunityDistrictsByBoroughIdQueryResponse
   >();
-  const boroughDetails = contextData.boroughs.find(
-    (borough) => borough.id === boroughId,
-  );
-  console.debug("boroughDetails", boroughDetails);
+
   return (
     <GridItem
       zIndex={1}
@@ -49,16 +43,7 @@ export default function CommunityDistrictProjectsPath() {
         width={"100%"}
         height={"100%"}
       >
-        Community District: {boroughDetails?.abbr}
-        {communityDistrictId}
-        <List>
-          {loaderData.capitalProjects.map((project) => (
-            <ListItem key={`${project.managingCode}${project.id}`}>
-              {project.managingCode}
-              {project.id}
-            </ListItem>
-          ))}
-        </List>
+        <Outlet context={{ ...loaderData, ...contextData }} />
       </Flex>
     </GridItem>
   );
