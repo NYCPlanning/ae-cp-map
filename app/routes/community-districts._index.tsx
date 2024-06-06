@@ -34,7 +34,7 @@ export default function CommunityDistrictDefaultPath() {
             District
           </AdminBoundarySelector>
         </HStack>
-        <GoToGeography isDisabled/>
+        <GoToGeography isDisabled />
       </GeographyMenu>
     </GridItem>
   );

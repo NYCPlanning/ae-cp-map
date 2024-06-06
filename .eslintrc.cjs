@@ -20,6 +20,9 @@ module.exports = {
   overrides: [
     // React
     {
+      rules: {
+        "react/prop-types": "warn",
+      },
       files: ["**/*.{js,jsx,ts,tsx}"],
       plugins: ["react", "jsx-a11y"],
       extends: [
