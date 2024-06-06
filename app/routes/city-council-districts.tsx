@@ -11,6 +11,5 @@ export const loader = async () => {
 
 export default function CityCouncilDistrictPath() {
   const data = useLoaderData<FindCityCouncilDistrictsQuery>();
-  console.debug("ccd parent data", data);
   return <Outlet context={data} />;
 }

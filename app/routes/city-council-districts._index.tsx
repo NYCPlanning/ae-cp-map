@@ -4,6 +4,7 @@ import { GeographyTypeSelector } from "../components/geography-type-selector";
 import CityCouncilDistrictSelector from "../components/city-council-district-selector";
 import { FindCityCouncilDistrictsQuery } from "../gen";
 import { useLoaderData } from "@remix-run/react";
+import { GoToGeography } from "../components/go-to-geography";
 
 export const loader = async () => {
   return {
@@ -15,7 +16,7 @@ export const loader = async () => {
 
 export default function CityCouncilDistrictDefault() {
   const data = useLoaderData<FindCityCouncilDistrictsQuery>();
-  console.debug("index ccd", data);
+
   return (
     <>
       <GridItem
@@ -31,6 +32,7 @@ export default function CityCouncilDistrictDefault() {
             activeCityCouncilDistrictId=""
             cityCouncilDistricts={data.Response.cityCouncilDistricts}
           />
+          <GoToGeography isDisabled />
         </GeographyMenu>
       </GridItem>
     </>

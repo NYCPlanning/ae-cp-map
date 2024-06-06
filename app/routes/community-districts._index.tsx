@@ -4,6 +4,7 @@ import { GeographyTypeSelector } from "../components/geography-type-selector";
 import AdminBoundarySelector from "../components/admin-boundary-selector";
 import { useOutletContext } from "@remix-run/react";
 import { FindBoroughsQueryResponse } from "~/gen";
+import { GoToGeography } from "../components/go-to-geography";
 
 export default function CommunityDistrictDefaultPath() {
   const data = useOutletContext<FindBoroughsQueryResponse>();
@@ -33,6 +34,7 @@ export default function CommunityDistrictDefaultPath() {
             District
           </AdminBoundarySelector>
         </HStack>
+        <GoToGeography isDisabled/>
       </GeographyMenu>
     </GridItem>
   );

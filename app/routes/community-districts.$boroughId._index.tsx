@@ -8,6 +8,7 @@ import {
   FindCommunityDistrictsByBoroughIdQueryResponse,
 } from "../gen";
 import { LoaderFunctionArgs } from "@remix-run/node";
+import { GoToGeography } from "../components/go-to-geography";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { boroughId } = params;
@@ -58,6 +59,7 @@ export default function CommunityDistrictBoroughIdPath() {
             District
           </AdminBoundarySelector>
         </HStack>
+        <GoToGeography isDisabled />
       </GeographyMenu>
     </GridItem>
   );
