@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 export interface AdminBoundarySelector {
   children: ReactNode;
   activeBoundaryId: string;
-  boundaries: Array<{ id: string | number }>;
+  boundaries: Array<{ id: string }> | null;
   routePrefix: string;
 }
 export default function AdminBoundarySelector({
@@ -17,11 +17,11 @@ export default function AdminBoundarySelector({
   const navigate = useNavigate();
 
   const navigateToBoundary = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    navigate(`${routePrefix}/${e.target.value}`);
+    navigate(`/${routePrefix}/${e.target.value}`);
   };
 
   return (
-    <FormControl>
+    <FormControl isDisabled={boundaries === null}>
       <FormLabel>{children}</FormLabel>
       <Select
         variant="base"
@@ -29,7 +29,7 @@ export default function AdminBoundarySelector({
         onChange={navigateToBoundary}
       >
         <option value={""}>-Select-</option>
-        {boundaries.map((district) => (
+        {boundaries?.map((district) => (
           <option key={district.id}>{district.id}</option>
         ))}
       </Select>

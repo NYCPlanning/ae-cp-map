@@ -6,14 +6,29 @@ import { useOutletContext, useParams } from "@remix-run/react";
 import {
   FindBoroughsQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
-} from "~/gen";
-import { GoToGeography } from "../components/go-to-geography";
+} from "../gen";
+import { LoaderFunctionArgs } from "@remix-run/node";
 
-export default function CommunityDistrictBoroughIdCommunityDistrictIdPath() {
-  const { boroughId, communityDistrictId } = useParams();
-  if (boroughId === undefined) throw new Error("Failed to provide borough id");
-  if (communityDistrictId === undefined)
-    throw new Error("Failed to provide community district id");
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const { boroughId } = params;
+  if (boroughId === undefined) throw new Error("failed to provide borough id");
+  //   return await findCommunityDistrictsByBoroughId(boroughId, {
+  //     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  //   });
+  return {
+    communityDistricts: [
+      {
+        id: "01",
+      },
+      {
+        id: "05",
+      },
+    ],
+  };
+};
+export default function CommunityDistrictBoroughIdPath() {
+  const { boroughId } = useParams<{ boroughId: string }>();
+  if (boroughId === undefined) throw new Error("failed to provide borough id");
   const contextData = useOutletContext<
     FindBoroughsQueryResponse & FindCommunityDistrictsByBoroughIdQueryResponse
   >();
@@ -36,14 +51,13 @@ export default function CommunityDistrictBoroughIdCommunityDistrictIdPath() {
             Borough
           </AdminBoundarySelector>
           <AdminBoundarySelector
-            activeBoundaryId={communityDistrictId}
+            activeBoundaryId={""}
             boundaries={contextData.communityDistricts}
             routePrefix={`community-districts/${boroughId}`}
           >
             District
           </AdminBoundarySelector>
         </HStack>
-        <GoToGeography/>
       </GeographyMenu>
     </GridItem>
   );
