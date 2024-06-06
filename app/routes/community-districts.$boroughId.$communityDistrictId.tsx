@@ -1,8 +1,8 @@
-import { Button, GridItem, HStack } from "@nycplanning/streetscape";
+import { GridItem, HStack } from "@nycplanning/streetscape";
 import AdminBoundarySelector from "../components/admin-boundary-selector";
 import { GeographyMenu } from "../components/geography-menu";
 import { GeographyTypeSelector } from "../components/geography-type-selector";
-import { Link, Outlet, useOutletContext, useParams } from "@remix-run/react";
+import { Outlet, useOutletContext, useParams } from "@remix-run/react";
 import {
   FindBoroughsQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,

@@ -1,3 +1,5 @@
+import { Link } from "@remix-run/react";
+
 export default function CommunityDistrictCapitalProjectCommitmentsPath() {
-  return <>goodbye</>;
+  return <Link to="..">Close</Link>;
 }

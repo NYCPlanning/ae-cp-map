@@ -1,9 +1,5 @@
 import { Outlet, useLoaderData } from "@remix-run/react";
-import {
-  FindBoroughsQuery,
-  FindBoroughsQueryResponse,
-  findBoroughs,
-} from "../gen";
+import { FindBoroughsQueryResponse, findBoroughs } from "../gen";
 
 export const loader = async () => {
   return await findBoroughs({
