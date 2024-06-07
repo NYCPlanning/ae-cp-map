@@ -21,7 +21,9 @@ export function Atlas() {
       layers={[capitalProjectsLayer]}
     >
       <Map
-        mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
+        mapStyle={
+          "http://tiles.nycplanningdigital.com/styles/positron/style.json"
+        }
       ></Map>
     </DeckGL>
   );

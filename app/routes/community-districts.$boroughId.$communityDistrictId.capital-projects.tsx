@@ -6,6 +6,7 @@ import {
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
 } from "../gen";
+import { PreviousPageBtn } from "../components/ previous-page-btn";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { boroughId, communityDistrictId } = params;

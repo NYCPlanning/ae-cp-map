@@ -5,7 +5,7 @@ import { Outlet } from "@remix-run/react";
 
 export default function Layout() {
   const isScreenPortrait = useScreenPortraitQuery();
-  console.debug("isScreenPortrait", isScreenPortrait);
+  // console.debug("isScreenPortrait", isScreenPortrait);
 
   return (
     <Grid

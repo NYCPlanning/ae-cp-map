@@ -1,6 +1,7 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import { List, ListItem, Text } from "@nycplanning/streetscape";
+import { Flex, List, ListItem, Text } from "@nycplanning/streetscape";
+import { PreviousPageBtn } from "../components/ previous-page-btn";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { managingCode, capitalProjectId } = params;
@@ -20,11 +21,14 @@ export default function CommunityDistrictCapitalProjectPath() {
   }>();
   return (
     <>
-      <Text>
-        Project:
-        {managingCode}
-        {id}
-      </Text>
+      <Flex>
+        <PreviousPageBtn />
+        <Text>
+          Project:
+          {managingCode}
+          {id}
+        </Text>
+      </Flex>
       <Outlet />
       Sponsoring Agencies:
       <List>
