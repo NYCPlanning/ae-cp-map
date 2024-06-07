@@ -1,13 +1,14 @@
 import { GridItem, HStack } from "@nycplanning/streetscape";
 import { GeographyMenu } from "../components/geography-menu";
 import { GeographyTypeSelector } from "../components/geography-type-selector";
-import AdminBoundarySelector from "../components/admin-boundary-selector";
 import { useOutletContext } from "@remix-run/react";
 import { FindBoroughsQueryResponse } from "~/gen";
 import { GoToGeography } from "../components/go-to-geography";
+import BoroughSelector from "../components/borough-selector";
+import CommunityDistrictSelector from "../components/community-district-selector";
 
 export default function CommunityDistrictDefaultPath() {
-  const data = useOutletContext<FindBoroughsQueryResponse>();
+  const contextData = useOutletContext<FindBoroughsQueryResponse>();
   return (
     <GridItem
       zIndex={1}
@@ -19,20 +20,16 @@ export default function CommunityDistrictDefaultPath() {
       <GeographyMenu>
         <GeographyTypeSelector />
         <HStack spacing={2}>
-          <AdminBoundarySelector
+          <BoroughSelector
             activeBoundaryId={""}
-            boundaries={data.boroughs}
             routePrefix={"community-districts"}
-          >
-            Borough
-          </AdminBoundarySelector>
-          <AdminBoundarySelector
+            boroughs={contextData.boroughs}
+          />
+          <CommunityDistrictSelector
             activeBoundaryId={""}
-            boundaries={null}
+            communityDistricts={null}
             routePrefix={""}
-          >
-            District
-          </AdminBoundarySelector>
+          />
         </HStack>
         <GoToGeography isDisabled />
       </GeographyMenu>

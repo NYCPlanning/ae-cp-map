@@ -3,15 +3,16 @@ import { useNavigate } from "@remix-run/react";
 import { ReactNode } from "react";
 
 export interface AdminBoundarySelector {
-  children: ReactNode;
+  children: ReactNode | null;
+  label: string;
   activeBoundaryId: string;
-  boundaries: Array<{ id: string }> | null;
   routePrefix: string;
 }
+
 export default function AdminBoundarySelector({
   children,
+  label,
   activeBoundaryId,
-  boundaries,
   routePrefix,
 }: AdminBoundarySelector) {
   const navigate = useNavigate();
@@ -21,17 +22,15 @@ export default function AdminBoundarySelector({
   };
 
   return (
-    <FormControl isDisabled={boundaries === null}>
-      <FormLabel>{children}</FormLabel>
+    <FormControl isDisabled={children === null}>
+      <FormLabel>{label}</FormLabel>
       <Select
         variant="base"
         value={activeBoundaryId}
         onChange={navigateToBoundary}
       >
         <option value={""}>-Select-</option>
-        {boundaries?.map((district) => (
-          <option key={district.id}>{district.id}</option>
-        ))}
+        {children}
       </Select>
     </FormControl>
   );

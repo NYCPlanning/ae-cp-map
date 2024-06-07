@@ -1,13 +1,14 @@
 import { GridItem, HStack } from "@nycplanning/streetscape";
-import AdminBoundarySelector from "../components/admin-boundary-selector";
 import { GeographyMenu } from "../components/geography-menu";
 import { GeographyTypeSelector } from "../components/geography-type-selector";
 import { Outlet, useOutletContext, useParams } from "@remix-run/react";
 import {
   FindBoroughsQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
-} from "~/gen";
+} from "../gen";
 import { GoToGeography } from "../components/go-to-geography";
+import BoroughSelector from "../components/borough-selector";
+import CommunityDistrictSelector from "../components/community-district-selector";
 
 export default function CommunityDistrictBoroughIdCommunityDistrictIdPath() {
   const { boroughId, communityDistrictId } = useParams();
@@ -29,20 +30,16 @@ export default function CommunityDistrictBoroughIdCommunityDistrictIdPath() {
         <GeographyMenu>
           <GeographyTypeSelector />
           <HStack spacing={2}>
-            <AdminBoundarySelector
+            <BoroughSelector
               activeBoundaryId={boroughId}
-              boundaries={contextData.boroughs}
               routePrefix={"community-districts"}
-            >
-              Borough
-            </AdminBoundarySelector>
-            <AdminBoundarySelector
+              boroughs={contextData.boroughs}
+            />
+            <CommunityDistrictSelector
               activeBoundaryId={communityDistrictId}
-              boundaries={contextData.communityDistricts}
+              communityDistricts={contextData.communityDistricts}
               routePrefix={`community-districts/${boroughId}`}
-            >
-              District
-            </AdminBoundarySelector>
+            />
           </HStack>
           <GoToGeography />
         </GeographyMenu>

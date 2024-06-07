@@ -1,22 +1,28 @@
-import { FormControl, FormLabel, Select } from "@nycplanning/streetscape";
-import { useLocation } from "@remix-run/react";
+import AdminBoundarySelector, {
+  AdminBoundarySelector as AdminBoundarySelectorType,
+} from "./admin-boundary-selector";
+import { CommunityDistrict } from "~/gen";
 
-const fakeCommunityDistricts = [{ id: "01" }, { id: "10" }];
-
-export default function CommunityDistrictSelector() {
-  const location = useLocation();
-  const { pathname } = location;
+export default function CommunityDistrictSelector({
+  activeBoundaryId,
+  communityDistricts,
+  routePrefix,
+}: Pick<AdminBoundarySelectorType, "activeBoundaryId" | "routePrefix"> & {
+  communityDistricts: Array<CommunityDistrict> | null;
+}) {
   return (
-    <>
-      <FormControl>
-        <FormLabel>District</FormLabel>
-        <Select variant="base" value={pathname.split("/")[3]}>
-          <option value={""}>-Select-</option>
-          {fakeCommunityDistricts.map((district) => (
-            <option key={district.id}>{district.id}</option>
-          ))}
-        </Select>
-      </FormControl>
-    </>
+    <AdminBoundarySelector
+      label="Community District"
+      activeBoundaryId={activeBoundaryId}
+      routePrefix={routePrefix}
+    >
+      {communityDistricts
+        ? communityDistricts.map((communityDistrict) => (
+            <option key={communityDistrict.id} value={communityDistrict.id}>
+              {communityDistrict.id}
+            </option>
+          ))
+        : null}
+    </AdminBoundarySelector>
   );
 }
