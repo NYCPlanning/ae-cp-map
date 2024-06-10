@@ -2,25 +2,16 @@ import { Outlet, useLoaderData, useOutletContext } from "@remix-run/react";
 import {
   FindBoroughsQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
+  findCommunityDistrictsByBoroughId,
 } from "../gen";
 import { LoaderFunctionArgs } from "@remix-run/node";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { boroughId } = params;
   if (boroughId === undefined) throw new Error("failed to provide borough id");
-  //   return await findCommunityDistrictsByBoroughId(boroughId, {
-  //     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-  //   });
-  return {
-    communityDistricts: [
-      {
-        id: "01",
-      },
-      {
-        id: "05",
-      },
-    ],
-  };
+  return await findCommunityDistrictsByBoroughId(boroughId, {
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
 };
 
 export default function CommunityDistrictBoroughIdPath() {

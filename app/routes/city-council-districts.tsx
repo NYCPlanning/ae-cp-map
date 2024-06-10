@@ -1,15 +1,16 @@
 import { Outlet, useLoaderData } from "@remix-run/react";
-import { FindCityCouncilDistrictsQuery } from "../gen";
+import {
+  FindCityCouncilDistrictsQuery,
+  findCityCouncilDistricts,
+} from "../gen";
 
 export const loader = async () => {
-  return {
-    Response: {
-      cityCouncilDistricts: [{ id: "1" }, { id: "10" }],
-    },
-  };
+  return await findCityCouncilDistricts({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
 };
 
 export default function CityCouncilDistrictPath() {
-  const data = useLoaderData<FindCityCouncilDistrictsQuery>();
-  return <Outlet context={data} />;
+  const loaderData = useLoaderData<FindCityCouncilDistrictsQuery>();
+  return <Outlet context={loaderData} />;
 }

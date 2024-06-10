@@ -3,12 +3,16 @@ import { GeographyMenu } from "../components/geography-menu";
 import { GeographyTypeSelector } from "../components/geography-type-selector";
 import CityCouncilDistrictSelector from "../components/city-council-district-selector";
 import { GoToGeography } from "../components/go-to-geography";
-import { useOutletContext, useParams } from "@remix-run/react";
-import { FindCityCouncilDistrictsQuery } from "~/gen";
+import { Outlet, useOutletContext, useParams } from "@remix-run/react";
+import { FindCityCouncilDistrictsQueryResponse } from "~/gen";
 
 export default function CityCouncilDistrictCityCouncilDistrictIdPath() {
-  const data = useOutletContext<FindCityCouncilDistrictsQuery>();
-  const params = useParams<{ cityCouncilDistrictId: string }>();
+  const contextData = useOutletContext<FindCityCouncilDistrictsQueryResponse>();
+  const { cityCouncilDistrictId } = useParams<{
+    cityCouncilDistrictId: string;
+  }>();
+  if (cityCouncilDistrictId === undefined)
+    throw new Error("failed to provide city council district id");
 
   return (
     <>
@@ -22,12 +26,14 @@ export default function CityCouncilDistrictCityCouncilDistrictIdPath() {
         <GeographyMenu>
           <GeographyTypeSelector />
           <CityCouncilDistrictSelector
-            activeCityCouncilDistrictId={params.cityCouncilDistrictId ?? ""}
-            cityCouncilDistricts={data.Response.cityCouncilDistricts}
+            activeBoundaryId={cityCouncilDistrictId}
+            cityCouncilDistricts={contextData.cityCouncilDistricts}
+            routePrefix="city-council-districts"
           />
           <GoToGeography />
         </GeographyMenu>
       </GridItem>
+      <Outlet context={contextData} />
     </>
   );
 }

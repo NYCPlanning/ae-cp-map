@@ -1,16 +1,15 @@
 import { Flex, GridItem } from "@nycplanning/streetscape";
-import { LoaderFunctionArgs } from "@remix-run/node";
 import { Outlet, useLoaderData, useOutletContext } from "@remix-run/react";
 import {
-  FindBoroughsQueryResponse,
-  FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
-  FindCommunityDistrictsByBoroughIdQueryResponse,
+  FindCapitalProjectsByCityCouncilIdQueryResponse,
+  FindCityCouncilDistrictsQueryResponse,
 } from "../gen";
+import { LoaderFunctionArgs } from "@remix-run/node";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const { boroughId, communityDistrictId } = params;
-  if (boroughId === undefined || communityDistrictId === undefined)
-    throw new Error("failed to provide borough id or community district id");
+  const { cityCouncilDistrictId } = params;
+  if (cityCouncilDistrictId === undefined)
+    throw new Error("failed to provide city council district id");
 
   return {
     capitalProjects: [
@@ -19,12 +18,11 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     ],
   };
 };
-export default function CommunityDistrictProjectsPath() {
+
+export default function CityCouncilDistrictCityCouncilDistrictIdPath() {
   const loaderData =
-    useLoaderData<FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse>();
-  const contextData = useOutletContext<
-    FindBoroughsQueryResponse & FindCommunityDistrictsByBoroughIdQueryResponse
-  >();
+    useLoaderData<FindCapitalProjectsByCityCouncilIdQueryResponse>();
+  const contextData = useOutletContext<FindCityCouncilDistrictsQueryResponse>();
 
   return (
     <GridItem
