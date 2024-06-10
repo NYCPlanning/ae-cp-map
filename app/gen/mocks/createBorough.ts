@@ -8,7 +8,7 @@ export function createBorough(
     ...{
       id: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("\\b[1-9]\\b")),
+        faker.helpers.fromRegExp(new RegExp("^([0-9])$")),
       ]),
       title: faker.string.alpha(),
       abbr: faker.string.alpha(),

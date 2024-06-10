@@ -12,7 +12,7 @@ export function createTaxLotBasic(
       ]),
       boroughId: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("\\b[1-9]\\b")),
+        faker.helpers.fromRegExp(new RegExp("^([0-9])$")),
       ]),
       block: faker.string.alpha(),
       lot: faker.string.alpha(),

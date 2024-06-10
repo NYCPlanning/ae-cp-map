@@ -6,7 +6,7 @@ import type {
 } from "../types/FindCapitalProjectTiles";
 
 /**
- * @summary 🚧 Mapbox Vector Tiles for capital projects
+ * @summary Mapbox Vector Tiles for capital projects
  * @link /capital-projects/:z/:x/:y.pbf
  */
 export async function findCapitalProjectTiles(

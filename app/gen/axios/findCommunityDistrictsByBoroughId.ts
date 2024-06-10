@@ -6,7 +6,7 @@ import type {
 } from "../types/FindCommunityDistrictsByBoroughId";
 
 /**
- * @summary 🚧 Find community districts within a borough
+ * @summary Find community districts within a borough
  * @link /boroughs/:boroughId/community-districts
  */
 export async function findCommunityDistrictsByBoroughId(
