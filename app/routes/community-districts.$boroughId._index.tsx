@@ -6,7 +6,7 @@ import {
   FindBoroughsQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
 } from "../gen";
-import { GoToGeography } from "../components/go-to-geography";
+import { GoToGeography } from "../components/buttons/go-to-geography";
 import BoroughSelector from "../components/borough-selector";
 import CommunityDistrictSelector from "../components/community-district-selector";
 

@@ -5,16 +5,13 @@ import {
   Text,
   Link as LinkStyle,
 } from "@nycplanning/streetscape";
-import {
-  useOutletContext,
-  useParams,
-  Link as LinkRemix,
-} from "@remix-run/react";
+import { useOutletContext, useParams } from "@remix-run/react";
 import {
   FindCapitalProjectsByCityCouncilIdQueryResponse,
   FindCityCouncilDistrictsQueryResponse,
 } from "../gen";
-import { ClosePageBtn } from "../components/close-page-btn";
+import { ClosePageBtn } from "../components/buttons/close-page-btn";
+import { LinkRemix } from "../components/ui";
 
 export default function CityCouncilDistrictCityCouncilDistrictIdPath() {
   const contextData = useOutletContext<

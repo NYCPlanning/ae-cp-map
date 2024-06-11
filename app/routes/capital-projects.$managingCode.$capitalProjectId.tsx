@@ -3,8 +3,8 @@ import { Outlet, useLoaderData } from "@remix-run/react";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { GeographyMenu } from "../components/geography-menu";
 import { GeographyTypeSelector } from "../components/geography-type-selector";
-import { GoToGeography } from "../components/go-to-geography";
-import { ClosePageBtn } from "../components/close-page-btn";
+import { GoToGeography } from "../components/buttons/go-to-geography";
+import { ClosePageBtn } from "../components/buttons/close-page-btn";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { managingCode, capitalProjectId } = params;

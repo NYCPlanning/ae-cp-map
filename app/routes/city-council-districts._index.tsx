@@ -4,7 +4,7 @@ import { GeographyTypeSelector } from "../components/geography-type-selector";
 import CityCouncilDistrictSelector from "../components/city-council-district-selector";
 import { FindCityCouncilDistrictsQueryResponse } from "../gen";
 import { useOutletContext } from "@remix-run/react";
-import { GoToGeography } from "../components/go-to-geography";
+import { GoToGeography } from "../components/buttons/go-to-geography";
 
 export default function CityCouncilDistrictDefault() {
   const contextData = useOutletContext<FindCityCouncilDistrictsQueryResponse>();

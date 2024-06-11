@@ -2,7 +2,7 @@ import { GridItem } from "@nycplanning/streetscape";
 import { GeographyMenu } from "../components/geography-menu";
 import { GeographyTypeSelector } from "../components/geography-type-selector";
 import CityCouncilDistrictSelector from "../components/city-council-district-selector";
-import { GoToGeography } from "../components/go-to-geography";
+import { GoToGeography } from "../components/buttons/go-to-geography";
 import { Outlet, useOutletContext, useParams } from "@remix-run/react";
 import { FindCityCouncilDistrictsQueryResponse } from "~/gen";
 

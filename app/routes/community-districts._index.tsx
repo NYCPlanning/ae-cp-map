@@ -3,7 +3,7 @@ import { GeographyMenu } from "../components/geography-menu";
 import { GeographyTypeSelector } from "../components/geography-type-selector";
 import { useOutletContext } from "@remix-run/react";
 import { FindBoroughsQueryResponse } from "~/gen";
-import { GoToGeography } from "../components/go-to-geography";
+import { GoToGeography } from "../components/buttons/go-to-geography";
 import BoroughSelector from "../components/borough-selector";
 import CommunityDistrictSelector from "../components/community-district-selector";
 

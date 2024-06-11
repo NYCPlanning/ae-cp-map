@@ -1,18 +1,14 @@
-import {
-  Flex,
-  List,
-  ListItem,
-  Link as LinkStyle,
-} from "@nycplanning/streetscape";
+import { Flex, List, ListItem } from "@nycplanning/streetscape";
+import { useLoaderData } from "@remix-run/react";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { Link as LinkRemix, useLoaderData } from "@remix-run/react";
+import HideCommitmentsLink from "../components/links/hide-commitments-link";
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
   const { managingCode, capitalProjectId } = params;
   if (managingCode === undefined || capitalProjectId === undefined)
     throw new Error("failed to provide managing code or capital project id");
-  // console.debug("commitments: ", managingCode);
-  // console.debug("commitments: ", capitalProjectId);
+
+  // TODO: add call to get commitments by project
   return {
     capitalCommitments: [
       {
@@ -30,9 +26,7 @@ export default function CommunityDistrictCapitalProjectCommitmentsPath() {
   }>();
   return (
     <Flex flexDirection={"column"}>
-      <LinkStyle as={LinkRemix} to=".." color={"blue"}>
-        Hide commitments
-      </LinkStyle>
+      <HideCommitmentsLink />
       <List>
         {capitalCommitments.map((commitment) => (
           <ListItem

@@ -1,12 +1,14 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { Flex, List, ListItem, Text } from "@nycplanning/streetscape";
-import { PreviousPageBtn } from "../components/ previous-page-btn";
+import { PreviousPageBtn } from "../components/buttons/previous-page-btn";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { managingCode, capitalProjectId } = params;
   if (managingCode === undefined || capitalProjectId == undefined)
     throw new Error("failed to provide managing code or capital project id");
+
+  // TODO: Request capital project details
   return {
     managingCode,
     id: capitalProjectId,

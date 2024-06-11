@@ -1,21 +1,12 @@
-import {
-  List,
-  ListItem,
-  Link as LinkStyle,
-  Flex,
-  Text,
-} from "@nycplanning/streetscape";
-import {
-  Link as LinkRemix,
-  useOutletContext,
-  useParams,
-} from "@remix-run/react";
+import { List, ListItem, Link, Flex, Text } from "@nycplanning/streetscape";
+import { useOutletContext, useParams } from "@remix-run/react";
 import {
   FindBoroughsQueryResponse,
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
 } from "../gen";
-import { ClosePageBtn } from "../components/close-page-btn";
+import { ClosePageBtn } from "../components/buttons/close-page-btn";
+import { LinkRemix } from "../components/ui";
 
 export default function CommunityDistrictProjectsPath() {
   const { boroughId, communityDistrictId } = useParams();
@@ -42,13 +33,13 @@ export default function CommunityDistrictProjectsPath() {
       <List>
         {contextData.capitalProjects.map((project) => (
           <ListItem key={`${project.managingCode}${project.id}`}>
-            <LinkStyle
+            <Link
               as={LinkRemix}
               to={`${project.managingCode}/${project.id}`}
               color={"blue"}
             >
               {`${project.managingCode}/${project.id}`}
-            </LinkStyle>
+            </Link>
           </ListItem>
         ))}
       </List>

@@ -12,6 +12,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   if (boroughId === undefined || communityDistrictId === undefined)
     throw new Error("failed to provide borough id or community district id");
 
+  // TODO: request capital projects by cd
   return {
     capitalProjects: [
       { managingCode: "080", id: "foo" },

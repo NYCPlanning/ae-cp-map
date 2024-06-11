@@ -1,11 +1,7 @@
-import {
-  Flex,
-  List,
-  ListItem,
-  Link as LinkStyle,
-} from "@nycplanning/streetscape";
+import { Flex, List, ListItem } from "@nycplanning/streetscape";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { Link as LinkRemix, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
+import HideCommitmentsLink from "../components/links/hide-commitments-link";
 
 export const loader = ({ params }: LoaderFunctionArgs) => {
   const { managingCode, capitalProjectId } = params;
@@ -30,9 +26,7 @@ export default function CommunityDistrictCapitalProjectCommitmentsPath() {
   }>();
   return (
     <Flex flexDirection={"column"}>
-      <LinkStyle as={LinkRemix} to=".." color={"blue"}>
-        Hide commitments
-      </LinkStyle>
+      <HideCommitmentsLink />
       <List>
         {capitalCommitments.map((commitment) => (
           <ListItem

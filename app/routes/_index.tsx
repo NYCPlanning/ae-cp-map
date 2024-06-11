@@ -1,7 +1,7 @@
 import { GridItem } from "@nycplanning/streetscape";
 import { GeographyMenu } from "../components/geography-menu";
 import { GeographyTypeSelector } from "../components/geography-type-selector";
-import { GoToGeography } from "../components/go-to-geography";
+import { GoToGeography } from "../components/buttons/go-to-geography";
 
 export default function DefaultHome() {
   return (
