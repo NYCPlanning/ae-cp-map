@@ -1,10 +1,8 @@
 import { Flex, GridItem, List, ListItem, Text } from "@nycplanning/streetscape";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { GeographyMenu } from "../components/geography-menu";
-import { GeographyTypeSelector } from "../components/geography-type-selector";
-import { GoToGeography } from "../components/buttons/go-to-geography";
-import { ClosePageBtn } from "../components/buttons/close-page-btn";
+import { ClosePageBtn } from "../components/ui/buttons/close-page-btn";
+import { GeographyMenuNone } from "../components/geography-menu";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { managingCode, capitalProjectId } = params;
@@ -26,18 +24,7 @@ export default function CityCouncilDistrictCityCouncilDistrictIdPath() {
 
   return (
     <>
-      <GridItem
-        zIndex={1}
-        gridColumnStart={2}
-        gridColumnEnd={16}
-        gridRowStart={2}
-        gridRowEnd={8}
-      >
-        <GeographyMenu>
-          <GeographyTypeSelector />
-          <GoToGeography isDisabled />
-        </GeographyMenu>
-      </GridItem>
+      <GeographyMenuNone />
       <GridItem
         zIndex={1}
         gridColumnStart={42}

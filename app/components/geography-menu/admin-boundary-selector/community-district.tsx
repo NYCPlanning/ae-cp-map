@@ -1,20 +1,23 @@
 import AdminBoundarySelector, {
   AdminBoundarySelector as AdminBoundarySelectorType,
-} from "./admin-boundary-selector";
-import { CommunityDistrict } from "~/gen";
+} from "./base";
+import { CommunityDistrict } from "../../../gen";
 
 export default function CommunityDistrictSelector({
   activeBoundaryId,
   communityDistricts,
-  routePrefix,
-}: Pick<AdminBoundarySelectorType, "activeBoundaryId" | "routePrefix"> & {
+  activeBoroughId,
+}: Pick<AdminBoundarySelectorType, "activeBoundaryId"> & {
   communityDistricts: Array<CommunityDistrict> | null;
+  activeBoroughId: string | null;
 }) {
   return (
     <AdminBoundarySelector
-      label="Community District"
+      label="District"
       activeBoundaryId={activeBoundaryId}
-      routePrefix={routePrefix}
+      routePrefix={
+        activeBoroughId === null ? "" : `community-districts/${activeBoroughId}`
+      }
     >
       {communityDistricts
         ? communityDistricts.map((communityDistrict) => (

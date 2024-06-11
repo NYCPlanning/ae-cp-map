@@ -1,6 +1,6 @@
 import { Flex, List, ListItem, Text } from "@nycplanning/streetscape";
 import { Outlet, useLoaderData, useParams } from "@remix-run/react";
-import { PreviousPageBtn } from "../components/buttons/previous-page-btn";
+import { PreviousPageBtn } from "../components/ui/buttons/previous-page-btn";
 import { LoaderFunctionArgs } from "@remix-run/node";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {

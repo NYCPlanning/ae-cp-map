@@ -5,7 +5,7 @@ import {
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
 } from "../gen";
-import { ClosePageBtn } from "../components/buttons/close-page-btn";
+import { ClosePageBtn } from "../components/ui/buttons/close-page-btn";
 import { LinkRemix } from "../components/ui";
 
 export default function CommunityDistrictProjectsPath() {

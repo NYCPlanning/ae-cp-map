@@ -1,5 +1,5 @@
 import { Button } from "@nycplanning/streetscape";
-import { LinkRemix } from "../ui";
+import { LinkRemix } from "..";
 
 export function GoToGeography({ ...props }) {
   return (

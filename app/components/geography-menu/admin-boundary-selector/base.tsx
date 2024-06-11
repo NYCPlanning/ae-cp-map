@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 export interface AdminBoundarySelector {
   children: ReactNode | null;
   label: string;
-  activeBoundaryId: string;
+  activeBoundaryId: string | null;
   routePrefix: string;
 }
 
@@ -26,7 +26,7 @@ export default function AdminBoundarySelector({
       <FormLabel>{label}</FormLabel>
       <Select
         variant="base"
-        value={activeBoundaryId}
+        value={activeBoundaryId ?? ""}
         onChange={navigateToBoundary}
       >
         <option value={""}>-Select-</option>

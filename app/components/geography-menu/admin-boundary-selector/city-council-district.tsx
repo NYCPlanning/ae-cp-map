@@ -1,16 +1,20 @@
-import { CityCouncilDistrict } from "../gen";
+import { CityCouncilDistrict } from "../../../gen";
 import AdminBoundarySelector, {
   AdminBoundarySelector as AdminBoundarySelectorType,
-} from "./admin-boundary-selector";
+} from "./base";
 
 export default function CityCouncilDistrictSelector({
   cityCouncilDistricts,
-  ...props
-}: Pick<AdminBoundarySelectorType, "activeBoundaryId" | "routePrefix"> & {
-  cityCouncilDistricts: Array<CityCouncilDistrict>;
+  activeBoundaryId,
+}: Pick<AdminBoundarySelectorType, "activeBoundaryId"> & {
+  cityCouncilDistricts: Array<CityCouncilDistrict> | null;
 }) {
   return (
-    <AdminBoundarySelector label="District" {...props}>
+    <AdminBoundarySelector
+      label="District"
+      activeBoundaryId={activeBoundaryId}
+      routePrefix="city-council-districts"
+    >
       {cityCouncilDistricts
         ? cityCouncilDistricts.map((district) => (
             <option key={district.id}>{district.id}</option>

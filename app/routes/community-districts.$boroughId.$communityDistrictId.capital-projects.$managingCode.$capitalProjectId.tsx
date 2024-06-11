@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { Flex, List, ListItem, Text } from "@nycplanning/streetscape";
-import { PreviousPageBtn } from "../components/buttons/previous-page-btn";
+import { PreviousPageBtn } from "../components/ui/buttons/previous-page-btn";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { managingCode, capitalProjectId } = params;

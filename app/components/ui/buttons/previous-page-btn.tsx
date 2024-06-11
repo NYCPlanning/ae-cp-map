@@ -1,6 +1,6 @@
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { IconButton } from "@nycplanning/streetscape";
-import { LinkRemix } from "../ui";
+import { LinkRemix } from "..";
 
 export function PreviousPageBtn() {
   return (

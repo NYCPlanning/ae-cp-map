@@ -1,4 +1,4 @@
-import CommitmentsLink from "../components/links/view-commitments-link";
+import CommitmentsLink from "../components/ui/links/view-commitments-link";
 
 export default function CommunityDistrictCapitalProjectPath() {
   return <CommitmentsLink />;

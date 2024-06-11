@@ -1,13 +1,13 @@
 import { FormControl, FormLabel, Select } from "@nycplanning/streetscape";
-import { useLocation, useNavigate } from "@remix-run/react";
+import { useLocation, useMatches, useNavigate } from "@remix-run/react";
 import { ChangeEvent } from "react";
 
-export function GeographyTypeSelector() {
+export function GeographyMenuTypeSelector() {
   const navigate = useNavigate();
   const location = useLocation();
+  const matches = useMatches();
+  console.debug("matches", matches);
   const { pathname } = location;
-  // console.debug("geography selector pathname", pathname.split("/")[1]);
-  // console.debug("geography selector location", location);
 
   return (
     <>

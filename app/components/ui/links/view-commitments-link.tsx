@@ -1,5 +1,5 @@
 import { Link } from "@nycplanning/streetscape";
-import { LinkRemix } from "../ui";
+import { LinkRemix } from "..";
 
 export default function ViewCommitmentsLink() {
   return (
