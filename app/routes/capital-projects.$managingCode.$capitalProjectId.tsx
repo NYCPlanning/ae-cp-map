@@ -4,6 +4,8 @@ import { LoaderFunctionArgs } from "@remix-run/node";
 import { ClosePageBtn } from "../components/ui/buttons/close-page-btn";
 import { GeographyMenuNone } from "../components/geography-menu";
 import ContentPanelLayout from "../components/content-panel/layout";
+import CapitalProjectContentPanel from "../components/content-panel/capital-project";
+import { CapitalProjectBudgeted } from "../gen";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { managingCode, capitalProjectId } = params;
@@ -17,31 +19,18 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 export default function CityCouncilDistrictCityCouncilDistrictIdPath() {
-  const { managingCode, id, sponsoringAgencies } = useLoaderData<{
-    managingCode: string;
-    id: string;
-    sponsoringAgencies: Array<string>;
-  }>();
+  const capitalProject = useLoaderData<CapitalProjectBudgeted>();
 
   return (
     <>
       <GeographyMenuNone />
       <ContentPanelLayout>
-        <Flex>
-          <ClosePageBtn />
-          <Text>
-            Project:
-            {managingCode}
-            {id}
-          </Text>
-        </Flex>
-        <Outlet />
-        Sponsoring Agencies:
-        <List>
-          {sponsoringAgencies.map((agency) => (
-            <ListItem key={agency}>{agency}</ListItem>
-          ))}
-        </List>
+        <CapitalProjectContentPanel
+          navigation="close"
+          capitalProject={capitalProject}
+        >
+          <Outlet />
+        </CapitalProjectContentPanel>
       </ContentPanelLayout>
     </>
   );
