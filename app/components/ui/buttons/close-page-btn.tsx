@@ -1,11 +1,11 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { IconButton } from "@nycplanning/streetscape";
 import { LinkRemix } from "..";
+import CloseBtn from "./close-btn";
 
 export function ClosePageBtn() {
   return (
-    <IconButton variant="outline" as={LinkRemix} width="25px" to="/">
+    <CloseBtn as={LinkRemix} to="/">
       <CloseIcon />
-    </IconButton>
+    </CloseBtn>
   );
 }
