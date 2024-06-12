@@ -5,6 +5,7 @@ import {
   FindCityCouncilDistrictsQueryResponse,
 } from "../gen";
 import { LoaderFunctionArgs } from "@remix-run/node";
+import ContentPanelLayout from "../components/content-panel/layout";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   const { cityCouncilDistrictId } = params;
@@ -25,24 +26,8 @@ export default function CityCouncilDistrictCityCouncilDistrictIdPath() {
   const contextData = useOutletContext<FindCityCouncilDistrictsQueryResponse>();
 
   return (
-    <GridItem
-      zIndex={1}
-      gridColumnStart={42}
-      gridColumnEnd={64}
-      gridRowStart={2}
-      gridRowEnd={30}
-    >
-      <Flex
-        borderRadius={"base"}
-        padding={{ base: 3, lg: 4 }}
-        background={"white"}
-        direction={"column"}
-        boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
-        width={"100%"}
-        height={"100%"}
-      >
-        <Outlet context={{ ...loaderData, ...contextData }} />
-      </Flex>
-    </GridItem>
+    <ContentPanelLayout>
+      <Outlet context={{ ...loaderData, ...contextData }} />
+    </ContentPanelLayout>
   );
 }

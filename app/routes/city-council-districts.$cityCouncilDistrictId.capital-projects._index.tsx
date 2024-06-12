@@ -1,17 +1,9 @@
-import {
-  Flex,
-  List,
-  ListItem,
-  Text,
-  Link as LinkStyle,
-} from "@nycplanning/streetscape";
 import { useOutletContext, useParams } from "@remix-run/react";
 import {
   FindCapitalProjectsByCityCouncilIdQueryResponse,
   FindCityCouncilDistrictsQueryResponse,
 } from "../gen";
-import { ClosePageBtn } from "../components/ui/buttons/close-page-btn";
-import { LinkRemix } from "../components/ui";
+import CapitalProjectsContentPanel from "../components/content-panel/capital-projects";
 
 export default function CityCouncilDistrictCityCouncilDistrictIdPath() {
   const contextData = useOutletContext<
@@ -25,24 +17,9 @@ export default function CityCouncilDistrictCityCouncilDistrictIdPath() {
     throw new Error("failed to provide city council district id");
 
   return (
-    <>
-      <Flex>
-        <ClosePageBtn />
-        <Text>City Council District: {cityCouncilDistrictId}</Text>
-      </Flex>
-      <List>
-        {contextData.capitalProjects.map((project) => (
-          <ListItem key={`${project.managingCode}${project.id}`}>
-            <LinkStyle
-              as={LinkRemix}
-              to={`${project.managingCode}/${project.id}`}
-              color={"blue"}
-            >
-              {`${project.managingCode}/${project.id}`}
-            </LinkStyle>
-          </ListItem>
-        ))}
-      </List>
-    </>
+    <CapitalProjectsContentPanel
+      heading={`City Council District: ${cityCouncilDistrictId}`}
+      capitalProjects={contextData.capitalProjects}
+    />
   );
 }
