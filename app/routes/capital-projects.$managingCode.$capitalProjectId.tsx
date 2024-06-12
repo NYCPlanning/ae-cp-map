@@ -1,7 +1,5 @@
-import { Flex, List, ListItem, Text } from "@nycplanning/streetscape";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { ClosePageBtn } from "../components/ui/buttons/close-page-btn";
 import { GeographyMenuNone } from "../components/geography-menu";
 import ContentPanelLayout from "../components/content-panel/layout";
 import CapitalProjectContentPanel from "../components/content-panel/capital-project";
@@ -14,7 +12,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   return {
     managingCode,
     id: capitalProjectId,
-    sponsoringAgencies: ["DOT", "DHS"],
+    sponsoringAgencyInitials: ["DOT", "DHS"],
   };
 };
 
