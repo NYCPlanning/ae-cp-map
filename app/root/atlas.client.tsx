@@ -20,6 +20,7 @@ export function Atlas() {
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       style={{ height: "100%", width: "100%" }}
+      // layers={[capitalProjectsLayer, communityDistrictsLayer]}
       layers={[communityDistrictsLayer]}
     >
       <Map
