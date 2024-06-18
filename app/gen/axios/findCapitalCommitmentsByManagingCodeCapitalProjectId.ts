@@ -6,7 +6,7 @@ import type {
 } from "../types/FindCapitalCommitmentsByManagingCodeCapitalProjectId";
 
 /**
- * @summary 🚧 Find capital commitments associated with a specific capital project
+ * @summary Find capital commitments associated with a specific capital project
  * @link /capital-projects/:managingCode/:capitalProjectId/capital-commitments
  */
 export async function findCapitalCommitmentsByManagingCodeCapitalProjectId(
