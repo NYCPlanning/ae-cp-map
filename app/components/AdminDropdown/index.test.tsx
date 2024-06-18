@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { AdminDropdown } from ".";
+import { act } from "react";
 
 describe("AdminDropdown", () => {
   it("should render with form details", () => {
@@ -88,7 +89,7 @@ describe("AdminDropdown", () => {
     expect(defaultSelect?.selected).toBe(false);
 
     // Select the default option
-    await userEvent.selectOptions(screen.getByRole("combobox"), "");
+    await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
     expect(onSelectValueChange).toHaveBeenCalledWith(null);
   });
 });

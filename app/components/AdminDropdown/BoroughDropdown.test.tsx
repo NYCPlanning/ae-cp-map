@@ -1,7 +1,7 @@
 import { Borough, createBorough } from "~/gen";
 import { BoroughDropdown } from "./BoroughDropdown";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 describe("BoroughDropdown", () => {
   let boroughs: Array<Borough> = [];

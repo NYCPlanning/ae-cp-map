@@ -18,7 +18,7 @@ export function createCapitalCommitment(
       plannedDate: faker.date.anytime().toString(),
       budgetLineCode: faker.string.alpha(),
       budgetLineId: faker.string.alpha(),
-      sponsoringAgencies: faker.string.alpha(),
+      sponsoringAgency: faker.string.alpha(),
       budgetType: faker.string.alpha(),
       totalValue: faker.number.float(),
     },

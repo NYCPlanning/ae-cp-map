@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { CityCouncilDistrict, createCityCouncilDistrict } from "~/gen";
 import { CityCouncilDistrictDropdown } from "./CityCouncilDistrictDropdown";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
+import { act } from "react";
 
 describe("CityCouncilDistrictDropdown", () => {
   let cityCouncilDistricts: Array<CityCouncilDistrict> = [];
@@ -36,7 +37,7 @@ describe("CityCouncilDistrictDropdown", () => {
       />,
     );
 
-    await userEvent.selectOptions(screen.getByRole("combobox"), "");
+    await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "ccd",
     });
@@ -52,9 +53,11 @@ describe("CityCouncilDistrictDropdown", () => {
       />,
     );
 
-    await userEvent.selectOptions(
-      screen.getByRole("combobox"),
-      firstCityCouncilDistrictId,
+    await act(() =>
+      userEvent.selectOptions(
+        screen.getByRole("combobox"),
+        firstCityCouncilDistrictId,
+      ),
     );
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "ccd",

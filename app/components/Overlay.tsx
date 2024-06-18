@@ -1,6 +1,5 @@
-import { Flex, Show } from "@nycplanning/streetscape";
+import { Flex } from "@nycplanning/streetscape";
 import { ReactNode } from "react";
-import { FilterMenu } from "./FilterMenu";
 
 export interface OverlayProps {
   children: ReactNode;

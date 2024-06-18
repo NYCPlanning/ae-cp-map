@@ -31,7 +31,7 @@ export default defineConfig({
       },
     }),
     pluginFaker({
-      regexGenerator: 'randexp'
+      regexGenerator: "randexp",
     }),
     pluginMsw({
       output: {

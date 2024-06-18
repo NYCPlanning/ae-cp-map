@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { CommunityDistrictDropdown } from "./CommunityDistrictDropdown";
 import { CommunityDistrict, createCommunityDistrict } from "~/gen";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
+import { act } from "react";
 
 describe("CommunityDistrictDropdown", () => {
   let communityDistricts: Array<CommunityDistrict> = [];
@@ -41,14 +42,14 @@ describe("CommunityDistrictDropdown", () => {
       />,
     );
 
-    await userEvent.selectOptions(screen.getByRole("combobox"), "");
+    await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
     expect(updateSearchParams).toHaveBeenCalledWith({ districtType: "cd" });
   });
 
   it("should set search params when nextDistrictID is empty", async () => {
     const updateSearchParams = vi.fn();
     const firstCommunityDistrictId = communityDistricts[0].id;
-    console.debug("fcd", firstCommunityDistrictId);
+
     render(
       <CommunityDistrictDropdown
         boroughId={boroughId}
@@ -58,7 +59,7 @@ describe("CommunityDistrictDropdown", () => {
       />,
     );
 
-    await userEvent.selectOptions(screen.getByRole("combobox"), "");
+    await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "cd",
       boroughId,
@@ -77,9 +78,11 @@ describe("CommunityDistrictDropdown", () => {
       />,
     );
 
-    await userEvent.selectOptions(
-      screen.getByRole("combobox"),
-      firstCommunityDistrictId,
+    await act(() =>
+      userEvent.selectOptions(
+        screen.getByRole("combobox"),
+        firstCommunityDistrictId,
+      ),
     );
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "cd",

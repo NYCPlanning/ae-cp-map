@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { DistrictTypeDropdown } from "./DistrictTypeDropdown";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
+import { act } from "react";
 
 describe("DistrictTypeDropdown", () => {
   it("should render district type form details and options", () => {
@@ -14,7 +15,9 @@ describe("DistrictTypeDropdown", () => {
   it("should update search params when changing the district type", async () => {
     const updateSearchParams = vi.fn();
     render(<DistrictTypeDropdown updateSearchParams={updateSearchParams} />);
-    await userEvent.selectOptions(screen.getByRole("combobox"), "cd");
+    await act(() =>
+      userEvent.selectOptions(screen.getByRole("combobox"), "cd"),
+    );
     expect(updateSearchParams).toHaveBeenCalledWith({ districtType: "cd" });
   });
 });

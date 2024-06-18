@@ -6,7 +6,7 @@ export interface CityCouncilDistrictProperties {
   id: string;
 }
 export function useCityCouncilDistrictsLayer() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType");
 
   return new MVTLayer<CityCouncilDistrictProperties>({
