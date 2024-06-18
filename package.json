@@ -74,6 +74,7 @@
       "bash -c 'npm run typecheck'",
       "prettier --write --list-different",
       "eslint --fix"
-    ]
+    ],
+    "ignore": "app/gen"
   }
 }

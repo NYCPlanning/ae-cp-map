@@ -17,6 +17,8 @@ module.exports = {
   // Base config
   extends: ["eslint:recommended", "plugin:prettier/recommended"],
 
+  ignorePatterns: ["/app/gen/"],
+
   overrides: [
     // React
     {
