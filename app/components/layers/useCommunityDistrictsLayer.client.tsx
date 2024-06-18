@@ -7,7 +7,7 @@ export interface CommunityDistrictProperties {
   abbr: string | null;
 }
 export function useCommunityDistrictsLayer() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType");
 
   return new MVTLayer<CommunityDistrictProperties>({

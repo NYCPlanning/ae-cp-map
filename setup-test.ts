@@ -1,12 +1,12 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 /**
  * Handlers are automatically generated with Kubb from Open API documentation
  */
-import { handlers } from './app/gen';
-import { setupServer } from 'msw/node';
+import { handlers } from "./app/gen";
+import { setupServer } from "msw/node";
 
 window.URL.createObjectURL = vi.fn();
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query) => ({
     matches: false,
@@ -25,7 +25,7 @@ Object.defineProperty(window, 'matchMedia', {
  */
 const server = setupServer(...handlers);
 
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 
 afterAll(() => server.close());
 

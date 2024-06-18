@@ -1,1 +1,1 @@
-export { CapitalProjectDetailPanel } from './CapitalProjectDetailPanel';
+export { CapitalProjectDetailPanel } from "./CapitalProjectDetailPanel";
