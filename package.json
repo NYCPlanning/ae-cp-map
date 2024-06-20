@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
-    "@deck.gl/react": "^9.0.8",
+    "@deck.gl/geo-layers": "^9.0.19",
+    "@deck.gl/react": "^9.0.19",
     "@emotion/react": "^11.11.3",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.0",
