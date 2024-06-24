@@ -29,6 +29,12 @@ export function Atlas() {
         communityDistrictsLayer,
         cityCouncilDistrictsLayer,
       ]}
+      getCursor={({ isDragging, isHovering }) => {
+        if (isDragging) {
+          return "grabbing";
+        }
+        return isHovering ? "pointer" : "grab";
+      }}
     >
       <Map
         mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
