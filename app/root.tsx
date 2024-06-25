@@ -46,11 +46,13 @@ export default function App() {
   return (
     <Document>
       <StreetscapeProvider>
-        <Outlet />
         <ClientOnly>
           {() => (
             <>
-              <Atlas /> <Overlay />
+              <Atlas />{" "}
+              <Overlay>
+                <Outlet />
+              </Overlay>
             </>
           )}
         </ClientOnly>

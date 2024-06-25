@@ -1,4 +1,5 @@
-import { useState, FormEvent } from "react";
+import { FormEvent } from "react";
+import { useSearchParams, useNavigate } from "@remix-run/react";
 import {
   Button,
   Flex,
@@ -12,10 +13,13 @@ import {
 } from "@nycplanning/streetscape";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
-export type GeographyType = "cd" | "ccd" | null;
-
-export const FilterMenu = ({ onClose }: FilterMenuProps) => {
-  const [geographyType, setGeorgaphyType] = useState<GeographyType>("cd");
+export const FilterMenu = ({
+  onClose = () => {
+    return;
+  },
+}: FilterMenuProps) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const districtType = searchParams.get("districtType");
   return (
     <Flex
       borderRadius={"base"}
@@ -49,25 +53,40 @@ export const FilterMenu = ({ onClose }: FilterMenuProps) => {
             borderBottomWidth={"1px"}
             borderBottomColor={"gray.400"}
           >
-            Filter by Geography
+            Filter by District
           </Heading>
         </Show>
-        <FormControl id="geographyType">
-          <FormLabel>Geography Type</FormLabel>
+        <FormControl id="districtType">
+          <FormLabel
+            onClick={() => {
+              onClose();
+            }}
+          >
+            District Type
+          </FormLabel>
           <Select
             placeholder="-Select-"
             variant="base"
             onChange={(e: FormEvent<HTMLSelectElement>) => {
-              setGeorgaphyType(e.currentTarget.value as GeographyType);
+              if (e.currentTarget.value === "") {
+                setSearchParams({}, { replace: true });
+              } else {
+                setSearchParams(
+                  {
+                    districtType: e.currentTarget.value,
+                  },
+                  { replace: true },
+                );
+              }
             }}
-            value={geographyType}
+            value={districtType === null ? "" : districtType}
           >
             <option value={"cd"}>Community District</option>
             <option value={"ccd"}>City Council District</option>
           </Select>
         </FormControl>
         <HStack spacing={2} width={"full"}>
-          {geographyType !== "ccd" ? (
+          {districtType !== "ccd" ? (
             <FormControl id="borough">
               <FormLabel>Borough</FormLabel>
               <Select
@@ -78,7 +97,7 @@ export const FilterMenu = ({ onClose }: FilterMenuProps) => {
             </FormControl>
           ) : null}
           <FormControl id="district">
-            <FormLabel>District</FormLabel>
+            <FormLabel>District Number</FormLabel>
             <Select
               placeholder="-Select-"
               variant="base"
@@ -87,7 +106,7 @@ export const FilterMenu = ({ onClose }: FilterMenuProps) => {
           </FormControl>
         </HStack>
         <Button width="full" isDisabled={true}>
-          Go to Selected Geography
+          Go to Selected District
         </Button>
       </Flex>
     </Flex>
@@ -95,5 +114,5 @@ export const FilterMenu = ({ onClose }: FilterMenuProps) => {
 };
 
 export interface FilterMenuProps {
-  onClose: () => void;
+  onClose?: () => void;
 }
