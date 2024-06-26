@@ -37,8 +37,8 @@ import {
 import { LoaderFunctionArgs } from "@remix-run/node";
 
 // Renders on initial page load
-export async function loader (data: LoaderFunctionArgs)  {
-  console.debug("server loader", data);
+export async function loader ()  {
+  console.debug("server loader",new Date);
   return {
     boroughs: [],
     communityDistricts: [],
