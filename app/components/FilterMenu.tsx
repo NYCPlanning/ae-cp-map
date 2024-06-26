@@ -16,10 +16,10 @@ import { Borough, CityCouncilDistrict, CommunityDistrict } from "~/gen";
 export const FilterMenu = ({
   districtType = null,
   updateDistrictType,
-  boro,
-  updateBoro,
-  district,
-  updateDistrict,
+  boroId,
+  updateBoroId,
+  districtId,
+  updateDistrictId,
   boroughs,
   districts,
   onClose = () => {
@@ -87,19 +87,19 @@ export const FilterMenu = ({
           </Select>
         </FormControl>
         <HStack spacing={2} width={"full"}>
-          {districtType !== "ccd" ? (
-            <FormControl id="borough">
+          {districtType !== "ccd" && (
+            <FormControl id="boroId">
               <FormLabel>Borough</FormLabel>
               <Select
-                isDisabled={boroughs.length === 0}
+                isDisabled={districtType === null}
                 placeholder="-Select-"
                 variant="base"
-                value={boro ?? ""}
+                value={boroId ?? ""}
                 onChange={(e: FormEvent<HTMLSelectElement>) => {
                   const targetValue = e.currentTarget.value;
-                  let nextBoro: Boro = null;
-                  if (targetValue !== "") nextBoro = targetValue;
-                  updateBoro(nextBoro);
+                  let nextBoroId: BoroId = null;
+                  if (targetValue !== "") nextBoroId = targetValue;
+                  updateBoroId(nextBoroId);
                 }}
               >
                 {boroughs?.map((borough) => (
@@ -109,19 +109,22 @@ export const FilterMenu = ({
                 ))}
               </Select>
             </FormControl>
-          ) : null}
-          <FormControl id="district">
+          )}
+          <FormControl id="districtId">
             <FormLabel>District Number</FormLabel>
             <Select
               placeholder="-Select-"
               variant="base"
-              isDisabled={districts.length === 0}
-              value={district ?? ""}
+              isDisabled={
+                districtType === null ||
+                (districtType === "cd" && boroId === null)
+              }
+              value={districtId ?? ""}
               onChange={(e: FormEvent<HTMLSelectElement>) => {
                 const targetValue = e.currentTarget.value;
-                let nextDistrict: District = null;
-                if (targetValue !== "") nextDistrict = targetValue;
-                updateDistrict(nextDistrict);
+                let nextDistrictId: DistrictId = null;
+                if (targetValue !== "") nextDistrictId = targetValue;
+                updateDistrictId(nextDistrictId);
               }}
             >
               {districts.map((cd) => (
@@ -141,16 +144,16 @@ export const FilterMenu = ({
 };
 
 export type DistrictType = null | "cd" | "ccd";
-export type Boro = null | string;
-export type District = null | string;
+export type BoroId = null | string;
+export type DistrictId = null | string;
 
 export interface FilterMenuProps {
   districtType: DistrictType;
   updateDistrictType: (districtType: DistrictType) => void;
-  boro: Boro;
-  updateBoro: (boro: Boro) => void;
-  district: District;
-  updateDistrict: (district: District) => void;
+  boroId: BoroId;
+  updateBoroId: (boroId: BoroId) => void;
+  districtId: DistrictId;
+  updateDistrictId: (districtId: DistrictId) => void;
   boroughs: Array<Borough>;
   districts: Array<CommunityDistrict | CityCouncilDistrict>;
   onClose?: () => void;
