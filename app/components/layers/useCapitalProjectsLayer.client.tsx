@@ -1,5 +1,5 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import { useNavigate, useParams } from "@remix-run/react";
+import { useNavigate, useParams, useSearchParams } from "@remix-run/react";
 
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
@@ -7,6 +7,7 @@ export interface CapitalProjectProperties {
 }
 export function useCapitalProjectsLayer() {
   const { managingCode, capitalProjectId } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   return new MVTLayer<CapitalProjectProperties>({
@@ -42,7 +43,10 @@ export function useCapitalProjectsLayer() {
         managingCodeCapitalProjectId.slice(0, 3),
         managingCodeCapitalProjectId.slice(3),
       ];
-      navigate(`capital-projects/${nextManagingCode}/${nextCapitalProjectId}`);
+      navigate({
+        pathname: `capital-projects/${nextManagingCode}/${nextCapitalProjectId}`,
+        search: `?${searchParams.toString()}`,
+      });
     },
     updateTriggers: {
       getFillColor: [managingCode, capitalProjectId],
