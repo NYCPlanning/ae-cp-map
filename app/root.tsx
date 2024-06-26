@@ -5,6 +5,7 @@ import {
   Show,
 } from "@nycplanning/streetscape";
 import {
+  ClientLoaderFunctionArgs,
   Links,
   Meta,
   Outlet,
@@ -12,6 +13,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useLoaderData,
+  useLocation,
   useRouteError,
   useSearchParams,
 } from "@remix-run/react";
@@ -34,60 +36,24 @@ import {
 } from "./components/FilterMenu";
 import { LoaderFunctionArgs } from "@remix-run/node";
 
-export const loader = async (data: LoaderFunctionArgs) => {
-  const { request } = data;
-  console.log("data", data);
-  const url = new URL(request.url);
-  const districtType = url.searchParams.get("districtType") as DistrictType;
-  const boro = url.searchParams.get("boro") as Boro;
-  const district = url.searchParams.get("district") as District;
-
-  if (districtType === null) {
-    return {
-      boroughs: [],
-      communityDistricts: [],
-      cityCouncilDistricts: [],
-    };
+// Renders on initial page load
+export async function loader (data: LoaderFunctionArgs)  {
+  console.debug("server loader", data);
+  return {
+    boroughs: [],
+    communityDistricts: [],
+    cityCouncilDistricts: []
   }
-
-  if (districtType === "cd") {
-    const { boroughs } = await findBoroughs({
-      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-    });
-
-    if (boro === null)
-      return {
-        boroughs,
-        communityDistricts: [],
-        cityCouncilDistricts: [],
-      };
-
-    if (district === null) {
-    }
-    const { communityDistricts } = await findCommunityDistrictsByBoroughId(
-      boro,
-      {
-        baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-      },
-    );
-
-    return {
-      boroughs,
-      communityDistricts,
-      cityCouncilDistricts: [],
-    };
-  }
-
-  if (districtType === "ccd") {
-    return {
-      boroughs: [],
-      communityDistricts: [],
-      cityCouncilDistricts: [],
-    };
-  }
-  // if (boro === null) return boroughs;
-  // return { ...boroughs, ...communityDistricts };
 };
+
+export async function clientLoader(data: ClientLoaderFunctionArgs) {
+  console.debug("client loader", data)
+  return {
+    boroughs: [],
+    communityDistricts: [],
+    cityCouncilDistricts: []
+  };
+}
 
 function Document({
   children,
@@ -121,6 +87,9 @@ function Document({
 
 export default function App() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
+  console.debug("location state", location.state)
+  console.debug("searchParams", searchParams);
   const districtType = searchParams.get("districtType") as DistrictType;
   const boro = searchParams.get("boro") as Boro;
   const district = searchParams.get("district") as District;
@@ -137,7 +106,7 @@ export default function App() {
 
   const updateDistrictType = (nextDistrictType: DistrictType) => {
     if (nextDistrictType === null) {
-      setSearchParams({}, { replace: true });
+      setSearchParams({}, { replace: true, state: {value: "foo"}});
     } else {
       setSearchParams(
         {
