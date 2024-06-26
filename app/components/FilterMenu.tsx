@@ -11,16 +11,17 @@ import {
   HStack,
 } from "@nycplanning/streetscape";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Borough, CommunityDistrict } from "~/gen";
+import { Borough, CityCouncilDistrict, CommunityDistrict } from "~/gen";
 
 export const FilterMenu = ({
   districtType = null,
+  updateDistrictType,
   boro,
   updateBoro,
   district,
-  updateDistrictType,
+  updateDistrict,
   boroughs,
-  communityDistricts,
+  districts,
   onClose = () => {
     return;
   },
@@ -79,7 +80,7 @@ export const FilterMenu = ({
                 nextDistrictType = targetValue;
               updateDistrictType(nextDistrictType);
             }}
-            value={districtType}
+            value={districtType ?? ""}
           >
             <option value={"cd"}>Community District</option>
             <option value={"ccd"}>City Council District</option>
@@ -90,10 +91,10 @@ export const FilterMenu = ({
             <FormControl id="borough">
               <FormLabel>Borough</FormLabel>
               <Select
-                isDisabled={!boroughs}
+                isDisabled={boroughs.length === 0}
                 placeholder="-Select-"
                 variant="base"
-                value={boro}
+                value={boro ?? ""}
                 onChange={(e: FormEvent<HTMLSelectElement>) => {
                   const targetValue = e.currentTarget.value;
                   let nextBoro: Boro = null;
@@ -114,8 +115,21 @@ export const FilterMenu = ({
             <Select
               placeholder="-Select-"
               variant="base"
-              isDisabled={!communityDistricts}
-            >{communityDistricts?.map(cd => <option key={cd.id} value={cd.id}>{cd.id}</option>)}</Select>
+              isDisabled={districts.length === 0}
+              value={district ?? ""}
+              onChange={(e: FormEvent<HTMLSelectElement>) => {
+                const targetValue = e.currentTarget.value;
+                let nextDistrict: District = null;
+                if (targetValue !== "") nextDistrict = targetValue;
+                updateDistrict(nextDistrict);
+              }}
+            >
+              {districts.map((cd) => (
+                <option key={cd.id} value={cd.id}>
+                  {cd.id}
+                </option>
+              ))}
+            </Select>
           </FormControl>
         </HStack>
         <Button width="full" isDisabled={true}>
@@ -132,11 +146,12 @@ export type District = null | string;
 
 export interface FilterMenuProps {
   districtType: DistrictType;
+  updateDistrictType: (districtType: DistrictType) => void;
   boro: Boro;
   updateBoro: (boro: Boro) => void;
   district: District;
-  updateDistrictType: (districtType: DistrictType) => void;
-  boroughs: null | Array<Borough>;
-  communityDistricts: null | Array<CommunityDistrict>;
+  updateDistrict: (district: District) => void;
+  boroughs: Array<Borough>;
+  districts: Array<CommunityDistrict | CityCouncilDistrict>;
   onClose?: () => void;
 }

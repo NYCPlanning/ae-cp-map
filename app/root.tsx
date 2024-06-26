@@ -20,7 +20,9 @@ import { ClientOnly } from "remix-utils/client-only";
 import { Overlay } from "./components/Overlay";
 import {
   FindBoroughsQueryResponse,
+  FindCityCouncilDistrictsQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
+  cityCouncilDistrictSchema,
   findBoroughs,
   findCommunityDistrictsByBoroughId,
 } from "./gen";
@@ -32,21 +34,59 @@ import {
 } from "./components/FilterMenu";
 import { LoaderFunctionArgs } from "@remix-run/node";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async (data: LoaderFunctionArgs) => {
+  const { request } = data;
+  console.log("data", data);
   const url = new URL(request.url);
   const districtType = url.searchParams.get("districtType") as DistrictType;
   const boro = url.searchParams.get("boro") as Boro;
   const district = url.searchParams.get("district") as District;
-  if (districtType !== "cd")
-    return { boroughs: null, communityDistricts: null };
-  const boroughs = await findBoroughs({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-  });
-  if (boro === null) return boroughs;
-  const communityDistricts = await findCommunityDistrictsByBoroughId(boro, {
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-  });
-  return { ...boroughs, ...communityDistricts };
+
+  if (districtType === null) {
+    return {
+      boroughs: [],
+      communityDistricts: [],
+      cityCouncilDistricts: [],
+    };
+  }
+
+  if (districtType === "cd") {
+    const { boroughs } = await findBoroughs({
+      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    });
+
+    if (boro === null)
+      return {
+        boroughs,
+        communityDistricts: [],
+        cityCouncilDistricts: [],
+      };
+
+    if (district === null) {
+    }
+    const { communityDistricts } = await findCommunityDistrictsByBoroughId(
+      boro,
+      {
+        baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+      },
+    );
+
+    return {
+      boroughs,
+      communityDistricts,
+      cityCouncilDistricts: [],
+    };
+  }
+
+  if (districtType === "ccd") {
+    return {
+      boroughs: [],
+      communityDistricts: [],
+      cityCouncilDistricts: [],
+    };
+  }
+  // if (boro === null) return boroughs;
+  // return { ...boroughs, ...communityDistricts };
 };
 
 function Document({
@@ -84,7 +124,16 @@ export default function App() {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boro = searchParams.get("boro") as Boro;
   const district = searchParams.get("district") as District;
-  const loaderData = useLoaderData<any>();
+  const loaderData = useLoaderData<
+    FindBoroughsQueryResponse &
+      FindCommunityDistrictsByBoroughIdQueryResponse &
+      FindCityCouncilDistrictsQueryResponse
+  >();
+
+  const districts =
+    districtType === "ccd"
+      ? loaderData.cityCouncilDistricts
+      : loaderData.communityDistricts;
 
   const updateDistrictType = (nextDistrictType: DistrictType) => {
     if (nextDistrictType === null) {
@@ -105,7 +154,7 @@ export default function App() {
         {
           districtType,
         },
-        { replace: true },
+        { replace: true, state: { boroughs: loaderData.boroughs } },
       );
     } else if (nextBoro !== null && districtType !== null) {
       setSearchParams(
@@ -113,10 +162,36 @@ export default function App() {
           districtType,
           boro: nextBoro,
         },
-        { replace: true },
+        { replace: true, state: { boroughs: loaderData.boroughs } },
       );
     }
   };
+
+  const updateDistrict = (nextDistrict: District) => {
+    if (districtType === "ccd") {
+      if (nextDistrict === null) {
+        setSearchParams(
+          {
+            districtType,
+          },
+          { replace: true },
+        );
+      }
+    }
+
+    if (districtType === "cd") {
+      if (nextDistrict !== null) {
+        setSearchParams(
+          {
+            districtType,
+            district: nextDistrict,
+          },
+          { replace: true },
+        );
+      }
+    }
+  };
+
   return (
     <Document>
       <StreetscapeProvider>
@@ -127,13 +202,14 @@ export default function App() {
               <Overlay>
                 <Show above="lg">
                   <FilterMenu
-                    boroughs={loaderData.boroughs}
-                    communityDistricts={loaderData.communityDistricts}
                     districtType={districtType}
+                    updateDistrictType={updateDistrictType}
                     boro={boro}
                     updateBoro={updateBoro}
                     district={district}
-                    updateDistrictType={updateDistrictType}
+                    updateDistrict={updateDistrict}
+                    boroughs={loaderData.boroughs}
+                    districts={districts}
                   />
                 </Show>
                 <Outlet />
