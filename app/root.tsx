@@ -22,25 +22,22 @@ import {
   FindBoroughsQueryResponse,
   FindCityCouncilDistrictsQueryResponse,
   FindCommunityDistrictsByBoroughIdQueryResponse,
-  cityCouncilDistrictSchema,
   findBoroughs,
+  findCityCouncilDistricts,
   findCommunityDistrictsByBoroughId,
 } from "./gen";
 import {
-  Boro,
-  District,
+  BoroId,
+  DistrictId,
   DistrictType,
   FilterMenu,
 } from "./components/FilterMenu";
 import { LoaderFunctionArgs } from "@remix-run/node";
 
-export const loader = async (data: LoaderFunctionArgs) => {
-  const { request } = data;
-  console.log("data", data);
+export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const districtType = url.searchParams.get("districtType") as DistrictType;
-  const boro = url.searchParams.get("boro") as Boro;
-  const district = url.searchParams.get("district") as District;
+  const boroId = url.searchParams.get("boroId") as BoroId;
 
   if (districtType === null) {
     return {
@@ -55,38 +52,38 @@ export const loader = async (data: LoaderFunctionArgs) => {
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
     });
 
-    if (boro === null)
+    if (boroId === null) {
       return {
         boroughs,
         communityDistricts: [],
         cityCouncilDistricts: [],
       };
+    } else {
+      const { communityDistricts } = await findCommunityDistrictsByBoroughId(
+        boroId,
+        {
+          baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+        },
+      );
 
-    if (district === null) {
+      return {
+        boroughs,
+        communityDistricts,
+        cityCouncilDistricts: [],
+      };
     }
-    const { communityDistricts } = await findCommunityDistrictsByBoroughId(
-      boro,
-      {
-        baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-      },
-    );
-
-    return {
-      boroughs,
-      communityDistricts,
-      cityCouncilDistricts: [],
-    };
   }
 
   if (districtType === "ccd") {
+    const { cityCouncilDistricts } = await findCityCouncilDistricts({
+      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    });
     return {
       boroughs: [],
       communityDistricts: [],
-      cityCouncilDistricts: [],
+      cityCouncilDistricts,
     };
   }
-  // if (boro === null) return boroughs;
-  // return { ...boroughs, ...communityDistricts };
 };
 
 function Document({
@@ -122,8 +119,8 @@ function Document({
 export default function App() {
   const [searchParams, setSearchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
-  const boro = searchParams.get("boro") as Boro;
-  const district = searchParams.get("district") as District;
+  const boroId = searchParams.get("boroId") as BoroId;
+  const districtId = searchParams.get("districtId") as DistrictId;
   const loaderData = useLoaderData<
     FindBoroughsQueryResponse &
       FindCommunityDistrictsByBoroughIdQueryResponse &
@@ -134,6 +131,7 @@ export default function App() {
     districtType === "ccd"
       ? loaderData.cityCouncilDistricts
       : loaderData.communityDistricts;
+  const { boroughs } = loaderData;
 
   const updateDistrictType = (nextDistrictType: DistrictType) => {
     if (nextDistrictType === null) {
@@ -148,28 +146,17 @@ export default function App() {
     }
   };
 
-  const updateBoro = (nextBoro: Boro) => {
-    if (nextBoro === null && districtType !== null) {
-      setSearchParams(
-        {
-          districtType,
-        },
-        { replace: true, state: { boroughs: loaderData.boroughs } },
-      );
-    } else if (nextBoro !== null && districtType !== null) {
-      setSearchParams(
-        {
-          districtType,
-          boro: nextBoro,
-        },
-        { replace: true, state: { boroughs: loaderData.boroughs } },
-      );
-    }
-  };
-
-  const updateDistrict = (nextDistrict: District) => {
-    if (districtType === "ccd") {
-      if (nextDistrict === null) {
+  const updateBoroId = (nextBoroId: BoroId) => {
+    if (districtType === "cd") {
+      if (nextBoroId !== null) {
+        setSearchParams(
+          {
+            districtType,
+            boroId: nextBoroId,
+          },
+          { replace: true },
+        );
+      } else {
         setSearchParams(
           {
             districtType,
@@ -178,15 +165,49 @@ export default function App() {
         );
       }
     }
+  };
 
-    if (districtType === "cd") {
-      if (nextDistrict !== null) {
+  const updateDistrictId = (nextDistrictId: DistrictId) => {
+    if (districtType === "ccd") {
+      if (nextDistrictId !== null) {
         setSearchParams(
           {
             districtType,
-            district: nextDistrict,
+            districtId: nextDistrictId,
           },
           { replace: true },
+        );
+      }
+    }
+
+    if (districtType === "cd") {
+      if (nextDistrictId !== null && boroId !== null) {
+        setSearchParams(
+          {
+            districtType,
+            boroId,
+            districtId: nextDistrictId,
+          },
+          { replace: true },
+        );
+      } else if (boroId !== null) {
+        setSearchParams(
+          {
+            districtType,
+            boroId,
+          },
+          {
+            replace: true,
+          },
+        );
+      } else {
+        setSearchParams(
+          {
+            districtType,
+          },
+          {
+            replace: true,
+          },
         );
       }
     }
@@ -204,15 +225,26 @@ export default function App() {
                   <FilterMenu
                     districtType={districtType}
                     updateDistrictType={updateDistrictType}
-                    boro={boro}
-                    updateBoro={updateBoro}
-                    district={district}
-                    updateDistrict={updateDistrict}
-                    boroughs={loaderData.boroughs}
+                    boroId={boroId}
+                    updateBoroId={updateBoroId}
+                    districtId={districtId}
+                    updateDistrictId={updateDistrictId}
+                    boroughs={boroughs}
                     districts={districts}
                   />
                 </Show>
-                <Outlet />
+                <Outlet
+                  context={{
+                    districtType,
+                    updateDistrictType,
+                    boroId,
+                    updateBoroId,
+                    districtId,
+                    updateDistrictId,
+                    boroughs,
+                    districts,
+                  }}
+                />
               </Overlay>
             </>
           )}
