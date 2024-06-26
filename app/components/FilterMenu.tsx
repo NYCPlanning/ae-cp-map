@@ -1,5 +1,4 @@
 import { FormEvent } from "react";
-import { useSearchParams, useNavigate } from "@remix-run/react";
 import {
   Button,
   Flex,
@@ -12,14 +11,20 @@ import {
   HStack,
 } from "@nycplanning/streetscape";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Borough, CommunityDistrict } from "~/gen";
 
 export const FilterMenu = ({
+  districtType = null,
+  boro,
+  updateBoro,
+  district,
+  updateDistrictType,
+  boroughs,
+  communityDistricts,
   onClose = () => {
     return;
   },
 }: FilterMenuProps) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const districtType = searchParams.get("districtType");
   return (
     <Flex
       borderRadius={"base"}
@@ -68,18 +73,13 @@ export const FilterMenu = ({
             placeholder="-Select-"
             variant="base"
             onChange={(e: FormEvent<HTMLSelectElement>) => {
-              if (e.currentTarget.value === "") {
-                setSearchParams({}, { replace: true });
-              } else {
-                setSearchParams(
-                  {
-                    districtType: e.currentTarget.value,
-                  },
-                  { replace: true },
-                );
-              }
+              const targetValue = e.currentTarget.value;
+              let nextDistrictType: DistrictType = null;
+              if (targetValue === "cd" || targetValue === "ccd")
+                nextDistrictType = targetValue;
+              updateDistrictType(nextDistrictType);
             }}
-            value={districtType === null ? "" : districtType}
+            value={districtType}
           >
             <option value={"cd"}>Community District</option>
             <option value={"ccd"}>City Council District</option>
@@ -90,10 +90,23 @@ export const FilterMenu = ({
             <FormControl id="borough">
               <FormLabel>Borough</FormLabel>
               <Select
-                isDisabled={true}
+                isDisabled={!boroughs}
                 placeholder="-Select-"
                 variant="base"
-              ></Select>
+                value={boro}
+                onChange={(e: FormEvent<HTMLSelectElement>) => {
+                  const targetValue = e.currentTarget.value;
+                  let nextBoro: Boro = null;
+                  if (targetValue !== "") nextBoro = targetValue;
+                  updateBoro(nextBoro);
+                }}
+              >
+                {boroughs?.map((borough) => (
+                  <option key={borough.id} value={borough.id}>
+                    {borough.title}
+                  </option>
+                ))}
+              </Select>
             </FormControl>
           ) : null}
           <FormControl id="district">
@@ -101,8 +114,8 @@ export const FilterMenu = ({
             <Select
               placeholder="-Select-"
               variant="base"
-              isDisabled={true}
-            ></Select>
+              isDisabled={!communityDistricts}
+            >{communityDistricts?.map(cd => <option key={cd.id} value={cd.id}>{cd.id}</option>)}</Select>
           </FormControl>
         </HStack>
         <Button width="full" isDisabled={true}>
@@ -113,6 +126,17 @@ export const FilterMenu = ({
   );
 };
 
+export type DistrictType = null | "cd" | "ccd";
+export type Boro = null | string;
+export type District = null | string;
+
 export interface FilterMenuProps {
+  districtType: DistrictType;
+  boro: Boro;
+  updateBoro: (boro: Boro) => void;
+  district: District;
+  updateDistrictType: (districtType: DistrictType) => void;
+  boroughs: null | Array<Borough>;
+  communityDistricts: null | Array<CommunityDistrict>;
   onClose?: () => void;
 }

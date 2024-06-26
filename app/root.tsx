@@ -1,4 +1,9 @@
-import { StreetscapeProvider, Box, Heading } from "@nycplanning/streetscape";
+import {
+  StreetscapeProvider,
+  Box,
+  Heading,
+  Show,
+} from "@nycplanning/streetscape";
 import {
   Links,
   Meta,
@@ -6,11 +11,43 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
+  useLoaderData,
   useRouteError,
+  useSearchParams,
 } from "@remix-run/react";
 import { Atlas } from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
 import { Overlay } from "./components/Overlay";
+import {
+  FindBoroughsQueryResponse,
+  FindCommunityDistrictsByBoroughIdQueryResponse,
+  findBoroughs,
+  findCommunityDistrictsByBoroughId,
+} from "./gen";
+import {
+  Boro,
+  District,
+  DistrictType,
+  FilterMenu,
+} from "./components/FilterMenu";
+import { LoaderFunctionArgs } from "@remix-run/node";
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const url = new URL(request.url);
+  const districtType = url.searchParams.get("districtType") as DistrictType;
+  const boro = url.searchParams.get("boro") as Boro;
+  const district = url.searchParams.get("district") as District;
+  if (districtType !== "cd")
+    return { boroughs: null, communityDistricts: null };
+  const boroughs = await findBoroughs({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+  if (boro === null) return boroughs;
+  const communityDistricts = await findCommunityDistrictsByBoroughId(boro, {
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+  return { ...boroughs, ...communityDistricts };
+};
 
 function Document({
   children,
@@ -43,6 +80,43 @@ function Document({
 }
 
 export default function App() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const districtType = searchParams.get("districtType") as DistrictType;
+  const boro = searchParams.get("boro") as Boro;
+  const district = searchParams.get("district") as District;
+  const loaderData = useLoaderData<any>();
+
+  const updateDistrictType = (nextDistrictType: DistrictType) => {
+    if (nextDistrictType === null) {
+      setSearchParams({}, { replace: true });
+    } else {
+      setSearchParams(
+        {
+          districtType: nextDistrictType,
+        },
+        { replace: true },
+      );
+    }
+  };
+
+  const updateBoro = (nextBoro: Boro) => {
+    if (nextBoro === null && districtType !== null) {
+      setSearchParams(
+        {
+          districtType,
+        },
+        { replace: true },
+      );
+    } else if (nextBoro !== null && districtType !== null) {
+      setSearchParams(
+        {
+          districtType,
+          boro: nextBoro,
+        },
+        { replace: true },
+      );
+    }
+  };
   return (
     <Document>
       <StreetscapeProvider>
@@ -51,6 +125,17 @@ export default function App() {
             <>
               <Atlas />{" "}
               <Overlay>
+                <Show above="lg">
+                  <FilterMenu
+                    boroughs={loaderData.boroughs}
+                    communityDistricts={loaderData.communityDistricts}
+                    districtType={districtType}
+                    boro={boro}
+                    updateBoro={updateBoro}
+                    district={district}
+                    updateDistrictType={updateDistrictType}
+                  />
+                </Show>
                 <Outlet />
               </Overlay>
             </>
