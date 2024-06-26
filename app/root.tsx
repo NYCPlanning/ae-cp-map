@@ -41,9 +41,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   if (districtType === null) {
     return {
-      boroughs: [],
-      communityDistricts: [],
-      cityCouncilDistricts: [],
+      boroughs: null,
+      communityDistricts: null,
+      cityCouncilDistricts: null,
     };
   }
 
@@ -55,8 +55,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     if (boroId === null) {
       return {
         boroughs,
-        communityDistricts: [],
-        cityCouncilDistricts: [],
+        communityDistricts: null,
+        cityCouncilDistricts: null,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -69,7 +69,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       return {
         boroughs,
         communityDistricts,
-        cityCouncilDistricts: [],
+        cityCouncilDistricts: null,
       };
     }
   }
@@ -79,8 +79,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
     });
     return {
-      boroughs: [],
-      communityDistricts: [],
+      boroughs: null,
+      communityDistricts: null,
       cityCouncilDistricts,
     };
   }
@@ -122,9 +122,12 @@ export default function App() {
   const boroId = searchParams.get("boroId") as BoroId;
   const districtId = searchParams.get("districtId") as DistrictId;
   const loaderData = useLoaderData<
-    FindBoroughsQueryResponse &
-      FindCommunityDistrictsByBoroughIdQueryResponse &
-      FindCityCouncilDistrictsQueryResponse
+    (FindBoroughsQueryResponse | { boroughs: null }) &
+      (
+        | FindCommunityDistrictsByBoroughIdQueryResponse
+        | { communityDistricts: null }
+      ) &
+      (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null })
   >();
 
   const districts =

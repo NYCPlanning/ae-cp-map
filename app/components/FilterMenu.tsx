@@ -91,7 +91,7 @@ export const FilterMenu = ({
             <FormControl id="boroId">
               <FormLabel>Borough</FormLabel>
               <Select
-                isDisabled={districtType === null}
+                isDisabled={boroughs === null}
                 placeholder="-Select-"
                 variant="base"
                 value={boroId ?? ""}
@@ -115,10 +115,7 @@ export const FilterMenu = ({
             <Select
               placeholder="-Select-"
               variant="base"
-              isDisabled={
-                districtType === null ||
-                (districtType === "cd" && boroId === null)
-              }
+              isDisabled={districts === null}
               value={districtId ?? ""}
               onChange={(e: FormEvent<HTMLSelectElement>) => {
                 const targetValue = e.currentTarget.value;
@@ -127,7 +124,7 @@ export const FilterMenu = ({
                 updateDistrictId(nextDistrictId);
               }}
             >
-              {districts.map((cd) => (
+              {districts?.map((cd) => (
                 <option key={cd.id} value={cd.id}>
                   {cd.id}
                 </option>
@@ -154,7 +151,7 @@ export interface FilterMenuProps {
   updateBoroId: (boroId: BoroId) => void;
   districtId: DistrictId;
   updateDistrictId: (districtId: DistrictId) => void;
-  boroughs: Array<Borough>;
-  districts: Array<CommunityDistrict | CityCouncilDistrict>;
+  boroughs: Array<Borough> | null;
+  districts: Array<CommunityDistrict | CityCouncilDistrict> | null;
   onClose?: () => void;
 }
