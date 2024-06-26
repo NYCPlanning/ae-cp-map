@@ -1,25 +1,13 @@
-import { FormEvent } from "react";
-import { useSearchParams, useNavigate } from "@remix-run/react";
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Show,
-  Hide,
-  Select,
-  HStack,
-} from "@nycplanning/streetscape";
+import { ReactNode } from "react";
+import { Button, Flex, Heading, Show, Hide } from "@nycplanning/streetscape";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 export const FilterMenu = ({
   onClose = () => {
     return;
   },
+  children,
 }: FilterMenuProps) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const districtType = searchParams.get("districtType");
   return (
     <Flex
       borderRadius={"base"}
@@ -56,55 +44,7 @@ export const FilterMenu = ({
             Filter by District
           </Heading>
         </Show>
-        <FormControl id="districtType">
-          <FormLabel
-            onClick={() => {
-              onClose();
-            }}
-          >
-            District Type
-          </FormLabel>
-          <Select
-            placeholder="-Select-"
-            variant="base"
-            onChange={(e: FormEvent<HTMLSelectElement>) => {
-              if (e.currentTarget.value === "") {
-                setSearchParams({}, { replace: true });
-              } else {
-                setSearchParams(
-                  {
-                    districtType: e.currentTarget.value,
-                  },
-                  { replace: true },
-                );
-              }
-            }}
-            value={districtType === null ? "" : districtType}
-          >
-            <option value={"cd"}>Community District</option>
-            <option value={"ccd"}>City Council District</option>
-          </Select>
-        </FormControl>
-        <HStack spacing={2} width={"full"}>
-          {districtType !== "ccd" ? (
-            <FormControl id="borough">
-              <FormLabel>Borough</FormLabel>
-              <Select
-                isDisabled={true}
-                placeholder="-Select-"
-                variant="base"
-              ></Select>
-            </FormControl>
-          ) : null}
-          <FormControl id="district">
-            <FormLabel>District Number</FormLabel>
-            <Select
-              placeholder="-Select-"
-              variant="base"
-              isDisabled={true}
-            ></Select>
-          </FormControl>
-        </HStack>
+        {children}
         <Button width="full" isDisabled={true}>
           Go to Selected District
         </Button>
@@ -115,4 +55,5 @@ export const FilterMenu = ({
 
 export interface FilterMenuProps {
   onClose?: () => void;
+  children: ReactNode;
 }
