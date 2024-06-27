@@ -1,17 +1,6 @@
-import { FormEvent, ReactNode } from "react";
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Show,
-  Hide,
-  Select,
-  HStack,
-} from "@nycplanning/streetscape";
+import { ReactNode } from "react";
+import { Button, Flex, Heading, Show, Hide } from "@nycplanning/streetscape";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Borough, CityCouncilDistrict, CommunityDistrict } from "~/gen";
 
 export const FilterMenu = ({
   onClose = () => {
