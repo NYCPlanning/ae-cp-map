@@ -18,23 +18,18 @@ export function useCommunityDistrictsLayer() {
     visible: districtType === "cd",
     uniqueIdProperty: "boroughIdCommunityDistrictId",
     pickable: true,
-    getFillColor: (f) => {
-      // If CommunityDistrictId > 18, the area represents a Parks, not a Community District
-      if (parseInt(f.properties.boroughIdCommunityDistrictId.slice(-2)) > 18) {
-        return [217, 107, 39, 0];
-      }
-      return [217, 107, 39, 0];
-    },
     getPointRadius: 5,
+    filled: false,
     getLineColor: [113, 128, 150, 255],
-    getLineWidth: 30,
+    getLineWidth: 3,
+    lineWidthUnits: "pixels",
     pointType: "text",
-    getText: (f: any) => {
-      // If CommunityDistrictId > 18, the area represents a Parks, not a Community District
-      if (parseInt(f.properties.boroughIdCommunityDistrictId.slice(-2)) > 18) {
+    getText: ({ properties }: { properties: CommunityDistrictProperties }) => {
+      // If CommunityDistrictId > 18, the area represents a Park, not a Community District
+      if (parseInt(properties.boroughIdCommunityDistrictId.slice(-2)) > 18) {
         return null;
       }
-      return `${f.properties.abbr} ${parseInt(f.properties.boroughIdCommunityDistrictId.slice(-2))}`;
+      return `${properties.abbr} ${parseInt(properties.boroughIdCommunityDistrictId.slice(-2))}`;
     },
     getTextColor: [98, 98, 98, 255],
     textFontFamily: "Helvetica Neue, Arial, sans-serif",
