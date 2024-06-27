@@ -3,6 +3,10 @@ import {
   Box,
   Heading,
   Show,
+  FormControl,
+  FormLabel,
+  HStack,
+  Select,
 } from "@nycplanning/streetscape";
 import {
   Links,
@@ -33,6 +37,11 @@ import {
   FilterMenu,
 } from "./components/FilterMenu";
 import { LoaderFunctionArgs } from "@remix-run/node";
+import { FormEvent } from "react";
+import {
+  BoroughDropDown,
+  DistrictTypeDropDown,
+} from "./components/ui/AdminDropDown";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -136,7 +145,7 @@ export default function App() {
       : loaderData.communityDistricts;
   const { boroughs } = loaderData;
 
-  const updateDistrictType = (nextDistrictType: DistrictType) => {
+  const updateDistrictType = (nextDistrictType: string | null) => {
     if (nextDistrictType === null) {
       setSearchParams({}, { replace: true });
     } else {
@@ -216,6 +225,45 @@ export default function App() {
     }
   };
 
+  const FilterMenuDropdowns = () => (
+    <>
+      <DistrictTypeDropDown
+        selectValue={districtType}
+        onSelectValueChange={updateDistrictType}
+      />
+      <HStack spacing={2} width={"full"}>
+        {districtType !== "ccd" && (
+          <BoroughDropDown
+            selectValue={boroId}
+            onSelectValueChange={updateBoroId}
+            boroughs={boroughs}
+          />
+        )}
+        <FormControl id="districtId">
+          <FormLabel>District Number</FormLabel>
+          <Select
+            placeholder="-Select-"
+            variant="base"
+            isDisabled={districts === null}
+            value={districtId ?? ""}
+            onChange={(e: FormEvent<HTMLSelectElement>) => {
+              const targetValue = e.currentTarget.value;
+              let nextDistrictId: DistrictId = null;
+              if (targetValue !== "") nextDistrictId = targetValue;
+              updateDistrictId(nextDistrictId);
+            }}
+          >
+            {districts?.map((cd) => (
+              <option key={cd.id} value={cd.id}>
+                {cd.id}
+              </option>
+            ))}
+          </Select>
+        </FormControl>
+      </HStack>
+    </>
+  );
+
   return (
     <Document>
       <StreetscapeProvider>
@@ -225,27 +273,13 @@ export default function App() {
               <Atlas />{" "}
               <Overlay>
                 <Show above="lg">
-                  <FilterMenu
-                    districtType={districtType}
-                    updateDistrictType={updateDistrictType}
-                    boroId={boroId}
-                    updateBoroId={updateBoroId}
-                    districtId={districtId}
-                    updateDistrictId={updateDistrictId}
-                    boroughs={boroughs}
-                    districts={districts}
-                  />
+                  <FilterMenu>
+                    <FilterMenuDropdowns />
+                  </FilterMenu>
                 </Show>
                 <Outlet
                   context={{
-                    districtType,
-                    updateDistrictType,
-                    boroId,
-                    updateBoroId,
-                    districtId,
-                    updateDistrictId,
-                    boroughs,
-                    districts,
+                    children: FilterMenuDropdowns(),
                   }}
                 />
               </Overlay>
