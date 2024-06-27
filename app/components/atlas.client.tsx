@@ -1,7 +1,11 @@
 import { DeckGL } from "@deck.gl/react";
 import { Map } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { useCapitalProjectsLayer, useCommunityDistrictsLayer } from "./layers";
+import {
+  useCapitalProjectsLayer,
+  useCommunityDistrictsLayer,
+  useCityCouncilDistrictsLayer,
+} from "./layers";
 
 const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
@@ -14,12 +18,17 @@ const INITIAL_VIEW_STATE = {
 export function Atlas() {
   const capitalProjectsLayer = useCapitalProjectsLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
+  const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
       style={{ height: "100vh", width: "100vw" }}
-      layers={[capitalProjectsLayer, communityDistrictsLayer]}
+      layers={[
+        capitalProjectsLayer,
+        communityDistrictsLayer,
+        cityCouncilDistrictsLayer,
+      ]}
     >
       <Map
         mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
