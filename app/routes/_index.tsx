@@ -1,6 +1,6 @@
 import { Hide, Button } from "@nycplanning/streetscape";
 import { FilterMenu, FilterMenuProps } from "../components/FilterMenu";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import { useOutletContext } from "@remix-run/react";
 
 export default function Index() {
