@@ -3,10 +3,7 @@ import {
   Box,
   Heading,
   Show,
-  FormControl,
-  FormLabel,
   HStack,
-  Select,
 } from "@nycplanning/streetscape";
 import {
   Links,
@@ -37,7 +34,6 @@ import {
   FilterMenu,
 } from "./components/FilterMenu";
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { FormEvent } from "react";
 import {
   BoroughDropDown,
   DistrictTypeDropDown,
@@ -149,7 +145,7 @@ export default function App() {
       | undefined,
   ) => setSearchParams(nextSearchParams, { replace: true });
 
-  const FilterMenuDropdowns = () => (
+  const AdminDropdowns = () => (
     <>
       <DistrictTypeDropDown
         selectValue={districtType}
@@ -191,12 +187,12 @@ export default function App() {
               <Overlay>
                 <Show above="lg">
                   <FilterMenu>
-                    <FilterMenuDropdowns />
+                    <AdminDropdowns />
                   </FilterMenu>
                 </Show>
                 <Outlet
                   context={{
-                    children: FilterMenuDropdowns(),
+                    children: AdminDropdowns(),
                   }}
                 />
               </Overlay>

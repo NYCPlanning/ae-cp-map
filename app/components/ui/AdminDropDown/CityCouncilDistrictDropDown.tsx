@@ -1,5 +1,5 @@
-import { BoroId, DistrictId } from "~/components/FilterMenu";
-import { CityCouncilDistrict, CommunityDistrict } from "~/gen";
+import { DistrictId } from "~/components/FilterMenu";
+import { CityCouncilDistrict } from "~/gen";
 import { AdminDropDown, AdminDropDownProps } from ".";
 
 export interface CityCouncilDistrictDropDownProps
