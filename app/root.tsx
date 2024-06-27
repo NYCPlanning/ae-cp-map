@@ -41,7 +41,10 @@ import { FormEvent } from "react";
 import {
   BoroughDropDown,
   DistrictTypeDropDown,
+  CommunityDistrictDropDown,
+  CityCouncilDistrictDropDown,
 } from "./components/ui/AdminDropDown";
+import { URLSearchParamsInit } from "react-router-dom";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -139,127 +142,41 @@ export default function App() {
       (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null })
   >();
 
-  const districts =
-    districtType === "ccd"
-      ? loaderData.cityCouncilDistricts
-      : loaderData.communityDistricts;
-  const { boroughs } = loaderData;
-
-  const updateDistrictType = (nextDistrictType: string | null) => {
-    if (nextDistrictType === null) {
-      setSearchParams({}, { replace: true });
-    } else {
-      setSearchParams(
-        {
-          districtType: nextDistrictType,
-        },
-        { replace: true },
-      );
-    }
-  };
-
-  const updateBoroId = (nextBoroId: BoroId) => {
-    if (districtType === "cd") {
-      if (nextBoroId !== null) {
-        setSearchParams(
-          {
-            districtType,
-            boroId: nextBoroId,
-          },
-          { replace: true },
-        );
-      } else {
-        setSearchParams(
-          {
-            districtType,
-          },
-          { replace: true },
-        );
-      }
-    }
-  };
-
-  const updateDistrictId = (nextDistrictId: DistrictId) => {
-    if (districtType === "ccd") {
-      if (nextDistrictId !== null) {
-        setSearchParams(
-          {
-            districtType,
-            districtId: nextDistrictId,
-          },
-          { replace: true },
-        );
-      }
-    }
-
-    if (districtType === "cd") {
-      if (nextDistrictId !== null && boroId !== null) {
-        setSearchParams(
-          {
-            districtType,
-            boroId,
-            districtId: nextDistrictId,
-          },
-          { replace: true },
-        );
-      } else if (boroId !== null) {
-        setSearchParams(
-          {
-            districtType,
-            boroId,
-          },
-          {
-            replace: true,
-          },
-        );
-      } else {
-        setSearchParams(
-          {
-            districtType,
-          },
-          {
-            replace: true,
-          },
-        );
-      }
-    }
-  };
+  const updateSearchParams = (
+    nextSearchParams:
+      | URLSearchParamsInit
+      | ((prev: URLSearchParams) => URLSearchParamsInit)
+      | undefined,
+  ) => setSearchParams(nextSearchParams, { replace: true });
 
   const FilterMenuDropdowns = () => (
     <>
       <DistrictTypeDropDown
         selectValue={districtType}
-        onSelectValueChange={updateDistrictType}
+        updateSearchParams={updateSearchParams}
       />
       <HStack spacing={2} width={"full"}>
-        {districtType !== "ccd" && (
-          <BoroughDropDown
-            selectValue={boroId}
-            onSelectValueChange={updateBoroId}
-            boroughs={boroughs}
+        {districtType !== "ccd" ? (
+          <>
+            <BoroughDropDown
+              selectValue={boroId}
+              updateSearchParams={updateSearchParams}
+              boroughs={loaderData.boroughs}
+            />
+            <CommunityDistrictDropDown
+              boroId={boroId}
+              selectValue={districtId}
+              communityDistricts={loaderData.communityDistricts}
+              updateSearchParams={updateSearchParams}
+            />
+          </>
+        ) : (
+          <CityCouncilDistrictDropDown
+            selectValue={districtId}
+            cityCouncilDistricts={loaderData.cityCouncilDistricts}
+            updateSearchParams={updateSearchParams}
           />
         )}
-        <FormControl id="districtId">
-          <FormLabel>District Number</FormLabel>
-          <Select
-            placeholder="-Select-"
-            variant="base"
-            isDisabled={districts === null}
-            value={districtId ?? ""}
-            onChange={(e: FormEvent<HTMLSelectElement>) => {
-              const targetValue = e.currentTarget.value;
-              let nextDistrictId: DistrictId = null;
-              if (targetValue !== "") nextDistrictId = targetValue;
-              updateDistrictId(nextDistrictId);
-            }}
-          >
-            {districts?.map((cd) => (
-              <option key={cd.id} value={cd.id}>
-                {cd.id}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
       </HStack>
     </>
   );
