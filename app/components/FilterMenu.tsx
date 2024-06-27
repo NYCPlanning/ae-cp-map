@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { FormEvent, ReactNode } from "react";
 import {
   Button,
   Flex,
@@ -14,17 +14,10 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Borough, CityCouncilDistrict, CommunityDistrict } from "~/gen";
 
 export const FilterMenu = ({
-  districtType = null,
-  updateDistrictType,
-  boroId,
-  updateBoroId,
-  districtId,
-  updateDistrictId,
-  boroughs,
-  districts,
   onClose = () => {
     return;
   },
+  children,
 }: FilterMenuProps) => {
   return (
     <Flex
@@ -62,76 +55,7 @@ export const FilterMenu = ({
             Filter by District
           </Heading>
         </Show>
-        <FormControl id="districtType">
-          <FormLabel
-            onClick={() => {
-              onClose();
-            }}
-          >
-            District Type
-          </FormLabel>
-          <Select
-            placeholder="-Select-"
-            variant="base"
-            onChange={(e: FormEvent<HTMLSelectElement>) => {
-              const targetValue = e.currentTarget.value;
-              let nextDistrictType: DistrictType = null;
-              if (targetValue === "cd" || targetValue === "ccd")
-                nextDistrictType = targetValue;
-              updateDistrictType(nextDistrictType);
-            }}
-            value={districtType ?? ""}
-          >
-            <option value={"cd"}>Community District</option>
-            <option value={"ccd"}>City Council District</option>
-          </Select>
-        </FormControl>
-        <HStack spacing={2} width={"full"}>
-          {districtType !== "ccd" && (
-            <FormControl id="boroId">
-              <FormLabel>Borough</FormLabel>
-              <Select
-                isDisabled={boroughs === null}
-                placeholder="-Select-"
-                variant="base"
-                value={boroId ?? ""}
-                onChange={(e: FormEvent<HTMLSelectElement>) => {
-                  const targetValue = e.currentTarget.value;
-                  let nextBoroId: BoroId = null;
-                  if (targetValue !== "") nextBoroId = targetValue;
-                  updateBoroId(nextBoroId);
-                }}
-              >
-                {boroughs?.map((borough) => (
-                  <option key={borough.id} value={borough.id}>
-                    {borough.title}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          )}
-          <FormControl id="districtId">
-            <FormLabel>District Number</FormLabel>
-            <Select
-              placeholder="-Select-"
-              variant="base"
-              isDisabled={districts === null}
-              value={districtId ?? ""}
-              onChange={(e: FormEvent<HTMLSelectElement>) => {
-                const targetValue = e.currentTarget.value;
-                let nextDistrictId: DistrictId = null;
-                if (targetValue !== "") nextDistrictId = targetValue;
-                updateDistrictId(nextDistrictId);
-              }}
-            >
-              {districts?.map((cd) => (
-                <option key={cd.id} value={cd.id}>
-                  {cd.id}
-                </option>
-              ))}
-            </Select>
-          </FormControl>
-        </HStack>
+        {children}
         <Button width="full" isDisabled={true}>
           Go to Selected District
         </Button>
@@ -145,13 +69,6 @@ export type BoroId = null | string;
 export type DistrictId = null | string;
 
 export interface FilterMenuProps {
-  districtType: DistrictType;
-  updateDistrictType: (districtType: DistrictType) => void;
-  boroId: BoroId;
-  updateBoroId: (boroId: BoroId) => void;
-  districtId: DistrictId;
-  updateDistrictId: (districtId: DistrictId) => void;
-  boroughs: Array<Borough> | null;
-  districts: Array<CommunityDistrict | CityCouncilDistrict> | null;
   onClose?: () => void;
+  children: ReactNode;
 }
