@@ -211,11 +211,20 @@ export function ErrorBoundary() {
     return (
       <Document>
         <StreetscapeProvider>
-          <Box>
-            <Heading as="h1" bg="purple.600">
-              [CatchBoundary]: {error.status} {error.statusText}
-            </Heading>
-          </Box>
+          <ClientOnly>
+            {() => (
+              <>
+                <Atlas />{" "}
+                <Overlay>
+                  <Box>
+                    <Heading as="h1" bg="purple.600">
+                      [CatchBoundary]: {error.status} {error.statusText}
+                    </Heading>
+                  </Box>
+                </Overlay>
+              </>
+            )}
+          </ClientOnly>
         </StreetscapeProvider>
       </Document>
     );
@@ -225,11 +234,20 @@ export function ErrorBoundary() {
   return (
     <Document title="Error!">
       <StreetscapeProvider>
-        <Box>
-          <Heading as="h1" bg="blue.500">
-            [ErrorBoundary]: There was an error: {errorMessage}
-          </Heading>
-        </Box>
+        <ClientOnly>
+          {() => (
+            <>
+              <Atlas />{" "}
+              <Overlay>
+                <Box>
+                  <Heading as="h1" bg="blue.500">
+                    [ErrorBoundary]: There was an error: {errorMessage}
+                  </Heading>
+                </Box>
+              </Overlay>
+            </>
+          )}
+        </ClientOnly>
       </StreetscapeProvider>
     </Document>
   );
