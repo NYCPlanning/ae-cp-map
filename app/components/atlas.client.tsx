@@ -7,14 +7,7 @@ import {
   useCommunityDistrictsLayer,
   useCityCouncilDistrictsLayer,
 } from "./layers";
-
-export type ViewState = {
-  latitude: number;
-  longitude: number;
-  zoom: number;
-  bearing: number;
-  pitch: number;
-};
+import type { MapView, MapViewState } from "@deck.gl/core";
 
 const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
@@ -32,27 +25,21 @@ export function Atlas() {
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
 
-  const [viewState, setViewState] = useState<ViewState>(INITIAL_VIEW_STATE);
+  const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
 
   return (
-    <DeckGL
+    <DeckGL<MapView>
       viewState={viewState}
-      onViewStateChange={(updatedViewState: any) => {
+      onViewStateChange={({ viewState: newViewState }) => {
         setViewState({
           longitude: Math.min(
             -73.6311,
-            Math.max(-74.3308, updatedViewState.viewState.longitude),
+            Math.max(-74.3308, newViewState.longitude),
           ),
-          latitude: Math.min(
-            41.103,
-            Math.max(40.2989, updatedViewState.viewState.latitude),
-          ),
-          bearing: updatedViewState.viewState.bearing,
+          latitude: Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
+          bearing: newViewState.bearing,
           pitch: 0,
-          zoom: Math.min(
-            MAX_ZOOM,
-            Math.max(MIN_ZOOM, updatedViewState.viewState.zoom),
-          ),
+          zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
         });
       }}
       controller={true}
