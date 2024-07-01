@@ -1,17 +1,20 @@
 import { Hide, Button } from "@nycplanning/streetscape";
-import { FilterMenu } from "../components/FilterMenu";
+import { FilterMenu, FilterMenuProps } from "../components/FilterMenu";
 import { useState } from "react";
+import { useOutletContext } from "@remix-run/react";
 
 export default function Index() {
   const [shouldShowFilterMenu, setShouldShowFilterMenu] = useState(false);
+  const contextData = useOutletContext<FilterMenuProps>();
   return (
     <Hide above="lg">
       {shouldShowFilterMenu ? (
         <FilterMenu
+          {...contextData}
           onClose={() => {
             setShouldShowFilterMenu(false);
           }}
-        />
+        ></FilterMenu>
       ) : (
         <Button
           width={"full"}

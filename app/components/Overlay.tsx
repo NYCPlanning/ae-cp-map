@@ -23,9 +23,6 @@ export const Overlay = ({ children }: OverlayProps) => {
         },
       }}
     >
-      <Show above="lg">
-        <FilterMenu />
-      </Show>
       {children}
     </Flex>
   );
