@@ -1,6 +1,9 @@
 import { DeckGL } from "@deck.gl/react";
 import { Map } from "react-map-gl/maplibre";
+import { ZoomWidget, CompassWidget } from "@deck.gl/widgets";
+import { useMediaQuery } from "@nycplanning/streetscape";
 import "maplibre-gl/dist/maplibre-gl.css";
+import "@deck.gl/widgets/stylesheet.css";
 import { useState } from "react";
 import {
   useCapitalProjectsLayer,
@@ -24,6 +27,21 @@ export function Atlas() {
   const capitalProjectsLayer = useCapitalProjectsLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
+
+  const isMobile = useMediaQuery("(max-width: 767px)")[0];
+  const widgetPlacement = isMobile ? "top-right" : "bottom-right";
+  const widgetStyles = isMobile ? {} : { position: "relative", bottom: "2rem" };
+
+  const ZoomControls = new ZoomWidget({
+    id: "zoom",
+    placement: widgetPlacement,
+    style: widgetStyles,
+  });
+  const CompassControls = new CompassWidget({
+    id: "compass",
+    placement: widgetPlacement,
+    style: widgetStyles,
+  });
 
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
 
@@ -55,6 +73,7 @@ export function Atlas() {
         }
         return isHovering ? "pointer" : "grab";
       }}
+      widgets={[ZoomControls, CompassControls]}
     >
       <Map
         mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
