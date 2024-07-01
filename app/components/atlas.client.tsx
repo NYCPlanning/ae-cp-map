@@ -48,7 +48,7 @@ export function Atlas() {
             Math.max(40.2989, updatedViewState.viewState.latitude),
           ),
           bearing: updatedViewState.viewState.bearing,
-          pitch: updatedViewState.viewState.pitch,
+          pitch: 0,
           zoom: Math.min(
             MAX_ZOOM,
             Math.max(MIN_ZOOM, updatedViewState.viewState.zoom),
