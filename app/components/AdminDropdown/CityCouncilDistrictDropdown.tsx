@@ -1,17 +1,17 @@
-import { DistrictId } from "~/components/FilterMenu";
 import { CityCouncilDistrict } from "~/gen";
-import { AdminDropDown, AdminDropDownProps } from ".";
+import { AdminDropdownProps, AdminDropdown } from ".";
+import { DistrictId } from "~/root";
 
-export interface CityCouncilDistrictDropDownProps
-  extends Pick<AdminDropDownProps, "selectValue"> {
+export interface CityCouncilDistrictDropdownProps
+  extends Pick<AdminDropdownProps, "selectValue"> {
   updateSearchParams: (value: Record<string, string>) => void;
   cityCouncilDistricts: Array<CityCouncilDistrict> | null;
 }
-export function CityCouncilDistrictDropDown({
+export function CityCouncilDistrictDropdown({
   selectValue,
   updateSearchParams,
   cityCouncilDistricts,
-}: CityCouncilDistrictDropDownProps) {
+}: CityCouncilDistrictDropdownProps) {
   const updateDistrictId = (nextDistrictId: DistrictId) => {
     const districtType = "ccd";
 
@@ -36,7 +36,7 @@ export function CityCouncilDistrictDropDown({
     </option>
   ));
   return (
-    <AdminDropDown
+    <AdminDropdown
       formId="districtId"
       formLabel="District Number"
       isSelectDisabled={cityCouncilDistricts === null}
@@ -44,6 +44,6 @@ export function CityCouncilDistrictDropDown({
       onSelectValueChange={updateDistrictId}
     >
       {cityCouncilDistrictOptions}
-    </AdminDropDown>
+    </AdminDropdown>
   );
 }

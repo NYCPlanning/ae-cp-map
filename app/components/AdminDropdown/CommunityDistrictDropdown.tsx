@@ -1,39 +1,39 @@
 import { CommunityDistrict } from "~/gen";
-import { AdminDropDown, AdminDropDownProps } from ".";
-import { BoroId, DistrictId } from "~/components/FilterMenu";
+import { AdminDropdown, AdminDropdownProps } from ".";
+import { BoroughId, DistrictId } from "~/root";
 
-export interface CommunityDistrictDropDownProps
-  extends Pick<AdminDropDownProps, "selectValue"> {
-  boroId: BoroId;
+export interface CommunityDistrictDropdownProps
+  extends Pick<AdminDropdownProps, "selectValue"> {
+  boroughId: BoroughId;
   updateSearchParams: (value: Record<string, string>) => void;
   communityDistricts: Array<CommunityDistrict> | null;
 }
-export function CommunityDistrictDropDown({
+export function CommunityDistrictDropdown({
   selectValue,
   updateSearchParams,
-  boroId,
+  boroughId,
   communityDistricts,
-}: CommunityDistrictDropDownProps) {
+}: CommunityDistrictDropdownProps) {
   const updateDistrictId = (nextDistrictId: DistrictId) => {
     const districtType = "cd";
-    if (boroId === null) {
+    if (boroughId === null) {
       updateSearchParams({
         districtType,
       });
       return;
     }
 
-    if (boroId !== null && nextDistrictId === null) {
+    if (boroughId !== null && nextDistrictId === null) {
       updateSearchParams({
         districtType,
-        boroId,
+        boroughId,
       });
       return;
     }
-    if (boroId !== null && nextDistrictId !== null) {
+    if (boroughId !== null && nextDistrictId !== null) {
       updateSearchParams({
         districtType,
-        boroId,
+        boroughId,
         districtId: nextDistrictId,
       });
       return;
@@ -45,7 +45,7 @@ export function CommunityDistrictDropDown({
     </option>
   ));
   return (
-    <AdminDropDown
+    <AdminDropdown
       formId="districtId"
       formLabel="District Number"
       isSelectDisabled={communityDistricts === null}
@@ -53,6 +53,6 @@ export function CommunityDistrictDropDown({
       onSelectValueChange={updateDistrictId}
     >
       {communityDistrictOptions}
-    </AdminDropDown>
+    </AdminDropdown>
   );
 }

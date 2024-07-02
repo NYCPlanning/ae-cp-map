@@ -27,25 +27,24 @@ import {
   findCityCouncilDistricts,
   findCommunityDistrictsByBoroughId,
 } from "./gen";
-import {
-  BoroId,
-  DistrictId,
-  DistrictType,
-  FilterMenu,
-} from "./components/FilterMenu";
+import { FilterMenu } from "./components/FilterMenu";
 import { LoaderFunctionArgs } from "@remix-run/node";
 import {
-  BoroughDropDown,
-  DistrictTypeDropDown,
-  CommunityDistrictDropDown,
-  CityCouncilDistrictDropDown,
-} from "./components/ui/AdminDropDown";
+  BoroughDropdown,
+  DistrictTypeDropdown,
+  CommunityDistrictDropdown,
+  CityCouncilDistrictDropdown,
+} from "./components/AdminDropdown";
 import { URLSearchParamsInit } from "react-router-dom";
+
+export type BoroughId = null | string;
+export type DistrictType = null | "cd" | "ccd";
+export type DistrictId = null | string;
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const districtType = url.searchParams.get("districtType") as DistrictType;
-  const boroId = url.searchParams.get("boroId") as BoroId;
+  const boroughId = url.searchParams.get("boroughId") as BoroughId;
 
   if (districtType === null) {
     return {
@@ -60,7 +59,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
     });
 
-    if (boroId === null) {
+    if (boroughId === null) {
       return {
         boroughs,
         communityDistricts: null,
@@ -68,7 +67,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
-        boroId,
+        boroughId,
         {
           baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
         },
@@ -127,7 +126,7 @@ function Document({
 export default function App() {
   const [searchParams, setSearchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
-  const boroId = searchParams.get("boroId") as BoroId;
+  const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
@@ -147,27 +146,27 @@ export default function App() {
 
   const AdminDropdowns = () => (
     <>
-      <DistrictTypeDropDown
+      <DistrictTypeDropdown
         selectValue={districtType}
         updateSearchParams={updateSearchParams}
       />
       <HStack spacing={2} width={"full"}>
         {districtType !== "ccd" ? (
           <>
-            <BoroughDropDown
-              selectValue={boroId}
+            <BoroughDropdown
+              selectValue={boroughId}
               updateSearchParams={updateSearchParams}
               boroughs={loaderData.boroughs}
             />
-            <CommunityDistrictDropDown
-              boroId={boroId}
+            <CommunityDistrictDropdown
+              boroughId={boroughId}
               selectValue={districtId}
               communityDistricts={loaderData.communityDistricts}
               updateSearchParams={updateSearchParams}
             />
           </>
         ) : (
-          <CityCouncilDistrictDropDown
+          <CityCouncilDistrictDropdown
             selectValue={districtId}
             cityCouncilDistricts={loaderData.cityCouncilDistricts}
             updateSearchParams={updateSearchParams}

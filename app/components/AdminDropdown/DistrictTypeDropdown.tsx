@@ -1,14 +1,14 @@
-import { AdminDropDown, AdminDropDownProps } from ".";
+import { AdminDropdownProps, AdminDropdown } from ".";
 
-export interface DistrictTypeDropDownProps
-  extends Pick<AdminDropDownProps, "selectValue"> {
+export interface DistrictTypeDropdownProps
+  extends Pick<AdminDropdownProps, "selectValue"> {
   updateSearchParams: (value: Record<string, string>) => void;
 }
 
-export function DistrictTypeDropDown({
+export function DistrictTypeDropdown({
   selectValue,
   updateSearchParams,
-}: DistrictTypeDropDownProps) {
+}: DistrictTypeDropdownProps) {
   const updateDistrictType = (nextDistrictType: string | null) => {
     const nextSearchParams: Record<string, string> =
       nextDistrictType === null ? {} : { districtType: nextDistrictType };
@@ -16,7 +16,7 @@ export function DistrictTypeDropDown({
   };
 
   return (
-    <AdminDropDown
+    <AdminDropdown
       formId="districtType"
       formLabel="District Type"
       selectValue={selectValue}
@@ -24,6 +24,6 @@ export function DistrictTypeDropDown({
     >
       <option value={"cd"}>Community District</option>
       <option value={"ccd"}>City Council District</option>
-    </AdminDropDown>
+    </AdminDropdown>
   );
 }

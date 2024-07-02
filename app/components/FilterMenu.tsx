@@ -53,10 +53,6 @@ export const FilterMenu = ({
   );
 };
 
-export type DistrictType = null | "cd" | "ccd";
-export type BoroId = null | string;
-export type DistrictId = null | string;
-
 export interface FilterMenuProps {
   onClose?: () => void;
   children: ReactNode;

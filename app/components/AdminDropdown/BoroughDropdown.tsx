@@ -1,24 +1,24 @@
 import { Borough } from "~/gen";
-import { AdminDropDown, AdminDropDownProps } from ".";
-import { BoroId } from "~/components/FilterMenu";
+import { AdminDropdownProps, AdminDropdown } from ".";
+import { BoroughId } from "~/root";
 
-export interface BoroughDropDownProps
-  extends Pick<AdminDropDownProps, "selectValue"> {
+export interface BoroughDropdownProps
+  extends Pick<AdminDropdownProps, "selectValue"> {
   updateSearchParams: (value: Record<string, string>) => void;
   boroughs: Array<Borough> | null;
 }
 
-export function BoroughDropDown({
+export function BoroughDropdown({
   selectValue,
   updateSearchParams,
   boroughs,
-}: BoroughDropDownProps) {
-  const updateBoroId = (nextBoroId: BoroId) => {
+}: BoroughDropdownProps) {
+  const updateBoroughId = (nextBoroughId: BoroughId) => {
     const nextSearchParams: Record<string, string> =
-      nextBoroId !== null
+      nextBoroughId !== null
         ? {
             districtType: "cd",
-            boroId: nextBoroId,
+            boroughId: nextBoroughId,
           }
         : {
             districtType: "cd",
@@ -34,14 +34,14 @@ export function BoroughDropDown({
   ));
 
   return (
-    <AdminDropDown
-      formId="boroId"
+    <AdminDropdown
+      formId="boroughId"
       formLabel="Borough"
       isSelectDisabled={boroughs === null}
       selectValue={selectValue}
-      onSelectValueChange={updateBoroId}
+      onSelectValueChange={updateBoroughId}
     >
       {boroughOptions}
-    </AdminDropDown>
+    </AdminDropdown>
   );
 }
