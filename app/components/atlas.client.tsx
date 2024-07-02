@@ -30,7 +30,9 @@ export function Atlas() {
 
   const isMobile = useMediaQuery("(max-width: 767px)")[0];
   const widgetPlacement = isMobile ? "top-right" : "bottom-right";
-  const widgetStyles = isMobile ? {} : { position: "relative", bottom: "2rem" };
+  const widgetStyles = isMobile
+    ? {}
+    : { position: "relative", bottom: "4.5rem" };
 
   const ZoomControls = new ZoomWidget({
     id: "zoom",
@@ -78,6 +80,25 @@ export function Atlas() {
       <Map
         mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
       ></Map>
+      <img
+        style={
+          isMobile
+            ? {
+                position: "absolute",
+                top: "0.5rem",
+                left: "0.5rem",
+                height: "2rem",
+              }
+            : {
+                position: "absolute",
+                bottom: "2.5rem",
+                right: "1rem",
+                height: "2rem",
+              }
+        }
+        alt="NYC Planning"
+        src="https://raw.githubusercontent.com/NYCPlanning/dcp-logo/master/dcp_logo_772.png"
+      />
     </DeckGL>
   );
 }
