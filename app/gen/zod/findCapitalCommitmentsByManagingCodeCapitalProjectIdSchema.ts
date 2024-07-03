@@ -4,13 +4,13 @@ import { errorSchema } from "./errorSchema";
 
 export const findCapitalCommitmentsByManagingCodeCapitalProjectIdPathParamsSchema =
   z.object({
-    managingCode: z.coerce
+    managingCode: z
       .string()
       .regex(new RegExp("^([0-9]{3})$"))
       .describe(
         "Three character string of numbers representing managing agency",
       ),
-    capitalProjectId: z.coerce
+    capitalProjectId: z
       .string()
       .describe(
         "The id for the project, which combines with the managing code to make a unique id",

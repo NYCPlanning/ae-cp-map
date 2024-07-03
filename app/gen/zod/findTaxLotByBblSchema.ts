@@ -3,7 +3,7 @@ import { taxLotSchema } from "./taxLotSchema";
 import { errorSchema } from "./errorSchema";
 
 export const findTaxLotByBblPathParamsSchema = z.object({
-  bbl: z.coerce
+  bbl: z
     .string()
     .regex(new RegExp("^([0-9]{10})$"))
     .describe(

@@ -3,7 +3,7 @@ import { zoningDistrictClassSchema } from "./zoningDistrictClassSchema";
 import { errorSchema } from "./errorSchema";
 
 export const findZoningDistrictClassByZoningDistrictClassIdPathParamsSchema =
-  z.object({ id: z.coerce.string().regex(new RegExp("^[A-z][0-9]+$")) });
+  z.object({ id: z.string().regex(new RegExp("^[A-z][0-9]+$")) });
 /**
  * @description A class schema for a zoning district
  */

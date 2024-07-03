@@ -3,7 +3,7 @@ import { communityDistrictSchema } from "./communityDistrictSchema";
 import { errorSchema } from "./errorSchema";
 
 export const findCommunityDistrictsByBoroughIdPathParamsSchema = z.object({
-  boroughId: z.coerce
+  boroughId: z
     .string()
     .regex(new RegExp("^([0-9]{1})$"))
     .describe(

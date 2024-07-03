@@ -4,13 +4,13 @@ import { errorSchema } from "./errorSchema";
 
 export const findCapitalProjectsByBoroughIdCommunityDistrictIdPathParamsSchema =
   z.object({
-    boroughId: z.coerce
+    boroughId: z
       .string()
       .regex(new RegExp("^([0-9]{1})$"))
       .describe(
         "A single character numeric string containing the common number used to refer to the borough. Possible values are 1-5.",
       ),
-    communityDistrictId: z.coerce
+    communityDistrictId: z
       .string()
       .regex(new RegExp("^([0-9]{2})$"))
       .describe(
@@ -21,7 +21,7 @@ export const findCapitalProjectsByBoroughIdCommunityDistrictIdPathParamsSchema =
 export const findCapitalProjectsByBoroughIdCommunityDistrictIdQueryParamsSchema =
   z
     .object({
-      limit: z.coerce
+      limit: z
         .number()
         .min(1)
         .max(100)
@@ -29,7 +29,7 @@ export const findCapitalProjectsByBoroughIdCommunityDistrictIdQueryParamsSchema 
           "The maximum number of results to be returned in each response. The default value is 20. It must be between 1 and 100, inclusive.",
         )
         .optional(),
-      offset: z.coerce
+      offset: z
         .number()
         .min(0)
         .describe(

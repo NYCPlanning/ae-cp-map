@@ -4,7 +4,7 @@ import { errorSchema } from "./errorSchema";
 
 export const findTaxLotsQueryParamsSchema = z
   .object({
-    limit: z.coerce
+    limit: z
       .number()
       .min(1)
       .max(100)
@@ -12,7 +12,7 @@ export const findTaxLotsQueryParamsSchema = z
         "The maximum number of results to be returned in each response. The default value is 20. It must be between 1 and 100, inclusive.",
       )
       .optional(),
-    offset: z.coerce
+    offset: z
       .number()
       .min(0)
       .describe(
@@ -26,7 +26,7 @@ export const findTaxLotsQueryParamsSchema = z
       )
       .optional(),
     lons: z
-      .array(z.coerce.number())
+      .array(z.number())
       .min(1)
       .max(5)
       .describe(
@@ -34,14 +34,14 @@ export const findTaxLotsQueryParamsSchema = z
       )
       .optional(),
     lats: z
-      .array(z.coerce.number())
+      .array(z.number())
       .min(1)
       .max(5)
       .describe(
         "The latitude portion of coordinates. It must be provided when applying a spatial filter and have the same length as the longitudes. (If using a tool like axios, serializing the array with brackets is also supported. ex; lats[]=40.708649&lats[]=40.707800)",
       )
       .optional(),
-    buffer: z.coerce
+    buffer: z
       .number()
       .describe(
         "A buffer around the spatial feature. Units are feet. It is optional when applying a spatial filter.",

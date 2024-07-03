@@ -2,14 +2,14 @@ import { z } from "zod";
 import { errorSchema } from "./errorSchema";
 
 export const findCommunityDistrictTilesPathParamsSchema = z.object({
-  z: z.coerce.number().describe("viewport zoom component"),
-  x: z.coerce.number().describe("viewport x component"),
-  y: z.coerce.number().describe("viewport y component"),
+  z: z.number().describe("viewport zoom component"),
+  x: z.number().describe("viewport x component"),
+  y: z.number().describe("viewport y component"),
 });
 /**
  * @description A protobuf file formatted as Mapbox Vector Tile
  */
-export const findCommunityDistrictTiles200Schema = z.coerce.string();
+export const findCommunityDistrictTiles200Schema = z.string();
 /**
  * @description Invalid client request
  */
@@ -21,4 +21,4 @@ export const findCommunityDistrictTiles500Schema = z.lazy(() => errorSchema);
 /**
  * @description A protobuf file formatted as Mapbox Vector Tile
  */
-export const findCommunityDistrictTilesQueryResponseSchema = z.coerce.string();
+export const findCommunityDistrictTilesQueryResponseSchema = z.string();

@@ -3,7 +3,7 @@ import { zoningDistrictSchema } from "./zoningDistrictSchema";
 import { errorSchema } from "./errorSchema";
 
 export const findZoningDistrictsByTaxLotBblPathParamsSchema = z.object({
-  bbl: z.coerce
+  bbl: z
     .string()
     .regex(new RegExp("^([0-9]{10})$"))
     .describe(

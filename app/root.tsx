@@ -45,6 +45,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const districtType = url.searchParams.get("districtType") as DistrictType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
+  console.debug("loader request", districtType);
 
   if (districtType === null) {
     return {
@@ -55,6 +56,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   if (districtType === "cd") {
+    console.debug("make borough request");
     const { boroughs } = await findBoroughs({
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
     });
