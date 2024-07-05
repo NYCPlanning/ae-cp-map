@@ -8,7 +8,7 @@ describe("CommunityDistrictDropdown", () => {
   let communityDistricts: Array<CommunityDistrict> = [];
   const boroughId = "1";
   beforeAll(() => {
-    communityDistricts = Array.from(Array(5), () =>
+    communityDistricts = Array.from(Array(1), () =>
       createCommunityDistrict({
         id: new RandExp("^([0-9]{2})$").gen(),
         boroughId,

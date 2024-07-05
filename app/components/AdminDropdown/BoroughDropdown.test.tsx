@@ -50,7 +50,6 @@ describe("BoroughDropdown", () => {
     render(
       <BoroughDropdown
         updateSearchParams={updateSearchParams}
-        selectValue={null}
         boroughs={boroughs}
       />,
     );
