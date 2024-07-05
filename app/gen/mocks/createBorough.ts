@@ -4,7 +4,6 @@ import type { Borough } from "../types/Borough";
 export function createBorough(
   data: NonNullable<Partial<Borough>> = {},
 ): NonNullable<Borough> {
-  console.debug("get borough", data);
   return {
     ...{
       id: faker.helpers.arrayElement<any>([
