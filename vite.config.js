@@ -12,8 +12,8 @@ export default defineConfig({
         ignoredRouteFiles: ["**/?(*.)+(spec|test).[tj]s?(x)"],
       }),
   ],
-  resolve: { 
-    alias: [{ find: "~", replacement: path.resolve(__dirname, "./app")}]
+  resolve: {
+    alias: [{ find: "~", replacement: path.resolve(__dirname, "./app") }],
   },
   test: {
     globals: true,
