@@ -1,0 +1,1 @@
+export { CapitalProjectDetailPanel } from './CapitalProjectDetailPanel';
