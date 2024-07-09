@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import type { CityCouncilDistrict } from "../types/CityCouncilDistrict";
 
 export function createCityCouncilDistrict(
@@ -8,7 +9,7 @@ export function createCityCouncilDistrict(
     ...{
       id: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("^([0-9]{1,2})$")),
+        new RandExp("^([0-9]{1,2})$").gen(),
       ]),
     },
     ...data,

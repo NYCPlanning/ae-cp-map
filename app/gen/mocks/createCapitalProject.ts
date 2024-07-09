@@ -1,5 +1,6 @@
 import { createCapitalProjectCategory } from "./createCapitalProjectCategory";
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import type { CapitalProject } from "../types/CapitalProject";
 
 export function createCapitalProject(
@@ -11,7 +12,7 @@ export function createCapitalProject(
       description: faker.string.alpha(),
       managingCode: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("^([0-9]{3})$")),
+        new RandExp("^([0-9]{3})$").gen(),
       ]),
       managingAgency: faker.string.alpha(),
       minDate: faker.date.anytime().toString(),

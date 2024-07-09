@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import type { Borough } from "../types/Borough";
 
 export function createBorough(
@@ -8,7 +9,7 @@ export function createBorough(
     ...{
       id: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("^([0-9])$")),
+        new RandExp("^([0-9])$").gen(),
       ]),
       title: faker.string.alpha(),
       abbr: faker.string.alpha(),

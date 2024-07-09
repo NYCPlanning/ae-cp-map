@@ -1,6 +1,7 @@
 import { createBorough } from "./createBorough";
 import { createLandUse } from "./createLandUse";
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import type { TaxLot } from "../types/TaxLot";
 
 export function createTaxLot(
@@ -10,7 +11,7 @@ export function createTaxLot(
     ...{
       bbl: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("^([0-9]{10})$")),
+        new RandExp("^([0-9]{10})$").gen(),
       ]),
       borough: createBorough(),
       block: faker.string.alpha(),

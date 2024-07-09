@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import type { Agency } from "../types/Agency";
 
 export function createAgency(

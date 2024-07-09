@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import type { CapitalCommitment } from "../types/CapitalCommitment";
 
 export function createCapitalCommitment(
@@ -12,7 +13,7 @@ export function createCapitalCommitment(
       ]),
       type: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("^([A-z]{4})$")),
+        new RandExp("^([A-z]{4})$").gen(),
       ]),
       plannedDate: faker.date.anytime().toString(),
       budgetLineCode: faker.string.alpha(),

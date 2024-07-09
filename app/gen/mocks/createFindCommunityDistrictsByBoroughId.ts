@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import { createCommunityDistrict } from "./createCommunityDistrict";
 import { createError } from "./createError";
 import type {
@@ -14,7 +15,7 @@ export function createFindCommunityDistrictsByBoroughIdPathParams(): NonNullable
   return {
     boroughId: faker.helpers.arrayElement<any>([
       faker.string.alpha(),
-      faker.helpers.fromRegExp(new RegExp("^([0-9]{1})$")),
+      new RandExp("^([0-9]{1})$").gen(),
     ]),
   };
 }

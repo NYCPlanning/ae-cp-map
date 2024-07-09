@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import { createTaxLotGeoJson } from "./createTaxLotGeoJson";
 import { createError } from "./createError";
 import type {
@@ -14,7 +15,7 @@ export function createFindTaxLotGeoJsonByBblPathParams(): NonNullable<FindTaxLot
   return {
     bbl: faker.helpers.arrayElement<any>([
       faker.string.alpha(),
-      faker.helpers.fromRegExp(new RegExp("^([0-9]{10})$")),
+      new RandExp("^([0-9]{10})$").gen(),
     ]),
   };
 }

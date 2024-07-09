@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import { createZoningDistrictClass } from "./createZoningDistrictClass";
 import { createError } from "./createError";
 import type {
@@ -14,7 +15,7 @@ export function createFindZoningDistrictClassByZoningDistrictClassIdPathParams()
   return {
     id: faker.helpers.arrayElement<any>([
       faker.string.alpha(),
-      faker.helpers.fromRegExp(new RegExp("^[A-z][0-9]+$")),
+      new RandExp("^[A-z][0-9]+$").gen(),
     ]),
   };
 }
