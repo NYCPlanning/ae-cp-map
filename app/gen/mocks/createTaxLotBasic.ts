@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import type { TaxLotBasic } from "../types/TaxLotBasic";
 
 export function createTaxLotBasic(
@@ -8,11 +9,11 @@ export function createTaxLotBasic(
     ...{
       bbl: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("^([0-9]{10})$")),
+        new RandExp("^([0-9]{10})$").gen(),
       ]),
       boroughId: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("^([0-9])$")),
+        new RandExp("^([0-9])$").gen(),
       ]),
       block: faker.string.alpha(),
       lot: faker.string.alpha(),

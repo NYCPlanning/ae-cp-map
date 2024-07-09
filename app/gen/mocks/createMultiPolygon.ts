@@ -1,5 +1,6 @@
 import { createPosition } from "./createPosition";
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import type { MultiPolygon } from "../types/MultiPolygon";
 
 /**

@@ -30,7 +30,9 @@ export default defineConfig({
         path: "./axios",
       },
     }),
-    pluginFaker({}),
+    pluginFaker({
+      regexGenerator: 'randexp'
+    }),
     pluginMsw({
       output: {
         path: "./mocks",

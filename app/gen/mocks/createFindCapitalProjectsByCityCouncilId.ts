@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import { createCapitalProjectPage } from "./createCapitalProjectPage";
 import { createError } from "./createError";
 import type {
@@ -15,7 +16,7 @@ export function createFindCapitalProjectsByCityCouncilIdPathParams(): NonNullabl
   return {
     cityCouncilDistrictId: faker.helpers.arrayElement<any>([
       faker.string.alpha(),
-      faker.helpers.fromRegExp(new RegExp("^([0-9]{1,2})$")),
+      new RandExp("^([0-9]{1,2})$").gen(),
     ]),
   };
 }

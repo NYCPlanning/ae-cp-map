@@ -1,5 +1,4 @@
 import { Borough, createBorough } from "~/gen";
-import RandExp from "randexp";
 import { BoroughDropdown } from "./BoroughDropdown";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -7,11 +6,7 @@ import userEvent from "@testing-library/user-event";
 describe("BoroughDropdown", () => {
   let boroughs: Array<Borough> = [];
   beforeAll(() => {
-    boroughs = Array.from(Array(1), () =>
-      createBorough({
-        id: new RandExp("^([0-9])$").gen(),
-      }),
-    );
+    boroughs = Array.from(Array(1), () => createBorough());
   });
 
   it("should render borough form details and options", () => {

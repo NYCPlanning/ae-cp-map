@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { CommunityDistrictDropdown } from "./CommunityDistrictDropdown";
 import { CommunityDistrict, createCommunityDistrict } from "~/gen";
-import RandExp from "randexp";
 import userEvent from "@testing-library/user-event";
 
 describe("CommunityDistrictDropdown", () => {
@@ -10,7 +9,6 @@ describe("CommunityDistrictDropdown", () => {
   beforeAll(() => {
     communityDistricts = Array.from(Array(1), () =>
       createCommunityDistrict({
-        id: new RandExp("^([0-9]{2})$").gen(),
         boroughId,
       }),
     );

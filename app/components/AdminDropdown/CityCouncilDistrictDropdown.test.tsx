@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import RandExp from "randexp";
 import { CityCouncilDistrict, createCityCouncilDistrict } from "~/gen";
 import { CityCouncilDistrictDropdown } from "./CityCouncilDistrictDropdown";
 import userEvent from "@testing-library/user-event";
@@ -9,9 +8,7 @@ describe("CityCouncilDistrictDropdown", () => {
 
   beforeAll(() => {
     cityCouncilDistricts = Array.from(Array(1), () =>
-      createCityCouncilDistrict({
-        id: new RandExp("^([0-9]{1,2})$").gen(),
-      }),
+      createCityCouncilDistrict(),
     );
   });
 

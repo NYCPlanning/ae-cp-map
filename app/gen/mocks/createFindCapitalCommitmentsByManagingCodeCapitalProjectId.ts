@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import { createCapitalCommitment } from "./createCapitalCommitment";
 import { createError } from "./createError";
 import type {
@@ -14,7 +15,7 @@ export function createFindCapitalCommitmentsByManagingCodeCapitalProjectIdPathPa
   return {
     managingCode: faker.helpers.arrayElement<any>([
       faker.string.alpha(),
-      faker.helpers.fromRegExp(new RegExp("^([0-9]{3})$")),
+      new RandExp("^([0-9]{3})$").gen(),
     ]),
     capitalProjectId: faker.string.alpha(),
   };

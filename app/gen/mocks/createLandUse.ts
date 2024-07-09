@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import RandExp from "randexp";
 import type { LandUse } from "../types/LandUse";
 
 export function createLandUse(
@@ -10,7 +11,7 @@ export function createLandUse(
       description: faker.string.alpha(),
       color: faker.helpers.arrayElement<any>([
         faker.string.alpha(),
-        faker.helpers.fromRegExp(new RegExp("^#([A-Fa-f0-9]{8})$")),
+        new RandExp("^#([A-Fa-f0-9]{8})$").gen(),
       ]),
     },
     ...data,
