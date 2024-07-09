@@ -1,16 +1,19 @@
 import { DeckGL } from "@deck.gl/react";
+import { useParams } from "@remix-run/react";
 import { Map } from "react-map-gl/maplibre";
 import { ZoomWidget, CompassWidget } from "@deck.gl/widgets";
 import { useMediaQuery } from "@nycplanning/streetscape";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "@deck.gl/widgets/stylesheet.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   useCapitalProjectsLayer,
   useCommunityDistrictsLayer,
   useCityCouncilDistrictsLayer,
 } from "./layers";
-import type { MapView, MapViewState } from "@deck.gl/core";
+import type { MapView, MapViewState, WebMercatorViewport } from "@deck.gl/core";
+import { FlyToInterpolator } from "@deck.gl/core";
+import { bbox } from "@turf/bbox";
 
 const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
@@ -24,6 +27,8 @@ const MAX_ZOOM = 20;
 const MIN_ZOOM = 10;
 
 export function Atlas() {
+  const { managingCode, capitalProjectId } = useParams();
+  // console.log({ managingCode, capitalProjectId });
   const capitalProjectsLayer = useCapitalProjectsLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
@@ -44,8 +49,44 @@ export function Atlas() {
     placement: widgetPlacement,
     style: widgetStyles,
   });
-
+  // capitalProjectsLayer.get
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
+  const [hasLoaded, setHasLoaded] = useState<boolean>(false);
+  const [renderedFeatures, setRenderedFeatures] = useState([]);
+
+  const onAfterRender = () => {
+    if (!hasLoaded && capitalProjectsLayer.isLoaded) {
+      setHasLoaded(true);
+
+      setRenderedFeatures(capitalProjectsLayer.getRenderedFeatures());
+    }
+  };
+  useEffect(() => {
+    if (hasLoaded && capitalProjectsLayer.isLoaded) {
+      renderedFeatures.forEach((feature) => {
+        if (
+          feature.properties.managingCodeCapitalProjectId ===
+          `${managingCode}${capitalProjectId}`
+        ) {
+          console.log("MATCH FOUND");
+          const viewport = capitalProjectsLayer.context
+            .viewport as WebMercatorViewport;
+          const [minX, minY, maxX, maxY] = bbox(feature);
+          const { longitude, latitude, zoom } = viewport.fitBounds([
+            [minX, minY],
+            [maxX, maxY],
+          ]);
+          setViewState({
+            longitude,
+            latitude,
+            zoom: zoom - 1,
+            transitionDuration: 750,
+            transitionInterpolator: new FlyToInterpolator(),
+          });
+        }
+      });
+    }
+  }, [managingCode, capitalProjectId]);
 
   return (
     <DeckGL<MapView>
@@ -76,6 +117,7 @@ export function Atlas() {
         return isHovering ? "pointer" : "grab";
       }}
       widgets={[ZoomControls, CompassControls]}
+      onAfterRender={onAfterRender}
     >
       <Map
         mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
