@@ -139,6 +139,7 @@ export default function App() {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
       (
