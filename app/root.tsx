@@ -139,6 +139,7 @@ export default function App() {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
       (
@@ -162,6 +163,17 @@ export default function App() {
         pathname: nextPath,
         search: `?${searchParams.toString()}`,
       });
+  };
+
+  const updateNavString = (
+    districtType: DistrictType,
+    districtId: DistrictId,
+  ) => {
+    if (districtType === "ccd") {
+      return `city-council-districts/${districtId}/capital-projects`;
+    } else {
+      return ``;
+    }
   };
 
   const goToNextDistrict = goToDistrict(pathname);
@@ -222,7 +234,17 @@ export default function App() {
               <Atlas />{" "}
               <Overlay>
                 <Show above="lg">
-                  <FilterMenu defaultIndex={0}>
+                  <FilterMenu
+                    defaultIndex={0}
+                    onSubmit={() => {
+                      console.log("hi");
+                      const navStr = updateNavString(districtType, districtId);
+                      navigate({
+                        pathname: navStr,
+                        search: `?${searchParams.toString()}`,
+                      });
+                    }}
+                  >
                     <FilterMenuContent />
                   </FilterMenu>
                 </Show>
