@@ -15,6 +15,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useLoaderData,
+  useNavigate,
   useRouteError,
   useSearchParams,
 } from "@remix-run/react";
@@ -130,6 +131,9 @@ export default function App() {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+
+  const navigate = useNavigate();
+
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
       (
@@ -145,6 +149,17 @@ export default function App() {
       | ((prev: URLSearchParams) => URLSearchParamsInit)
       | undefined,
   ) => setSearchParams(nextSearchParams, { replace: true });
+
+  const updateNavString = (
+    districtType: DistrictType,
+    districtId: DistrictId,
+  ) => {
+    if (districtType === "ccd") {
+      return `city-council-districts/${districtId}/capital-projects`;
+    } else {
+      return ``;
+    }
+  };
 
   const AdminDropdowns = () => (
     <VStack>
@@ -184,7 +199,17 @@ export default function App() {
               <Atlas />{" "}
               <Overlay>
                 <Show above="lg">
-                  <FilterMenu defaultIndex={0}>
+                  <FilterMenu
+                    defaultIndex={0}
+                    onSubmit={() => {
+                      console.log("hi");
+                      const navStr = updateNavString(districtType, districtId);
+                      navigate({
+                        pathname: navStr,
+                        search: `?${searchParams.toString()}`,
+                      });
+                    }}
+                  >
                     <AdminDropdowns />
                   </FilterMenu>
                 </Show>
