@@ -8,10 +8,13 @@ import {
   Box,
 } from "@nycplanning/streetscape";
 
-export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
+export const FilterMenu = ({
+  children,
+  defaultIndex,
+  onSubmit,
+}: FilterMenuProps) => (
   <Accordion
     allowToggle
-    allowMultiple
     borderRadius={"base"}
     padding={{ base: 3, lg: 4 }}
     background={"white"}
@@ -44,4 +47,5 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
 export interface FilterMenuProps {
   children: ReactNode;
   defaultIndex?: number;
+  onSubmit?: () => void;
 }

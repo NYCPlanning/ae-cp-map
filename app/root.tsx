@@ -133,12 +133,14 @@ function Document({
 }
 
 export default function App() {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+
+  const navigate = useNavigate();
+
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
       (
