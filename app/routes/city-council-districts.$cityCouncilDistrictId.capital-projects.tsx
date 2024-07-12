@@ -2,6 +2,7 @@ import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { findCapitalProjectsByCityCouncilId } from "../gen";
 import { useLoaderData, useNavigate } from "@remix-run/react";
 import { CapitalProjectsList } from "~/components/CapitalProjectsList";
+import { CapitalProjectsAccordionPanel } from "~/components/CapitalProjectsAccordionPanel";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -37,14 +38,18 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       },
     );
 
-  return projectsByCityCouncilDistrictResponse;
+  return {projectsByCityCouncilDistrictResponse, limit, offset, cityCouncilDistrictId};
 }
 
 export default function CapitalProjectsByCityCouncilDistrict() {
-    const projectsByCityCouncilDistrict = useLoaderData<typeof loader>();
+    const {projectsByCityCouncilDistrictResponse, cityCouncilDistrictId, limit, offset} = useLoaderData<typeof loader>();
     return (
-    <CapitalProjectsList
-        capitalProjects={projectsByCityCouncilDistrict.capitalProjects}
+    <CapitalProjectsAccordionPanel
+        capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
+        limit={limit}
+        offset={offset}
+        total={projectsByCityCouncilDistrictResponse.total}
+        district={"City Council District " + cityCouncilDistrictId}
     />    
     );
 }

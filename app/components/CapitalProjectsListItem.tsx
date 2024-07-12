@@ -1,10 +1,12 @@
-import { Box, Flex, Heading } from "@nycplanning/streetscape";
+import { Box, HStack, Heading, VStack, Text, Spacer } from "@nycplanning/streetscape";
+import { Icon, createIcon, Flex } from '@chakra-ui/react'
 
 export interface CapitalProjectsListItemProps {
     description: string;
     minDate: string;
     maxDate: string;
     agency: string;
+    yearRange: string;
 }
 
 export const CapitalProjectsListItem = ({
@@ -12,6 +14,7 @@ export const CapitalProjectsListItem = ({
     minDate,
     maxDate,
     agency,
+    yearRange,
 }: CapitalProjectsListItemProps) => {
     return (
         <Flex
@@ -27,9 +30,25 @@ export const CapitalProjectsListItem = ({
                 paddingX={2}
                 borderRadius={"base"}
             >
-                <Heading color="gray.600" fontWeight={"medium"}>
-                    {description}
-                </Heading>
+                <HStack spacing={2}>
+                    <Flex gap={6}>
+                        <Flex basis="80%">
+                        <VStack align='justify'>
+                            <Heading color="gray.600" fontWeight={"medium"}>
+                                {description}
+                            </Heading>
+                            <Text textStyle='micro'>{agency}</Text>
+                        </VStack>
+                        </Flex>
+                        
+                        <Flex basis="20%">
+                        <Text textStyle='micro'>{yearRange}</Text>
+                            </Flex>
+                    </Flex>
+                
+                </HStack>
+                
+                
             </Box>
         </Flex>
     )
