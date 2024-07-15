@@ -7,12 +7,13 @@ export interface CapitalProjectsAccordionPanelProps {
     capitalProjects: Array<CapitalProject>;
     district: string;
     limit: number;
+    path: string;
     offset: number;
     total: number;
 }
 
 export const CapitalProjectsAccordionPanel = ({
-    capitalProjects, district, limit, offset, total
+    capitalProjects, district, limit, offset, total, path
 }: CapitalProjectsAccordionPanelProps) => {
     return (
         <Flex
@@ -46,6 +47,7 @@ export const CapitalProjectsAccordionPanel = ({
                     capitalProjects={capitalProjects}
                     limit={limit}
                     offset={offset}
+                    path={path}
                     total={total}
                 /> 
                 </AccordionPanel>

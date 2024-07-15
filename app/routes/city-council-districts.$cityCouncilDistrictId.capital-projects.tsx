@@ -5,7 +5,10 @@ import { CapitalProjectsList } from "~/components/CapitalProjectsList";
 import { CapitalProjectsAccordionPanel } from "~/components/CapitalProjectsAccordionPanel";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
+    console.log("in loader");
   const url = new URL(request.url);
+  const path = url.pathname;
+  console.log("url", url);
   const limitParam = url.searchParams.get("limit");
   const offsetParam = url.searchParams.get("offset");
   let limit;
@@ -30,7 +33,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     await findCapitalProjectsByCityCouncilId(
       cityCouncilDistrictId,
       {
-        limit: 7,
+        limit,
         offset,
       },
       {
@@ -43,10 +46,13 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export default function CapitalProjectsByCityCouncilDistrict() {
     const {projectsByCityCouncilDistrictResponse, cityCouncilDistrictId, limit, offset} = useLoaderData<typeof loader>();
+    console.log("in return fuction", projectsByCityCouncilDistrictResponse.capitalProjects);
+
     return (
     <CapitalProjectsAccordionPanel
         capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
         limit={limit}
+        path={path}
         offset={offset}
         total={projectsByCityCouncilDistrictResponse.total}
         district={"City Council District " + cityCouncilDistrictId}
