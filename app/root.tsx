@@ -2,8 +2,10 @@ import {
   StreetscapeProvider,
   Box,
   Heading,
+  VStack,
   Show,
-  HStack,
+  Hide,
+  Flex,
 } from "@nycplanning/streetscape";
 import {
   Links,
@@ -145,35 +147,32 @@ export default function App() {
   ) => setSearchParams(nextSearchParams, { replace: true });
 
   const AdminDropdowns = () => (
-    <>
+    <VStack>
       <DistrictTypeDropdown
         selectValue={districtType}
         updateSearchParams={updateSearchParams}
       />
-      <HStack spacing={2} width={"full"}>
-        {districtType !== "ccd" ? (
-          <>
-            <BoroughDropdown
-              selectValue={boroughId}
-              updateSearchParams={updateSearchParams}
-              boroughs={loaderData.boroughs}
-            />
-            <CommunityDistrictDropdown
-              boroughId={boroughId}
-              selectValue={districtId}
-              communityDistricts={loaderData.communityDistricts}
-              updateSearchParams={updateSearchParams}
-            />
-          </>
-        ) : (
-          <CityCouncilDistrictDropdown
-            selectValue={districtId}
-            cityCouncilDistricts={loaderData.cityCouncilDistricts}
-            updateSearchParams={updateSearchParams}
-          />
-        )}
-      </HStack>
-    </>
+      <BoroughDropdown
+        selectValue={boroughId}
+        updateSearchParams={updateSearchParams}
+        boroughs={loaderData.boroughs}
+      />
+
+      {districtType !== "ccd" ? (
+        <CommunityDistrictDropdown
+          boroughId={boroughId}
+          selectValue={districtId}
+          communityDistricts={loaderData.communityDistricts}
+          updateSearchParams={updateSearchParams}
+        />
+      ) : (
+        <CityCouncilDistrictDropdown
+          selectValue={districtId}
+          cityCouncilDistricts={loaderData.cityCouncilDistricts}
+          updateSearchParams={updateSearchParams}
+        />
+      )}
+    </VStack>
   );
 
   return (
@@ -185,15 +184,33 @@ export default function App() {
               <Atlas />{" "}
               <Overlay>
                 <Show above="lg">
-                  <FilterMenu>
+                  <FilterMenu defaultIndex={0}>
                     <AdminDropdowns />
                   </FilterMenu>
                 </Show>
-                <Outlet
-                  context={{
-                    children: AdminDropdowns(),
-                  }}
-                />
+                <Hide above="lg">
+                  <FilterMenu>
+                    <AdminDropdowns />
+                  </FilterMenu>
+                </Hide>
+                <Flex
+                  direction={{ base: "column-reverse", lg: "column" }}
+                  justify={{ base: "flex-start", lg: "space-between" }}
+                  align={"flex-end"}
+                  height={"full"}
+                  width={"full"}
+                  gap={3}
+                  pointerEvents={"none"}
+                >
+                  <Outlet />
+                  <Box>
+                    <img
+                      style={{ height: "1.5rem" }}
+                      alt="NYC Planning"
+                      src="https://raw.githubusercontent.com/NYCPlanning/dcp-logo/master/dcp_logo_772.png"
+                    />
+                  </Box>
+                </Flex>
               </Overlay>
             </>
           )}

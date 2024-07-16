@@ -13,7 +13,7 @@ export const Overlay = ({ children }: OverlayProps) => {
       height={"100vh"}
       width={"100vw"}
       direction={{ base: "column", lg: "row" }}
-      justify={{ base: "flex-end", lg: "space-between" }}
+      justify={{ base: "flex-start", lg: "space-between" }}
       align={{ base: "center", lg: "flex-start" }}
       pointerEvents={"none"}
       sx={{

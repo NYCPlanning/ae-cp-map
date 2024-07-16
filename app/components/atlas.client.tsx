@@ -75,30 +75,12 @@ export function Atlas() {
         }
         return isHovering ? "pointer" : "grab";
       }}
-      widgets={[ZoomControls, CompassControls]}
+      widgets={isMobile ? [] : [ZoomControls, CompassControls]}
     >
       <Map
         mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
+        attributionControl={isMobile ? false : true}
       ></Map>
-      <img
-        style={
-          isMobile
-            ? {
-                position: "absolute",
-                top: "0.5rem",
-                left: "0.5rem",
-                height: "2rem",
-              }
-            : {
-                position: "absolute",
-                bottom: "2.5rem",
-                right: "1rem",
-                height: "2rem",
-              }
-        }
-        alt="NYC Planning"
-        src="https://raw.githubusercontent.com/NYCPlanning/dcp-logo/master/dcp_logo_772.png"
-      />
     </DeckGL>
   );
 }

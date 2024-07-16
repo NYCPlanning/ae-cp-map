@@ -1,59 +1,55 @@
 import { ReactNode } from "react";
-import { Button, Flex, Heading, Show, Hide } from "@nycplanning/streetscape";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Button,
+  Box,
+} from "@nycplanning/streetscape";
 
-export const FilterMenu = ({
-  onClose = () => {
-    return;
-  },
-  children,
-}: FilterMenuProps) => {
-  return (
-    <Flex
-      borderRadius={"base"}
-      padding={{ base: 3, lg: 4 }}
-      background={"white"}
-      direction={"column"}
-      width={{ base: "full", lg: "21.25rem" }}
-      maxW={{ base: "21.25rem", lg: "unset" }}
-      boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
+export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
+  <Accordion
+    allowToggle
+    allowMultiple
+    borderRadius={"base"}
+    padding={{ base: 3, lg: 4 }}
+    background={"white"}
+    direction={"column"}
+    width={{ base: "full", lg: "21.25rem" }}
+    maxW={{ base: "21.25rem", lg: "unset" }}
+    boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
+    defaultIndex={defaultIndex}
+  >
+    <AccordionItem
+      borderTopWidth="0"
+      borderBottomWidth="0 !important"
+      value="1"
     >
-      <Hide above="lg">
-        <ChevronDownIcon
-          onClick={() => {
-            onClose();
-          }}
-          role={"button"}
-          width={"full"}
-          height={8}
-          color={"gray.300"}
-          aria-label="Close geography filter menu"
-        />
-      </Hide>
-      <Flex gap={4} direction={"column"}>
-        <Show above="lg">
-          <Heading
-            fontSize={"lg"}
-            textAlign={"left"}
-            fontWeight={"medium"}
-            width={"full"}
-            borderBottomStyle={"dotted"}
-            borderBottomWidth={"1px"}
-            borderBottomColor={"gray.400"}
-          >
-            Filter by District
-          </Heading>
-        </Show>
+      <AccordionButton aria-label="Close geography filter menu" px={0}>
+        <Box
+          as="span"
+          flex="1"
+          textAlign="left"
+          fontSize="large"
+          fontWeight="medium"
+        >
+          Filter by District
+        </Box>
+        <AccordionIcon />
+      </AccordionButton>
+      <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200" px={0}>
         {children}
-        <Button width="full" isDisabled={true}>
+        <Button width="full" isDisabled={true} mt={4}>
           Go to Selected District
         </Button>
-      </Flex>
-    </Flex>
-  );
-};
+      </AccordionPanel>
+    </AccordionItem>
+  </Accordion>
+);
 
 export interface FilterMenuProps {
-  onClose?: () => void;
   children: ReactNode;
+  defaultIndex?: number;
 }
