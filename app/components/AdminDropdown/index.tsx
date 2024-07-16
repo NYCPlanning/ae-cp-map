@@ -26,7 +26,9 @@ export function AdminDropdown({
 }: AdminDropdownProps) {
   return (
     <FormControl id={formId}>
-      <FormLabel onClick={onFormLabelClick}>{formLabel}</FormLabel>
+      <FormLabel onClick={onFormLabelClick} pb={0}>
+        {formLabel}
+      </FormLabel>
       <Select
         isDisabled={isSelectDisabled}
         placeholder="-Select-"
