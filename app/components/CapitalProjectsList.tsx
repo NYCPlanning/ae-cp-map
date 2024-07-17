@@ -89,10 +89,11 @@ export const CapitalProjectsList = ({
             </VStack>
         </Box>
         </Flex>
-        <HStack>
+        <Flex paddingTop="16px" alignItems="center" justifyContent={"space-between"}>
     
-        <Pagination total={10} path={path} />            
-        </HStack>
+        <Pagination total={total} path={path} /> 
+        <Button size="sm">Export Data</Button>       
+        </Flex>
         
         </>
     );

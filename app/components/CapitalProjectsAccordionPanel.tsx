@@ -1,8 +1,7 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Text, Flex, HStack, Heading, IconButton, Stack } from "@nycplanning/streetscape"
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, HStack, Heading, IconButton, Stack } from "@nycplanning/streetscape"
 import { Agency, CapitalProject } from "~/gen";
 import { CapitalProjectsList } from "./CapitalProjectsList";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
-import { Divider } from "@chakra-ui/react";
+
 
 export interface CapitalProjectsAccordionPanelProps {
     capitalProjects: Array<CapitalProject>;
@@ -28,7 +27,7 @@ export const CapitalProjectsAccordionPanel = ({
         boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
         gap={4}
     >
-<Accordion allowToggle>
+<Accordion defaultIndex={[0]} allowToggle>
             <AccordionItem border="none">
                 <h2>
                 <AccordionButton padding="0px">

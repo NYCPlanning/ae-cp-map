@@ -5,10 +5,8 @@ import { CapitalProjectsList } from "~/components/CapitalProjectsList";
 import { CapitalProjectsAccordionPanel } from "~/components/CapitalProjectsAccordionPanel";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
-    console.log("in loader");
   const url = new URL(request.url);
   const path = url.pathname;
-  console.log("url", url);
   const agenciesResponse = await findAgencies({
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
@@ -49,7 +47,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export default function CapitalProjectsByCityCouncilDistrict() {
     const {projectsByCityCouncilDistrictResponse, agencies, cityCouncilDistrictId, limit, path, offset} = useLoaderData<typeof loader>();
-    console.log("in return fuction", projectsByCityCouncilDistrictResponse.capitalProjects);
 
     return (
     <CapitalProjectsAccordionPanel
