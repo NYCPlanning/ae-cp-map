@@ -1,7 +1,8 @@
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, HStack, Heading, IconButton } from "@nycplanning/streetscape"
-import { CapitalProject } from "~/gen";
+import { Agency, CapitalProject } from "~/gen";
 import { CapitalProjectsList } from "./CapitalProjectsList";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
+import { Divider } from "@chakra-ui/react";
 
 export interface CapitalProjectsAccordionPanelProps {
     capitalProjects: Array<CapitalProject>;
@@ -10,10 +11,11 @@ export interface CapitalProjectsAccordionPanelProps {
     path: string;
     offset: number;
     total: number;
+    agencies: Agency[];
 }
 
 export const CapitalProjectsAccordionPanel = ({
-    capitalProjects, district, limit, offset, total, path
+    capitalProjects, district, limit, offset, total, path, agencies,
 }: CapitalProjectsAccordionPanelProps) => {
     return (
         <Flex
@@ -27,28 +29,36 @@ export const CapitalProjectsAccordionPanel = ({
         gap={4}
     >
 <Accordion allowToggle>
-            <AccordionItem>
+            <AccordionItem border="none">
                 <h2>
-                <AccordionButton>
+                <AccordionButton padding="0px">
                
-               <HStack justify="space-between">
+               <Box as='span' flex='1' textAlign='left'>
+                {/* <p>sdlkfja;sdlkjf;sa</p> */}
                    <Heading color="gray.600" fontWeight={"bold"} fontSize={"lg"}>
                    {district}
                    </Heading>
-                   <AccordionIcon />
-               </HStack>
+                  
+               </Box>
+               <AccordionIcon size="lg" />
                </AccordionButton>
                 </h2>
                 
         
                 
-                <AccordionPanel>
+                <AccordionPanel padding={"0px"}>
+                <p>sadlkfja;dsk</p>
+                <Box padding="20px">
+                <Divider borderColor={'cyan'} orientation="horizontal" />
+
+                </Box>
                 <CapitalProjectsList
                     capitalProjects={capitalProjects}
                     limit={limit}
                     offset={offset}
                     path={path}
                     total={total}
+                    agencies={agencies}
                 /> 
                 </AccordionPanel>
             </AccordionItem>

@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { HStack, IconButton } from "@nycplanning/streetscape";
+import { Flex, HStack, IconButton } from "@nycplanning/streetscape";
 import { useSearchParams } from "@remix-run/react";
 import { Button } from "@chakra-ui/button";
 import { Link } from "@remix-run/react";
@@ -16,23 +16,29 @@ export const Pagination = ({total, path}: PaginationProps) => {
     const limit = Number(searchParams.get("limit"));
     const offset = Number(searchParams.get("offset"));
 
-    const currentPage = Math.floor(offset / limit) + 1;
+    const currentPage = offset === 0 ? 1 : offset / limit + 1;
+    console.log(currentPage);
     const canSkipBackward = offset > 0;
     const canSkipForward = total === limit;
 
-    // const skip
+    const search = `?limit=7&offset=`; 
     return (
-        <HStack>
-            
-                <Link
-                    to={{
-                        search: {},
-                      }}
-                >
-                    <IconButton disable={!canSkipBackward} size="s" aria-label="Add" icon={<ChevronLeftIcon />}/>
-                </Link>
-            <Button size="sm" aria-label="Page">{currentPage}</Button>
-            <IconButton  disable={!canSkipBackward} size="s" aria-label="Add" icon={<ChevronRightIcon />} />
-        </HStack>
+        <Flex
+            paddingTop="16px"
+        >
+            <HStack>
+            <Link
+                to={{search: search + `${offset - 7}`}}
+            >
+                <IconButton disable={!canSkipBackward} size="s" aria-label="Add" icon={<ChevronLeftIcon />}/>
+            </Link>
+            <Button borderRadius={0} size="sm" aria-label="Page">{currentPage}</Button>
+            <Link
+                to={{search: search + `${currentPage * 7}`}}
+            >
+                <IconButton  disable={!canSkipBackward} size="s" aria-label="Add" icon={<ChevronRightIcon />} />
+            </Link>
+            </HStack>
+        </Flex>
     );
 }

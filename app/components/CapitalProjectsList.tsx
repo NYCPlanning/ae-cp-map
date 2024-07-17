@@ -1,6 +1,6 @@
 import { Box, Flex, Hide, FlexProps, VStack, HStack, IconButton, Link} from "@nycplanning/streetscape";
 import { useState } from "react";
-import { CapitalProject } from "~/gen";
+import { Agency, CapitalProject } from "~/gen";
 import { getYear, getMonth, compareAsc } from "date-fns";
 import { CapitalProjectsListItem } from "./CapitalProjectsListItem";
 import { Button } from "@chakra-ui/react";
@@ -15,11 +15,12 @@ export interface CapitalProjectsListProps {
     limit: number;
     offset: number;
     total: number;
+    agencies: Agency[];
     path: string;
 }
 
 export const CapitalProjectsList = ({
-    capitalProjects, limit, offset, total, path
+    capitalProjects, limit, offset, total, path, agencies,
 }: CapitalProjectsListProps) => {
 
     const [searchParams] = useSearchParams();
@@ -66,27 +67,17 @@ export const CapitalProjectsList = ({
 
     // const Pagination = () => <Button colorScheme="blue" borderRadius="0" aria-label="Page" size="xs">{offset+1}</Button>
     return (
-
-        // <Hide above="lg">
-        // <Box
-        //     height={"4px"}
-        //     width={20}
-        //     backgroundColor={"gray.300"}
-        //     borderRadius="2px"
-        //     alignSelf={"center"}
-        //     role="button"
-        //     aria-label={
-        //       isExpanded
-        //         ? "Collapse project detail panel"
-        //         : "Expand project detail panel"
-        //     }
-        //     onClick={() => {
-        //       setIsExpanded(!isExpanded);
-        //     }}
-        // />
-        // </Hide>
         <>
-        <Box>
+        <Flex
+        direction={"column"}
+        overflow={"hidden"}
+        >
+
+    
+        <Box
+            height={{ base: isExpanded ? "70vh" : "70vh"}}
+            overflowY={{ base: "scroll" }}
+        >
             {/* this should be a generic panel for project detail and list */}
             
             {/* we need a separate component for project list item */}
@@ -100,7 +91,9 @@ export const CapitalProjectsList = ({
                         description={capitalProject.description}
                         minDate={capitalProject.minDate}
                         maxDate={capitalProject.maxDate}
-                        agency= {capitalProject.managingAgency}
+                        agency= { agencies.find(
+                            (agency) => agency.initials === capitalProject.managingAgency,
+                          )?.name }
                         yearRange={formatFiscalYearRange(
                             new Date(capitalProject.minDate),
                             new Date(capitalProject.maxDate),
@@ -110,34 +103,10 @@ export const CapitalProjectsList = ({
             })}
             </VStack>
         </Box>
+        </Flex>
         <HStack>
-        <Button
-        size="xs"
-        variant="outline"
-      >
-        {/* <Link
-          to={{
-            search: setSearchParamsString(searchParams, {
-              $skip: 0,
-            }),
-          }}
-          preventScrollReset
-          prefetch="intent"
-          className="text-neutral-600"
-        >
-          <span className="sr-only"> First page</span>
-          <Icon name="double-arrow-left" />
-        </Link> */}
-      </Button>
-      <Pagination total={10} path={path} />
-
-           {/* We cannot know the size of the capital projects so we need to test out the 'next' offset to determine whether or not we should disable  */}
-            {/* <HStack>
-            <IconButton variant="ghost" aria-label='Search database' icon={<ArrowLeftIcon />} />
-            <Pagination />   
-            <IconButton variant="ghost" aria-label='Search database' icon={<ArrowRightIcon />} /> 
-            </HStack> */}
-            
+    
+        <Pagination total={10} path={path} />            
         </HStack>
         
         </>

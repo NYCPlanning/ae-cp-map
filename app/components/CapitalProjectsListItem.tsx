@@ -6,7 +6,7 @@ export interface CapitalProjectsListItemProps {
     description: string;
     minDate: string;
     maxDate: string;
-    agency: string;
+    agency: string | undefined;
     yearRange: string;
 }
 
