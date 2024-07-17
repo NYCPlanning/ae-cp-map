@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Flex, HStack, Heading, IconButton } from "@nycplanning/streetscape"
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Text, Flex, HStack, Heading, IconButton, Stack } from "@nycplanning/streetscape"
 import { Agency, CapitalProject } from "~/gen";
 import { CapitalProjectsList } from "./CapitalProjectsList";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
@@ -32,10 +32,8 @@ export const CapitalProjectsAccordionPanel = ({
             <AccordionItem border="none">
                 <h2>
                 <AccordionButton padding="0px">
-               
                <Box as='span' flex='1' textAlign='left'>
-                {/* <p>sdlkfja;sdlkjf;sa</p> */}
-                   <Heading color="gray.600" fontWeight={"bold"} fontSize={"lg"}>
+                   <Heading color="gray.600" fontWeight={"bold"} fontSize={"lg"} paddingBottom={"8px"}>
                    {district}
                    </Heading>
                   
@@ -43,23 +41,16 @@ export const CapitalProjectsAccordionPanel = ({
                <AccordionIcon size="lg" />
                </AccordionButton>
                 </h2>
-                
-        
-                
+ 
                 <AccordionPanel padding={"0px"}>
-                <p>sadlkfja;dsk</p>
-                <Box padding="20px">
-                <Divider borderColor={'cyan'} orientation="horizontal" />
-
-                </Box>
-                <CapitalProjectsList
-                    capitalProjects={capitalProjects}
-                    limit={limit}
-                    offset={offset}
-                    path={path}
-                    total={total}
-                    agencies={agencies}
-                /> 
+                    <CapitalProjectsList
+                        capitalProjects={capitalProjects}
+                        limit={limit}
+                        offset={offset}
+                        path={path}
+                        total={total}
+                        agencies={agencies}
+                    />                 
                 </AccordionPanel>
             </AccordionItem>
         </Accordion>
