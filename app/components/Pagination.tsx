@@ -11,8 +11,8 @@ export interface PaginationProps{
 };
 
 export const Pagination = ({total, path}: PaginationProps) => {
+    // where do we want to limit to only having 7 as limit
     const [searchParams] = useSearchParams();
-
     const limit = Number(searchParams.get("limit"));
     const offset = Number(searchParams.get("offset"));
 
