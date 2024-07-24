@@ -37,6 +37,7 @@ import {
   CityCouncilDistrictDropdown,
 } from "./components/AdminDropdown";
 import { URLSearchParamsInit } from "react-router-dom";
+import { url } from "inspector";
 
 export type BoroughId = null | string;
 export type DistrictType = null | "cd" | "ccd";
@@ -157,8 +158,6 @@ export default function App() {
     }
   }
 
-  console.log("searchParams", searchParams);
-
   const AdminDropdowns = () => (
     <>
       <DistrictTypeDropdown
@@ -202,10 +201,10 @@ export default function App() {
                 <Show above="lg">
                   <FilterMenu
                     toNav={() => {
-                      console.log("navigatingsdfakjd");
                       const navStr = updateNavString(districtType, districtId);
                       navigate({
-                        pathname: navStr
+                        pathname: navStr,
+                        search: `?${searchParams.toString()}`
                       })
                     }}
                   >

@@ -2,7 +2,6 @@ import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPane
 import { Agency, CapitalProject } from "~/gen";
 import { CapitalProjectsList } from "./CapitalProjectsList";
 
-
 export interface CapitalProjectsAccordionPanelProps {
     capitalProjects: Array<CapitalProject>;
     district: string;

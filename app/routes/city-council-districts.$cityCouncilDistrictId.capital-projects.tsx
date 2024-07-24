@@ -1,8 +1,9 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { findCapitalProjectsByCityCouncilId, findAgencies } from "../gen";
 import { useLoaderData, useNavigate } from "@remix-run/react";
-import { CapitalProjectsList } from "~/components/CapitalProjectsList";
-import { CapitalProjectsAccordionPanel } from "~/components/CapitalProjectsAccordionPanel";
+import { CapitalProjectsAccordionPanel } from "../components/CapitalProjectsList";
+import { Box, Hide, Show, Text } from "@nycplanning/streetscape";
+import { CapitalProjectsDrawer } from "~/components/CapitalProjectsList/CapitalProjectsDrawer";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -49,14 +50,29 @@ export default function CapitalProjectsByCityCouncilDistrict() {
     const {projectsByCityCouncilDistrictResponse, agencies, cityCouncilDistrictId, limit, path, offset} = useLoaderData<typeof loader>();
 
     return (
-    <CapitalProjectsAccordionPanel
-        capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
-        limit={limit}
-        agencies={agencies}
-        path={path}
-        offset={offset}
-        total={projectsByCityCouncilDistrictResponse.total}
-        district={"City Council District " + cityCouncilDistrictId}
-    />    
+        <>
+        <Show above='sm'>
+            <CapitalProjectsAccordionPanel
+                capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
+                limit={limit}
+                agencies={agencies}
+                path={path}
+                offset={offset}
+                total={projectsByCityCouncilDistrictResponse.total}
+                district={"City Council District " + cityCouncilDistrictId}
+            />    
+        </Show>
+        <Hide above='sm'>
+            <CapitalProjectsDrawer
+                capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
+                limit={limit}
+                agencies={agencies}
+                path={path}
+                offset={offset}
+                total={projectsByCityCouncilDistrictResponse.total}
+                district={"City Council District " + cityCouncilDistrictId}
+            />
+        </Hide>
+        </>
     );
 }

@@ -1,30 +1,13 @@
 import { ReactNode } from "react";
 import { Button, Flex, Heading, Show, Hide } from "@nycplanning/streetscape";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { useNavigate, useSearchParams } from "@remix-run/react";
-
-// const [searchParams] = useSearchParams();
-// console.log("serachParams", searchParams)
-// const navigate = useNavigate();
-
-// const districtType = searchParams.get("districtType");
-// const districtId = searchParams.get("districtId");
-
-const goToDistrict = (districtType: string | undefined, options: string | undefined) => {
-  if (districtType === 'ccd') {
-    return `city-council-district/${options}/capital-projects`;
-  }
-  else {
-    return '/';
-  }
-}
 
 export const FilterMenu = ({
   onClose = () => {
     return;
   },
   children,
-  toNav
+  toNav,
 }: FilterMenuProps) => {
   return (
     <Flex
