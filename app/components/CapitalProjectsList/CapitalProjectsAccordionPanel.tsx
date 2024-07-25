@@ -8,23 +8,15 @@ import {
   Flex,
   Heading,
 } from "@nycplanning/streetscape";
-import { Agency, CapitalProject } from "~/gen";
-import { CapitalProjectsList } from "./CapitalProjectsList";
 
 export interface CapitalProjectsAccordionPanelProps {
-  capitalProjects: Array<CapitalProject>;
   district: string;
-  path: string;
-  total: number;
-  agencies: Agency[];
+  children: React.ReactNode;
 }
 
 export const CapitalProjectsAccordionPanel = ({
-  capitalProjects,
   district,
-  total,
-  path,
-  agencies,
+  children,
 }: CapitalProjectsAccordionPanelProps) => {
   return (
     <Flex
@@ -55,14 +47,7 @@ export const CapitalProjectsAccordionPanel = ({
             </AccordionButton>
           </h2>
 
-          <AccordionPanel padding={"0px"}>
-            <CapitalProjectsList
-              capitalProjects={capitalProjects}
-              path={path}
-              total={total}
-              agencies={agencies}
-            />
-          </AccordionPanel>
+          <AccordionPanel padding={"0px"}>{children}</AccordionPanel>
         </AccordionItem>
       </Accordion>
     </Flex>

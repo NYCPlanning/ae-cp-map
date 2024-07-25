@@ -6,24 +6,16 @@ import {
   DrawerOverlay,
   DrawerContent,
 } from "@chakra-ui/react";
-import { Agency, CapitalProject } from "~/gen";
-import { CapitalProjectsList } from "./CapitalProjectsList";
 import { useState } from "react";
 
 export interface CapitalProjectsDrawerProps {
-  capitalProjects: Array<CapitalProject>;
   district: string;
-  path: string;
-  total: number;
-  agencies: Agency[];
+  children: React.ReactNode;
 }
 
 export const CapitalProjectsDrawer = ({
-  capitalProjects,
   district,
-  total,
-  path,
-  agencies,
+  children,
 }: CapitalProjectsDrawerProps) => {
   // const { isOpen, onOpen, onClose } = useDisclosure()
   const [isExpanded, setIsExpanded] = useState(false);
@@ -83,12 +75,7 @@ export const CapitalProjectsDrawer = ({
               transition={"height 0.5s ease-in-out"}
               gap={4}
             >
-              <CapitalProjectsList
-                capitalProjects={capitalProjects}
-                path={path}
-                total={total}
-                agencies={agencies}
-              />
+              {children}
             </Flex>
           </DrawerBody>
         </Flex>

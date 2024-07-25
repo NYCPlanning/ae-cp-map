@@ -1,13 +1,15 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { findCapitalProjectsByCityCouncilId, findAgencies } from "../gen";
-import { useLoaderData } from "@remix-run/react";
-import { CapitalProjectsAccordionPanel } from "../components/CapitalProjectsList";
+import { useLoaderData, useLocation, useParams } from "@remix-run/react";
+import {
+  CapitalProjectsAccordionPanel,
+  CapitalProjectsList,
+} from "../components/CapitalProjectsList";
 import { Hide, Show } from "@nycplanning/streetscape";
 import { CapitalProjectsDrawer } from "~/components/CapitalProjectsList/CapitalProjectsDrawer";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-  const path = url.pathname;
   const agenciesResponse = await findAgencies({
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
@@ -39,42 +41,37 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return {
     projectsByCityCouncilDistrictResponse,
     agencies: agenciesResponse.agencies,
-    path,
     cityCouncilDistrictId,
   };
 }
 
 export default function CapitalProjectsByCityCouncilDistrict() {
-  const {
-    projectsByCityCouncilDistrictResponse,
-    agencies,
-    cityCouncilDistrictId,
-    path,
-  } = useLoaderData<typeof loader>();
+  const { projectsByCityCouncilDistrictResponse, agencies } =
+    useLoaderData<typeof loader>();
+  const { pathname } = useLocation();
+  const { cityCouncilDistrictId } = useParams();
+
+  const district = `City Council District ${cityCouncilDistrictId}`;
+  const capitalProjectList = (
+    <CapitalProjectsList
+      capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
+      path={pathname}
+      total={projectsByCityCouncilDistrictResponse.total}
+      agencies={agencies}
+    />
+  );
 
   return (
     <>
       <Show above="sm">
-        <CapitalProjectsAccordionPanel
-          capitalProjects={
-            projectsByCityCouncilDistrictResponse.capitalProjects
-          }
-          agencies={agencies}
-          path={path}
-          total={projectsByCityCouncilDistrictResponse.total}
-          district={"City Council District " + cityCouncilDistrictId}
-        />
+        <CapitalProjectsAccordionPanel district={district}>
+          {capitalProjectList}
+        </CapitalProjectsAccordionPanel>
       </Show>
       <Hide above="sm">
-        <CapitalProjectsDrawer
-          capitalProjects={
-            projectsByCityCouncilDistrictResponse.capitalProjects
-          }
-          agencies={agencies}
-          path={path}
-          total={projectsByCityCouncilDistrictResponse.total}
-          district={"City Council District " + cityCouncilDistrictId}
-        />
+        <CapitalProjectsDrawer district={district}>
+          {capitalProjectList}
+        </CapitalProjectsDrawer>
       </Hide>
     </>
   );
