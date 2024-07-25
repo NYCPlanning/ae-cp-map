@@ -5,8 +5,9 @@ import {
   CapitalProjectsAccordionPanel,
   CapitalProjectsList,
 } from "../components/CapitalProjectsList";
-import { Hide, Show } from "@nycplanning/streetscape";
+import { Button, Flex, Hide, Show } from "@nycplanning/streetscape";
 import { CapitalProjectsDrawer } from "~/components/CapitalProjectsList/CapitalProjectsDrawer";
+import { Pagination } from "~/components/Pagination";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -55,22 +56,41 @@ export default function CapitalProjectsByCityCouncilDistrict() {
   const capitalProjectList = (
     <CapitalProjectsList
       capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
-      path={pathname}
-      total={projectsByCityCouncilDistrictResponse.total}
       agencies={agencies}
     />
+  );
+
+  const footer = (
+    <Flex
+      paddingTop="16px"
+      alignItems="center"
+      justifyContent={"space-between"}
+    >
+      <Pagination
+        total={projectsByCityCouncilDistrictResponse.total}
+        path={pathname}
+      />
+      <Button size="sm">Export Data</Button>
+    </Flex>
+  );
+
+  const capitalProjectChildren = (
+    <>
+      {capitalProjectList}
+      {footer}
+    </>
   );
 
   return (
     <>
       <Show above="sm">
         <CapitalProjectsAccordionPanel district={district}>
-          {capitalProjectList}
+          {capitalProjectChildren}
         </CapitalProjectsAccordionPanel>
       </Show>
       <Hide above="sm">
         <CapitalProjectsDrawer district={district}>
-          {capitalProjectList}
+          {capitalProjectChildren}
         </CapitalProjectsDrawer>
       </Hide>
     </>
