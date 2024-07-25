@@ -1,42 +1,21 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Hide,
-  Input,
-} from "@nycplanning/streetscape";
+import { Box, Flex, Heading } from "@nycplanning/streetscape";
 import {
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
 } from "@chakra-ui/react";
-import { Agency, CapitalProject } from "~/gen";
-import { CapitalProjectsList } from "./CapitalProjectsList";
 import { useState } from "react";
 
 export interface CapitalProjectsDrawerProps {
-  capitalProjects: Array<CapitalProject>;
   district: string;
-  limit: number;
-  path: string;
-  offset: number;
-  total: number;
-  agencies: Agency[];
+  children: React.ReactNode;
 }
 
 export const CapitalProjectsDrawer = ({
-  capitalProjects,
   district,
-  limit,
-  offset,
-  total,
-  path,
-  agencies,
+  children,
 }: CapitalProjectsDrawerProps) => {
   // const { isOpen, onOpen, onClose } = useDisclosure()
   const [isExpanded, setIsExpanded] = useState(false);
@@ -96,14 +75,7 @@ export const CapitalProjectsDrawer = ({
               transition={"height 0.5s ease-in-out"}
               gap={4}
             >
-              <CapitalProjectsList
-                capitalProjects={capitalProjects}
-                limit={limit}
-                offset={offset}
-                path={path}
-                total={total}
-                agencies={agencies}
-              />
+              {children}
             </Flex>
           </DrawerBody>
         </Flex>

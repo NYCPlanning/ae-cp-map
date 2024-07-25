@@ -1,13 +1,5 @@
-import {
-  Box,
-  HStack,
-  Heading,
-  VStack,
-  Text,
-  Spacer,
-} from "@nycplanning/streetscape";
-import { Icon, createIcon, Flex } from "@chakra-ui/react";
-import { Pagination } from "../Pagination";
+import { Box, HStack, Heading, VStack, Text } from "@nycplanning/streetscape";
+import { Flex } from "@chakra-ui/react";
 
 export interface CapitalProjectsListItemProps {
   description: string;

@@ -2,28 +2,18 @@ import { Box, Flex, Text, VStack, WrapItem } from "@nycplanning/streetscape";
 import { useState } from "react";
 import { Agency, CapitalProject } from "~/gen";
 import { CapitalProjectsListItem } from "./CapitalProjectsListItem";
-import { Button } from "@chakra-ui/react";
-import { Pagination } from "../Pagination";
 import { formatFiscalYearRange, currentDate } from "../../utils/utils";
 
 export interface CapitalProjectsListProps {
   capitalProjects: Array<CapitalProject>;
-  limit: number;
-  offset: number;
-  total: number;
   agencies: Agency[];
-  path: string;
 }
 
 export const CapitalProjectsList = ({
   capitalProjects,
-  limit,
-  offset,
-  total,
-  path,
   agencies,
 }: CapitalProjectsListProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded] = useState(false);
 
   const listBody =
     capitalProjects.length === 0 ? (
@@ -71,14 +61,6 @@ export const CapitalProjectsList = ({
             {listBody}
           </VStack>
         </Box>
-      </Flex>
-      <Flex
-        paddingTop="16px"
-        alignItems="center"
-        justifyContent={"space-between"}
-      >
-        <Pagination total={total} path={path} />
-        <Button size="sm">Export Data</Button>
       </Flex>
     </>
   );

@@ -1,25 +1,21 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { findCapitalProjectsByCityCouncilId, findAgencies } from "../gen";
-import { useLoaderData, useNavigate } from "@remix-run/react";
-import { CapitalProjectsAccordionPanel } from "../components/CapitalProjectsList";
-import { Box, Hide, Show, Text } from "@nycplanning/streetscape";
+import { useLoaderData, useLocation, useParams } from "@remix-run/react";
+import {
+  CapitalProjectsAccordionPanel,
+  CapitalProjectsList,
+} from "../components/CapitalProjectsList";
+import { Button, Flex, Hide, Show } from "@nycplanning/streetscape";
 import { CapitalProjectsDrawer } from "~/components/CapitalProjectsList/CapitalProjectsDrawer";
+import { Pagination } from "~/components/Pagination";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-  const path = url.pathname;
   const agenciesResponse = await findAgencies({
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
-  const limitParam = url.searchParams.get("limit");
   const offsetParam = url.searchParams.get("offset");
-  let limit;
   let offset;
-  if (limitParam === null) {
-    limit = 20;
-  } else {
-    limit = parseInt(limitParam);
-  }
   if (offsetParam === null) {
     offset = 0;
   } else {
@@ -43,36 +39,60 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       },
     );
 
-  return {projectsByCityCouncilDistrictResponse, agencies: agenciesResponse.agencies, limit, offset, path, cityCouncilDistrictId};
+  return {
+    projectsByCityCouncilDistrictResponse,
+    agencies: agenciesResponse.agencies,
+    cityCouncilDistrictId,
+  };
 }
 
 export default function CapitalProjectsByCityCouncilDistrict() {
-    const {projectsByCityCouncilDistrictResponse, agencies, cityCouncilDistrictId, limit, path, offset} = useLoaderData<typeof loader>();
+  const { projectsByCityCouncilDistrictResponse, agencies } =
+    useLoaderData<typeof loader>();
+  const { pathname } = useLocation();
+  const { cityCouncilDistrictId } = useParams();
 
-    return (
-        <>
-        <Show above='sm'>
-            <CapitalProjectsAccordionPanel
-                capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
-                limit={limit}
-                agencies={agencies}
-                path={path}
-                offset={offset}
-                total={projectsByCityCouncilDistrictResponse.total}
-                district={"City Council District " + cityCouncilDistrictId}
-            />    
-        </Show>
-        <Hide above='sm'>
-            <CapitalProjectsDrawer
-                capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
-                limit={limit}
-                agencies={agencies}
-                path={path}
-                offset={offset}
-                total={projectsByCityCouncilDistrictResponse.total}
-                district={"City Council District " + cityCouncilDistrictId}
-            />
-        </Hide>
-        </>
-    );
+  const district = `City Council District ${cityCouncilDistrictId}`;
+  const capitalProjectList = (
+    <CapitalProjectsList
+      capitalProjects={projectsByCityCouncilDistrictResponse.capitalProjects}
+      agencies={agencies}
+    />
+  );
+
+  const footer = (
+    <Flex
+      paddingTop="16px"
+      alignItems="center"
+      justifyContent={"space-between"}
+    >
+      <Pagination
+        total={projectsByCityCouncilDistrictResponse.total}
+        path={pathname}
+      />
+      <Button size="sm">Export Data</Button>
+    </Flex>
+  );
+
+  const capitalProjectChildren = (
+    <>
+      {capitalProjectList}
+      {footer}
+    </>
+  );
+
+  return (
+    <>
+      <Show above="sm">
+        <CapitalProjectsAccordionPanel district={district}>
+          {capitalProjectChildren}
+        </CapitalProjectsAccordionPanel>
+      </Show>
+      <Hide above="sm">
+        <CapitalProjectsDrawer district={district}>
+          {capitalProjectChildren}
+        </CapitalProjectsDrawer>
+      </Hide>
+    </>
+  );
 }

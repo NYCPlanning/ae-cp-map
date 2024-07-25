@@ -37,7 +37,10 @@ import {
   CityCouncilDistrictDropdown,
 } from "./components/AdminDropdown";
 import { URLSearchParamsInit } from "react-router-dom";
-import { url } from "inspector";
+import {
+  GoToCityCouncilDistrictBtn,
+  GoToDistrictBtn,
+} from "./components/GoToDistrictBtn";
 
 export type BoroughId = null | string;
 export type DistrictType = null | "cd" | "ccd";
@@ -149,16 +152,13 @@ export default function App() {
       | undefined,
   ) => setSearchParams(nextSearchParams, { replace: true });
 
-  const updateNavString = (districtType: DistrictType, districtId: DistrictId) => {
-    if (districtType === "ccd") {
-      return `city-council-districts/${districtId}/capital-projects`;
-    }
-    else {
-      return ``;
-    }
-  }
+  const goToDistrict = (path: string) =>
+    navigate({
+      pathname: path,
+      search: `?${searchParams.toString()}`,
+    });
 
-  const AdminDropdowns = () => (
+  const FilterMenuContent = () => (
     <>
       <DistrictTypeDropdown
         selectValue={districtType}
@@ -187,6 +187,14 @@ export default function App() {
           />
         )}
       </HStack>
+      {districtType !== "ccd" ? (
+        <GoToDistrictBtn goToDistrict={goToDistrict} path={null} />
+      ) : (
+        <GoToCityCouncilDistrictBtn
+          goToDistrict={goToDistrict}
+          districtId={districtId}
+        />
+      )}
     </>
   );
 
@@ -199,21 +207,13 @@ export default function App() {
               <Atlas />{" "}
               <Overlay>
                 <Show above="lg">
-                  <FilterMenu
-                    toNav={() => {
-                      const navStr = updateNavString(districtType, districtId);
-                      navigate({
-                        pathname: navStr,
-                        search: `?${searchParams.toString()}`
-                      })
-                    }}
-                  >
-                    <AdminDropdowns />
+                  <FilterMenu>
+                    <FilterMenuContent />
                   </FilterMenu>
                 </Show>
                 <Outlet
                   context={{
-                    children: AdminDropdowns(),
+                    children: FilterMenuContent(),
                   }}
                 />
               </Overlay>
