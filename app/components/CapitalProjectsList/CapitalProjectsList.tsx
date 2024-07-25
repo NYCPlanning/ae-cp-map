@@ -21,7 +21,7 @@ export const CapitalProjectsList = ({
     ) : (
       capitalProjects.map((capitalProject) => {
         return (
-          <WrapItem key={capitalProject.id}>
+          <WrapItem key={`${capitalProject.managingCode}${capitalProject.id}`}>
             <CapitalProjectsListItem
               description={capitalProject.description}
               minDate={capitalProject.minDate}
