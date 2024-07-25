@@ -11,15 +11,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const agenciesResponse = await findAgencies({
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
-  const limitParam = url.searchParams.get("limit");
   const offsetParam = url.searchParams.get("offset");
-  let limit;
   let offset;
-  if (limitParam === null) {
-    limit = 20;
-  } else {
-    limit = parseInt(limitParam);
-  }
   if (offsetParam === null) {
     offset = 0;
   } else {
@@ -46,8 +39,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return {
     projectsByCityCouncilDistrictResponse,
     agencies: agenciesResponse.agencies,
-    limit,
-    offset,
     path,
     cityCouncilDistrictId,
   };
@@ -58,9 +49,7 @@ export default function CapitalProjectsByCityCouncilDistrict() {
     projectsByCityCouncilDistrictResponse,
     agencies,
     cityCouncilDistrictId,
-    limit,
     path,
-    offset,
   } = useLoaderData<typeof loader>();
 
   return (
@@ -70,10 +59,8 @@ export default function CapitalProjectsByCityCouncilDistrict() {
           capitalProjects={
             projectsByCityCouncilDistrictResponse.capitalProjects
           }
-          limit={limit}
           agencies={agencies}
           path={path}
-          offset={offset}
           total={projectsByCityCouncilDistrictResponse.total}
           district={"City Council District " + cityCouncilDistrictId}
         />
@@ -83,10 +70,8 @@ export default function CapitalProjectsByCityCouncilDistrict() {
           capitalProjects={
             projectsByCityCouncilDistrictResponse.capitalProjects
           }
-          limit={limit}
           agencies={agencies}
           path={path}
-          offset={offset}
           total={projectsByCityCouncilDistrictResponse.total}
           district={"City Council District " + cityCouncilDistrictId}
         />

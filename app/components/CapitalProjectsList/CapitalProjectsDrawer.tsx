@@ -13,9 +13,7 @@ import { useState } from "react";
 export interface CapitalProjectsDrawerProps {
   capitalProjects: Array<CapitalProject>;
   district: string;
-  limit: number;
   path: string;
-  offset: number;
   total: number;
   agencies: Agency[];
 }
@@ -23,8 +21,6 @@ export interface CapitalProjectsDrawerProps {
 export const CapitalProjectsDrawer = ({
   capitalProjects,
   district,
-  limit,
-  offset,
   total,
   path,
   agencies,
@@ -89,8 +85,6 @@ export const CapitalProjectsDrawer = ({
             >
               <CapitalProjectsList
                 capitalProjects={capitalProjects}
-                limit={limit}
-                offset={offset}
                 path={path}
                 total={total}
                 agencies={agencies}

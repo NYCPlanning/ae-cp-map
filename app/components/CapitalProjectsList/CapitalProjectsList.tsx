@@ -8,8 +8,6 @@ import { formatFiscalYearRange, currentDate } from "../../utils/utils";
 
 export interface CapitalProjectsListProps {
   capitalProjects: Array<CapitalProject>;
-  limit: number;
-  offset: number;
   total: number;
   agencies: Agency[];
   path: string;

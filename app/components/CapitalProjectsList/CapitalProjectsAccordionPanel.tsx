@@ -14,9 +14,7 @@ import { CapitalProjectsList } from "./CapitalProjectsList";
 export interface CapitalProjectsAccordionPanelProps {
   capitalProjects: Array<CapitalProject>;
   district: string;
-  limit: number;
   path: string;
-  offset: number;
   total: number;
   agencies: Agency[];
 }
@@ -24,8 +22,6 @@ export interface CapitalProjectsAccordionPanelProps {
 export const CapitalProjectsAccordionPanel = ({
   capitalProjects,
   district,
-  limit,
-  offset,
   total,
   path,
   agencies,
@@ -62,8 +58,6 @@ export const CapitalProjectsAccordionPanel = ({
           <AccordionPanel padding={"0px"}>
             <CapitalProjectsList
               capitalProjects={capitalProjects}
-              limit={limit}
-              offset={offset}
               path={path}
               total={total}
               agencies={agencies}
