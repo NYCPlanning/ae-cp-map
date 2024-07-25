@@ -1,19 +1,10 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Hide,
-  Input,
-} from "@nycplanning/streetscape";
+import { Box, Flex, Heading } from "@nycplanning/streetscape";
 import {
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
 } from "@chakra-ui/react";
 import { Agency, CapitalProject } from "~/gen";
 import { CapitalProjectsList } from "./CapitalProjectsList";

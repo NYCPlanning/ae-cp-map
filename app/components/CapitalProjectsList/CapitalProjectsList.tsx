@@ -17,13 +17,11 @@ export interface CapitalProjectsListProps {
 
 export const CapitalProjectsList = ({
   capitalProjects,
-  limit,
-  offset,
   total,
   path,
   agencies,
 }: CapitalProjectsListProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded] = useState(false);
 
   const listBody =
     capitalProjects.length === 0 ? (

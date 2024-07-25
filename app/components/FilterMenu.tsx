@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Button, Flex, Heading, Show, Hide } from "@nycplanning/streetscape";
+import { Flex, Heading, Show, Hide } from "@nycplanning/streetscape";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 export const FilterMenu = ({
@@ -7,7 +7,6 @@ export const FilterMenu = ({
     return;
   },
   children,
-  toNav,
 }: FilterMenuProps) => {
   return (
     <Flex
@@ -46,13 +45,6 @@ export const FilterMenu = ({
           </Heading>
         </Show>
         {children}
-        <Button width="full" 
-        onClick={
-          toNav
-        }
-        isDisabled={false}>
-          Go to Selected District
-        </Button>
       </Flex>
     </Flex>
   );
