@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { findCapitalProjectsByCityCouncilId, findAgencies } from "../gen";
-import { useLoaderData, useLocation, useParams } from "@remix-run/react";
+import { useLoaderData, useParams, useSearchParams } from "@remix-run/react";
 import {
   CapitalProjectsAccordionPanel,
   CapitalProjectsList,
@@ -8,6 +8,7 @@ import {
 import { Button, Flex, Hide, Show } from "@nycplanning/streetscape";
 import { CapitalProjectsDrawer } from "~/components/CapitalProjectsList/CapitalProjectsDrawer";
 import { Pagination } from "~/components/Pagination";
+import { getNextSearchParams } from "~/utils/utils";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -49,8 +50,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export default function CapitalProjectsByCityCouncilDistrict() {
   const { projectsByCityCouncilDistrictResponse, agencies } =
     useLoaderData<typeof loader>();
-  const { pathname } = useLocation();
+  const [searchParams] = useSearchParams();
+  const offsetRaw = searchParams.get("offset");
+  const offset = offsetRaw === null ? undefined : Number(offsetRaw);
   const { cityCouncilDistrictId } = useParams();
+
+  const getNextPageParams = (
+    params: Record<string, string | number | undefined>,
+  ) => getNextSearchParams(searchParams, params);
 
   const district = `City Council District ${cityCouncilDistrictId}`;
   const capitalProjectList = (
@@ -67,8 +74,9 @@ export default function CapitalProjectsByCityCouncilDistrict() {
       justifyContent={"space-between"}
     >
       <Pagination
+        offset={offset}
         total={projectsByCityCouncilDistrictResponse.total}
-        path={pathname}
+        getNextPageParams={getNextPageParams}
       />
       <Button size="sm">Export Data</Button>
     </Flex>
