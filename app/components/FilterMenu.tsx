@@ -12,6 +12,7 @@ export const FilterMenu = ({
     <Flex
       borderRadius={"base"}
       padding={{ base: 3, lg: 4 }}
+      marginBottom={{ base: 3, lg: "unset" }}
       background={"white"}
       direction={"column"}
       width={{ base: "full", lg: "21.25rem" }}

@@ -19,6 +19,7 @@ export default function Index() {
         <Button
           width={"full"}
           maxW={"21.25rem"}
+          marginBottom={{ base: 3, lg: "unset" }}
           onClick={() => {
             setShouldShowFilterMenu(true);
           }}

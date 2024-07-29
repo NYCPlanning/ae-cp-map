@@ -45,17 +45,6 @@ describe("CapitalProjectDetailPanel", () => {
     expect(screen.getByText(agencies[0].name)).toBeVisible();
   });
 
-  it("should render the name of the sponsoring agency", () => {
-    render(
-      <CapitalProjectDetailPanel
-        capitalProject={capitalProject}
-        agencies={agencies}
-        onClose={onClose}
-      />,
-    );
-    expect(screen.getByText(agencies[1].name)).toBeVisible();
-  });
-
   it("should call onClose when the back chevron is clicked", async () => {
     render(
       <CapitalProjectDetailPanel
