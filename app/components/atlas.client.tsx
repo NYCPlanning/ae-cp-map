@@ -8,6 +8,7 @@ import { useState } from "react";
 import {
   useCapitalProjectsLayer,
   useCommunityDistrictsLayer,
+useCommunityDistrictMaskLayer,
   useCityCouncilDistrictsLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
@@ -25,6 +26,7 @@ const MIN_ZOOM = 10;
 
 export function Atlas() {
   const capitalProjectsLayer = useCapitalProjectsLayer();
+  const communityDistrictMaskLayer = useCommunityDistrictMaskLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
 
@@ -67,6 +69,7 @@ export function Atlas() {
       layers={[
         capitalProjectsLayer,
         communityDistrictsLayer,
+        communityDistrictMaskLayer,
         cityCouncilDistrictsLayer,
       ]}
       getCursor={({ isDragging, isHovering }) => {

@@ -1,3 +1,4 @@
+import { MaskExtension } from "@deck.gl/extensions";
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { useNavigate, useParams, useSearchParams } from "@remix-run/react";
 
@@ -15,6 +16,10 @@ export function useCapitalProjectsLayer() {
     data: [
       `${import.meta.env.VITE_ZONING_API_URL}/api/capital-projects/{z}/{x}/{y}.pbf`,
     ],
+    extensions: [new MaskExtension()],
+    /* @ts-ignore: maskId is valid but not recognized */
+    maskId: 'CommunityDistrictMask',
+    maskByInstance: false,
     uniqueIdProperty: "managingCodeCapitalProjectId",
     autoHighlight: true,
     highlightColor: [129, 230, 217, 218],
