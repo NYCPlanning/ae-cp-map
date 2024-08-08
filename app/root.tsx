@@ -235,7 +235,7 @@ export default function App() {
               <Overlay>
                 <Show above="lg">
                   <FilterMenu
-                    defaultIndex={0}
+                    defaultIndex={[0]}
                     onSubmit={() => {
                       console.log("hi");
                       const navStr = updateNavString(districtType, districtId);
