@@ -11,12 +11,24 @@ export const operations = {
     path: "/boroughs/:boroughId/community-districts",
     method: "get",
   },
+  findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId: {
+    path: "/boroughs/:boroughId/community-districts/:communityDistrictId/geojson",
+    method: "get",
+  },
   findCapitalProjectsByBoroughIdCommunityDistrictId: {
     path: "/boroughs/:boroughId/community-districts/:communityDistrictId/capital-projects",
     method: "get",
   },
+  findCapitalCommitmentTypes: {
+    path: "/capital-commitment-types",
+    method: "get",
+  },
   findCapitalCommitmentsByManagingCodeCapitalProjectId: {
     path: "/capital-projects/:managingCode/:capitalProjectId/capital-commitments",
+    method: "get",
+  },
+  findCapitalProjectGeoJsonByManagingCodeCapitalProjectId: {
+    path: "/capital-projects/:managingCode/:capitalProjectId/geojson",
     method: "get",
   },
   findCapitalProjectByManagingCodeCapitalProjectId: {
@@ -29,6 +41,10 @@ export const operations = {
   },
   findCityCouncilDistricts: {
     path: "/city-council-districts",
+    method: "get",
+  },
+  findCityCouncilDistrictGeoJsonByCityCouncilDistrictId: {
+    path: "/city-council-districts/:cityCouncilDistrictId/geojson",
     method: "get",
   },
   findCapitalProjectsByCityCouncilId: {

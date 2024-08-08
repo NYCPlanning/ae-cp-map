@@ -13,7 +13,8 @@ export function useCapitalProjectsLayer() {
   return new MVTLayer<CapitalProjectProperties>({
     id: "capitalProjects",
     data: [
-      `${import.meta.env.VITE_ZONING_API_URL}/api/capital-projects/{z}/{x}/{y}.pbf`,
+      // `${import.meta.env.VITE_ZONING_API_URL}/api/capital-projects/{z}/{x}/{y}.pbf`,
+      `${import.meta.env.VITE_ZONING_API_URL}/api/boroughs/4/community-districts/01/capital-projects/{z}/{x}/{y}.pbf`,
     ],
     uniqueIdProperty: "managingCodeCapitalProjectId",
     autoHighlight: true,
