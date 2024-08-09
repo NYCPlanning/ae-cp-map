@@ -8,42 +8,65 @@ import {
   Button,
   Box,
 } from "@nycplanning/streetscape";
+import { useNavigate, useSearchParams } from "@remix-run/react";
 
-export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
-  <Accordion
-    allowToggle
-    allowMultiple
-    borderRadius={"base"}
-    padding={{ base: 3, lg: 4 }}
-    background={"white"}
-    direction={"column"}
-    width={{ base: "full", lg: "21.25rem" }}
-    maxW={{ base: "21.25rem", lg: "unset" }}
-    boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
-    defaultIndex={defaultIndex}
-  >
-    <AccordionItem borderTopWidth="0" value="1">
-      <AccordionButton aria-label="Close geography filter menu" px={0}>
-        <Box
-          as="span"
-          flex="1"
-          textAlign="left"
-          fontSize="large"
-          fontWeight="medium"
+export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => {
+  const [searchParams] = useSearchParams();
+  const boroughId = searchParams.get("boroughId");
+  const communityDistrictId = searchParams.get("districtId");
+
+  const navigate = useNavigate();
+  return (
+    <Accordion
+      allowToggle
+      allowMultiple
+      borderRadius={"base"}
+      padding={{ base: 3, lg: 4 }}
+      background={"white"}
+      direction={"column"}
+      width={{ base: "full", lg: "21.25rem" }}
+      maxW={{ base: "21.25rem", lg: "unset" }}
+      boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
+      defaultIndex={defaultIndex}
+    >
+      <AccordionItem borderTopWidth="0" value="1">
+        <AccordionButton aria-label="Close geography filter menu" px={0}>
+          <Box
+            as="span"
+            flex="1"
+            textAlign="left"
+            fontSize="large"
+            fontWeight="medium"
+          >
+            Filter by District
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel
+          pb={0}
+          borderTopWidth="1px"
+          borderColor="gray.200"
+          px={0}
         >
-          Filter by District
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-      <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200" px={0}>
-        {children}
-        <Button width="full" isDisabled={true} mt={4}>
-          Go to Selected District
-        </Button>
-      </AccordionPanel>
-    </AccordionItem>
-  </Accordion>
-);
+          {children}
+          <Button
+            width="full"
+            isDisabled={false}
+            mt={4}
+            onClick={() =>
+              navigate({
+                pathname: `/boroughs/${boroughId}/community-districts/${communityDistrictId}/capital-projects`,
+                search: `?${searchParams.toString()}`,
+              })
+            }
+          >
+            Go to Selected District
+          </Button>
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
+  );
+};
 
 export interface FilterMenuProps {
   children: ReactNode;
