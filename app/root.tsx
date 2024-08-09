@@ -235,9 +235,8 @@ export default function App() {
               <Overlay>
                 <Show above="lg">
                   <FilterMenu
-                    defaultIndex={[0]}
+                    defaultIndex={0}
                     onSubmit={() => {
-                      console.log("hi");
                       const navStr = updateNavString(districtType, districtId);
                       navigate({
                         pathname: navStr,
@@ -249,8 +248,16 @@ export default function App() {
                   </FilterMenu>
                 </Show>
                 <Hide above="lg">
-                  <FilterMenu>
-                    <FilterMenuContent />
+                  <FilterMenu
+                    onSubmit={() => {
+                      const navStr = updateNavString(districtType, districtId);
+                      navigate({
+                        pathname: navStr,
+                        search: `?${searchParams.toString()}`,
+                      });
+                    }}
+                  >
+                     <FilterMenuContent />
                   </FilterMenu>
                 </Hide>
                 <Flex

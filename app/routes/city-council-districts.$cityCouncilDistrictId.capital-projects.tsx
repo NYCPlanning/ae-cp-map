@@ -46,15 +46,13 @@ export default function CapitalProjectsByCityCouncilDistrict() {
     useLoaderData<typeof loader>();
 
   const pagination = (
-    <>
-      <Flex
-        paddingTop="16px"
-        alignItems="center"
-        justifyContent={"space-between"}
-      >
-        <Pagination total={projects.total} />
-      </Flex>
-    </>
+    <Flex
+      paddingTop="16px"
+      alignItems="center"
+      justifyContent={"space-between"}
+    >
+      <Pagination total={projects.total} />
+    </Flex>
   );
 
   const mobile = (
