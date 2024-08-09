@@ -50,6 +50,6 @@ export const FilterMenu = ({
 
 export interface FilterMenuProps {
   children: ReactNode;
-  defaultIndex?: number[];
+  defaultIndex?: number;
   onSubmit?: () => void;
 }
