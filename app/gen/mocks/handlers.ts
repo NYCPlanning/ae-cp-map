@@ -1,11 +1,15 @@
 import { findAgenciesHandler } from "./findAgenciesHandler";
 import { findBoroughsHandler } from "./findBoroughsHandler";
 import { findCommunityDistrictsByBoroughIdHandler } from "./findCommunityDistrictsByBoroughIdHandler";
+import { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler } from "./findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler";
 import { findCapitalProjectsByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectsByBoroughIdCommunityDistrictIdHandler";
+import { findCapitalCommitmentTypesHandler } from "./findCapitalCommitmentTypesHandler";
 import { findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler } from "./findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler";
+import { findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler";
 import { findCapitalProjectByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectByManagingCodeCapitalProjectIdHandler";
 import { findCapitalProjectTilesHandler } from "./findCapitalProjectTilesHandler";
 import { findCityCouncilDistrictsHandler } from "./findCityCouncilDistrictsHandler";
+import { findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler } from "./findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler";
 import { findCapitalProjectsByCityCouncilIdHandler } from "./findCapitalProjectsByCityCouncilIdHandler";
 import { findCityCouncilDistrictTilesHandler } from "./findCityCouncilDistrictTilesHandler";
 import { findCommunityDistrictTilesHandler } from "./findCommunityDistrictTilesHandler";
@@ -25,11 +29,15 @@ export const handlers = [
   findAgenciesHandler,
   findBoroughsHandler,
   findCommunityDistrictsByBoroughIdHandler,
+  findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler,
   findCapitalProjectsByBoroughIdCommunityDistrictIdHandler,
+  findCapitalCommitmentTypesHandler,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler,
+  findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler,
   findCapitalProjectByManagingCodeCapitalProjectIdHandler,
   findCapitalProjectTilesHandler,
   findCityCouncilDistrictsHandler,
+  findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler,
   findCapitalProjectsByCityCouncilIdHandler,
   findCityCouncilDistrictTilesHandler,
   findCommunityDistrictTilesHandler,

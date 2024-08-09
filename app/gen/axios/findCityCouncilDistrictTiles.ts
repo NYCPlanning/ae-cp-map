@@ -6,7 +6,7 @@ import type {
 } from "../types/FindCityCouncilDistrictTiles";
 
 /**
- * @summary 🚧 Mapbox Vector Tiles for city council districts
+ * @summary Mapbox Vector Tiles for city council districts
  * @link /city-council-districts/:z/:x/:y.pbf
  */
 export async function findCityCouncilDistrictTiles(
