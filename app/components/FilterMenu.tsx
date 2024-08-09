@@ -9,10 +9,13 @@ import {
   Box,
 } from "@nycplanning/streetscape";
 
-export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
+export const FilterMenu = ({
+  children,
+  defaultIndex,
+  onSubmit,
+}: FilterMenuProps) => (
   <Accordion
     allowToggle
-    allowMultiple
     borderRadius={"base"}
     padding={{ base: 3, lg: 4 }}
     background={"white"}
@@ -37,7 +40,7 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
       </AccordionButton>
       <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200" px={0}>
         {children}
-        <Button width="full" isDisabled={true} mt={4}>
+        <Button width="full" onClick={onSubmit} isDisabled={false} mt={4}>
           Go to Selected District
         </Button>
       </AccordionPanel>
@@ -48,4 +51,5 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
 export interface FilterMenuProps {
   children: ReactNode;
   defaultIndex?: number;
+  onSubmit?: () => void;
 }
