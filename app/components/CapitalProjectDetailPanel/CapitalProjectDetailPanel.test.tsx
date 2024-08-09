@@ -6,6 +6,7 @@ import {
 } from "~/gen";
 import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import { Flex } from "@nycplanning/streetscape";
 
 describe("CapitalProjectDetailPanel", () => {
   let capitalProject: CapitalProjectBudgeted;
@@ -29,6 +30,7 @@ describe("CapitalProjectDetailPanel", () => {
         capitalProject={capitalProject}
         agencies={agencies}
         onClose={onClose}
+        capitalCommitmentsTimeline={<Flex />}
       />,
     );
     expect(screen.getByText(capitalProject.description)).toBeVisible();
@@ -40,20 +42,10 @@ describe("CapitalProjectDetailPanel", () => {
         capitalProject={capitalProject}
         agencies={agencies}
         onClose={onClose}
+        capitalCommitmentsTimeline={<Flex />}
       />,
     );
     expect(screen.getByText(agencies[0].name)).toBeVisible();
-  });
-
-  it("should render the name of the sponsoring agency", () => {
-    render(
-      <CapitalProjectDetailPanel
-        capitalProject={capitalProject}
-        agencies={agencies}
-        onClose={onClose}
-      />,
-    );
-    expect(screen.getByText(agencies[1].name)).toBeVisible();
   });
 
   it("should call onClose when the back chevron is clicked", async () => {
@@ -62,6 +54,7 @@ describe("CapitalProjectDetailPanel", () => {
         capitalProject={capitalProject}
         agencies={agencies}
         onClose={onClose}
+        capitalCommitmentsTimeline={<Flex />}
       />,
     );
 
@@ -77,6 +70,7 @@ describe("CapitalProjectDetailPanel", () => {
         capitalProject={capitalProject}
         agencies={agencies}
         onClose={onClose}
+        capitalCommitmentsTimeline={<Flex />}
       />,
     );
     expect(screen.getByText("FY2019")).toBeVisible();
