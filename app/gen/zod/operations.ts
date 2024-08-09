@@ -16,6 +16,13 @@ import {
   findCommunityDistrictsByBoroughIdPathParamsSchema,
 } from "./findCommunityDistrictsByBoroughIdSchema";
 import {
+  findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdQueryResponseSchema,
+  findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId400Schema,
+  findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId404Schema,
+  findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId500Schema,
+  findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParamsSchema,
+} from "./findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdSchema";
+import {
   findCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponseSchema,
   findCapitalProjectsByBoroughIdCommunityDistrictId400Schema,
   findCapitalProjectsByBoroughIdCommunityDistrictId404Schema,
@@ -24,12 +31,24 @@ import {
   findCapitalProjectsByBoroughIdCommunityDistrictIdQueryParamsSchema,
 } from "./findCapitalProjectsByBoroughIdCommunityDistrictIdSchema";
 import {
+  findCapitalCommitmentTypesQueryResponseSchema,
+  findCapitalCommitmentTypes400Schema,
+  findCapitalCommitmentTypes500Schema,
+} from "./findCapitalCommitmentTypesSchema";
+import {
   findCapitalCommitmentsByManagingCodeCapitalProjectIdQueryResponseSchema,
   findCapitalCommitmentsByManagingCodeCapitalProjectId400Schema,
   findCapitalCommitmentsByManagingCodeCapitalProjectId404Schema,
   findCapitalCommitmentsByManagingCodeCapitalProjectId500Schema,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdPathParamsSchema,
 } from "./findCapitalCommitmentsByManagingCodeCapitalProjectIdSchema";
+import {
+  findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdQueryResponseSchema,
+  findCapitalProjectGeoJsonByManagingCodeCapitalProjectId400Schema,
+  findCapitalProjectGeoJsonByManagingCodeCapitalProjectId404Schema,
+  findCapitalProjectGeoJsonByManagingCodeCapitalProjectId500Schema,
+  findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParamsSchema,
+} from "./findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdSchema";
 import {
   findCapitalProjectByManagingCodeCapitalProjectIdQueryResponseSchema,
   findCapitalProjectByManagingCodeCapitalProjectId400Schema,
@@ -48,6 +67,13 @@ import {
   findCityCouncilDistricts400Schema,
   findCityCouncilDistricts500Schema,
 } from "./findCityCouncilDistrictsSchema";
+import {
+  findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdQueryResponseSchema,
+  findCityCouncilDistrictGeoJsonByCityCouncilDistrictId400Schema,
+  findCityCouncilDistrictGeoJsonByCityCouncilDistrictId404Schema,
+  findCityCouncilDistrictGeoJsonByCityCouncilDistrictId500Schema,
+  findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdPathParamsSchema,
+} from "./findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdSchema";
 import {
   findCapitalProjectsByCityCouncilIdQueryResponseSchema,
   findCapitalProjectsByCityCouncilId400Schema,
@@ -196,6 +222,27 @@ export const operations = {
       500: findCommunityDistrictsByBoroughId500Schema,
     },
   },
+  findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId: {
+    request: undefined,
+    parameters: {
+      path: findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParamsSchema,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdQueryResponseSchema,
+      400: findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId400Schema,
+      404: findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId404Schema,
+      500: findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId500Schema,
+      default:
+        findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId400Schema,
+      404: findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId404Schema,
+      500: findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId500Schema,
+    },
+  },
   findCapitalProjectsByBoroughIdCommunityDistrictId: {
     request: undefined,
     parameters: {
@@ -217,6 +264,24 @@ export const operations = {
       500: findCapitalProjectsByBoroughIdCommunityDistrictId500Schema,
     },
   },
+  findCapitalCommitmentTypes: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCapitalCommitmentTypesQueryResponseSchema,
+      400: findCapitalCommitmentTypes400Schema,
+      500: findCapitalCommitmentTypes500Schema,
+      default: findCapitalCommitmentTypesQueryResponseSchema,
+    },
+    errors: {
+      400: findCapitalCommitmentTypes400Schema,
+      500: findCapitalCommitmentTypes500Schema,
+    },
+  },
   findCapitalCommitmentsByManagingCodeCapitalProjectId: {
     request: undefined,
     parameters: {
@@ -236,6 +301,27 @@ export const operations = {
       400: findCapitalCommitmentsByManagingCodeCapitalProjectId400Schema,
       404: findCapitalCommitmentsByManagingCodeCapitalProjectId404Schema,
       500: findCapitalCommitmentsByManagingCodeCapitalProjectId500Schema,
+    },
+  },
+  findCapitalProjectGeoJsonByManagingCodeCapitalProjectId: {
+    request: undefined,
+    parameters: {
+      path: findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParamsSchema,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdQueryResponseSchema,
+      400: findCapitalProjectGeoJsonByManagingCodeCapitalProjectId400Schema,
+      404: findCapitalProjectGeoJsonByManagingCodeCapitalProjectId404Schema,
+      500: findCapitalProjectGeoJsonByManagingCodeCapitalProjectId500Schema,
+      default:
+        findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdQueryResponseSchema,
+    },
+    errors: {
+      400: findCapitalProjectGeoJsonByManagingCodeCapitalProjectId400Schema,
+      404: findCapitalProjectGeoJsonByManagingCodeCapitalProjectId404Schema,
+      500: findCapitalProjectGeoJsonByManagingCodeCapitalProjectId500Schema,
     },
   },
   findCapitalProjectByManagingCodeCapitalProjectId: {
@@ -293,6 +379,27 @@ export const operations = {
     errors: {
       400: findCityCouncilDistricts400Schema,
       500: findCityCouncilDistricts500Schema,
+    },
+  },
+  findCityCouncilDistrictGeoJsonByCityCouncilDistrictId: {
+    request: undefined,
+    parameters: {
+      path: findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdPathParamsSchema,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdQueryResponseSchema,
+      400: findCityCouncilDistrictGeoJsonByCityCouncilDistrictId400Schema,
+      404: findCityCouncilDistrictGeoJsonByCityCouncilDistrictId404Schema,
+      500: findCityCouncilDistrictGeoJsonByCityCouncilDistrictId500Schema,
+      default:
+        findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdQueryResponseSchema,
+    },
+    errors: {
+      400: findCityCouncilDistrictGeoJsonByCityCouncilDistrictId400Schema,
+      404: findCityCouncilDistrictGeoJsonByCityCouncilDistrictId404Schema,
+      500: findCityCouncilDistrictGeoJsonByCityCouncilDistrictId500Schema,
     },
   },
   findCapitalProjectsByCityCouncilId: {
@@ -575,12 +682,23 @@ export const paths = {
   "/boroughs/{boroughId}/community-districts": {
     get: operations["findCommunityDistrictsByBoroughId"],
   },
+  "/boroughs/{boroughId}/community-districts/{communityDistrictId}/geojson": {
+    get: operations[
+      "findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId"
+    ],
+  },
   "/boroughs/{boroughId}/community-districts/{communityDistrictId}/capital-projects":
     {
       get: operations["findCapitalProjectsByBoroughIdCommunityDistrictId"],
     },
+  "/capital-commitment-types": {
+    get: operations["findCapitalCommitmentTypes"],
+  },
   "/capital-projects/{managingCode}/{capitalProjectId}/capital-commitments": {
     get: operations["findCapitalCommitmentsByManagingCodeCapitalProjectId"],
+  },
+  "/capital-projects/{managingCode}/{capitalProjectId}/geojson": {
+    get: operations["findCapitalProjectGeoJsonByManagingCodeCapitalProjectId"],
   },
   "/capital-projects/{managingCode}/{capitalProjectId}": {
     get: operations["findCapitalProjectByManagingCodeCapitalProjectId"],
@@ -590,6 +708,9 @@ export const paths = {
   },
   "/city-council-districts": {
     get: operations["findCityCouncilDistricts"],
+  },
+  "/city-council-districts/{cityCouncilDistrictId}/geojson": {
+    get: operations["findCityCouncilDistrictGeoJsonByCityCouncilDistrictId"],
   },
   "/city-council-districts/{cityCouncilDistrictId}/capital-projects": {
     get: operations["findCapitalProjectsByCityCouncilId"],
