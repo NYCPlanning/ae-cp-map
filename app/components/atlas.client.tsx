@@ -9,6 +9,7 @@ import {
   useCapitalProjectsLayer,
   useCommunityDistrictsLayer,
   useCityCouncilDistrictsLayer,
+  useCommunityDistrictLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 
@@ -26,6 +27,7 @@ const MIN_ZOOM = 10;
 export function Atlas() {
   const capitalProjectsLayer = useCapitalProjectsLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
+  const communityDistrictLayer = useCommunityDistrictLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
 
   const isMobile = useMediaQuery("(max-width: 767px)")[0];
@@ -67,6 +69,7 @@ export function Atlas() {
       layers={[
         capitalProjectsLayer,
         communityDistrictsLayer,
+        communityDistrictLayer,
         cityCouncilDistrictsLayer,
       ]}
       getCursor={({ isDragging, isHovering }) => {
