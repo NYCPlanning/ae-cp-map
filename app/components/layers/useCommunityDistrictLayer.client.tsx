@@ -1,19 +1,23 @@
 import { GeoJsonLayer } from "@deck.gl/layers";
+import { useParams } from "@remix-run/react";
+import { fallbackGeometry } from ".";
 
 export function useCommunityDistrictLayer() {
+  const { boroughId, communityDistrictId } = useParams();
+  const hasCommunityDistrict =
+    boroughId !== undefined && communityDistrictId !== undefined;
+  const data = hasCommunityDistrict
+    ? `${import.meta.env.VITE_ZONING_API_URL}/api/boroughs/${boroughId}/community-districts/${communityDistrictId}/geojson`
+    : fallbackGeometry;
+
   return new GeoJsonLayer({
     id: "CommunityDistrict",
-    // data: `${import.meta.env.VITE_ZONING_API_URL}/api/boroughs/4/community-districts/01/geojson`,
-    data: JSON.stringify({
-      type: "Feature",
-      geometry: {
-        type: "Point",
-        coordinates: [-74.0008, 40.7018],
-      },
-    }),
-    visible: true,
-    stroked: true,
-    getLineWidth: 20,
+    data,
+    visible: hasCommunityDistrict,
     filled: false,
+    stroked: true,
+    lineWidthUnits: "pixels",
+    getLineWidth: 3,
+    getLineColor: [49, 151, 149],
   });
 }

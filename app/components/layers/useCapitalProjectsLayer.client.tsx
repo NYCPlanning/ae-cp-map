@@ -6,15 +6,20 @@ export interface CapitalProjectProperties {
   managingAgency: string;
 }
 export function useCapitalProjectsLayer() {
-  const { managingCode, capitalProjectId } = useParams();
+  const { managingCode, capitalProjectId, boroughId, communityDistrictId } =
+    useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  const endpointPrefix =
+    boroughId !== undefined && communityDistrictId !== undefined
+      ? `boroughs/${boroughId}/community-districts/${communityDistrictId}/`
+      : "";
 
   return new MVTLayer<CapitalProjectProperties>({
     id: "capitalProjects",
     data: [
-      // `${import.meta.env.VITE_ZONING_API_URL}/api/capital-projects/{z}/{x}/{y}.pbf`,
-      `${import.meta.env.VITE_ZONING_API_URL}/api/boroughs/4/community-districts/01/capital-projects/{z}/{x}/{y}.pbf`,
+      `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
     ],
     uniqueIdProperty: "managingCodeCapitalProjectId",
     autoHighlight: true,
