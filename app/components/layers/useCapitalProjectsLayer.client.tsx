@@ -6,14 +6,25 @@ export interface CapitalProjectProperties {
   managingAgency: string;
 }
 export function useCapitalProjectsLayer() {
-  const { managingCode, capitalProjectId, boroughId, communityDistrictId } =
-    useParams();
+  const {
+    managingCode,
+    capitalProjectId,
+    boroughId,
+    communityDistrictId,
+    cityCouncilDistrictId,
+  } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const hasCityCouncilDistrict = cityCouncilDistrictId !== undefined;
+  const hasCommunityDistrict =
+    boroughId !== undefined && communityDistrictId !== undefined;
 
   let endpointPrefix = "";
-  if (boroughId !== undefined && communityDistrictId !== undefined)
+  if (hasCityCouncilDistrict) {
+    endpointPrefix = `city-council-districts/${cityCouncilDistrictId}/`;
+  } else if (hasCommunityDistrict) {
     endpointPrefix = `boroughs/${boroughId}/community-districts/${communityDistrictId}/`;
+  }
 
   return new MVTLayer<CapitalProjectProperties>({
     id: "capitalProjects",
