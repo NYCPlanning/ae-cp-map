@@ -10,6 +10,7 @@ import {
   useCommunityDistrictsLayer,
   useCityCouncilDistrictsLayer,
   useCommunityDistrictLayer,
+  useCityCouncilDistrictLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 
@@ -29,6 +30,7 @@ export function Atlas() {
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
+  const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
 
   const isMobile = useMediaQuery("(max-width: 767px)")[0];
   const widgetPlacement = isMobile ? "top-right" : "bottom-right";
@@ -71,6 +73,7 @@ export function Atlas() {
         communityDistrictsLayer,
         communityDistrictLayer,
         cityCouncilDistrictsLayer,
+        cityCouncilDistrictLayer,
       ]}
       getCursor={({ isDragging, isHovering }) => {
         if (isDragging) {
