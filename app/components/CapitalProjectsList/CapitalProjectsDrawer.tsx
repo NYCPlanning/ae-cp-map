@@ -26,6 +26,11 @@ export const CapitalProjectsDrawer = ({
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
+    <Flex
+      // height={{ base: isExpanded ? "90vh" : "70vh", lg: "auto" }}
+    >
+
+    
     <Drawer
       isOpen={true}
       placement="bottom"
@@ -33,19 +38,18 @@ export const CapitalProjectsDrawer = ({
         return;
       }}
     >
-      <DrawerOverlay />
       <DrawerContent>
         <Flex
-          borderTopRadius={"base"}
           padding={{ base: 3, lg: 4 }}
           background={"white"}
           direction={"column"}
+          height={{ base: isExpanded ? "90vh" : "70vh", lg: "auto" }}
         >
           <Box
             height={"4px"}
             width={20}
             backgroundColor={"gray.300"}
-            borderRadius="px"
+            borderRadius="2px"
             alignSelf={"center"}
             role="button"
             aria-label={
@@ -70,7 +74,7 @@ export const CapitalProjectsDrawer = ({
 
           <DrawerBody>
             <Flex
-              height={{ base: "436px" }}
+              height={{ base: "auto" }}
               direction={"column"}
               transition={"height 0.5s ease-in-out"}
               gap={4}
@@ -85,5 +89,6 @@ export const CapitalProjectsDrawer = ({
         </Flex>
       </DrawerContent>
     </Drawer>
+    </Flex>
   );
 };
