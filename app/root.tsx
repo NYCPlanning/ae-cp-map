@@ -15,6 +15,8 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useLoaderData,
+  useLocation,
+  useNavigate,
   useRouteError,
   useSearchParams,
 } from "@remix-run/react";
@@ -38,6 +40,11 @@ import {
   CityCouncilDistrictDropdown,
 } from "./components/AdminDropdown";
 import { URLSearchParamsInit } from "react-router-dom";
+import {
+  GoToCityCouncilDistrictBtn,
+  GoToDistrictBtn,
+} from "./components/GoToDistrictBtn";
+import { GoToCommunityDistrictBtn } from "./components/GoToDistrictBtn/GoToCommunityDistrictBtn";
 
 export type BoroughId = null | string;
 export type DistrictType = null | "cd" | "ccd";
@@ -126,6 +133,8 @@ function Document({
 }
 
 export default function App() {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
@@ -146,33 +155,62 @@ export default function App() {
       | undefined,
   ) => setSearchParams(nextSearchParams, { replace: true });
 
-  const AdminDropdowns = () => (
-    <VStack>
-      <DistrictTypeDropdown
-        selectValue={districtType}
-        updateSearchParams={updateSearchParams}
-      />
-      <BoroughDropdown
-        selectValue={boroughId}
-        updateSearchParams={updateSearchParams}
-        boroughs={loaderData.boroughs}
-      />
+  const goToDistrict = (currentPath: string) => (nextPath: string) => {
+    // Avoid adding the same path to the history stack multiple times
+    if (currentPath !== `/${nextPath}`)
+      navigate({
+        pathname: nextPath,
+        search: `?${searchParams.toString()}`,
+      });
+  };
 
-      {districtType !== "ccd" ? (
-        <CommunityDistrictDropdown
-          boroughId={boroughId}
-          selectValue={districtId}
-          communityDistricts={loaderData.communityDistricts}
+  const goToNextDistrict = goToDistrict(pathname);
+
+  const FilterMenuContent = () => (
+    <>
+      <VStack>
+        <DistrictTypeDropdown
+          selectValue={districtType}
           updateSearchParams={updateSearchParams}
         />
-      ) : (
-        <CityCouncilDistrictDropdown
-          selectValue={districtId}
-          cityCouncilDistricts={loaderData.cityCouncilDistricts}
+        <BoroughDropdown
+          selectValue={boroughId}
           updateSearchParams={updateSearchParams}
+          boroughs={loaderData.boroughs}
+        />
+
+        {districtType !== "ccd" ? (
+          <CommunityDistrictDropdown
+            boroughId={boroughId}
+            selectValue={districtId}
+            communityDistricts={loaderData.communityDistricts}
+            updateSearchParams={updateSearchParams}
+          />
+        ) : (
+          <CityCouncilDistrictDropdown
+            selectValue={districtId}
+            cityCouncilDistricts={loaderData.cityCouncilDistricts}
+            updateSearchParams={updateSearchParams}
+          />
+        )}
+      </VStack>
+      {districtType === null && (
+        <GoToDistrictBtn goToDistrict={goToNextDistrict} path={null} />
+      )}
+      {districtType === "ccd" && (
+        <GoToCityCouncilDistrictBtn
+          goToDistrict={goToNextDistrict}
+          districtId={districtId}
         />
       )}
-    </VStack>
+      {districtType === "cd" && (
+        <GoToCommunityDistrictBtn
+          goToDistrict={goToNextDistrict}
+          boroughId={boroughId}
+          districtId={districtId}
+        />
+      )}
+    </>
   );
 
   return (
@@ -185,12 +223,12 @@ export default function App() {
               <Overlay>
                 <Show above="lg">
                   <FilterMenu defaultIndex={0}>
-                    <AdminDropdowns />
+                    <FilterMenuContent />
                   </FilterMenu>
                 </Show>
                 <Hide above="lg">
                   <FilterMenu>
-                    <AdminDropdowns />
+                    <FilterMenuContent />
                   </FilterMenu>
                 </Hide>
                 <Flex

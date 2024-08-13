@@ -5,7 +5,6 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Button,
   Box,
 } from "@nycplanning/streetscape";
 
@@ -37,9 +36,6 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
       </AccordionButton>
       <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200" px={0}>
         {children}
-        <Button width="full" isDisabled={true} mt={4}>
-          Go to Selected District
-        </Button>
       </AccordionPanel>
     </AccordionItem>
   </Accordion>
