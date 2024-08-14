@@ -1,8 +1,7 @@
 import { createCapitalProjectPage } from "~/gen/mocks";
 import { Agency, CapitalProject } from "~/gen/types";
 import { CapitalProjectsList } from "./CapitalProjectsList";
-import { fireEvent, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 
 describe("CapitalProjectsList", () => {
@@ -26,6 +25,6 @@ describe("CapitalProjectsList", () => {
         />
       </BrowserRouter>,
     );
-    expect(screen.getByRole("listitem")).toBeInTheDocument(); // uhhh
+    expect(screen.getByRole("link")).toBeInTheDocument(); // uhhh
   });
 });
