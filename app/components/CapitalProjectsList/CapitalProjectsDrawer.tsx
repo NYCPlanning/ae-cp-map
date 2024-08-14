@@ -66,7 +66,7 @@ export const CapitalProjectsDrawer = ({
 
           <DrawerBody>
             <Flex
-              height={{ base: isExpanded ? "90vh" : "50vh", lg: "auto" }}
+              height={{ base: isExpanded ? "85vh" : "40vh", lg: "auto" }}
               direction={"column"}
               transition={"height 0.5s ease-in-out"}
             >
