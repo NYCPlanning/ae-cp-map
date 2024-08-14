@@ -8,11 +8,7 @@ import {
   Box,
 } from "@nycplanning/streetscape";
 
-export const FilterMenu = ({
-  children,
-  defaultIndex,
-  onSubmit,
-}: FilterMenuProps) => (
+export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
   <Accordion
     allowToggle
     borderRadius={"base"}
@@ -47,5 +43,4 @@ export const FilterMenu = ({
 export interface FilterMenuProps {
   children: ReactNode;
   defaultIndex?: number;
-  onSubmit?: () => void;
 }

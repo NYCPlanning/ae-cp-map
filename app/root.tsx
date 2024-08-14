@@ -234,29 +234,12 @@ export default function App() {
               <Atlas />{" "}
               <Overlay>
                 <Show above="lg">
-                  <FilterMenu
-                    defaultIndex={0}
-                    onSubmit={() => {
-                      const navStr = updateNavString(districtType, districtId);
-                      navigate({
-                        pathname: navStr,
-                        search: `?${searchParams.toString()}`,
-                      });
-                    }}
-                  >
+                  <FilterMenu defaultIndex={0}>
                     <FilterMenuContent />
                   </FilterMenu>
                 </Show>
                 <Hide above="lg">
-                  <FilterMenu
-                    onSubmit={() => {
-                      const navStr = updateNavString(districtType, districtId);
-                      navigate({
-                        pathname: navStr,
-                        search: `?${searchParams.toString()}`,
-                      });
-                    }}
-                  >
+                  <FilterMenu>
                     <FilterMenuContent />
                   </FilterMenu>
                 </Hide>

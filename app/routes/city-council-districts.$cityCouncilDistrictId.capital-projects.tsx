@@ -51,7 +51,7 @@ export default function CapitalProjectsByCityCouncilDistrict() {
     </Flex>
   );
 
-  const mobile = (
+  const desktop = (
     <CapitalProjectsAccordionPanel
       capitalProjects={projects.capitalProjects}
       agencies={agencies}
@@ -61,7 +61,7 @@ export default function CapitalProjectsByCityCouncilDistrict() {
     </CapitalProjectsAccordionPanel>
   );
 
-  const desktop = (
+  const mobile = (
     <CapitalProjectsDrawer
       capitalProjects={projects.capitalProjects}
       agencies={agencies}
@@ -73,8 +73,8 @@ export default function CapitalProjectsByCityCouncilDistrict() {
 
   return (
     <>
-      <Show above="sm">{mobile}</Show>
-      <Hide above="sm">{desktop}</Hide>
+      <Show above="sm">{desktop}</Show>
+      <Hide above="sm">{mobile}</Hide>
     </>
   );
 }
