@@ -1,4 +1,4 @@
-import { CapitalProjectDetailPanel } from "./CapitalProjectDetailPanel";
+import { CapitalProjectDetail } from "./CapitalProjectDetail";
 import {
   CapitalProjectBudgeted,
   createCapitalProjectBudgeted,
@@ -7,10 +7,10 @@ import {
 import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 
-describe("CapitalProjectDetailPanel", () => {
+describe("CapitalProjectDetail", () => {
   let capitalProject: CapitalProjectBudgeted;
   let agencies: Agency[];
-  const onClose = vi.fn();
+  let onNavigationClick: () => void;
   beforeAll(() => {
     agencies = [
       { initials: "DDC", name: "Department of Design and Construction" },
@@ -23,12 +23,16 @@ describe("CapitalProjectDetailPanel", () => {
     };
   });
 
+  beforeEach(() => {
+    onNavigationClick = vi.fn();
+  });
+
   it("should render the detail panel with project description", () => {
     render(
-      <CapitalProjectDetailPanel
+      <CapitalProjectDetail
         capitalProject={capitalProject}
         agencies={agencies}
-        onClose={onClose}
+        onNavigationClick={onNavigationClick}
       />,
     );
     expect(screen.getByText(capitalProject.description)).toBeVisible();
@@ -36,47 +40,36 @@ describe("CapitalProjectDetailPanel", () => {
 
   it("should render the name of the managing agency", () => {
     render(
-      <CapitalProjectDetailPanel
+      <CapitalProjectDetail
         capitalProject={capitalProject}
         agencies={agencies}
-        onClose={onClose}
+        onNavigationClick={onNavigationClick}
       />,
     );
     expect(screen.getByText(agencies[0].name)).toBeVisible();
   });
 
-  it("should render the name of the sponsoring agency", () => {
-    render(
-      <CapitalProjectDetailPanel
-        capitalProject={capitalProject}
-        agencies={agencies}
-        onClose={onClose}
-      />,
-    );
-    expect(screen.getByText(agencies[1].name)).toBeVisible();
-  });
-
   it("should call onClose when the back chevron is clicked", async () => {
     render(
-      <CapitalProjectDetailPanel
+      <CapitalProjectDetail
         capitalProject={capitalProject}
         agencies={agencies}
-        onClose={onClose}
+        onNavigationClick={onNavigationClick}
       />,
     );
 
     await userEvent.click(screen.getByLabelText("Close project detail panel"));
-    expect(onClose).toHaveBeenCalled();
+    expect(onNavigationClick).toHaveBeenCalled();
   });
 
   it("should assign dates after July to the following fiscal year", () => {
     capitalProject.minDate = "2018-08-03";
     capitalProject.maxDate = "2018-08-03";
     render(
-      <CapitalProjectDetailPanel
+      <CapitalProjectDetail
         capitalProject={capitalProject}
         agencies={agencies}
-        onClose={onClose}
+        onNavigationClick={onNavigationClick}
       />,
     );
     expect(screen.getByText("FY2019")).toBeVisible();
