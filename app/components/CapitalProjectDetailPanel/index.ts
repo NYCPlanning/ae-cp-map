@@ -1,1 +1,0 @@
-export { CapitalProjectDetailPanel } from "./CapitalProjectDetailPanel";
