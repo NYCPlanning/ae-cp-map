@@ -1,5 +1,10 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
+import {
+  useLoaderData,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "@remix-run/react";
 import {
   findCapitalProjectByManagingCodeCapitalProjectId,
   findAgencies,
@@ -31,8 +36,9 @@ export async function loader({ params }: LoaderFunctionArgs) {
   });
 }
 
-export default function CapitalProject() {
+export default function CapitalProjectByBoroughIdCommunityDistrictId() {
   const navigate = useNavigate();
+  const { boroughId, communityDistrictId } = useParams();
   const [searchParams] = useSearchParams();
   const { capitalProject, agencies } = useLoaderData<typeof loader>();
 
@@ -40,11 +46,14 @@ export default function CapitalProject() {
     <CapitalProjectDetailPanel
       capitalProject={capitalProject}
       agencies={agencies}
+      navigationBtn="back"
       onNavigationClick={() => {
-        navigate({
-          pathname: "/",
-          search: `?${searchParams.toString()}`,
-        });
+        {
+          navigate({
+            pathname: `/boroughs/${boroughId}/community-districts/${communityDistrictId}/capital-projects`,
+            search: `?${searchParams.toString()}`,
+          });
+        }
       }}
     />
   );

@@ -1,29 +1,41 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import { useNavigate, useParams, useSearchParams } from "@remix-run/react";
+import {
+  useMatches,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "@remix-run/react";
 
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
 }
+
+const capitalProjectsInCommunityDistrictRoutePrefix =
+  "routes/boroughs.$boroughId.community-districts.$communityDistrictId.capital-projects";
+const capitalProjectsInCityCouncilDistrictRoutePrefix =
+  "routes/city-council-districts.$cityCouncilDistrictId.capital-projects";
+
 export function useCapitalProjectsLayer() {
-  const {
-    managingCode,
-    capitalProjectId,
-    boroughId,
-    communityDistrictId,
-    cityCouncilDistrictId,
-  } = useParams();
+  const { managingCode, capitalProjectId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const hasCityCouncilDistrict = cityCouncilDistrictId !== undefined;
-  const hasCommunityDistrict =
-    boroughId !== undefined && communityDistrictId !== undefined;
+  const matches = useMatches();
+
+  const layoutRoute = matches[1];
+
+  const onCapitalProjectsInCityCouncilDistrictPath = layoutRoute?.id.startsWith(
+    capitalProjectsInCityCouncilDistrictRoutePrefix,
+  );
+  const onCapitalProjectsInCommunityDistrictPath = layoutRoute?.id.startsWith(
+    capitalProjectsInCommunityDistrictRoutePrefix,
+  );
 
   let endpointPrefix = "";
-  if (hasCityCouncilDistrict) {
-    endpointPrefix = `city-council-districts/${cityCouncilDistrictId}/`;
-  } else if (hasCommunityDistrict) {
-    endpointPrefix = `boroughs/${boroughId}/community-districts/${communityDistrictId}/`;
+  if (onCapitalProjectsInCityCouncilDistrictPath) {
+    endpointPrefix = `city-council-districts/${layoutRoute.params.cityCouncilDistrictId}/`;
+  } else if (onCapitalProjectsInCommunityDistrictPath) {
+    endpointPrefix = `boroughs/${layoutRoute.params.boroughId}/community-districts/${layoutRoute.params.communityDistrictId}/`;
   }
 
   return new MVTLayer<CapitalProjectProperties>({
@@ -59,8 +71,10 @@ export function useCapitalProjectsLayer() {
         managingCodeCapitalProjectId.slice(0, 3),
         managingCodeCapitalProjectId.slice(3),
       ];
+
+      const capitalProjectRouteSuffix = `capital-projects/${nextManagingCode}/${nextCapitalProjectId}`;
       navigate({
-        pathname: `capital-projects/${nextManagingCode}/${nextCapitalProjectId}`,
+        pathname: `${endpointPrefix}${capitalProjectRouteSuffix}`,
         search: `?${searchParams.toString()}`,
       });
     },
