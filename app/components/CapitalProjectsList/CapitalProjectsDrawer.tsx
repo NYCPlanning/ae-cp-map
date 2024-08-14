@@ -26,11 +26,6 @@ export const CapitalProjectsDrawer = ({
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <Flex
-      // height={{ base: isExpanded ? "90vh" : "70vh", lg: "auto" }}
-    >
-
-    
     <Drawer
       isOpen={true}
       placement="bottom"
@@ -43,15 +38,17 @@ export const CapitalProjectsDrawer = ({
           padding={{ base: 3, lg: 4 }}
           background={"white"}
           direction={"column"}
-          height={{ base: isExpanded ? "90vh" : "70vh", lg: "auto" }}
+          borderTopLeftRadius={"base"}
+          borderTopRightRadius={"base"}
+          gap={4}
         >
           <Box
             height={"4px"}
             width={20}
             backgroundColor={"gray.300"}
-            borderRadius="2px"
             alignSelf={"center"}
             role="button"
+            borderRadius={"2px"}
             aria-label={
               isExpanded
                 ? "Collapse project list panel"
@@ -62,22 +59,16 @@ export const CapitalProjectsDrawer = ({
             }}
           />
           <DrawerHeader>
-            <Heading
-              color="gray.600"
-              fontWeight={"bold"}
-              fontSize={"lg"}
-              paddingBottom={"8px"}
-            >
+            <Heading color="gray.600" fontWeight={"bold"} fontSize={"lg"}>
               {district}
             </Heading>
           </DrawerHeader>
 
           <DrawerBody>
             <Flex
-              height={{ base: "auto" }}
+              height={{ base: isExpanded ? "90vh" : "50vh", lg: "auto" }}
               direction={"column"}
               transition={"height 0.5s ease-in-out"}
-              gap={4}
             >
               <CapitalProjectsList
                 capitalProjects={capitalProjects}
@@ -89,6 +80,5 @@ export const CapitalProjectsDrawer = ({
         </Flex>
       </DrawerContent>
     </Drawer>
-    </Flex>
   );
 };

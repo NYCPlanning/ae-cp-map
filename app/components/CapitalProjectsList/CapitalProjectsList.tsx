@@ -23,7 +23,10 @@ export const CapitalProjectsList = ({
     ) : (
       capitalProjects.map((capitalProject) => {
         return (
-          <WrapItem key={`${capitalProject.managingCode}${capitalProject.id}`}>
+          <Box
+            key={`${capitalProject.managingCode}${capitalProject.id}`}
+            w={"full"}
+          >
             <Link
               to={{
                 search: `?${searchParams.toString()}`,
@@ -46,18 +49,14 @@ export const CapitalProjectsList = ({
                 )}
               />
             </Link>
-          </WrapItem>
+          </Box>
         );
       })
     );
 
   return (
     <>
-      <Box
-        borderTopWidth={"1px"}
-        borderTopColor={"gray.400"}
-        paddingTop={"16px"}
-      >
+      <Box paddingBottom={4}>
         <Text as={"span"}>
           Mapped Capital Projects as of <Text as={"b"}>{currentDate()}</Text>
         </Text>
@@ -67,7 +66,7 @@ export const CapitalProjectsList = ({
           height={{ base: isExpanded ? "70vh" : "70vh" }}
           overflowY={{ base: "scroll" }}
         >
-          <VStack align="stretch" paddingTop={"12px"} gap={"12px"}>
+          <VStack align={"start"} gap={3}>
             {listBody}
           </VStack>
         </Box>

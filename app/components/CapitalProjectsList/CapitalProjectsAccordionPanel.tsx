@@ -55,7 +55,11 @@ export const CapitalProjectsAccordionPanel = ({
               <AccordionIcon size="lg" />
             </AccordionButton>
           </h2>
-
+          <Box
+            borderTopWidth={"1px"}
+            borderTopColor={"gray.400"}
+            paddingBottom={4}
+          />
           <AccordionPanel padding={"0px"}>
             <CapitalProjectsList
               capitalProjects={capitalProjects}

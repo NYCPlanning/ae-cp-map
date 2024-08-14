@@ -257,7 +257,7 @@ export default function App() {
                       });
                     }}
                   >
-                     <FilterMenuContent />
+                    <FilterMenuContent />
                   </FilterMenu>
                 </Hide>
                 <Flex

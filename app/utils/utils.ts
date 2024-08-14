@@ -9,7 +9,7 @@ const getFiscalYearForDate = (date: Date): number => {
 export const formatFiscalYearRange = (minDate: Date, maxDate: Date) => {
   return compareAsc(minDate, maxDate) === 0
     ? `FY${getFiscalYearForDate(minDate)}`
-    : `FY${getFiscalYearForDate(minDate)} - FY${getFiscalYearForDate(maxDate)}`;
+    : `FY${getFiscalYearForDate(minDate)}-FY${getFiscalYearForDate(maxDate)}`;
 };
 
 export const currentDate = () => {
