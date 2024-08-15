@@ -165,17 +165,6 @@ export default function App() {
       });
   };
 
-  const updateNavString = (
-    districtType: DistrictType,
-    districtId: DistrictId,
-  ) => {
-    if (districtType === "ccd") {
-      return `city-council-districts/${districtId}/capital-projects`;
-    } else {
-      return ``;
-    }
-  };
-
   const goToNextDistrict = goToDistrict(pathname);
 
   const FilterMenuContent = () => (
