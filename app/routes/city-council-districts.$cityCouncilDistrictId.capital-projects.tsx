@@ -51,30 +51,27 @@ export default function CapitalProjectsByCityCouncilDistrict() {
     </Flex>
   );
 
-  const desktop = (
-    <CapitalProjectsAccordionPanel
-      capitalProjects={projects.capitalProjects}
-      agencies={agencies}
-      district={"City Council District " + cityCouncilDistrictId}
-    >
-      {pagination}
-    </CapitalProjectsAccordionPanel>
-  );
-
-  const mobile = (
-    <CapitalProjectsDrawer
-      capitalProjects={projects.capitalProjects}
-      agencies={agencies}
-      district={"City Council District " + cityCouncilDistrictId}
-    >
-      {pagination}
-    </CapitalProjectsDrawer>
-  );
-
   return (
     <>
-      <Show above="sm">{desktop}</Show>
-      <Hide above="sm">{mobile}</Hide>
+      <Show above="sm">
+        <CapitalProjectsAccordionPanel
+          capitalProjects={projects.capitalProjects}
+          agencies={agencies}
+          district={"City Council District " + cityCouncilDistrictId}
+        >
+          {pagination}
+        </CapitalProjectsAccordionPanel>
+      </Show>
+      <Hide above="sm">
+        {" "}
+        <CapitalProjectsDrawer
+          capitalProjects={projects.capitalProjects}
+          agencies={agencies}
+          district={"City Council District " + cityCouncilDistrictId}
+        >
+          {pagination}
+        </CapitalProjectsDrawer>
+      </Hide>
     </>
   );
 }

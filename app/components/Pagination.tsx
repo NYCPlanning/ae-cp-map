@@ -39,7 +39,7 @@ export const Pagination = ({ total }: PaginationProps) => {
         height={"2rem"}
         width={"2rem"}
         fontSize="sm"
-        aria-label="Page"
+        aria-label={`Page ${page}`}
         bgColor={"primary.600"}
         textColor={"white"}
         alignContent={"center"}

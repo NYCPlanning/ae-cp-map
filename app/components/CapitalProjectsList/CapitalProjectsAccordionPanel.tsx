@@ -37,24 +37,19 @@ export const CapitalProjectsAccordionPanel = ({
     >
       <Accordion defaultIndex={[0]} allowToggle>
         <AccordionItem border="none">
-          <h2>
-            <AccordionButton
-              padding="0px"
-              aria-label="Toggle project list panel"
-            >
-              <Box as="span" flex="1" textAlign="left">
-                <Heading
-                  color="gray.600"
-                  fontWeight={"bold"}
-                  fontSize={"lg"}
-                  paddingBottom={"8px"}
-                >
-                  {district}
-                </Heading>
-              </Box>
-              <AccordionIcon size="lg" />
-            </AccordionButton>
-          </h2>
+          <AccordionButton padding="0px" aria-label="Toggle project list panel">
+            <Box as="span" flex="1" textAlign="left">
+              <Heading
+                color="gray.600"
+                fontWeight={"bold"}
+                fontSize={"lg"}
+                paddingBottom={"8px"}
+              >
+                {district}
+              </Heading>
+            </Box>
+            <AccordionIcon size="lg" />
+          </AccordionButton>
           <Box
             borderTopWidth={"1px"}
             borderTopColor={"gray.400"}
