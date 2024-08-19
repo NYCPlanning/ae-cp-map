@@ -31,6 +31,8 @@
     "@remix-run/node": "^2.7.2",
     "@remix-run/react": "^2.7.2",
     "@remix-run/serve": "^2.7.2",
+    "@turf/bbox": "^7.1.0",
+    "@types/geojson": "^7946.0.14",
     "axios": "^1.7.4",
     "date-fns": "^3.6.0",
     "framer-motion": "^6.5.1",
