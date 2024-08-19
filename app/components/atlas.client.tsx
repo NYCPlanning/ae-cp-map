@@ -11,6 +11,7 @@ import {
   useCityCouncilDistrictsLayer,
   useCommunityDistrictLayer,
   useCityCouncilDistrictLayer,
+  useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 
@@ -27,6 +28,8 @@ const MIN_ZOOM = 10;
 
 export function Atlas() {
   const capitalProjectsLayer = useCapitalProjectsLayer();
+  const capitalProjectBudgetedGeoJsonLayer =
+    useCapitalProjectBudgetedGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
@@ -56,6 +59,7 @@ export function Atlas() {
       viewState={viewState}
       onViewStateChange={({ viewState: newViewState }) => {
         setViewState({
+          ...newViewState,
           longitude: Math.min(
             -73.6311,
             Math.max(-74.3308, newViewState.longitude),
@@ -70,6 +74,7 @@ export function Atlas() {
       style={{ height: "100vh", width: "100vw" }}
       layers={[
         capitalProjectsLayer,
+        capitalProjectBudgetedGeoJsonLayer,
         communityDistrictsLayer,
         communityDistrictLayer,
         cityCouncilDistrictsLayer,

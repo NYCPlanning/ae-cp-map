@@ -1,5 +1,6 @@
 import { GeoJsonLayer } from "@deck.gl/layers";
 import { useParams } from "@remix-run/react";
+import { FlyToGeoJsonExtension } from "../../extensions";
 
 export function useCityCouncilDistrictLayer() {
   const { cityCouncilDistrictId } = useParams();
@@ -17,5 +18,6 @@ export function useCityCouncilDistrictLayer() {
     lineWidthUnits: "pixels",
     getLineWidth: 3,
     getLineColor: [49, 151, 149],
+    extensions: [new FlyToGeoJsonExtension()],
   });
 }
