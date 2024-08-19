@@ -14,13 +14,12 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
     borderRadius={"base"}
     padding={{ base: 3, lg: 4 }}
     background={"white"}
-    direction={"column"}
     width={{ base: "full", lg: "21.25rem" }}
     maxW={{ base: "21.25rem", lg: "unset" }}
     boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
     defaultIndex={defaultIndex}
   >
-    <AccordionItem borderTopWidth="0" value="1">
+    <AccordionItem borderTopWidth="0">
       <AccordionButton aria-label="Close geography filter menu" px={0}>
         <Box
           as="span"

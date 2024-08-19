@@ -10,11 +10,13 @@ import {
   WrapItem,
   IconButton,
 } from "@nycplanning/streetscape";
-import { CapitalProjectBudgeted, Agency } from "../../gen";
+import { CapitalProjectBudgeted, Agency, CapitalCommitment } from "../../gen";
 import { formatFiscalYearRange } from "~/utils/utils";
+import { CapitalCommitmentsTimeline } from "./CapitalCommitmentsTimeline";
 
 export interface CapitalProjectDetailProps {
   capitalProject: CapitalProjectBudgeted;
+  capitalCommitments: Array<CapitalCommitment>;
   agencies: Agency[];
   navigationBtn?: "exit" | "back";
   onNavigationClick: () => void;
@@ -22,6 +24,7 @@ export interface CapitalProjectDetailProps {
 
 export const CapitalProjectDetail = ({
   capitalProject,
+  capitalCommitments,
   agencies,
   navigationBtn = "exit",
   onNavigationClick,
@@ -151,6 +154,7 @@ export const CapitalProjectDetail = ({
               </Heading>
             </Box>
           </Box>
+          <CapitalCommitmentsTimeline capitalCommitments={capitalCommitments} />
         </Box>
       </Flex>
     </Flex>

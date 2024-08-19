@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
-    "@chakra-ui/transition": "^2.1.0",
     "@deck.gl/core": "^9.0.26",
     "@deck.gl/geo-layers": "^9.0.26",
     "@deck.gl/layers": "^9.0.26",
@@ -28,7 +27,7 @@
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@kubb/swagger-client": "^2.23.2",
-    "@nycplanning/streetscape": "^0.10.4",
+    "@nycplanning/streetscape": "^0.11.0",
     "@remix-run/node": "^2.7.2",
     "@remix-run/react": "^2.7.2",
     "@remix-run/serve": "^2.7.2",
