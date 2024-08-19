@@ -3,6 +3,7 @@ import { findBoroughsHandler } from "./findBoroughsHandler";
 import { findCommunityDistrictsByBoroughIdHandler } from "./findCommunityDistrictsByBoroughIdHandler";
 import { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler } from "./findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler";
 import { findCapitalProjectsByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectsByBoroughIdCommunityDistrictIdHandler";
+import { findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler";
 import { findCapitalCommitmentTypesHandler } from "./findCapitalCommitmentTypesHandler";
 import { findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler } from "./findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler";
 import { findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler";
@@ -10,6 +11,7 @@ import { findCapitalProjectByManagingCodeCapitalProjectIdHandler } from "./findC
 import { findCapitalProjectTilesHandler } from "./findCapitalProjectTilesHandler";
 import { findCityCouncilDistrictsHandler } from "./findCityCouncilDistrictsHandler";
 import { findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler } from "./findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler";
+import { findCapitalProjectTilesByCityCouncilDistrictIdHandler } from "./findCapitalProjectTilesByCityCouncilDistrictIdHandler";
 import { findCapitalProjectsByCityCouncilIdHandler } from "./findCapitalProjectsByCityCouncilIdHandler";
 import { findCityCouncilDistrictTilesHandler } from "./findCityCouncilDistrictTilesHandler";
 import { findCommunityDistrictTilesHandler } from "./findCommunityDistrictTilesHandler";
@@ -31,6 +33,7 @@ export const handlers = [
   findCommunityDistrictsByBoroughIdHandler,
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler,
   findCapitalProjectsByBoroughIdCommunityDistrictIdHandler,
+  findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler,
   findCapitalCommitmentTypesHandler,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler,
@@ -38,6 +41,7 @@ export const handlers = [
   findCapitalProjectTilesHandler,
   findCityCouncilDistrictsHandler,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler,
+  findCapitalProjectTilesByCityCouncilDistrictIdHandler,
   findCapitalProjectsByCityCouncilIdHandler,
   findCityCouncilDistrictTilesHandler,
   findCommunityDistrictTilesHandler,
