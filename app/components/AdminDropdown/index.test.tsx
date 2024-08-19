@@ -51,7 +51,7 @@ describe("AdminDropdown", () => {
     expect(testSelect?.selected).toBe(true);
   });
 
-  it("should call function when form label is clicked", () => {
+  it("should call function when form label is clicked", async () => {
     const onFormLabelClick = vi.fn();
 
     render(
@@ -65,7 +65,7 @@ describe("AdminDropdown", () => {
       </AdminDropdown>,
     );
 
-    fireEvent.click(screen.getByText("Test Boundary"));
+    await act(() => fireEvent.click(screen.getByText("Test Boundary")));
     expect(onFormLabelClick).toHaveBeenCalled();
   });
 

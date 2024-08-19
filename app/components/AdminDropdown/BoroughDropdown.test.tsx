@@ -2,6 +2,7 @@ import { Borough, createBorough } from "~/gen";
 import { BoroughDropdown } from "./BoroughDropdown";
 import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import { act } from "react";
 
 describe("BoroughDropdown", () => {
   let boroughs: Array<Borough> = [];
@@ -33,7 +34,7 @@ describe("BoroughDropdown", () => {
       />,
     );
 
-    await userEvent.selectOptions(screen.getByRole("combobox"), "");
+    await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "cd",
     });
@@ -49,7 +50,9 @@ describe("BoroughDropdown", () => {
       />,
     );
 
-    await userEvent.selectOptions(screen.getByRole("combobox"), firstBoroughId);
+    await act(() =>
+      userEvent.selectOptions(screen.getByRole("combobox"), firstBoroughId),
+    );
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "cd",
       boroughId: firstBoroughId,
