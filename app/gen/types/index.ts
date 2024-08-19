@@ -20,6 +20,8 @@ export * from "./FindCapitalCommitmentsByManagingCodeCapitalProjectId";
 export * from "./FindCapitalProjectByManagingCodeCapitalProjectId";
 export * from "./FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId";
 export * from "./FindCapitalProjectTiles";
+export * from "./FindCapitalProjectTilesByBoroughIdCommunityDistrictId";
+export * from "./FindCapitalProjectTilesByCityCouncilDistrictId";
 export * from "./FindCapitalProjectsByBoroughIdCommunityDistrictId";
 export * from "./FindCapitalProjectsByCityCouncilId";
 export * from "./FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId";

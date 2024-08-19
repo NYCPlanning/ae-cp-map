@@ -31,6 +31,12 @@ import {
   findCapitalProjectsByBoroughIdCommunityDistrictIdQueryParamsSchema,
 } from "./findCapitalProjectsByBoroughIdCommunityDistrictIdSchema";
 import {
+  findCapitalProjectTilesByBoroughIdCommunityDistrictIdQueryResponseSchema,
+  findCapitalProjectTilesByBoroughIdCommunityDistrictId400Schema,
+  findCapitalProjectTilesByBoroughIdCommunityDistrictId500Schema,
+  findCapitalProjectTilesByBoroughIdCommunityDistrictIdPathParamsSchema,
+} from "./findCapitalProjectTilesByBoroughIdCommunityDistrictIdSchema";
+import {
   findCapitalCommitmentTypesQueryResponseSchema,
   findCapitalCommitmentTypes400Schema,
   findCapitalCommitmentTypes500Schema,
@@ -74,6 +80,12 @@ import {
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictId500Schema,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdPathParamsSchema,
 } from "./findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdSchema";
+import {
+  findCapitalProjectTilesByCityCouncilDistrictIdQueryResponseSchema,
+  findCapitalProjectTilesByCityCouncilDistrictId400Schema,
+  findCapitalProjectTilesByCityCouncilDistrictId500Schema,
+  findCapitalProjectTilesByCityCouncilDistrictIdPathParamsSchema,
+} from "./findCapitalProjectTilesByCityCouncilDistrictIdSchema";
 import {
   findCapitalProjectsByCityCouncilIdQueryResponseSchema,
   findCapitalProjectsByCityCouncilId400Schema,
@@ -264,6 +276,25 @@ export const operations = {
       500: findCapitalProjectsByBoroughIdCommunityDistrictId500Schema,
     },
   },
+  findCapitalProjectTilesByBoroughIdCommunityDistrictId: {
+    request: undefined,
+    parameters: {
+      path: findCapitalProjectTilesByBoroughIdCommunityDistrictIdPathParamsSchema,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCapitalProjectTilesByBoroughIdCommunityDistrictIdQueryResponseSchema,
+      400: findCapitalProjectTilesByBoroughIdCommunityDistrictId400Schema,
+      500: findCapitalProjectTilesByBoroughIdCommunityDistrictId500Schema,
+      default:
+        findCapitalProjectTilesByBoroughIdCommunityDistrictIdQueryResponseSchema,
+    },
+    errors: {
+      400: findCapitalProjectTilesByBoroughIdCommunityDistrictId400Schema,
+      500: findCapitalProjectTilesByBoroughIdCommunityDistrictId500Schema,
+    },
+  },
   findCapitalCommitmentTypes: {
     request: undefined,
     parameters: {
@@ -400,6 +431,25 @@ export const operations = {
       400: findCityCouncilDistrictGeoJsonByCityCouncilDistrictId400Schema,
       404: findCityCouncilDistrictGeoJsonByCityCouncilDistrictId404Schema,
       500: findCityCouncilDistrictGeoJsonByCityCouncilDistrictId500Schema,
+    },
+  },
+  findCapitalProjectTilesByCityCouncilDistrictId: {
+    request: undefined,
+    parameters: {
+      path: findCapitalProjectTilesByCityCouncilDistrictIdPathParamsSchema,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCapitalProjectTilesByCityCouncilDistrictIdQueryResponseSchema,
+      400: findCapitalProjectTilesByCityCouncilDistrictId400Schema,
+      500: findCapitalProjectTilesByCityCouncilDistrictId500Schema,
+      default:
+        findCapitalProjectTilesByCityCouncilDistrictIdQueryResponseSchema,
+    },
+    errors: {
+      400: findCapitalProjectTilesByCityCouncilDistrictId400Schema,
+      500: findCapitalProjectTilesByCityCouncilDistrictId500Schema,
     },
   },
   findCapitalProjectsByCityCouncilId: {
@@ -691,6 +741,10 @@ export const paths = {
     {
       get: operations["findCapitalProjectsByBoroughIdCommunityDistrictId"],
     },
+  "/boroughs/{boroughId}/community-districts/{communityDistrictId}/capital-projects/{z}/{x}/{y}.pbf":
+    {
+      get: operations["findCapitalProjectTilesByBoroughIdCommunityDistrictId"],
+    },
   "/capital-commitment-types": {
     get: operations["findCapitalCommitmentTypes"],
   },
@@ -712,6 +766,10 @@ export const paths = {
   "/city-council-districts/{cityCouncilDistrictId}/geojson": {
     get: operations["findCityCouncilDistrictGeoJsonByCityCouncilDistrictId"],
   },
+  "/city-council-districts/{cityCouncilDistrictId}/capital-projects/{z}/{x}/{y}.pbf":
+    {
+      get: operations["findCapitalProjectTilesByCityCouncilDistrictId"],
+    },
   "/city-council-districts/{cityCouncilDistrictId}/capital-projects": {
     get: operations["findCapitalProjectsByCityCouncilId"],
   },
