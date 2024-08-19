@@ -8,8 +8,10 @@ import {
 import {
   findCapitalProjectByManagingCodeCapitalProjectId,
   findAgencies,
+  findCapitalCommitmentsByManagingCodeCapitalProjectId,
+  findCapitalCommitmentTypes,
 } from "../gen";
-import { CapitalProjectDetailPanel } from "../components/CapitalProjectDetailPanel";
+import { CapitalProjectPanel } from "~/components/CapitalProjectPanel";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { managingCode, capitalProjectId } = params;
@@ -28,10 +30,33 @@ export async function loader({ params }: LoaderFunctionArgs) {
       },
     );
 
-  const [capitalProject] = await Promise.all([capitalProjectPromise]);
+  const capitalCommitmentsPromise =
+    findCapitalCommitmentsByManagingCodeCapitalProjectId(
+      managingCode,
+      capitalProjectId,
+      {
+        baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+      },
+    );
 
+  const capitalCommitmentTypesPromise = findCapitalCommitmentTypes({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
+  const [
+    capitalProject,
+    capitalCommitmentsResponse,
+    capitalCommitmentTypesResponse,
+  ] = await Promise.all([
+    capitalProjectPromise,
+    capitalCommitmentsPromise,
+    capitalCommitmentTypesPromise,
+  ]);
   return json({
     capitalProject,
+    capitalCommitments: capitalCommitmentsResponse.capitalCommitments,
+    capitalCommitmentTypes:
+      capitalCommitmentTypesResponse.capitalCommitmentTypes,
     agencies: agenciesResponse.agencies,
   });
 }
@@ -40,13 +65,20 @@ export default function CapitalProjectByCityCouncilDistrictId() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { cityCouncilDistrictId } = useParams();
-  const { capitalProject, agencies } = useLoaderData<typeof loader>();
+  const {
+    capitalProject,
+    agencies,
+    capitalCommitments,
+    capitalCommitmentTypes,
+  } = useLoaderData<typeof loader>();
 
   return (
-    <CapitalProjectDetailPanel
+    <CapitalProjectPanel
       capitalProject={capitalProject}
       agencies={agencies}
       navigationBtn="back"
+      capitalCommitments={capitalCommitments}
+      capitalCommitmentTypes={capitalCommitmentTypes}
       onNavigationClick={() => {
         navigate({
           pathname: `/city-council-districts/${cityCouncilDistrictId}/capital-projects`,

@@ -2,7 +2,7 @@ import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { findCapitalProjectsByCityCouncilId, findAgencies } from "../gen";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsAccordionPanel } from "../components/CapitalProjectsList";
-import { Button, Flex, Hide, Show } from "@nycplanning/streetscape";
+import { Flex, Hide, Show } from "@nycplanning/streetscape";
 import { CapitalProjectsDrawer } from "~/components/CapitalProjectsList/CapitalProjectsDrawer";
 import { Pagination } from "~/components/Pagination";
 

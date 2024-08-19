@@ -59,6 +59,7 @@ export const CapitalProjectsAccordionPanel = ({
             <CapitalProjectsList
               capitalProjects={capitalProjects}
               agencies={agencies}
+              isExpanded={true}
             />
             {children}
           </AccordionPanel>

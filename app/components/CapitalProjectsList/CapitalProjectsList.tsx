@@ -1,17 +1,18 @@
-import { Box, Flex, Text, VStack } from "@nycplanning/streetscape";
-import { useState } from "react";
+import { Box, Collapse, Flex, Text, VStack } from "@nycplanning/streetscape";
 import { Agency, CapitalProject, CapitalProjectBudgeted } from "~/gen";
 import { CapitalProjectsListItem } from "./CapitalProjectsListItem";
-import { formatFiscalYearRange, currentDate } from "../../utils/utils";
+import { formatFiscalYearRange } from "../../utils/utils";
 
 export interface CapitalProjectsListProps {
   capitalProjects: CapitalProject[];
   agencies: Agency[];
+  isExpanded: boolean;
 }
 
 export const CapitalProjectsList = ({
   capitalProjects,
   agencies,
+  isExpanded,
 }: CapitalProjectsListProps) => {
   const listBody =
     capitalProjects.length === 0 ? (
@@ -39,17 +40,20 @@ export const CapitalProjectsList = ({
   return (
     <>
       <Box paddingBottom={4}>
-        <Text as={"span"}>
-          Mapped Capital Projects as of <Text as={"b"}>{currentDate()}</Text>
-        </Text>
+        <Text as={"span"}>Mapped Capital Projects</Text>
       </Box>
-      <Flex direction={"column"} overflow={"hidden"}>
-        <Box height={"70vh"} overflowY={{ base: "scroll" }}>
+      <Collapse in={isExpanded} startingHeight={200}>
+        <Flex
+          direction={"column"}
+          height={{ base: isExpanded ? "70vh" : "100%", lg: "70vh" }}
+          overflowX={"hidden"}
+          overflowY={"scroll"}
+        >
           <VStack align={"start"} gap={3}>
             {listBody}
           </VStack>
-        </Box>
-      </Flex>
+        </Flex>
+      </Collapse>
     </>
   );
 };

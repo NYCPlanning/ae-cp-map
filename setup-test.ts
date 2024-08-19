@@ -20,6 +20,11 @@ Object.defineProperty(window, "matchMedia", {
   })),
 });
 
+Object.defineProperty(window, "scrollTo", {
+  writable: true,
+  value: vi.fn(),
+});
+
 /**
  * Mock Service Worker can be configured once the Handlers are generated
  */

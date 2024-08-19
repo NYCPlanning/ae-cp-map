@@ -1,12 +1,12 @@
 import { render, screen } from "@testing-library/react";
-import { CapitalProjectDetailPanel } from ".";
 import {
   Agency,
   CapitalProjectBudgeted,
   createCapitalProjectBudgeted,
 } from "~/gen";
+import { CapitalProjectPanel } from ".";
 
-describe("CapitalProjectDetailPanel", () => {
+describe("CapitalProjectPanel", () => {
   let capitalProject: CapitalProjectBudgeted;
   let agencies: Agency[];
   let onNavigationClick: () => void;
@@ -28,8 +28,10 @@ describe("CapitalProjectDetailPanel", () => {
 
   it("should render a resize bar", () => {
     render(
-      <CapitalProjectDetailPanel
+      <CapitalProjectPanel
         capitalProject={capitalProject}
+        capitalCommitments={[]}
+        capitalCommitmentTypes={[]}
         agencies={agencies}
         onNavigationClick={onNavigationClick}
       />,
@@ -40,13 +42,29 @@ describe("CapitalProjectDetailPanel", () => {
 
   it("should render capital project details", () => {
     render(
-      <CapitalProjectDetailPanel
+      <CapitalProjectPanel
         capitalProject={capitalProject}
+        capitalCommitments={[]}
+        capitalCommitmentTypes={[]}
         agencies={agencies}
         onNavigationClick={onNavigationClick}
       />,
     );
 
     expect(screen.getByText(capitalProject.description)).toBeVisible();
+  });
+
+  it("should render commitments", () => {
+    render(
+      <CapitalProjectPanel
+        capitalProject={capitalProject}
+        capitalCommitments={[]}
+        capitalCommitmentTypes={[]}
+        agencies={agencies}
+        onNavigationClick={onNavigationClick}
+      />,
+    );
+
+    expect(screen.getByText(/Commitments/)).toBeVisible();
   });
 });

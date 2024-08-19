@@ -31,6 +31,7 @@ describe("CapitalProjectDetail", () => {
     render(
       <CapitalProjectDetail
         capitalProject={capitalProject}
+        capitalCommitments={[]}
         agencies={agencies}
         onNavigationClick={onNavigationClick}
       />,
@@ -42,6 +43,7 @@ describe("CapitalProjectDetail", () => {
     render(
       <CapitalProjectDetail
         capitalProject={capitalProject}
+        capitalCommitments={[]}
         agencies={agencies}
         onNavigationClick={onNavigationClick}
       />,
@@ -53,6 +55,7 @@ describe("CapitalProjectDetail", () => {
     render(
       <CapitalProjectDetail
         capitalProject={capitalProject}
+        capitalCommitments={[]}
         agencies={agencies}
         onNavigationClick={onNavigationClick}
       />,
@@ -68,10 +71,25 @@ describe("CapitalProjectDetail", () => {
     render(
       <CapitalProjectDetail
         capitalProject={capitalProject}
+        capitalCommitments={[]}
         agencies={agencies}
         onNavigationClick={onNavigationClick}
       />,
     );
     expect(screen.getByText("FY2019")).toBeVisible();
+  });
+
+  it("should contain the labels from the commitments timeline", () => {
+    render(
+      <CapitalProjectDetail
+        capitalProject={capitalProject}
+        capitalCommitments={[]}
+        agencies={agencies}
+        onNavigationClick={onNavigationClick}
+      />,
+    );
+    expect(screen.getByText(/Past/)).toBeVisible();
+    expect(screen.getByText(/Current/)).toBeVisible();
+    expect(screen.getByText(/Future/)).toBeVisible();
   });
 });
