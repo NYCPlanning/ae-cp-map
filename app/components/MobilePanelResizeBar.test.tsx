@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MobilePanelResizeBar } from "./MobilePanelResizeBar";
 
-describe("MobilePanelSizeControl", () => {
+describe("MobilePanelResizeBar", () => {
   it("should have be clickable to expand", async () => {
     const isExpanded = false;
     const isExpandedToggle = vi.fn();
