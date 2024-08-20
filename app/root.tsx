@@ -3,8 +3,6 @@ import {
   Box,
   Heading,
   VStack,
-  Show,
-  Hide,
   Flex,
 } from "@nycplanning/streetscape";
 import {
@@ -45,6 +43,7 @@ import {
   GoToDistrictBtn,
 } from "./components/GoToDistrictBtn";
 import { GoToCommunityDistrictBtn } from "./components/GoToDistrictBtn/GoToCommunityDistrictBtn";
+import { WelcomePanel } from "./components/WelcomePanel";
 
 export type BoroughId = null | string;
 export type DistrictType = null | "cd" | "ccd";
@@ -177,53 +176,6 @@ export default function App() {
 
   const goToNextDistrict = goToDistrict(pathname);
 
-  const FilterMenuContent = () => (
-    <>
-      <VStack>
-        <DistrictTypeDropdown
-          selectValue={districtType}
-          updateSearchParams={updateSearchParams}
-        />
-        <BoroughDropdown
-          selectValue={boroughId}
-          updateSearchParams={updateSearchParams}
-          boroughs={loaderData.boroughs}
-        />
-
-        {districtType !== "ccd" ? (
-          <CommunityDistrictDropdown
-            boroughId={boroughId}
-            selectValue={districtId}
-            communityDistricts={loaderData.communityDistricts}
-            updateSearchParams={updateSearchParams}
-          />
-        ) : (
-          <CityCouncilDistrictDropdown
-            selectValue={districtId}
-            cityCouncilDistricts={loaderData.cityCouncilDistricts}
-            updateSearchParams={updateSearchParams}
-          />
-        )}
-      </VStack>
-      {districtType === null && (
-        <GoToDistrictBtn goToDistrict={goToNextDistrict} path={null} />
-      )}
-      {districtType === "ccd" && (
-        <GoToCityCouncilDistrictBtn
-          goToDistrict={goToNextDistrict}
-          districtId={districtId}
-        />
-      )}
-      {districtType === "cd" && (
-        <GoToCommunityDistrictBtn
-          goToDistrict={goToNextDistrict}
-          boroughId={boroughId}
-          districtId={districtId}
-        />
-      )}
-    </>
-  );
-
   return (
     <Document>
       <StreetscapeProvider>
@@ -232,16 +184,64 @@ export default function App() {
             <>
               <Atlas />{" "}
               <Overlay>
-                <Show above="lg">
+                <Flex
+                  direction={"column"}
+                  width={{ base: "100%", lg: "auto" }}
+                  alignItems={"center"}
+                  flexShrink={{ lg: 0 }}
+                  maxHeight={{ lg: "100%" }}
+                  overflowX={{ lg: "hidden" }}
+                  overflowY={{ lg: "auto" }}
+                >
                   <FilterMenu defaultIndex={0}>
-                    <FilterMenuContent />
+                    <VStack>
+                      <DistrictTypeDropdown
+                        selectValue={districtType}
+                        updateSearchParams={updateSearchParams}
+                      />
+                      <BoroughDropdown
+                        selectValue={boroughId}
+                        updateSearchParams={updateSearchParams}
+                        boroughs={loaderData.boroughs}
+                      />
+
+                      {districtType !== "ccd" ? (
+                        <CommunityDistrictDropdown
+                          boroughId={boroughId}
+                          selectValue={districtId}
+                          communityDistricts={loaderData.communityDistricts}
+                          updateSearchParams={updateSearchParams}
+                        />
+                      ) : (
+                        <CityCouncilDistrictDropdown
+                          selectValue={districtId}
+                          cityCouncilDistricts={loaderData.cityCouncilDistricts}
+                          updateSearchParams={updateSearchParams}
+                        />
+                      )}
+                    </VStack>
+                    {districtType === null && (
+                      <GoToDistrictBtn
+                        goToDistrict={goToNextDistrict}
+                        path={null}
+                      />
+                    )}
+                    {districtType === "ccd" && (
+                      <GoToCityCouncilDistrictBtn
+                        goToDistrict={goToNextDistrict}
+                        districtId={districtId}
+                      />
+                    )}
+                    {districtType === "cd" && (
+                      <GoToCommunityDistrictBtn
+                        goToDistrict={goToNextDistrict}
+                        boroughId={boroughId}
+                        districtId={districtId}
+                      />
+                    )}
                   </FilterMenu>
-                </Show>
-                <Hide above="lg">
-                  <FilterMenu>
-                    <FilterMenuContent />
-                  </FilterMenu>
-                </Hide>
+                  <WelcomePanel />
+                </Flex>
                 <Flex
                   direction={{ base: "column-reverse", lg: "column" }}
                   justify={{ base: "flex-start", lg: "space-between" }}

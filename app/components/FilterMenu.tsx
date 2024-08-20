@@ -11,7 +11,8 @@ import {
 export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
   <Accordion
     allowToggle
-    borderRadius={"base"}
+    borderTopRadius={"base"}
+    borderBottomRadius={{ base: "base", lg: "none" }}
     padding={{ base: 3, lg: 4 }}
     background={"white"}
     width={{ base: "full", lg: "21.25rem" }}
