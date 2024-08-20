@@ -32,7 +32,7 @@ import {
   findCommunityDistrictsByBoroughId,
 } from "./gen";
 import { FilterMenu } from "./components/FilterMenu";
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs, LinksFunction } from "@remix-run/node";
 import {
   BoroughDropdown,
   DistrictTypeDropdown,
@@ -49,6 +49,16 @@ import { GoToCommunityDistrictBtn } from "./components/GoToDistrictBtn/GoToCommu
 export type BoroughId = null | string;
 export type DistrictType = null | "cd" | "ccd";
 export type DistrictId = null | string;
+
+export const links: LinksFunction = () => {
+  return [
+    {
+      rel: "icon",
+      href: "/favicon.svg",
+      type: "image/x-icon",
+    },
+  ];
+};
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
