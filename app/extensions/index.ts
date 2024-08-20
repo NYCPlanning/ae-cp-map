@@ -1,1 +1,1 @@
-export { FlyToGeoJsonExtension } from './FlyToGeoJsonExtension';
+export { FlyToGeoJsonExtension } from "./FlyToGeoJsonExtension";
