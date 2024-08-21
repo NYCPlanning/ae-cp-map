@@ -1,29 +1,23 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
 import { findCapitalProjectsByCityCouncilId, findAgencies } from "../gen";
 import { useLoaderData } from "@remix-run/react";
-import { CapitalProjectsAccordionPanel } from "../components/CapitalProjectsList";
-import { Flex, Hide, Show } from "@nycplanning/streetscape";
-import { CapitalProjectsDrawer } from "~/components/CapitalProjectsList/CapitalProjectsDrawer";
+import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
+import { Flex } from "@nycplanning/streetscape";
 import { Pagination } from "~/components/Pagination";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
-  const agenciesResponse = await findAgencies({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-  });
-
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");
   const page = pageParam === null ? 1 : parseInt(pageParam);
-  const offset = (page - 1) * itemsPerPage;
-
   const { cityCouncilDistrictId } = params;
-  if (cityCouncilDistrictId === undefined) {
+  if (cityCouncilDistrictId === undefined || isNaN(page)) {
     throw json("Bad Request", { status: 400 });
   }
+  const offset = (page - 1) * itemsPerPage;
 
-  const projectsByCityCouncilDistrictResponse =
-    await findCapitalProjectsByCityCouncilId(
+  const projectsByCityCouncilDistrictPromise =
+    findCapitalProjectsByCityCouncilId(
       cityCouncilDistrictId,
       {
         limit: itemsPerPage,
@@ -34,48 +28,41 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       },
     );
 
+  const agenciesPromise = findAgencies({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
+  const [agenciesResponse, projectsByCityCouncilDistrictResponse] =
+    await Promise.all([agenciesPromise, projectsByCityCouncilDistrictPromise]);
+
   return {
-    projects: projectsByCityCouncilDistrictResponse,
+    capitalProjectsResponse: projectsByCityCouncilDistrictResponse,
     agencies: agenciesResponse.agencies,
-    cityCouncilDistrictId: cityCouncilDistrictId,
+    cityCouncilDistrictId,
   };
 }
 
 export default function CapitalProjectsByCityCouncilDistrict() {
-  const { projects, agencies, cityCouncilDistrictId } =
-    useLoaderData<typeof loader>();
-
-  const pagination = (
-    <Flex
-      paddingTop={4}
-      alignItems="center"
-      justifyContent={"space-between"}
-      marginTop={"auto"}
-    >
-      <Pagination total={projects.total} />
-    </Flex>
-  );
+  const {
+    capitalProjectsResponse: { total: capitalProjectsTotal, capitalProjects },
+    agencies,
+    cityCouncilDistrictId,
+  } = useLoaderData<typeof loader>();
 
   return (
-    <>
-      <Show above="sm">
-        <CapitalProjectsAccordionPanel
-          capitalProjects={projects.capitalProjects}
-          agencies={agencies}
-          district={"City Council District " + cityCouncilDistrictId}
-        >
-          {pagination}
-        </CapitalProjectsAccordionPanel>
-      </Show>
-      <Hide above="sm">
-        <CapitalProjectsDrawer
-          capitalProjects={projects.capitalProjects}
-          agencies={agencies}
-          district={"City Council District " + cityCouncilDistrictId}
-        >
-          {pagination}
-        </CapitalProjectsDrawer>
-      </Hide>
-    </>
+    <CapitalProjectsPanel
+      capitalProjects={capitalProjects}
+      agencies={agencies}
+      district={`City Council District ${cityCouncilDistrictId}`}
+    >
+      <Flex
+        paddingTop={4}
+        alignItems="center"
+        justifyContent={"space-between"}
+        marginTop={"auto"}
+      >
+        <Pagination total={capitalProjectsTotal} />
+      </Flex>
+    </CapitalProjectsPanel>
   );
 }
