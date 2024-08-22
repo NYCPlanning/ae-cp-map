@@ -250,6 +250,11 @@ export default function App() {
                   width={"full"}
                   gap={3}
                   pointerEvents={"none"}
+                  sx={{
+                    "> *": {
+                      pointerEvents: "auto",
+                    },
+                  }}
                 >
                   <Outlet />
                   <Box>
