@@ -6,9 +6,6 @@ import {
   findCapitalCommitmentsByManagingCodeCapitalProjectId,
   findCapitalCommitmentTypes,
 } from "../gen";
-import { Flex } from "@nycplanning/streetscape";
-import { useState } from "react";
-import { MobilePanelResizeBar } from "~/components/MobilePanelResizeBar";
 import { CapitalProjectPanel } from "~/components/CapitalProjectPanel";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -68,39 +65,19 @@ export default function CapitalProject() {
     agencies,
     capitalCommitmentTypes,
   } = useLoaderData<typeof loader>();
-  const [commitmentsAreVisible, setCommitmentsAreVisible] = useState(false);
-
-  const toggleCommitmentsAreVisible = () =>
-    setCommitmentsAreVisible((commitmentsAreVisible) => !commitmentsAreVisible);
 
   return (
-    <Flex
-      borderTopRadius={"base"}
-      borderBottomRadius={{ base: "0", lg: "base" }}
-      background={"white"}
-      direction={"column"}
-      width={{ base: "full", lg: "21.25rem" }}
-      maxW={{ lg: "unset" }}
-      boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
-      position={{ base: "fixed", lg: "static" }}
-    >
-      <MobilePanelResizeBar
-        isExpanded={commitmentsAreVisible}
-        isExpandedToggle={toggleCommitmentsAreVisible}
-        marginTop={"0.75rem"}
-      />
-      <CapitalProjectPanel
-        capitalProject={capitalProject}
-        capitalCommitments={capitalCommitments}
-        capitalCommitmentTypes={capitalCommitmentTypes}
-        agencies={agencies}
-        onNavigationClick={() => {
-          navigate({
-            pathname: "/",
-            search: `?${searchParams.toString()}`,
-          });
-        }}
-      />
-    </Flex>
+    <CapitalProjectPanel
+      capitalProject={capitalProject}
+      capitalCommitments={capitalCommitments}
+      capitalCommitmentTypes={capitalCommitmentTypes}
+      agencies={agencies}
+      onNavigationClick={() => {
+        navigate({
+          pathname: "/",
+          search: `?${searchParams.toString()}`,
+        });
+      }}
+    />
   );
 }
