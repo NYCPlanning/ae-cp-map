@@ -17,7 +17,7 @@ export const Overlay = ({ children }: OverlayProps) => {
       align={{ base: "center", lg: "flex-start" }}
       pointerEvents={"none"}
       sx={{
-        "*": {
+        "> *": {
           pointerEvents: "auto",
         },
       }}
