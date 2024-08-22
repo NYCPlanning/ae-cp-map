@@ -9,7 +9,9 @@ export const Overlay = ({ children }: OverlayProps) => {
   return (
     <Flex
       position="relative"
-      padding={{ base: 0, lg: 8 }}
+      paddingX={{ base: 0, lg: 8 }}
+      paddingBottom={{ base: 0, lg: 8 }}
+      paddingTop={{ base: 3, lg: 8 }}
       height={"100vh"}
       width={"100vw"}
       direction={{ base: "column", lg: "row" }}
