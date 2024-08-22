@@ -86,5 +86,8 @@
       "prettier --write --list-different",
       "eslint --fix"
     ]
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-darwin-x64": "^4.21.0"
   }
 }
