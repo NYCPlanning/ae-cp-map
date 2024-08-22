@@ -24,14 +24,22 @@ export class FlyToGeoJsonExtension extends LayerExtension {
     ) {
       const viewport = this.context.viewport as WebMercatorViewport;
       const [minX, minY, maxX, maxY] = bbox(props.data as Geometry);
-      const { longitude, latitude, zoom } = viewport.fitBounds([
-        [minX, minY],
-        [maxX, maxY],
-      ]);
+      const { longitude, latitude, zoom } = viewport.fitBounds(
+        [
+          [minX, minY],
+          [maxX, maxY],
+        ],
+        {
+          padding:
+            window.innerWidth < 992
+              ? { top: 100, bottom: 400, left: 16, right: 16 }
+              : { top: 64, bottom: 64, left: 368, right: 368 },
+        },
+      );
       const newViewState = {
         longitude,
         latitude,
-        zoom: zoom - 0.25,
+        zoom: zoom,
         transitionDuration: 750,
         transitionInterpolator: new FlyToInterpolator(),
       };
