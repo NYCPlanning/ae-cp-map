@@ -4,6 +4,7 @@ import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
 import { Flex } from "@nycplanning/streetscape";
 import { Pagination } from "~/components/Pagination";
+import { ExportDataModal } from "~/components/ExportDataModal";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -62,6 +63,10 @@ export default function CapitalProjectsByCityCouncilDistrict() {
         marginTop={"auto"}
       >
         <Pagination total={capitalProjectsTotal} />
+        <ExportDataModal
+          geography={`City Council District ${cityCouncilDistrictId}`}
+          fileName={`city_council_district_${cityCouncilDistrictId}.csv`}
+        />
       </Flex>
     </CapitalProjectsPanel>
   );

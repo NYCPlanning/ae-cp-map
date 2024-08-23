@@ -20,3 +20,4 @@ jobs:
                 team: ${{secrets.HEROKU_TEAM}}
               env:
                 HD_VITE_ZONING_API_URL: ${{secrets.VITE_ZONING_API_URL}}
+                HD_VITE_CPDB_DATA_URL: ${{secrets.VITE_CPDB_DATA_URL}}
