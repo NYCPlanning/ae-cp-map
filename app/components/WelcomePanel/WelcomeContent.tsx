@@ -37,10 +37,8 @@ export function WelcomeContent() {
         <Text fontSize={"small"}>
           Select a project on the map to learn more about the relevant agencies
           and capital commitments, or filter by specific geographies to see all
-          projects in that area.
-          {/* TODO: add this line when export feature is added */}
-          {/* You can also export your selection as a CSV table
-        or ESRI Shapefile. */}
+          projects in that area. You can also export your selection as a CSV
+          table.
         </Text>
       </Box>
       <Box>

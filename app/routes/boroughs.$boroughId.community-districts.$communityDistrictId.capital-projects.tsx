@@ -2,6 +2,7 @@ import { Flex } from "@nycplanning/streetscape";
 import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "~/components/CapitalProjectsList";
+import { ExportDataModal } from "~/components/ExportDataModal";
 import { Pagination } from "~/components/Pagination";
 import {
   findAgencies,
@@ -50,13 +51,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       boroughsPromise,
       projectsByCommunityDistrictPromise,
     ]);
-  const boroughAbbr = boroughsResponse.boroughs.find(
+  const activeBorough = boroughsResponse.boroughs.find(
     (borough) => borough.id === boroughId,
-  )?.abbr;
+  );
   return {
     capitalProjectsResponse,
     agencies: agenciesResponse.agencies,
-    boroughAbbr,
+    boroughAbbr: activeBorough?.abbr,
+    boroughTitle: activeBorough?.title,
     communityDistrictId,
   };
 }
@@ -66,6 +68,7 @@ export default function CapitalProjectsByBoroughIdCommunityDistrictId() {
     capitalProjectsResponse: { total: capitalProjectsTotal, capitalProjects },
     agencies,
     boroughAbbr,
+    boroughTitle,
     communityDistrictId,
   } = useLoaderData<typeof loader>();
 
@@ -82,6 +85,10 @@ export default function CapitalProjectsByBoroughIdCommunityDistrictId() {
         marginTop={"auto"}
       >
         <Pagination total={capitalProjectsTotal} />
+        <ExportDataModal
+          geography={`Community District ${boroughAbbr}${communityDistrictId}`}
+          fileName={`community_district_${boroughTitle?.toLowerCase()}_cd${communityDistrictId}.csv`}
+        />
       </Flex>
     </CapitalProjectsPanel>
   );
