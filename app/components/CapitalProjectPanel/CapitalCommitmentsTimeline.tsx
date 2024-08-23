@@ -71,7 +71,13 @@ export function CapitalCommitmentsTimeline({
 
   return (
     <Flex maxWidth={"350px"} margin={"auto"}>
-      <svg viewBox="0 0 300 75" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <svg
+        viewBox="0 0 300 75"
+        width="300"
+        height="75"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+      >
         <g>
           <line
             x1="50"
