@@ -1,0 +1,22 @@
+name: 🌠 Deploy to production
+
+on: workflow_dispatch
+
+jobs:
+    deploy:
+        name: 🚀 Deploy
+        environment:
+            name: production-cp-map
+            url: https://capitalplanning.nycplanningdigital.com
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - name: Deploy to Heroku
+              uses: akhileshns/heroku-deploy@v3.13.15
+              with:
+                heroku_email: ${{secrets.HEROKU_EMAIL}}
+                heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+                heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
+                team: ${{secrets.HEROKU_TEAM}}
+              env:
+                HD_VITE_ZONING_API_URL: ${{secrets.VITE_ZONING_API_URL}}
