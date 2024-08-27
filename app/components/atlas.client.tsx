@@ -14,6 +14,7 @@ import {
   useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
+import { MatomoProvider, createInstance } from '../utils/matomo-tracker-react'
 
 const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
@@ -54,44 +55,53 @@ export function Atlas() {
 
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
 
+  const instance = createInstance({
+    urlBase: 'https://nycplanning.matomo.cloud/',
+    siteId: 5,
+    trackerUrl: 'https://nycplanning.matomo.cloud/matomo.php', // optional, default value: `${urlBase}matomo.php`
+    srcUrl: 'https://cdn.matomo.cloud/nycplanning.matomo.cloud/matomo.js', // optional, default value: `${urlBase}matomo.js`
+  })
+
   return (
-    <DeckGL<MapView>
-      viewState={viewState}
-      onViewStateChange={({ viewState: newViewState }) => {
-        setViewState({
-          ...newViewState,
-          longitude: Math.min(
-            -73.6311,
-            Math.max(-74.3308, newViewState.longitude),
-          ),
-          latitude: Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
-          bearing: newViewState.bearing,
-          pitch: 0,
-          zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
-        });
-      }}
-      controller={true}
-      style={{ height: "100vh", width: "100vw" }}
-      layers={[
-        capitalProjectsLayer,
-        capitalProjectBudgetedGeoJsonLayer,
-        communityDistrictsLayer,
-        communityDistrictLayer,
-        cityCouncilDistrictsLayer,
-        cityCouncilDistrictLayer,
-      ]}
-      getCursor={({ isDragging, isHovering }) => {
-        if (isDragging) {
-          return "grabbing";
-        }
-        return isHovering ? "pointer" : "grab";
-      }}
-      widgets={isMobile ? [] : [ZoomControls, CompassControls]}
-    >
-      <Map
-        mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
-        attributionControl={isMobile ? false : true}
-      ></Map>
-    </DeckGL>
+    <MatomoProvider value={instance}>
+      <DeckGL<MapView>
+        viewState={viewState}
+        onViewStateChange={({ viewState: newViewState }) => {
+          setViewState({
+            ...newViewState,
+            longitude: Math.min(
+              -73.6311,
+              Math.max(-74.3308, newViewState.longitude),
+            ),
+            latitude: Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
+            bearing: newViewState.bearing,
+            pitch: 0,
+            zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
+          });
+        }}
+        controller={true}
+        style={{ height: "100vh", width: "100vw" }}
+        layers={[
+          capitalProjectsLayer,
+          capitalProjectBudgetedGeoJsonLayer,
+          communityDistrictsLayer,
+          communityDistrictLayer,
+          cityCouncilDistrictsLayer,
+          cityCouncilDistrictLayer,
+        ]}
+        getCursor={({ isDragging, isHovering }) => {
+          if (isDragging) {
+            return "grabbing";
+          }
+          return isHovering ? "pointer" : "grab";
+        }}
+        widgets={isMobile ? [] : [ZoomControls, CompassControls]}
+      >
+        <Map
+          mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
+          attributionControl={isMobile ? false : true}
+        ></Map>
+      </DeckGL>
+    </MatomoProvider>
   );
 }
