@@ -28,6 +28,7 @@ export const CapitalProjectsDrawer = ({
       borderTopRightRadius={"base"}
       gap={4}
       position={{ base: "fixed", lg: "static" }}
+      width={"full"}
     >
       <MobilePanelResizeBar
         isExpanded={isExpanded}
