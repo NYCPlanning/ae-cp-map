@@ -25,6 +25,11 @@ Object.defineProperty(window, "scrollTo", {
   value: vi.fn(),
 });
 
+Object.defineProperty(window, "_paq", {
+  writable: true,
+  value: [],
+});
+
 /**
  * Mock Service Worker can be configured once the Handlers are generated
  */

@@ -1,4 +1,5 @@
 import { AdminDropdownProps, AdminDropdown } from ".";
+import { analytics } from "../../utils/analytics";
 
 export interface DistrictTypeDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
@@ -12,6 +13,11 @@ export function DistrictTypeDropdown({
   const updateDistrictType = (nextDistrictType: string | null) => {
     const nextSearchParams: Record<string, string> =
       nextDistrictType === null ? {} : { districtType: nextDistrictType };
+    analytics({
+      category: "Dropdown Menu",
+      action: "Change District Type",
+      name: nextDistrictType,
+    });
     updateSearchParams(nextSearchParams);
   };
 
