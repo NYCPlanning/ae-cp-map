@@ -44,6 +44,8 @@ import {
 } from "./components/GoToDistrictBtn";
 import { GoToCommunityDistrictBtn } from "./components/GoToDistrictBtn/GoToCommunityDistrictBtn";
 import { WelcomePanel } from "./components/WelcomePanel";
+import { useEffect } from "react";
+import { initializeMatomoTagManager } from "./utils/analytics";
 
 export type BoroughId = null | string;
 export type DistrictType = null | "cd" | "ccd";
@@ -142,6 +144,13 @@ function Document({
 }
 
 export default function App() {
+  let ranEffect = false;
+  useEffect(() => {
+    if (!ranEffect) {
+      initializeMatomoTagManager("SmoWWpiD");
+      ranEffect = true;
+    }
+  }, []);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
