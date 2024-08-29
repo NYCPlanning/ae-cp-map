@@ -2,7 +2,7 @@ import { Flex } from "@nycplanning/streetscape";
 import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "~/components/CapitalProjectsList";
-import { ExportDataBtn } from "~/components/ExportDataBtn";
+import { ExportDataModal } from "~/components/ExportDataModal";
 import { Pagination } from "~/components/Pagination";
 import {
   findAgencies,
@@ -83,7 +83,7 @@ export default function CapitalProjectsByBoroughIdCommunityDistrictId() {
         marginTop={"auto"}
       >
         <Pagination total={capitalProjectsTotal} />
-        <ExportDataBtn geographyFileName="project_in_geographies" />
+        <ExportDataModal />
       </Flex>
     </CapitalProjectsPanel>
   );

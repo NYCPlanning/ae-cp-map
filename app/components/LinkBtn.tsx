@@ -12,7 +12,7 @@ export function LinkBtn(props: LinkBtnProps) {
       boxShadow="0 1.5 1.5 0 rgba(35, 78, 82, 0.08)"
       minH={11}
       minW={11}
-      fontSize={"x-small"}
+      fontSize={"xs"}
       _disabled={{
         backgroundColor: "primary.500",
         color: "white",
