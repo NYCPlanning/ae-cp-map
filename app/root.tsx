@@ -144,12 +144,8 @@ function Document({
 }
 
 export default function App() {
-  let ranEffect = false;
   useEffect(() => {
-    if (!ranEffect) {
-      initializeMatomoTagManager("SmoWWpiD");
-      ranEffect = true;
-    }
+    initializeMatomoTagManager("SmoWWpiD");
   }, []);
   const navigate = useNavigate();
   const { pathname } = useLocation();
