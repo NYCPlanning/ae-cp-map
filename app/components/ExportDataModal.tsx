@@ -6,9 +6,10 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-} from "@chakra-ui/react"; // TODO: Remove before flight
+  Button,
+  Text,
+} from "@nycplanning/streetscape";
 
-import { Button, Text } from "@nycplanning/streetscape";
 import { useState } from "react";
 import { LinkBtn } from "./LinkBtn";
 

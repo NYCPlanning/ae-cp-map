@@ -27,7 +27,7 @@
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@kubb/swagger-client": "^2.23.2",
-    "@nycplanning/streetscape": "^0.11.0",
+    "@nycplanning/streetscape": "^0.12.0",
     "@remix-run/node": "^2.7.2",
     "@remix-run/react": "^2.7.2",
     "@remix-run/serve": "^2.7.2",
