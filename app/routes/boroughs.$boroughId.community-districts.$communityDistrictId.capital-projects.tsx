@@ -83,7 +83,11 @@ export default function CapitalProjectsByBoroughIdCommunityDistrictId() {
         marginTop={"auto"}
       >
         <Pagination total={capitalProjectsTotal} />
-        <ExportDataModal />
+        {/* TODO: Make dynamic */}
+        <ExportDataModal
+          geography="Community District MN05"
+          fileName="community_district_queens_cd05.csv"
+        />
       </Flex>
     </CapitalProjectsPanel>
   );
