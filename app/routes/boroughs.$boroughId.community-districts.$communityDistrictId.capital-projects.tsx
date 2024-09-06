@@ -51,13 +51,14 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       boroughsPromise,
       projectsByCommunityDistrictPromise,
     ]);
-  const boroughAbbr = boroughsResponse.boroughs.find(
+  const activeBorough = boroughsResponse.boroughs.find(
     (borough) => borough.id === boroughId,
-  )?.abbr;
+  );
   return {
     capitalProjectsResponse,
     agencies: agenciesResponse.agencies,
-    boroughAbbr,
+    boroughAbbr: activeBorough?.abbr,
+    boroughTitle: activeBorough?.title,
     communityDistrictId,
   };
 }
@@ -67,6 +68,7 @@ export default function CapitalProjectsByBoroughIdCommunityDistrictId() {
     capitalProjectsResponse: { total: capitalProjectsTotal, capitalProjects },
     agencies,
     boroughAbbr,
+    boroughTitle,
     communityDistrictId,
   } = useLoaderData<typeof loader>();
 
@@ -83,10 +85,9 @@ export default function CapitalProjectsByBoroughIdCommunityDistrictId() {
         marginTop={"auto"}
       >
         <Pagination total={capitalProjectsTotal} />
-        {/* TODO: Make dynamic */}
         <ExportDataModal
-          geography="Community District MN05"
-          fileName="community_district_queens_cd05.csv"
+          geography={`Community District ${boroughAbbr}${communityDistrictId}`}
+          fileName={`community_district_${boroughTitle?.toLowerCase()}_cd${communityDistrictId}.csv`}
         />
       </Flex>
     </CapitalProjectsPanel>

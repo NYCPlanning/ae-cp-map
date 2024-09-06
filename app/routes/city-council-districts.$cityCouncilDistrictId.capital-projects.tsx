@@ -63,10 +63,9 @@ export default function CapitalProjectsByCityCouncilDistrict() {
         marginTop={"auto"}
       >
         <Pagination total={capitalProjectsTotal} />
-        {/* TODO: Make dynamic */}
         <ExportDataModal
-          geography="City Council District 1"
-          fileName="city_council_district_1"
+          geography={`City Council District ${cityCouncilDistrictId}`}
+          fileName={`city_council_district_${cityCouncilDistrictId}.csv`}
         />
       </Flex>
     </CapitalProjectsPanel>
