@@ -1,4 +1,5 @@
 import { compareAsc, format, getMonth, getYear } from "date-fns";
+import { SearchParamChanges } from "./types";
 
 const getFiscalYearForDate = (date: Date): number => {
   const year = getYear(date);
@@ -17,18 +18,19 @@ export const currentDate = () => {
 };
 
 // from https://www.jacobparis.com/content/remix-pagination
-export function setNewSearchParamsString(
+export function setNewSearchParams(
   searchParams: URLSearchParams,
-  changes: Record<string, string | number | undefined>,
+  changes: SearchParamChanges,
 ) {
   const newSearchParams = new URLSearchParams(searchParams);
+
   for (const [key, value] of Object.entries(changes)) {
-    if (value === undefined) {
+    if (value === (undefined || null)) {
       newSearchParams.delete(key);
       continue;
     }
     newSearchParams.set(key, String(value));
   }
 
-  return newSearchParams.toString();
+  return newSearchParams;
 }

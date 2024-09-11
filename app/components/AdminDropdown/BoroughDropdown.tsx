@@ -1,30 +1,24 @@
 import { Borough } from "~/gen";
 import { AdminDropdownProps, AdminDropdown } from ".";
-import { BoroughId } from "~/root";
+import { AdminParams, BoroughId } from "~/utils/types";
 
 export interface BoroughDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
-  updateSearchParams: (value: Record<string, string>) => void;
   boroughs: Array<Borough> | null;
+  setAdminParams: (value: AdminParams) => void;
 }
 
 export function BoroughDropdown({
   selectValue,
-  updateSearchParams,
   boroughs,
+  setAdminParams,
 }: BoroughDropdownProps) {
   const updateBoroughId = (nextBoroughId: BoroughId) => {
-    const nextSearchParams: Record<string, string> =
-      nextBoroughId !== null
-        ? {
-            districtType: "cd",
-            boroughId: nextBoroughId,
-          }
-        : {
-            districtType: "cd",
-          };
-
-    updateSearchParams(nextSearchParams);
+    setAdminParams({
+      districtType: "cd",
+      boroughId: nextBoroughId,
+      districtId: null,
+    });
   };
 
   const boroughOptions = boroughs?.map((borough) => (

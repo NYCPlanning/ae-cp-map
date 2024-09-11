@@ -1,24 +1,34 @@
+import { AdminParams } from "~/utils/types";
 import { AdminDropdownProps, AdminDropdown } from ".";
 import { analytics } from "../../utils/analytics";
 
 export interface DistrictTypeDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
-  updateSearchParams: (value: Record<string, string>) => void;
+  setAdminParams: (value: AdminParams) => void;
 }
 
 export function DistrictTypeDropdown({
   selectValue,
-  updateSearchParams,
+  setAdminParams,
 }: DistrictTypeDropdownProps) {
   const updateDistrictType = (nextDistrictType: string | null) => {
-    const nextSearchParams: Record<string, string> =
-      nextDistrictType === null ? {} : { districtType: nextDistrictType };
+    if (
+      nextDistrictType !== "cd" &&
+      nextDistrictType !== "ccd" &&
+      nextDistrictType !== null
+    )
+      throw new Error("invalid district type selected");
+
     analytics({
       category: "Dropdown Menu",
       action: "Change District Type",
       name: nextDistrictType,
     });
-    updateSearchParams(nextSearchParams);
+    setAdminParams({
+      districtType: nextDistrictType,
+      boroughId: null,
+      districtId: null,
+    });
   };
 
   return (

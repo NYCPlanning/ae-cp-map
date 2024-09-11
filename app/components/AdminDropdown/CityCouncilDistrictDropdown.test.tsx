@@ -17,7 +17,7 @@ describe("CityCouncilDistrictDropdown", () => {
     const updateSearchParams = vi.fn();
     render(
       <CityCouncilDistrictDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         cityCouncilDistricts={cityCouncilDistricts}
       />,
     );
@@ -31,7 +31,7 @@ describe("CityCouncilDistrictDropdown", () => {
     const firstCityCouncilDistrictId = cityCouncilDistricts[0].id;
     render(
       <CityCouncilDistrictDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         cityCouncilDistricts={cityCouncilDistricts}
         selectValue={firstCityCouncilDistrictId}
       />,
@@ -40,6 +40,8 @@ describe("CityCouncilDistrictDropdown", () => {
     await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "ccd",
+      boroughId: null,
+      districtId: null,
     });
   });
 
@@ -48,7 +50,7 @@ describe("CityCouncilDistrictDropdown", () => {
     const firstCityCouncilDistrictId = cityCouncilDistricts[0].id;
     render(
       <CityCouncilDistrictDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         cityCouncilDistricts={cityCouncilDistricts}
       />,
     );
@@ -61,6 +63,7 @@ describe("CityCouncilDistrictDropdown", () => {
     );
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "ccd",
+      boroughId: null,
       districtId: firstCityCouncilDistrictId,
     });
   });
