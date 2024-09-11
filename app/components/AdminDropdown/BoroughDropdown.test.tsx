@@ -14,7 +14,7 @@ describe("BoroughDropdown", () => {
     const updateSearchParams = vi.fn();
     render(
       <BoroughDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         boroughs={boroughs}
       />,
     );
@@ -28,7 +28,7 @@ describe("BoroughDropdown", () => {
     const firstBoroughId = boroughs[0].id;
     render(
       <BoroughDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         selectValue={firstBoroughId}
         boroughs={boroughs}
       />,
@@ -37,6 +37,8 @@ describe("BoroughDropdown", () => {
     await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "cd",
+      boroughId: null,
+      districtId: null,
     });
   });
 
@@ -45,7 +47,7 @@ describe("BoroughDropdown", () => {
     const firstBoroughId = boroughs[0].id;
     render(
       <BoroughDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         boroughs={boroughs}
       />,
     );
@@ -56,6 +58,7 @@ describe("BoroughDropdown", () => {
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "cd",
       boroughId: firstBoroughId,
+      districtId: null,
     });
   });
 });

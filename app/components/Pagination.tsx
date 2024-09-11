@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, HStack } from "@nycplanning/streetscape";
 import { Link, useSearchParams } from "@remix-run/react";
-import { setNewSearchParamsString } from "~/utils/utils";
+import { setNewSearchParams } from "~/utils/utils";
 
 export interface PaginationProps {
   total: number;
@@ -19,9 +19,9 @@ export const Pagination = ({ total }: PaginationProps) => {
     <HStack gap={2}>
       <Link
         to={{
-          search: setNewSearchParamsString(searchParams, {
+          search: setNewSearchParams(searchParams, {
             page: page - 1,
-          }),
+          }).toString(),
         }}
       >
         <Box
@@ -49,9 +49,9 @@ export const Pagination = ({ total }: PaginationProps) => {
       </Box>
       <Link
         to={{
-          search: setNewSearchParamsString(searchParams, {
+          search: setNewSearchParams(searchParams, {
             page: page + 1,
-          }),
+          }).toString(),
         }}
       >
         <Box

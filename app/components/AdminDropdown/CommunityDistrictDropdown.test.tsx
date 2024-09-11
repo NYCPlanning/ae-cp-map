@@ -20,7 +20,7 @@ describe("CommunityDistrictDropdown", () => {
     render(
       <CommunityDistrictDropdown
         boroughId={boroughId}
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         communityDistricts={communityDistricts}
       />,
     );
@@ -36,14 +36,18 @@ describe("CommunityDistrictDropdown", () => {
     render(
       <CommunityDistrictDropdown
         boroughId={null}
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         selectValue={firstCommunityDistrictId}
         communityDistricts={communityDistricts}
       />,
     );
 
     await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
-    expect(updateSearchParams).toHaveBeenCalledWith({ districtType: "cd" });
+    expect(updateSearchParams).toHaveBeenCalledWith({
+      districtType: "cd",
+      boroughId: null,
+      districtId: null,
+    });
   });
 
   it("should set search params when nextDistrictID is empty", async () => {
@@ -53,7 +57,7 @@ describe("CommunityDistrictDropdown", () => {
     render(
       <CommunityDistrictDropdown
         boroughId={boroughId}
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         selectValue={firstCommunityDistrictId}
         communityDistricts={communityDistricts}
       />,
@@ -63,6 +67,7 @@ describe("CommunityDistrictDropdown", () => {
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "cd",
       boroughId,
+      districtId: null,
     });
   });
 
@@ -72,7 +77,7 @@ describe("CommunityDistrictDropdown", () => {
     render(
       <CommunityDistrictDropdown
         boroughId={boroughId}
-        updateSearchParams={updateSearchParams}
+        setAdminParams={updateSearchParams}
         selectValue={null}
         communityDistricts={communityDistricts}
       />,

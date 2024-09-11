@@ -37,7 +37,6 @@ import {
   CommunityDistrictDropdown,
   CityCouncilDistrictDropdown,
 } from "./components/AdminDropdown";
-import { URLSearchParamsInit } from "react-router-dom";
 import {
   GoToCityCouncilDistrictBtn,
   GoToDistrictBtn,
@@ -46,10 +45,13 @@ import { GoToCommunityDistrictBtn } from "./components/GoToDistrictBtn/GoToCommu
 import { WelcomePanel } from "./components/WelcomePanel";
 import { useEffect } from "react";
 import { initializeMatomoTagManager } from "./utils/analytics";
-
-export type BoroughId = null | string;
-export type DistrictType = null | "cd" | "ccd";
-export type DistrictId = null | string;
+import { setNewSearchParams } from "~/utils/utils";
+import {
+  BoroughId,
+  DistrictId,
+  DistrictType,
+  SearchParamChanges,
+} from "./utils/types";
 
 export const links: LinksFunction = () => {
   return [
@@ -60,6 +62,8 @@ export const links: LinksFunction = () => {
     },
   ];
 };
+
+const adminParamKeys = ["districtType", "boroughId", "districtId"];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -163,20 +167,26 @@ export default function App() {
       (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null })
   >();
 
-  const updateSearchParams = (
-    nextSearchParams:
-      | URLSearchParamsInit
-      | ((prev: URLSearchParams) => URLSearchParamsInit)
-      | undefined,
-  ) => setSearchParams(nextSearchParams, { replace: true });
+  const updateSearchParams = (nextSearchParams: SearchParamChanges) => {
+    const mergedParams = setNewSearchParams(searchParams, nextSearchParams);
+    setSearchParams(mergedParams);
+  };
 
   const goToDistrict = (currentPath: string) => (nextPath: string) => {
     // Avoid adding the same path to the history stack multiple times
-    if (currentPath !== `/${nextPath}`)
+    if (currentPath !== `/${nextPath}`) {
+      const nextAdminParams = new URLSearchParams();
+      searchParams.forEach((value, key) => {
+        if (adminParamKeys.includes(key)) {
+          nextAdminParams.set(key, value);
+        }
+      });
+
       navigate({
         pathname: nextPath,
-        search: `?${searchParams.toString()}`,
+        search: `?${nextAdminParams.toString()}`,
       });
+    }
   };
 
   const goToNextDistrict = goToDistrict(pathname);
@@ -202,12 +212,12 @@ export default function App() {
                     <VStack>
                       <DistrictTypeDropdown
                         selectValue={districtType}
-                        updateSearchParams={updateSearchParams}
+                        setAdminParams={updateSearchParams}
                       />
                       <BoroughDropdown
                         selectValue={boroughId}
-                        updateSearchParams={updateSearchParams}
                         boroughs={loaderData.boroughs}
+                        setAdminParams={updateSearchParams}
                       />
 
                       {districtType !== "ccd" ? (
@@ -215,13 +225,13 @@ export default function App() {
                           boroughId={boroughId}
                           selectValue={districtId}
                           communityDistricts={loaderData.communityDistricts}
-                          updateSearchParams={updateSearchParams}
+                          setAdminParams={updateSearchParams}
                         />
                       ) : (
                         <CityCouncilDistrictDropdown
                           selectValue={districtId}
                           cityCouncilDistricts={loaderData.cityCouncilDistricts}
-                          updateSearchParams={updateSearchParams}
+                          setAdminParams={updateSearchParams}
                         />
                       )}
                     </VStack>
