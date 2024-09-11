@@ -158,15 +158,19 @@ export default function App() {
       (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null })
   >();
 
-  const updateSearchParams = (
-    nextSearchParams:
-      | URLSearchParamsInit
-      | ((prev: URLSearchParams) => URLSearchParamsInit)
-      | undefined,
-  ) => setSearchParams(nextSearchParams, { replace: true });
+  const updateSearchParams = (nextSearchParams: Record<string, string>) => {
+    const newSearch = new URLSearchParams(nextSearchParams);
+    setSearchParams((updatedParams) => {
+      newSearch.forEach((value, key) => {
+        updatedParams.set(key, value);
+      });
+      return updatedParams;
+    });
+  };
 
   const goToDistrict = (currentPath: string) => (nextPath: string) => {
     // Avoid adding the same path to the history stack multiple times
+    searchParams.delete("page");
     if (currentPath !== `/${nextPath}`)
       navigate({
         pathname: nextPath,
