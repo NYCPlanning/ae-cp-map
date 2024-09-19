@@ -5,19 +5,23 @@ import { act } from "react";
 
 describe("DistrictTypeDropdown", () => {
   it("should render district type form details and options", () => {
-    const updateSearchParams = vi.fn();
-    render(<DistrictTypeDropdown updateSearchParams={updateSearchParams} />);
+    const setAdminParams = vi.fn();
+    render(<DistrictTypeDropdown setAdminParams={setAdminParams} />);
     expect(screen.getByLabelText("District Type")).toBeInTheDocument();
     expect(screen.getByText("Community District")).toBeInTheDocument();
     expect(screen.getByText("City Council District")).toBeInTheDocument();
   });
 
   it("should update search params when changing the district type", async () => {
-    const updateSearchParams = vi.fn();
-    render(<DistrictTypeDropdown updateSearchParams={updateSearchParams} />);
+    const setAdminParams = vi.fn();
+    render(<DistrictTypeDropdown setAdminParams={setAdminParams} />);
     await act(() =>
       userEvent.selectOptions(screen.getByRole("combobox"), "cd"),
     );
-    expect(updateSearchParams).toHaveBeenCalledWith({ districtType: "cd" });
+    expect(setAdminParams).toHaveBeenCalledWith({
+      districtType: "cd",
+      boroughId: null,
+      districtId: null,
+    });
   });
 });

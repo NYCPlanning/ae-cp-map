@@ -1,33 +1,23 @@
 import { CityCouncilDistrict } from "~/gen";
 import { AdminDropdownProps, AdminDropdown } from ".";
-import { DistrictId } from "~/root";
+import { AdminParams, DistrictId } from "~/root";
 
 export interface CityCouncilDistrictDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
-  updateSearchParams: (value: Record<string, string>) => void;
+  setAdminParams: (value: AdminParams) => void;
   cityCouncilDistricts: Array<CityCouncilDistrict> | null;
 }
 export function CityCouncilDistrictDropdown({
   selectValue,
-  updateSearchParams,
+  setAdminParams,
   cityCouncilDistricts,
 }: CityCouncilDistrictDropdownProps) {
   const updateDistrictId = (nextDistrictId: DistrictId) => {
-    const districtType = "ccd";
-
-    if (nextDistrictId === null) {
-      updateSearchParams({
-        districtType,
-      });
-      return;
-    }
-    if (nextDistrictId !== null) {
-      updateSearchParams({
-        districtType,
-        districtId: nextDistrictId,
-      });
-      return;
-    }
+    setAdminParams({
+      districtType: "ccd",
+      boroughId: null,
+      districtId: nextDistrictId,
+    });
   };
 
   const cityCouncilDistrictOptions = cityCouncilDistricts?.map((cd) => (

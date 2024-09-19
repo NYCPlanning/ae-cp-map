@@ -16,11 +16,11 @@ describe("CommunityDistrictDropdown", () => {
   });
 
   it("should render community district form details and options", () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     render(
       <CommunityDistrictDropdown
         boroughId={boroughId}
-        updateSearchParams={updateSearchParams}
+        setAdminParams={setAdminParams}
         communityDistricts={communityDistricts}
       />,
     );
@@ -31,48 +31,53 @@ describe("CommunityDistrictDropdown", () => {
   });
 
   it("should set search params when borough is null", async () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     const firstCommunityDistrictId = communityDistricts[0].id;
     render(
       <CommunityDistrictDropdown
         boroughId={null}
-        updateSearchParams={updateSearchParams}
+        setAdminParams={setAdminParams}
         selectValue={firstCommunityDistrictId}
         communityDistricts={communityDistricts}
       />,
     );
 
     await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
-    expect(updateSearchParams).toHaveBeenCalledWith({ districtType: "cd" });
+    expect(setAdminParams).toHaveBeenCalledWith({
+      districtType: "cd",
+      boroughId: null,
+      districtId: null,
+    });
   });
 
   it("should set search params when nextDistrictID is empty", async () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     const firstCommunityDistrictId = communityDistricts[0].id;
 
     render(
       <CommunityDistrictDropdown
         boroughId={boroughId}
-        updateSearchParams={updateSearchParams}
+        setAdminParams={setAdminParams}
         selectValue={firstCommunityDistrictId}
         communityDistricts={communityDistricts}
       />,
     );
 
     await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
-    expect(updateSearchParams).toHaveBeenCalledWith({
+    expect(setAdminParams).toHaveBeenCalledWith({
       districtType: "cd",
       boroughId,
+      districtId: null,
     });
   });
 
   it("should set search params when nextDistrictID has a value", async () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     const firstCommunityDistrictId = communityDistricts[0].id;
     render(
       <CommunityDistrictDropdown
         boroughId={boroughId}
-        updateSearchParams={updateSearchParams}
+        setAdminParams={setAdminParams}
         selectValue={null}
         communityDistricts={communityDistricts}
       />,
@@ -84,7 +89,7 @@ describe("CommunityDistrictDropdown", () => {
         firstCommunityDistrictId,
       ),
     );
-    expect(updateSearchParams).toHaveBeenCalledWith({
+    expect(setAdminParams).toHaveBeenCalledWith({
       districtType: "cd",
       boroughId,
       districtId: firstCommunityDistrictId,

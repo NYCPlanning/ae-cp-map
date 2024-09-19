@@ -1,28 +1,27 @@
+import { AdminParams } from "~/root";
 import { AdminDropdownProps, AdminDropdown } from ".";
 
 export interface DistrictTypeDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
-  updateSearchParams: (value: Record<string, string | null>) => void;
+  setAdminParams: (value: AdminParams) => void;
 }
 
 export function DistrictTypeDropdown({
   selectValue,
-  updateSearchParams,
+  setAdminParams,
 }: DistrictTypeDropdownProps) {
   const updateDistrictType = (nextDistrictType: string | null) => {
-    const nextSearchParams: Record<string, string | null> =
-      nextDistrictType === null
-        ? {
-            districtType: null,
-            boroughId: null,
-            districtId: null,
-          }
-        : {
-            districtType: nextDistrictType,
-            districtId: null,
-            boroughId: null,
-          };
-    updateSearchParams(nextSearchParams);
+    if (
+      nextDistrictType !== "cd" &&
+      nextDistrictType !== "ccd" &&
+      nextDistrictType !== null
+    )
+      throw new Error("invalid district type selected");
+    setAdminParams({
+      districtType: nextDistrictType,
+      districtId: null,
+      boroughId: null,
+    });
   };
 
   return (

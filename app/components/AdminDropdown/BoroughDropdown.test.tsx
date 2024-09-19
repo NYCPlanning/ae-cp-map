@@ -11,12 +11,9 @@ describe("BoroughDropdown", () => {
   });
 
   it("should render borough form details and options", () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     render(
-      <BoroughDropdown
-        updateSearchParams={updateSearchParams}
-        boroughs={boroughs}
-      />,
+      <BoroughDropdown setAdminParams={setAdminParams} boroughs={boroughs} />,
     );
     expect(screen.getByLabelText("Borough")).toBeInTheDocument();
     const firstBoroughTitle = boroughs[0].title;
@@ -24,38 +21,38 @@ describe("BoroughDropdown", () => {
   });
 
   it("should set search params when next borough id is empty", async () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     const firstBoroughId = boroughs[0].id;
     render(
       <BoroughDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={setAdminParams}
         selectValue={firstBoroughId}
         boroughs={boroughs}
       />,
     );
 
     await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
-    expect(updateSearchParams).toHaveBeenCalledWith({
+    expect(setAdminParams).toHaveBeenCalledWith({
       districtType: "cd",
+      boroughId: null,
+      districtId: null,
     });
   });
 
   it("should set search params when next borough id has a value", async () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     const firstBoroughId = boroughs[0].id;
     render(
-      <BoroughDropdown
-        updateSearchParams={updateSearchParams}
-        boroughs={boroughs}
-      />,
+      <BoroughDropdown setAdminParams={setAdminParams} boroughs={boroughs} />,
     );
 
     await act(() =>
       userEvent.selectOptions(screen.getByRole("combobox"), firstBoroughId),
     );
-    expect(updateSearchParams).toHaveBeenCalledWith({
+    expect(setAdminParams).toHaveBeenCalledWith({
       districtType: "cd",
       boroughId: firstBoroughId,
+      districtId: null,
     });
   });
 });

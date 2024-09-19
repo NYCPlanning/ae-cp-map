@@ -49,6 +49,12 @@ export type BoroughId = null | string;
 export type DistrictType = null | "cd" | "ccd";
 export type DistrictId = null | string;
 
+export interface AdminParams {
+  districtType: DistrictType;
+  districtId: DistrictId;
+  boroughId: BoroughId;
+}
+
 export const links: LinksFunction = () => {
   return [
     {
@@ -158,13 +164,18 @@ export default function App() {
       (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null })
   >();
 
-  const updateSearchParams = (nextSearchParams: Record<string, string>) => {
-    const newSearch = new URLSearchParams(nextSearchParams);
-    setSearchParams((updatedParams) => {
-      newSearch.forEach((value, key) => {
-        updatedParams.set(key, value);
+  const setAdminParams = (nextAdminParams: AdminParams) => {
+    setSearchParams((searchParams) => {
+      Object.entries(nextAdminParams).forEach(([key, value]) => {
+        console.debug("key", key);
+        console.debug("value", value);
+        if (value === null) {
+          searchParams.delete(key);
+        } else if (typeof value === "string") {
+          searchParams.set(key, value);
+        }
       });
-      return updatedParams;
+      return searchParams;
     });
   };
 
@@ -201,11 +212,11 @@ export default function App() {
                     <VStack>
                       <DistrictTypeDropdown
                         selectValue={districtType}
-                        updateSearchParams={updateSearchParams}
+                        setAdminParams={setAdminParams}
                       />
                       <BoroughDropdown
                         selectValue={boroughId}
-                        updateSearchParams={updateSearchParams}
+                        setAdminParams={setAdminParams}
                         boroughs={loaderData.boroughs}
                       />
 
@@ -214,13 +225,13 @@ export default function App() {
                           boroughId={boroughId}
                           selectValue={districtId}
                           communityDistricts={loaderData.communityDistricts}
-                          updateSearchParams={updateSearchParams}
+                          setAdminParams={setAdminParams}
                         />
                       ) : (
                         <CityCouncilDistrictDropdown
                           selectValue={districtId}
                           cityCouncilDistricts={loaderData.cityCouncilDistricts}
-                          updateSearchParams={updateSearchParams}
+                          setAdminParams={setAdminParams}
                         />
                       )}
                     </VStack>

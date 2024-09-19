@@ -14,10 +14,10 @@ describe("CityCouncilDistrictDropdown", () => {
   });
 
   it("should have city council district form details and options", () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     render(
       <CityCouncilDistrictDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={setAdminParams}
         cityCouncilDistricts={cityCouncilDistricts}
       />,
     );
@@ -27,28 +27,30 @@ describe("CityCouncilDistrictDropdown", () => {
   });
 
   it("should set the search params when next district id is null", async () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     const firstCityCouncilDistrictId = cityCouncilDistricts[0].id;
     render(
       <CityCouncilDistrictDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={setAdminParams}
         cityCouncilDistricts={cityCouncilDistricts}
         selectValue={firstCityCouncilDistrictId}
       />,
     );
 
     await act(() => userEvent.selectOptions(screen.getByRole("combobox"), ""));
-    expect(updateSearchParams).toHaveBeenCalledWith({
+    expect(setAdminParams).toHaveBeenCalledWith({
       districtType: "ccd",
+      boroughId: null,
+      districtId: null,
     });
   });
 
   it("should set the search params when next district id has a value", async () => {
-    const updateSearchParams = vi.fn();
+    const setAdminParams = vi.fn();
     const firstCityCouncilDistrictId = cityCouncilDistricts[0].id;
     render(
       <CityCouncilDistrictDropdown
-        updateSearchParams={updateSearchParams}
+        setAdminParams={setAdminParams}
         cityCouncilDistricts={cityCouncilDistricts}
       />,
     );
@@ -59,8 +61,9 @@ describe("CityCouncilDistrictDropdown", () => {
         firstCityCouncilDistrictId,
       ),
     );
-    expect(updateSearchParams).toHaveBeenCalledWith({
+    expect(setAdminParams).toHaveBeenCalledWith({
       districtType: "ccd",
+      boroughId: null,
       districtId: firstCityCouncilDistrictId,
     });
   });
