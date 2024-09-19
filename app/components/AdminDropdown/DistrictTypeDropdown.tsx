@@ -2,7 +2,7 @@ import { AdminDropdownProps, AdminDropdown } from ".";
 
 export interface DistrictTypeDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
-  updateSearchParams: (value: Record<string, string>) => void;
+  updateSearchParams: (value: Record<string, string | null>) => void;
 }
 
 export function DistrictTypeDropdown({
@@ -10,8 +10,18 @@ export function DistrictTypeDropdown({
   updateSearchParams,
 }: DistrictTypeDropdownProps) {
   const updateDistrictType = (nextDistrictType: string | null) => {
-    const nextSearchParams: Record<string, string> =
-      nextDistrictType === null ? {} : { districtType: nextDistrictType };
+    const nextSearchParams: Record<string, string | null> =
+      nextDistrictType === null
+        ? {
+            districtType: null,
+            boroughId: null,
+            districtId: null,
+          }
+        : {
+            districtType: nextDistrictType,
+            districtId: null,
+            boroughId: null,
+          };
     updateSearchParams(nextSearchParams);
   };
 

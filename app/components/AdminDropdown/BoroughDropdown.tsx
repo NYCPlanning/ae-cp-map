@@ -4,7 +4,7 @@ import { BoroughId } from "~/root";
 
 export interface BoroughDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
-  updateSearchParams: (value: Record<string, string>) => void;
+  updateSearchParams: (value: Record<string, string | undefined>) => void;
   boroughs: Array<Borough> | null;
 }
 
@@ -14,14 +14,17 @@ export function BoroughDropdown({
   boroughs,
 }: BoroughDropdownProps) {
   const updateBoroughId = (nextBoroughId: BoroughId) => {
-    const nextSearchParams: Record<string, string> =
+    const nextSearchParams: Record<string, string | undefined> =
       nextBoroughId !== null
         ? {
             districtType: "cd",
             boroughId: nextBoroughId,
+            districtId: undefined,
           }
         : {
             districtType: "cd",
+            boroughId: undefined,
+            districtId: undefined,
           };
 
     updateSearchParams(nextSearchParams);
