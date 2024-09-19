@@ -167,8 +167,6 @@ export default function App() {
   const setAdminParams = (nextAdminParams: AdminParams) => {
     setSearchParams((searchParams) => {
       Object.entries(nextAdminParams).forEach(([key, value]) => {
-        console.debug("key", key);
-        console.debug("value", value);
         if (value === null) {
           searchParams.delete(key);
         } else if (typeof value === "string") {
@@ -181,12 +179,23 @@ export default function App() {
 
   const goToDistrict = (currentPath: string) => (nextPath: string) => {
     // Avoid adding the same path to the history stack multiple times
-    searchParams.delete("page");
-    if (currentPath !== `/${nextPath}`)
+    if (currentPath !== `/${nextPath}`) {
+      // Reset the query parameters to only the admin dropdown parameters
+      const adminParamKeys = ["districtType", "boroughId", "districtId"];
+      const nextAdminParams: Record<string, string> = {};
+      searchParams.forEach((value, key) => {
+        if (adminParamKeys.includes(key)) {
+          nextAdminParams[key] = value;
+          console.debug("key added", nextAdminParams);
+        }
+      });
+
+      const nextSearchParams = new URLSearchParams(nextAdminParams);
       navigate({
         pathname: nextPath,
-        search: `?${searchParams.toString()}`,
+        search: `?${nextSearchParams.toString()}`,
       });
+    }
   };
 
   const goToNextDistrict = goToDistrict(pathname);
