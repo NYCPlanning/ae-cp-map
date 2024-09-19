@@ -37,7 +37,6 @@ import {
   CommunityDistrictDropdown,
   CityCouncilDistrictDropdown,
 } from "./components/AdminDropdown";
-import { URLSearchParamsInit } from "react-router-dom";
 import {
   GoToCityCouncilDistrictBtn,
   GoToDistrictBtn,
@@ -186,7 +185,6 @@ export default function App() {
       searchParams.forEach((value, key) => {
         if (adminParamKeys.includes(key)) {
           nextAdminParams[key] = value;
-          console.debug("key added", nextAdminParams);
         }
       });
 
