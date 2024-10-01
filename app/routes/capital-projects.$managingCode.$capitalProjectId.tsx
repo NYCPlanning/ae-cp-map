@@ -7,6 +7,7 @@ import {
   findCapitalCommitmentTypes,
 } from "../gen";
 import { CapitalProjectPanel } from "~/components/CapitalProjectPanel";
+import { analytics } from "~/utils/analytics";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { managingCode, capitalProjectId } = params;
@@ -73,6 +74,11 @@ export default function CapitalProject() {
       capitalCommitmentTypes={capitalCommitmentTypes}
       agencies={agencies}
       onNavigationClick={() => {
+        analytics({
+          category: "Close Project Info Modal Button",
+          action: "Click",
+          name: "Closed",
+        });
         navigate({
           pathname: "/",
           search: `?${searchParams.toString()}`,

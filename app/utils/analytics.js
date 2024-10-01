@@ -17,6 +17,72 @@ export function analytics(eventData) {
   }
 }
 
+export function analyticsTrackFilterByDistrictToggle(expandedIndex) {
+  if(expandedIndex===0) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Filter By District Accordion",
+      name: "Open",
+    });
+  } else if(expandedIndex===-1) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Filter By District Accordion",
+      name: "Closed",
+    });
+  } else {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Filter By District Accordion",
+      name: "Unknown",
+    });
+  }
+}
+
+export function analyticsTrackSelectedDistrictToggle(expandedIndex) {
+  if(expandedIndex===0) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Selected District Accordion",
+      name: "Open",
+    });
+  } else if(expandedIndex===-1) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Selected District Accordion",
+      name: "Closed",
+    });
+  } else {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Selected District Accordion",
+      name: "Unknown",
+    });
+  }
+}
+
+export function analyticsWelcomePanelToggle(expandedIndex) {
+  if(expandedIndex===0) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Welcome Panel Accordion",
+      name: "Open",
+    });
+  } else if(expandedIndex===-1) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Welcome Panel Accordion",
+      name: "Closed",
+    });
+  } else {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Welcome Panel Accordion",
+      name: "Unknown",
+    });
+  }
+}
+
 export function initializeMatomoTagManager(containerID) {
   // From the initial script they provide for setup
   var _mtm = (window._mtm = window._mtm || []);
