@@ -45,6 +45,7 @@ import { GoToCommunityDistrictBtn } from "./components/GoToDistrictBtn/GoToCommu
 import { WelcomePanel } from "./components/WelcomePanel";
 import { useEffect } from "react";
 import {
+  analytics,
   initializeMatomoTagManager,
   initFullStoryAnalytics,
 } from "./utils/analytics";
@@ -184,6 +185,12 @@ export default function App() {
         if (adminParamKeys.includes(key)) {
           nextAdminParams.set(key, value);
         }
+      });
+
+      analytics({
+        category: "Go to Selected District Button",
+        action: "Click",
+        name: nextPath,
       });
 
       navigate({

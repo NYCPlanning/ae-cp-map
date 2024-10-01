@@ -7,6 +7,7 @@ import {
   AccordionPanel,
   Box,
 } from "@nycplanning/streetscape";
+import { analyticsTrackFilterByDistrictToggle } from "~/utils/analytics";
 
 export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
   <Accordion
@@ -19,6 +20,7 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
     maxW={{ base: "21.25rem", lg: "unset" }}
     boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
     defaultIndex={defaultIndex}
+    onChange={analyticsTrackFilterByDistrictToggle}
   >
     <AccordionItem borderTopWidth="0">
       <AccordionButton aria-label="Close geography filter menu" px={0}>

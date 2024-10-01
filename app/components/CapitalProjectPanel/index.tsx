@@ -20,6 +20,7 @@ import {
   CapitalCommitmentsTableProps,
 } from "./CapitalCommitmentsTable";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
+import { analytics } from "~/utils/analytics";
 
 export interface CapitalProjectPanelProps
   extends CapitalProjectDetailProps,
@@ -28,9 +29,22 @@ export interface CapitalProjectPanelProps
 export function CapitalProjectPanel(props: CapitalProjectPanelProps) {
   const [commitmentsAreVisible, setCommitmentsAreVisible] = useState(false);
 
-  const toggleCommitmentsAreVisible = () =>
+  const toggleCommitmentsAreVisible = () => {
+    if (commitmentsAreVisible) {
+      analytics({
+        category: "Accordion",
+        action: "Toggle Commitment Details Accordion",
+        name: "Closed",
+      });
+    } else {
+      analytics({
+        category: "Accordion",
+        action: "Toggle Commitment Details Accordion",
+        name: "Open",
+      });
+    }
     setCommitmentsAreVisible((commitmentsAreVisible) => !commitmentsAreVisible);
-
+  };
   return (
     <Flex
       borderTopRadius={"base"}

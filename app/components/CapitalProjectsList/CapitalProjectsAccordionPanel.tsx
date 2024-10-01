@@ -10,6 +10,7 @@ import {
 } from "@nycplanning/streetscape";
 import { Agency, CapitalProject } from "~/gen";
 import { CapitalProjectsList } from "./CapitalProjectsList";
+import { analyticsTrackSelectedDistrictToggle } from "~/utils/analytics";
 
 export interface CapitalProjectsAccordionPanelProps {
   capitalProjects: Array<CapitalProject>;
@@ -35,7 +36,11 @@ export const CapitalProjectsAccordionPanel = ({
       boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
       gap={4}
     >
-      <Accordion defaultIndex={[0]} allowToggle>
+      <Accordion
+        defaultIndex={[0]}
+        allowToggle
+        onChange={analyticsTrackSelectedDistrictToggle}
+      >
         <AccordionItem border="none">
           <AccordionButton padding="0px" aria-label="Toggle project list panel">
             <Box as="span" flex="1" textAlign="left">
