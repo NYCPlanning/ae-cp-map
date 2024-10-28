@@ -123,7 +123,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 function Document({
   children,
-  title = "App title",
+  title = "Capital Projects",
 }: {
   children: React.ReactNode;
   title?: string;
