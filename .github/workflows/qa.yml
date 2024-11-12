@@ -7,7 +7,7 @@ jobs:
         name: 🚀 Deploy
         environment:
             name: qa-cp-map
-            url: https://qa-capitalplanning.nycplanningdigital.com
+            url: https://qa-capitalprojects.nycplanningdigital.com
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4

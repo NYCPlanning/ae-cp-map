@@ -10,7 +10,7 @@ jobs:
         name: 🚀 Deploy
         environment:
             name: staging-cp-map
-            url: https://staging-capitalplanning.nycplanningdigital.com
+            url: https://staging-capitalprojects.nycplanningdigital.com
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
