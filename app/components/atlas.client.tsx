@@ -15,16 +15,18 @@ import {
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 
+const MAX_ZOOM = 20;
+const MIN_ZOOM = 10;
+
 const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
   latitude: 40.7018,
   zoom: 10,
   bearing: 0,
   pitch: 0,
+  maxZoom: MAX_ZOOM,
+  minZoom: MIN_ZOOM,
 };
-
-const MAX_ZOOM = 20;
-const MIN_ZOOM = 10;
 
 export function Atlas() {
   const capitalProjectsLayer = useCapitalProjectsLayer();
