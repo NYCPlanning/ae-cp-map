@@ -18,13 +18,13 @@ export function analytics(eventData) {
 }
 
 export function analyticsTrackFilterByDistrictToggle(expandedIndex) {
-  if(expandedIndex===0) {
+  if (expandedIndex === 0) {
     analytics({
       category: "Accordion",
       action: "Toggle Filter By District Accordion",
       name: "Open",
     });
-  } else if(expandedIndex===-1) {
+  } else if (expandedIndex === -1) {
     analytics({
       category: "Accordion",
       action: "Toggle Filter By District Accordion",
@@ -40,13 +40,13 @@ export function analyticsTrackFilterByDistrictToggle(expandedIndex) {
 }
 
 export function analyticsTrackSelectedDistrictToggle(expandedIndex) {
-  if(expandedIndex===0) {
+  if (expandedIndex === 0) {
     analytics({
       category: "Accordion",
       action: "Toggle Selected District Accordion",
       name: "Open",
     });
-  } else if(expandedIndex===-1) {
+  } else if (expandedIndex === -1) {
     analytics({
       category: "Accordion",
       action: "Toggle Selected District Accordion",
@@ -62,13 +62,13 @@ export function analyticsTrackSelectedDistrictToggle(expandedIndex) {
 }
 
 export function analyticsWelcomePanelToggle(expandedIndex) {
-  if(expandedIndex===0) {
+  if (expandedIndex === 0) {
     analytics({
       category: "Accordion",
       action: "Toggle Welcome Panel Accordion",
       name: "Open",
     });
-  } else if(expandedIndex===-1) {
+  } else if (expandedIndex === -1) {
     analytics({
       category: "Accordion",
       action: "Toggle Welcome Panel Accordion",
