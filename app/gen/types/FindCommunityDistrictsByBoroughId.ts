@@ -1,5 +1,5 @@
-import type { Error } from "./Error";
 import type { CommunityDistrict } from "./CommunityDistrict";
+import type { Error } from "./Error";
 
 export type FindCommunityDistrictsByBoroughIdPathParams = {
   /**
@@ -16,6 +16,11 @@ export type FindCommunityDistrictsByBoroughId200 = {
    * @type array
    */
   communityDistricts: CommunityDistrict[];
+  /**
+   * @description Community district numbers are sorted in ascending order
+   * @type string
+   */
+  order: string;
 };
 /**
  * @description Invalid client request
@@ -37,6 +42,11 @@ export type FindCommunityDistrictsByBoroughIdQueryResponse = {
    * @type array
    */
   communityDistricts: CommunityDistrict[];
+  /**
+   * @description Community district numbers are sorted in ascending order
+   * @type string
+   */
+  order: string;
 };
 export type FindCommunityDistrictsByBoroughIdQuery = {
   Response: FindCommunityDistrictsByBoroughIdQueryResponse;
