@@ -25,7 +25,7 @@ export function setNewSearchParams(
   const newSearchParams = new URLSearchParams(searchParams);
 
   for (const [key, value] of Object.entries(changes)) {
-    if (value === (undefined || null)) {
+    if (value === undefined || value === null) {
       newSearchParams.delete(key);
       continue;
     }
