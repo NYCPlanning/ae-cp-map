@@ -1,10 +1,10 @@
 import { defineConfig } from "@kubb/core";
-import { pluginTs } from "@kubb/swagger-ts";
-import { pluginZod } from "@kubb/swagger-zod";
-import { pluginClient } from "@kubb/swagger-client";
-import { pluginFaker } from "@kubb/swagger-faker";
+import { pluginTs } from "@kubb/plugin-ts";
+import { pluginZod } from "@kubb/plugin-zod";
+import { pluginClient } from "@kubb/plugin-client";
+import { pluginFaker } from "@kubb/plugin-faker";
 import { pluginOas } from "@kubb/plugin-oas";
-import { pluginMsw } from "@kubb/swagger-msw";
+import { pluginMsw } from "@kubb/plugin-msw";
 
 export default defineConfig({
   root: ".",
@@ -16,10 +16,12 @@ export default defineConfig({
     clean: true,
   },
   plugins: [
-    pluginOas({
-      output: false,
+    pluginOas({}),
+    pluginTs({
+      output: {
+        path: "./types",
+      },
     }),
-    pluginTs({}),
     pluginZod({
       output: {
         path: "./zod",
