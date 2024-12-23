@@ -29,6 +29,7 @@ export function createFindCapitalCommitmentsByManagingCodeCapitalProjectId200():
     capitalCommitments: faker.helpers.arrayElements([
       createCapitalCommitment(),
     ]) as any,
+    order: faker.string.alpha(),
   };
 }
 
@@ -61,5 +62,6 @@ export function createFindCapitalCommitmentsByManagingCodeCapitalProjectIdQueryR
     capitalCommitments: faker.helpers.arrayElements([
       createCapitalCommitment(),
     ]) as any,
+    order: faker.string.alpha(),
   };
 }

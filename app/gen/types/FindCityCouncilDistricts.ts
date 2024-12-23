@@ -1,5 +1,5 @@
-import type { Error } from "./Error";
 import type { CityCouncilDistrict } from "./CityCouncilDistrict";
+import type { Error } from "./Error";
 
 /**
  * @description an object of city council districts
@@ -9,6 +9,11 @@ export type FindCityCouncilDistricts200 = {
    * @type array
    */
   cityCouncilDistricts: CityCouncilDistrict[];
+  /**
+   * @description City council districts ids are sorted as if numbers in ascending order
+   * @type string
+   */
+  order: string;
 };
 /**
  * @description Invalid client request
@@ -26,6 +31,11 @@ export type FindCityCouncilDistrictsQueryResponse = {
    * @type array
    */
   cityCouncilDistricts: CityCouncilDistrict[];
+  /**
+   * @description City council districts ids are sorted as if numbers in ascending order
+   * @type string
+   */
+  order: string;
 };
 export type FindCityCouncilDistrictsQuery = {
   Response: FindCityCouncilDistrictsQueryResponse;

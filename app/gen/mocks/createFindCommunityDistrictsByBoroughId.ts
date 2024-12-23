@@ -28,6 +28,7 @@ export function createFindCommunityDistrictsByBoroughId200(): NonNullable<FindCo
     communityDistricts: faker.helpers.arrayElements([
       createCommunityDistrict(),
     ]) as any,
+    order: faker.string.alpha(),
   };
 }
 
@@ -60,5 +61,6 @@ export function createFindCommunityDistrictsByBoroughIdQueryResponse(): NonNulla
     communityDistricts: faker.helpers.arrayElements([
       createCommunityDistrict(),
     ]) as any,
+    order: faker.string.alpha(),
   };
 }

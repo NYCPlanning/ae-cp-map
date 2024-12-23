@@ -9,6 +9,6 @@ export function createCapitalProjectCategory(): NonNullable<CapitalProjectCatego
   return faker.helpers.arrayElement<any>([
     "Fixed Asset",
     "Lump Sum",
-    "ITT, Vehicles and Equipment",
+    "ITT, Vehicles, and Equipment",
   ]);
 }
