@@ -17,6 +17,7 @@ export function createFindCityCouncilDistricts200(): NonNullable<FindCityCouncil
     cityCouncilDistricts: faker.helpers.arrayElements([
       createCityCouncilDistrict(),
     ]) as any,
+    order: faker.string.alpha(),
   };
 }
 
@@ -42,5 +43,6 @@ export function createFindCityCouncilDistrictsQueryResponse(): NonNullable<FindC
     cityCouncilDistricts: faker.helpers.arrayElements([
       createCityCouncilDistrict(),
     ]) as any,
+    order: faker.string.alpha(),
   };
 }
