@@ -7,6 +7,7 @@ import {
 } from "@deck.gl/core";
 import { bbox } from "@turf/bbox";
 import { Geometry } from "geojson";
+import { MIN_ZOOM, MAX_ZOOM } from "../components/atlas.client";
 
 export class FlyToGeoJsonExtension extends LayerExtension {
   updateState(
@@ -42,6 +43,8 @@ export class FlyToGeoJsonExtension extends LayerExtension {
         zoom: zoom,
         transitionDuration: 750,
         transitionInterpolator: new FlyToInterpolator(),
+        maxZoom: MAX_ZOOM,
+        minZoom: MIN_ZOOM,
       };
       deckInstance.props.onViewStateChange({
         viewState: newViewState,
