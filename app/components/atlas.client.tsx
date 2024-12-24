@@ -15,8 +15,8 @@ import {
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 
-const MAX_ZOOM = 20;
-const MIN_ZOOM = 10;
+export const MAX_ZOOM = 20;
+export const MIN_ZOOM = 10;
 
 const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
