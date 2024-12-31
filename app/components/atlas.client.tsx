@@ -24,8 +24,6 @@ const INITIAL_VIEW_STATE = {
   zoom: 10,
   bearing: 0,
   pitch: 0,
-  maxZoom: MAX_ZOOM,
-  minZoom: MIN_ZOOM,
 };
 
 export function Atlas() {
@@ -62,11 +60,14 @@ export function Atlas() {
       onViewStateChange={({ viewState: newViewState }) => {
         setViewState({
           ...newViewState,
-          longitude: Math.min(
-            -73.6311,
-            Math.max(-74.3308, newViewState.longitude),
-          ),
-          latitude: Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
+          longitude:
+            newViewState.zoom < MIN_ZOOM
+              ? viewState.longitude
+              : Math.min(-73.6311, Math.max(-74.3308, newViewState.longitude)),
+          latitude:
+            newViewState.zoom < MIN_ZOOM
+              ? viewState.latitude
+              : Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
           bearing: newViewState.bearing,
           pitch: 0,
           zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
