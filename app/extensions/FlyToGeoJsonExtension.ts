@@ -43,8 +43,6 @@ export class FlyToGeoJsonExtension extends LayerExtension {
         zoom: zoom,
         transitionDuration: 750,
         transitionInterpolator: new FlyToInterpolator(),
-        maxZoom: MAX_ZOOM,
-        minZoom: MIN_ZOOM,
       };
       deckInstance.props.onViewStateChange({
         viewState: newViewState,
