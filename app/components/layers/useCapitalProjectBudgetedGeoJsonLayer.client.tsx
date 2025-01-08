@@ -12,7 +12,7 @@ export function useCapitalProjectBudgetedGeoJsonLayer() {
       managingCode === undefined || capitalProjectId === undefined
         ? []
         : `${import.meta.env.VITE_ZONING_API_URL}/api/capital-projects/${managingCode}/${capitalProjectId}/geojson`,
-    pickable: true,
+    pickable: false,
     getFillColor: ({ id }) => {
       switch (id) {
         case `${managingCode}${capitalProjectId}`:
