@@ -1,5 +1,6 @@
 import { FormControl, FormLabel, Select } from "@nycplanning/streetscape";
 import { FormEvent, ReactNode } from "react";
+import { CloseIcon } from "@chakra-ui/icons";
 
 export { BoroughDropdown } from "./BoroughDropdown";
 export { DistrictTypeDropdown } from "./DistrictTypeDropdown";
@@ -42,6 +43,24 @@ export function AdminDropdown({
       >
         {children}
       </Select>
+      {selectValue && (
+        <CloseIcon
+          style={{
+            height: "0.75rem",
+            width: "0.75rem",
+            position: "absolute",
+            bottom: "0.875rem",
+            right: "2.5rem",
+            border: "1px solid",
+            borderRadius: "1rem",
+            padding: "2px",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            onSelectValueChange(null);
+          }}
+        />
+      )}
     </FormControl>
   );
 }
