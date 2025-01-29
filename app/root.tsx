@@ -19,7 +19,7 @@ import {
   useRouteError,
   useSearchParams,
 } from "@remix-run/react";
-import { Atlas } from "./components/atlas.client";
+import { Atlas, INITIAL_VIEW_STATE } from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
 import { Overlay } from "./components/Overlay";
 import {
@@ -74,6 +74,8 @@ import {
   CommitmentsTotalMinSelectValue,
   CommitmentsTotalMaxSelectValue,
 } from "./utils/types";
+import { ClearFilterBtn } from "./components/ClearFilter";
+import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { ProjectAmountMenu } from "./components/ProjectAmountMenu";
 import { ProjectAmountMenuInput } from "./components/ProjectAmountMenu/ProjectAmountMenuInput";
 
@@ -192,6 +194,7 @@ export default function App() {
     initializeMatomoTagManager("SmoWWpiD");
     initFullStoryAnalytics();
   }, []);
+  const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -337,13 +340,39 @@ export default function App() {
     }
   };
 
+  const clearSelections = () => {
+    setAttributeParams({
+      managingAgency: null,
+      agencyBudget: null,
+      commitmentsTotalMin: null,
+      commitmentsTotalMax: null,
+    });
+
+    setProjectAmountMenuParams({
+      commitmentsTotalMinInputValue: "",
+      commitmentsTotalMaxInputValue: "",
+      commitmentsTotalMinSelectValue: "K",
+      commitmentsTotalMaxSelectValue: "K",
+      commitmentTotalInputsAreValid: true,
+    });
+
+    setViewState({
+      ...INITIAL_VIEW_STATE,
+      transitionDuration: 2000,
+      transitionInterpolator: new FlyToInterpolator(),
+    });
+  };
+
   return (
     <Document>
       <StreetscapeProvider>
         <ClientOnly>
           {() => (
             <>
-              <Atlas />{" "}
+              <Atlas
+                viewState={viewState}
+                setViewState={(MapViewState) => setViewState(MapViewState)}
+              />{" "}
               <Overlay>
                 <Flex
                   direction={"column"}
@@ -574,6 +603,7 @@ export default function App() {
                       Search
                     </Button>
                   </Flex>
+                  <ClearFilterBtn onClear={clearSelections} />
 
                   <WelcomePanel />
                 </Flex>
