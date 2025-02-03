@@ -21,6 +21,7 @@ export async function findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId
       {
         method: "get",
         url: `/boroughs/${boroughId}/community-districts/${communityDistrictId}/geojson`,
+        baseURL: "https://zoning.planningdigital.com/api",
         ...options,
       },
     );

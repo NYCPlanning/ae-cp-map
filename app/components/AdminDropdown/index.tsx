@@ -11,6 +11,7 @@ export { BoroughDropdown } from "./BoroughDropdown";
 export { DistrictTypeDropdown } from "./DistrictTypeDropdown";
 export { CommunityDistrictDropdown } from "./CommunityDistrictDropdown";
 export { CityCouncilDistrictDropdown } from "./CityCouncilDistrictDropdown";
+export { AgencyDropdown } from "./AgencyDropdown";
 
 export interface AdminDropdownProps {
   formId: string;
@@ -45,6 +46,7 @@ export function AdminDropdown({
           )
         }
         value={selectValue ?? ""}
+        textOverflow={"ellipsis"}
       >
         {children}
       </Select>

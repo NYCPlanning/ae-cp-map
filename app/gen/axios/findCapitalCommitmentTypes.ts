@@ -12,6 +12,7 @@ export async function findCapitalCommitmentTypes(
   const res = await client<FindCapitalCommitmentTypesQueryResponse>({
     method: "get",
     url: `/capital-commitment-types`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

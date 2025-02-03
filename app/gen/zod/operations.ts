@@ -4,6 +4,11 @@ import {
   findAgencies500Schema,
 } from "./findAgenciesSchema";
 import {
+  findAgencyBudgetsQueryResponseSchema,
+  findAgencyBudgets400Schema,
+  findAgencyBudgets500Schema,
+} from "./findAgencyBudgetsSchema";
+import {
   findBoroughsQueryResponseSchema,
   findBoroughs400Schema,
   findBoroughs500Schema,
@@ -41,6 +46,12 @@ import {
   findCapitalCommitmentTypes400Schema,
   findCapitalCommitmentTypes500Schema,
 } from "./findCapitalCommitmentTypesSchema";
+import {
+  findCapitalProjectsQueryResponseSchema,
+  findCapitalProjects400Schema,
+  findCapitalProjects500Schema,
+  findCapitalProjectsQueryParamsSchema,
+} from "./findCapitalProjectsSchema";
 import {
   findCapitalCommitmentsByManagingCodeCapitalProjectIdQueryResponseSchema,
   findCapitalCommitmentsByManagingCodeCapitalProjectId400Schema,
@@ -196,6 +207,24 @@ export const operations = {
       500: findAgencies500Schema,
     },
   },
+  findAgencyBudgets: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findAgencyBudgetsQueryResponseSchema,
+      400: findAgencyBudgets400Schema,
+      500: findAgencyBudgets500Schema,
+      default: findAgencyBudgetsQueryResponseSchema,
+    },
+    errors: {
+      400: findAgencyBudgets400Schema,
+      500: findAgencyBudgets500Schema,
+    },
+  },
   findBoroughs: {
     request: undefined,
     parameters: {
@@ -311,6 +340,24 @@ export const operations = {
     errors: {
       400: findCapitalCommitmentTypes400Schema,
       500: findCapitalCommitmentTypes500Schema,
+    },
+  },
+  findCapitalProjects: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: findCapitalProjectsQueryParamsSchema,
+      header: undefined,
+    },
+    responses: {
+      200: findCapitalProjectsQueryResponseSchema,
+      400: findCapitalProjects400Schema,
+      500: findCapitalProjects500Schema,
+      default: findCapitalProjectsQueryResponseSchema,
+    },
+    errors: {
+      400: findCapitalProjects400Schema,
+      500: findCapitalProjects500Schema,
     },
   },
   findCapitalCommitmentsByManagingCodeCapitalProjectId: {
@@ -726,6 +773,9 @@ export const paths = {
   "/agencies": {
     get: operations["findAgencies"],
   },
+  "/agencyBugdets": {
+    get: operations["findAgencyBudgets"],
+  },
   "/boroughs": {
     get: operations["findBoroughs"],
   },
@@ -747,6 +797,9 @@ export const paths = {
     },
   "/capital-commitment-types": {
     get: operations["findCapitalCommitmentTypes"],
+  },
+  "/capital-projects": {
+    get: operations["findCapitalProjects"],
   },
   "/capital-projects/{managingCode}/{capitalProjectId}/capital-commitments": {
     get: operations["findCapitalCommitmentsByManagingCodeCapitalProjectId"],

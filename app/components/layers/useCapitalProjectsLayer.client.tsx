@@ -1,10 +1,17 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 import {
-  useMatches,
+  useLoaderData,
   useNavigate,
   useParams,
   useSearchParams,
+  useMatches,
 } from "@remix-run/react";
+import {
+  DataFilterExtension,
+  DataFilterExtensionProps,
+} from "@deck.gl/extensions";
+import type { Feature, Geometry } from "geojson";
+import { FindAgenciesQueryResponse } from "../../gen";
 
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
@@ -19,7 +26,9 @@ const capitalProjectsInCityCouncilDistrictRoutePrefix =
 export function useCapitalProjectsLayer() {
   const { managingCode, capitalProjectId } = useParams();
   const [searchParams] = useSearchParams();
+  const managingAgency = searchParams.get("managingAgency");
   const navigate = useNavigate();
+
   const matches = useMatches();
 
   const layoutRoute = matches[1];
@@ -38,7 +47,18 @@ export function useCapitalProjectsLayer() {
     endpointPrefix = `boroughs/${layoutRoute.params.boroughId}/community-districts/${layoutRoute.params.communityDistrictId}/`;
   }
 
-  return new MVTLayer<CapitalProjectProperties>({
+  const loaderData = useLoaderData<
+    FindAgenciesQueryResponse | { agencies: null }
+  >();
+
+  const fullAgencyAcronymList = loaderData.agencies
+    ? loaderData.agencies.map((agency) => agency.initials)
+    : [];
+
+  return new MVTLayer<
+    CapitalProjectProperties,
+    DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>>
+  >({
     id: "capitalProjects",
     data: [
       `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
@@ -47,6 +67,10 @@ export function useCapitalProjectsLayer() {
     autoHighlight: true,
     highlightColor: [129, 230, 217, 218],
     pickable: true,
+    getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) =>
+      f.properties.managingAgency,
+    filterCategories:
+      managingAgency === null ? fullAgencyAcronymList : [managingAgency],
     getFillColor: ({ properties }) => {
       const { managingCodeCapitalProjectId } = properties;
       switch (managingCodeCapitalProjectId) {
@@ -82,5 +106,10 @@ export function useCapitalProjectsLayer() {
       getFillColor: [managingCode, capitalProjectId],
       getPointColor: [managingCode, capitalProjectId],
     },
+    extensions: [
+      new DataFilterExtension({
+        categorySize: 1,
+      }),
+    ],
   });
 }

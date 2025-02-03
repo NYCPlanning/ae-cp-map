@@ -18,6 +18,7 @@ export async function findCommunityDistrictTiles(
   const res = await client<FindCommunityDistrictTilesQueryResponse>({
     method: "get",
     url: `/community-districts/${z}/${x}/${y}.pbf`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

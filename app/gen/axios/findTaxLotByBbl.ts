@@ -16,6 +16,7 @@ export async function findTaxLotByBbl(
   const res = await client<FindTaxLotByBblQueryResponse>({
     method: "get",
     url: `/tax-lots/${bbl}`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

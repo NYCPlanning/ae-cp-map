@@ -4,6 +4,7 @@ import {
   Heading,
   VStack,
   Flex,
+  Button,
 } from "@nycplanning/streetscape";
 import {
   Links,
@@ -28,22 +29,21 @@ import {
   findBoroughs,
   findCityCouncilDistricts,
   findCommunityDistrictsByBoroughId,
+  findAgencies,
+  FindAgenciesQueryResponse,
 } from "./gen";
 import { FilterMenu } from "./components/FilterMenu";
+import { SearchByAttributeMenu } from "./components/SearchByAttributeMenu";
 import { LoaderFunctionArgs, LinksFunction } from "@remix-run/node";
 import {
   BoroughDropdown,
   DistrictTypeDropdown,
   CommunityDistrictDropdown,
   CityCouncilDistrictDropdown,
+  AgencyDropdown,
 } from "./components/AdminDropdown";
-import {
-  GoToCityCouncilDistrictBtn,
-  GoToDistrictBtn,
-} from "./components/GoToDistrictBtn";
-import { GoToCommunityDistrictBtn } from "./components/GoToDistrictBtn/GoToCommunityDistrictBtn";
 import { WelcomePanel } from "./components/WelcomePanel";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   analytics,
   initializeMatomoTagManager,
@@ -54,7 +54,9 @@ import {
   BoroughId,
   DistrictId,
   DistrictType,
+  ManagingAgencyAcronym,
   SearchParamChanges,
+  AttributeParams,
 } from "./utils/types";
 
 export const links: LinksFunction = () => {
@@ -74,11 +76,16 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const districtType = url.searchParams.get("districtType") as DistrictType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
 
+  const { agencies } = await findAgencies({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
   if (districtType === null) {
     return {
       boroughs: null,
       communityDistricts: null,
       cityCouncilDistricts: null,
+      agencies,
     };
   }
 
@@ -92,6 +99,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         boroughs,
         communityDistricts: null,
         cityCouncilDistricts: null,
+        agencies,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -105,6 +113,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         boroughs,
         communityDistricts,
         cityCouncilDistricts: null,
+        agencies,
       };
     }
   }
@@ -117,6 +126,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       boroughs: null,
       communityDistricts: null,
       cityCouncilDistricts,
+      agencies,
     };
   }
 };
@@ -162,6 +172,12 @@ export default function App() {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+  const managingAgency = searchParams.get(
+    "managingAgency",
+  ) as ManagingAgencyAcronym;
+  const [attributeParams, setAttributeParams] = useState<AttributeParams>({
+    managingAgency,
+  });
 
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
@@ -169,7 +185,8 @@ export default function App() {
         | FindCommunityDistrictsByBoroughIdQueryResponse
         | { communityDistricts: null }
       ) &
-      (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null })
+      (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null }) &
+      (FindAgenciesQueryResponse | { agencies: null })
   >();
 
   const updateSearchParams = (nextSearchParams: SearchParamChanges) => {
@@ -177,30 +194,45 @@ export default function App() {
     setSearchParams(mergedParams);
   };
 
-  const goToDistrict = (currentPath: string) => (nextPath: string) => {
-    // Avoid adding the same path to the history stack multiple times
-    if (currentPath !== `/${nextPath}`) {
+  const search = () => {
+    let newPath = "";
+    if (districtType === "cd" && boroughId !== null && districtId !== null) {
+      newPath = `boroughs/${boroughId}/community-districts/${districtId}/capital-projects`;
+    } else if (districtType === "ccd" && districtId !== null) {
+      newPath = `city-council-districts/${districtId}/capital-projects`;
+    } else if (
+      districtType === null &&
+      attributeParams.managingAgency !== null
+    ) {
+      newPath = "capital-projects";
+    }
+
+    if (
+      pathname !== `/${newPath}` ||
+      attributeParams.managingAgency !== managingAgency
+    ) {
       const nextAdminParams = new URLSearchParams();
       searchParams.forEach((value, key) => {
         if (adminParamKeys.includes(key)) {
           nextAdminParams.set(key, value);
         }
       });
+      if (attributeParams.managingAgency !== null) {
+        nextAdminParams.set("managingAgency", attributeParams.managingAgency);
+      }
 
       analytics({
-        category: "Go to Selected District Button",
+        category: "Search Button",
         action: "Click",
-        name: nextPath,
+        name: `${newPath}?${nextAdminParams.toString()}`,
       });
 
       navigate({
-        pathname: nextPath,
+        pathname: newPath,
         search: `?${nextAdminParams.toString()}`,
       });
     }
   };
-
-  const goToNextDistrict = goToDistrict(pathname);
 
   return (
     <Document>
@@ -218,6 +250,8 @@ export default function App() {
                   maxHeight={{ lg: "100%" }}
                   overflowX={{ lg: "hidden" }}
                   overflowY={{ lg: "auto" }}
+                  backgroundColor={"white"}
+                  borderRadius={10}
                 >
                   <FilterMenu defaultIndex={0}>
                     <VStack>
@@ -246,28 +280,43 @@ export default function App() {
                         />
                       )}
                     </VStack>
-                    {districtType === null && (
-                      <GoToDistrictBtn
-                        goToDistrict={goToNextDistrict}
-                        path={null}
-                      />
-                    )}
-                    {districtType === "ccd" && (
-                      <GoToCityCouncilDistrictBtn
-                        goToDistrict={goToNextDistrict}
-                        districtId={districtId}
-                      />
-                    )}
-                    {districtType === "cd" && (
-                      <GoToCommunityDistrictBtn
-                        goToDistrict={goToNextDistrict}
-                        boroughId={boroughId}
-                        districtId={districtId}
-                      />
-                    )}
                   </FilterMenu>
+                  {import.meta.env.VITE_FEATURE_FLAG_ATTRIBUTE_FILTERS ===
+                  "ON" ? (
+                    <SearchByAttributeMenu defaultIndex={0}>
+                      <VStack>
+                        <AgencyDropdown
+                          selectValue={attributeParams.managingAgency}
+                          agencies={loaderData.agencies}
+                          onSelectValueChange={(value) => {
+                            setAttributeParams({
+                              ...attributeParams,
+                              managingAgency: value,
+                            });
+                          }}
+                        />
+                      </VStack>
+                    </SearchByAttributeMenu>
+                  ) : null}
+                  <Flex width="full" px={4}>
+                    <Button
+                      width="full"
+                      onClick={() => search()}
+                      mt={0}
+                      isDisabled={
+                        (!attributeParams.managingAgency && !districtId) ||
+                        (districtType && !districtId)
+                          ? true
+                          : false
+                      }
+                    >
+                      Search
+                    </Button>
+                  </Flex>
+
                   <WelcomePanel />
                 </Flex>
+
                 <Flex
                   direction={{ base: "column-reverse", lg: "column" }}
                   justify={{ base: "flex-start", lg: "space-between" }}
