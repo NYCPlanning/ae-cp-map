@@ -5,6 +5,11 @@ import {
   useParams,
   useSearchParams,
 } from "@remix-run/react";
+import {
+  DataFilterExtension,
+  DataFilterExtensionProps,
+} from "@deck.gl/extensions";
+import type { Feature, Geometry } from "geojson";
 
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
@@ -38,7 +43,12 @@ export function useCapitalProjectsLayer() {
     endpointPrefix = `boroughs/${layoutRoute.params.boroughId}/community-districts/${layoutRoute.params.communityDistrictId}/`;
   }
 
-  return new MVTLayer<CapitalProjectProperties>({
+  const managingAgency = searchParams.get("managingAgency") || "";
+
+  return new MVTLayer<
+    CapitalProjectProperties,
+    DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>>
+  >({
     id: "capitalProjects",
     data: [
       `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
@@ -47,6 +57,9 @@ export function useCapitalProjectsLayer() {
     autoHighlight: true,
     highlightColor: [129, 230, 217, 218],
     pickable: true,
+    getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) =>
+      f.properties.managingAgency,
+    filterCategories: [managingAgency],
     getFillColor: ({ properties }) => {
       const { managingCodeCapitalProjectId } = properties;
       switch (managingCodeCapitalProjectId) {
@@ -79,8 +92,10 @@ export function useCapitalProjectsLayer() {
       });
     },
     updateTriggers: {
-      getFillColor: [managingCode, capitalProjectId],
-      getPointColor: [managingCode, capitalProjectId],
+      getFillColor: [managingCode, capitalProjectId, managingAgency],
+      getPointColor: [managingCode, capitalProjectId, managingAgency],
+      getFilterCategory: [managingAgency],
     },
+    extensions: [new DataFilterExtension({ categorySize: 1 })],
   });
 }

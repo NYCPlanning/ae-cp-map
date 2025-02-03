@@ -42,6 +42,28 @@ export function analyticsTrackFilterByDistrictToggle(expandedIndex) {
   }
 }
 
+export function analyticsTrackSearchByAttributeToggle(expandedIndex) {
+  if (expandedIndex === 0) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Search By Attribute Accordion",
+      name: "Open",
+    });
+  } else if (expandedIndex === -1) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Search By Attribute Accordion",
+      name: "Closed",
+    });
+  } else {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Search By Attribute Accordion",
+      name: "Unknown",
+    });
+  }
+}
+
 export function analyticsTrackSelectedDistrictToggle(expandedIndex) {
   if (expandedIndex === 0) {
     analytics({
