@@ -1,29 +1,30 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { findCapitalProjects, findAgencies } from "../gen";
+import { findAgencies, findCapitalProjects } from "../gen";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
 import { Flex } from "@nycplanning/streetscape";
 import { Pagination } from "~/components/Pagination";
 import { ExportDataModal } from "~/components/ExportDataModal";
 
-export async function loader({ request, params }: LoaderFunctionArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
+  if (import.meta.env.VITE_FEATURE_FLAG_ATTRIBUTE_FILTERS !== "ON") {
+    throw json("Not Found", { status: 404 });
+  }
   const url = new URL(request.url);
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");
   const managingAgency = url.searchParams.get("managingAgency");
   const page = pageParam === null ? 1 : parseInt(pageParam);
-  const { cityCouncilDistrictId } = params;
-  if (cityCouncilDistrictId === undefined || isNaN(page)) {
+  if (isNaN(page)) {
     throw json("Bad Request", { status: 400 });
   }
   const offset = (page - 1) * itemsPerPage;
 
   const projectsPromise = findCapitalProjects(
     {
-      cityCouncilDistrictId,
+      ...(managingAgency === null ? {} : { managingAgency }),
       limit: itemsPerPage,
       offset: offset,
-      ...(managingAgency === null ? {} : { managingAgency }),
     },
     {
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
@@ -34,30 +35,28 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
-  const [agenciesResponse, capitalProjectsResponse] = await Promise.all([
+  const [agenciesResponse, projectsResponse] = await Promise.all([
     agenciesPromise,
     projectsPromise,
   ]);
 
   return {
-    capitalProjectsResponse,
+    capitalProjectsResponse: projectsResponse,
     agencies: agenciesResponse.agencies,
-    cityCouncilDistrictId,
   };
 }
 
-export default function CapitalProjectsByCityCouncilDistrict() {
+export default function CapitalProjects() {
   const {
     capitalProjectsResponse: { total: capitalProjectsTotal, capitalProjects },
     agencies,
-    cityCouncilDistrictId,
   } = useLoaderData<typeof loader>();
 
   return (
     <CapitalProjectsPanel
       capitalProjects={capitalProjects}
       agencies={agencies}
-      district={`City Council District ${cityCouncilDistrictId}`}
+      district={`\${totalProjects} Results`}
     >
       <Flex
         paddingTop={4}
@@ -67,8 +66,8 @@ export default function CapitalProjectsByCityCouncilDistrict() {
       >
         <Pagination total={capitalProjectsTotal} />
         <ExportDataModal
-          geography={`City Council District ${cityCouncilDistrictId}`}
-          fileName={`city_council_district_${cityCouncilDistrictId}.csv`}
+          geography={`City Council District {cityCouncilDistrictId}`}
+          fileName={`city_council_district_{cityCouncilDistrictId}.csv`}
         />
       </Flex>
     </CapitalProjectsPanel>

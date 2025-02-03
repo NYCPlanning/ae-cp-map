@@ -47,7 +47,7 @@ export const CapitalProjectsList = ({
           direction={"column"}
           height={{ base: isExpanded ? "70vh" : "100%", lg: "70vh" }}
           overflowX={"hidden"}
-          overflowY={"scroll"}
+          overflowY={"auto"}
         >
           <VStack align={"start"} gap={3}>
             {listBody}

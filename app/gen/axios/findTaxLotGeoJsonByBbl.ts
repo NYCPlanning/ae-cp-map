@@ -16,6 +16,7 @@ export async function findTaxLotGeoJsonByBbl(
   const res = await client<FindTaxLotGeoJsonByBblQueryResponse>({
     method: "get",
     url: `/tax-lots/${bbl}/geojson`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

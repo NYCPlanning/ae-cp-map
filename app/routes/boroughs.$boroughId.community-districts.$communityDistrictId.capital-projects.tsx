@@ -4,16 +4,13 @@ import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "~/components/CapitalProjectsList";
 import { ExportDataModal } from "~/components/ExportDataModal";
 import { Pagination } from "~/components/Pagination";
-import {
-  findAgencies,
-  findBoroughs,
-  findCapitalProjectsByBoroughIdCommunityDistrictId,
-} from "~/gen";
+import { findAgencies, findBoroughs, findCapitalProjects } from "~/gen";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");
+  const managingAgency = url.searchParams.get("managingAgency");
   const page = pageParam === null ? 1 : parseInt(pageParam);
 
   const { boroughId, communityDistrictId } = params;
@@ -26,18 +23,17 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
 
   const offset = (page - 1) * itemsPerPage;
-  const projectsByCommunityDistrictPromise =
-    findCapitalProjectsByBoroughIdCommunityDistrictId(
-      boroughId,
-      communityDistrictId,
-      {
-        limit: itemsPerPage,
-        offset: offset,
-      },
-      {
-        baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-      },
-    );
+  const projectsPromise = findCapitalProjects(
+    {
+      communityDistrictId: `${boroughId}${communityDistrictId}`,
+      limit: itemsPerPage,
+      offset: offset,
+      ...(managingAgency === null ? {} : { managingAgency }),
+    },
+    {
+      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    },
+  );
 
   const agenciesPromise = findAgencies({
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
@@ -46,11 +42,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
   const [agenciesResponse, boroughsResponse, capitalProjectsResponse] =
-    await Promise.all([
-      agenciesPromise,
-      boroughsPromise,
-      projectsByCommunityDistrictPromise,
-    ]);
+    await Promise.all([agenciesPromise, boroughsPromise, projectsPromise]);
   const activeBorough = boroughsResponse.boroughs.find(
     (borough) => borough.id === boroughId,
   );
