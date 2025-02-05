@@ -27,7 +27,17 @@ export function ClearFilterBtn({
   };
 
   return (
-    <Button width="full" mt={4} onClick={handleClear} isDisabled={isClearing}>
+    <Button
+      width="full"
+      mt={4}
+      onClick={handleClear}
+      isDisabled={isClearing}
+      variant="tertiarty"
+      textDecoration={"underline"}
+      color={"primary.500"}
+      padding={0}
+      margin={0}
+    >
       {buttonLabel}
     </Button>
   );
