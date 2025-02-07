@@ -1,19 +1,21 @@
 export function analytics(eventData) {
-  if (eventData.value) {
-    window._paq.push([
-      "trackEvent",
-      eventData.category,
-      eventData.action,
-      eventData.name,
-      eventData.value,
-    ]);
-  } else {
-    window._paq.push([
-      "trackEvent",
-      eventData.category,
-      eventData.action,
-      eventData.name,
-    ]);
+  if(window._paq) {
+    if (eventData.value) {
+      window._paq.push([
+        "trackEvent",
+        eventData.category,
+        eventData.action,
+        eventData.name,
+        eventData.value,
+      ]);
+    } else {
+      window._paq.push([
+        "trackEvent",
+        eventData.category,
+        eventData.action,
+        eventData.name,
+      ]);
+    }
   }
 }
 
