@@ -45,17 +45,14 @@ export function AdminDropdown({
       </Select>
       {selectValue && (
         <CloseIcon
-          style={{
-            height: "0.75rem",
-            width: "0.75rem",
-            position: "absolute",
-            bottom: "0.875rem",
-            right: "2.5rem",
-            border: "1px solid",
-            borderRadius: "1rem",
-            padding: "2px",
-            cursor: "pointer",
-          }}
+          boxSize={3}
+          pos={"absolute"}
+          bottom={3.5}
+          right={10}
+          p={0.5}
+          border={"1px solid"}
+          borderRadius={4}
+          cursor={"pointer"}
           onClick={() => {
             onSelectValueChange(null);
           }}
