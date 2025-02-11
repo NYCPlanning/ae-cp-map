@@ -53,6 +53,8 @@ export function AdminDropdown({
           border={"1px solid"}
           borderRadius={4}
           cursor={"pointer"}
+          role={"button"}
+          aria-label={`Clear ${formLabel}`}
           onClick={() => {
             onSelectValueChange(null);
           }}
