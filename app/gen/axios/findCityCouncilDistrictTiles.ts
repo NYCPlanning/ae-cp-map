@@ -18,6 +18,7 @@ export async function findCityCouncilDistrictTiles(
   const res = await client<FindCityCouncilDistrictTilesQueryResponse>({
     method: "get",
     url: `/city-council-districts/${z}/${x}/${y}.pbf`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

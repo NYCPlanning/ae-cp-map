@@ -12,6 +12,7 @@ export async function findAgencies(
   const res = await client<FindAgenciesQueryResponse>({
     method: "get",
     url: `/agencies`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

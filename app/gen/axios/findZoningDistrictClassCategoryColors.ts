@@ -14,6 +14,7 @@ export async function findZoningDistrictClassCategoryColors(
   const res = await client<FindZoningDistrictClassCategoryColorsQueryResponse>({
     method: "get",
     url: `/zoning-district-classes/category-colors`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

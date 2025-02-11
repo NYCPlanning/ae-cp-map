@@ -1,6 +1,6 @@
 export function analytics(eventData) {
   // window._paq is what Matomo uses to track data.
-  if(window._paq) {
+  if (window._paq) {
     if (eventData.value) {
       window._paq.push([
         "trackEvent",

@@ -16,6 +16,7 @@ export async function findTaxLots(
   const res = await client<FindTaxLotsQueryResponse>({
     method: "get",
     url: `/tax-lots`,
+    baseURL: "https://zoning.planningdigital.com/api",
     params,
     ...options,
   });

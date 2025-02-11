@@ -18,6 +18,7 @@ export async function findCapitalProjectTiles(
   const res = await client<FindCapitalProjectTilesQueryResponse>({
     method: "get",
     url: `/capital-projects/${z}/${x}/${y}.pbf`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;
