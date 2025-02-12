@@ -72,7 +72,11 @@ export default function CapitalProject() {
       capitalProject={capitalProject}
       capitalCommitments={capitalCommitments}
       capitalCommitmentTypes={capitalCommitmentTypes}
-      navigationBtn="back"
+      navigationBtn={
+        searchParams.get("districtId") || searchParams.get("managingAgency")
+          ? "back"
+          : "exit"
+      }
       agencies={agencies}
       onNavigationClick={() => {
         analytics({
@@ -81,7 +85,10 @@ export default function CapitalProject() {
           name: "Closed",
         });
         navigate({
-          pathname: "/",
+          pathname:
+            searchParams.get("districtId") || searchParams.get("managingAgency")
+              ? "/capital-projects"
+              : "/",
           search: `?${searchParams.toString()}`,
         });
       }}
