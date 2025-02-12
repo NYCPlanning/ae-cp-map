@@ -72,6 +72,7 @@ export default function CapitalProject() {
       capitalProject={capitalProject}
       capitalCommitments={capitalCommitments}
       capitalCommitmentTypes={capitalCommitmentTypes}
+      navigationBtn="back"
       agencies={agencies}
       onNavigationClick={() => {
         analytics({

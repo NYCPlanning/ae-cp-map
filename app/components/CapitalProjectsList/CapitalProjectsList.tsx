@@ -40,7 +40,9 @@ export const CapitalProjectsList = ({
   return (
     <>
       <Box paddingBottom={4}>
-        <Text as={"span"}>Mapped Capital Projects</Text>
+        <Text as={"span"}>
+          Mapped Capital Projects as of <strong>xx/xx/xxxx</strong>
+        </Text>
       </Box>
       <Collapse in={isExpanded} startingHeight={200}>
         <Flex

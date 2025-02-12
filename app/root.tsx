@@ -209,16 +209,10 @@ export default function App() {
   };
 
   const newPath = () => {
-    if (!districtId) {
+    if (!districtId && !managingAgency) {
       return "";
     }
-    if (districtType === "cd") {
-      return `boroughs/${boroughId}/community-districts/${districtId}/capital-projects`;
-    }
-    if (districtType === "ccd") {
-      return `city-council-districts/${districtId}/capital-projects`;
-    }
-    return "";
+    return "capital-projects";
   };
 
   const performSearch = (currentPath: string) => (nextPath: string) => {
