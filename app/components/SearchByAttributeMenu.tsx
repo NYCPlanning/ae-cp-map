@@ -34,7 +34,7 @@ export const SearchByAttributeMenu = ({
           fontSize="large"
           fontWeight="medium"
         >
-          Search By Attribute
+          Search by Attribute
         </Box>
         <AccordionIcon />
       </AccordionButton>

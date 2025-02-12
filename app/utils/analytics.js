@@ -46,19 +46,19 @@ export function analyticsTrackSearchByAttributeToggle(expandedIndex) {
   if (expandedIndex === 0) {
     analytics({
       category: "Accordion",
-      action: "Toggle Search By Attribute Accordion",
+      action: "Toggle Search by Attribute Accordion",
       name: "Open",
     });
   } else if (expandedIndex === -1) {
     analytics({
       category: "Accordion",
-      action: "Toggle Search By Attribute Accordion",
+      action: "Toggle Search by Attribute Accordion",
       name: "Closed",
     });
   } else {
     analytics({
       category: "Accordion",
-      action: "Toggle Search By Attribute Accordion",
+      action: "Toggle Search by Attribute Accordion",
       name: "Unknown",
     });
   }
