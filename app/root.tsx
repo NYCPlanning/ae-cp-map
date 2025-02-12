@@ -256,6 +256,8 @@ export default function App() {
                   maxHeight={{ lg: "100%" }}
                   overflowX={{ lg: "hidden" }}
                   overflowY={{ lg: "auto" }}
+                  backgroundColor={"white"}
+                  borderRadius={3}
                 >
                   <FilterMenu defaultIndex={0}>
                     <VStack>
@@ -294,14 +296,17 @@ export default function App() {
                       />
                     </VStack>
                   </SearchByAttributeMenu>
-                  <Button
-                    width="full"
-                    onClick={() => performNewSearch(newPath())}
-                    mt={0}
-                    isDisabled={!districtId && !managingAgency ? true : false}
-                  >
-                    Search
-                  </Button>
+                  <Flex width="full" px={4}>
+                    <Button
+                      width="full"
+                      onClick={() => performNewSearch(newPath())}
+                      mt={0}
+                      isDisabled={!districtId && !managingAgency ? true : false}
+                    >
+                      Search
+                    </Button>
+                  </Flex>
+
                   <WelcomePanel />
                 </Flex>
 
