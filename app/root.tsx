@@ -298,6 +298,7 @@ export default function App() {
                     width="full"
                     onClick={() => performNewSearch(newPath())}
                     mt={0}
+                    isDisabled={!districtId && !managingAgency ? true : false}
                   >
                     Search
                   </Button>
