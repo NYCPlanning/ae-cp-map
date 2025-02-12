@@ -216,6 +216,9 @@ export default function App() {
   };
 
   const performSearch = (currentPath: string) => (nextPath: string) => {
+    // Regardless if path is the same, reset to first results page
+    updateSearchParams({ page: 1 });
+
     // Avoid adding the same path to the history stack multiple times
     if (currentPath !== `/${nextPath}`) {
       const nextSearchParams = new URLSearchParams();
