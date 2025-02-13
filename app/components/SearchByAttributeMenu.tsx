@@ -15,13 +15,14 @@ export const SearchByAttributeMenu = ({
 }: SearchByAttributeMenuProps) => (
   <Accordion
     allowToggle
-    borderTopRadius={"base"}
-    borderBottomRadius={{ base: "base", lg: "none" }}
+    borderRadius={"none"}
     padding={{ base: 3, lg: 4 }}
     background={"white"}
     width={{ base: "full", lg: "21.25rem" }}
     maxW={{ base: "21.25rem", lg: "unset" }}
-    boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
+    marginBottom={{ base: 3, lg: 4 }}
+    borderY={"1px solid"}
+    borderColor={"gray.300"}
     defaultIndex={defaultIndex}
     onChange={analyticsTrackSearchByAttributeToggle}
   >

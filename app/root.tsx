@@ -260,7 +260,7 @@ export default function App() {
                   overflowX={{ lg: "hidden" }}
                   overflowY={{ lg: "auto" }}
                   backgroundColor={"white"}
-                  borderRadius={3}
+                  borderRadius={10}
                 >
                   <FilterMenu defaultIndex={0}>
                     <VStack>
