@@ -7,7 +7,6 @@ import {
 } from "@deck.gl/core";
 import { bbox } from "@turf/bbox";
 import { Geometry } from "geojson";
-import { MIN_ZOOM, MAX_ZOOM } from "../components/atlas.client";
 
 export class FlyToGeoJsonExtension extends LayerExtension {
   updateState(

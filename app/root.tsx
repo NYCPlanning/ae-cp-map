@@ -18,7 +18,7 @@ import {
   useRouteError,
   useSearchParams,
 } from "@remix-run/react";
-import { Atlas } from "./components/atlas.client";
+import { Atlas, INITIAL_VIEW_STATE } from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
 import { Overlay } from "./components/Overlay";
 import {
@@ -43,7 +43,7 @@ import {
 } from "./components/GoToDistrictBtn";
 import { GoToCommunityDistrictBtn } from "./components/GoToDistrictBtn/GoToCommunityDistrictBtn";
 import { WelcomePanel } from "./components/WelcomePanel";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   analytics,
   initializeMatomoTagManager,
@@ -56,6 +56,8 @@ import {
   DistrictType,
   SearchParamChanges,
 } from "./utils/types";
+import { ClearFilterBtn } from "./components/ClearFilter";
+import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 
 export const links: LinksFunction = () => {
   return [
@@ -156,6 +158,7 @@ export default function App() {
     initializeMatomoTagManager("SmoWWpiD");
     initFullStoryAnalytics();
   }, []);
+  const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -202,13 +205,28 @@ export default function App() {
 
   const goToNextDistrict = goToDistrict(pathname);
 
+  const clearSelections = () => {
+    setSearchParams({});
+    updateSearchParams({
+      districtType: null,
+      boroughId: null,
+      districtId: null,
+    });
+
+    setViewState({
+      ...INITIAL_VIEW_STATE,
+      transitionDuration: 2000,
+      transitionInterpolator: new FlyToInterpolator(),
+    });
+  };
+
   return (
     <Document>
       <StreetscapeProvider>
         <ClientOnly>
           {() => (
             <>
-              <Atlas />{" "}
+              <Atlas viewState={viewState} setViewState={setViewState} />{" "}
               <Overlay>
                 <Flex
                   direction={"column"}
@@ -267,6 +285,7 @@ export default function App() {
                     )}
                   </FilterMenu>
                   <WelcomePanel />
+                  <ClearFilterBtn onClear={clearSelections} />
                 </Flex>
                 <Flex
                   direction={{ base: "column-reverse", lg: "column" }}

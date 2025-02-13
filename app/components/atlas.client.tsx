@@ -18,7 +18,7 @@ import type { MapView, MapViewState } from "@deck.gl/core";
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
 
-const INITIAL_VIEW_STATE = {
+export const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
   latitude: 40.7018,
   zoom: 10,
@@ -26,7 +26,12 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
 };
 
-export function Atlas() {
+interface AtlasProps {
+  viewState: MapViewState;
+  setViewState: React.Dispatch<React.SetStateAction<MapViewState>>;
+}
+
+export function Atlas({ viewState, setViewState }: AtlasProps) {
   const capitalProjectsLayer = useCapitalProjectsLayer();
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
@@ -51,8 +56,6 @@ export function Atlas() {
     placement: widgetPlacement,
     style: widgetStyles,
   });
-
-  const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
 
   return (
     <DeckGL<MapView>
