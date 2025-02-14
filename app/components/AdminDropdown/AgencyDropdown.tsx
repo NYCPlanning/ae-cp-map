@@ -1,12 +1,6 @@
 import { Agency } from "~/gen";
 import { AdminDropdownProps, AdminDropdown } from ".";
-import {
-  AttributeParams,
-  ManagingAgencyAcronym,
-  ProjectTypeCode,
-  AmountMin,
-  AmountMax,
-} from "~/utils/types";
+import { AttributeParams, ManagingAgencyAcronym } from "~/utils/types";
 import { analytics } from "../../utils/analytics";
 import { useSearchParams } from "@remix-run/react";
 
@@ -29,15 +23,8 @@ export function AgencyDropdown({
       name: nextManagingAgencyAcronym,
     });
 
-    const projectType = searchParams.get("projectType") as ProjectTypeCode;
-    const min = searchParams.get("min") as AmountMin;
-    const max = searchParams.get("max") as AmountMax;
-
     setAttributeParams({
       managingAgency: nextManagingAgencyAcronym,
-      projectType,
-      min,
-      max,
     });
   };
 

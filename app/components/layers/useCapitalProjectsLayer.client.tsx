@@ -92,9 +92,8 @@ export function useCapitalProjectsLayer() {
       });
     },
     updateTriggers: {
-      getFillColor: [managingCode, capitalProjectId, managingAgency],
-      getPointColor: [managingCode, capitalProjectId, managingAgency],
-      getFilterCategory: [managingAgency],
+      getFillColor: [managingCode, capitalProjectId],
+      getPointColor: [managingCode, capitalProjectId],
     },
     extensions: [new DataFilterExtension({ categorySize: 1 })],
   });

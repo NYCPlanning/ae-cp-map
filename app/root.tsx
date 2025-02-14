@@ -55,7 +55,6 @@ import {
   DistrictId,
   DistrictType,
   ManagingAgencyAcronym,
-  ProjectTypeCode,
   SearchParamChanges,
 } from "./utils/types";
 
@@ -86,7 +85,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const managingAgency = url.searchParams.get(
     "managingAgency",
   ) as ManagingAgencyAcronym;
-  const projectType = url.searchParams.get("projectType") as ProjectTypeCode;
 
   const { agencies } = await findAgencies({
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
@@ -98,7 +96,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       communityDistricts: null,
       cityCouncilDistricts: null,
       agencies,
-      // projectTypes,
     };
   }
 
@@ -113,7 +110,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         communityDistricts: null,
         cityCouncilDistricts: null,
         agencies,
-        // projectTypes,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -128,7 +124,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         communityDistricts,
         cityCouncilDistricts: null,
         agencies,
-        // projectTypes,
       };
     }
   }
@@ -142,7 +137,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       communityDistricts: null,
       cityCouncilDistricts,
       agencies,
-      // projectTypes,
     };
   }
 };
@@ -191,7 +185,6 @@ export default function App() {
   const managingAgency = searchParams.get(
     "managingAgency",
   ) as ManagingAgencyAcronym;
-  const projectType = searchParams.get("projectType") as ProjectTypeCode;
 
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
