@@ -2,7 +2,6 @@ import { Agency } from "~/gen";
 import { AdminDropdownProps, AdminDropdown } from ".";
 import { AttributeParams, ManagingAgencyAcronym } from "~/utils/types";
 import { analytics } from "../../utils/analytics";
-import { useSearchParams } from "@remix-run/react";
 
 export interface AgencyDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
@@ -27,8 +26,6 @@ export function AgencyDropdown({
       managingAgency: nextManagingAgencyAcronym,
     });
   };
-
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const agencyOptions = agencies
     ?.sort((a, b) => a.name.localeCompare(b.name))
