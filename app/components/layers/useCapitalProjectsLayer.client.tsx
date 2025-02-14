@@ -34,7 +34,47 @@ export function useCapitalProjectsLayer() {
     endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
   }
 
-  const managingAgency = searchParams.get("managingAgency") || "";
+  const filterCategories = [];
+  const managingAgency = searchParams.get("managingAgency");
+  managingAgency
+    ? filterCategories.push([managingAgency])
+    : filterCategories.push([
+        "BNY",
+        "DPR",
+        "DOHMH",
+        "DOC",
+        "ACS",
+        "FDNY",
+        "NYRL",
+        "NYPL",
+        "HHC",
+        "DOE/SCA",
+        "DSNY",
+        "UK",
+        "DCAS",
+        "DDC",
+        "DHS",
+        "DFTA",
+        "DEP",
+        "BPL",
+        "CUNY",
+        "TGI",
+        "DOT",
+        "EDC",
+        "QBPL",
+        "NYPD",
+        "DCLA",
+        "HPD",
+        "DOITT",
+        "SBS",
+        "NYCHA",
+        "HRA/DSS",
+        "DOE",
+        "MTA",
+        "OCA",
+      ]);
+
+  filterCategories.push(["placeholder"]);
 
   return new MVTLayer<
     CapitalProjectProperties,
@@ -48,9 +88,11 @@ export function useCapitalProjectsLayer() {
     autoHighlight: true,
     highlightColor: [129, 230, 217, 218],
     pickable: true,
-    getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) =>
+    getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => [
       f.properties.managingAgency,
-    filterCategories: [managingAgency],
+      "placeholder",
+    ],
+    filterCategories: filterCategories,
     getFillColor: ({ properties }) => {
       const { managingCodeCapitalProjectId } = properties;
       switch (managingCodeCapitalProjectId) {
@@ -83,9 +125,15 @@ export function useCapitalProjectsLayer() {
       });
     },
     updateTriggers: {
-      getFillColor: [managingCode, capitalProjectId],
+      getFillColor: [managingCode, capitalProjectId, managingAgency],
       getPointColor: [managingCode, capitalProjectId],
+      filterCategories: [managingAgency],
+      extensions: [managingAgency],
     },
-    extensions: [new DataFilterExtension({ categorySize: 1 })],
+    extensions: [
+      new DataFilterExtension({
+        categorySize: 2,
+      }),
+    ],
   });
 }
