@@ -16,31 +16,22 @@ export interface CapitalProjectProperties {
   managingAgency: string;
 }
 
-const capitalProjectsInCommunityDistrictRoutePrefix =
-  "routes/boroughs.$boroughId.community-districts.$communityDistrictId.capital-projects";
-const capitalProjectsInCityCouncilDistrictRoutePrefix =
-  "routes/city-council-districts.$cityCouncilDistrictId.capital-projects";
-
 export function useCapitalProjectsLayer() {
   const { managingCode, capitalProjectId } = useParams();
   const [searchParams] = useSearchParams();
+  const districtType = searchParams.get("districtType");
+  const boroughId = searchParams.get("boroughId");
+  const districtId = searchParams.get("districtId");
   const navigate = useNavigate();
   const matches = useMatches();
 
   const layoutRoute = matches[1];
 
-  const onCapitalProjectsInCityCouncilDistrictPath = layoutRoute?.id.startsWith(
-    capitalProjectsInCityCouncilDistrictRoutePrefix,
-  );
-  const onCapitalProjectsInCommunityDistrictPath = layoutRoute?.id.startsWith(
-    capitalProjectsInCommunityDistrictRoutePrefix,
-  );
-
   let endpointPrefix = "";
-  if (onCapitalProjectsInCityCouncilDistrictPath) {
-    endpointPrefix = `city-council-districts/${layoutRoute.params.cityCouncilDistrictId}/`;
-  } else if (onCapitalProjectsInCommunityDistrictPath) {
-    endpointPrefix = `boroughs/${layoutRoute.params.boroughId}/community-districts/${layoutRoute.params.communityDistrictId}/`;
+  if (districtType === "ccd" && districtId) {
+    endpointPrefix = `city-council-districts/${districtId}/`;
+  } else if (districtType === "cd" && boroughId && districtId) {
+    endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
   }
 
   const managingAgency = searchParams.get("managingAgency") || "";
