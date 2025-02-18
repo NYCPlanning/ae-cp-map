@@ -1,6 +1,6 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 import {
-  useMatches,
+  useLoaderData,
   useNavigate,
   useParams,
   useSearchParams,
@@ -10,6 +10,7 @@ import {
   DataFilterExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
+import { FindAgenciesQueryResponse } from "../../gen";
 
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
@@ -23,9 +24,6 @@ export function useCapitalProjectsLayer() {
   const boroughId = searchParams.get("boroughId");
   const districtId = searchParams.get("districtId");
   const navigate = useNavigate();
-  const matches = useMatches();
-
-  const layoutRoute = matches[1];
 
   let endpointPrefix = "";
   if (districtType === "ccd" && districtId) {
@@ -34,45 +32,19 @@ export function useCapitalProjectsLayer() {
     endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
   }
 
+  const loaderData = useLoaderData<
+    FindAgenciesQueryResponse | { agencies: null }
+  >();
+
+  const fullAgencyAcronymList = loaderData.agencies
+    ? loaderData.agencies.map((agency) => agency.initials)
+    : [];
+
   const filterCategories = [];
   const managingAgency = searchParams.get("managingAgency");
   managingAgency
     ? filterCategories.push([managingAgency])
-    : filterCategories.push([
-        "BNY",
-        "DPR",
-        "DOHMH",
-        "DOC",
-        "ACS",
-        "FDNY",
-        "NYRL",
-        "NYPL",
-        "HHC",
-        "DOE/SCA",
-        "DSNY",
-        "UK",
-        "DCAS",
-        "DDC",
-        "DHS",
-        "DFTA",
-        "DEP",
-        "BPL",
-        "CUNY",
-        "TGI",
-        "DOT",
-        "EDC",
-        "QBPL",
-        "NYPD",
-        "DCLA",
-        "HPD",
-        "DOITT",
-        "SBS",
-        "NYCHA",
-        "HRA/DSS",
-        "DOE",
-        "MTA",
-        "OCA",
-      ]);
+    : filterCategories.push(fullAgencyAcronymList);
 
   filterCategories.push(["placeholder"]);
 
