@@ -40,13 +40,7 @@ export function useCapitalProjectsLayer() {
     ? loaderData.agencies.map((agency) => agency.initials)
     : [];
 
-  const filterCategories = [];
   const managingAgency = searchParams.get("managingAgency");
-  managingAgency
-    ? filterCategories.push([managingAgency])
-    : filterCategories.push(fullAgencyAcronymList);
-
-  filterCategories.push(["placeholder"]);
 
   return new MVTLayer<
     CapitalProjectProperties,
@@ -60,11 +54,10 @@ export function useCapitalProjectsLayer() {
     autoHighlight: true,
     highlightColor: [129, 230, 217, 218],
     pickable: true,
-    getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => [
+    getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) =>
       f.properties.managingAgency,
-      "placeholder",
-    ],
-    filterCategories: filterCategories,
+    filterCategories:
+      managingAgency === null ? fullAgencyAcronymList : [managingAgency],
     getFillColor: ({ properties }) => {
       const { managingCodeCapitalProjectId } = properties;
       switch (managingCodeCapitalProjectId) {
@@ -99,12 +92,10 @@ export function useCapitalProjectsLayer() {
     updateTriggers: {
       getFillColor: [managingCode, capitalProjectId, managingAgency],
       getPointColor: [managingCode, capitalProjectId],
-      filterCategories: [managingAgency],
-      extensions: [managingAgency],
     },
     extensions: [
       new DataFilterExtension({
-        categorySize: 2,
+        categorySize: 1,
       }),
     ],
   });
