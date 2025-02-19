@@ -11,18 +11,23 @@ import {
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import { FindAgenciesQueryResponse } from "../../gen";
+import type { VisibleFilterParams } from "../../utils/types";
 
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
 }
+export interface UseCapitalProjectsLayerProps {
+  visibleFilterParams: VisibleFilterParams;
+}
 
-export function useCapitalProjectsLayer() {
+export function useCapitalProjectsLayer({
+  visibleFilterParams,
+}: UseCapitalProjectsLayerProps) {
   const { managingCode, capitalProjectId } = useParams();
+  const { boroughId, districtId, districtType, managingAgency } =
+    visibleFilterParams;
   const [searchParams] = useSearchParams();
-  const districtType = searchParams.get("districtType");
-  const boroughId = searchParams.get("boroughId");
-  const districtId = searchParams.get("districtId");
   const navigate = useNavigate();
 
   let endpointPrefix = "";
@@ -39,8 +44,6 @@ export function useCapitalProjectsLayer() {
   const fullAgencyAcronymList = loaderData.agencies
     ? loaderData.agencies.map((agency) => agency.initials)
     : [];
-
-  const managingAgency = searchParams.get("managingAgency");
 
   return new MVTLayer<
     CapitalProjectProperties,

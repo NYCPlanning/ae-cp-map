@@ -43,7 +43,7 @@ import {
   AgencyDropdown,
 } from "./components/AdminDropdown";
 import { WelcomePanel } from "./components/WelcomePanel";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   analytics,
   initializeMatomoTagManager,
@@ -56,6 +56,7 @@ import {
   DistrictType,
   ManagingAgencyAcronym,
   SearchParamChanges,
+  VisibleFilterParams,
 } from "./utils/types";
 
 export const links: LinksFunction = () => {
@@ -185,6 +186,13 @@ export default function App() {
   const managingAgency = searchParams.get(
     "managingAgency",
   ) as ManagingAgencyAcronym;
+  const [visibleFilterParams, setVisibleFilterParams] =
+    useState<VisibleFilterParams>({
+      districtType,
+      boroughId,
+      districtId,
+      managingAgency,
+    });
 
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
@@ -213,7 +221,14 @@ export default function App() {
     updateSearchParams({ page: 1 });
 
     // Avoid adding the same path to the history stack multiple times
-    if (currentPath !== `/${nextPath}`) {
+    if (
+      !(
+        visibleFilterParams.boroughId === boroughId &&
+        visibleFilterParams.districtId === districtId &&
+        visibleFilterParams.districtType === districtType &&
+        visibleFilterParams.managingAgency === managingAgency
+      )
+    ) {
       const nextSearchParams = new URLSearchParams();
       searchParams.forEach((value, key) => {
         if (searchParamKeys.includes(key)) {
@@ -221,15 +236,17 @@ export default function App() {
         }
       });
 
+      setVisibleFilterParams({
+        districtType,
+        boroughId,
+        districtId,
+        managingAgency,
+      });
+
       analytics({
         category: "Perform Search Button",
         action: "Click",
         name: "nextPath",
-      });
-
-      navigate({
-        pathname: nextPath,
-        search: `?${nextSearchParams.toString()}`,
       });
     }
   };
@@ -242,7 +259,7 @@ export default function App() {
         <ClientOnly>
           {() => (
             <>
-              <Atlas />{" "}
+              <Atlas visibleFilterParams={visibleFilterParams} />{" "}
               <Overlay>
                 <Flex
                   direction={"column"}

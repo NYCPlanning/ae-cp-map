@@ -17,3 +17,10 @@ export type SearchParamChanges = Record<
   string,
   string | number | null | undefined
 >;
+
+export type VisibleFilterParams = {
+  districtType: DistrictType;
+  districtId: DistrictId;
+  boroughId: BoroughId;
+  managingAgency: ManagingAgencyAcronym;
+};
