@@ -41,6 +41,8 @@ export function AdminDropdown({
           )
         }
         value={selectValue ?? ""}
+        //TODO: add padding to text area to fix CloseIcon covering the ellipsis
+        textOverflow={"ellipsis"}
       >
         {children}
       </Select>
