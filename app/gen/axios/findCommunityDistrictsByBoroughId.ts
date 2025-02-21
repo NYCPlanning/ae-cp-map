@@ -18,6 +18,7 @@ export async function findCommunityDistrictsByBoroughId(
   const res = await client<FindCommunityDistrictsByBoroughIdQueryResponse>({
     method: "get",
     url: `/boroughs/${boroughId}/community-districts`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

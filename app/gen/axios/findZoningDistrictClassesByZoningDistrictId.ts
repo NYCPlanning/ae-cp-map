@@ -19,6 +19,7 @@ export async function findZoningDistrictClassesByZoningDistrictId(
     await client<FindZoningDistrictClassesByZoningDistrictIdQueryResponse>({
       method: "get",
       url: `/zoning-districts/${id}/classes`,
+      baseURL: "https://zoning.planningdigital.com/api",
       ...options,
     });
   return res.data;

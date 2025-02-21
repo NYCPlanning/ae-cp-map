@@ -21,6 +21,7 @@ export async function findCapitalProjectGeoJsonByManagingCodeCapitalProjectId(
       {
         method: "get",
         url: `/capital-projects/${managingCode}/${capitalProjectId}/geojson`,
+        baseURL: "https://zoning.planningdigital.com/api",
         ...options,
       },
     );

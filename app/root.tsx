@@ -4,6 +4,7 @@ import {
   Heading,
   VStack,
   Flex,
+  Button,
 } from "@nycplanning/streetscape";
 import {
   Links,
@@ -28,22 +29,21 @@ import {
   findBoroughs,
   findCityCouncilDistricts,
   findCommunityDistrictsByBoroughId,
+  findAgencies,
+  FindAgenciesQueryResponse,
 } from "./gen";
 import { FilterMenu } from "./components/FilterMenu";
+import { SearchByAttributeMenu } from "./components/SearchByAttributeMenu";
 import { LoaderFunctionArgs, LinksFunction } from "@remix-run/node";
 import {
   BoroughDropdown,
   DistrictTypeDropdown,
   CommunityDistrictDropdown,
   CityCouncilDistrictDropdown,
+  AgencyDropdown,
 } from "./components/AdminDropdown";
-import {
-  GoToCityCouncilDistrictBtn,
-  GoToDistrictBtn,
-} from "./components/GoToDistrictBtn";
-import { GoToCommunityDistrictBtn } from "./components/GoToDistrictBtn/GoToCommunityDistrictBtn";
 import { WelcomePanel } from "./components/WelcomePanel";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   analytics,
   initializeMatomoTagManager,
@@ -54,7 +54,9 @@ import {
   BoroughId,
   DistrictId,
   DistrictType,
+  ManagingAgencyAcronym,
   SearchParamChanges,
+  VisibleFilterParams,
 } from "./utils/types";
 
 export const links: LinksFunction = () => {
@@ -67,18 +69,34 @@ export const links: LinksFunction = () => {
   ];
 };
 
-const adminParamKeys = ["districtType", "boroughId", "districtId"];
+const searchParamKeys = [
+  "districtType",
+  "boroughId",
+  "districtId",
+  "managingAgency",
+  "projectType",
+  "min",
+  "max",
+];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const districtType = url.searchParams.get("districtType") as DistrictType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
+  const managingAgency = url.searchParams.get(
+    "managingAgency",
+  ) as ManagingAgencyAcronym;
+
+  const { agencies } = await findAgencies({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
 
   if (districtType === null) {
     return {
       boroughs: null,
       communityDistricts: null,
       cityCouncilDistricts: null,
+      agencies,
     };
   }
 
@@ -92,6 +110,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         boroughs,
         communityDistricts: null,
         cityCouncilDistricts: null,
+        agencies,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -105,6 +124,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         boroughs,
         communityDistricts,
         cityCouncilDistricts: null,
+        agencies,
       };
     }
   }
@@ -117,6 +137,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       boroughs: null,
       communityDistricts: null,
       cityCouncilDistricts,
+      agencies,
     };
   }
 };
@@ -162,6 +183,16 @@ export default function App() {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+  const managingAgency = searchParams.get(
+    "managingAgency",
+  ) as ManagingAgencyAcronym;
+  const [visibleFilterParams, setVisibleFilterParams] =
+    useState<VisibleFilterParams>({
+      districtType,
+      boroughId,
+      districtId,
+      managingAgency,
+    });
 
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
@@ -169,7 +200,8 @@ export default function App() {
         | FindCommunityDistrictsByBoroughIdQueryResponse
         | { communityDistricts: null }
       ) &
-      (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null })
+      (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null }) &
+      (FindAgenciesQueryResponse | { agencies: null })
   >();
 
   const updateSearchParams = (nextSearchParams: SearchParamChanges) => {
@@ -177,30 +209,49 @@ export default function App() {
     setSearchParams(mergedParams);
   };
 
-  const goToDistrict = (currentPath: string) => (nextPath: string) => {
+  const newPath = () => {
+    if (!districtId && !managingAgency) {
+      return "";
+    }
+    return "capital-projects";
+  };
+
+  const performSearch = (currentPath: string) => (nextPath: string) => {
+    // Regardless if path is the same, reset to first results page
+    updateSearchParams({ page: 1 });
+
     // Avoid adding the same path to the history stack multiple times
-    if (currentPath !== `/${nextPath}`) {
-      const nextAdminParams = new URLSearchParams();
+    if (
+      !(
+        visibleFilterParams.boroughId === boroughId &&
+        visibleFilterParams.districtId === districtId &&
+        visibleFilterParams.districtType === districtType &&
+        visibleFilterParams.managingAgency === managingAgency
+      )
+    ) {
+      const nextSearchParams = new URLSearchParams();
       searchParams.forEach((value, key) => {
-        if (adminParamKeys.includes(key)) {
-          nextAdminParams.set(key, value);
+        if (searchParamKeys.includes(key)) {
+          nextSearchParams.set(key, value);
         }
       });
 
-      analytics({
-        category: "Go to Selected District Button",
-        action: "Click",
-        name: nextPath,
+      setVisibleFilterParams({
+        districtType,
+        boroughId,
+        districtId,
+        managingAgency,
       });
 
-      navigate({
-        pathname: nextPath,
-        search: `?${nextAdminParams.toString()}`,
+      analytics({
+        category: "Perform Search Button",
+        action: "Click",
+        name: "nextPath",
       });
     }
   };
 
-  const goToNextDistrict = goToDistrict(pathname);
+  const performNewSearch = performSearch(pathname);
 
   return (
     <Document>
@@ -208,7 +259,7 @@ export default function App() {
         <ClientOnly>
           {() => (
             <>
-              <Atlas />{" "}
+              <Atlas visibleFilterParams={visibleFilterParams} />{" "}
               <Overlay>
                 <Flex
                   direction={"column"}
@@ -218,6 +269,8 @@ export default function App() {
                   maxHeight={{ lg: "100%" }}
                   overflowX={{ lg: "hidden" }}
                   overflowY={{ lg: "auto" }}
+                  backgroundColor={"white"}
+                  borderRadius={10}
                 >
                   <FilterMenu defaultIndex={0}>
                     <VStack>
@@ -246,28 +299,30 @@ export default function App() {
                         />
                       )}
                     </VStack>
-                    {districtType === null && (
-                      <GoToDistrictBtn
-                        goToDistrict={goToNextDistrict}
-                        path={null}
-                      />
-                    )}
-                    {districtType === "ccd" && (
-                      <GoToCityCouncilDistrictBtn
-                        goToDistrict={goToNextDistrict}
-                        districtId={districtId}
-                      />
-                    )}
-                    {districtType === "cd" && (
-                      <GoToCommunityDistrictBtn
-                        goToDistrict={goToNextDistrict}
-                        boroughId={boroughId}
-                        districtId={districtId}
-                      />
-                    )}
                   </FilterMenu>
+                  <SearchByAttributeMenu defaultIndex={0}>
+                    <VStack>
+                      <AgencyDropdown
+                        selectValue={managingAgency}
+                        agencies={loaderData.agencies}
+                        setAttributeParams={updateSearchParams}
+                      />
+                    </VStack>
+                  </SearchByAttributeMenu>
+                  <Flex width="full" px={4}>
+                    <Button
+                      width="full"
+                      onClick={() => performNewSearch(newPath())}
+                      mt={0}
+                      isDisabled={!districtId && !managingAgency ? true : false}
+                    >
+                      Search
+                    </Button>
+                  </Flex>
+
                   <WelcomePanel />
                 </Flex>
+
                 <Flex
                   direction={{ base: "column-reverse", lg: "column" }}
                   justify={{ base: "flex-start", lg: "space-between" }}

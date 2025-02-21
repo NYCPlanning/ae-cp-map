@@ -1,13 +1,18 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import { useSearchParams } from "@remix-run/react";
+import type { VisibleFilterParams } from "../../utils/types";
 
 export interface CityCouncilDistrictProperties {
   layerName: string;
   id: string;
 }
-export function useCityCouncilDistrictsLayer() {
-  const [searchParams] = useSearchParams();
-  const districtType = searchParams.get("districtType");
+export interface UseCityCouncilDistrictsLayerProps {
+  visibleFilterParams: VisibleFilterParams;
+}
+
+export function useCityCouncilDistrictsLayer({
+  visibleFilterParams,
+}: UseCityCouncilDistrictsLayerProps) {
+  const { districtType } = visibleFilterParams;
 
   return new MVTLayer<CityCouncilDistrictProperties>({
     id: "CityCouncilDistricts",

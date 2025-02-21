@@ -22,6 +22,7 @@ export async function findCapitalProjectTilesByCityCouncilDistrictId(
     await client<FindCapitalProjectTilesByCityCouncilDistrictIdQueryResponse>({
       method: "get",
       url: `/city-council-districts/${cityCouncilDistrictId}/capital-projects/${z}/${x}/${y}.pbf`,
+      baseURL: "https://zoning.planningdigital.com/api",
       ...options,
     });
   return res.data;
