@@ -50,7 +50,7 @@ export function useCapitalProjectsLayer() {
     pickable: true,
     getFillColor: ({ properties }) => {
       const { managingCodeCapitalProjectId, agencyBudgets } = properties;
-      console.debug(JSON.parse(agencyBudgets));
+      console.debug(agencyBudgets.split(","));
       switch (managingCodeCapitalProjectId) {
         case `${managingCode}${capitalProjectId}`:
           return [56, 178, 172, 166];
