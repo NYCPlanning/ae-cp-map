@@ -1,4 +1,9 @@
-import { FormControl, FormLabel, Select } from "@nycplanning/streetscape";
+import {
+  FormControl,
+  FormLabel,
+  IconButton,
+  Select,
+} from "@nycplanning/streetscape";
 import { FormEvent, ReactNode } from "react";
 import { CloseIcon } from "@chakra-ui/icons";
 
@@ -44,20 +49,29 @@ export function AdminDropdown({
         {children}
       </Select>
       {selectValue && (
-        <CloseIcon
-          boxSize={3}
+        <IconButton
+          aria-label={`Clear ${formLabel}`}
+          variant="ghost"
+          _focus={{ borderWidth: 3, borderColor: "teal" }}
           pos={"absolute"}
+          minH={"unset"}
+          minW={"unset"}
+          height={"min-content"}
+          width={"min-content"}
           bottom={3.5}
           right={10}
-          p={0.5}
-          border={"1px solid"}
-          borderRadius={4}
           cursor={"pointer"}
-          role={"button"}
-          aria-label={`Clear ${formLabel}`}
           onClick={() => {
             onSelectValueChange(null);
           }}
+          icon={
+            <CloseIcon
+              boxSize={3}
+              p={0.5}
+              border={"1px solid"}
+              borderRadius={4}
+            />
+          }
         />
       )}
     </FormControl>
