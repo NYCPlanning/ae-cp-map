@@ -35,13 +35,9 @@ export function Atlas({ visibleFilterParams }: AtlasProps) {
   const capitalProjectsLayer = useCapitalProjectsLayer({ visibleFilterParams });
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
-  const communityDistrictsLayer = useCommunityDistrictsLayer({
-    visibleFilterParams,
-  });
+  const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
-  const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer({
-    visibleFilterParams,
-  });
+  const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
 
   const isMobile = useMediaQuery("(max-width: 767px)")[0];
