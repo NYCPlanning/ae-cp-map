@@ -9,6 +9,7 @@ import {
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
+  commitmentsTotal: number;
 }
 
 const capitalProjectsInCommunityDistrictRoutePrefix =
@@ -48,7 +49,12 @@ export function useCapitalProjectsLayer() {
     highlightColor: [129, 230, 217, 218],
     pickable: true,
     getFillColor: ({ properties }) => {
-      const { managingCodeCapitalProjectId } = properties;
+      const { managingCodeCapitalProjectId, commitmentsTotal } = properties;
+      console.info(
+        "commitmentsTotal",
+        typeof commitmentsTotal,
+        commitmentsTotal,
+      );
       switch (managingCodeCapitalProjectId) {
         case `${managingCode}${capitalProjectId}`:
           return [56, 178, 172, 166];
