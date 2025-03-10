@@ -1,17 +1,17 @@
 import { Agency } from "~/gen";
 import { AdminDropdownProps, AdminDropdown } from ".";
-import { AttributeParams, ManagingAgencyAcronym } from "~/utils/types";
+import { ManagingAgencyAcronym } from "../../utils/types";
 import { analytics } from "../../utils/analytics";
 
 export interface AgencyDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
   agencies: Array<Agency> | null;
-  setAttributeParams: (value: AttributeParams) => void;
+  onSelectValueChange?: (value: null | string) => void;
 }
 export function AgencyDropdown({
   selectValue,
   agencies,
-  setAttributeParams,
+  onSelectValueChange = () => null,
 }: AgencyDropdownProps) {
   const updateManagingAgencyAcronym = (
     nextManagingAgencyAcronym: ManagingAgencyAcronym,
@@ -22,9 +22,7 @@ export function AgencyDropdown({
       name: nextManagingAgencyAcronym,
     });
 
-    setAttributeParams({
-      managingAgency: nextManagingAgencyAcronym,
-    });
+    onSelectValueChange(nextManagingAgencyAcronym);
   };
 
   const agencyOptions = agencies

@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { findCapitalProjectsByCityCouncilId, findAgencies } from "../gen";
+import { findCapitalProjects, findAgencies } from "../gen";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
 import { Flex } from "@nycplanning/streetscape";
@@ -10,6 +10,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");
+  const managingAgency = url.searchParams.get("managingAgency");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   const { cityCouncilDistrictId } = params;
   if (cityCouncilDistrictId === undefined || isNaN(page)) {
@@ -17,27 +18,29 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   }
   const offset = (page - 1) * itemsPerPage;
 
-  const projectsByCityCouncilDistrictPromise =
-    findCapitalProjectsByCityCouncilId(
+  const projectstPromise = findCapitalProjects(
+    {
       cityCouncilDistrictId,
-      {
-        limit: itemsPerPage,
-        offset: offset,
-      },
-      {
-        baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-      },
-    );
+      limit: itemsPerPage,
+      offset: offset,
+      ...(managingAgency === null ? {} : { managingAgency }),
+    },
+    {
+      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    },
+  );
 
   const agenciesPromise = findAgencies({
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
-  const [agenciesResponse, projectsByCityCouncilDistrictResponse] =
-    await Promise.all([agenciesPromise, projectsByCityCouncilDistrictPromise]);
+  const [agenciesResponse, capitalProjectsResponse] = await Promise.all([
+    agenciesPromise,
+    projectstPromise,
+  ]);
 
   return {
-    capitalProjectsResponse: projectsByCityCouncilDistrictResponse,
+    capitalProjectsResponse,
     agencies: agenciesResponse.agencies,
     cityCouncilDistrictId,
   };

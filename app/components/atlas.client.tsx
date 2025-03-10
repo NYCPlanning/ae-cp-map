@@ -14,7 +14,6 @@ import {
   useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
-import type { VisibleFilterParams } from "~/utils/types";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
@@ -27,12 +26,8 @@ const INITIAL_VIEW_STATE = {
   pitch: 0,
 };
 
-export interface AtlasProps {
-  visibleFilterParams: VisibleFilterParams;
-}
-
-export function Atlas({ visibleFilterParams }: AtlasProps) {
-  const capitalProjectsLayer = useCapitalProjectsLayer({ visibleFilterParams });
+export function Atlas() {
+  const capitalProjectsLayer = useCapitalProjectsLayer();
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();

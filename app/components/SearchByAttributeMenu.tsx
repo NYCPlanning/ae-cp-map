@@ -26,7 +26,7 @@ export const SearchByAttributeMenu = ({
     defaultIndex={defaultIndex}
     onChange={analyticsTrackSearchByAttributeToggle}
   >
-    <AccordionItem borderTopWidth="0">
+    <AccordionItem border="none">
       <AccordionButton aria-label="Close search by attribute menu" px={0}>
         <Box
           as="span"

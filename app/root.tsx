@@ -56,7 +56,7 @@ import {
   DistrictType,
   ManagingAgencyAcronym,
   SearchParamChanges,
-  VisibleFilterParams,
+  AttributeParams,
 } from "./utils/types";
 
 export const links: LinksFunction = () => {
@@ -69,23 +69,12 @@ export const links: LinksFunction = () => {
   ];
 };
 
-const searchParamKeys = [
-  "districtType",
-  "boroughId",
-  "districtId",
-  "managingAgency",
-  "projectType",
-  "min",
-  "max",
-];
+const adminParamKeys = ["districtType", "boroughId", "districtId"];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const districtType = url.searchParams.get("districtType") as DistrictType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
-  const managingAgency = url.searchParams.get(
-    "managingAgency",
-  ) as ManagingAgencyAcronym;
 
   const { agencies } = await findAgencies({
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
@@ -186,13 +175,9 @@ export default function App() {
   const managingAgency = searchParams.get(
     "managingAgency",
   ) as ManagingAgencyAcronym;
-  const [visibleFilterParams, setVisibleFilterParams] =
-    useState<VisibleFilterParams>({
-      districtType,
-      boroughId,
-      districtId,
-      managingAgency,
-    });
+  const [attributeParams, setAttributeParams] = useState<AttributeParams>({
+    managingAgency,
+  });
 
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
@@ -209,49 +194,42 @@ export default function App() {
     setSearchParams(mergedParams);
   };
 
-  const newPath = () => {
-    if (!districtId && !managingAgency) {
-      return "";
-    }
-    return "capital-projects";
-  };
-
-  const performSearch = (currentPath: string) => (nextPath: string) => {
-    // Regardless if path is the same, reset to first results page
-    updateSearchParams({ page: 1 });
-
-    // Avoid adding the same path to the history stack multiple times
-    if (
-      !(
-        visibleFilterParams.boroughId === boroughId &&
-        visibleFilterParams.districtId === districtId &&
-        visibleFilterParams.districtType === districtType &&
-        visibleFilterParams.managingAgency === managingAgency
-      )
+  const search = () => {
+    let newPath = "";
+    if (districtType === "cd" && boroughId !== null && districtId !== null) {
+      newPath = `boroughs/${boroughId}/community-districts/${districtId}/capital-projects`;
+    } else if (districtType === "ccd" && districtId !== null) {
+      newPath = `city-council-districts/${districtId}/capital-projects`;
+    } else if (
+      districtType === null &&
+      attributeParams.managingAgency !== null
     ) {
-      const nextSearchParams = new URLSearchParams();
+      newPath = "capital-projects";
+    }
+
+    if (pathname !== `/${newPath}`) {
+      const nextAdminParams = new URLSearchParams();
       searchParams.forEach((value, key) => {
-        if (searchParamKeys.includes(key)) {
-          nextSearchParams.set(key, value);
+        if (adminParamKeys.includes(key)) {
+          nextAdminParams.set(key, value);
         }
       });
-
-      setVisibleFilterParams({
-        districtType,
-        boroughId,
-        districtId,
-        managingAgency,
-      });
+      if (attributeParams.managingAgency !== null) {
+        nextAdminParams.set("managingAgency", attributeParams.managingAgency);
+      }
 
       analytics({
-        category: "Perform Search Button",
+        category: "Search Button",
         action: "Click",
-        name: "nextPath",
+        name: `${newPath}?${nextAdminParams.toString()}`,
+      });
+
+      navigate({
+        pathname: newPath,
+        search: `?${nextAdminParams.toString()}`,
       });
     }
   };
-
-  const performNewSearch = performSearch(pathname);
 
   return (
     <Document>
@@ -259,7 +237,7 @@ export default function App() {
         <ClientOnly>
           {() => (
             <>
-              <Atlas visibleFilterParams={visibleFilterParams} />{" "}
+              <Atlas />{" "}
               <Overlay>
                 <Flex
                   direction={"column"}
@@ -303,18 +281,27 @@ export default function App() {
                   <SearchByAttributeMenu defaultIndex={0}>
                     <VStack>
                       <AgencyDropdown
-                        selectValue={managingAgency}
+                        selectValue={attributeParams.managingAgency}
                         agencies={loaderData.agencies}
-                        setAttributeParams={updateSearchParams}
+                        onSelectValueChange={(value) => {
+                          setAttributeParams({
+                            ...attributeParams,
+                            managingAgency: value,
+                          });
+                        }}
                       />
                     </VStack>
                   </SearchByAttributeMenu>
                   <Flex width="full" px={4}>
                     <Button
                       width="full"
-                      onClick={() => performNewSearch(newPath())}
+                      onClick={() => search()}
                       mt={0}
-                      isDisabled={!districtId && !managingAgency ? true : false}
+                      isDisabled={
+                        !districtId && !attributeParams.managingAgency
+                          ? true
+                          : false
+                      }
                     >
                       Search
                     </Button>

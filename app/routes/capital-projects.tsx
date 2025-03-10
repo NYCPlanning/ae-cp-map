@@ -10,27 +10,16 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");
-  const districtType = url.searchParams.get("districtType");
-  const boroughId = url.searchParams.get("boroughId");
-  const districtId = url.searchParams.get("districtId");
-  const managingAgency = url.searchParams.get("managingAgency") || undefined;
+  const managingAgency = url.searchParams.get("managingAgency");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   if (isNaN(page)) {
     throw json("Bad Request", { status: 400 });
   }
   const offset = (page - 1) * itemsPerPage;
 
-  const geoParams =
-    districtType === "cd" && boroughId && districtId
-      ? { communityDistrictId: `${boroughId}${districtId}` }
-      : districtType === "ccd" && districtId
-        ? { cityCouncilDistrictId: districtId }
-        : {};
-
   const projectsPromise = findCapitalProjects(
     {
-      ...geoParams,
-      managingAgency,
+      ...(managingAgency === null ? {} : { managingAgency }),
       limit: itemsPerPage,
       offset: offset,
     },
@@ -51,7 +40,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return {
     capitalProjectsResponse: projectsResponse,
     agencies: agenciesResponse.agencies,
-    ...geoParams,
   };
 }
 

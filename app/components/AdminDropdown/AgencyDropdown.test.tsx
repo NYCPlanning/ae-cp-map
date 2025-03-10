@@ -11,10 +11,10 @@ describe("AgencyDropdown", () => {
   });
 
   it("should render agency form details and options", () => {
-    const updateSearchParams = vi.fn();
+    const onSelectValueChange = vi.fn();
     render(
       <AgencyDropdown
-        setAttributeParams={updateSearchParams}
+        onSelectValueChange={onSelectValueChange}
         agencies={agencies}
       />,
     );
@@ -24,11 +24,11 @@ describe("AgencyDropdown", () => {
   });
 
   it("should set search params when changing the managing agency", async () => {
-    const updateSearchParams = vi.fn();
+    const onSelectValueChange = vi.fn();
     const firstAgencyInitials = agencies[0].initials;
     render(
       <AgencyDropdown
-        setAttributeParams={updateSearchParams}
+        onSelectValueChange={onSelectValueChange}
         agencies={agencies}
       />,
     );
@@ -39,7 +39,7 @@ describe("AgencyDropdown", () => {
         firstAgencyInitials,
       ),
     );
-    expect(updateSearchParams).toHaveBeenCalledWith({
+    expect(onSelectValueChange).toHaveBeenCalledWith({
       managingAgency: firstAgencyInitials,
     });
   });

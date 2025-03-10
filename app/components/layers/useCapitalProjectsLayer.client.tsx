@@ -4,6 +4,7 @@ import {
   useNavigate,
   useParams,
   useSearchParams,
+  useMatches,
 } from "@remix-run/react";
 import {
   DataFilterExtension,
@@ -11,30 +12,39 @@ import {
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import { FindAgenciesQueryResponse } from "../../gen";
-import type { VisibleFilterParams } from "../../utils/types";
 
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
 }
-export interface UseCapitalProjectsLayerProps {
-  visibleFilterParams: VisibleFilterParams;
-}
 
-export function useCapitalProjectsLayer({
-  visibleFilterParams,
-}: UseCapitalProjectsLayerProps) {
+const capitalProjectsInCommunityDistrictRoutePrefix =
+  "routes/boroughs.$boroughId.community-districts.$communityDistrictId.capital-projects";
+const capitalProjectsInCityCouncilDistrictRoutePrefix =
+  "routes/city-council-districts.$cityCouncilDistrictId.capital-projects";
+
+export function useCapitalProjectsLayer() {
   const { managingCode, capitalProjectId } = useParams();
-  const { boroughId, districtId, districtType, managingAgency } =
-    visibleFilterParams;
   const [searchParams] = useSearchParams();
+  const managingAgency = searchParams.get("managingAgency");
   const navigate = useNavigate();
 
+  const matches = useMatches();
+
+  const layoutRoute = matches[1];
+
+  const onCapitalProjectsInCityCouncilDistrictPath = layoutRoute?.id.startsWith(
+    capitalProjectsInCityCouncilDistrictRoutePrefix,
+  );
+  const onCapitalProjectsInCommunityDistrictPath = layoutRoute?.id.startsWith(
+    capitalProjectsInCommunityDistrictRoutePrefix,
+  );
+
   let endpointPrefix = "";
-  if (districtType === "ccd" && districtId) {
-    endpointPrefix = `city-council-districts/${districtId}/`;
-  } else if (districtType === "cd" && boroughId && districtId) {
-    endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
+  if (onCapitalProjectsInCityCouncilDistrictPath) {
+    endpointPrefix = `city-council-districts/${layoutRoute.params.cityCouncilDistrictId}/`;
+  } else if (onCapitalProjectsInCommunityDistrictPath) {
+    endpointPrefix = `boroughs/${layoutRoute.params.boroughId}/community-districts/${layoutRoute.params.communityDistrictId}/`;
   }
 
   const loaderData = useLoaderData<
@@ -93,7 +103,7 @@ export function useCapitalProjectsLayer({
       });
     },
     updateTriggers: {
-      getFillColor: [managingCode, capitalProjectId, managingAgency],
+      getFillColor: [managingCode, capitalProjectId],
       getPointColor: [managingCode, capitalProjectId],
     },
     extensions: [
