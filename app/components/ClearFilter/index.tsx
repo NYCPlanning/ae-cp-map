@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Button } from "@nycplanning/streetscape";
 import { useNavigate } from "@remix-run/react";
+<<<<<<< Updated upstream
+=======
+import React from "react";
+>>>>>>> Stashed changes
 
 export interface ClearFilterBtnProps {
   onClear: () => void;
