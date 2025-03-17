@@ -100,6 +100,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         communityDistricts: null,
         cityCouncilDistricts: null,
         agencies,
+        // ENV,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -207,7 +208,10 @@ export default function App() {
       newPath = "capital-projects";
     }
 
-    if (pathname !== `/${newPath}`) {
+    if (
+      pathname !== `/${newPath}` ||
+      attributeParams.managingAgency !== managingAgency
+    ) {
       const nextAdminParams = new URLSearchParams();
       searchParams.forEach((value, key) => {
         if (adminParamKeys.includes(key)) {
@@ -278,20 +282,23 @@ export default function App() {
                       )}
                     </VStack>
                   </FilterMenu>
-                  <SearchByAttributeMenu defaultIndex={0}>
-                    <VStack>
-                      <AgencyDropdown
-                        selectValue={attributeParams.managingAgency}
-                        agencies={loaderData.agencies}
-                        onSelectValueChange={(value) => {
-                          setAttributeParams({
-                            ...attributeParams,
-                            managingAgency: value,
-                          });
-                        }}
-                      />
-                    </VStack>
-                  </SearchByAttributeMenu>
+                  {import.meta.env.VITE_FEATURE_FLAG_ATTRIBUTE_FILTERS ===
+                  "ON" ? (
+                    <SearchByAttributeMenu defaultIndex={0}>
+                      <VStack>
+                        <AgencyDropdown
+                          selectValue={attributeParams.managingAgency}
+                          agencies={loaderData.agencies}
+                          onSelectValueChange={(value) => {
+                            setAttributeParams({
+                              ...attributeParams,
+                              managingAgency: value,
+                            });
+                          }}
+                        />
+                      </VStack>
+                    </SearchByAttributeMenu>
+                  ) : null}
                   <Flex width="full" px={4}>
                     <Button
                       width="full"
