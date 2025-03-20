@@ -23,3 +23,4 @@ jobs:
               env:
                 HD_VITE_ZONING_API_URL: ${{secrets.VITE_ZONING_API_URL}}
                 HD_VITE_CPDB_DATA_URL: ${{secrets.VITE_CPDB_DATA_URL}}
+                HD_VITE_FEATURE_FLAG_ATTRIBUTE_FILTERS: ${{secrets.VITE_FEATURE_FLAG_ATTRIBUTE_FILTERS}}

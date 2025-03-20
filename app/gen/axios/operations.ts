@@ -3,6 +3,10 @@ export const operations = {
     path: "/agencies",
     method: "get",
   },
+  findAgencyBudgets: {
+    path: "/agencyBugdets",
+    method: "get",
+  },
   findBoroughs: {
     path: "/boroughs",
     method: "get",
@@ -25,6 +29,10 @@ export const operations = {
   },
   findCapitalCommitmentTypes: {
     path: "/capital-commitment-types",
+    method: "get",
+  },
+  findCapitalProjects: {
+    path: "/capital-projects",
     method: "get",
   },
   findCapitalCommitmentsByManagingCodeCapitalProjectId: {

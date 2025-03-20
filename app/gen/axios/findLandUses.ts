@@ -12,6 +12,7 @@ export async function findLandUses(
   const res = await client<FindLandUsesQueryResponse>({
     method: "get",
     url: `/land-uses`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

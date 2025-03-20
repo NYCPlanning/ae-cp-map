@@ -18,6 +18,7 @@ export async function findZoningDistrictClassesByTaxLotBbl(
   const res = await client<FindZoningDistrictClassesByTaxLotBblQueryResponse>({
     method: "get",
     url: `/tax-lots/${bbl}/zoning-districts/classes`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

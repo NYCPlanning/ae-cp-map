@@ -6,6 +6,7 @@ export interface CommunityDistrictProperties {
   layerName: string;
   abbr: string | null;
 }
+
 export function useCommunityDistrictsLayer() {
   const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType");

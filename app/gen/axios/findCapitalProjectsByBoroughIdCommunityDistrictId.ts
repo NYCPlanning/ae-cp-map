@@ -23,6 +23,7 @@ export async function findCapitalProjectsByBoroughIdCommunityDistrictId(
       {
         method: "get",
         url: `/boroughs/${boroughId}/community-districts/${communityDistrictId}/capital-projects`,
+        baseURL: "https://zoning.planningdigital.com/api",
         params,
         ...options,
       },

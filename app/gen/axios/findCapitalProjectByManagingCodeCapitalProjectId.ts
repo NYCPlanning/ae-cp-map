@@ -21,6 +21,7 @@ export async function findCapitalProjectByManagingCodeCapitalProjectId(
       {
         method: "get",
         url: `/capital-projects/${managingCode}/${capitalProjectId}`,
+        baseURL: "https://zoning.planningdigital.com/api",
         ...options,
       },
     );

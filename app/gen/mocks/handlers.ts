@@ -1,10 +1,12 @@
 import { findAgenciesHandler } from "./findAgenciesHandler";
+import { findAgencyBudgetsHandler } from "./findAgencyBudgetsHandler";
 import { findBoroughsHandler } from "./findBoroughsHandler";
 import { findCommunityDistrictsByBoroughIdHandler } from "./findCommunityDistrictsByBoroughIdHandler";
 import { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler } from "./findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler";
 import { findCapitalProjectsByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectsByBoroughIdCommunityDistrictIdHandler";
 import { findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler";
 import { findCapitalCommitmentTypesHandler } from "./findCapitalCommitmentTypesHandler";
+import { findCapitalProjectsHandler } from "./findCapitalProjectsHandler";
 import { findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler } from "./findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler";
 import { findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler";
 import { findCapitalProjectByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectByManagingCodeCapitalProjectIdHandler";
@@ -29,12 +31,14 @@ import { findZoningDistrictClassByZoningDistrictClassIdHandler } from "./findZon
 
 export const handlers = [
   findAgenciesHandler,
+  findAgencyBudgetsHandler,
   findBoroughsHandler,
   findCommunityDistrictsByBoroughIdHandler,
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler,
   findCapitalProjectsByBoroughIdCommunityDistrictIdHandler,
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler,
   findCapitalCommitmentTypesHandler,
+  findCapitalProjectsHandler,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler,
   findCapitalProjectByManagingCodeCapitalProjectIdHandler,

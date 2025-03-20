@@ -5,6 +5,7 @@ export interface CityCouncilDistrictProperties {
   layerName: string;
   id: string;
 }
+
 export function useCityCouncilDistrictsLayer() {
   const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType");

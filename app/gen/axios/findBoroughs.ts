@@ -12,6 +12,7 @@ export async function findBoroughs(
   const res = await client<FindBoroughsQueryResponse>({
     method: "get",
     url: `/boroughs`,
+    baseURL: "https://zoning.planningdigital.com/api",
     ...options,
   });
   return res.data;

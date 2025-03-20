@@ -1,6 +1,6 @@
 export function analytics(eventData) {
   // window._paq is what Matomo uses to track data.
-  if(window._paq) {
+  if (window._paq) {
     if (eventData.value) {
       window._paq.push([
         "trackEvent",
@@ -37,6 +37,28 @@ export function analyticsTrackFilterByDistrictToggle(expandedIndex) {
     analytics({
       category: "Accordion",
       action: "Toggle Filter By District Accordion",
+      name: "Unknown",
+    });
+  }
+}
+
+export function analyticsTrackSearchByAttributeToggle(expandedIndex) {
+  if (expandedIndex === 0) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Search by Attribute Accordion",
+      name: "Open",
+    });
+  } else if (expandedIndex === -1) {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Search by Attribute Accordion",
+      name: "Closed",
+    });
+  } else {
+    analytics({
+      category: "Accordion",
+      action: "Toggle Search by Attribute Accordion",
       name: "Unknown",
     });
   }

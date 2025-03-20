@@ -11,6 +11,7 @@ export { BoroughDropdown } from "./BoroughDropdown";
 export { DistrictTypeDropdown } from "./DistrictTypeDropdown";
 export { CommunityDistrictDropdown } from "./CommunityDistrictDropdown";
 export { CityCouncilDistrictDropdown } from "./CityCouncilDistrictDropdown";
+export { AgencyDropdown } from "./AgencyDropdown";
 
 export interface AdminDropdownProps {
   formId: string;
@@ -45,6 +46,8 @@ export function AdminDropdown({
           )
         }
         value={selectValue ?? ""}
+        //TODO: add padding to text area to fix CloseIcon covering the ellipsis
+        textOverflow={"ellipsis"}
       >
         {children}
       </Select>

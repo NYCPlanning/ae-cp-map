@@ -7,9 +7,12 @@ import {
   AccordionPanel,
   Box,
 } from "@nycplanning/streetscape";
-import { analyticsTrackFilterByDistrictToggle } from "~/utils/analytics";
+import { analyticsTrackSearchByAttributeToggle } from "~/utils/analytics";
 
-export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
+export const SearchByAttributeMenu = ({
+  children,
+  defaultIndex,
+}: SearchByAttributeMenuProps) => (
   <Accordion
     allowToggle
     borderRadius={"none"}
@@ -17,11 +20,14 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
     background={"white"}
     width={{ base: "full", lg: "21.25rem" }}
     maxW={{ base: "21.25rem", lg: "unset" }}
+    marginBottom={{ base: 3, lg: 4 }}
+    borderY={"1px solid"}
+    borderColor={"gray.300"}
     defaultIndex={defaultIndex}
-    onChange={analyticsTrackFilterByDistrictToggle}
+    onChange={analyticsTrackSearchByAttributeToggle}
   >
-    <AccordionItem borderTopWidth="0">
-      <AccordionButton aria-label="Close geography filter menu" px={0}>
+    <AccordionItem border="none">
+      <AccordionButton aria-label="Close search by attribute menu" px={0}>
         <Box
           as="span"
           flex="1"
@@ -29,7 +35,7 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
           fontSize="large"
           fontWeight="medium"
         >
-          Filter by District
+          Search by Attribute
         </Box>
         <AccordionIcon />
       </AccordionButton>
@@ -40,7 +46,7 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
   </Accordion>
 );
 
-export interface FilterMenuProps {
+export interface SearchByAttributeMenuProps {
   children: ReactNode;
   defaultIndex?: number;
 }

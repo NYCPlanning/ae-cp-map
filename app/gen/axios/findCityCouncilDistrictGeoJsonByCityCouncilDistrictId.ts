@@ -20,6 +20,7 @@ export async function findCityCouncilDistrictGeoJsonByCityCouncilDistrictId(
       {
         method: "get",
         url: `/city-council-districts/${cityCouncilDistrictId}/geojson`,
+        baseURL: "https://zoning.planningdigital.com/api",
         ...options,
       },
     );
