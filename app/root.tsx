@@ -305,7 +305,8 @@ export default function App() {
                       onClick={() => search()}
                       mt={0}
                       isDisabled={
-                        !districtId && !attributeParams.managingAgency
+                        (!attributeParams.managingAgency && !districtId) ||
+                        (districtType && !districtId)
                           ? true
                           : false
                       }
