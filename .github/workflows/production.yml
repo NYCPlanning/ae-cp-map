@@ -7,7 +7,7 @@ jobs:
         name: 🚀 Deploy
         environment:
             name: production-cp-map
-            url: https://capitalplanning.nycplanningdigital.com
+            url: https://capitalprojects.nycplanningdigital.com
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
