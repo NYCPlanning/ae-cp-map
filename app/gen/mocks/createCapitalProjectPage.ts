@@ -11,5 +11,6 @@ export function createCapitalProjectPage(
     capitalProjects: faker.helpers.arrayElements([
       createCapitalProject(),
     ]) as any,
+    totalProjects: faker.number.int(),
   });
 }

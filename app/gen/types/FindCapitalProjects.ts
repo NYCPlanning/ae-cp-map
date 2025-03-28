@@ -18,6 +18,21 @@ export type FindCapitalProjectsQueryParams = {
    */
   managingAgency?: string;
   /**
+   * @description The two character alphabetic string containing the letters used to refer to the agency budget code.
+   * @type string | undefined
+   */
+  agencyBudget?: string;
+  /**
+   * @description Minimum sum of total capital commitments to a given capital project, represented by USD amount, with cents and thousands separators both optional.
+   * @type string | undefined
+   */
+  commitmentsTotalMin?: string;
+  /**
+   * @description Maximum sum of total capital commitments to a given capital project, represented by USD amount, with cents and thousands separators both optional.
+   * @type string | undefined
+   */
+  commitmentsTotalMax?: string;
+  /**
    * @description The maximum number of results to be returned in each response. The default value is 20. It must be between 1 and 100, inclusive.
    * @type integer | undefined
    */
