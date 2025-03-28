@@ -25,13 +25,11 @@ export function AgencyDropdown({
     onSelectValueChange(nextManagingAgencyAcronym);
   };
 
-  const agencyOptions = agencies
-    ?.sort((a, b) => a.name.localeCompare(b.name))
-    .map((agency) => (
-      <option key={agency.initials} value={agency.initials}>
-        {agency.name} ({agency.initials})
-      </option>
-    ));
+  const agencyOptions = agencies?.map((agency) => (
+    <option key={agency.initials} value={agency.initials}>
+      {agency.name} ({agency.initials})
+    </option>
+  ));
   return (
     <AdminDropdown
       formId="managingAgency"
