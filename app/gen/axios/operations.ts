@@ -4,7 +4,7 @@ export const operations = {
     method: "get",
   },
   findAgencyBudgets: {
-    path: "/agencyBugdets",
+    path: "/agency-budgets",
     method: "get",
   },
   findBoroughs: {

@@ -22,6 +22,26 @@ export const findCapitalProjectsQueryParamsSchema = z
       .string()
       .describe("The acronym of the managing agency to filter the projects by.")
       .optional(),
+    agencyBudget: z
+      .string()
+      .describe(
+        "The two character alphabetic string containing the letters used to refer to the agency budget code.",
+      )
+      .optional(),
+    commitmentsTotalMin: z
+      .string()
+      .regex(new RegExp("^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$"))
+      .describe(
+        "Minimum sum of total capital commitments to a given capital project, represented by USD amount, with cents and thousands separators both optional.",
+      )
+      .optional(),
+    commitmentsTotalMax: z
+      .string()
+      .regex(new RegExp("^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$"))
+      .describe(
+        "Maximum sum of total capital commitments to a given capital project, represented by USD amount, with cents and thousands separators both optional.",
+      )
+      .optional(),
     limit: z
       .number()
       .int()
