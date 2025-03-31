@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { findAgencies, findCapitalProjects } from "../gen";
+import { findAgencies, findAgencyBudgets, findCapitalProjects } from "../gen";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
 import { Flex } from "@nycplanning/streetscape";
@@ -14,6 +14,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");
   const managingAgency = url.searchParams.get("managingAgency");
+  const agencyBudget = url.searchParams.get("agencyBudget");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   if (isNaN(page)) {
     throw json("Bad Request", { status: 400 });
@@ -23,6 +24,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const projectsPromise = findCapitalProjects(
     {
       ...(managingAgency === null ? {} : { managingAgency }),
+      ...(agencyBudget === null ? {} : { agencyBudget }),
       limit: itemsPerPage,
       offset: offset,
     },
@@ -35,14 +37,17 @@ export async function loader({ request }: LoaderFunctionArgs) {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
-  const [agenciesResponse, projectsResponse] = await Promise.all([
-    agenciesPromise,
-    projectsPromise,
-  ]);
+  const agencyBudgetsPromise = findAgencyBudgets({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
+  const [agenciesResponse, agencyBudgetsResponse, projectsResponse] =
+    await Promise.all([agenciesPromise, agencyBudgetsPromise, projectsPromise]);
 
   return {
     capitalProjectsResponse: projectsResponse,
     agencies: agenciesResponse.agencies,
+    agencyBudgets: agencyBudgetsResponse.agencyBudgets,
   };
 }
 
@@ -50,12 +55,13 @@ export default function CapitalProjects() {
   const {
     capitalProjectsResponse: { total: capitalProjectsTotal, capitalProjects },
     agencies,
+    agencyBudgets,
   } = useLoaderData<typeof loader>();
-
   return (
     <CapitalProjectsPanel
       capitalProjects={capitalProjects}
       agencies={agencies}
+      agencyBudgets={agencyBudgets}
       district={`\${totalProjects} Results`}
     >
       <Flex

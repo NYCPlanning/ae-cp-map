@@ -11,6 +11,7 @@ describe("CapitalProjectsDrawer", () => {
           capitalProjects={[]}
           district={district}
           agencies={[]}
+          agencyBudgets={[]}
         >
           <></>
         </CapitalProjectsDrawer>
@@ -27,6 +28,7 @@ describe("CapitalProjectsDrawer", () => {
           capitalProjects={[]}
           district={district}
           agencies={[]}
+          agencyBudgets={[]}
         >
           <></>
         </CapitalProjectsDrawer>
@@ -43,6 +45,7 @@ describe("CapitalProjectsDrawer", () => {
           capitalProjects={[]}
           district={district}
           agencies={[]}
+          agencyBudgets={[]}
         >
           <></>
         </CapitalProjectsDrawer>

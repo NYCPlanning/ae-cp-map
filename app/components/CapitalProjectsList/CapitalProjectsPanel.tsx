@@ -28,6 +28,7 @@ export function CapitalProjectsPanel(props: CapitalProjectsPanelProps) {
         <CapitalProjectsDrawer
           capitalProjects={props.capitalProjects}
           agencies={props.agencies}
+          agencyBudgets={props.agencyBudgets}
           district={props.district}
         >
           {props.children}

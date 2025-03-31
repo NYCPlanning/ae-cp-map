@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, json } from "@remix-run/node";
-import { findCapitalProjects, findAgencies } from "../gen";
+import { findCapitalProjects, findAgencies, findAgencyBudgets } from "../gen";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
 import { Flex } from "@nycplanning/streetscape";
@@ -11,6 +11,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");
   const managingAgency = url.searchParams.get("managingAgency");
+  const agencyBudget = url.searchParams.get("agencyBudget");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   const { cityCouncilDistrictId } = params;
   if (cityCouncilDistrictId === undefined || isNaN(page)) {
@@ -24,6 +25,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       limit: itemsPerPage,
       offset: offset,
       ...(managingAgency === null ? {} : { managingAgency }),
+      ...(agencyBudget === null ? {} : { agencyBudget }),
     },
     {
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
@@ -34,14 +36,17 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
-  const [agenciesResponse, capitalProjectsResponse] = await Promise.all([
-    agenciesPromise,
-    projectsPromise,
-  ]);
+  const agencyBudgetsPromise = findAgencyBudgets({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
+  const [agenciesResponse, agencyBudgetsResponse, capitalProjectsResponse] =
+    await Promise.all([agenciesPromise, agencyBudgetsPromise, projectsPromise]);
 
   return {
     capitalProjectsResponse,
     agencies: agenciesResponse.agencies,
+    agencyBudgets: agencyBudgetsResponse.agencyBudgets,
     cityCouncilDistrictId,
   };
 }
@@ -50,6 +55,7 @@ export default function CapitalProjectsByCityCouncilDistrict() {
   const {
     capitalProjectsResponse: { total: capitalProjectsTotal, capitalProjects },
     agencies,
+    agencyBudgets,
     cityCouncilDistrictId,
   } = useLoaderData<typeof loader>();
 
@@ -57,6 +63,7 @@ export default function CapitalProjectsByCityCouncilDistrict() {
     <CapitalProjectsPanel
       capitalProjects={capitalProjects}
       agencies={agencies}
+      agencyBudgets={agencyBudgets}
       district={`City Council District ${cityCouncilDistrictId}`}
     >
       <Flex

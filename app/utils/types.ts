@@ -2,6 +2,7 @@ export type BoroughId = null | string;
 export type DistrictType = null | "cd" | "ccd";
 export type DistrictId = null | string;
 export type ManagingAgencyAcronym = null | string;
+export type AgencyBudgetType = null | string;
 
 export type AdminParams = {
   districtType: DistrictType;
@@ -11,6 +12,7 @@ export type AdminParams = {
 
 export type AttributeParams = {
   managingAgency: ManagingAgencyAcronym;
+  agencyBudget: AgencyBudgetType;
 };
 
 export type SearchParamChanges = Record<

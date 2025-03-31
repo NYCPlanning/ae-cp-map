@@ -1,5 +1,5 @@
 import { Flex, Heading } from "@nycplanning/streetscape";
-import { Agency, CapitalProject } from "~/gen";
+import { Agency, CapitalProject, AgencyBudget } from "~/gen";
 import { CapitalProjectsList } from "./CapitalProjectsList";
 import { useState } from "react";
 import { MobilePanelResizeBar } from "../MobilePanelResizeBar";
@@ -8,6 +8,7 @@ export interface CapitalProjectsDrawerProps {
   capitalProjects: Array<CapitalProject>;
   district: string;
   agencies: Agency[];
+  agencyBudgets: AgencyBudget[];
   children: React.ReactNode;
 }
 

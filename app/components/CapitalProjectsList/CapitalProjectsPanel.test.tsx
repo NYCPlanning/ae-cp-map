@@ -7,6 +7,7 @@ describe("CapitalProjectsPanel", () => {
       <CapitalProjectsPanel
         capitalProjects={[]}
         agencies={[]}
+        agencyBudgets={[]}
         district="Community District"
       >
         <></>
