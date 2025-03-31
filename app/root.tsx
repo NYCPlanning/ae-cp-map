@@ -31,6 +31,8 @@ import {
   findCommunityDistrictsByBoroughId,
   findAgencies,
   FindAgenciesQueryResponse,
+  findAgencyBudgets,
+  FindAgencyBudgetsQueryResponse,
 } from "./gen";
 import { FilterMenu } from "./components/FilterMenu";
 import { SearchByAttributeMenu } from "./components/SearchByAttributeMenu";
@@ -41,6 +43,7 @@ import {
   CommunityDistrictDropdown,
   CityCouncilDistrictDropdown,
   AgencyDropdown,
+  ProjectTypeDropdown,
 } from "./components/AdminDropdown";
 import { WelcomePanel } from "./components/WelcomePanel";
 import { useEffect, useState } from "react";
@@ -57,6 +60,7 @@ import {
   ManagingAgencyAcronym,
   SearchParamChanges,
   AttributeParams,
+  AgencyBudgetType,
 } from "./utils/types";
 
 export const links: LinksFunction = () => {
@@ -80,12 +84,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
+  const { agencyBudgets } = await findAgencyBudgets({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
   if (districtType === null) {
     return {
       boroughs: null,
       communityDistricts: null,
       cityCouncilDistricts: null,
       agencies,
+      agencyBudgets,
     };
   }
 
@@ -100,6 +109,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         communityDistricts: null,
         cityCouncilDistricts: null,
         agencies,
+        agencyBudgets,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -114,6 +124,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         communityDistricts,
         cityCouncilDistricts: null,
         agencies,
+        agencyBudgets,
       };
     }
   }
@@ -127,6 +138,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       communityDistricts: null,
       cityCouncilDistricts,
       agencies,
+      agencyBudgets,
     };
   }
 };
@@ -175,8 +187,11 @@ export default function App() {
   const managingAgency = searchParams.get(
     "managingAgency",
   ) as ManagingAgencyAcronym;
+  const agencyBudget = searchParams.get("agencyBudget") as AgencyBudgetType;
+
   const [attributeParams, setAttributeParams] = useState<AttributeParams>({
     managingAgency,
+    agencyBudget,
   });
 
   const loaderData = useLoaderData<
@@ -186,7 +201,8 @@ export default function App() {
         | { communityDistricts: null }
       ) &
       (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null }) &
-      (FindAgenciesQueryResponse | { agencies: null })
+      (FindAgenciesQueryResponse | { agencies: null }) &
+      (FindAgencyBudgetsQueryResponse | { agencyBudgets: null })
   >();
 
   const updateSearchParams = (nextSearchParams: SearchParamChanges) => {
@@ -202,14 +218,16 @@ export default function App() {
       newPath = `city-council-districts/${districtId}/capital-projects`;
     } else if (
       districtType === null &&
-      attributeParams.managingAgency !== null
+      (attributeParams.managingAgency !== null ||
+        attributeParams.agencyBudget !== null)
     ) {
       newPath = "capital-projects";
     }
 
     if (
       pathname !== `/${newPath}` ||
-      attributeParams.managingAgency !== managingAgency
+      attributeParams.managingAgency !== managingAgency ||
+      attributeParams.agencyBudget !== agencyBudget
     ) {
       const nextAdminParams = new URLSearchParams();
       searchParams.forEach((value, key) => {
@@ -219,6 +237,9 @@ export default function App() {
       });
       if (attributeParams.managingAgency !== null) {
         nextAdminParams.set("managingAgency", attributeParams.managingAgency);
+      }
+      if (attributeParams.agencyBudget !== null) {
+        nextAdminParams.set("agencyBudget", attributeParams.agencyBudget);
       }
 
       analytics({
@@ -295,6 +316,16 @@ export default function App() {
                             });
                           }}
                         />
+                        <ProjectTypeDropdown
+                          selectValue={attributeParams.agencyBudget}
+                          projectTypes={loaderData.agencyBudgets}
+                          onSelectValueChange={(value) => {
+                            setAttributeParams({
+                              ...attributeParams,
+                              agencyBudget: value,
+                            });
+                          }}
+                        />
                       </VStack>
                     </SearchByAttributeMenu>
                   ) : null}
@@ -304,7 +335,9 @@ export default function App() {
                       onClick={() => search()}
                       mt={0}
                       isDisabled={
-                        (!attributeParams.managingAgency && !districtId) ||
+                        (!attributeParams.managingAgency &&
+                          !attributeParams.agencyBudget &&
+                          !districtId) ||
                         (districtType && !districtId)
                           ? true
                           : false
