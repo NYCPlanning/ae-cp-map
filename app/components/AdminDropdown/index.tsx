@@ -72,7 +72,7 @@ export function AdminDropdown({
               boxSize={3}
               p={0.5}
               border={"1px solid"}
-              borderRadius={4}
+              borderRadius={16}
             />
           }
         />
