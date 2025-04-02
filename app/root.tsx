@@ -428,7 +428,6 @@ export default function App() {
                               });
                             }}
                             onSelectValueChange={(value) => {
-                              console.log("min select", value);
                               setAttributeParams({
                                 ...attributeParams,
                                 commitmentsTotalMinSelectValue: value,
@@ -467,7 +466,6 @@ export default function App() {
                               });
                             }}
                             onSelectValueChange={(value) => {
-                              console.log("max select", value);
                               setAttributeParams({
                                 ...attributeParams,
                                 commitmentsTotalMaxSelectValue: value,
