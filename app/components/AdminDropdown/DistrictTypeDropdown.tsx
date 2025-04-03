@@ -1,6 +1,5 @@
 import { AdminParams } from "~/utils/types";
 import { AdminDropdownProps, AdminDropdown } from ".";
-import { analytics } from "../../utils/analytics";
 
 export interface DistrictTypeDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
@@ -19,11 +18,6 @@ export function DistrictTypeDropdown({
     )
       throw new Error("invalid district type selected");
 
-    analytics({
-      category: "Dropdown Menu",
-      action: "Change District Type",
-      name: nextDistrictType,
-    });
     setAdminParams({
       districtType: nextDistrictType,
       boroughId: null,

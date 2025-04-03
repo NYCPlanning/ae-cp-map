@@ -1,7 +1,6 @@
 import { Agency } from "~/gen";
 import { AdminDropdownProps, AdminDropdown } from ".";
 import { ManagingAgencyAcronym } from "../../utils/types";
-import { analytics } from "../../utils/analytics";
 
 export interface AgencyDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
@@ -16,12 +15,6 @@ export function AgencyDropdown({
   const updateManagingAgencyAcronym = (
     nextManagingAgencyAcronym: ManagingAgencyAcronym,
   ) => {
-    analytics({
-      category: "Dropdown Menu",
-      action: "Change Managing Agency",
-      name: nextManagingAgencyAcronym,
-    });
-
     onSelectValueChange(nextManagingAgencyAcronym);
   };
 
