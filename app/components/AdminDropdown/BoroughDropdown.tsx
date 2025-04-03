@@ -1,7 +1,6 @@
 import { Borough } from "~/gen";
 import { AdminDropdownProps, AdminDropdown } from ".";
 import { AdminParams, BoroughId } from "~/utils/types";
-import { analytics } from "../../utils/analytics";
 
 export interface BoroughDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
@@ -15,12 +14,6 @@ export function BoroughDropdown({
   setAdminParams,
 }: BoroughDropdownProps) {
   const updateBoroughId = (nextBoroughId: BoroughId) => {
-    analytics({
-      category: "Dropdown Menu",
-      action: "Change Borough",
-      name: nextBoroughId,
-    });
-
     setAdminParams({
       districtType: "cd",
       boroughId: nextBoroughId,
