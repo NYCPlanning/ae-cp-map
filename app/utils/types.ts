@@ -8,6 +8,7 @@ export type CommitmentsTotalMinInputValue = string;
 export type CommitmentsTotalMinSelectValue = string;
 export type CommitmentsTotalMaxInputValue = string;
 export type CommitmentsTotalMaxSelectValue = string;
+export type CommitmentTotalInputsAreValid = boolean;
 
 export type AdminParams = {
   districtType: DistrictType;
@@ -23,6 +24,7 @@ export type AttributeParams = {
   commitmentsTotalMinSelectValue: CommitmentsTotalMinSelectValue;
   commitmentsTotalMaxInputValue: CommitmentsTotalMaxInputValue;
   commitmentsTotalMaxSelectValue: CommitmentsTotalMaxSelectValue;
+  commitmentTotalInputsAreValid: CommitmentTotalInputsAreValid;
 };
 
 export type SearchParamChanges = Record<
