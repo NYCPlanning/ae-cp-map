@@ -7,7 +7,6 @@ import type {
   FindCapitalProjectsByCityCouncilIdQueryParams,
   FindCapitalProjectsByCityCouncilId200,
   FindCapitalProjectsByCityCouncilId400,
-  FindCapitalProjectsByCityCouncilId404,
   FindCapitalProjectsByCityCouncilId500,
   FindCapitalProjectsByCityCouncilIdQueryResponse,
 } from "../types/FindCapitalProjectsByCityCouncilId";
@@ -36,13 +35,6 @@ export function createFindCapitalProjectsByCityCouncilId200(): NonNullable<FindC
  * @description Invalid client request
  */
 export function createFindCapitalProjectsByCityCouncilId400(): NonNullable<FindCapitalProjectsByCityCouncilId400> {
-  return createError();
-}
-
-/**
- * @description Requested resource does not exist or is not available
- */
-export function createFindCapitalProjectsByCityCouncilId404(): NonNullable<FindCapitalProjectsByCityCouncilId404> {
   return createError();
 }
 

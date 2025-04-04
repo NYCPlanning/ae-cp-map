@@ -12,6 +12,7 @@ export { DistrictTypeDropdown } from "./DistrictTypeDropdown";
 export { CommunityDistrictDropdown } from "./CommunityDistrictDropdown";
 export { CityCouncilDistrictDropdown } from "./CityCouncilDistrictDropdown";
 export { AgencyDropdown } from "./AgencyDropdown";
+export { ProjectTypeDropdown } from "./ProjectTypeDropdown";
 
 export interface AdminDropdownProps {
   formId: string;
@@ -71,7 +72,7 @@ export function AdminDropdown({
               boxSize={3}
               p={0.5}
               border={"1px solid"}
-              borderRadius={4}
+              borderRadius={16}
             />
           }
         />

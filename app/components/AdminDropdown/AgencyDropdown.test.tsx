@@ -39,8 +39,6 @@ describe("AgencyDropdown", () => {
         firstAgencyInitials,
       ),
     );
-    expect(onSelectValueChange).toHaveBeenCalledWith({
-      managingAgency: firstAgencyInitials,
-    });
+    expect(onSelectValueChange).toHaveBeenCalledWith(firstAgencyInitials);
   });
 });

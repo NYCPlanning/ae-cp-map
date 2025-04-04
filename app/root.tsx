@@ -31,6 +31,8 @@ import {
   findCommunityDistrictsByBoroughId,
   findAgencies,
   FindAgenciesQueryResponse,
+  findAgencyBudgets,
+  FindAgencyBudgetsQueryResponse,
 } from "./gen";
 import { FilterMenu } from "./components/FilterMenu";
 import { SearchByAttributeMenu } from "./components/SearchByAttributeMenu";
@@ -41,6 +43,7 @@ import {
   CommunityDistrictDropdown,
   CityCouncilDistrictDropdown,
   AgencyDropdown,
+  ProjectTypeDropdown,
 } from "./components/AdminDropdown";
 import { WelcomePanel } from "./components/WelcomePanel";
 import { useEffect, useState } from "react";
@@ -49,7 +52,12 @@ import {
   initializeMatomoTagManager,
   initFullStoryAnalytics,
 } from "./utils/analytics";
-import { setNewSearchParams } from "./utils/utils";
+import {
+  setNewSearchParams,
+  handleCommitmentTotalsInputs,
+  checkCommitmentTotalInputsAreValid,
+  getMultiplier,
+} from "./utils/utils";
 import {
   BoroughId,
   DistrictId,
@@ -57,7 +65,16 @@ import {
   ManagingAgencyAcronym,
   SearchParamChanges,
   AttributeParams,
+  AgencyBudgetType,
+  CommitmentsTotalMin,
+  CommitmentsTotalMax,
+  CommitmentsTotalMinInputValue,
+  CommitmentsTotalMaxInputValue,
+  CommitmentsTotalMinSelectValue,
+  CommitmentsTotalMaxSelectValue,
 } from "./utils/types";
+import { ProjectAmountMenu } from "./components/ProjectAmountMenu";
+import { ProjectAmountMenuInput } from "./components/ProjectAmountMenu/ProjectAmountMenuInput";
 
 export const links: LinksFunction = () => {
   return [
@@ -80,12 +97,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
+  const { agencyBudgets } = await findAgencyBudgets({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
   if (districtType === null) {
     return {
       boroughs: null,
       communityDistricts: null,
       cityCouncilDistricts: null,
       agencies,
+      agencyBudgets,
     };
   }
 
@@ -100,6 +122,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         communityDistricts: null,
         cityCouncilDistricts: null,
         agencies,
+        agencyBudgets,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -114,6 +137,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         communityDistricts,
         cityCouncilDistricts: null,
         agencies,
+        agencyBudgets,
       };
     }
   }
@@ -127,6 +151,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       communityDistricts: null,
       cityCouncilDistricts,
       agencies,
+      agencyBudgets,
     };
   }
 };
@@ -175,8 +200,37 @@ export default function App() {
   const managingAgency = searchParams.get(
     "managingAgency",
   ) as ManagingAgencyAcronym;
+  const agencyBudget = searchParams.get("agencyBudget") as AgencyBudgetType;
+  const commitmentsTotalMin = searchParams.get(
+    "commitmentsTotalMin",
+  ) as CommitmentsTotalMin;
+  const commitmentsTotalMax = searchParams.get(
+    "commitmentsTotalMax",
+  ) as CommitmentsTotalMax;
+  const {
+    commitmentsTotalMinInputValue,
+    commitmentsTotalMinSelectValue,
+    commitmentsTotalMaxInputValue,
+    commitmentsTotalMaxSelectValue,
+  } = handleCommitmentTotalsInputs(commitmentsTotalMin, commitmentsTotalMax);
+
+  const commitmentTotalInputsAreValid = checkCommitmentTotalInputsAreValid({
+    commitmentsTotalMinInputValue,
+    commitmentsTotalMinSelectValue,
+    commitmentsTotalMaxInputValue,
+    commitmentsTotalMaxSelectValue,
+  });
+
   const [attributeParams, setAttributeParams] = useState<AttributeParams>({
     managingAgency,
+    agencyBudget,
+    commitmentsTotalMin,
+    commitmentsTotalMax,
+    commitmentsTotalMinInputValue,
+    commitmentsTotalMinSelectValue,
+    commitmentsTotalMaxInputValue,
+    commitmentsTotalMaxSelectValue,
+    commitmentTotalInputsAreValid,
   });
 
   const loaderData = useLoaderData<
@@ -186,7 +240,8 @@ export default function App() {
         | { communityDistricts: null }
       ) &
       (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null }) &
-      (FindAgenciesQueryResponse | { agencies: null })
+      (FindAgenciesQueryResponse | { agencies: null }) &
+      (FindAgencyBudgetsQueryResponse | { agencyBudgets: null })
   >();
 
   const updateSearchParams = (nextSearchParams: SearchParamChanges) => {
@@ -202,14 +257,26 @@ export default function App() {
       newPath = `city-council-districts/${districtId}/capital-projects`;
     } else if (
       districtType === null &&
-      attributeParams.managingAgency !== null
+      (attributeParams.managingAgency !== null ||
+        attributeParams.agencyBudget !== null ||
+        attributeParams.commitmentsTotalMinInputValue !== null ||
+        attributeParams.commitmentsTotalMaxInputValue !== null)
     ) {
       newPath = "capital-projects";
     }
 
     if (
       pathname !== `/${newPath}` ||
-      attributeParams.managingAgency !== managingAgency
+      attributeParams.managingAgency !== managingAgency ||
+      attributeParams.agencyBudget !== agencyBudget ||
+      attributeParams.commitmentsTotalMinInputValue !==
+        commitmentsTotalMinInputValue ||
+      attributeParams.commitmentsTotalMaxInputValue !==
+        commitmentsTotalMaxInputValue ||
+      attributeParams.commitmentsTotalMinSelectValue !==
+        commitmentsTotalMinSelectValue ||
+      attributeParams.commitmentsTotalMaxSelectValue !==
+        commitmentsTotalMaxSelectValue
     ) {
       const nextAdminParams = new URLSearchParams();
       searchParams.forEach((value, key) => {
@@ -219,6 +286,33 @@ export default function App() {
       });
       if (attributeParams.managingAgency !== null) {
         nextAdminParams.set("managingAgency", attributeParams.managingAgency);
+      }
+      if (attributeParams.agencyBudget !== null) {
+        nextAdminParams.set("agencyBudget", attributeParams.agencyBudget);
+      }
+      if (
+        attributeParams.commitmentsTotalMinInputValue !== "" &&
+        parseFloat(attributeParams.commitmentsTotalMinInputValue)
+      ) {
+        nextAdminParams.set(
+          "commitmentsTotalMin",
+          (
+            parseFloat(attributeParams.commitmentsTotalMinInputValue) *
+            getMultiplier(attributeParams.commitmentsTotalMinSelectValue)
+          ).toString(),
+        );
+      }
+      if (
+        attributeParams.commitmentsTotalMaxInputValue !== "" &&
+        parseFloat(attributeParams.commitmentsTotalMaxInputValue)
+      ) {
+        nextAdminParams.set(
+          "commitmentsTotalMax",
+          (
+            parseFloat(attributeParams.commitmentsTotalMaxInputValue) *
+            getMultiplier(attributeParams.commitmentsTotalMaxSelectValue)
+          ).toString(),
+        );
       }
 
       analytics({
@@ -295,6 +389,154 @@ export default function App() {
                             });
                           }}
                         />
+                        <ProjectTypeDropdown
+                          selectValue={attributeParams.agencyBudget}
+                          projectTypes={loaderData.agencyBudgets}
+                          onSelectValueChange={(value) => {
+                            setAttributeParams({
+                              ...attributeParams,
+                              agencyBudget: value,
+                            });
+                          }}
+                        />
+
+                        <ProjectAmountMenu
+                          showClearButton={
+                            attributeParams.commitmentsTotalMinInputValue !==
+                              "" ||
+                            attributeParams.commitmentsTotalMaxInputValue !==
+                              "" ||
+                            attributeParams.commitmentsTotalMinSelectValue !==
+                              "K" ||
+                            attributeParams.commitmentsTotalMaxSelectValue !==
+                              "K"
+                          }
+                          onProjectAmountMenuClear={() => {
+                            setAttributeParams({
+                              ...attributeParams,
+                              commitmentsTotalMinInputValue: "",
+                              commitmentsTotalMaxInputValue: "",
+                              commitmentsTotalMinSelectValue: "K",
+                              commitmentsTotalMaxSelectValue: "K",
+                            });
+                          }}
+                        >
+                          <ProjectAmountMenuInput
+                            label={"Minimum"}
+                            commitmentTotalInputsAreValid={
+                              attributeParams.commitmentTotalInputsAreValid
+                            }
+                            inputValue={
+                              attributeParams.commitmentsTotalMinInputValue
+                            }
+                            selectValue={
+                              attributeParams.commitmentsTotalMinSelectValue
+                            }
+                            onInputValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    value as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    attributeParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    attributeParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    attributeParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
+                              setAttributeParams({
+                                ...attributeParams,
+                                commitmentsTotalMinInputValue: value
+                                  ? value
+                                  : "",
+                                commitmentTotalInputsAreValid,
+                              });
+                            }}
+                            onSelectValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    attributeParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    attributeParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    value as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    attributeParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
+                              setAttributeParams({
+                                ...attributeParams,
+                                commitmentsTotalMinSelectValue: value,
+                                commitmentTotalInputsAreValid,
+                              });
+                            }}
+                          />
+
+                          <Flex
+                            grow={1}
+                            justifyContent={"center"}
+                            alignItems={"end"}
+                            mb={"1rem"}
+                          >
+                            <hr
+                              style={{
+                                width: "75%",
+                                color: "var(--dcp-colors-gray-500)",
+                              }}
+                            />
+                          </Flex>
+
+                          <ProjectAmountMenuInput
+                            label={"Maximum"}
+                            commitmentTotalInputsAreValid={
+                              attributeParams.commitmentTotalInputsAreValid
+                            }
+                            inputValue={
+                              attributeParams.commitmentsTotalMaxInputValue
+                            }
+                            selectValue={
+                              attributeParams.commitmentsTotalMaxSelectValue
+                            }
+                            onInputValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    attributeParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    value as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    attributeParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    attributeParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
+                              setAttributeParams({
+                                ...attributeParams,
+                                commitmentsTotalMaxInputValue: value
+                                  ? value
+                                  : "",
+                                commitmentTotalInputsAreValid,
+                              });
+                            }}
+                            onSelectValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    attributeParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    attributeParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    attributeParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    value as CommitmentsTotalMaxSelectValue,
+                                });
+                              setAttributeParams({
+                                ...attributeParams,
+                                commitmentsTotalMaxSelectValue: value,
+                                commitmentTotalInputsAreValid,
+                              });
+                            }}
+                          />
+                        </ProjectAmountMenu>
                       </VStack>
                     </SearchByAttributeMenu>
                   ) : null}
@@ -304,8 +546,15 @@ export default function App() {
                       onClick={() => search()}
                       mt={0}
                       isDisabled={
-                        (!attributeParams.managingAgency && !districtId) ||
-                        (districtType && !districtId)
+                        (!attributeParams.managingAgency &&
+                          !attributeParams.agencyBudget &&
+                          attributeParams.commitmentsTotalMinInputValue ===
+                            "" &&
+                          attributeParams.commitmentsTotalMaxInputValue ===
+                            "" &&
+                          !districtId) ||
+                        (districtType && !districtId) ||
+                        !attributeParams.commitmentTotalInputsAreValid
                           ? true
                           : false
                       }
