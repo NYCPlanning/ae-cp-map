@@ -16,6 +16,7 @@ import { FindAgenciesQueryResponse } from "../../gen";
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
+  commitmentsTotal: number;
 }
 
 const capitalProjectsInCommunityDistrictRoutePrefix =
@@ -27,6 +28,14 @@ export function useCapitalProjectsLayer() {
   const { managingCode, capitalProjectId } = useParams();
   const [searchParams] = useSearchParams();
   const managingAgency = searchParams.get("managingAgency");
+  const commitmentsTotalMin = searchParams.get("commitmentsTotalMin");
+  const commitmentsTotalMax = searchParams.get("commitmentsTotalMax");
+  const min = commitmentsTotalMin
+    ? parseFloat(commitmentsTotalMin)
+    : -1000000000000;
+  const max = commitmentsTotalMax
+    ? parseFloat(commitmentsTotalMax)
+    : 1000000000000;
   const navigate = useNavigate();
 
   const matches = useMatches();
@@ -67,6 +76,9 @@ export function useCapitalProjectsLayer() {
     autoHighlight: true,
     highlightColor: [129, 230, 217, 218],
     pickable: true,
+    getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
+      f.properties.commitmentsTotal,
+    filterRange: [min, max],
     getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) =>
       f.properties.managingAgency,
     filterCategories:
@@ -108,6 +120,7 @@ export function useCapitalProjectsLayer() {
     },
     extensions: [
       new DataFilterExtension({
+        filterSize: 1,
         categorySize: 1,
       }),
     ],
