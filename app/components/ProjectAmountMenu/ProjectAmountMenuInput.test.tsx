@@ -10,6 +10,7 @@ describe("ProjectAmountMenuInput", () => {
     render(
       <ProjectAmountMenuInput
         label="Test Label"
+        commitmentTotalInputsAreValid={true}
         inputValue={""}
         selectValue=""
         onInputValueChange={onInputValueChange}
@@ -24,6 +25,7 @@ describe("ProjectAmountMenuInput", () => {
     render(
       <ProjectAmountMenuInput
         label="Test Label"
+        commitmentTotalInputsAreValid={true}
         inputValue={""}
         selectValue=""
         onInputValueChange={onInputValueChange}
@@ -43,6 +45,7 @@ describe("ProjectAmountMenuInput", () => {
     render(
       <ProjectAmountMenuInput
         label="Test Label"
+        commitmentTotalInputsAreValid={true}
         inputValue={"123"}
         selectValue="M"
         onInputValueChange={onInputValueChange}
@@ -65,6 +68,7 @@ describe("ProjectAmountMenuInput", () => {
     render(
       <ProjectAmountMenuInput
         label="Test Label"
+        commitmentTotalInputsAreValid={true}
         inputValue={"123"}
         selectValue="M"
         onInputValueChange={onInputValueChange}
@@ -81,6 +85,7 @@ describe("ProjectAmountMenuInput", () => {
     render(
       <ProjectAmountMenuInput
         label="Test Label"
+        commitmentTotalInputsAreValid={true}
         inputValue={"123"}
         selectValue="M"
         onInputValueChange={onInputValueChange}

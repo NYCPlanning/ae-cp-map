@@ -76,6 +76,44 @@ export const handleCommitmentTotalsInputs = (
   };
 };
 
+export function getMultiplier(multiplier: string) {
+  switch (multiplier) {
+    case "B":
+      return 1000000000;
+    case "M":
+      return 1000000;
+    case "K":
+      return 1000;
+    default:
+      return 1;
+  }
+}
+
+export interface CheckCommitmentTotalInputsAreValidProps {
+  commitmentsTotalMinInputValue: CommitmentsTotalMinInputValue;
+  commitmentsTotalMaxInputValue: CommitmentsTotalMaxInputValue;
+  commitmentsTotalMinSelectValue: CommitmentsTotalMinSelectValue;
+  commitmentsTotalMaxSelectValue: CommitmentsTotalMaxSelectValue;
+}
+
+export const checkCommitmentTotalInputsAreValid = ({
+  commitmentsTotalMinInputValue,
+  commitmentsTotalMaxInputValue,
+  commitmentsTotalMinSelectValue,
+  commitmentsTotalMaxSelectValue,
+}: CheckCommitmentTotalInputsAreValidProps) => {
+  if (!commitmentsTotalMinInputValue || !commitmentsTotalMaxInputValue)
+    return true;
+  const min =
+    parseFloat(commitmentsTotalMinInputValue) *
+    getMultiplier(commitmentsTotalMinSelectValue);
+  const max =
+    parseFloat(commitmentsTotalMaxInputValue) *
+    getMultiplier(commitmentsTotalMaxSelectValue);
+  if (min <= max) return true;
+  return false;
+};
+
 // from https://www.jacobparis.com/content/remix-pagination
 export function setNewSearchParams(
   searchParams: URLSearchParams,

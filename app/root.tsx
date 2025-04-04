@@ -55,6 +55,8 @@ import {
 import {
   setNewSearchParams,
   handleCommitmentTotalsInputs,
+  checkCommitmentTotalInputsAreValid,
+  getMultiplier,
 } from "./utils/utils";
 import {
   BoroughId,
@@ -66,6 +68,10 @@ import {
   AgencyBudgetType,
   CommitmentsTotalMin,
   CommitmentsTotalMax,
+  CommitmentsTotalMinInputValue,
+  CommitmentsTotalMaxInputValue,
+  CommitmentsTotalMinSelectValue,
+  CommitmentsTotalMaxSelectValue,
 } from "./utils/types";
 import { ProjectAmountMenu } from "./components/ProjectAmountMenu";
 import { ProjectAmountMenuInput } from "./components/ProjectAmountMenu/ProjectAmountMenuInput";
@@ -208,6 +214,13 @@ export default function App() {
     commitmentsTotalMaxSelectValue,
   } = handleCommitmentTotalsInputs(commitmentsTotalMin, commitmentsTotalMax);
 
+  const commitmentTotalInputsAreValid = checkCommitmentTotalInputsAreValid({
+    commitmentsTotalMinInputValue,
+    commitmentsTotalMinSelectValue,
+    commitmentsTotalMaxInputValue,
+    commitmentsTotalMaxSelectValue,
+  });
+
   const [attributeParams, setAttributeParams] = useState<AttributeParams>({
     managingAgency,
     agencyBudget,
@@ -217,6 +230,7 @@ export default function App() {
     commitmentsTotalMinSelectValue,
     commitmentsTotalMaxInputValue,
     commitmentsTotalMaxSelectValue,
+    commitmentTotalInputsAreValid,
   });
 
   const loaderData = useLoaderData<
@@ -280,59 +294,25 @@ export default function App() {
         attributeParams.commitmentsTotalMinInputValue !== "" &&
         parseFloat(attributeParams.commitmentsTotalMinInputValue)
       ) {
-        if (attributeParams.commitmentsTotalMinSelectValue === "B") {
-          nextAdminParams.set(
-            "commitmentsTotalMin",
-            (
-              parseFloat(attributeParams.commitmentsTotalMinInputValue) *
-              1000000000
-            ).toString(),
-          );
-        } else if (attributeParams.commitmentsTotalMinSelectValue === "M") {
-          nextAdminParams.set(
-            "commitmentsTotalMin",
-            (
-              parseFloat(attributeParams.commitmentsTotalMinInputValue) *
-              1000000
-            ).toString(),
-          );
-        } else {
-          nextAdminParams.set(
-            "commitmentsTotalMin",
-            (
-              parseFloat(attributeParams.commitmentsTotalMinInputValue) * 1000
-            ).toString(),
-          );
-        }
+        nextAdminParams.set(
+          "commitmentsTotalMin",
+          (
+            parseFloat(attributeParams.commitmentsTotalMinInputValue) *
+            getMultiplier(attributeParams.commitmentsTotalMinSelectValue)
+          ).toString(),
+        );
       }
       if (
         attributeParams.commitmentsTotalMaxInputValue !== "" &&
         parseFloat(attributeParams.commitmentsTotalMaxInputValue)
       ) {
-        if (attributeParams.commitmentsTotalMaxSelectValue === "B") {
-          nextAdminParams.set(
-            "commitmentsTotalMax",
-            (
-              parseFloat(attributeParams.commitmentsTotalMaxInputValue) *
-              1000000000
-            ).toString(),
-          );
-        } else if (attributeParams.commitmentsTotalMaxSelectValue === "M") {
-          nextAdminParams.set(
-            "commitmentsTotalMax",
-            (
-              parseFloat(attributeParams.commitmentsTotalMaxInputValue) *
-              1000000
-            ).toString(),
-          );
-        } else {
-          nextAdminParams.set(
-            "commitmentsTotalMax",
-            (
-              parseFloat(attributeParams.commitmentsTotalMaxInputValue) * 1000
-            ).toString(),
-          );
-        }
+        nextAdminParams.set(
+          "commitmentsTotalMax",
+          (
+            parseFloat(attributeParams.commitmentsTotalMaxInputValue) *
+            getMultiplier(attributeParams.commitmentsTotalMaxSelectValue)
+          ).toString(),
+        );
       }
 
       analytics({
@@ -443,6 +423,9 @@ export default function App() {
                         >
                           <ProjectAmountMenuInput
                             label={"Minimum"}
+                            commitmentTotalInputsAreValid={
+                              attributeParams.commitmentTotalInputsAreValid
+                            }
                             inputValue={
                               attributeParams.commitmentsTotalMinInputValue
                             }
@@ -450,17 +433,41 @@ export default function App() {
                               attributeParams.commitmentsTotalMinSelectValue
                             }
                             onInputValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    value as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    attributeParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    attributeParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    attributeParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
                               setAttributeParams({
                                 ...attributeParams,
                                 commitmentsTotalMinInputValue: value
                                   ? value
                                   : "",
+                                commitmentTotalInputsAreValid,
                               });
                             }}
                             onSelectValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    attributeParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    attributeParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    value as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    attributeParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
                               setAttributeParams({
                                 ...attributeParams,
                                 commitmentsTotalMinSelectValue: value,
+                                commitmentTotalInputsAreValid,
                               });
                             }}
                           />
@@ -481,6 +488,9 @@ export default function App() {
 
                           <ProjectAmountMenuInput
                             label={"Maximum"}
+                            commitmentTotalInputsAreValid={
+                              attributeParams.commitmentTotalInputsAreValid
+                            }
                             inputValue={
                               attributeParams.commitmentsTotalMaxInputValue
                             }
@@ -488,17 +498,41 @@ export default function App() {
                               attributeParams.commitmentsTotalMaxSelectValue
                             }
                             onInputValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    attributeParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    value as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    attributeParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    attributeParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
                               setAttributeParams({
                                 ...attributeParams,
                                 commitmentsTotalMaxInputValue: value
                                   ? value
                                   : "",
+                                commitmentTotalInputsAreValid,
                               });
                             }}
                             onSelectValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    attributeParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    attributeParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    attributeParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    value as CommitmentsTotalMaxSelectValue,
+                                });
                               setAttributeParams({
                                 ...attributeParams,
                                 commitmentsTotalMaxSelectValue: value,
+                                commitmentTotalInputsAreValid,
                               });
                             }}
                           />
@@ -519,7 +553,8 @@ export default function App() {
                           attributeParams.commitmentsTotalMaxInputValue ===
                             "" &&
                           !districtId) ||
-                        (districtType && !districtId)
+                        (districtType && !districtId) ||
+                        !attributeParams.commitmentTotalInputsAreValid
                           ? true
                           : false
                       }
