@@ -92,7 +92,9 @@ export function Atlas() {
       widgets={isMobile ? [] : [ZoomControls, CompassControls]}
     >
       <Map
-        mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
+        mapStyle={
+          "https://raw.githubusercontent.com/NYCPlanning/ose-basemap-server/refs/heads/6/pmtiles/pmtiles/style.json"
+        }
         attributionControl={isMobile ? false : true}
       ></Map>
     </DeckGL>
