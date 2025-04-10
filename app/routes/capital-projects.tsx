@@ -14,6 +14,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");
   const managingAgency = url.searchParams.get("managingAgency");
+  const commitmentsTotalMin = url.searchParams.get("commitmentsTotalMin");
+  const commitmentsTotalMax = url.searchParams.get("commitmentsTotalMax");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   if (isNaN(page)) {
     throw json("Bad Request", { status: 400 });
@@ -23,6 +25,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const projectsPromise = findCapitalProjects(
     {
       ...(managingAgency === null ? {} : { managingAgency }),
+      ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
+      ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
       limit: itemsPerPage,
       offset: offset,
     },

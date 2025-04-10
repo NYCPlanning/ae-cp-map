@@ -10,10 +10,13 @@ import type {
 } from "../types/FindAgencies";
 
 /**
- * @description An object containing all agencies.
+ * @description An object containing all agencies sorted alphabetically by the agency initials.\n
  */
 export function createFindAgencies200(): NonNullable<FindAgencies200> {
-  return { agencies: faker.helpers.arrayElements([createAgency()]) as any };
+  return {
+    agencies: faker.helpers.arrayElements([createAgency()]) as any,
+    order: faker.string.alpha(),
+  };
 }
 
 /**
@@ -31,8 +34,11 @@ export function createFindAgencies500(): NonNullable<FindAgencies500> {
 }
 
 /**
- * @description An object containing all agencies.
+ * @description An object containing all agencies sorted alphabetically by the agency initials.\n
  */
 export function createFindAgenciesQueryResponse(): NonNullable<FindAgenciesQueryResponse> {
-  return { agencies: faker.helpers.arrayElements([createAgency()]) as any };
+  return {
+    agencies: faker.helpers.arrayElements([createAgency()]) as any,
+    order: faker.string.alpha(),
+  };
 }

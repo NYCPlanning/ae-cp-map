@@ -21,6 +21,15 @@ export function createFindCapitalProjectsQueryParams(): NonNullable<FindCapitalP
       new RandExp("^([0-9]{1,2})$").gen(),
     ]),
     managingAgency: faker.string.alpha(),
+    agencyBudget: faker.string.alpha(),
+    commitmentsTotalMin: faker.helpers.arrayElement<any>([
+      faker.string.alpha(),
+      new RandExp("^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$").gen(),
+    ]),
+    commitmentsTotalMax: faker.helpers.arrayElement<any>([
+      faker.string.alpha(),
+      new RandExp("^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$").gen(),
+    ]),
     limit: faker.number.int(),
     offset: faker.number.int(),
   };

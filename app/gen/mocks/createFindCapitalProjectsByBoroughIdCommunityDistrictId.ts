@@ -7,7 +7,6 @@ import type {
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryParams,
   FindCapitalProjectsByBoroughIdCommunityDistrictId200,
   FindCapitalProjectsByBoroughIdCommunityDistrictId400,
-  FindCapitalProjectsByBoroughIdCommunityDistrictId404,
   FindCapitalProjectsByBoroughIdCommunityDistrictId500,
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
 } from "../types/FindCapitalProjectsByBoroughIdCommunityDistrictId";
@@ -40,13 +39,6 @@ export function createFindCapitalProjectsByBoroughIdCommunityDistrictId200(): No
  * @description Invalid client request
  */
 export function createFindCapitalProjectsByBoroughIdCommunityDistrictId400(): NonNullable<FindCapitalProjectsByBoroughIdCommunityDistrictId400> {
-  return createError();
-}
-
-/**
- * @description Requested resource does not exist or is not available
- */
-export function createFindCapitalProjectsByBoroughIdCommunityDistrictId404(): NonNullable<FindCapitalProjectsByBoroughIdCommunityDistrictId404> {
   return createError();
 }
 
