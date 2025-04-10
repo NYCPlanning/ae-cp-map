@@ -12,7 +12,7 @@ export interface ProjectAmountMenuInputProps {
 export function ProjectAmountMenuInput({
   label,
   inputValue,
-  selectValue,
+  selectValue = "K",
   commitmentTotalInputsAreValid,
   onInputValueChange = () => null,
   onSelectValueChange = () => null,
@@ -45,7 +45,7 @@ export function ProjectAmountMenuInput({
           onChange={(e: FormEvent<HTMLSelectElement>) =>
             onSelectValueChange(e.currentTarget.value)
           }
-          value={selectValue ?? "K"}
+          value={selectValue}
           isInvalid={!commitmentTotalInputsAreValid}
         >
           <option value="K">K</option>

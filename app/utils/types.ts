@@ -20,6 +20,9 @@ export type AttributeParams = {
   managingAgency: ManagingAgencyAcronym;
   commitmentsTotalMin: CommitmentsTotalMin;
   commitmentsTotalMax: CommitmentsTotalMax;
+};
+
+export type ProjectAmountMenuParams = {
   commitmentsTotalMinInputValue: CommitmentsTotalMinInputValue;
   commitmentsTotalMinSelectValue: CommitmentsTotalMinSelectValue;
   commitmentsTotalMaxInputValue: CommitmentsTotalMaxInputValue;
