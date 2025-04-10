@@ -34,34 +34,34 @@ export const handleCommitmentTotalsInputs = (
   let commitmentsTotalMinSelectValue = "K" as CommitmentsTotalMinSelectValue;
   let commitmentsTotalMaxSelectValue = "K" as CommitmentsTotalMaxSelectValue;
   if (commitmentsTotalMin && parseFloat(commitmentsTotalMin)) {
-    if (parseFloat(commitmentsTotalMin) >= 1000000000) {
+    if (Math.abs(parseFloat(commitmentsTotalMin)) >= 1000000000) {
       commitmentsTotalMinInputValue = (
         parseFloat(commitmentsTotalMin) / 1000000000
       ).toString();
       commitmentsTotalMinSelectValue = "B";
-    } else if (parseFloat(commitmentsTotalMin) >= 1000000) {
+    } else if (Math.abs(parseFloat(commitmentsTotalMin)) >= 1000000) {
       commitmentsTotalMinInputValue = (
         parseFloat(commitmentsTotalMin) / 1000000
       ).toString();
       commitmentsTotalMinSelectValue = "M";
-    } else if (parseFloat(commitmentsTotalMin) >= 1000) {
+    } else if (Math.abs(parseFloat(commitmentsTotalMin)) >= 1000) {
       commitmentsTotalMinInputValue = (
         parseFloat(commitmentsTotalMin) / 1000
       ).toString();
     }
   }
   if (commitmentsTotalMax && parseFloat(commitmentsTotalMax)) {
-    if (parseFloat(commitmentsTotalMax) >= 1000000000) {
+    if (Math.abs(parseFloat(commitmentsTotalMax)) >= 1000000000) {
       commitmentsTotalMaxInputValue = (
         parseFloat(commitmentsTotalMax) / 1000000000
       ).toString();
       commitmentsTotalMaxSelectValue = "B";
-    } else if (parseFloat(commitmentsTotalMax) >= 1000000) {
+    } else if (Math.abs(parseFloat(commitmentsTotalMax)) >= 1000000) {
       commitmentsTotalMaxInputValue = (
         parseFloat(commitmentsTotalMax) / 1000000
       ).toString();
       commitmentsTotalMaxSelectValue = "M";
-    } else if (parseFloat(commitmentsTotalMax) >= 1000) {
+    } else if (Math.abs(parseFloat(commitmentsTotalMax)) >= 1000) {
       commitmentsTotalMaxInputValue = (
         parseFloat(commitmentsTotalMax) / 1000
       ).toString();
