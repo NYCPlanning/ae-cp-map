@@ -12,6 +12,7 @@ export { DistrictTypeDropdown } from "./DistrictTypeDropdown";
 export { CommunityDistrictDropdown } from "./CommunityDistrictDropdown";
 export { CityCouncilDistrictDropdown } from "./CityCouncilDistrictDropdown";
 export { AgencyDropdown } from "./AgencyDropdown";
+export { ProjectTypeDropdown } from "./ProjectTypeDropdown";
 
 export interface AdminDropdownProps {
   formId: string;

@@ -16,6 +16,7 @@ import { FindAgenciesQueryResponse } from "../../gen";
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
+  agencyBudgets: string;
 }
 
 const capitalProjectsInCommunityDistrictRoutePrefix =
@@ -27,6 +28,7 @@ export function useCapitalProjectsLayer() {
   const { managingCode, capitalProjectId } = useParams();
   const [searchParams] = useSearchParams();
   const managingAgency = searchParams.get("managingAgency");
+  const agencyBudget = searchParams.get("agencyBudget");
   const navigate = useNavigate();
 
   const matches = useMatches();
@@ -67,10 +69,18 @@ export function useCapitalProjectsLayer() {
     autoHighlight: true,
     highlightColor: [129, 230, 217, 218],
     pickable: true,
-    getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) =>
-      f.properties.managingAgency,
-    filterCategories:
+    getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => {
+      const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
+      return [
+        f.properties.managingAgency,
+        agencyBudget === null || agencyBudgets.includes(agencyBudget) ? 1 : 0,
+      ];
+    },
+    filterCategories: [
       managingAgency === null ? fullAgencyAcronymList : [managingAgency],
+      [1],
+    ],
+
     getFillColor: ({ properties }) => {
       const { managingCodeCapitalProjectId } = properties;
       switch (managingCodeCapitalProjectId) {
@@ -105,10 +115,11 @@ export function useCapitalProjectsLayer() {
     updateTriggers: {
       getFillColor: [managingCode, capitalProjectId],
       getPointColor: [managingCode, capitalProjectId],
+      getFilterCategory: [agencyBudget],
     },
     extensions: [
       new DataFilterExtension({
-        categorySize: 1,
+        categorySize: 2,
       }),
     ],
   });
