@@ -23,7 +23,7 @@ describe("ProjectTypeDropdown", () => {
     expect(screen.getByText(firstAgencyBudgetLabel)).toBeInTheDocument();
   });
 
-  it("should set search params when changing the project type", async () => {
+  it("should run onSelectValueChange when changing the selected project type", async () => {
     const onSelectValueChange = vi.fn();
     const firstAgencyBudgetCode = agencyBudgets[0].code;
     render(
