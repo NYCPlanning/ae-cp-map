@@ -17,6 +17,7 @@ export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
   agencyBudgets: string;
+  commitmentsTotal: number;
 }
 
 const capitalProjectsInCommunityDistrictRoutePrefix =
@@ -29,6 +30,14 @@ export function useCapitalProjectsLayer() {
   const [searchParams] = useSearchParams();
   const managingAgency = searchParams.get("managingAgency");
   const agencyBudget = searchParams.get("agencyBudget");
+  const commitmentsTotalMin = searchParams.get("commitmentsTotalMin");
+  const commitmentsTotalMax = searchParams.get("commitmentsTotalMax");
+  const min = commitmentsTotalMin
+    ? parseFloat(commitmentsTotalMin)
+    : -1000000000000;
+  const max = commitmentsTotalMax
+    ? parseFloat(commitmentsTotalMax)
+    : 1000000000000;
   const navigate = useNavigate();
 
   const matches = useMatches();
@@ -69,6 +78,9 @@ export function useCapitalProjectsLayer() {
     autoHighlight: true,
     highlightColor: [129, 230, 217, 218],
     pickable: true,
+    getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
+      f.properties.commitmentsTotal,
+    filterRange: [min, max],
     getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => {
       const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
       return [
@@ -80,7 +92,6 @@ export function useCapitalProjectsLayer() {
       managingAgency === null ? fullAgencyAcronymList : [managingAgency],
       [1],
     ],
-
     getFillColor: ({ properties }) => {
       const { managingCodeCapitalProjectId } = properties;
       switch (managingCodeCapitalProjectId) {
@@ -119,6 +130,7 @@ export function useCapitalProjectsLayer() {
     },
     extensions: [
       new DataFilterExtension({
+        filterSize: 1,
         categorySize: 2,
       }),
     ],
