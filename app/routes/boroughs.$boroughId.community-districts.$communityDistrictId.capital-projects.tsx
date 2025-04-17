@@ -17,6 +17,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const pageParam = url.searchParams.get("page");
   const managingAgency = url.searchParams.get("managingAgency");
   const agencyBudget = url.searchParams.get("agencyBudget");
+  const commitmentsTotalMin = url.searchParams.get("commitmentsTotalMin");
+  const commitmentsTotalMax = url.searchParams.get("commitmentsTotalMax");
   const page = pageParam === null ? 1 : parseInt(pageParam);
 
   const { boroughId, communityDistrictId } = params;
@@ -36,6 +38,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
       offset: offset,
       ...(managingAgency === null ? {} : { managingAgency }),
       ...(agencyBudget === null ? {} : { agencyBudget }),
+      ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
+      ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
     },
     {
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,

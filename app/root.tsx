@@ -52,7 +52,12 @@ import {
   initializeMatomoTagManager,
   initFullStoryAnalytics,
 } from "./utils/analytics";
-import { setNewSearchParams } from "./utils/utils";
+import {
+  setNewSearchParams,
+  handleCommitmentTotalsInputs,
+  checkCommitmentTotalInputsAreValid,
+  getMultiplier,
+} from "./utils/utils";
 import {
   BoroughId,
   DistrictId,
@@ -61,7 +66,16 @@ import {
   SearchParamChanges,
   AttributeParams,
   AgencyBudgetType,
+  ProjectAmountMenuParams,
+  CommitmentsTotalMin,
+  CommitmentsTotalMax,
+  CommitmentsTotalMinInputValue,
+  CommitmentsTotalMaxInputValue,
+  CommitmentsTotalMinSelectValue,
+  CommitmentsTotalMaxSelectValue,
 } from "./utils/types";
+import { ProjectAmountMenu } from "./components/ProjectAmountMenu";
+import { ProjectAmountMenuInput } from "./components/ProjectAmountMenu/ProjectAmountMenuInput";
 
 export const links: LinksFunction = () => {
   return [
@@ -188,11 +202,41 @@ export default function App() {
     "managingAgency",
   ) as ManagingAgencyAcronym;
   const agencyBudget = searchParams.get("agencyBudget") as AgencyBudgetType;
+  const commitmentsTotalMin = searchParams.get(
+    "commitmentsTotalMin",
+  ) as CommitmentsTotalMin;
+  const commitmentsTotalMax = searchParams.get(
+    "commitmentsTotalMax",
+  ) as CommitmentsTotalMax;
+  const {
+    commitmentsTotalMinInputValue,
+    commitmentsTotalMinSelectValue,
+    commitmentsTotalMaxInputValue,
+    commitmentsTotalMaxSelectValue,
+  } = handleCommitmentTotalsInputs(commitmentsTotalMin, commitmentsTotalMax);
+
+  const commitmentTotalInputsAreValid = checkCommitmentTotalInputsAreValid({
+    commitmentsTotalMinInputValue,
+    commitmentsTotalMinSelectValue,
+    commitmentsTotalMaxInputValue,
+    commitmentsTotalMaxSelectValue,
+  });
 
   const [attributeParams, setAttributeParams] = useState<AttributeParams>({
     managingAgency,
     agencyBudget,
+    commitmentsTotalMin,
+    commitmentsTotalMax,
   });
+
+  const [projectAmountMenuParams, setProjectAmountMenuParams] =
+    useState<ProjectAmountMenuParams>({
+      commitmentsTotalMinInputValue,
+      commitmentsTotalMinSelectValue,
+      commitmentsTotalMaxInputValue,
+      commitmentsTotalMaxSelectValue,
+      commitmentTotalInputsAreValid,
+    });
 
   const loaderData = useLoaderData<
     (FindBoroughsQueryResponse | { boroughs: null }) &
@@ -217,9 +261,11 @@ export default function App() {
     } else if (districtType === "ccd" && districtId !== null) {
       newPath = `city-council-districts/${districtId}/capital-projects`;
     } else if (
-      districtType === null &&
-      (attributeParams.managingAgency !== null ||
-        attributeParams.agencyBudget !== null)
+      (districtType === null &&
+        (attributeParams.managingAgency !== null ||
+          attributeParams.agencyBudget !== null)) ||
+      projectAmountMenuParams.commitmentsTotalMinInputValue !== null ||
+      projectAmountMenuParams.commitmentsTotalMaxInputValue !== null
     ) {
       newPath = "capital-projects";
     }
@@ -227,7 +273,15 @@ export default function App() {
     if (
       pathname !== `/${newPath}` ||
       attributeParams.managingAgency !== managingAgency ||
-      attributeParams.agencyBudget !== agencyBudget
+      attributeParams.agencyBudget !== agencyBudget ||
+      projectAmountMenuParams.commitmentsTotalMinInputValue !==
+        commitmentsTotalMinInputValue ||
+      projectAmountMenuParams.commitmentsTotalMaxInputValue !==
+        commitmentsTotalMaxInputValue ||
+      projectAmountMenuParams.commitmentsTotalMinSelectValue !==
+        commitmentsTotalMinSelectValue ||
+      projectAmountMenuParams.commitmentsTotalMaxSelectValue !==
+        commitmentsTotalMaxSelectValue
     ) {
       const nextAdminParams = new URLSearchParams();
       searchParams.forEach((value, key) => {
@@ -240,6 +294,34 @@ export default function App() {
       }
       if (attributeParams.agencyBudget !== null) {
         nextAdminParams.set("agencyBudget", attributeParams.agencyBudget);
+      }
+      if (
+        projectAmountMenuParams.commitmentsTotalMinInputValue !== "" &&
+        parseFloat(projectAmountMenuParams.commitmentsTotalMinInputValue)
+      ) {
+        nextAdminParams.set(
+          "commitmentsTotalMin",
+          (
+            parseFloat(projectAmountMenuParams.commitmentsTotalMinInputValue) *
+            getMultiplier(
+              projectAmountMenuParams.commitmentsTotalMinSelectValue,
+            )
+          ).toString(),
+        );
+      }
+      if (
+        projectAmountMenuParams.commitmentsTotalMaxInputValue !== "" &&
+        parseFloat(projectAmountMenuParams.commitmentsTotalMaxInputValue)
+      ) {
+        nextAdminParams.set(
+          "commitmentsTotalMax",
+          (
+            parseFloat(projectAmountMenuParams.commitmentsTotalMaxInputValue) *
+            getMultiplier(
+              projectAmountMenuParams.commitmentsTotalMaxSelectValue,
+            )
+          ).toString(),
+        );
       }
 
       analytics({
@@ -326,6 +408,144 @@ export default function App() {
                             });
                           }}
                         />
+
+                        <ProjectAmountMenu
+                          showClearButton={
+                            projectAmountMenuParams.commitmentsTotalMinInputValue !==
+                              "" ||
+                            projectAmountMenuParams.commitmentsTotalMaxInputValue !==
+                              "" ||
+                            projectAmountMenuParams.commitmentsTotalMinSelectValue !==
+                              "K" ||
+                            projectAmountMenuParams.commitmentsTotalMaxSelectValue !==
+                              "K"
+                          }
+                          onProjectAmountMenuClear={() => {
+                            setProjectAmountMenuParams({
+                              commitmentsTotalMinInputValue: "",
+                              commitmentsTotalMaxInputValue: "",
+                              commitmentsTotalMinSelectValue: "K",
+                              commitmentsTotalMaxSelectValue: "K",
+                              commitmentTotalInputsAreValid: true,
+                            });
+                          }}
+                        >
+                          <ProjectAmountMenuInput
+                            label={"Minimum"}
+                            commitmentTotalInputsAreValid={
+                              projectAmountMenuParams.commitmentTotalInputsAreValid
+                            }
+                            inputValue={
+                              projectAmountMenuParams.commitmentsTotalMinInputValue
+                            }
+                            selectValue={
+                              projectAmountMenuParams.commitmentsTotalMinSelectValue
+                            }
+                            onInputValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    value as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
+                              setProjectAmountMenuParams({
+                                ...projectAmountMenuParams,
+                                commitmentsTotalMinInputValue: value
+                                  ? value
+                                  : "",
+                                commitmentTotalInputsAreValid,
+                              });
+                            }}
+                            onSelectValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    value as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
+                              setProjectAmountMenuParams({
+                                ...projectAmountMenuParams,
+                                commitmentsTotalMinSelectValue: value,
+                                commitmentTotalInputsAreValid,
+                              });
+                            }}
+                          />
+
+                          <Flex
+                            grow={1}
+                            justifyContent={"center"}
+                            alignItems={"end"}
+                            mb={"1rem"}
+                          >
+                            <hr
+                              style={{
+                                width: "75%",
+                                color: "var(--dcp-colors-gray-500)",
+                              }}
+                            />
+                          </Flex>
+
+                          <ProjectAmountMenuInput
+                            label={"Maximum"}
+                            commitmentTotalInputsAreValid={
+                              projectAmountMenuParams.commitmentTotalInputsAreValid
+                            }
+                            inputValue={
+                              projectAmountMenuParams.commitmentsTotalMaxInputValue
+                            }
+                            selectValue={
+                              projectAmountMenuParams.commitmentsTotalMaxSelectValue
+                            }
+                            onInputValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    value as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
+                              setProjectAmountMenuParams({
+                                ...projectAmountMenuParams,
+                                commitmentsTotalMaxInputValue: value
+                                  ? value
+                                  : "",
+                                commitmentTotalInputsAreValid,
+                              });
+                            }}
+                            onSelectValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    value as CommitmentsTotalMaxSelectValue,
+                                });
+                              setProjectAmountMenuParams({
+                                ...projectAmountMenuParams,
+                                commitmentsTotalMaxSelectValue: value,
+                                commitmentTotalInputsAreValid,
+                              });
+                            }}
+                          />
+                        </ProjectAmountMenu>
                       </VStack>
                     </SearchByAttributeMenu>
                   ) : null}
@@ -337,8 +557,13 @@ export default function App() {
                       isDisabled={
                         (!attributeParams.managingAgency &&
                           !attributeParams.agencyBudget &&
+                          projectAmountMenuParams.commitmentsTotalMinInputValue ===
+                            "" &&
+                          projectAmountMenuParams.commitmentsTotalMaxInputValue ===
+                            "" &&
                           !districtId) ||
-                        (districtType && !districtId)
+                        (districtType && !districtId) ||
+                        !projectAmountMenuParams.commitmentTotalInputsAreValid
                           ? true
                           : false
                       }
