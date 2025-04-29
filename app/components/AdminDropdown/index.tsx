@@ -55,13 +55,13 @@ export function AdminDropdown({
         <IconButton
           aria-label={`Clear ${formLabel}`}
           variant="ghost"
-          _focus={{ borderWidth: 3, borderColor: "teal" }}
+          _focus={{ border: 0 }}
           pos={"absolute"}
           minH={"unset"}
           minW={"unset"}
           height={"min-content"}
           width={"min-content"}
-          bottom={3.5}
+          bottom={2}
           right={10}
           cursor={"pointer"}
           onClick={() => {
