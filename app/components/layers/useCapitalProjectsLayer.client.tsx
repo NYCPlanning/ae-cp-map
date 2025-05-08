@@ -14,10 +14,10 @@ import type { Feature, Geometry } from "geojson";
 import { FindAgenciesQueryResponse } from "../../gen";
 
 export interface CapitalProjectProperties {
-  managingCodeCapitalProjectId: string;
-  managingAgency: string;
-  agencyBudgets: string;
-  commitmentsTotal: number;
+  managing_code_capital_project_id: string;
+  managing_agency: string;
+  agency_budgets: string;
+  commitments_total: number;
 }
 
 const capitalProjectsInCommunityDistrictRoutePrefix =
@@ -79,12 +79,16 @@ export function useCapitalProjectsLayer() {
     highlightColor: [129, 230, 217, 218],
     pickable: true,
     getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
-      f.properties.commitmentsTotal,
+      f.properties.commitments_total,
     filterRange: [min, max],
     getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => {
-      const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
+      const { agency_budgets } = f.properties;
+      const agencyBudgets =
+        agency_budgets !== undefined
+          ? JSON.parse(f.properties.agency_budgets)
+          : [];
       return [
-        f.properties.managingAgency,
+        f.properties.managing_agency,
         agencyBudget === null || agencyBudgets.includes(agencyBudget) ? 1 : 0,
       ];
     },
@@ -93,8 +97,8 @@ export function useCapitalProjectsLayer() {
       [1],
     ],
     getFillColor: ({ properties }) => {
-      const { managingCodeCapitalProjectId } = properties;
-      switch (managingCodeCapitalProjectId) {
+      const { managing_code_capital_project_id } = properties;
+      switch (managing_code_capital_project_id) {
         case `${managingCode}${capitalProjectId}`:
           return [56, 178, 172, 166];
         default:
@@ -106,7 +110,7 @@ export function useCapitalProjectsLayer() {
     getLineWidth: 1,
     onClick: (data) => {
       const managingCodeCapitalProjectId =
-        data.object?.properties?.managingCodeCapitalProjectId;
+        data.object?.properties?.managing_code_capital_project_id;
 
       if (managingCodeCapitalProjectId === undefined) return;
       // Avoid adding the same capital project to the history stack
