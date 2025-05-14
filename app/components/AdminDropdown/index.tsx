@@ -55,7 +55,12 @@ export function AdminDropdown({
         <IconButton
           aria-label={`Clear ${formLabel}`}
           variant="ghost"
-          _focus={{ border: 0 }}
+          _focus={{
+            border: 0,
+            svg: {
+              backgroundColor: "gray.200",
+            },
+          }}
           pos={"absolute"}
           minH={"unset"}
           minW={"unset"}
