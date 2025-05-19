@@ -81,7 +81,10 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export default function CapitalProjectsByBoroughIdCommunityDistrictId() {
   const {
-    capitalProjectsResponse: { total: capitalProjectsTotal, capitalProjects },
+    capitalProjectsResponse: {
+      totalProjects: capitalProjectsTotal,
+      capitalProjects,
+    },
     agencies,
     agencyBudgets,
     boroughAbbr,
@@ -95,6 +98,7 @@ export default function CapitalProjectsByBoroughIdCommunityDistrictId() {
       agencies={agencies}
       agencyBudgets={agencyBudgets}
       district={`Community District ${boroughAbbr}${communityDistrictId}`}
+      capitalProjectsTotal={capitalProjectsTotal}
     >
       <Flex
         paddingTop={4}

@@ -57,7 +57,10 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export default function CapitalProjectsByCityCouncilDistrict() {
   const {
-    capitalProjectsResponse: { total: capitalProjectsTotal, capitalProjects },
+    capitalProjectsResponse: {
+      totalProjects: capitalProjectsTotal,
+      capitalProjects,
+    },
     agencies,
     agencyBudgets,
     cityCouncilDistrictId,
@@ -69,6 +72,7 @@ export default function CapitalProjectsByCityCouncilDistrict() {
       agencies={agencies}
       agencyBudgets={agencyBudgets}
       district={`City Council District ${cityCouncilDistrictId}`}
+      capitalProjectsTotal={capitalProjectsTotal}
     >
       <Flex
         paddingTop={4}

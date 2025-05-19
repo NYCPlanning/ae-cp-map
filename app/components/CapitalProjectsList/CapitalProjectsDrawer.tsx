@@ -8,6 +8,7 @@ export interface CapitalProjectsDrawerProps {
   capitalProjects: Array<CapitalProject>;
   district: string;
   agencies: Agency[];
+  capitalProjectsTotal: number;
   agencyBudgets: AgencyBudget[];
   children: React.ReactNode;
 }
@@ -15,6 +16,7 @@ export interface CapitalProjectsDrawerProps {
 export const CapitalProjectsDrawer = ({
   capitalProjects,
   district,
+  capitalProjectsTotal,
   agencies,
   children,
 }: CapitalProjectsDrawerProps) => {
@@ -42,6 +44,7 @@ export const CapitalProjectsDrawer = ({
         <CapitalProjectsList
           capitalProjects={capitalProjects}
           agencies={agencies}
+          capitalProjectsTotal={capitalProjectsTotal}
           isExpanded={isExpanded}
         />
         {children}
