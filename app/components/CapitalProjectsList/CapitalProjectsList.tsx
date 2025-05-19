@@ -2,18 +2,25 @@ import { Box, Collapse, Flex, Text, VStack } from "@nycplanning/streetscape";
 import { Agency, CapitalProject, CapitalProjectBudgeted } from "~/gen";
 import { CapitalProjectsListItem } from "./CapitalProjectsListItem";
 import { formatFiscalYearRange } from "../../utils/utils";
+import { CapitalProjectsListNoResults } from "./CapitalProjectsListNoResults";
 
 export interface CapitalProjectsListProps {
   capitalProjects: CapitalProject[];
   agencies: Agency[];
+  capitalProjectsTotal: number;
   isExpanded: boolean;
 }
 
 export const CapitalProjectsList = ({
   capitalProjects,
   agencies,
+  capitalProjectsTotal,
   isExpanded,
 }: CapitalProjectsListProps) => {
+  if (capitalProjectsTotal === 0) {
+    return <CapitalProjectsListNoResults />;
+  }
+
   const listBody =
     capitalProjects.length === 0 ? (
       <Text>Reached end of projects</Text>

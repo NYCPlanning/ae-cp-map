@@ -39,6 +39,7 @@ describe("CapitalProjectsList", () => {
         <CapitalProjectsList
           capitalProjects={[]}
           agencies={agencies}
+          capitalProjectsTotal={2}
           isExpanded={false}
         />
       </BrowserRouter>,
@@ -51,6 +52,7 @@ describe("CapitalProjectsList", () => {
         <CapitalProjectsList
           capitalProjects={capitalProjects}
           agencies={agencies}
+          capitalProjectsTotal={2}
           isExpanded={false}
         />
       </BrowserRouter>,
@@ -65,10 +67,11 @@ describe("CapitalProjectsList", () => {
         <CapitalProjectsList
           capitalProjects={[]}
           agencies={agencies}
+          capitalProjectsTotal={0}
           isExpanded={false}
         />
       </BrowserRouter>,
     );
-    expect(screen.getByText(/end of projects/)).toBeInTheDocument();
+    expect(screen.getByText(/No available results/)).toBeInTheDocument();
   });
 });

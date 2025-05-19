@@ -16,6 +16,7 @@ export interface CapitalProjectsAccordionPanelProps {
   capitalProjects: Array<CapitalProject>;
   district: string;
   agencies: Agency[];
+  capitalProjectsTotal: number;
   children: React.ReactNode;
 }
 
@@ -23,6 +24,7 @@ export const CapitalProjectsAccordionPanel = ({
   capitalProjects,
   district,
   agencies,
+  capitalProjectsTotal,
   children,
 }: CapitalProjectsAccordionPanelProps) => {
   return (
@@ -64,6 +66,7 @@ export const CapitalProjectsAccordionPanel = ({
             <CapitalProjectsList
               capitalProjects={capitalProjects}
               agencies={agencies}
+              capitalProjectsTotal={capitalProjectsTotal}
               isExpanded={true}
             />
             {children}
