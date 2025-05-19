@@ -57,7 +57,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 export default function CapitalProjects() {
   const {
-    capitalProjectsResponse: { total: capitalProjectsTotal, capitalProjects },
+    capitalProjectsResponse: {
+      totalProjects: capitalProjectsTotal,
+      capitalProjects,
+    },
     agencies,
     agencyBudgets,
   } = useLoaderData<typeof loader>();
@@ -67,6 +70,7 @@ export default function CapitalProjects() {
       agencies={agencies}
       agencyBudgets={agencyBudgets}
       district={`\${totalProjects} Results`}
+      capitalProjectsTotal={capitalProjectsTotal}
     >
       <Flex
         paddingTop={4}

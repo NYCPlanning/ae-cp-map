@@ -22,6 +22,7 @@ describe("CapitalProjectsAccordionPanel", () => {
         <CapitalProjectsAccordionPanel
           capitalProjects={capitalProjects}
           district={"City Council District 23"}
+          capitalProjectsTotal={2}
           agencies={agencies}
         >
           <></>
