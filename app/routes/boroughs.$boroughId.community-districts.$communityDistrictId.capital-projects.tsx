@@ -97,7 +97,6 @@ export default function CapitalProjectsByBoroughIdCommunityDistrictId() {
       capitalProjects={capitalProjects}
       agencies={agencies}
       agencyBudgets={agencyBudgets}
-      district={`Community District ${boroughAbbr}${communityDistrictId}`}
       capitalProjectsTotal={capitalProjectsTotal}
     >
       <Flex

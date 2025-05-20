@@ -19,7 +19,6 @@ export function CapitalProjectsPanel(props: CapitalProjectsPanelProps) {
         <CapitalProjectsAccordionPanel
           capitalProjects={props.capitalProjects}
           agencies={props.agencies}
-          district={props.district}
           capitalProjectsTotal={props.capitalProjectsTotal}
         >
           {props.children}
@@ -30,7 +29,6 @@ export function CapitalProjectsPanel(props: CapitalProjectsPanelProps) {
           capitalProjects={props.capitalProjects}
           agencies={props.agencies}
           agencyBudgets={props.agencyBudgets}
-          district={props.district}
           capitalProjectsTotal={props.capitalProjectsTotal}
         >
           {props.children}

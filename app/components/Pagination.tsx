@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { Box, HStack } from "@nycplanning/streetscape";
+import { Box, HStack, Text, VStack } from "@nycplanning/streetscape";
 import { Link, useSearchParams } from "@remix-run/react";
 import { setNewSearchParams } from "~/utils/utils";
 import { analytics } from "~/utils/analytics";
@@ -16,71 +16,79 @@ export const Pagination = ({ total }: PaginationProps) => {
   const canSkipBackward = page > 1;
   const canSkipForward = total === itemsPerPage;
 
+  const firstItem = (page - 1) * itemsPerPage + 1;
+  const lastItem = Math.min(page * itemsPerPage, total);
+
   return (
-    <HStack gap={2}>
-      <Link
-        to={{
-          search: setNewSearchParams(searchParams, {
-            page: page - 1,
-          }).toString(),
-        }}
-        onClick={() =>
-          analytics({
-            category: "Pagination",
-            action: "Click",
-            name: "Back",
-            value: page - 1,
-          })
-        }
-      >
-        <Box
-          as="button"
-          disabled={!canSkipBackward}
-          _disabled={{ color: "grey" }}
-          fontSize={"xl"}
-          aria-label="left"
+    <VStack>
+      <HStack gap={2}>
+        <Link
+          to={{
+            search: setNewSearchParams(searchParams, {
+              page: page - 1,
+            }).toString(),
+          }}
+          onClick={() =>
+            analytics({
+              category: "Pagination",
+              action: "Click",
+              name: "Back",
+              value: page - 1,
+            })
+          }
         >
-          <ChevronLeftIcon />
-        </Box>
-      </Link>
-      <Box
-        borderRadius={2}
-        height={"2rem"}
-        width={"2rem"}
-        fontSize="sm"
-        aria-label={`Page ${page}`}
-        bgColor={"primary.600"}
-        textColor={"white"}
-        alignContent={"center"}
-        textAlign={"center"}
-      >
-        {page}
-      </Box>
-      <Link
-        to={{
-          search: setNewSearchParams(searchParams, {
-            page: page + 1,
-          }).toString(),
-        }}
-        onClick={() =>
-          analytics({
-            category: "Pagination",
-            action: "Click",
-            name: "Next",
-            value: page + 1,
-          })
-        }
-      >
+          <Box
+            as="button"
+            disabled={!canSkipBackward}
+            _disabled={{ color: "grey" }}
+            fontSize={"xl"}
+            aria-label="left"
+          >
+            <ChevronLeftIcon />
+          </Box>
+        </Link>
         <Box
-          as="button"
-          disabled={!canSkipForward}
-          _disabled={{ color: "grey" }}
-          fontSize={"xl"}
-          aria-label="right"
+          borderRadius={2}
+          height={"2rem"}
+          width={"2rem"}
+          fontSize="sm"
+          aria-label={`Page ${page}`}
+          bgColor={"primary.600"}
+          textColor={"white"}
+          alignContent={"center"}
+          textAlign={"center"}
         >
-          <ChevronRightIcon />
+          {page}
         </Box>
-      </Link>
-    </HStack>
+        <Link
+          to={{
+            search: setNewSearchParams(searchParams, {
+              page: page + 1,
+            }).toString(),
+          }}
+          onClick={() =>
+            analytics({
+              category: "Pagination",
+              action: "Click",
+              name: "Next",
+              value: page + 1,
+            })
+          }
+        >
+          <Box
+            as="button"
+            disabled={!canSkipForward}
+            _disabled={{ color: "grey" }}
+            fontSize={"xl"}
+            aria-label="right"
+          >
+            <ChevronRightIcon />
+          </Box>
+        </Link>
+      </HStack>
+      <Text color={"gray.600"} fontSize={"xs"}>
+        Results: {firstItem}-{lastItem} of {total}
+      </Text>
+    </VStack>
   );
 };
