@@ -46,28 +46,23 @@ export const CapitalProjectsList = ({
     );
   }
 
-  const listBody =
-    capitalProjects.length === 0 ? (
-      <Text>Reached end of projects</Text>
-    ) : (
-      capitalProjects.map((capitalProject) => {
-        return (
-          <CapitalProjectsListItem
-            key={`${capitalProject.managingCode}${capitalProject.id}`}
-            capitalProject={capitalProject as CapitalProjectBudgeted}
-            agency={
-              agencies.find(
-                (agency) => agency.initials === capitalProject.managingAgency,
-              )?.name
-            }
-            yearRange={formatFiscalYearRange(
-              new Date(capitalProject.minDate),
-              new Date(capitalProject.maxDate),
-            )}
-          />
-        );
-      })
+  const listBody = capitalProjects.map((capitalProject) => {
+    return (
+      <CapitalProjectsListItem
+        key={`${capitalProject.managingCode}${capitalProject.id}`}
+        capitalProject={capitalProject as CapitalProjectBudgeted}
+        agency={
+          agencies.find(
+            (agency) => agency.initials === capitalProject.managingAgency,
+          )?.name
+        }
+        yearRange={formatFiscalYearRange(
+          new Date(capitalProject.minDate),
+          new Date(capitalProject.maxDate),
+        )}
+      />
     );
+  });
 
   return (
     <>
