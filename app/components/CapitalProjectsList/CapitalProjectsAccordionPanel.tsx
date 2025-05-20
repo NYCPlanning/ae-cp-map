@@ -14,7 +14,6 @@ import { analyticsTrackSelectedDistrictToggle } from "~/utils/analytics";
 
 export interface CapitalProjectsAccordionPanelProps {
   capitalProjects: Array<CapitalProject>;
-  district: string;
   agencies: Agency[];
   capitalProjectsTotal: number;
   children: React.ReactNode;
@@ -22,7 +21,6 @@ export interface CapitalProjectsAccordionPanelProps {
 
 export const CapitalProjectsAccordionPanel = ({
   capitalProjects,
-  district,
   agencies,
   capitalProjectsTotal,
   children,
@@ -52,7 +50,7 @@ export const CapitalProjectsAccordionPanel = ({
                 fontSize={"lg"}
                 paddingBottom={"8px"}
               >
-                {district}
+                {capitalProjectsTotal} Results
               </Heading>
             </Box>
             <AccordionIcon size="lg" />
