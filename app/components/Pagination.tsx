@@ -14,14 +14,15 @@ export const Pagination = ({ total }: PaginationProps) => {
   const pageParam = searchParams.get("page");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   const canSkipBackward = page > 1;
-  const canSkipForward = total === itemsPerPage;
+  const totalPages = Math.ceil(total / itemsPerPage);
+  const canSkipForward = page < totalPages;
 
   const firstItem = (page - 1) * itemsPerPage + 1;
   const lastItem = Math.min(page * itemsPerPage, total);
 
   return (
     <VStack>
-      <HStack gap={2}>
+      <HStack gap={1} alignContent={"baseline"}>
         <Link
           to={{
             search: setNewSearchParams(searchParams, {
@@ -47,19 +48,15 @@ export const Pagination = ({ total }: PaginationProps) => {
             <ChevronLeftIcon />
           </Box>
         </Link>
-        <Box
-          borderRadius={2}
-          height={"2rem"}
-          width={"2rem"}
-          fontSize="sm"
-          aria-label={`Page ${page}`}
-          bgColor={"primary.600"}
-          textColor={"white"}
-          alignContent={"center"}
-          textAlign={"center"}
+        <Text
+          fontSize="xs"
+          aria-label={`Page ${page} of ${totalPages}`}
+          textColor={"gray.600"}
+          fontWeight={700}
+          paddingTop={1}
         >
-          {page}
-        </Box>
+          {page} of {totalPages}
+        </Text>
         <Link
           to={{
             search: setNewSearchParams(searchParams, {
