@@ -6,7 +6,6 @@ import { MobilePanelResizeBar } from "../MobilePanelResizeBar";
 
 export interface CapitalProjectsDrawerProps {
   capitalProjects: Array<CapitalProject>;
-  district: string;
   agencies: Agency[];
   capitalProjectsTotal: number;
   agencyBudgets: AgencyBudget[];
@@ -15,7 +14,6 @@ export interface CapitalProjectsDrawerProps {
 
 export const CapitalProjectsDrawer = ({
   capitalProjects,
-  district,
   capitalProjectsTotal,
   agencies,
   children,
@@ -38,7 +36,7 @@ export const CapitalProjectsDrawer = ({
         isExpandedToggle={() => setIsExpanded(!isExpanded)}
       />
       <Heading color="gray.600" fontWeight={"bold"} fontSize={"lg"}>
-        {district}
+        {capitalProjectsTotal} Results
       </Heading>
       <Flex direction={"column"}>
         <CapitalProjectsList

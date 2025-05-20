@@ -69,7 +69,6 @@ export default function CapitalProjects() {
       capitalProjects={capitalProjects}
       agencies={agencies}
       agencyBudgets={agencyBudgets}
-      district={`\${totalProjects} Results`}
       capitalProjectsTotal={capitalProjectsTotal}
     >
       <Flex
