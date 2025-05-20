@@ -1,8 +1,15 @@
-import { Box, Collapse, Flex, Text, VStack } from "@nycplanning/streetscape";
+import {
+  Box,
+  Collapse,
+  Flex,
+  Heading,
+  Text,
+  VStack,
+} from "@nycplanning/streetscape";
 import { Agency, CapitalProject, CapitalProjectBudgeted } from "~/gen";
 import { CapitalProjectsListItem } from "./CapitalProjectsListItem";
 import { formatFiscalYearRange } from "../../utils/utils";
-import { CapitalProjectsListNoResults } from "./CapitalProjectsListNoResults";
+import { WarningIcon } from "@chakra-ui/icons";
 
 export interface CapitalProjectsListProps {
   capitalProjects: CapitalProject[];
@@ -18,7 +25,25 @@ export const CapitalProjectsList = ({
   isExpanded,
 }: CapitalProjectsListProps) => {
   if (capitalProjectsTotal === 0) {
-    return <CapitalProjectsListNoResults />;
+    return (
+      <Flex
+        bg={"gray.50"}
+        paddingY={3}
+        paddingX={2}
+        borderRadius={"base"}
+        width={"100%"}
+      >
+        <WarningIcon color={"state.warning"} fontSize={"1.5rem"} margin={2} />
+        <VStack align="start" gap={0}>
+          <Heading color="gray.600" fontWeight={"medium"}>
+            No results
+          </Heading>
+          <Text textStyle="micro">
+            No available results with current filters applied.
+          </Text>
+        </VStack>
+      </Flex>
+    );
   }
 
   const listBody =
