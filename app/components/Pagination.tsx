@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
-import { Box, HStack } from "@nycplanning/streetscape";
+import { Box, HStack, Text } from "@nycplanning/streetscape";
 import { Link, useSearchParams } from "@remix-run/react";
 import { setNewSearchParams } from "~/utils/utils";
 import { analytics } from "~/utils/analytics";
@@ -14,24 +14,25 @@ export const Pagination = ({ total }: PaginationProps) => {
   const pageParam = searchParams.get("page");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   const canSkipBackward = page > 1;
-  const canSkipForward = total === itemsPerPage;
+  const totalPages = Math.ceil(total / itemsPerPage);
+  const canSkipForward = page < totalPages;
 
   return (
-    <HStack gap={2}>
+    <HStack gap={1} alignContent={"baseline"}>
       <Link
         to={{
           search: setNewSearchParams(searchParams, {
             page: page - 1,
           }).toString(),
         }}
-        onClick={() =>
+        onClick={() => {
           analytics({
             category: "Pagination",
             action: "Click",
             name: "Back",
             value: page - 1,
-          })
-        }
+          });
+        }}
       >
         <Box
           as="button"
@@ -43,19 +44,15 @@ export const Pagination = ({ total }: PaginationProps) => {
           <ChevronLeftIcon />
         </Box>
       </Link>
-      <Box
-        borderRadius={2}
-        height={"2rem"}
-        width={"2rem"}
-        fontSize="sm"
-        aria-label={`Page ${page}`}
-        bgColor={"primary.600"}
-        textColor={"white"}
-        alignContent={"center"}
-        textAlign={"center"}
+      <Text
+        fontSize="xs"
+        aria-label={`Page ${page} of ${totalPages}`}
+        textColor={"gray.600"}
+        fontWeight={700}
+        paddingTop={1}
       >
-        {page}
-      </Box>
+        {page} of {totalPages}
+      </Text>
       <Link
         to={{
           search: setNewSearchParams(searchParams, {
