@@ -1,4 +1,4 @@
-import { Flex, IconButton } from "@nycplanning/streetscape";
+import { Flex, IconButton, Text } from "@nycplanning/streetscape";
 import { CloseIcon } from "@chakra-ui/icons";
 import { ReactNode } from "react";
 
@@ -6,18 +6,32 @@ export interface ProjectAmountMenuProps {
   children: ReactNode;
   showClearButton: boolean;
   onProjectAmountMenuClear?: () => void;
+  commitmentTotalInputsAreValid?: boolean;
 }
 export function ProjectAmountMenu({
   children,
   showClearButton,
   onProjectAmountMenuClear = () => null,
+  commitmentTotalInputsAreValid = true,
 }: ProjectAmountMenuProps) {
   return (
     <>
       <Flex width={"100%"} justifyContent={"space-between"}>
-        <h2 style={{ width: "100%", fontWeight: "500", paddingBottom: "0" }}>
-          Project Amount
-        </h2>
+        <h2 style={{ width: "100%", fontWeight: "500" }}>Project Amount</h2>
+        {!commitmentTotalInputsAreValid && (
+          <Text
+            color={"state.error"}
+            fontSize={"xs"}
+            style={{
+              width: "100%",
+              textAlign: "right",
+              marginRight: "0.5rem",
+              paddingTop: "0.25rem",
+            }}
+          >
+            Invalid Range
+          </Text>
+        )}
         {showClearButton && (
           <IconButton
             aria-label={"Clear Project Amounts"}
@@ -28,7 +42,7 @@ export function ProjectAmountMenu({
             minW={"unset"}
             height={"min-content"}
             width={"min-content"}
-            top={2}
+            top={-0.5}
             cursor={"pointer"}
             onClick={() => {
               onProjectAmountMenuClear();
