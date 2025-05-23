@@ -1,4 +1,4 @@
-import { Flex, IconButton } from "@nycplanning/streetscape";
+import { Flex, IconButton, Text } from "@nycplanning/streetscape";
 import { CloseIcon } from "@chakra-ui/icons";
 import { ReactNode } from "react";
 
@@ -6,30 +6,43 @@ export interface ProjectAmountMenuProps {
   children: ReactNode;
   showClearButton: boolean;
   onProjectAmountMenuClear?: () => void;
+  commitmentTotalInputsAreValid?: boolean;
 }
 export function ProjectAmountMenu({
   children,
   showClearButton,
   onProjectAmountMenuClear = () => null,
+  commitmentTotalInputsAreValid = true,
 }: ProjectAmountMenuProps) {
   return (
     <>
-      <Flex width={"100%"} justifyContent={"space-between"}>
-        <h2 style={{ width: "100%", fontWeight: "500", paddingBottom: "0" }}>
+      <Flex
+        width={"100%"}
+        alignItems={"center"}
+        justifyContent={"space-between"}
+      >
+        <Text fontWeight="500" flexGrow={"1"}>
           Project Amount
-        </h2>
+        </Text>
+        {!commitmentTotalInputsAreValid && (
+          <Text color={"state.error"} fontSize={"xs"} marginRight={2}>
+            Invalid Range
+          </Text>
+        )}
         {showClearButton && (
           <IconButton
             aria-label={"Clear Project Amounts"}
             variant="ghost"
-            _focus={{ borderWidth: 3, borderColor: "teal" }}
+            _focus={{ borderWidth: "none", borderColor: "teal" }}
             pos={"relative"}
             minH={"unset"}
             minW={"unset"}
             height={"min-content"}
             width={"min-content"}
-            top={2}
             cursor={"pointer"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
             onClick={() => {
               onProjectAmountMenuClear();
             }}

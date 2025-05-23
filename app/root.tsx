@@ -429,6 +429,9 @@ export default function App() {
                               commitmentTotalInputsAreValid: true,
                             });
                           }}
+                          commitmentTotalInputsAreValid={
+                            projectAmountMenuParams.commitmentTotalInputsAreValid
+                          }
                         >
                           <ProjectAmountMenuInput
                             label={"Minimum"}
