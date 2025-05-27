@@ -41,7 +41,7 @@ export const Pagination = ({ total }: PaginationProps) => {
           <Box
             as="button"
             disabled={!canSkipBackward}
-            _disabled={{ color: "gray.400" }}
+            _disabled={{ color: "gray.400", cursor: "default" }}
             fontSize={"xl"}
             aria-label="left"
           >
@@ -75,7 +75,7 @@ export const Pagination = ({ total }: PaginationProps) => {
           <Box
             as="button"
             disabled={!canSkipForward}
-            _disabled={{ color: "gray.400" }}
+            _disabled={{ color: "gray.400", cursor: "default" }}
             fontSize={"xl"}
             aria-label="right"
           >
