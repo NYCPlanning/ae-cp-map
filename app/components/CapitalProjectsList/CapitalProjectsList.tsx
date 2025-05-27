@@ -46,24 +46,6 @@ export const CapitalProjectsList = ({
     );
   }
 
-  const listBody = capitalProjects.map((capitalProject) => {
-    return (
-      <CapitalProjectsListItem
-        key={`${capitalProject.managingCode}${capitalProject.id}`}
-        capitalProject={capitalProject as CapitalProjectBudgeted}
-        agency={
-          agencies.find(
-            (agency) => agency.initials === capitalProject.managingAgency,
-          )?.name
-        }
-        yearRange={formatFiscalYearRange(
-          new Date(capitalProject.minDate),
-          new Date(capitalProject.maxDate),
-        )}
-      />
-    );
-  });
-
   return (
     <>
       <Box paddingBottom={4}>
@@ -77,7 +59,24 @@ export const CapitalProjectsList = ({
           overflowY={"auto"}
         >
           <VStack align={"start"} gap={3}>
-            {listBody}
+            {capitalProjects.map((capitalProject) => {
+              return (
+                <CapitalProjectsListItem
+                  key={`${capitalProject.managingCode}${capitalProject.id}`}
+                  capitalProject={capitalProject as CapitalProjectBudgeted}
+                  agency={
+                    agencies.find(
+                      (agency) =>
+                        agency.initials === capitalProject.managingAgency,
+                    )?.name
+                  }
+                  yearRange={formatFiscalYearRange(
+                    new Date(capitalProject.minDate),
+                    new Date(capitalProject.maxDate),
+                  )}
+                />
+              );
+            })}
           </VStack>
         </Flex>
       </Collapse>
