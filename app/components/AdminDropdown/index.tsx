@@ -5,8 +5,6 @@ import {
   Select,
 } from "@nycplanning/streetscape";
 import { FormEvent, ReactNode } from "react";
-import { CloseIcon } from "@chakra-ui/icons";
-
 export { BoroughDropdown } from "./BoroughDropdown";
 export { DistrictTypeDropdown } from "./DistrictTypeDropdown";
 export { CommunityDistrictDropdown } from "./CommunityDistrictDropdown";
@@ -41,47 +39,18 @@ export function AdminDropdown({
         isDisabled={isSelectDisabled}
         placeholder="-Select-"
         variant="base"
-        onChange={(e: FormEvent<HTMLSelectElement>) =>
+        onChange={(e: FormEvent<HTMLSelectElement> | undefined) =>
+          e &&
           onSelectValueChange(
             e.currentTarget.value === "" ? null : e.currentTarget.value,
           )
         }
+        handleCancel={() => onSelectValueChange(null)}
         value={selectValue ?? ""}
         textOverflow={"ellipsis"}
       >
         {children}
       </Select>
-      {selectValue && (
-        <IconButton
-          aria-label={`Clear ${formLabel}`}
-          variant="ghost"
-          _focus={{
-            border: 0,
-            svg: {
-              backgroundColor: "gray.200",
-            },
-          }}
-          pos={"absolute"}
-          minH={"unset"}
-          minW={"unset"}
-          height={"min-content"}
-          width={"min-content"}
-          bottom={2}
-          right={10}
-          cursor={"pointer"}
-          onClick={() => {
-            onSelectValueChange(null);
-          }}
-          icon={
-            <CloseIcon
-              boxSize={3}
-              p={0.5}
-              border={"1px solid"}
-              borderRadius={16}
-            />
-          }
-        />
-      )}
     </FormControl>
   );
 }

@@ -49,8 +49,9 @@ export function ProjectAmountMenuInput({
           borderLeftRadius={0}
           maxWidth={"4rem"}
           variant="base"
-          onChange={(e: FormEvent<HTMLSelectElement>) =>
-            onSelectValueChange(e.currentTarget.value)
+          isCancellable={false}
+          onChange={(e: FormEvent<HTMLSelectElement> | undefined) =>
+            e && onSelectValueChange(e.currentTarget.value)
           }
           value={selectValue}
           isInvalid={!commitmentTotalInputsAreValid}
