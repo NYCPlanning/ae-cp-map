@@ -8,6 +8,9 @@ export default defineConfig({
     !process.env.VITEST &&
       remix({
         ignoredRouteFiles: ["**/?(*.)+(spec|test).[tj]s?(x)", "**/*.css"],
+        future: {
+          v3_fetcherPersist: true,
+        },
       }),
     tsconfigPaths(),
   ],
