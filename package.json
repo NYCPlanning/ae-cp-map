@@ -28,11 +28,12 @@
     "@emotion/styled": "^11.14.0",
     "@kubb/swagger-client": "^2.28.4",
     "@nycplanning/streetscape": "^0.15.1",
-    "@remix-run/node": "^2.13.1",
-    "@remix-run/react": "^2.13.1",
-    "@remix-run/serve": "^2.13.1",
+    "@remix-run/node": "^2.16.8",
+    "@remix-run/react": "^2.16.8",
+    "@remix-run/serve": "^2.16.8",
+
     "@turf/bbox": "^7.2.0",
-    "axios": "^1.9.0",
+    "axios": "^1.10.0",
     "date-fns": "^3.6.0",
     "framer-motion": "^6.5.1",
     "isbot": "^4.1.0",
@@ -42,7 +43,7 @@
     "react-dom": "^18.2.0",
     "react-map-gl": "^7.1.7",
     "remix-utils": "^7.5.0",
-    "zod": "^3.25.56"
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
@@ -53,10 +54,10 @@
     "@kubb/swagger-msw": "^2.28.4",
     "@kubb/swagger-ts": "^2.28.4",
     "@kubb/swagger-zod": "^2.28.4",
-    "@playwright/test": "^1.52.0",
-    "@remix-run/dev": "^2.15.2",
-    "@remix-run/eslint-config": "^2.15.2",
-    "@remix-run/testing": "^2.15.2",
+    "@playwright/test": "^1.53.1",
+    "@remix-run/dev": "^2.16.8",
+    "@remix-run/eslint-config": "^2.16.8",
+    "@remix-run/testing": "^2.16.8",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^14.2.1",
     "@testing-library/user-event": "^14.6.1",
@@ -66,12 +67,12 @@
     "@types/react-dom": "^18.2.7",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.4.1",
+    "eslint-plugin-prettier": "^5.5.1",
     "husky": "^9.1.7",
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
     "msw": "^2.10.2",
-    "prettier": "3.5.3",
+    "prettier": "3.6.1",
     "randexp": "^0.5.3",
     "typescript": "^5.8.3",
     "vite": "^5.4.6",
@@ -89,6 +90,6 @@
     ]
   },
   "optionalDependencies": {
-    "@rollup/rollup-darwin-x64": "^4.42.0"
+    "@rollup/rollup-darwin-x64": "^4.44.0"
   }
 }
