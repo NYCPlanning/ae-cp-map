@@ -8,7 +8,7 @@ import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
 
-const ABORT_DELAY = 5000;
+export const streamTimeout = 5000;
 
 const handleRequest = (
   request: Request,
@@ -75,7 +75,7 @@ const handleBotRequest = (
       },
     );
 
-    setTimeout(abort, ABORT_DELAY);
+    setTimeout(abort, streamTimeout);
   });
 
 const handleBrowserRequest = (
@@ -122,5 +122,5 @@ const handleBrowserRequest = (
       },
     );
 
-    setTimeout(abort, ABORT_DELAY);
+    setTimeout(abort, streamTimeout);
   });
