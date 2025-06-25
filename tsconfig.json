@@ -1,7 +1,11 @@
 {
   "include": ["env.d.ts", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2019"
+    ],
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
@@ -17,7 +21,12 @@
     "paths": {
       "~/*": ["./app/*"]
     },
-    "types": ["vite/client", "vitest/globals", "vitest/jsdom"],
+    "types": [
+      "vite/client",
+      "vitest/globals",
+      "vitest/jsdom",
+      "@remix-run/node"
+    ],
 
     // Remix takes care of building everything in `remix build`.
     "noEmit": true
