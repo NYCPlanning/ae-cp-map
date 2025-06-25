@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs } from "@remix-run/node";
 import { findAgencies, findAgencyBudgets, findCapitalProjects } from "../gen";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
@@ -8,7 +8,7 @@ import { ExportDataModal } from "~/components/ExportDataModal";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   if (import.meta.env.VITE_FEATURE_FLAG_ATTRIBUTE_FILTERS !== "ON") {
-    throw json("Not Found", { status: 404 });
+    throw { message: "Not Found", code: { status: 404 } };
   }
   const url = new URL(request.url);
   const itemsPerPage = 7;
@@ -19,7 +19,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const commitmentsTotalMax = url.searchParams.get("commitmentsTotalMax");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   if (isNaN(page)) {
-    throw json("Bad Request", { status: 400 });
+    throw { message: "Bad Request", code: { status: 400 } };
   }
   const offset = (page - 1) * itemsPerPage;
 

@@ -3,6 +3,12 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import path from "path";
 
+declare module "@remix-run/node" {
+  interface Future {
+    v3_singleFetch: true;
+  }
+}
+
 export default defineConfig({
   plugins: [
     !process.env.VITEST &&
@@ -13,6 +19,7 @@ export default defineConfig({
           v3_relativeSplatPath: true,
           v3_throwAbortReason: true,
           v3_lazyRouteDiscovery: true,
+          v3_singleFetch: true,
         },
       }),
     tsconfigPaths(),
