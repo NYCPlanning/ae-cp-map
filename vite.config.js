@@ -10,6 +10,7 @@ export default defineConfig({
         ignoredRouteFiles: ["**/?(*.)+(spec|test).[tj]s?(x)", "**/*.css"],
         future: {
           v3_fetcherPersist: true,
+          v3_relativeSplatPath: true,
         },
       }),
     tsconfigPaths(),
