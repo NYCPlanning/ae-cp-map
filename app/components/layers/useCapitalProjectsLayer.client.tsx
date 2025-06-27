@@ -1,4 +1,6 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
+import { GeoJsonLayer } from "@deck.gl/layers";
+import { IconClusterLayer } from "./icon-cluster-layer";
 import {
   useLoaderData,
   useNavigate,
@@ -71,6 +73,15 @@ export function useCapitalProjectsLayer() {
     DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>>
   >({
     id: "capitalProjects",
+    binary: false,
+    pointType: "icon",
+    // getIconSize: 20,
+    iconSizeScale: 25,
+    iconAtlas:
+      "https://raw.githubusercontent.com/visgl/deck.gl/master/examples/website/icon/data/location-icon-atlas.png",
+    iconMapping:
+      "https://raw.githubusercontent.com/visgl/deck.gl/master/examples/website/icon/data/location-icon-mapping.json",
+    iconSizeMinPixels: 50,
     data: [
       `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
     ],
@@ -78,10 +89,18 @@ export function useCapitalProjectsLayer() {
     autoHighlight: true,
     highlightColor: [129, 230, 217, 218],
     pickable: true,
-    getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
-      f.properties.commitmentsTotal,
+    _subLayerProps: {
+      "points-icon": {
+        type: IconClusterLayer,
+      },
+    },
+    getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) => {
+      return 100000;
+      return f.properties.commitmentsTotal;
+    },
     filterRange: [min, max],
     getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => {
+      return ["DOT", 1];
       const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
       return [
         f.properties.managingAgency,
@@ -93,6 +112,7 @@ export function useCapitalProjectsLayer() {
       [1],
     ],
     getFillColor: ({ properties }) => {
+      return [217, 107, 39, 166];
       const { managingCodeCapitalProjectId } = properties;
       switch (managingCodeCapitalProjectId) {
         case `${managingCode}${capitalProjectId}`:
@@ -101,7 +121,7 @@ export function useCapitalProjectsLayer() {
           return [217, 107, 39, 166];
       }
     },
-    getPointRadius: 5,
+    // getPointRadius: 5,
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
     onClick: (data) => {
