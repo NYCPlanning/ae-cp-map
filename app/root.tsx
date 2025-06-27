@@ -18,7 +18,9 @@ import {
   useNavigate,
   useRouteError,
   useSearchParams,
-} from "@remix-run/react";
+  LoaderFunctionArgs,
+  LinksFunction,
+} from "react-router";
 import { Atlas, INITIAL_VIEW_STATE } from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
 import { Overlay } from "./components/Overlay";
@@ -36,7 +38,6 @@ import {
 } from "./gen";
 import { FilterMenu } from "./components/FilterMenu";
 import { SearchByAttributeMenu } from "./components/SearchByAttributeMenu";
-import { LoaderFunctionArgs, LinksFunction } from "@remix-run/node";
 import {
   BoroughDropdown,
   DistrictTypeDropdown,

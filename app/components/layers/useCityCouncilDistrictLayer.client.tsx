@@ -1,5 +1,5 @@
 import { GeoJsonLayer } from "@deck.gl/layers";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { FlyToGeoJsonExtension } from "../../extensions";
 
 export function useCityCouncilDistrictLayer() {

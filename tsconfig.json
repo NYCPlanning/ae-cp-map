@@ -1,5 +1,5 @@
 {
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", ".react-router/types/**/*"],
   "compilerOptions": {
     "lib": [
       "DOM",
@@ -25,7 +25,7 @@
       "vite/client",
       "vitest/globals",
       "vitest/jsdom",
-      "@remix-run/node"
+      "@react-router/node"
     ],
 
     // Remix takes care of building everything in `remix build`.

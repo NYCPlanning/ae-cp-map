@@ -1,10 +1,10 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
 import {
   useLoaderData,
+  LoaderFunctionArgs,
   useNavigate,
   useParams,
   useSearchParams,
-} from "@remix-run/react";
+} from "react-router";
 import {
   findCapitalProjectByManagingCodeCapitalProjectId,
   findAgencies,
