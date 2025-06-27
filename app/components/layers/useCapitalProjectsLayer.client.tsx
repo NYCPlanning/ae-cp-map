@@ -1,11 +1,5 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import {
-  useLoaderData,
-  useNavigate,
-  useParams,
-  useSearchParams,
-  useMatches,
-} from "@remix-run/react";
+import { useLoaderData, useNavigate, useParams, useSearchParams, useMatches } from "react-router";
 import {
   DataFilterExtension,
   DataFilterExtensionProps,

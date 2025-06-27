@@ -1,6 +1,6 @@
 import { GeoJsonLayer } from "@deck.gl/layers";
 import { CapitalProjectBudgetedGeoJson } from "~/gen";
-import { useParams } from "@remix-run/react";
+import { useParams } from "react-router";
 import { FlyToGeoJsonExtension } from "../../extensions";
 
 export function useCapitalProjectBudgetedGeoJsonLayer() {

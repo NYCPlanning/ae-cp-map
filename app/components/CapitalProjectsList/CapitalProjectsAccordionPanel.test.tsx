@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { Agency, CapitalProject, createCapitalProjectPage } from "~/gen";
 import { CapitalProjectsAccordionPanel } from "./CapitalProjectsAccordionPanel";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 
 describe("CapitalProjectsAccordionPanel", () => {
   let capitalProjects: CapitalProject[];

@@ -1,5 +1,5 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import { useSearchParams } from "@remix-run/react";
+import { useSearchParams } from "react-router";
 
 export interface CommunityDistrictProperties {
   boroughIdCommunityDistrictId: string;

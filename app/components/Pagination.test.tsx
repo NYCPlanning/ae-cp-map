@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { Pagination } from "./Pagination";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 
 describe("Pagination", () => {
   it("should render stack with chevron icons", () => {

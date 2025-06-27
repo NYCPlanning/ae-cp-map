@@ -1,6 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, HStack, Text, VStack } from "@nycplanning/streetscape";
-import { Link, useSearchParams } from "@remix-run/react";
+import { Link, useSearchParams } from "react-router";
 import { setNewSearchParams } from "~/utils/utils";
 import { analytics } from "~/utils/analytics";
 
