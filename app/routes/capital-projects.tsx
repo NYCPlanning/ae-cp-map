@@ -7,9 +7,6 @@ import { Pagination } from "~/components/Pagination";
 import { ExportDataModal } from "~/components/ExportDataModal";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  if (import.meta.env.VITE_FEATURE_FLAG_ATTRIBUTE_FILTERS !== "ON") {
-    throw json("Not Found", { status: 404 });
-  }
   const url = new URL(request.url);
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");

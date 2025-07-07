@@ -413,174 +413,167 @@ export default function App() {
                       )}
                     </VStack>
                   </FilterMenu>
-                  {import.meta.env.VITE_FEATURE_FLAG_ATTRIBUTE_FILTERS ===
-                  "ON" ? (
-                    <SearchByAttributeMenu defaultIndex={0}>
-                      <VStack>
-                        <AgencyDropdown
-                          selectValue={attributeParams.managingAgency}
-                          agencies={loaderData.agencies}
-                          onSelectValueChange={(value) => {
-                            setAttributeParams({
-                              ...attributeParams,
-                              managingAgency: value,
-                            });
-                          }}
-                        />
-                        <ProjectTypeDropdown
-                          selectValue={attributeParams.agencyBudget}
-                          projectTypes={loaderData.agencyBudgets}
-                          onSelectValueChange={(value) => {
-                            setAttributeParams({
-                              ...attributeParams,
-                              agencyBudget: value,
-                            });
-                          }}
-                        />
+                  <SearchByAttributeMenu defaultIndex={0}>
+                    <VStack>
+                      <AgencyDropdown
+                        selectValue={attributeParams.managingAgency}
+                        agencies={loaderData.agencies}
+                        onSelectValueChange={(value) => {
+                          setAttributeParams({
+                            ...attributeParams,
+                            managingAgency: value,
+                          });
+                        }}
+                      />
+                      <ProjectTypeDropdown
+                        selectValue={attributeParams.agencyBudget}
+                        projectTypes={loaderData.agencyBudgets}
+                        onSelectValueChange={(value) => {
+                          setAttributeParams({
+                            ...attributeParams,
+                            agencyBudget: value,
+                          });
+                        }}
+                      />
 
-                        <ProjectAmountMenu
-                          showClearButton={
-                            projectAmountMenuParams.commitmentsTotalMinInputValue !==
-                              "" ||
-                            projectAmountMenuParams.commitmentsTotalMaxInputValue !==
-                              "" ||
-                            projectAmountMenuParams.commitmentsTotalMinSelectValue !==
-                              "K" ||
-                            projectAmountMenuParams.commitmentsTotalMaxSelectValue !==
-                              "K"
-                          }
-                          onProjectAmountMenuClear={() => {
-                            setProjectAmountMenuParams({
-                              commitmentsTotalMinInputValue: "",
-                              commitmentsTotalMaxInputValue: "",
-                              commitmentsTotalMinSelectValue: "K",
-                              commitmentsTotalMaxSelectValue: "K",
-                              commitmentTotalInputsAreValid: true,
-                            });
-                          }}
+                      <ProjectAmountMenu
+                        showClearButton={
+                          projectAmountMenuParams.commitmentsTotalMinInputValue !==
+                            "" ||
+                          projectAmountMenuParams.commitmentsTotalMaxInputValue !==
+                            "" ||
+                          projectAmountMenuParams.commitmentsTotalMinSelectValue !==
+                            "K" ||
+                          projectAmountMenuParams.commitmentsTotalMaxSelectValue !==
+                            "K"
+                        }
+                        onProjectAmountMenuClear={() => {
+                          setProjectAmountMenuParams({
+                            commitmentsTotalMinInputValue: "",
+                            commitmentsTotalMaxInputValue: "",
+                            commitmentsTotalMinSelectValue: "K",
+                            commitmentsTotalMaxSelectValue: "K",
+                            commitmentTotalInputsAreValid: true,
+                          });
+                        }}
+                        commitmentTotalInputsAreValid={
+                          projectAmountMenuParams.commitmentTotalInputsAreValid
+                        }
+                      >
+                        <ProjectAmountMenuInput
+                          label={"Minimum"}
                           commitmentTotalInputsAreValid={
                             projectAmountMenuParams.commitmentTotalInputsAreValid
                           }
+                          inputValue={
+                            projectAmountMenuParams.commitmentsTotalMinInputValue
+                          }
+                          selectValue={
+                            projectAmountMenuParams.commitmentsTotalMinSelectValue
+                          }
+                          onInputValueChange={(value) => {
+                            const commitmentTotalInputsAreValid =
+                              checkCommitmentTotalInputsAreValid({
+                                commitmentsTotalMinInputValue:
+                                  value as CommitmentsTotalMinInputValue,
+                                commitmentsTotalMaxInputValue:
+                                  projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                commitmentsTotalMinSelectValue:
+                                  projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                commitmentsTotalMaxSelectValue:
+                                  projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                              });
+                            setProjectAmountMenuParams({
+                              ...projectAmountMenuParams,
+                              commitmentsTotalMinInputValue: value ? value : "",
+                              commitmentTotalInputsAreValid,
+                            });
+                          }}
+                          onSelectValueChange={(value) => {
+                            const commitmentTotalInputsAreValid =
+                              checkCommitmentTotalInputsAreValid({
+                                commitmentsTotalMinInputValue:
+                                  projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                commitmentsTotalMaxInputValue:
+                                  projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                commitmentsTotalMinSelectValue:
+                                  value as CommitmentsTotalMinSelectValue,
+                                commitmentsTotalMaxSelectValue:
+                                  projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                              });
+                            setProjectAmountMenuParams({
+                              ...projectAmountMenuParams,
+                              commitmentsTotalMinSelectValue: value,
+                              commitmentTotalInputsAreValid,
+                            });
+                          }}
+                        />
+
+                        <Flex
+                          grow={1}
+                          justifyContent={"center"}
+                          alignItems={"end"}
+                          mb={"1rem"}
                         >
-                          <ProjectAmountMenuInput
-                            label={"Minimum"}
-                            commitmentTotalInputsAreValid={
-                              projectAmountMenuParams.commitmentTotalInputsAreValid
-                            }
-                            inputValue={
-                              projectAmountMenuParams.commitmentsTotalMinInputValue
-                            }
-                            selectValue={
-                              projectAmountMenuParams.commitmentsTotalMinSelectValue
-                            }
-                            onInputValueChange={(value) => {
-                              const commitmentTotalInputsAreValid =
-                                checkCommitmentTotalInputsAreValid({
-                                  commitmentsTotalMinInputValue:
-                                    value as CommitmentsTotalMinInputValue,
-                                  commitmentsTotalMaxInputValue:
-                                    projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
-                                  commitmentsTotalMinSelectValue:
-                                    projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
-                                  commitmentsTotalMaxSelectValue:
-                                    projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
-                                });
-                              setProjectAmountMenuParams({
-                                ...projectAmountMenuParams,
-                                commitmentsTotalMinInputValue: value
-                                  ? value
-                                  : "",
-                                commitmentTotalInputsAreValid,
-                              });
-                            }}
-                            onSelectValueChange={(value) => {
-                              const commitmentTotalInputsAreValid =
-                                checkCommitmentTotalInputsAreValid({
-                                  commitmentsTotalMinInputValue:
-                                    projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
-                                  commitmentsTotalMaxInputValue:
-                                    projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
-                                  commitmentsTotalMinSelectValue:
-                                    value as CommitmentsTotalMinSelectValue,
-                                  commitmentsTotalMaxSelectValue:
-                                    projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
-                                });
-                              setProjectAmountMenuParams({
-                                ...projectAmountMenuParams,
-                                commitmentsTotalMinSelectValue: value,
-                                commitmentTotalInputsAreValid,
-                              });
+                          <hr
+                            style={{
+                              width: "75%",
+                              color: "var(--dcp-colors-gray-500)",
                             }}
                           />
+                        </Flex>
 
-                          <Flex
-                            grow={1}
-                            justifyContent={"center"}
-                            alignItems={"end"}
-                            mb={"1rem"}
-                          >
-                            <hr
-                              style={{
-                                width: "75%",
-                                color: "var(--dcp-colors-gray-500)",
-                              }}
-                            />
-                          </Flex>
-
-                          <ProjectAmountMenuInput
-                            label={"Maximum"}
-                            commitmentTotalInputsAreValid={
-                              projectAmountMenuParams.commitmentTotalInputsAreValid
-                            }
-                            inputValue={
-                              projectAmountMenuParams.commitmentsTotalMaxInputValue
-                            }
-                            selectValue={
-                              projectAmountMenuParams.commitmentsTotalMaxSelectValue
-                            }
-                            onInputValueChange={(value) => {
-                              const commitmentTotalInputsAreValid =
-                                checkCommitmentTotalInputsAreValid({
-                                  commitmentsTotalMinInputValue:
-                                    projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
-                                  commitmentsTotalMaxInputValue:
-                                    value as CommitmentsTotalMaxInputValue,
-                                  commitmentsTotalMinSelectValue:
-                                    projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
-                                  commitmentsTotalMaxSelectValue:
-                                    projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
-                                });
-                              setProjectAmountMenuParams({
-                                ...projectAmountMenuParams,
-                                commitmentsTotalMaxInputValue: value
-                                  ? value
-                                  : "",
-                                commitmentTotalInputsAreValid,
+                        <ProjectAmountMenuInput
+                          label={"Maximum"}
+                          commitmentTotalInputsAreValid={
+                            projectAmountMenuParams.commitmentTotalInputsAreValid
+                          }
+                          inputValue={
+                            projectAmountMenuParams.commitmentsTotalMaxInputValue
+                          }
+                          selectValue={
+                            projectAmountMenuParams.commitmentsTotalMaxSelectValue
+                          }
+                          onInputValueChange={(value) => {
+                            const commitmentTotalInputsAreValid =
+                              checkCommitmentTotalInputsAreValid({
+                                commitmentsTotalMinInputValue:
+                                  projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                commitmentsTotalMaxInputValue:
+                                  value as CommitmentsTotalMaxInputValue,
+                                commitmentsTotalMinSelectValue:
+                                  projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                commitmentsTotalMaxSelectValue:
+                                  projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
                               });
-                            }}
-                            onSelectValueChange={(value) => {
-                              const commitmentTotalInputsAreValid =
-                                checkCommitmentTotalInputsAreValid({
-                                  commitmentsTotalMinInputValue:
-                                    projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
-                                  commitmentsTotalMaxInputValue:
-                                    projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
-                                  commitmentsTotalMinSelectValue:
-                                    projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
-                                  commitmentsTotalMaxSelectValue:
-                                    value as CommitmentsTotalMaxSelectValue,
-                                });
-                              setProjectAmountMenuParams({
-                                ...projectAmountMenuParams,
-                                commitmentsTotalMaxSelectValue: value,
-                                commitmentTotalInputsAreValid,
+                            setProjectAmountMenuParams({
+                              ...projectAmountMenuParams,
+                              commitmentsTotalMaxInputValue: value ? value : "",
+                              commitmentTotalInputsAreValid,
+                            });
+                          }}
+                          onSelectValueChange={(value) => {
+                            const commitmentTotalInputsAreValid =
+                              checkCommitmentTotalInputsAreValid({
+                                commitmentsTotalMinInputValue:
+                                  projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                commitmentsTotalMaxInputValue:
+                                  projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                commitmentsTotalMinSelectValue:
+                                  projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                commitmentsTotalMaxSelectValue:
+                                  value as CommitmentsTotalMaxSelectValue,
                               });
-                            }}
-                          />
-                        </ProjectAmountMenu>
-                      </VStack>
-                    </SearchByAttributeMenu>
-                  ) : null}
+                            setProjectAmountMenuParams({
+                              ...projectAmountMenuParams,
+                              commitmentsTotalMaxSelectValue: value,
+                              commitmentTotalInputsAreValid,
+                            });
+                          }}
+                        />
+                      </ProjectAmountMenu>
+                    </VStack>
+                  </SearchByAttributeMenu>
                   <Flex width="full" px={4}>
                     <Button
                       width="full"
