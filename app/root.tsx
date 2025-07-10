@@ -78,7 +78,6 @@ import { ClearFilterBtn } from "./components/ClearFilter";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { ProjectAmountMenu } from "./components/ProjectAmountMenu";
 import { ProjectAmountMenuInput } from "./components/ProjectAmountMenu/ProjectAmountMenuInput";
-import debounce from "lodash.debounce";
 
 export const links: LinksFunction = () => {
   return [
@@ -372,10 +371,7 @@ export default function App() {
             <>
               <Atlas
                 viewState={viewState}
-                setViewState={debounce(
-                  (MapViewState) => setViewState(MapViewState),
-                  1,
-                )}
+                setViewState={(MapViewState) => setViewState(MapViewState)}
               />{" "}
               <Overlay>
                 <Flex
