@@ -4,9 +4,11 @@ import path from "path";
 
 export default defineConfig({
   plugins: [
-    !process.env.VITEST &&
-      remix({
+    remix({
         ignoredRouteFiles: ["**/?(*.)+(spec|test).[tj]s?(x)"],
+        future: {
+          unstable_optimizeDeps: true,
+        }
       }),
   ],
   resolve: {
