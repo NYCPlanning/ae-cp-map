@@ -82,7 +82,7 @@ export default function CapitalProjectsByCityCouncilDistrict() {
         <Pagination total={capitalProjectsTotal} />
         <ExportDataModal
           geography={`City Council District ${cityCouncilDistrictId}`}
-          fileName={`city_council_district_${cityCouncilDistrictId}.csv`}
+          fileName={`cityCouncilDistrictId=${cityCouncilDistrictId}`}
         />
       </Flex>
     </CapitalProjectsPanel>

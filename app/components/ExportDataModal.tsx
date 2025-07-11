@@ -15,18 +15,45 @@ import {
   Box,
 } from "@nycplanning/streetscape";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LinkBtn } from "./LinkBtn";
+import axios from "axios";
 
 export interface ExportDataModalProps {
   geography: string;
   fileName: string;
 }
 
+// fileName = filters
 export function ExportDataModal({ geography, fileName }: ExportDataModalProps) {
+  const domain = "capital-projects/csv";
   const [allDistricts, setAllDistricts] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const onOpen = () => setIsOpen(true);
+  const [downloadUrl, setDownloadUrl] = useState<string>();
+
+  useEffect(() => {
+    console.debug("file name", fileName);
+  }, [fileName]);
+  useEffect(() => {
+    (async () => {
+      setDownloadUrl(undefined);
+      if (isOpen) {
+        const lookup = `${import.meta.env.VITE_ZONING_API_URL}/api/${domain}${allDistricts ? "" : "?" + fileName}`;
+        console.debug("lookup", lookup);
+        const response = await axios.get(lookup);
+        let { url } = (await response.data) as { url: string | null };
+        console.debug("url", url);
+        if (url === null) {
+          const putResponse = await axios.put(lookup);
+          const { url: pUrl } = (await putResponse.data) as { url: string };
+          url = pUrl;
+        }
+        setDownloadUrl(`http://${url}`);
+      }
+    })();
+  }, [isOpen, allDistricts, fileName]);
+
+  const onOpen = async () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
   return (
@@ -89,11 +116,12 @@ export function ExportDataModal({ geography, fileName }: ExportDataModalProps) {
           <ModalFooter>
             <LinkBtn
               isExternal
-              href={`${import.meta.env.VITE_CPDB_DATA_URL}/${allDistricts ? "projects_in_geographies.zip" : fileName}`}
+              // href={`${import.meta.env.VITE_CPDB_DATA_URL}/${allDistricts ? "projects_in_geographies.zip" : fileName}`}
+              href={downloadUrl}
               width={"full"}
               textAlign={"center"}
             >
-              Export Data
+              {downloadUrl === undefined ? "Loading..." : "Export Data"}
             </LinkBtn>
           </ModalFooter>
         </ModalContent>
