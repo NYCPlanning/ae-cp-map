@@ -10,6 +10,9 @@ export default defineConfig({
     !process.env.VITEST &&
       remix({
         ignoredRouteFiles: ["**/?(*.)+(spec|test).[tj]s?(x)"],
+        future: {
+          v3_fetcherPersist: true,
+        },
       }),
   ],
   resolve: {
