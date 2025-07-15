@@ -1,12 +1,13 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs } from "react-router";
 import { findAgencies, findAgencyBudgets, findCapitalProjects } from "../gen";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
 import { Flex } from "@nycplanning/streetscape";
 import { Pagination } from "~/components/Pagination";
 import { ExportDataModal } from "~/components/ExportDataModal";
 
 export async function loader({ request }: LoaderFunctionArgs) {
+  console.log("capital project loader");
   const url = new URL(request.url);
   const itemsPerPage = 7;
   const pageParam = url.searchParams.get("page");
@@ -16,7 +17,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const commitmentsTotalMax = url.searchParams.get("commitmentsTotalMax");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   if (isNaN(page)) {
-    throw json("Bad Request", { status: 400 });
+    throw new Response("Bad Request", { status: 400 });
   }
   const offset = (page - 1) * itemsPerPage;
 

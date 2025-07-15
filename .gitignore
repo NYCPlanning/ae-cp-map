@@ -10,3 +10,4 @@ node_modules
 /playwright/.cache/
  .vscode 
 .DS_Store
+.react-router/

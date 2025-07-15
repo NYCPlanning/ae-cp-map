@@ -1,6 +1,6 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, json } from "react-router";
 import { findCapitalProjects, findAgencies, findAgencyBudgets } from "../gen";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
 import { Flex } from "@nycplanning/streetscape";
 import { Pagination } from "~/components/Pagination";
@@ -17,7 +17,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   const page = pageParam === null ? 1 : parseInt(pageParam);
   const { cityCouncilDistrictId } = params;
   if (cityCouncilDistrictId === undefined || isNaN(page)) {
-    throw json("Bad Request", { status: 400 });
+    new Response("Bad Request", { status: 400 });
   }
   const offset = (page - 1) * itemsPerPage;
 

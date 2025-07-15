@@ -18,7 +18,7 @@ import {
   useNavigate,
   useRouteError,
   useSearchParams,
-} from "@remix-run/react";
+} from "react-router";
 import { Atlas, INITIAL_VIEW_STATE } from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
 import { Overlay } from "./components/Overlay";
@@ -36,7 +36,7 @@ import {
 } from "./gen";
 import { FilterMenu } from "./components/FilterMenu";
 import { SearchByAttributeMenu } from "./components/SearchByAttributeMenu";
-import { LoaderFunctionArgs, LinksFunction } from "@remix-run/node";
+import { LoaderFunctionArgs, LinksFunction } from "react-router";
 import {
   BoroughDropdown,
   DistrictTypeDropdown,
@@ -79,19 +79,20 @@ import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { ProjectAmountMenu } from "./components/ProjectAmountMenu";
 import { ProjectAmountMenuInput } from "./components/ProjectAmountMenu/ProjectAmountMenuInput";
 
-export const links: LinksFunction = () => {
-  return [
-    {
-      rel: "icon",
-      href: "/favicon.svg",
-      type: "image/x-icon",
-    },
-  ];
-};
+// export const links: LinksFunction = () => {
+//   return [
+//     {
+//       rel: "icon",
+//       href: "/favicon.ico",
+//       type: "image/x-icon",
+//     },
+//   ];
+// };
 
 const adminParamKeys = ["districtType", "boroughId", "districtId"];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  console.log("root loader");
   const url = new URL(request.url);
   const districtType = url.searchParams.get("districtType") as DistrictType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
@@ -166,30 +167,33 @@ function Document({
   children: React.ReactNode;
   title?: string;
 }) {
+  console.log("document");
   return (
     <html lang="en">
       <head>
-        <Meta />
+        {/* <Meta /> */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{title}</title>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         {/* Silence /favicon.ico error by pointing to null image. Remove link to null image after creating valid favicon. */}
-        <link
+        {/* <link
           rel="shortcut icon"
           type="image/x-icon"
           href="data:image/x-icon;base64,"
-        />
-        <Links />
+        /> */}
+        {/* <Links /> */}
       </head>
       <body>
         {children}
-        <ScrollRestoration />
-        <Scripts />
+        {/* <ScrollRestoration /> */}
+        {/* <Scripts /> */}
       </body>
     </html>
   );
 }
 
 export default function App() {
+  console.log("app");
   useEffect(() => {
     initializeMatomoTagManager("SmoWWpiD");
     initFullStoryAnalytics();

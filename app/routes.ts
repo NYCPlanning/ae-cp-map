@@ -1,8 +1,9 @@
-import { type RouteConfig } from "@remix-run/route-config";
-import { remixRoutesOptionAdapter } from "@remix-run/routes-option-adapter";
+import { type RouteConfig } from "@react-router/dev/routes";
+import { remixRoutesOptionAdapter } from "@react-router/remix-routes-option-adapter";
 
 export default remixRoutesOptionAdapter((defineRoutes) => {
   return defineRoutes((route) => {
+    route("/", "routes/index.tsx", { index: true });
     route("capital-projects", "routes/capital-projects.tsx");
     route(
       "capital-projects/:managingCode/:capitalProjectId",
