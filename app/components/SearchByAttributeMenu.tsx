@@ -7,7 +7,7 @@ import {
   AccordionPanel,
   Box,
 } from "@nycplanning/streetscape";
-import { analyticsTrackSearchByAttributeToggle } from "~/utils/analytics";
+// import { analyticsTrackSearchByAttributeToggle } from "~/utils/analytics";
 
 export const SearchByAttributeMenu = ({
   children,
@@ -24,7 +24,7 @@ export const SearchByAttributeMenu = ({
     borderY={"1px solid"}
     borderColor={"gray.300"}
     defaultIndex={defaultIndex}
-    onChange={analyticsTrackSearchByAttributeToggle}
+    // onChange={analyticsTrackSearchByAttributeToggle}
   >
     <AccordionItem border="none">
       <AccordionButton aria-label="Close search by attribute menu" px={0}>

@@ -17,7 +17,7 @@ import {
 import { WelcomeContent, WelcomeHeader } from ".";
 import { InfoIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import { analyticsWelcomePanelToggle } from "~/utils/analytics";
+// import { analyticsWelcomePanelToggle } from "~/utils/analytics";
 
 export function WelcomePanel() {
   const [isMobileExpanded, setIsMobileExpanded] = useState(true);
@@ -38,7 +38,7 @@ export function WelcomePanel() {
           borderTopWidth={"1px"}
           borderTopColor={"gray.50"}
           defaultIndex={0}
-          onChange={analyticsWelcomePanelToggle}
+          // onChange={analyticsWelcomePanelToggle}
         >
           <AccordionItem border="none">
             <AccordionButton aria-label="Toggle welcome panel" px={0}>

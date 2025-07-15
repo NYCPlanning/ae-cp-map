@@ -2,7 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Box, HStack, Text, VStack } from "@nycplanning/streetscape";
 import { Link, useSearchParams } from "@remix-run/react";
 import { setNewSearchParams } from "~/utils/utils";
-import { analytics } from "~/utils/analytics";
+// import { analytics } from "~/utils/analytics";
 
 export interface PaginationProps {
   total: number;
@@ -29,14 +29,14 @@ export const Pagination = ({ total }: PaginationProps) => {
               page: page - 1,
             }).toString(),
           }}
-          onClick={() =>
-            analytics({
-              category: "Pagination",
-              action: "Click",
-              name: "Back",
-              value: page - 1,
-            })
-          }
+          // onClick={() =>
+          //   analytics({
+          //     category: "Pagination",
+          //     action: "Click",
+          //     name: "Back",
+          //     value: page - 1,
+          //   })
+          // }
         >
           <Box
             as="button"
@@ -63,14 +63,14 @@ export const Pagination = ({ total }: PaginationProps) => {
               page: page + 1,
             }).toString(),
           }}
-          onClick={() =>
-            analytics({
-              category: "Pagination",
-              action: "Click",
-              name: "Next",
-              value: page + 1,
-            })
-          }
+          // onClick={() =>
+          //   analytics({
+          //     category: "Pagination",
+          //     action: "Click",
+          //     name: "Next",
+          //     value: page + 1,
+          //   })
+          // }
         >
           <Box
             as="button"

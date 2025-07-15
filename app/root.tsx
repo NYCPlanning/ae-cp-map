@@ -46,12 +46,12 @@ import {
   ProjectTypeDropdown,
 } from "./components/AdminDropdown";
 import { WelcomePanel } from "./components/WelcomePanel";
-import { useEffect, useState } from "react";
-import {
-  analytics,
-  initializeMatomoTagManager,
-  initFullStoryAnalytics,
-} from "./utils/analytics";
+import { useState } from "react";
+// import {
+//   analytics,
+//   initializeMatomoTagManager,
+//   initFullStoryAnalytics,
+// } from "./utils/analytics";
 import {
   setNewSearchParams,
   handleCommitmentTotalsInputs,
@@ -190,10 +190,10 @@ function Document({
 }
 
 export default function App() {
-  useEffect(() => {
-    initializeMatomoTagManager("SmoWWpiD");
-    initFullStoryAnalytics();
-  }, []);
+  // useEffect(() => {
+  //   initializeMatomoTagManager("SmoWWpiD");
+  //   initFullStoryAnalytics();
+  // }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -327,11 +327,11 @@ export default function App() {
         );
       }
 
-      analytics({
-        category: "Search Button",
-        action: "Click",
-        name: `${newPath}?${nextAdminParams.toString()}`,
-      });
+      // analytics({
+      //   category: "Search Button",
+      //   action: "Click",
+      //   name: `${newPath}?${nextAdminParams.toString()}`,
+      // });
 
       navigate({
         pathname: newPath,

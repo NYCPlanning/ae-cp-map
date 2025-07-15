@@ -1,7 +1,7 @@
 import { AgencyBudget } from "~/gen";
 import { AdminDropdownProps, AdminDropdown } from ".";
 import { AgencyBudgetType } from "../../utils/types";
-import { analytics } from "../../utils/analytics";
+// import { analytics } from "../../utils/analytics";
 
 export interface ProjectTypeDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
@@ -14,11 +14,11 @@ export function ProjectTypeDropdown({
   onSelectValueChange = () => null,
 }: ProjectTypeDropdownProps) {
   const updateProjectType = (nextProjectType: AgencyBudgetType) => {
-    analytics({
-      category: "Dropdown Menu",
-      action: "Change Project Type",
-      name: nextProjectType,
-    });
+    // analytics({
+    //   category: "Dropdown Menu",
+    //   action: "Change Project Type",
+    //   name: nextProjectType,
+    // });
 
     onSelectValueChange(nextProjectType);
   };

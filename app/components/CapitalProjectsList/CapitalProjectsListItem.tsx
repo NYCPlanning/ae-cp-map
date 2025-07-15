@@ -8,7 +8,7 @@ import {
 } from "@nycplanning/streetscape";
 import { Link, useLocation, useSearchParams } from "@remix-run/react";
 import { CapitalProjectBudgeted } from "~/gen";
-import { analytics } from "~/utils/analytics";
+// import { analytics } from "~/utils/analytics";
 
 export interface CapitalProjectsListItemProps {
   capitalProject: CapitalProjectBudgeted;
@@ -31,14 +31,14 @@ export const CapitalProjectsListItem = ({
           pathname:
             location + `/${capitalProject.managingCode}/${capitalProject.id}`,
         }}
-        onClick={() =>
-          analytics({
-            category: "Capital Project",
-            action: "Click",
-            name:
-              location + `/${capitalProject.managingCode}/${capitalProject.id}`,
-          })
-        }
+        // onClick={() =>
+        // analytics({
+        //   category: "Capital Project",
+        //   action: "Click",
+        //   name:
+        //     location + `/${capitalProject.managingCode}/${capitalProject.id}`,
+        // })
+        // }
       >
         <Flex
           height={{ lg: "auto" }}
