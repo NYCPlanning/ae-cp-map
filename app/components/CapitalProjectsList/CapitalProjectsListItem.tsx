@@ -6,7 +6,7 @@ import {
   Text,
   Flex,
 } from "@nycplanning/streetscape";
-import { Link, useLocation, useSearchParams } from "@remix-run/react";
+import { Link, useLocation, useSearchParams } from "react-router";
 import { CapitalProjectBudgeted } from "~/gen";
 import { analytics } from "~/utils/analytics";
 
