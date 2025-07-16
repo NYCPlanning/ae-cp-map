@@ -2,11 +2,13 @@ import { reactRouter } from "@react-router/dev/vite";
 // import { installGlobals } from "react-router";
 import { defineConfig } from "vite";
 import path from "path";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 // installGlobals();
 
 export default defineConfig({
   plugins: [
+    tsconfigPaths(),
     reactRouter({
       ignoredRouteFiles: ["**/?(*.)+(spec|test).[tj]s?(x)"],
       future: {
