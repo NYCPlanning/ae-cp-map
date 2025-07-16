@@ -1,6 +1,5 @@
-import { LoaderFunctionArgs, data } from "@remix-run/node";
+import { LoaderFunctionArgs, data, useLoaderData } from "react-router";
 import { findCapitalProjects, findAgencies, findAgencyBudgets } from "../gen";
-import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
 import { Flex } from "@nycplanning/streetscape";
 import { Pagination } from "~/components/Pagination";
