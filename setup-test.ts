@@ -6,6 +6,8 @@ import { handlers } from "./app/gen";
 import { setupServer } from "msw/node";
 
 window.URL.createObjectURL = vi.fn();
+// @ts-ignore set test-specific property for vite
+window.__vite_plugin_react_preamble_installed__ = true;
 Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query) => ({

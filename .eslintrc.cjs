@@ -50,6 +50,12 @@ module.exports = {
       files: ["**/*.{ts,tsx}"],
       plugins: ["@typescript-eslint", "import"],
       parser: "@typescript-eslint/parser",
+      rules: {
+        "@typescript-eslint/ban-ts-comment": [
+          "error",
+          { "ts-ignore": "allow-with-description" },
+        ],
+      },
       settings: {
         "import/internal-regex": "^~/",
         "import/resolver": {

@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { CapitalProjectsDrawer } from "./CapitalProjectsDrawer";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 
 describe("CapitalProjectsDrawer", () => {
   it("should render a bar to expand project list panel", () => {
