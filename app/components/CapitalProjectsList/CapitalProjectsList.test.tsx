@@ -2,7 +2,7 @@ import { createAgency, createCapitalProject } from "~/gen/mocks";
 import { Agency, CapitalProject } from "~/gen/types";
 import { CapitalProjectsList } from "./CapitalProjectsList";
 import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 
 describe("CapitalProjectsList", () => {
   let capitalProjects: CapitalProject[];

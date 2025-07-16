@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { Agency, CapitalProjectBudgeted, createCapitalProject } from "~/gen";
 import { CapitalProjectsListItem } from "./CapitalProjectsListItem";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router";
 
 describe("CapitalProjectsListItem", () => {
   let capitalProject: CapitalProjectBudgeted;

@@ -1,3 +1,4 @@
+.react-router/
 node_modules
 
 /.cache
@@ -8,5 +9,5 @@ node_modules
 /playwright-report/
 /blob-report/
 /playwright/.cache/
- .vscode 
+ .vscode
 .DS_Store
