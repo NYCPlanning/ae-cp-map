@@ -1,9 +1,4 @@
-import {
-  FormControl,
-  FormLabel,
-  IconButton,
-  Select,
-} from "@nycplanning/streetscape";
+import { FormControl, FormLabel, Select } from "@nycplanning/streetscape";
 import { FormEvent, ReactNode } from "react";
 export { BoroughDropdown } from "./BoroughDropdown";
 export { DistrictTypeDropdown } from "./DistrictTypeDropdown";
