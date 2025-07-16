@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, data } from "@remix-run/node";
 import { useLoaderData, useNavigate, useSearchParams } from "@remix-run/react";
 import {
   findCapitalProjectByManagingCodeCapitalProjectId,
@@ -15,7 +15,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
   if (managingCode === undefined || capitalProjectId === undefined) {
-    throw json("Bad Request", { status: 400 });
+    throw data("Bad Request", { status: 400 });
   }
   const capitalProjectPromise =
     findCapitalProjectByManagingCodeCapitalProjectId(
@@ -48,13 +48,13 @@ export async function loader({ params }: LoaderFunctionArgs) {
     capitalCommitmentsPromise,
     capitalCommitmentTypesPromise,
   ]);
-  return json({
+  return {
     capitalProject,
     capitalCommitments: capitalCommitmentsResponse.capitalCommitments,
     capitalCommitmentTypes:
       capitalCommitmentTypesResponse.capitalCommitmentTypes,
     agencies: agenciesResponse.agencies,
-  });
+  };
 }
 
 export default function CapitalProject() {

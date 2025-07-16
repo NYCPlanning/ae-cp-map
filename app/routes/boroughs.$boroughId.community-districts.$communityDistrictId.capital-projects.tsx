@@ -1,5 +1,5 @@
 import { Flex } from "@nycplanning/streetscape";
-import { json, LoaderFunctionArgs } from "@remix-run/node";
+import { data, LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "~/components/CapitalProjectsList";
 import { ExportDataModal } from "~/components/ExportDataModal";
@@ -27,7 +27,7 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
     communityDistrictId === undefined ||
     isNaN(page)
   ) {
-    throw json("Bad request", { status: 400 });
+    throw data("Bad request", { status: 400 });
   }
 
   const offset = (page - 1) * itemsPerPage;

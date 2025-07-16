@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, json } from "@remix-run/node";
+import { LoaderFunctionArgs, data } from "@remix-run/node";
 import { findAgencies, findAgencyBudgets, findCapitalProjects } from "../gen";
 import { useLoaderData } from "@remix-run/react";
 import { CapitalProjectsPanel } from "../components/CapitalProjectsList";
@@ -16,7 +16,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const commitmentsTotalMax = url.searchParams.get("commitmentsTotalMax");
   const page = pageParam === null ? 1 : parseInt(pageParam);
   if (isNaN(page)) {
-    throw json("Bad Request", { status: 400 });
+    throw data("Bad Request", { status: 400 });
   }
   const offset = (page - 1) * itemsPerPage;
 
