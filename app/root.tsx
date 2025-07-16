@@ -92,6 +92,7 @@ export const links: LinksFunction = () => {
 const adminParamKeys = ["districtType", "boroughId", "districtId"];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  console.debug("root loader hit");
   const url = new URL(request.url);
   const districtType = url.searchParams.get("districtType") as DistrictType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
