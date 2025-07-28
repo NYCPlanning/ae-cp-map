@@ -51,7 +51,7 @@ export function CapitalProjectPanel(props: CapitalProjectPanelProps) {
       borderBottomRadius={{ base: "0", lg: "base" }}
       background={"white"}
       direction={"column"}
-      width={{ base: "full", lg: "21.25rem" }}
+      width={"full"}
       maxW={{ lg: "unset" }}
       boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
       position={{ base: "fixed", lg: "static" }}
@@ -66,7 +66,6 @@ export function CapitalProjectPanel(props: CapitalProjectPanelProps) {
       <CapitalProjectDetail
         capitalProject={props.capitalProject}
         agencies={props.agencies}
-        navigationBtn={props.navigationBtn}
         capitalCommitments={props.capitalCommitments}
         onNavigationClick={props.onNavigationClick}
       />

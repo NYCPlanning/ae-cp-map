@@ -8,69 +8,50 @@ import {
   Flex,
   Heading,
 } from "@nycplanning/streetscape";
-import { Agency, CapitalProject } from "~/gen";
+import { Agency, CapitalProject, AgencyBudget } from "~/gen";
 import { CapitalProjectsList } from "./CapitalProjectsList";
-import { analyticsTrackSelectedDistrictToggle } from "~/utils/analytics";
-
 export interface CapitalProjectsAccordionPanelProps {
   capitalProjects: Array<CapitalProject>;
   agencies: Agency[];
   capitalProjectsTotal: number;
+  agencyBudgets: AgencyBudget[];
   children: React.ReactNode;
 }
 
 export const CapitalProjectsAccordionPanel = ({
   capitalProjects,
-  agencies,
   capitalProjectsTotal,
+  agencies,
   children,
 }: CapitalProjectsAccordionPanelProps) => {
   return (
-    <Flex
-      borderRadius={"base"}
-      padding={{ base: 3, lg: 4 }}
-      background={"white"}
-      direction={"column"}
-      width={{ base: "full", lg: "21.25rem" }}
-      maxW={{ base: "21.25rem", lg: "unset" }}
-      boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
-      gap={4}
-    >
-      <Accordion
-        defaultIndex={[0]}
-        allowToggle
-        onChange={analyticsTrackSelectedDistrictToggle}
-      >
-        <AccordionItem border="none">
-          <AccordionButton padding="0px" aria-label="Toggle project list panel">
-            <Box as="span" flex="1" textAlign="left">
-              <Heading
-                color="gray.600"
-                fontWeight={"bold"}
-                fontSize={"lg"}
-                paddingBottom={"8px"}
-              >
-                {capitalProjectsTotal} Results
-              </Heading>
-            </Box>
-            <AccordionIcon size="lg" />
-          </AccordionButton>
-          <Box
-            borderTopWidth={"1px"}
-            borderTopColor={"gray.400"}
-            paddingBottom={4}
+    <Accordion width={"100%"} maxHeight={"100%"} defaultIndex={[0]} allowToggle>
+      <AccordionItem borderTop={"none"}>
+        <AccordionButton aria-label="Toggle project list panel" p={0}>
+          <Heading
+            flex="1"
+            textAlign="left"
+            fontSize="medium"
+            fontWeight="bold"
+            lineHeight="32px"
+          >
+            {capitalProjectsTotal} Results
+          </Heading>
+          <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel
+          padding={"0px"}
+          overflowY={"hidden"}
+          overflow={"scroll"}
+        >
+          <CapitalProjectsList
+            capitalProjects={capitalProjects}
+            agencies={agencies}
+            capitalProjectsTotal={capitalProjectsTotal}
           />
-          <AccordionPanel padding={"0px"}>
-            <CapitalProjectsList
-              capitalProjects={capitalProjects}
-              agencies={agencies}
-              capitalProjectsTotal={capitalProjectsTotal}
-              isExpanded={true}
-            />
-            {children}
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-    </Flex>
+          {children}
+        </AccordionPanel>
+      </AccordionItem>
+    </Accordion>
   );
 };

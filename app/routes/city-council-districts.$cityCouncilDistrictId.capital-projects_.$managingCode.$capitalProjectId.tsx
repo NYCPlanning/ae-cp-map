@@ -1,7 +1,6 @@
 import {
   useLoaderData,
   useNavigate,
-  useParams,
   useSearchParams,
   LoaderFunctionArgs,
   data,
@@ -65,7 +64,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function CapitalProjectByCityCouncilDistrictId() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { cityCouncilDistrictId } = useParams();
   const {
     capitalProject,
     agencies,
@@ -77,12 +75,11 @@ export default function CapitalProjectByCityCouncilDistrictId() {
     <CapitalProjectPanel
       capitalProject={capitalProject}
       agencies={agencies}
-      navigationBtn="back"
       capitalCommitments={capitalCommitments}
       capitalCommitmentTypes={capitalCommitmentTypes}
       onNavigationClick={() => {
         navigate({
-          pathname: `/city-council-districts/${cityCouncilDistrictId}/capital-projects`,
+          pathname: `/capital-projects`,
           search: `?${searchParams.toString()}`,
         });
       }}

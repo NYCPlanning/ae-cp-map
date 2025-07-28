@@ -5,11 +5,12 @@ export function WelcomeHeader() {
     <Heading
       flex="1"
       textAlign={"left"}
-      fontSize="large"
-      fontWeight="medium"
+      fontSize="md"
+      fontWeight="bold"
       lineHeight={"32px"}
+      pb={0}
     >
-      Capital Projects Portal
+      Welcome
     </Heading>
   );
 }
