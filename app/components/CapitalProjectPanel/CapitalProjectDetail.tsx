@@ -1,5 +1,5 @@
 import numbro from "numbro";
-import { ChevronLeftIcon, CloseIcon } from "@chakra-ui/icons";
+import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
@@ -18,7 +18,6 @@ export interface CapitalProjectDetailProps {
   capitalProject: CapitalProjectBudgeted;
   capitalCommitments: Array<CapitalCommitment>;
   agencies: Agency[];
-  navigationBtn?: "exit" | "back";
   onNavigationClick: () => void;
 }
 
@@ -26,7 +25,6 @@ export const CapitalProjectDetail = ({
   capitalProject,
   capitalCommitments,
   agencies,
-  navigationBtn = "exit",
   onNavigationClick,
 }: CapitalProjectDetailProps) => {
   return (
@@ -40,13 +38,7 @@ export const CapitalProjectDetail = ({
       >
         <IconButton
           aria-label="Close project detail panel"
-          icon={
-            navigationBtn === "back" ? (
-              <ChevronLeftIcon boxSize={10} />
-            ) : (
-              <CloseIcon boxSize={5} />
-            )
-          }
+          icon={<ChevronLeftIcon boxSize={10} />}
           color={"gray.600"}
           backgroundColor={"inherit"}
           _hover={{

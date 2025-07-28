@@ -28,22 +28,37 @@ export const INITIAL_VIEW_STATE = {
 interface AtlasProps {
   viewState: MapViewState;
   setViewState: (newViewState: MapViewState) => void;
+  showCapitalProjects: boolean;
 }
 
-export function Atlas({ viewState, setViewState }: AtlasProps) {
-  const capitalProjectsLayer = useCapitalProjectsLayer();
+export function Atlas({
+  viewState,
+  setViewState,
+  showCapitalProjects,
+}: AtlasProps) {
+  const capitalProjectsLayer = useCapitalProjectsLayer({
+    visible: showCapitalProjects,
+  });
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
+
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
 
   const isMobile = useMediaQuery("(max-width: 767px)")[0];
   const widgetPlacement = isMobile ? "top-right" : "bottom-right";
   const widgetStyles = isMobile
-    ? {}
-    : { position: "relative", bottom: "4.5rem" };
+    ? {
+        position: "relative",
+        top: "2rem",
+        left: "5rem",
+      }
+    : {
+        position: "relative",
+        bottom: "4.5rem",
+      };
 
   const ZoomControls = new ZoomWidget({
     id: "zoom",

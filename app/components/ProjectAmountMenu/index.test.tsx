@@ -5,11 +5,12 @@ describe("ProjectAmountMenu", () => {
   it("should render project amount label", () => {
     render(
       <ProjectAmountMenu
-        showClearButton={false}
-        onProjectAmountMenuClear={() => null}
-      >
-        Child Menus
-      </ProjectAmountMenu>,
+        commitmentsTotalMin={"1000"}
+        commitmentsTotalMax={"2000"}
+        onValidChange={() => {
+          return;
+        }}
+      />,
     );
     expect(screen.getByText("Project Amount")).toBeInTheDocument();
   });
