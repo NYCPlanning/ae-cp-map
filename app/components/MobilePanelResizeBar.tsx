@@ -9,10 +9,12 @@ export function MobilePanelResizeBar({
   isExpandedToggle,
   ...props
 }: MobilePanelResizeBarProps) {
+  console.debug("isExpanded mobile resize bar", isExpanded);
   return (
     <Hide above="lg">
       <Box
         height={"4px"}
+        className={"pasta"}
         width={20}
         backgroundColor={"gray.300"}
         borderRadius="2px"

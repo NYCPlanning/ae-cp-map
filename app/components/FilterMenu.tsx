@@ -8,16 +8,19 @@ import {
   Box,
 } from "@nycplanning/streetscape";
 import { analyticsTrackFilterByDistrictToggle } from "~/utils/analytics";
+import { showRedesign } from "~/utils/envFlags";
 
 export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
   <Accordion
     allowToggle
+    allowMultiple={showRedesign ? false : true}
     borderRadius={"none"}
     padding={{ base: 3, lg: 4 }}
     background={"white"}
-    width={{ base: "full", lg: "21.25rem" }}
+    width={{ base: "full", lg: showRedesign ? "full" : "21.25rem" }}
     maxW={{ base: "21.25rem", lg: "unset" }}
-    defaultIndex={defaultIndex}
+    defaultIndex={showRedesign ? undefined : defaultIndex}
+    className={"filterMenu"}
     onChange={analyticsTrackFilterByDistrictToggle}
   >
     <AccordionItem borderTopWidth="0">

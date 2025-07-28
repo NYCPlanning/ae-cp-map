@@ -5,6 +5,8 @@ import {
   VStack,
   Flex,
   Button,
+  Grid,
+  GridItem,
 } from "@nycplanning/streetscape";
 import {
   Links,
@@ -46,7 +48,6 @@ import {
   AgencyDropdown,
   ProjectTypeDropdown,
 } from "./components/AdminDropdown";
-import { WelcomePanel } from "./components/WelcomePanel";
 import { useEffect, useState } from "react";
 import {
   analytics,
@@ -59,6 +60,7 @@ import {
   checkCommitmentTotalInputsAreValid,
   getMultiplier,
 } from "./utils/utils";
+import { showRedesign, zoningApiUrl } from "./utils/envFlags";
 import {
   BoroughId,
   DistrictId,
@@ -79,6 +81,9 @@ import { ClearFilterBtn } from "./components/ClearFilter";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { ProjectAmountMenu } from "./components/ProjectAmountMenu";
 import { ProjectAmountMenuInput } from "./components/ProjectAmountMenu/ProjectAmountMenuInput";
+import { HeaderBar } from "./components/HeaderBar";
+import { HowToUseThisToolCopy } from "./components/AdminDropdownContent/HowToUseThisToolCopy";
+import { Legend } from "./components/AdminDropdownContent/Legend";
 
 export const links: LinksFunction = () => {
   return [
@@ -98,11 +103,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
 
   const { agencies } = await findAgencies({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    baseURL: `${zoningApiUrl}/api`,
   });
 
   const { agencyBudgets } = await findAgencyBudgets({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    baseURL: `${zoningApiUrl}/api`,
   });
 
   if (districtType === null) {
@@ -117,7 +122,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   if (districtType === "cd") {
     const { boroughs } = await findBoroughs({
-      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+      baseURL: `${zoningApiUrl}/api`,
     });
 
     if (boroughId === null) {
@@ -132,7 +137,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
         boroughId,
         {
-          baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+          baseURL: `${zoningApiUrl}/api`,
         },
       );
 
@@ -148,7 +153,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   if (districtType === "ccd") {
     const { cityCouncilDistricts } = await findCityCouncilDistricts({
-      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+      baseURL: `${zoningApiUrl}/api`,
     });
     return {
       boroughs: null,
@@ -374,258 +379,586 @@ export default function App() {
                 viewState={viewState}
                 setViewState={(MapViewState) => setViewState(MapViewState)}
               />{" "}
-              <Overlay>
-                <Flex
-                  direction={"column"}
-                  width={{ base: "100%", lg: "auto" }}
-                  alignItems={"center"}
-                  flexShrink={{ lg: 0 }}
-                  maxHeight={{ lg: "100%" }}
-                  overflowX={{ lg: "hidden" }}
-                  overflowY={{ lg: "auto" }}
-                  backgroundColor={"white"}
-                  borderRadius={10}
+              {showRedesign ? (
+                <Grid
+                  templateColumns={{
+                    base: "0 [col-start] 1fr repeat(6, 1fr) 1fr [col-end] 0",
+                    md: "3.1dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 3.1dvw",
+                    lg: "2.4dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 2.4dvw",
+                    xl: "1.8dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.8dvw",
+                    "2xl":
+                      "1.6dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.6dvh",
+                  }}
+                  gap={{
+                    base: "0 3dvw",
+                    lg: "24px 12px",
+                  }}
+                  templateRows={{
+                    base: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh 7dvh",
+                    md: "72px [row-start] 1fr [row-end] 0",
+                    lg: "72px [row-start] 1fr [row-end] 0",
+                  }}
+                  className="thisistheparentGrid"
+                  height="100vh"
                 >
-                  <FilterMenu defaultIndex={0}>
-                    <VStack>
-                      <DistrictTypeDropdown
-                        selectValue={districtType}
-                        setAdminParams={updateSearchParams}
-                      />
-                      <BoroughDropdown
-                        selectValue={boroughId}
-                        boroughs={loaderData.boroughs}
-                        setAdminParams={updateSearchParams}
-                      />
-
-                      {districtType !== "ccd" ? (
-                        <CommunityDistrictDropdown
-                          boroughId={boroughId}
-                          selectValue={districtId}
-                          communityDistricts={loaderData.communityDistricts}
-                          setAdminParams={updateSearchParams}
-                        />
-                      ) : (
-                        <CityCouncilDistrictDropdown
-                          selectValue={districtId}
-                          cityCouncilDistricts={loaderData.cityCouncilDistricts}
-                          setAdminParams={updateSearchParams}
-                        />
-                      )}
-                    </VStack>
-                  </FilterMenu>
-                  <SearchByAttributeMenu defaultIndex={0}>
-                    <VStack>
-                      <AgencyDropdown
-                        selectValue={attributeParams.managingAgency}
-                        agencies={loaderData.agencies}
-                        onSelectValueChange={(value) => {
-                          setAttributeParams({
-                            ...attributeParams,
-                            managingAgency: value,
-                          });
+                  <HeaderBar />
+                  <Overlay>
+                    <GridItem
+                      className={"one"}
+                      border={"1px solid red"}
+                      gridColumn={{
+                        base: "col-start / span 7",
+                        md: "col-start / span 4",
+                        lg: "col-start / span 3",
+                      }}
+                      gridRow={{
+                        base: "row-start / row-end",
+                        md: "row-start / row-end",
+                        lg: "row-start / span 1",
+                      }}
+                      height={{
+                        base: "fit-content",
+                        md: "fit-content",
+                      }}
+                      overflowY={{ lg: "scroll" }}
+                      // maxH={{ base: "82dvh" }}
+                      zIndex={"1"}
+                    >
+                      <Flex
+                        direction={"column"}
+                        width={{ base: "100%", lg: "auto" }}
+                        alignItems={"center"}
+                        flexShrink={{ lg: 0 }}
+                        maxHeight={{
+                          base: "82vh",
+                          lg: "full",
                         }}
-                      />
-                      <ProjectTypeDropdown
-                        selectValue={attributeParams.agencyBudget}
-                        projectTypes={loaderData.agencyBudgets}
-                        onSelectValueChange={(value) => {
-                          setAttributeParams({
-                            ...attributeParams,
-                            agencyBudget: value,
-                          });
-                        }}
-                      />
-
-                      <ProjectAmountMenu
-                        showClearButton={
-                          projectAmountMenuParams.commitmentsTotalMinInputValue !==
-                            "" ||
-                          projectAmountMenuParams.commitmentsTotalMaxInputValue !==
-                            "" ||
-                          projectAmountMenuParams.commitmentsTotalMinSelectValue !==
-                            "K" ||
-                          projectAmountMenuParams.commitmentsTotalMaxSelectValue !==
-                            "K"
-                        }
-                        onProjectAmountMenuClear={() => {
-                          setProjectAmountMenuParams({
-                            commitmentsTotalMinInputValue: "",
-                            commitmentsTotalMaxInputValue: "",
-                            commitmentsTotalMinSelectValue: "K",
-                            commitmentsTotalMaxSelectValue: "K",
-                            commitmentTotalInputsAreValid: true,
-                          });
-                        }}
-                        commitmentTotalInputsAreValid={
-                          projectAmountMenuParams.commitmentTotalInputsAreValid
-                        }
+                        backgroundColor={"white"}
+                        borderRadius={10}
+                        overflowY={"scroll"}
+                        className={"flexOne"}
                       >
-                        <ProjectAmountMenuInput
-                          label={"Minimum"}
+                        <Legend />
+                        <FilterMenu defaultIndex={0}>
+                          <VStack>
+                            <DistrictTypeDropdown
+                              selectValue={districtType}
+                              setAdminParams={updateSearchParams}
+                            />
+                            <BoroughDropdown
+                              selectValue={boroughId}
+                              boroughs={loaderData.boroughs}
+                              setAdminParams={updateSearchParams}
+                            />
+
+                            {districtType !== "ccd" ? (
+                              <CommunityDistrictDropdown
+                                boroughId={boroughId}
+                                selectValue={districtId}
+                                communityDistricts={
+                                  loaderData.communityDistricts
+                                }
+                                setAdminParams={updateSearchParams}
+                              />
+                            ) : (
+                              <CityCouncilDistrictDropdown
+                                selectValue={districtId}
+                                cityCouncilDistricts={
+                                  loaderData.cityCouncilDistricts
+                                }
+                                setAdminParams={updateSearchParams}
+                              />
+                            )}
+                          </VStack>
+                        </FilterMenu>
+                        <SearchByAttributeMenu defaultIndex={0}>
+                          <VStack>
+                            <AgencyDropdown
+                              selectValue={attributeParams.managingAgency}
+                              agencies={loaderData.agencies}
+                              onSelectValueChange={(value) => {
+                                setAttributeParams({
+                                  ...attributeParams,
+                                  managingAgency: value,
+                                });
+                              }}
+                            />
+                            <ProjectTypeDropdown
+                              selectValue={attributeParams.agencyBudget}
+                              projectTypes={loaderData.agencyBudgets}
+                              onSelectValueChange={(value) => {
+                                setAttributeParams({
+                                  ...attributeParams,
+                                  agencyBudget: value,
+                                });
+                              }}
+                            />
+
+                            <ProjectAmountMenu
+                              showClearButton={
+                                projectAmountMenuParams.commitmentsTotalMinInputValue !==
+                                  "" ||
+                                projectAmountMenuParams.commitmentsTotalMaxInputValue !==
+                                  "" ||
+                                projectAmountMenuParams.commitmentsTotalMinSelectValue !==
+                                  "K" ||
+                                projectAmountMenuParams.commitmentsTotalMaxSelectValue !==
+                                  "K"
+                              }
+                              onProjectAmountMenuClear={() => {
+                                setProjectAmountMenuParams({
+                                  commitmentsTotalMinInputValue: "",
+                                  commitmentsTotalMaxInputValue: "",
+                                  commitmentsTotalMinSelectValue: "K",
+                                  commitmentsTotalMaxSelectValue: "K",
+                                  commitmentTotalInputsAreValid: true,
+                                });
+                              }}
+                              commitmentTotalInputsAreValid={
+                                projectAmountMenuParams.commitmentTotalInputsAreValid
+                              }
+                            >
+                              <ProjectAmountMenuInput
+                                label={"Minimum"}
+                                commitmentTotalInputsAreValid={
+                                  projectAmountMenuParams.commitmentTotalInputsAreValid
+                                }
+                                inputValue={
+                                  projectAmountMenuParams.commitmentsTotalMinInputValue
+                                }
+                                selectValue={
+                                  projectAmountMenuParams.commitmentsTotalMinSelectValue
+                                }
+                                onInputValueChange={(value) => {
+                                  const commitmentTotalInputsAreValid =
+                                    checkCommitmentTotalInputsAreValid({
+                                      commitmentsTotalMinInputValue:
+                                        value as CommitmentsTotalMinInputValue,
+                                      commitmentsTotalMaxInputValue:
+                                        projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                      commitmentsTotalMinSelectValue:
+                                        projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                      commitmentsTotalMaxSelectValue:
+                                        projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                    });
+                                  setProjectAmountMenuParams({
+                                    ...projectAmountMenuParams,
+                                    commitmentsTotalMinInputValue: value
+                                      ? value
+                                      : "",
+                                    commitmentTotalInputsAreValid,
+                                  });
+                                }}
+                                onSelectValueChange={(value) => {
+                                  const commitmentTotalInputsAreValid =
+                                    checkCommitmentTotalInputsAreValid({
+                                      commitmentsTotalMinInputValue:
+                                        projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                      commitmentsTotalMaxInputValue:
+                                        projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                      commitmentsTotalMinSelectValue:
+                                        value as CommitmentsTotalMinSelectValue,
+                                      commitmentsTotalMaxSelectValue:
+                                        projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                    });
+                                  setProjectAmountMenuParams({
+                                    ...projectAmountMenuParams,
+                                    commitmentsTotalMinSelectValue: value,
+                                    commitmentTotalInputsAreValid,
+                                  });
+                                }}
+                              />
+
+                              <Flex
+                                grow={1}
+                                justifyContent={"center"}
+                                alignItems={"end"}
+                                mb={"1rem"}
+                              >
+                                <hr
+                                  style={{
+                                    width: "75%",
+                                    color: "var(--dcp-colors-gray-500)",
+                                  }}
+                                />
+                              </Flex>
+
+                              <ProjectAmountMenuInput
+                                label={"Maximum"}
+                                commitmentTotalInputsAreValid={
+                                  projectAmountMenuParams.commitmentTotalInputsAreValid
+                                }
+                                inputValue={
+                                  projectAmountMenuParams.commitmentsTotalMaxInputValue
+                                }
+                                selectValue={
+                                  projectAmountMenuParams.commitmentsTotalMaxSelectValue
+                                }
+                                onInputValueChange={(value) => {
+                                  const commitmentTotalInputsAreValid =
+                                    checkCommitmentTotalInputsAreValid({
+                                      commitmentsTotalMinInputValue:
+                                        projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                      commitmentsTotalMaxInputValue:
+                                        value as CommitmentsTotalMaxInputValue,
+                                      commitmentsTotalMinSelectValue:
+                                        projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                      commitmentsTotalMaxSelectValue:
+                                        projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                    });
+                                  setProjectAmountMenuParams({
+                                    ...projectAmountMenuParams,
+                                    commitmentsTotalMaxInputValue: value
+                                      ? value
+                                      : "",
+                                    commitmentTotalInputsAreValid,
+                                  });
+                                }}
+                                onSelectValueChange={(value) => {
+                                  const commitmentTotalInputsAreValid =
+                                    checkCommitmentTotalInputsAreValid({
+                                      commitmentsTotalMinInputValue:
+                                        projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                      commitmentsTotalMaxInputValue:
+                                        projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                      commitmentsTotalMinSelectValue:
+                                        projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                      commitmentsTotalMaxSelectValue:
+                                        value as CommitmentsTotalMaxSelectValue,
+                                    });
+                                  setProjectAmountMenuParams({
+                                    ...projectAmountMenuParams,
+                                    commitmentsTotalMaxSelectValue: value,
+                                    commitmentTotalInputsAreValid,
+                                  });
+                                }}
+                              />
+                            </ProjectAmountMenu>
+                          </VStack>
+                        </SearchByAttributeMenu>
+                        <Flex width="full" px={4}>
+                          <Button
+                            width="full"
+                            onClick={() => search()}
+                            mt={0}
+                            isDisabled={
+                              (!attributeParams.managingAgency &&
+                                !attributeParams.agencyBudget &&
+                                projectAmountMenuParams.commitmentsTotalMinInputValue ===
+                                  "" &&
+                                projectAmountMenuParams.commitmentsTotalMaxInputValue ===
+                                  "" &&
+                                !districtId) ||
+                              (districtType && !districtId) ||
+                              !projectAmountMenuParams.commitmentTotalInputsAreValid
+                                ? true
+                                : false
+                            }
+                          >
+                            Search
+                          </Button>
+                        </Flex>
+                        <ClearFilterBtn onClear={clearSelections} />
+
+                        <HowToUseThisToolCopy />
+                      </Flex>
+                    </GridItem>
+                    <GridItem
+                      className={"two"}
+                      border={{ base: "1px solid blue", lg: "1px solid red" }}
+                      gridColumn={{
+                        base: "1 / -1",
+                        md: "9 / span 5",
+                        lg: "11 / col-end",
+                      }}
+                      gridRow={{
+                        base: "3 / -1",
+                        md: "row-start / span 3",
+                        lg: "row-start / row-end",
+                      }}
+                      overflowY={{ lg: "scroll" }}
+                      alignSelf={{ base: "end", md: "start" }}
+                      zIndex={"2"}
+                    >
+                      <Flex
+                        direction={{ base: "column-reverse", lg: "column" }}
+                        justify={{ base: "flex-start", lg: "flex-start" }}
+                        align={"flex-end"}
+                        width={"full"}
+                        gap={3}
+                        pointerEvents={"none"}
+                        sx={{
+                          "> *": {
+                            pointerEvents: "auto",
+                          },
+                        }}
+                        overflowY={"hidden"}
+                        className={"flexTwo"}
+                      >
+                        <Outlet />
+                      </Flex>
+                    </GridItem>
+                  </Overlay>
+                </Grid>
+              ) : (
+                // show below if flag is off
+                <Overlay>
+                  <Flex
+                    direction={"column"}
+                    width={{ base: "100%", lg: "auto" }}
+                    alignItems={"center"}
+                    flexShrink={{ lg: 0 }}
+                    maxHeight={{ lg: "100%" }}
+                    overflowX={{ lg: "hidden" }}
+                    overflowY={{ lg: "auto" }}
+                    backgroundColor={"white"}
+                    borderRadius={10}
+                  >
+                    <FilterMenu defaultIndex={0}>
+                      <VStack>
+                        <DistrictTypeDropdown
+                          selectValue={districtType}
+                          setAdminParams={updateSearchParams}
+                        />
+                        <BoroughDropdown
+                          selectValue={boroughId}
+                          boroughs={loaderData.boroughs}
+                          setAdminParams={updateSearchParams}
+                        />
+
+                        {districtType !== "ccd" ? (
+                          <CommunityDistrictDropdown
+                            boroughId={boroughId}
+                            selectValue={districtId}
+                            communityDistricts={loaderData.communityDistricts}
+                            setAdminParams={updateSearchParams}
+                          />
+                        ) : (
+                          <CityCouncilDistrictDropdown
+                            selectValue={districtId}
+                            cityCouncilDistricts={
+                              loaderData.cityCouncilDistricts
+                            }
+                            setAdminParams={updateSearchParams}
+                          />
+                        )}
+                      </VStack>
+                    </FilterMenu>
+                    <SearchByAttributeMenu defaultIndex={0}>
+                      <VStack>
+                        <AgencyDropdown
+                          selectValue={attributeParams.managingAgency}
+                          agencies={loaderData.agencies}
+                          onSelectValueChange={(value) => {
+                            setAttributeParams({
+                              ...attributeParams,
+                              managingAgency: value,
+                            });
+                          }}
+                        />
+                        <ProjectTypeDropdown
+                          selectValue={attributeParams.agencyBudget}
+                          projectTypes={loaderData.agencyBudgets}
+                          onSelectValueChange={(value) => {
+                            setAttributeParams({
+                              ...attributeParams,
+                              agencyBudget: value,
+                            });
+                          }}
+                        />
+
+                        <ProjectAmountMenu
+                          showClearButton={
+                            projectAmountMenuParams.commitmentsTotalMinInputValue !==
+                              "" ||
+                            projectAmountMenuParams.commitmentsTotalMaxInputValue !==
+                              "" ||
+                            projectAmountMenuParams.commitmentsTotalMinSelectValue !==
+                              "K" ||
+                            projectAmountMenuParams.commitmentsTotalMaxSelectValue !==
+                              "K"
+                          }
+                          onProjectAmountMenuClear={() => {
+                            setProjectAmountMenuParams({
+                              commitmentsTotalMinInputValue: "",
+                              commitmentsTotalMaxInputValue: "",
+                              commitmentsTotalMinSelectValue: "K",
+                              commitmentsTotalMaxSelectValue: "K",
+                              commitmentTotalInputsAreValid: true,
+                            });
+                          }}
                           commitmentTotalInputsAreValid={
                             projectAmountMenuParams.commitmentTotalInputsAreValid
                           }
-                          inputValue={
-                            projectAmountMenuParams.commitmentsTotalMinInputValue
-                          }
-                          selectValue={
-                            projectAmountMenuParams.commitmentsTotalMinSelectValue
-                          }
-                          onInputValueChange={(value) => {
-                            const commitmentTotalInputsAreValid =
-                              checkCommitmentTotalInputsAreValid({
-                                commitmentsTotalMinInputValue:
-                                  value as CommitmentsTotalMinInputValue,
-                                commitmentsTotalMaxInputValue:
-                                  projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
-                                commitmentsTotalMinSelectValue:
-                                  projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
-                                commitmentsTotalMaxSelectValue:
-                                  projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
-                              });
-                            setProjectAmountMenuParams({
-                              ...projectAmountMenuParams,
-                              commitmentsTotalMinInputValue: value ? value : "",
-                              commitmentTotalInputsAreValid,
-                            });
-                          }}
-                          onSelectValueChange={(value) => {
-                            const commitmentTotalInputsAreValid =
-                              checkCommitmentTotalInputsAreValid({
-                                commitmentsTotalMinInputValue:
-                                  projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
-                                commitmentsTotalMaxInputValue:
-                                  projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
-                                commitmentsTotalMinSelectValue:
-                                  value as CommitmentsTotalMinSelectValue,
-                                commitmentsTotalMaxSelectValue:
-                                  projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
-                              });
-                            setProjectAmountMenuParams({
-                              ...projectAmountMenuParams,
-                              commitmentsTotalMinSelectValue: value,
-                              commitmentTotalInputsAreValid,
-                            });
-                          }}
-                        />
-
-                        <Flex
-                          grow={1}
-                          justifyContent={"center"}
-                          alignItems={"end"}
-                          mb={"1rem"}
                         >
-                          <hr
-                            style={{
-                              width: "75%",
-                              color: "var(--dcp-colors-gray-500)",
+                          <ProjectAmountMenuInput
+                            label={"Minimum"}
+                            commitmentTotalInputsAreValid={
+                              projectAmountMenuParams.commitmentTotalInputsAreValid
+                            }
+                            inputValue={
+                              projectAmountMenuParams.commitmentsTotalMinInputValue
+                            }
+                            selectValue={
+                              projectAmountMenuParams.commitmentsTotalMinSelectValue
+                            }
+                            onInputValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    value as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
+                              setProjectAmountMenuParams({
+                                ...projectAmountMenuParams,
+                                commitmentsTotalMinInputValue: value
+                                  ? value
+                                  : "",
+                                commitmentTotalInputsAreValid,
+                              });
+                            }}
+                            onSelectValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    value as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
+                              setProjectAmountMenuParams({
+                                ...projectAmountMenuParams,
+                                commitmentsTotalMinSelectValue: value,
+                                commitmentTotalInputsAreValid,
+                              });
                             }}
                           />
-                        </Flex>
 
-                        <ProjectAmountMenuInput
-                          label={"Maximum"}
-                          commitmentTotalInputsAreValid={
-                            projectAmountMenuParams.commitmentTotalInputsAreValid
-                          }
-                          inputValue={
-                            projectAmountMenuParams.commitmentsTotalMaxInputValue
-                          }
-                          selectValue={
-                            projectAmountMenuParams.commitmentsTotalMaxSelectValue
-                          }
-                          onInputValueChange={(value) => {
-                            const commitmentTotalInputsAreValid =
-                              checkCommitmentTotalInputsAreValid({
-                                commitmentsTotalMinInputValue:
-                                  projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
-                                commitmentsTotalMaxInputValue:
-                                  value as CommitmentsTotalMaxInputValue,
-                                commitmentsTotalMinSelectValue:
-                                  projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
-                                commitmentsTotalMaxSelectValue:
-                                  projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                          <Flex
+                            grow={1}
+                            justifyContent={"center"}
+                            alignItems={"end"}
+                            mb={"1rem"}
+                          >
+                            <hr
+                              style={{
+                                width: "75%",
+                                color: "var(--dcp-colors-gray-500)",
+                              }}
+                            />
+                          </Flex>
+
+                          <ProjectAmountMenuInput
+                            label={"Maximum"}
+                            commitmentTotalInputsAreValid={
+                              projectAmountMenuParams.commitmentTotalInputsAreValid
+                            }
+                            inputValue={
+                              projectAmountMenuParams.commitmentsTotalMaxInputValue
+                            }
+                            selectValue={
+                              projectAmountMenuParams.commitmentsTotalMaxSelectValue
+                            }
+                            onInputValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    value as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxSelectValue as CommitmentsTotalMaxSelectValue,
+                                });
+                              setProjectAmountMenuParams({
+                                ...projectAmountMenuParams,
+                                commitmentsTotalMaxInputValue: value
+                                  ? value
+                                  : "",
+                                commitmentTotalInputsAreValid,
                               });
-                            setProjectAmountMenuParams({
-                              ...projectAmountMenuParams,
-                              commitmentsTotalMaxInputValue: value ? value : "",
-                              commitmentTotalInputsAreValid,
-                            });
-                          }}
-                          onSelectValueChange={(value) => {
-                            const commitmentTotalInputsAreValid =
-                              checkCommitmentTotalInputsAreValid({
-                                commitmentsTotalMinInputValue:
-                                  projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
-                                commitmentsTotalMaxInputValue:
-                                  projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
-                                commitmentsTotalMinSelectValue:
-                                  projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
-                                commitmentsTotalMaxSelectValue:
-                                  value as CommitmentsTotalMaxSelectValue,
+                            }}
+                            onSelectValueChange={(value) => {
+                              const commitmentTotalInputsAreValid =
+                                checkCommitmentTotalInputsAreValid({
+                                  commitmentsTotalMinInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMinInputValue as CommitmentsTotalMinInputValue,
+                                  commitmentsTotalMaxInputValue:
+                                    projectAmountMenuParams.commitmentsTotalMaxInputValue as CommitmentsTotalMaxInputValue,
+                                  commitmentsTotalMinSelectValue:
+                                    projectAmountMenuParams.commitmentsTotalMinSelectValue as CommitmentsTotalMinSelectValue,
+                                  commitmentsTotalMaxSelectValue:
+                                    value as CommitmentsTotalMaxSelectValue,
+                                });
+                              setProjectAmountMenuParams({
+                                ...projectAmountMenuParams,
+                                commitmentsTotalMaxSelectValue: value,
+                                commitmentTotalInputsAreValid,
                               });
-                            setProjectAmountMenuParams({
-                              ...projectAmountMenuParams,
-                              commitmentsTotalMaxSelectValue: value,
-                              commitmentTotalInputsAreValid,
-                            });
-                          }}
-                        />
-                      </ProjectAmountMenu>
-                    </VStack>
-                  </SearchByAttributeMenu>
-                  <Flex width="full" px={4}>
-                    <Button
-                      width="full"
-                      onClick={() => search()}
-                      mt={0}
-                      isDisabled={
-                        (!attributeParams.managingAgency &&
-                          !attributeParams.agencyBudget &&
-                          projectAmountMenuParams.commitmentsTotalMinInputValue ===
-                            "" &&
-                          projectAmountMenuParams.commitmentsTotalMaxInputValue ===
-                            "" &&
-                          !districtId) ||
-                        (districtType && !districtId) ||
-                        !projectAmountMenuParams.commitmentTotalInputsAreValid
-                          ? true
-                          : false
-                      }
-                    >
-                      Search
-                    </Button>
+                            }}
+                          />
+                        </ProjectAmountMenu>
+                      </VStack>
+                    </SearchByAttributeMenu>
+                    <Flex width="full" px={4}>
+                      <Button
+                        width="full"
+                        onClick={() => search()}
+                        mt={0}
+                        isDisabled={
+                          (!attributeParams.managingAgency &&
+                            !attributeParams.agencyBudget &&
+                            projectAmountMenuParams.commitmentsTotalMinInputValue ===
+                              "" &&
+                            projectAmountMenuParams.commitmentsTotalMaxInputValue ===
+                              "" &&
+                            !districtId) ||
+                          (districtType && !districtId) ||
+                          !projectAmountMenuParams.commitmentTotalInputsAreValid
+                            ? true
+                            : false
+                        }
+                      >
+                        Search
+                      </Button>
+                    </Flex>
+                    <ClearFilterBtn onClear={clearSelections} />
                   </Flex>
-                  <ClearFilterBtn onClear={clearSelections} />
 
-                  <WelcomePanel />
-                </Flex>
-
-                <Flex
-                  direction={{ base: "column-reverse", lg: "column" }}
-                  justify={{ base: "flex-start", lg: "space-between" }}
-                  align={"flex-end"}
-                  height={"full"}
-                  width={"full"}
-                  gap={3}
-                  pointerEvents={"none"}
-                  sx={{
-                    "> *": {
-                      pointerEvents: "auto",
-                    },
-                  }}
-                >
-                  <Outlet />
-                  <Box>
-                    <img
-                      style={{ height: "1.5rem" }}
-                      alt="NYC Planning"
-                      src="https://raw.githubusercontent.com/NYCPlanning/dcp-logo/master/dcp_logo_772.png"
-                    />
-                  </Box>
-                </Flex>
-              </Overlay>
+                  <Flex
+                    direction={{ base: "column-reverse", lg: "column" }}
+                    justify={{ base: "flex-start", lg: "space-between" }}
+                    align={"flex-end"}
+                    height={"full"}
+                    width={"full"}
+                    gap={3}
+                    pointerEvents={"none"}
+                    sx={{
+                      "> *": {
+                        pointerEvents: "auto",
+                      },
+                    }}
+                  >
+                    <Outlet />
+                    <Box>
+                      <img
+                        style={{ height: "1.5rem" }}
+                        alt="NYC Planning"
+                        src="https://raw.githubusercontent.com/NYCPlanning/dcp-logo/master/dcp_logo_772.png"
+                      />
+                    </Box>
+                  </Flex>
+                </Overlay>
+              )}
             </>
           )}
         </ClientOnly>

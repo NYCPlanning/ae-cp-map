@@ -10,6 +10,7 @@ import { Agency, CapitalProject, CapitalProjectBudgeted } from "~/gen";
 import { CapitalProjectsListItem } from "./CapitalProjectsListItem";
 import { formatFiscalYearRange } from "../../utils/utils";
 import { WarningIcon } from "@chakra-ui/icons";
+import { showRedesign } from "~/utils/envFlags";
 
 export interface CapitalProjectsListProps {
   capitalProjects: CapitalProject[];
@@ -24,6 +25,7 @@ export const CapitalProjectsList = ({
   capitalProjectsTotal,
   isExpanded,
 }: CapitalProjectsListProps) => {
+  console.debug("is expanded cap proj list", isExpanded);
   if (capitalProjectsTotal === 0) {
     return (
       <Flex
@@ -51,10 +53,15 @@ export const CapitalProjectsList = ({
       <Box paddingBottom={4}>
         <Text as={"span"}>Mapped Capital Projects</Text>
       </Box>
-      <Collapse in={isExpanded} startingHeight={200}>
+      <Collapse in={isExpanded} startingHeight={600}>
         <Flex
           direction={"column"}
-          height={{ base: isExpanded ? "70vh" : "100%", lg: "70vh" }}
+          className={"insideCollapse"}
+          height={{
+            base: isExpanded ? "78dvh" : "100%",
+            md: showRedesign ? "70dvh" : "",
+            lg: showRedesign ? "65dvh" : "70dvh",
+          }}
           overflowX={"hidden"}
           overflowY={"auto"}
         >

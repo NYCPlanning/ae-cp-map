@@ -3,6 +3,7 @@ import { remixRoutesOptionAdapter } from "@react-router/remix-routes-option-adap
 
 export default remixRoutesOptionAdapter((defineRoutes) => {
   return defineRoutes((route) => {
+    route("/", "routes/home.tsx");
     route("capital-projects", "routes/capital-projects.tsx");
     route(
       "capital-projects/:managingCode/:capitalProjectId",

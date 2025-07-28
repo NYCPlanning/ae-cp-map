@@ -13,6 +13,7 @@ import {
   useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
+import { showRedesign } from "~/utils/envFlags";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
@@ -37,13 +38,21 @@ export function Atlas({ viewState, setViewState }: AtlasProps) {
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
+
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
 
   const isMobile = useMediaQuery("(max-width: 767px)")[0];
   const widgetPlacement = isMobile ? "top-right" : "bottom-right";
   const widgetStyles = isMobile
-    ? {}
-    : { position: "relative", bottom: "4.5rem" };
+    ? {
+        position: showRedesign ? "relative" : "",
+        top: showRedesign ? "2rem" : "",
+        left: showRedesign ? "5rem" : "",
+      }
+    : {
+        position: "relative",
+        bottom: "4.5rem",
+      };
 
   const ZoomControls = new ZoomWidget({
     id: "zoom",

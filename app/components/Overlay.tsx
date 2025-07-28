@@ -1,12 +1,15 @@
-import { Flex } from "@nycplanning/streetscape";
+import { Flex, Grid } from "@nycplanning/streetscape";
 import { ReactNode } from "react";
+import { showRedesign } from "../utils/envFlags";
 
 export interface OverlayProps {
   children: ReactNode;
 }
 
 export const Overlay = ({ children }: OverlayProps) => {
-  return (
+  return showRedesign ? (
+    <>{children}</>
+  ) : (
     <Flex
       position="relative"
       paddingX={{ base: 0, lg: 8 }}

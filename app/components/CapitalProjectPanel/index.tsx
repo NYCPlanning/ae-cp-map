@@ -1,6 +1,7 @@
 export { CapitalProjectDetail } from "./CapitalProjectDetail";
 export { CapitalCommitmentsTimeline } from "./CapitalCommitmentsTimeline";
 export { CapitalCommitmentsTable } from "./CapitalCommitmentsTable";
+import { showRedesign } from "~/utils/envFlags";
 
 import {
   Collapse,
@@ -48,10 +49,11 @@ export function CapitalProjectPanel(props: CapitalProjectPanelProps) {
   return (
     <Flex
       borderTopRadius={"base"}
+      className={"indexDiv"}
       borderBottomRadius={{ base: "0", lg: "base" }}
       background={"white"}
       direction={"column"}
-      width={{ base: "full", lg: "21.25rem" }}
+      width={{ base: "full", lg: showRedesign ? "full" : "21.25rem" }}
       maxW={{ lg: "unset" }}
       boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
       position={{ base: "fixed", lg: "static" }}
@@ -62,6 +64,7 @@ export function CapitalProjectPanel(props: CapitalProjectPanelProps) {
         isExpanded={commitmentsAreVisible}
         isExpandedToggle={toggleCommitmentsAreVisible}
         marginTop={"0.75rem"}
+        className={"indexTSX"}
       />
       <CapitalProjectDetail
         capitalProject={props.capitalProject}

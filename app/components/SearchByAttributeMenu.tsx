@@ -8,6 +8,7 @@ import {
   Box,
 } from "@nycplanning/streetscape";
 import { analyticsTrackSearchByAttributeToggle } from "~/utils/analytics";
+import { showRedesign } from "~/utils/envFlags";
 
 export const SearchByAttributeMenu = ({
   children,
@@ -15,15 +16,17 @@ export const SearchByAttributeMenu = ({
 }: SearchByAttributeMenuProps) => (
   <Accordion
     allowToggle
+    allowMultiple={showRedesign ? false : true}
     borderRadius={"none"}
     padding={{ base: 3, lg: 4 }}
     background={"white"}
-    width={{ base: "full", lg: "21.25rem" }}
+    width={{ base: "full", lg: showRedesign ? "full" : "21.25rem" }}
     maxW={{ base: "21.25rem", lg: "unset" }}
     marginBottom={{ base: 3, lg: 4 }}
     borderY={"1px solid"}
     borderColor={"gray.300"}
-    defaultIndex={defaultIndex}
+    defaultIndex={showRedesign ? undefined : defaultIndex}
+    className={"searchByAttributeMenu"}
     onChange={analyticsTrackSearchByAttributeToggle}
   >
     <AccordionItem border="none">

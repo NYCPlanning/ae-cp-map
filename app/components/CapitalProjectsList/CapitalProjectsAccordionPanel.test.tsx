@@ -23,6 +23,7 @@ describe("CapitalProjectsAccordionPanel", () => {
           capitalProjects={capitalProjects}
           capitalProjectsTotal={2}
           agencies={agencies}
+          agencyBudgets={[]}
         >
           <></>
         </CapitalProjectsAccordionPanel>
