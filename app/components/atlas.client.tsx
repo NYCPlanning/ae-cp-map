@@ -94,7 +94,17 @@ export function Atlas({ viewState, setViewState }: AtlasProps) {
       widgets={isMobile ? [] : [ZoomControls, CompassControls]}
     >
       <Map
-        mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
+        mapStyle={
+          "https://dcp-ae-sandbox-api.azure-api.net/sandbox-basemap/styles/positron/style.json"
+        }
+        transformRequest={(url) => {
+          const nextUrl = url.includes("dcp-ae-sandbox-api.azure-api.net")
+            ? `${url}?basemap-access-token=${import.meta.env.VITE_BASEMAP_ACCESS_TOKEN}`
+            : url;
+          return {
+            url: nextUrl,
+          };
+        }}
         attributionControl={isMobile ? false : true}
       ></Map>
     </DeckGL>
