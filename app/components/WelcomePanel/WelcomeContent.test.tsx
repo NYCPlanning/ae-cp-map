@@ -34,7 +34,7 @@ describe("WelcomeContent", () => {
       screen.getByRole("link", { name: "Bytes of the Big Apple" }),
     ).toHaveAttribute(
       "href",
-      "https://www.nyc.gov/site/planning/data-maps/open-data/dwn-capital-planning-database.page",
+      "https://www.nyc.gov/content/planning/pages/resources/datasets/capital-projects-database",
     );
   });
 });

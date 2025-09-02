@@ -76,7 +76,7 @@ export function WelcomeContent() {
             _hover={{
               textDecoration: "underline",
             }}
-            href="https://www.nyc.gov/site/planning/data-maps/open-data/dwn-capital-planning-database.page"
+            href="https://www.nyc.gov/content/planning/pages/resources/datasets/capital-projects-database"
             isExternal
           >
             Bytes of the Big Apple
