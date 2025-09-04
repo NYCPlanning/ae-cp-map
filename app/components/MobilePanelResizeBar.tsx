@@ -9,7 +9,6 @@ export function MobilePanelResizeBar({
   isExpandedToggle,
   ...props
 }: MobilePanelResizeBarProps) {
-  console.debug("isExpanded mobile resize bar", isExpanded);
   return (
     <Hide above="lg">
       <Box

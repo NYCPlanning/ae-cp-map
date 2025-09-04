@@ -386,11 +386,10 @@ export default function App() {
                     md: "3.1dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 3.1dvw",
                     lg: "2.4dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 2.4dvw",
                     xl: "1.8dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.8dvw",
-                    "2xl":
-                      "1.6dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.6dvh",
                   }}
                   gap={{
                     base: "0 3dvw",
+                    md: "12px 1.6dvw",
                     lg: "24px 12px",
                   }}
                   templateRows={{
@@ -405,7 +404,6 @@ export default function App() {
                   <Overlay>
                     <GridItem
                       className={"one"}
-                      border={"1px solid red"}
                       gridColumn={{
                         base: "col-start / span 7",
                         md: "col-start / span 4",
@@ -665,11 +663,10 @@ export default function App() {
                     </GridItem>
                     <GridItem
                       className={"two"}
-                      border={{ base: "1px solid blue", lg: "1px solid red" }}
                       gridColumn={{
                         base: "1 / -1",
                         md: "9 / span 5",
-                        lg: "11 / col-end",
+                        xl: "10 / col-end",
                       }}
                       gridRow={{
                         base: "3 / -1",

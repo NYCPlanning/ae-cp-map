@@ -38,14 +38,7 @@ export const CapitalProjectsAccordionPanel = ({
   | CapitalProjectsAccordionPanelProps
   | LegacyCapitalProjectsAccordionPanelProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  useEffect(
-    () => console.debug("isExpanded Accordian", isExpanded),
-    [isExpanded],
-  );
 
-  console.debug("showRedesign", showRedesign);
-
-  console.debug("showRedesign flag on?", showRedesign);
   if (showRedesign) {
     return (
       <>
@@ -59,28 +52,34 @@ export const CapitalProjectsAccordionPanel = ({
           className={"accordianWrapper"}
         >
           <Accordion
-            // defaultIndex={[0]}
+            defaultIndex={[0]}
             // allowMultiple={false}
             allowToggle
             onChange={analyticsTrackSelectedDistrictToggle}
-            marginLeft={{ base: "3dvw" }}
-            marginRight={{ base: "3dvw" }}
-            marginBottom={{ base: "2dvw" }}
-            className={"theAccordian"}
+            margin={{
+              base: "0 3dvw 2dvh 3dvw",
+              md: "1dvh 1dvw .5dvh 1dvw",
+            }}
+            className={"capProjAccordian"}
           >
-            <AccordionItem border="none" className={"accordianItem"}>
+            <AccordionItem border="none" className={"capProjAccordianItem"}>
               <AccordionButton
                 padding="0px"
                 aria-label="Toggle project list panel"
-                height={{ base: "7dvh" }}
+                height={{
+                  base: "7dvh",
+                  md: "initial",
+                }}
               >
                 <Box as="span" flex="1" textAlign="left">
                   <Heading
                     color="gray.600"
                     fontWeight={"bold"}
                     fontSize={"lg"}
-                    paddingBottom={"8px"}
+                    marginBottom={{ md: "1dvh" }}
+                    padding={{ md: "0.5dvh 0" }}
                   >
+                    {/* remove star after "Results" before deployment */}
                     {capitalProjectsTotal} Results *
                   </Heading>
                 </Box>

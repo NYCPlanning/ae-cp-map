@@ -25,7 +25,6 @@ export const CapitalProjectsList = ({
   capitalProjectsTotal,
   isExpanded,
 }: CapitalProjectsListProps) => {
-  console.debug("is expanded cap proj list", isExpanded);
   if (capitalProjectsTotal === 0) {
     return (
       <Flex
