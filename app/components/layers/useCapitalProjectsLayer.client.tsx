@@ -25,7 +25,8 @@ const capitalProjectsInCommunityDistrictRoutePrefix =
 const capitalProjectsInCityCouncilDistrictRoutePrefix =
   "routes/city-council-districts.$cityCouncilDistrictId.capital-projects";
 
-export function useCapitalProjectsLayer() {
+export function useCapitalProjectsLayer(opts?: { visible?: boolean }) {
+  const visible = opts?.visible ?? true;
   const { managingCode, capitalProjectId } = useParams();
   const [searchParams] = useSearchParams();
   const managingAgency = searchParams.get("managingAgency");
@@ -76,6 +77,7 @@ export function useCapitalProjectsLayer() {
     ],
     uniqueIdProperty: "managingCodeCapitalProjectId",
     autoHighlight: true,
+    visible,
     highlightColor: [129, 230, 217, 218],
     pickable: true,
     getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>

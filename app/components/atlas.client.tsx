@@ -29,10 +29,17 @@ export const INITIAL_VIEW_STATE = {
 interface AtlasProps {
   viewState: MapViewState;
   setViewState: (newViewState: MapViewState) => void;
+  showCapitalProjects: boolean;
 }
 
-export function Atlas({ viewState, setViewState }: AtlasProps) {
-  const capitalProjectsLayer = useCapitalProjectsLayer();
+export function Atlas({
+  viewState,
+  setViewState,
+  showCapitalProjects,
+}: AtlasProps) {
+  const capitalProjectsLayer = useCapitalProjectsLayer({
+    visible: showCapitalProjects,
+  });
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();

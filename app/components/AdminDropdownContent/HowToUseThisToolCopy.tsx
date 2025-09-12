@@ -22,7 +22,6 @@ export function HowToUseThisToolCopy() {
         boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
         borderTopWidth={"1px"}
         borderTopColor={"gray.50"}
-        defaultIndex={0}
         className={"howToUse"}
       >
         <AccordionItem border="none">

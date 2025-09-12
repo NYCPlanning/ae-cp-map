@@ -15,16 +15,13 @@ export function Legend() {
       <Accordion
         allowToggle
         borderBottomRadius={"base"}
-        padding={{ base: 3, lg: 4 }}
+        padding={{ base: 3, lg: "0 12px" }}
         background={"white"}
         width={{ base: "full", lg: "full" }}
         maxW={{ base: "21.25rem", lg: "unset" }}
-        // boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
         borderTopWidth={"1px"}
         borderTopColor={"gray.50"}
-        // defaultIndex={0}
         className={"Legend"}
-        // onChange={analyticsWelcomePanelToggle}
       >
         <AccordionItem border="none">
           <AccordionButton aria-label="Toggle welcome panel" px={0}>

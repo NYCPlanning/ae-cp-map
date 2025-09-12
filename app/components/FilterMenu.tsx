@@ -12,6 +12,7 @@ import { showRedesign } from "~/utils/envFlags";
 
 export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
   <Accordion
+    defaultIndex={defaultIndex}
     allowToggle
     allowMultiple={showRedesign ? false : true}
     borderRadius={"none"}
@@ -19,7 +20,6 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
     background={"white"}
     width={{ base: "full", lg: showRedesign ? "full" : "21.25rem" }}
     maxW={{ base: "21.25rem", lg: "unset" }}
-    defaultIndex={showRedesign ? undefined : defaultIndex}
     className={"filterMenu"}
     onChange={analyticsTrackFilterByDistrictToggle}
   >
@@ -32,7 +32,7 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
           fontSize="large"
           fontWeight="medium"
         >
-          Filter by District
+          {showRedesign ? "Filter by Location" : "Filter by District "}
         </Box>
         <AccordionIcon />
       </AccordionButton>
