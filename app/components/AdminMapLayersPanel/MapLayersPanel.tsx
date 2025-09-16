@@ -18,7 +18,8 @@ export function MapLayersPanel({ children }: { children: React.ReactNode }) {
       borderTopColor="gray.50"
       bg="white"
       px={{ base: 3, lg: 3 }}
-      pb={{ base: 3, lg: 0 }}
+      paddingTop={{ md: "0" }}
+      paddingBottom={{ md: "0" }}
       width={{ base: "full", lg: "full" }}
       maxW={{ base: "21.25rem", lg: "unset" }}
       borderBottomRadius="base"

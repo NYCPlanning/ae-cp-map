@@ -448,7 +448,7 @@ export default function App() {
                             onCapitalProjectsToggle={setShowCapitalProjects}
                           />
                         </MapLayersPanel>
-                        <Legend />
+                        {/* <Legend /> */}
                         <FilterMenu defaultIndex={0}>
                           <VStack>
                             <DistrictTypeDropdown
