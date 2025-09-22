@@ -7,16 +7,10 @@ import {
   HStack,
   IconButton,
   PlacementWithLogical,
-  Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverContent,
-  PopoverTrigger,
-  Portal,
   Switch,
-  Tooltip,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { Tooltip } from "@nycplanning/streetscape";
 import { useRef } from "react";
 
 export type LayerVisibilityTogglesProps = {
@@ -28,16 +22,20 @@ export function LayerVisibilityToggles({
   capitalProjectsOn,
   onCapitalProjectsToggle,
 }: LayerVisibilityTogglesProps) {
-  const portalRef = useRef<HTMLDivElement>(null);
+  const capitalProjectsTooltipCopy = `New York City’s potential, planned, and ongoing capital projects.
+  Unmapped projects, such as the purchase of vehicles or digital infrastructure, are not included in this tool.
+  `;
+
+  const capitalProjectsBudgetTooltipCopy = `Every year, boards submit prioritized  capital budget requests that address local needs.
+    Expense requests are not included in this tool. All capital budget requests, mapped and unmapped, are included.
+   `;
+
   const placement =
     useBreakpointValue<PlacementWithLogical>({
-      base: "bottom",
+      base: "bottom-start",
+      // base: "bottom",
       md: "right",
     }) ?? "bottom";
-  const popperOffset = useBreakpointValue<[number, number]>({
-    base: [0, 8],
-    md: [-6, 12],
-  }) ?? [0, 8];
 
   return (
     <>
@@ -67,71 +65,35 @@ export function LayerVisibilityToggles({
           </HStack>
 
           <HStack spacing={3}>
-            <Popover
-              closeOnBlur
-              closeOnEsc
+            <Tooltip
+              hasArrow
+              label={capitalProjectsTooltipCopy}
+              maxWidth={"15rem"}
+              // onClose={function Ya() {}}
+              // onOpen={function Ya() {}}
               placement={placement}
-              trigger={"hover"}
-              modifiers={[
-                {
-                  name: "preventOverflow",
-                  options: {
-                    rootBoundary: "viewport",
-                    padding: 12,
-                    altAxis: true,
-                    tether: true,
-                  },
-                },
-                {
-                  name: "flip",
-                  options: {
-                    rootBoundary: "viewport",
-                    fallbackPlacements: ["top", "bottom", "right", "left"],
-                  },
-                },
-              ]}
-              // strategy="fixed"
             >
-              <PopoverTrigger>
-                <IconButton
-                  aria-label="information about the capital planning portal"
-                  icon={<InfoIcon boxSize={5} verticalAlign={"bottom"} />}
-                  size="sm"
-                  w="2.25rem"
-                  h="2.25rem"
-                  isRound
-                  borderColor={"white"}
-                  borderStyle="solid"
-                  borderWidth="5px"
-                  color={"gray.600"}
-                  minHeight="auto"
-                  minWidth="auto"
-                  backgroundColor={"white"}
-                  _hover={{
-                    bg: "blackAlpha.100",
-                  }}
-                  _focus={{ borderColor: "white" }}
-                  onClick={() => console.log("hello")}
-                />
-              </PopoverTrigger>
-              <Portal containerRef={portalRef}>
-                <PopoverContent
-                  background={"gray.800"}
-                  color={"white"}
-                  width={"15rem"}
-                  zIndex={"10"}
-                  fontSize={"small"}
-                >
-                  <PopoverArrow background="yellow" />
-
-                  <PopoverBody padding={"5px"}>
-                    New York City’s potential, planned, and ongoing capital
-                    projects. Unmapped projects, such as the purchase of or
-                    digital infrastructure, are not included in this tool.
-                  </PopoverBody>
-                </PopoverContent>
-              </Portal>
-            </Popover>
+              <IconButton
+                aria-label="information about the capital planning portal"
+                icon={<InfoIcon boxSize={5} verticalAlign={"bottom"} />}
+                size="sm"
+                w="2.25rem"
+                h="2.25rem"
+                isRound
+                borderColor={"white"}
+                borderStyle="solid"
+                borderWidth="5px"
+                color={"gray.600"}
+                minHeight="auto"
+                minWidth="auto"
+                backgroundColor={"white"}
+                _hover={{
+                  bg: "blackAlpha.100",
+                }}
+                _focus={{ borderColor: "white" }}
+                onClick={() => console.log("hello")}
+              />
+            </Tooltip>
             <Box
               height={"1.25rem"}
               width={"1.25rem"}
@@ -140,11 +102,10 @@ export function LayerVisibilityToggles({
             ></Box>
           </HStack>
         </FormControl>
-        <Box ref={portalRef} id="layers-panel-popovers-root" />
       </Box>
 
-      {/* Skeleton for CBBR switch */}
-      {/* <Box>
+      {/* Wireframe for CBBR switch */}
+      <Box>
         <FormControl
           display="flex"
           alignItems="center"
@@ -170,27 +131,35 @@ export function LayerVisibilityToggles({
           </HStack>
 
           <HStack spacing={3}>
-            <IconButton
-              aria-label="information about the capital planning portal"
-              icon={<InfoIcon boxSize={5} verticalAlign={"bottom"} />}
-              size="sm"
-              w="2.25rem"
-              h="2.25rem"
-              isRound
-              borderColor={"white"}
-              borderStyle="solid"
-              borderWidth="5px"
-              borderRadius={"100%"}
-              color={"gray.600"}
-              minHeight="auto"
-              minWidth="auto"
-              backgroundColor={"white"}
-              _hover={{
-                bg: "blackAlpha.100",
-              }}
-              _focus={{ borderColor: "white" }}
-              onClick={() => console.log("hello")}
-            />
+            <Tooltip
+              hasArrow
+              label={capitalProjectsBudgetTooltipCopy}
+              maxWidth={"15rem"}
+              // onClose={function Ya() {}}
+              // onOpen={function Ya() {}}
+              placement={placement}
+            >
+              <IconButton
+                aria-label="information about the capital planning budget requests"
+                icon={<InfoIcon boxSize={5} verticalAlign={"bottom"} />}
+                size="sm"
+                w="2.25rem"
+                h="2.25rem"
+                isRound
+                borderColor={"white"}
+                borderStyle="solid"
+                borderWidth="5px"
+                color={"gray.600"}
+                minHeight="auto"
+                minWidth="auto"
+                backgroundColor={"white"}
+                _hover={{
+                  bg: "blackAlpha.100",
+                }}
+                _focus={{ borderColor: "white" }}
+                onClick={() => console.log("hello")}
+              />
+            </Tooltip>
             <Box
               height={"1.25rem"}
               width={"1.25rem"}
@@ -199,7 +168,7 @@ export function LayerVisibilityToggles({
             ></Box>
           </HStack>
         </FormControl>
-      </Box> */}
+      </Box>
     </>
   );
 }
