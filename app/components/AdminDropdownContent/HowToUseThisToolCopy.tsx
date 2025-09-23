@@ -14,8 +14,11 @@ export function HowToUseThisToolCopy() {
     <>
       <Accordion
         allowToggle
+        defaultIndex={[0]}
         borderBottomRadius={"base"}
-        padding={{ base: 3, lg: 4 }}
+        padding={{ base: 3, lg: 3 }}
+        paddingTop={{ lg: "0" }}
+        paddingBottom={{ lg: "0" }}
         background={"white"}
         width={{ base: "full", lg: "full" }}
         maxW={{ base: "21.25rem", lg: "unset" }}
@@ -24,28 +27,24 @@ export function HowToUseThisToolCopy() {
         borderTopColor={"gray.50"}
         className={"howToUse"}
       >
-        <AccordionItem border="none">
+        <AccordionItem borderTopWidth="0">
           <AccordionButton aria-label="Toggle welcome panel" px={0}>
             <Heading
-              fontSize="medium"
-              fontWeight="medium"
-              lineHeight={"32px"}
               display={"flex"}
-              justifyContent={"space-between"}
               flex="1"
+              justifyContent={"space-between"}
+              fontSize="medium"
+              fontWeight="bold"
+              lineHeight={"32px"}
+              pb={0}
             >
               How to Use This Tool
             </Heading>
             <AccordionIcon />
           </AccordionButton>
-          <AccordionPanel pb={0} px={0}>
+
+          <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200">
             <Box>
-              <Box
-                borderBottomStyle={"solid"}
-                borderBottomColor={"gray.200"}
-                borderBottomWidth={"1px"}
-                marginBottom={3}
-              ></Box>
               <Text fontSize={"small"}>
                 Select a project on the map to learn more about the relevant
                 agencies and capital commitments, or select a Community Board

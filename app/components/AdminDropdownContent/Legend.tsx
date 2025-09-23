@@ -37,14 +37,15 @@ export function Legend() {
             </Heading>
             <AccordionIcon />
           </AccordionButton>
-          <AccordionPanel pb={0} px={0}>
+          <AccordionPanel
+            pb={0}
+            px={0}
+            borderBottomStyle={"solid"}
+            borderBottomColor={"gray.200"}
+            // borderBottomWidth={"1px"}
+          >
             <Box>
-              <Box
-                borderBottomStyle={"solid"}
-                borderBottomColor={"gray.200"}
-                borderBottomWidth={"1px"}
-                marginBottom={3}
-              ></Box>
+              <Box marginBottom={3}></Box>
               <Text fontSize={"small"}>LEGEND CONTENT</Text>
             </Box>
           </AccordionPanel>

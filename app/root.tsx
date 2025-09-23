@@ -423,7 +423,7 @@ export default function App() {
                       }}
                       height={{
                         base: "fit-content",
-                        md: "fit-content",
+                        md: "100%",
                       }}
                       overflowY={{ lg: "scroll" }}
                       zIndex={"1"}
@@ -481,7 +481,8 @@ export default function App() {
                             )}
                           </VStack>
                         </FilterMenu>
-                        <Flex width="full" px={4}>
+                        {/* Funtionality to be moved to left panel */}
+                        {/* <Flex width="full" px={4}>
                           <Button
                             width="full"
                             onClick={() => search()}
@@ -503,7 +504,7 @@ export default function App() {
                             Search
                           </Button>
                         </Flex>
-                        <ClearFilterBtn onClear={clearSelections} />
+                        <ClearFilterBtn onClear={clearSelections} /> */}
 
                         <HowToUseThisToolCopy />
                       </Flex>
@@ -522,6 +523,7 @@ export default function App() {
                       }}
                       overflowY={{ lg: "scroll" }}
                       alignSelf={{ base: "end", md: "start" }}
+                      height={{ md: "100%" }}
                       zIndex={"2"}
                     >
                       <Flex

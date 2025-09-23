@@ -11,7 +11,6 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { Tooltip } from "@nycplanning/streetscape";
-import { useRef } from "react";
 
 export type LayerVisibilityTogglesProps = {
   capitalProjectsOn: boolean;
@@ -39,12 +38,13 @@ export function LayerVisibilityToggles({
 
   return (
     <>
-      <Box mb={4} className={"switchWrapper"}>
+      <Box className={"switchWrapper"}>
         <FormControl
           display="flex"
-          // alignItems="center"
+          alignItems="flex-start"
           justifyContent="space-between"
           gap={3}
+          paddingTop={2}
         >
           <HStack spacing={3}>
             <Switch
@@ -64,7 +64,7 @@ export function LayerVisibilityToggles({
             </FormLabel>
           </HStack>
 
-          <HStack spacing={3}>
+          <HStack spacing={3} alignItems="flex-start">
             <Tooltip
               hasArrow
               label={capitalProjectsTooltipCopy}
@@ -75,18 +75,17 @@ export function LayerVisibilityToggles({
             >
               <IconButton
                 aria-label="information about the capital planning portal"
-                icon={<InfoIcon boxSize={5} verticalAlign={"bottom"} />}
+                icon={<InfoIcon boxSize={5} verticalAlign={"top"} />}
                 size="sm"
-                w="2.25rem"
-                h="2.25rem"
                 isRound
                 borderColor={"white"}
                 borderStyle="solid"
-                borderWidth="5px"
+                border={"none"}
                 color={"gray.600"}
                 minHeight="auto"
                 minWidth="auto"
                 backgroundColor={"white"}
+                verticalAlign={"top"}
                 _hover={{
                   bg: "blackAlpha.100",
                 }}
@@ -105,14 +104,14 @@ export function LayerVisibilityToggles({
       </Box>
 
       {/* Wireframe for CBBR switch */}
-      <Box>
+      {/* <Box>
         <FormControl
           display="flex"
-          alignItems="center"
+          alignItems="flex-start"
           justifyContent="space-between"
           gap={3}
         >
-          <HStack>
+          <HStack alignItems={"flex-start"}>
             <Switch id="cb-capital-budget-requests" />
             <FormLabel
               htmlFor="cb-capital-budget-requests"
@@ -130,7 +129,11 @@ export function LayerVisibilityToggles({
             </FormLabel>
           </HStack>
 
-          <HStack spacing={3}>
+          <HStack
+            spacing={3}
+            alignItems={"flex-start"}
+            className={"budgetsSwitchWrapper"}
+          >
             <Tooltip
               hasArrow
               label={capitalProjectsBudgetTooltipCopy}
@@ -141,18 +144,17 @@ export function LayerVisibilityToggles({
             >
               <IconButton
                 aria-label="information about the capital planning budget requests"
-                icon={<InfoIcon boxSize={5} verticalAlign={"bottom"} />}
+                icon={<InfoIcon boxSize={5} verticalAlign={"top"} />}
                 size="sm"
-                w="2.25rem"
-                h="2.25rem"
                 isRound
                 borderColor={"white"}
                 borderStyle="solid"
-                borderWidth="5px"
+                border={"none"}
                 color={"gray.600"}
                 minHeight="auto"
                 minWidth="auto"
                 backgroundColor={"white"}
+                verticalAlign={"top"}
                 _hover={{
                   bg: "blackAlpha.100",
                 }}
@@ -168,7 +170,7 @@ export function LayerVisibilityToggles({
             ></Box>
           </HStack>
         </FormControl>
-      </Box>
+      </Box> */}
     </>
   );
 }

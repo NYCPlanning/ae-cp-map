@@ -6,9 +6,10 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
+  Heading,
 } from "@nycplanning/streetscape";
-import { analyticsTrackFilterByDistrictToggle } from "~/utils/analytics";
-import { showRedesign } from "~/utils/envFlags";
+import { analyticsTrackFilterByDistrictToggle } from "../utils/analytics";
+import { showRedesign } from "../utils/envFlags";
 
 export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
   <Accordion
@@ -16,30 +17,77 @@ export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
     allowToggle
     allowMultiple={showRedesign ? false : true}
     borderRadius={"none"}
-    padding={{ base: 3, lg: 4 }}
+    padding={{ base: 3, lg: 3 }}
+    paddingTop={{ lg: "0" }}
+    paddingBottom={{ lg: "0" }}
     background={"white"}
     width={{ base: "full", lg: showRedesign ? "full" : "21.25rem" }}
     maxW={{ base: "21.25rem", lg: "unset" }}
+    // borderBottomWidth="0"
     className={"filterMenu"}
     onChange={analyticsTrackFilterByDistrictToggle}
   >
-    <AccordionItem borderTopWidth="0">
-      <AccordionButton aria-label="Close geography filter menu" px={0}>
-        <Box
-          as="span"
-          flex="1"
-          textAlign="left"
-          fontSize="large"
-          fontWeight="medium"
+    {showRedesign ? (
+      <AccordionItem
+        borderBottomWidth="0"
+        borderTopRadius={"1"}
+        className={"isItHere"}
+      >
+        <AccordionButton aria-label="Close geography filter menu" px={0}>
+          <Heading
+            flex="1"
+            textAlign="left"
+            fontSize="medium"
+            fontWeight="bold"
+            lineHeight="32px"
+          >
+            Filter by Location
+          </Heading>
+          <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel
+          pb={0}
+          borderBottomWidth="0"
+          // sx={{
+          //   '& .chakra-stack > [role="group"]:last-child': {
+          //     marginBottom: "0",
+          //     paddingBottom: "0",
+          //     bottomBorderWidth: "0",
+          //   },
+          //   '& > [role="group"]:last-child': {
+          //     marginBottom: "0",
+          //     paddingBottom: "0",
+          //     bottomBorderWidth: "0",
+          //   },
+          // }}
         >
-          {showRedesign ? "Filter by Location" : "Filter by District "}
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-      <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200" px={0}>
-        {children}
-      </AccordionPanel>
-    </AccordionItem>
+          {children}
+        </AccordionPanel>
+      </AccordionItem>
+    ) : (
+      <AccordionItem borderTopWidth="0">
+        <AccordionButton aria-label="Close geography filter menu" px={0}>
+          <Box
+            as="span"
+            flex="1"
+            textAlign="left"
+            fontSize="large"
+            fontWeight="medium"
+          >
+            Filter by District
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel
+          pb={0}
+          borderTopWidth="1px"
+          borderColor="gray.200"
+          px={0}
+        >
+          {children}
+        </AccordionPanel>
+      </AccordionItem>
+    )}
   </Accordion>
 );
 
