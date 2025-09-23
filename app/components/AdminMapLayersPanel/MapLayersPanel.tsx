@@ -14,25 +14,24 @@ export function MapLayersPanel({ children }: { children: React.ReactNode }) {
     <Accordion
       defaultIndex={[0]}
       allowToggle
-      borderTopWidth="1px"
       borderTopColor="gray.50"
       bg="white"
-      px={{ base: 3, lg: 3 }}
-      paddingTop={{ md: "0" }}
-      paddingBottom={{ md: "0" }}
+      padding={{ base: 3, lg: 3 }}
+      paddingTop={{ lg: "0" }}
+      paddingBottom={{ lg: "0" }}
       width={{ base: "full", lg: "full" }}
       maxW={{ base: "21.25rem", lg: "unset" }}
       borderBottomRadius="base"
     >
-      <AccordionItem border="none">
+      <AccordionItem borderTopWidth="0">
         <AccordionButton px={0} aria-label="Toggle layers panel">
           <Heading
             flex="1"
             textAlign="left"
-            fontSize="lg"
-            fontWeight="medium"
+            fontSize="md"
+            fontWeight="bold"
             lineHeight="32px"
-            mb="1dvh"
+            pb={0}
           >
             Capital Planning Layers
           </Heading>

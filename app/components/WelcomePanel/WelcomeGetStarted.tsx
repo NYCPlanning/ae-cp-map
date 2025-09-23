@@ -65,18 +65,21 @@ export function WelcomeGetStarted({
         boxSizing={"border-box"}
         borderTop={"2px solid"}
         borderColor={"gray.200"}
-        height={"15dvh"}
+        gap={"1dvh"}
+        marginBottom={"1dvh"}
         className={"getStartedWrapper"}
       >
+        <Box></Box>
         <Checkbox onChange={handleChange} {...checkboxProps}>
           {label}
         </Checkbox>
-        <Box width={"161px"} className={"buttonWrapper"}>
+        <Box width={"161px"}>
           <Button size="md" variant="primary" onClick={handleButtonClick}>
             Get Started
             <ChevronRightIcon />
           </Button>
         </Box>
+        <Box></Box>
       </Box>
     </>
   );

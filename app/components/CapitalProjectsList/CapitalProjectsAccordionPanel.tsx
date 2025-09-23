@@ -49,7 +49,6 @@ export const CapitalProjectsAccordionPanel = ({
           borderTopRightRadius={"base"}
           width={"full"}
           zIndex={{ base: "2" }}
-          className={"accordianWrapper"}
         >
           <Accordion
             defaultIndex={[0]}
@@ -60,9 +59,8 @@ export const CapitalProjectsAccordionPanel = ({
               base: "0 3dvw 2dvh 3dvw",
               md: "1dvh 1dvw .5dvh 1dvw",
             }}
-            className={"capProjAccordian"}
           >
-            <AccordionItem border="none" className={"capProjAccordianItem"}>
+            <AccordionItem border="none">
               <AccordionButton
                 padding="0px"
                 aria-label="Toggle project list panel"
@@ -83,12 +81,11 @@ export const CapitalProjectsAccordionPanel = ({
                     {capitalProjectsTotal} Results *
                   </Heading>
                 </Box>
-                <AccordionIcon size="lg" className={"collapseButton"} />
+                <AccordionIcon size="lg" />
                 <Box borderTopWidth={"1px"} paddingBottom={4} />
               </AccordionButton>
               <AccordionPanel
                 padding={"0px"}
-                className={"accordianPanelSubItem"}
                 overflowY={"hidden"}
                 height={{ base: "83dvh", md: "initial" }}
                 display={{ base: "flex" }}

@@ -55,7 +55,6 @@ export const CapitalProjectsList = ({
       <Collapse in={isExpanded} startingHeight={600}>
         <Flex
           direction={"column"}
-          className={"insideCollapse"}
           height={{
             base: isExpanded ? "78dvh" : "100%",
             md: showRedesign ? "70dvh" : "",

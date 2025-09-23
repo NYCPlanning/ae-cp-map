@@ -26,7 +26,6 @@ export const SearchByAttributeMenu = ({
     borderY={"1px solid"}
     borderColor={"gray.300"}
     defaultIndex={showRedesign ? undefined : defaultIndex}
-    className={"searchByAttributeMenu"}
     onChange={analyticsTrackSearchByAttributeToggle}
   >
     <AccordionItem border="none">
@@ -42,7 +41,7 @@ export const SearchByAttributeMenu = ({
         </Box>
         <AccordionIcon />
       </AccordionButton>
-      <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200" px={0}>
+      <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200">
         {children}
       </AccordionPanel>
     </AccordionItem>

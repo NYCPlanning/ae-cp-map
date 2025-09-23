@@ -49,7 +49,6 @@ export function CapitalProjectPanel(props: CapitalProjectPanelProps) {
   return (
     <Flex
       borderTopRadius={"base"}
-      className={"indexDiv"}
       borderBottomRadius={{ base: "0", lg: "base" }}
       background={"white"}
       direction={"column"}
@@ -64,7 +63,6 @@ export function CapitalProjectPanel(props: CapitalProjectPanelProps) {
         isExpanded={commitmentsAreVisible}
         isExpandedToggle={toggleCommitmentsAreVisible}
         marginTop={"0.75rem"}
-        className={"indexTSX"}
       />
       <CapitalProjectDetail
         capitalProject={props.capitalProject}

@@ -404,13 +404,11 @@ export default function App() {
                     md: "72px [row-start] 1fr [row-end] 0",
                     lg: "72px [row-start] 1fr [row-end] 0",
                   }}
-                  className="thisistheparentGrid"
                   height="100vh"
                 >
                   <HeaderBar />
                   <Overlay>
                     <GridItem
-                      className={"one"}
                       gridColumn={{
                         base: "col-start / span 7",
                         md: "col-start / span 4",
@@ -423,7 +421,7 @@ export default function App() {
                       }}
                       height={{
                         base: "fit-content",
-                        md: "fit-content",
+                        md: "100%",
                       }}
                       overflowY={{ lg: "scroll" }}
                       zIndex={"1"}
@@ -440,15 +438,14 @@ export default function App() {
                         backgroundColor={"white"}
                         borderRadius={10}
                         overflowY={"scroll"}
-                        className={"flexOne"}
                       >
                         <MapLayersPanel>
                           <LayerVisibilityToggles
                             capitalProjectsOn={showCapitalProjects}
                             onCapitalProjectsToggle={setShowCapitalProjects}
                           />
+                          {/* <Legend /> */}
                         </MapLayersPanel>
-                        {/* <Legend /> */}
                         <FilterMenu defaultIndex={0}>
                           <VStack>
                             <DistrictTypeDropdown
@@ -481,7 +478,8 @@ export default function App() {
                             )}
                           </VStack>
                         </FilterMenu>
-                        <Flex width="full" px={4}>
+                        {/* Functionality to be moved to left panel */}
+                        {/* <Flex width="full" px={4}>
                           <Button
                             width="full"
                             onClick={() => search()}
@@ -503,13 +501,12 @@ export default function App() {
                             Search
                           </Button>
                         </Flex>
-                        <ClearFilterBtn onClear={clearSelections} />
+                        <ClearFilterBtn onClear={clearSelections} /> */}
 
                         <HowToUseThisToolCopy />
                       </Flex>
                     </GridItem>
                     <GridItem
-                      className={"two"}
                       gridColumn={{
                         base: "1 / -1",
                         md: "9 / span 5",
@@ -522,6 +519,7 @@ export default function App() {
                       }}
                       overflowY={{ lg: "scroll" }}
                       alignSelf={{ base: "end", md: "start" }}
+                      height={{ md: "100%" }}
                       zIndex={"2"}
                     >
                       <Flex
@@ -537,7 +535,6 @@ export default function App() {
                           },
                         }}
                         overflowY={"hidden"}
-                        className={"flexTwo"}
                       >
                         <Outlet />
                       </Flex>

@@ -33,7 +33,6 @@ export const CapitalProjectsDrawer = ({
     >
       <MobilePanelResizeBar
         isExpanded={isExpanded}
-        className={"CapProjDrawer"}
         isExpandedToggle={() => setIsExpanded(!isExpanded)}
       />
       <Heading color="gray.600" fontWeight={"bold"} fontSize={"lg"}>

@@ -14,39 +14,35 @@ export function HowToUseThisToolCopy() {
     <>
       <Accordion
         allowToggle
+        defaultIndex={[0]}
         borderBottomRadius={"base"}
-        padding={{ base: 3, lg: 4 }}
+        padding={{ base: 3, lg: 3 }}
+        paddingTop={{ lg: "0" }}
+        paddingBottom={{ lg: "3" }}
         background={"white"}
         width={{ base: "full", lg: "full" }}
         maxW={{ base: "21.25rem", lg: "unset" }}
         boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
-        borderTopWidth={"1px"}
-        borderTopColor={"gray.50"}
-        className={"howToUse"}
       >
-        <AccordionItem border="none">
+        <AccordionItem>
           <AccordionButton aria-label="Toggle welcome panel" px={0}>
             <Heading
-              fontSize="medium"
-              fontWeight="medium"
-              lineHeight={"32px"}
               display={"flex"}
-              justifyContent={"space-between"}
               flex="1"
+              justifyContent={"space-between"}
+              fontSize="medium"
+              fontWeight="bold"
+              lineHeight={"32px"}
+              pb={0}
             >
               How to Use This Tool
             </Heading>
             <AccordionIcon />
           </AccordionButton>
-          <AccordionPanel pb={0} px={0}>
+
+          <AccordionPanel pb={0}>
             <Box>
-              <Box
-                borderBottomStyle={"solid"}
-                borderBottomColor={"gray.200"}
-                borderBottomWidth={"1px"}
-                marginBottom={3}
-              ></Box>
-              <Text fontSize={"small"}>
+              <Text fontSize={"small"} pb={3}>
                 Select a project on the map to learn more about the relevant
                 agencies and capital commitments, or select a Community Board
                 capital budget request to learn more about the request and

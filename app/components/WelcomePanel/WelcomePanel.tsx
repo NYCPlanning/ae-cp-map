@@ -49,13 +49,11 @@ export function WelcomePanel() {
               base: "none",
               md: "initial",
             }}
-            className={"welcomeComponentWrapperDesktop"}
           >
             <Accordion
               defaultIndex={[0]}
               allowToggle
               margin={"1dvh 1dvw 0 1dvw"}
-              className={"theAccordianDesktop"}
             >
               <AccordionItem
                 border="none"
@@ -63,26 +61,20 @@ export function WelcomePanel() {
                 flexDirection={{ md: "column" }}
                 rowGap={"1dvh"}
                 padding={"0.5dvh 0"}
-                className={"accordianItemDesktop"}
               >
                 <AccordionButton
                   padding="0px"
                   aria-label="Toggle project list panel"
-                  className={"welcomePanelAccordianButton"}
                   height={"initial"}
                 >
                   <Box as="span" flex="1" textAlign="left">
                     <WelcomeHeader />
                   </Box>
-                  <AccordionIcon
-                    size="lg"
-                    className={"collapseButtonDesktop"}
-                  />
+                  <AccordionIcon size="lg" />
                   <Box paddingBottom={4} />
                 </AccordionButton>
                 <AccordionPanel
                   padding={"0px"}
-                  className={"accordianPanelSubItemDesktop"}
                   overflowY={"hidden"}
                   display={{ base: "flex" }}
                   flexDirection={{ base: "column" }}
@@ -93,7 +85,6 @@ export function WelcomePanel() {
                   paddingInlineStart={"0"}
                   paddingInlineEnd={"0"}
                   paddingBottom={"0"}
-                  className={"getStartedAccordianDesktop"}
                 >
                   <WelcomeGetStarted onDismiss={() => setIsDismissed(true)} />
                 </AccordionPanel>
@@ -115,16 +106,14 @@ export function WelcomePanel() {
               xl: "none",
               "2xl": "none",
             }}
-            className={"welcomeComponentWrapperMobile"}
           >
             <Accordion
               defaultIndex={[0]}
               allowToggle
               marginLeft={{ base: "3dvw" }}
               marginRight={{ base: "3dvw" }}
-              className={"theAccordianMobile"}
             >
-              <AccordionItem border="none" className={"accordianItemMobile"}>
+              <AccordionItem border="none">
                 <AccordionButton
                   padding="0px"
                   aria-label="Toggle project list panel"
@@ -133,11 +122,10 @@ export function WelcomePanel() {
                   <Box as="span" flex="1" textAlign="left">
                     <WelcomeHeader />
                   </Box>
-                  <AccordionIcon size="lg" className={"collapseButtonMobile"} />
+                  <AccordionIcon size="lg" />
                 </AccordionButton>
                 <AccordionPanel
                   padding={"0px"}
-                  className={"accordianPanelSubItemMobile"}
                   overflowY={"hidden"}
                   height={{ base: "68dvh" }}
                   overflow={{ base: "scroll" }}
@@ -150,7 +138,6 @@ export function WelcomePanel() {
                   paddingInlineStart={"0"}
                   paddingInlineEnd={"0"}
                   paddingBottom={"0"}
-                  className={"getStartedAccordianMobile"}
                 >
                   <WelcomeGetStarted onDismiss={() => setIsDismissed(true)} />
                 </AccordionPanel>
