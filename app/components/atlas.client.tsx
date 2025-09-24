@@ -7,6 +7,7 @@ import "@deck.gl/widgets/stylesheet.css";
 import {
   useCapitalProjectsLayer,
   useCommunityDistrictsLayer,
+  useCommunityBoardBudgetRequestsLayer,
   useCityCouncilDistrictsLayer,
   useCommunityDistrictLayer,
   useCityCouncilDistrictLayer,
@@ -36,6 +37,8 @@ export function Atlas({ viewState, setViewState }: AtlasProps) {
     useCapitalProjectBudgetedGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
+  const communityBoardBudgetRequestsLayer =
+    useCommunityBoardBudgetRequestsLayer();
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
 
@@ -82,6 +85,7 @@ export function Atlas({ viewState, setViewState }: AtlasProps) {
         capitalProjectBudgetedGeoJsonLayer,
         communityDistrictsLayer,
         communityDistrictLayer,
+        communityBoardBudgetRequestsLayer,
         cityCouncilDistrictsLayer,
         cityCouncilDistrictLayer,
       ]}
