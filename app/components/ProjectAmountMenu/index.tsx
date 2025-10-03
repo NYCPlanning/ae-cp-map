@@ -1,19 +1,101 @@
 import { Flex, IconButton, Text } from "@nycplanning/streetscape";
 import { CloseIcon } from "@chakra-ui/icons";
-import { ReactNode } from "react";
+import { useState, useEffect, useCallback } from "react";
+import {
+  CommitmentsTotalMin,
+  CommitmentsTotalMax,
+  QueryParams,
+} from "../../utils/types";
+import {
+  handleCommitmentTotalsInputs,
+  checkCommitmentTotalInputsAreValid,
+  getMultiplier,
+} from "~/utils/utils";
+import { ProjectAmountMenuInput } from "./ProjectAmountMenuInput";
+
+export type ProjectAmountMenuValues = {
+  commitmentsTotalMinInputValue: string;
+  commitmentsTotalMinSelectValue: string;
+  commitmentsTotalMaxInputValue: string;
+  commitmentsTotalMaxSelectValue: string;
+};
 
 export interface ProjectAmountMenuProps {
-  children: ReactNode;
-  showClearButton: boolean;
-  onProjectAmountMenuClear?: () => void;
-  commitmentTotalInputsAreValid?: boolean;
+  commitmentsTotalMin: CommitmentsTotalMin;
+  commitmentsTotalMax: CommitmentsTotalMax;
+  onValidChange: (changes: QueryParams) => void;
 }
 export function ProjectAmountMenu({
-  children,
-  showClearButton,
-  onProjectAmountMenuClear = () => null,
-  commitmentTotalInputsAreValid = true,
+  commitmentsTotalMin,
+  commitmentsTotalMax,
+  onValidChange,
 }: ProjectAmountMenuProps) {
+  const [projectAmountMenuParams, setProjectAmountMenuParams] =
+    useState<ProjectAmountMenuValues>(
+      handleCommitmentTotalsInputs(commitmentsTotalMin, commitmentsTotalMax),
+    );
+
+  useEffect(() => {
+    setProjectAmountMenuParams(
+      handleCommitmentTotalsInputs(commitmentsTotalMin, commitmentsTotalMax),
+    );
+  }, [commitmentsTotalMin, commitmentsTotalMax]);
+
+  const {
+    commitmentsTotalMinInputValue,
+    commitmentsTotalMinSelectValue,
+    commitmentsTotalMaxInputValue,
+    commitmentsTotalMaxSelectValue,
+  } = projectAmountMenuParams;
+
+  const commitmentTotalInputsAreValid = checkCommitmentTotalInputsAreValid(
+    projectAmountMenuParams,
+  );
+  const showClearButton =
+    commitmentsTotalMinInputValue !== "" ||
+    commitmentsTotalMaxInputValue !== "" ||
+    commitmentsTotalMinSelectValue !== "K" ||
+    commitmentsTotalMaxSelectValue !== "K";
+
+  const handleOnValidChange = useCallback(onValidChange, []);
+
+  useEffect(() => {
+    const newCommitmentTotalInputsAreValid = checkCommitmentTotalInputsAreValid(
+      {
+        commitmentsTotalMinInputValue,
+        commitmentsTotalMaxInputValue,
+        commitmentsTotalMinSelectValue,
+        commitmentsTotalMaxSelectValue,
+      },
+    );
+    if (newCommitmentTotalInputsAreValid) {
+      handleOnValidChange({
+        commitmentsTotalMin:
+          commitmentsTotalMinInputValue !== "" &&
+          parseFloat(commitmentsTotalMinInputValue)
+            ? (
+                parseFloat(commitmentsTotalMinInputValue) *
+                getMultiplier(commitmentsTotalMinSelectValue)
+              ).toString()
+            : null,
+        commitmentsTotalMax:
+          commitmentsTotalMaxInputValue !== "" &&
+          parseFloat(commitmentsTotalMaxInputValue)
+            ? (
+                parseFloat(commitmentsTotalMaxInputValue) *
+                getMultiplier(commitmentsTotalMaxSelectValue)
+              ).toString()
+            : null,
+      });
+    }
+  }, [
+    commitmentsTotalMinInputValue,
+    commitmentsTotalMaxInputValue,
+    commitmentsTotalMinSelectValue,
+    commitmentsTotalMaxSelectValue,
+    handleOnValidChange,
+  ]);
+
   return (
     <>
       <Flex
@@ -21,11 +103,11 @@ export function ProjectAmountMenu({
         alignItems={"center"}
         justifyContent={"space-between"}
       >
-        <Text fontWeight="500" flexGrow={"1"}>
+        <Text fontWeight="500" flexGrow={"1"} pb={1} fontSize={"xs"}>
           Project Amount
         </Text>
         {!commitmentTotalInputsAreValid && (
-          <Text color={"state.error"} fontSize={"xs"} marginRight={2}>
+          <Text color={"state.error"} fontSize={"xs"} marginRight={2} pb={1}>
             Invalid Range
           </Text>
         )}
@@ -44,7 +126,12 @@ export function ProjectAmountMenu({
             justifyContent={"center"}
             alignItems={"center"}
             onClick={() => {
-              onProjectAmountMenuClear();
+              setProjectAmountMenuParams({
+                commitmentsTotalMinInputValue: "",
+                commitmentsTotalMaxInputValue: "",
+                commitmentsTotalMinSelectValue: "K",
+                commitmentsTotalMaxSelectValue: "K",
+              });
             }}
             icon={
               <CloseIcon
@@ -59,7 +146,52 @@ export function ProjectAmountMenu({
       </Flex>
 
       <Flex width={"100%"} justifyContent={"space-between"}>
-        {children}
+        <ProjectAmountMenuInput
+          label={"Minimum"}
+          commitmentTotalInputsAreValid={commitmentTotalInputsAreValid}
+          inputValue={commitmentsTotalMinInputValue}
+          selectValue={commitmentsTotalMinSelectValue}
+          onInputValueChange={(value) => {
+            setProjectAmountMenuParams({
+              ...projectAmountMenuParams,
+              commitmentsTotalMinInputValue: value ? value : "",
+            });
+          }}
+          onSelectValueChange={(value) => {
+            setProjectAmountMenuParams({
+              ...projectAmountMenuParams,
+              commitmentsTotalMinSelectValue: value,
+            });
+          }}
+        />
+
+        <Flex grow={1} justifyContent={"center"} alignItems={"end"} mb={"1rem"}>
+          <hr
+            style={{
+              width: "75%",
+              color: "var(--dcp-colors-gray-500)",
+            }}
+          />
+        </Flex>
+
+        <ProjectAmountMenuInput
+          label={"Maximum"}
+          commitmentTotalInputsAreValid={commitmentTotalInputsAreValid}
+          inputValue={commitmentsTotalMaxInputValue}
+          selectValue={commitmentsTotalMaxSelectValue}
+          onInputValueChange={(value) => {
+            setProjectAmountMenuParams({
+              ...projectAmountMenuParams,
+              commitmentsTotalMaxInputValue: value ? value : "",
+            });
+          }}
+          onSelectValueChange={(value) => {
+            setProjectAmountMenuParams({
+              ...projectAmountMenuParams,
+              commitmentsTotalMaxSelectValue: value,
+            });
+          }}
+        />
       </Flex>
     </>
   );

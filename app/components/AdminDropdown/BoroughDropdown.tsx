@@ -1,11 +1,11 @@
 import { Borough } from "~/gen";
 import { AdminDropdownProps, AdminDropdown } from ".";
-import { AdminParams, BoroughId } from "~/utils/types";
+import { AdminQueryParams, BoroughId } from "~/utils/types";
 
 export interface BoroughDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
   boroughs: Array<Borough> | null;
-  setAdminParams: (value: AdminParams) => void;
+  setAdminParams: (value: AdminQueryParams) => void;
 }
 
 export function BoroughDropdown({

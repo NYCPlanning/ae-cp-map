@@ -10,7 +10,6 @@ import { Agency, CapitalProject, CapitalProjectBudgeted } from "~/gen";
 import { CapitalProjectsListItem } from "./CapitalProjectsListItem";
 import { formatFiscalYearRange } from "../../utils/utils";
 import { WarningIcon } from "@chakra-ui/icons";
-import { showRedesign } from "~/utils/envFlags";
 
 export interface CapitalProjectsListProps {
   capitalProjects: CapitalProject[];
@@ -55,11 +54,10 @@ export const CapitalProjectsList = ({
       <Collapse in={isExpanded} startingHeight={600}>
         <Flex
           direction={"column"}
-          className={"insideCollapse"}
           height={{
             base: isExpanded ? "78dvh" : "100%",
-            md: showRedesign ? "70dvh" : "",
-            lg: showRedesign ? "65dvh" : "70dvh",
+            md: "70dvh",
+            lg: "65dvh",
           }}
           overflowX={"hidden"}
           overflowY={"auto"}

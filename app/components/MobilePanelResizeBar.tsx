@@ -13,7 +13,6 @@ export function MobilePanelResizeBar({
     <Hide above="lg">
       <Box
         height={"4px"}
-        className={"pasta"}
         width={20}
         backgroundColor={"gray.300"}
         borderRadius="2px"

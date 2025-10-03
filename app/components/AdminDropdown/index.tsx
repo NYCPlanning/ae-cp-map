@@ -27,7 +27,7 @@ export function AdminDropdown({
 }: AdminDropdownProps) {
   return (
     <FormControl id={formId}>
-      <FormLabel onClick={onFormLabelClick} pb={0}>
+      <FormLabel onClick={onFormLabelClick} pb={1} fontSize={"xs"}>
         {formLabel}
       </FormLabel>
       <Select

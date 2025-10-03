@@ -13,7 +13,6 @@ import {
   useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
-import { showRedesign } from "~/utils/envFlags";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
@@ -52,9 +51,9 @@ export function Atlas({
   const widgetPlacement = isMobile ? "top-right" : "bottom-right";
   const widgetStyles = isMobile
     ? {
-        position: showRedesign ? "relative" : "",
-        top: showRedesign ? "2rem" : "",
-        left: showRedesign ? "5rem" : "",
+        position: "relative",
+        top: "2rem",
+        left: "5rem",
       }
     : {
         position: "relative",

@@ -12,7 +12,7 @@ describe("DistrictTypeDropdown", () => {
     expect(screen.getByText("City Council District")).toBeInTheDocument();
   });
 
-  it("should update search params when changing the district type", async () => {
+  it("should call setAdminParams with new district type when changing the district type", async () => {
     const updateSearchParams = vi.fn();
     render(<DistrictTypeDropdown setAdminParams={updateSearchParams} />);
     await act(() =>
@@ -20,8 +20,6 @@ describe("DistrictTypeDropdown", () => {
     );
     expect(updateSearchParams).toHaveBeenCalledWith({
       districtType: "cd",
-      boroughId: null,
-      districtId: null,
     });
   });
 });
