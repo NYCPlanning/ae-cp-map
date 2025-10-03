@@ -1,0 +1,11 @@
+export { default as CompassSVG } from "./compass.svg?react";
+export { default as CoreInfrastructureSVG } from "./core-infrastructure.svg?react";
+export { default as EducationSVG } from "./education.svg?react";
+export { default as HealthSVG } from "./health.svg?react";
+export { default as HousingSVG } from "./housing.svg?react";
+export { default as OtherNeedsSVG } from "./other-needs.svg?react";
+export { default as ParksSVG } from "./parks.svg?react";
+export { default as PublicSafetySVG } from "./public-safety.svg?react";
+export { default as TransportationSVG } from "./transportation.svg?react";
+export { default as ZoomInSVG } from "./zoom-in.svg?react";
+export { default as ZoomOutSVG } from "./zoom-out.svg?react";

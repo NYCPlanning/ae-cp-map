@@ -21,7 +21,8 @@
       "vite/client",
       "vitest/globals",
       "vitest/jsdom",
-      "@remix-run/node"
+      "@remix-run/node",
+      "vite-plugin-svgr/client",
     ],
     "noEmit": true
   }

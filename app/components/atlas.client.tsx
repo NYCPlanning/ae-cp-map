@@ -48,29 +48,29 @@ export function Atlas({
 
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
 
-  const isMobile = useMediaQuery("(max-width: 767px)")[0];
-  const widgetPlacement = isMobile ? "top-right" : "bottom-right";
-  const widgetStyles = isMobile
-    ? {
-        position: showRedesign ? "relative" : "",
-        top: showRedesign ? "2rem" : "",
-        left: showRedesign ? "5rem" : "",
-      }
-    : {
-        position: "relative",
-        bottom: "4.5rem",
-      };
+  // const isMobile = useMediaQuery("(max-width: 767px)")[0];
+  // const widgetPlacement = isMobile ? "top-right" : "bottom-right";
+  // const widgetStyles = isMobile
+  //   ? {
+  //       position: showRedesign ? "relative" : "",
+  //       top: showRedesign ? "2rem" : "",
+  //       left: showRedesign ? "5rem" : "",
+  //     }
+  //   : {
+  //       position: "relative",
+  //       bottom: "4.5rem",
+  //     };
 
-  const ZoomControls = new ZoomWidget({
-    id: "zoom",
-    placement: widgetPlacement,
-    style: widgetStyles,
-  });
-  const CompassControls = new CompassWidget({
-    id: "compass",
-    placement: widgetPlacement,
-    style: widgetStyles,
-  });
+  // const ZoomControls = new ZoomWidget({
+  //   id: "zoom",
+  //   placement: widgetPlacement,
+  //   style: widgetStyles,
+  // });
+  // const CompassControls = new CompassWidget({
+  //   id: "compass",
+  //   placement: widgetPlacement,
+  //   style: widgetStyles,
+  // });
 
   return (
     <DeckGL<MapView>
@@ -107,11 +107,11 @@ export function Atlas({
         }
         return isHovering ? "pointer" : "grab";
       }}
-      widgets={isMobile ? [] : [ZoomControls, CompassControls]}
+      // widgets={isMobile ? [] : [ZoomControls, CompassControls]}
     >
       <Map
         mapStyle={"https://tiles.planninglabs.nyc/styles/positron/style.json"}
-        attributionControl={isMobile ? false : true}
+        // attributionControl={isMobile ? false : true}
       ></Map>
     </DeckGL>
   );

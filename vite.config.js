@@ -1,5 +1,5 @@
 import { reactRouter } from "@react-router/dev/vite";
-// import { installGlobals } from "react-router";
+import svgr from "vite-plugin-svgr";
 import { defineConfig } from "vite";
 import path from "path";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -21,6 +21,7 @@ export default defineConfig({
         v3_routeConfig: true,
       },
     }),
+    svgr(),
   ],
   resolve: {
     alias: [{ find: "~", replacement: path.resolve(__dirname, "./app") }],
