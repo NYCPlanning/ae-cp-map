@@ -4,7 +4,6 @@ import {
   useNavigate,
   useParams,
   useSearchParams,
-  useMatches,
 } from "react-router";
 import {
   DataFilterExtension,
@@ -12,6 +11,13 @@ import {
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import { FindAgenciesQueryResponse } from "../../gen";
+import {
+  BoroughId,
+  DistrictId,
+  DistrictType,
+  CommitmentsTotalMin,
+  CommitmentsTotalMax,
+} from "../../utils/types";
 
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
@@ -20,19 +26,21 @@ export interface CapitalProjectProperties {
   commitmentsTotal: number;
 }
 
-const capitalProjectsInCommunityDistrictRoutePrefix =
-  "routes/boroughs.$boroughId.community-districts.$communityDistrictId.capital-projects";
-const capitalProjectsInCityCouncilDistrictRoutePrefix =
-  "routes/city-council-districts.$cityCouncilDistrictId.capital-projects";
-
 export function useCapitalProjectsLayer(opts?: { visible?: boolean }) {
   const visible = opts?.visible ?? true;
   const { managingCode, capitalProjectId } = useParams();
   const [searchParams] = useSearchParams();
   const managingAgency = searchParams.get("managingAgency");
   const agencyBudget = searchParams.get("agencyBudget");
-  const commitmentsTotalMin = searchParams.get("commitmentsTotalMin");
-  const commitmentsTotalMax = searchParams.get("commitmentsTotalMax");
+  const commitmentsTotalMin = searchParams.get(
+    "commitmentsTotalMin",
+  ) as CommitmentsTotalMin;
+  const commitmentsTotalMax = searchParams.get(
+    "commitmentsTotalMax",
+  ) as CommitmentsTotalMax;
+  const districtType = searchParams.get("districtType") as DistrictType;
+  const boroughId = searchParams.get("boroughId") as BoroughId;
+  const districtId = searchParams.get("districtId") as DistrictId;
   const min = commitmentsTotalMin
     ? parseFloat(commitmentsTotalMin)
     : -1000000000000;
@@ -41,22 +49,16 @@ export function useCapitalProjectsLayer(opts?: { visible?: boolean }) {
     : 1000000000000;
   const navigate = useNavigate();
 
-  const matches = useMatches();
-
-  const layoutRoute = matches[1];
-
-  const onCapitalProjectsInCityCouncilDistrictPath = layoutRoute?.id.startsWith(
-    capitalProjectsInCityCouncilDistrictRoutePrefix,
-  );
-  const onCapitalProjectsInCommunityDistrictPath = layoutRoute?.id.startsWith(
-    capitalProjectsInCommunityDistrictRoutePrefix,
-  );
+  const onCapitalProjectsInCityCouncilDistrictPath =
+    districtType === "ccd" && districtId !== null;
+  const onCapitalProjectsInCommunityDistrictPath =
+    districtType === "cd" && boroughId !== null && districtId !== null;
 
   let endpointPrefix = "";
   if (onCapitalProjectsInCityCouncilDistrictPath) {
-    endpointPrefix = `city-council-districts/${layoutRoute.params.cityCouncilDistrictId}/`;
+    endpointPrefix = `city-council-districts/${districtId}/`;
   } else if (onCapitalProjectsInCommunityDistrictPath) {
-    endpointPrefix = `boroughs/${layoutRoute.params.boroughId}/community-districts/${layoutRoute.params.communityDistrictId}/`;
+    endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
   }
 
   const loaderData = useLoaderData<

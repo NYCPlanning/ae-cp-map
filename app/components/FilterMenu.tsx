@@ -1,97 +1,104 @@
-import { ReactNode } from "react";
 import {
-  Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
   Heading,
 } from "@nycplanning/streetscape";
+import { useLocation, useNavigate } from "react-router";
+import { CityCouncilDistrict, Borough, CommunityDistrict } from "~/gen";
 import { analyticsTrackFilterByDistrictToggle } from "../utils/analytics";
-import { showRedesign } from "../utils/envFlags";
+import { BoroughId, DistrictId, DistrictType } from "../utils/types";
+import {
+  BoroughDropdown,
+  DistrictTypeDropdown,
+  CommunityDistrictDropdown,
+  CityCouncilDistrictDropdown,
+} from "./AdminDropdown";
+import { useUpdateSearchParams, setNewSearchParams } from "~/utils/utils";
 
-export const FilterMenu = ({ children, defaultIndex }: FilterMenuProps) => (
-  <Accordion
-    defaultIndex={defaultIndex}
-    allowToggle
-    allowMultiple={showRedesign ? false : true}
-    borderRadius={"none"}
-    padding={{ base: 3, lg: 3 }}
-    paddingTop={{ lg: "0" }}
-    paddingBottom={{ lg: "0" }}
-    background={"white"}
-    width={{ base: "full", lg: showRedesign ? "full" : "21.25rem" }}
-    maxW={{ base: "21.25rem", lg: "unset" }}
-    // borderBottomWidth="0"
-    className={"filterMenu"}
-    onChange={analyticsTrackFilterByDistrictToggle}
-  >
-    {showRedesign ? (
-      <AccordionItem
-        borderBottomWidth="0"
-        borderTopRadius={"1"}
-        className={"isItHere"}
-      >
-        <AccordionButton aria-label="Close geography filter menu" px={0}>
-          <Heading
-            flex="1"
-            textAlign="left"
-            fontSize="medium"
-            fontWeight="bold"
-            lineHeight="32px"
-          >
-            Filter by Location
-          </Heading>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel
-          pb={0}
-          borderBottomWidth="0"
-          // sx={{
-          //   '& .chakra-stack > [role="group"]:last-child': {
-          //     marginBottom: "0",
-          //     paddingBottom: "0",
-          //     bottomBorderWidth: "0",
-          //   },
-          //   '& > [role="group"]:last-child': {
-          //     marginBottom: "0",
-          //     paddingBottom: "0",
-          //     bottomBorderWidth: "0",
-          //   },
-          // }}
+export const FilterMenu = ({
+  boroughs,
+  cityCouncilDistricts,
+  communityDistricts,
+}: FilterMenuProps) => {
+  const [searchParams, updateSearchParams] = useUpdateSearchParams();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const districtType = searchParams.get("districtType") as DistrictType;
+  const boroughId = searchParams.get("boroughId") as BoroughId;
+  const districtId = searchParams.get("districtId") as DistrictId;
+
+  // When a new district is selected while user is on welcome page, update the param
+  // and navigate to /capital-projects. Otherwise, just update param.
+  const onDistrictChange = ({ districtId }: { districtId?: DistrictId }) => {
+    if (pathname === "/") {
+      const nextSearchParams = setNewSearchParams(searchParams, { districtId });
+      navigate(
+        {
+          pathname: "/capital-projects",
+          search: nextSearchParams.toString(),
+        },
+        { replace: true },
+      );
+    } else {
+      updateSearchParams({ districtId });
+    }
+  };
+
+  return (
+    <AccordionItem>
+      <AccordionButton aria-label="Close geography filter menu" p={0}>
+        <Heading
+          flex="1"
+          textAlign="left"
+          fontSize="medium"
+          fontWeight="bold"
+          lineHeight="32px"
         >
-          {children}
-        </AccordionPanel>
-      </AccordionItem>
-    ) : (
-      <AccordionItem borderTopWidth="0">
-        <AccordionButton aria-label="Close geography filter menu" px={0}>
-          <Box
-            as="span"
-            flex="1"
-            textAlign="left"
-            fontSize="large"
-            fontWeight="medium"
-          >
-            Filter by District
-          </Box>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel
-          pb={0}
-          borderTopWidth="1px"
-          borderColor="gray.200"
-          px={0}
-        >
-          {children}
-        </AccordionPanel>
-      </AccordionItem>
-    )}
-  </Accordion>
-);
+          Filter by Location
+        </Heading>
+        <AccordionIcon />
+      </AccordionButton>
+      <AccordionPanel px={0} display={"flex"} flexDirection={"column"} gap={1}>
+        <DistrictTypeDropdown
+          selectValue={districtType}
+          setAdminParams={({ districtType }) => {
+            updateSearchParams({
+              districtType,
+              boroughId: null,
+              districtId: null,
+            });
+          }}
+        />
+        <BoroughDropdown
+          selectValue={boroughId}
+          boroughs={boroughs}
+          setAdminParams={({ boroughId }) => {
+            updateSearchParams({ boroughId, districtId: null });
+          }}
+        />
+        {districtType !== "ccd" ? (
+          <CommunityDistrictDropdown
+            boroughId={boroughId}
+            selectValue={districtId}
+            communityDistricts={communityDistricts}
+            setAdminParams={onDistrictChange}
+          />
+        ) : (
+          <CityCouncilDistrictDropdown
+            selectValue={districtId}
+            cityCouncilDistricts={cityCouncilDistricts}
+            setAdminParams={onDistrictChange}
+          />
+        )}
+      </AccordionPanel>
+    </AccordionItem>
+  );
+};
 
 export interface FilterMenuProps {
-  children: ReactNode;
-  defaultIndex?: number;
+  boroughs: Array<Borough> | null;
+  communityDistricts: Array<CommunityDistrict> | null;
+  cityCouncilDistricts: Array<CityCouncilDistrict> | null;
 }

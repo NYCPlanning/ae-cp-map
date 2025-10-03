@@ -21,7 +21,6 @@ export function Legend() {
         maxW={{ base: "21.25rem", lg: "unset" }}
         borderTopWidth={"1px"}
         borderTopColor={"gray.50"}
-        className={"Legend"}
       >
         <AccordionItem border="none">
           <AccordionButton aria-label="Toggle welcome panel" px={0}>

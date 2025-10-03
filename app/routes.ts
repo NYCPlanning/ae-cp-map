@@ -14,16 +14,8 @@ export default remixRoutesOptionAdapter((defineRoutes) => {
       "routes/boroughs.$boroughId.community-districts.$communityDistrictId.capital-projects_.$managingCode.$capitalProjectId.tsx",
     );
     route(
-      "boroughs/:boroughId/community-districts/:communityDistrictId/capital-projects",
-      "routes/boroughs.$boroughId.community-districts.$communityDistrictId.capital-projects.tsx",
-    );
-    route(
       "city-council-districts/:cityCouncilDistrictId/capital-projects/:managingCode/:capitalProjectId",
       "routes/city-council-districts.$cityCouncilDistrictId.capital-projects_.$managingCode.$capitalProjectId.tsx",
-    );
-    route(
-      "city-council-districts/:cityCouncilDistrictId/capital-projects",
-      "routes/city-council-districts.$cityCouncilDistrictId.capital-projects.tsx",
     );
   });
 }) satisfies RouteConfig;

@@ -57,27 +57,27 @@ export function WelcomeGetStarted({
   }, [navigate, onDismiss]);
 
   return (
-    <>
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        justifyContent={"space-around"}
-        boxSizing={"border-box"}
-        borderTop={"2px solid"}
-        borderColor={"gray.200"}
-        height={"15dvh"}
-        className={"getStartedWrapper"}
-      >
-        <Checkbox onChange={handleChange} {...checkboxProps}>
-          {label}
-        </Checkbox>
-        <Box width={"161px"} className={"buttonWrapper"}>
-          <Button size="md" variant="primary" onClick={handleButtonClick}>
-            Get Started
-            <ChevronRightIcon />
-          </Button>
-        </Box>
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      justifyContent={"space-around"}
+      boxSizing={"border-box"}
+      borderTop={"2px solid"}
+      borderColor={"gray.200"}
+      height={"15dvh"}
+      sx={{
+        scrollbarWidth: "none",
+      }}
+    >
+      <Checkbox onChange={handleChange} {...checkboxProps}>
+        {label}
+      </Checkbox>
+      <Box width={"161px"}>
+        <Button size="md" variant="primary" onClick={handleButtonClick}>
+          Get Started
+          <ChevronRightIcon />
+        </Button>
       </Box>
-    </>
+    </Box>
   );
 }

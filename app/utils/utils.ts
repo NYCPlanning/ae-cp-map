@@ -1,12 +1,13 @@
 import { compareAsc, format, getMonth, getYear } from "date-fns";
+import { useSearchParams, SetURLSearchParams } from "react-router";
 import {
-  SearchParamChanges,
   CommitmentsTotalMin,
   CommitmentsTotalMax,
   CommitmentsTotalMinInputValue,
   CommitmentsTotalMaxInputValue,
   CommitmentsTotalMinSelectValue,
   CommitmentsTotalMaxSelectValue,
+  QueryParams,
 } from "./types";
 
 const getFiscalYearForDate = (date: Date): number => {
@@ -117,7 +118,7 @@ export const checkCommitmentTotalInputsAreValid = ({
 // from https://www.jacobparis.com/content/remix-pagination
 export function setNewSearchParams(
   searchParams: URLSearchParams,
-  changes: SearchParamChanges,
+  changes: QueryParams,
 ) {
   const newSearchParams = new URLSearchParams(searchParams);
 
@@ -130,4 +131,16 @@ export function setNewSearchParams(
   }
 
   return newSearchParams;
+}
+
+export function useUpdateSearchParams(): [
+  URLSearchParams,
+  (changes: QueryParams) => void,
+  SetURLSearchParams,
+] {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const updateSearchParams = (changes: QueryParams) => {
+    setSearchParams(setNewSearchParams(searchParams, changes));
+  };
+  return [searchParams, updateSearchParams, setSearchParams];
 }

@@ -1,9 +1,9 @@
-import { AdminParams } from "~/utils/types";
+import { AdminQueryParams } from "~/utils/types";
 import { AdminDropdownProps, AdminDropdown } from ".";
 
 export interface DistrictTypeDropdownProps
   extends Pick<AdminDropdownProps, "selectValue"> {
-  setAdminParams: (value: AdminParams) => void;
+  setAdminParams: (value: AdminQueryParams) => void;
 }
 
 export function DistrictTypeDropdown({
@@ -20,8 +20,6 @@ export function DistrictTypeDropdown({
 
     setAdminParams({
       districtType: nextDistrictType,
-      boroughId: null,
-      districtId: null,
     });
   };
 

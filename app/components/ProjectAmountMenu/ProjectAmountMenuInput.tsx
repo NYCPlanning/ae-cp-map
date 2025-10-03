@@ -3,6 +3,7 @@ import {
   Select,
   NumberInput,
   NumberInputField,
+  Text,
 } from "@nycplanning/streetscape";
 import { FormEvent } from "react";
 
@@ -24,15 +25,9 @@ export function ProjectAmountMenuInput({
 }: ProjectAmountMenuInputProps) {
   return (
     <Flex direction={"column"}>
-      <p
-        style={{
-          color: "var(--text-subtle)",
-          fontSize: "0.75rem",
-          letterSpacing: "0.18px",
-        }}
-      >
+      <Text color="gray.600" fontSize={"xs"} fontWeight={"medium"}>
         {label}
-      </p>
+      </Text>
       <Flex>
         <NumberInput
           maxWidth={"4rem"}

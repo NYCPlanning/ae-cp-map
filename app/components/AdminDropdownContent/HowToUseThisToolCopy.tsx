@@ -1,8 +1,6 @@
 import {
-  Box,
   Heading,
   Text,
-  Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
@@ -11,52 +9,30 @@ import {
 
 export function HowToUseThisToolCopy() {
   return (
-    <>
-      <Accordion
-        allowToggle
-        defaultIndex={[0]}
-        borderBottomRadius={"base"}
-        padding={{ base: 3, lg: 3 }}
-        paddingTop={{ lg: "0" }}
-        paddingBottom={{ lg: "0" }}
-        background={"white"}
-        width={{ base: "full", lg: "full" }}
-        maxW={{ base: "21.25rem", lg: "unset" }}
-        boxShadow={"0px 8px 4px 0px rgba(0, 0, 0, 0.08)"}
-        borderTopWidth={"1px"}
-        borderTopColor={"gray.50"}
-        className={"howToUse"}
-      >
-        <AccordionItem borderTopWidth="0">
-          <AccordionButton aria-label="Toggle welcome panel" px={0}>
-            <Heading
-              display={"flex"}
-              flex="1"
-              justifyContent={"space-between"}
-              fontSize="medium"
-              fontWeight="bold"
-              lineHeight={"32px"}
-              pb={0}
-            >
-              How to Use This Tool
-            </Heading>
-            <AccordionIcon />
-          </AccordionButton>
-
-          <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200">
-            <Box>
-              <Text fontSize={"small"}>
-                Select a project on the map to learn more about the relevant
-                agencies and capital commitments, or select a Community Board
-                capital budget request to learn more about the request and
-                response from relevant agency. Filter by specific geographies to
-                see all projects and requests in that area. You can also export
-                your selection as a CSV table.
-              </Text>
-            </Box>
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-    </>
+    <AccordionItem>
+      <AccordionButton aria-label="Toggle how to use this tool panel" p={0}>
+        <Heading
+          flex="1"
+          textAlign="left"
+          fontSize="md"
+          fontWeight="bold"
+          lineHeight="32px"
+          pb={0}
+        >
+          How to Use This Tool
+        </Heading>
+        <AccordionIcon />
+      </AccordionButton>
+      <AccordionPanel px={0}>
+        <Text fontSize={"small"}>
+          Select a project on the map to learn more about the relevant agencies
+          and capital commitments, or select a Community Board capital budget
+          request to learn more about the request and response from relevant
+          agency. Filter by specific geographies to see all projects and
+          requests in that area. You can also export your selection as a CSV
+          table.
+        </Text>
+      </AccordionPanel>
+    </AccordionItem>
   );
 }

@@ -1,55 +1,87 @@
-import { ReactNode } from "react";
 import {
-  Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
+  Heading,
 } from "@nycplanning/streetscape";
+import { AgencyDropdown, ProjectTypeDropdown } from "./AdminDropdown";
+import { ProjectAmountMenu } from "./ProjectAmountMenu";
+import { ClearFilterBtn } from "./ClearFilter";
+import {
+  ManagingAgencyAcronym,
+  AgencyBudgetType,
+  CommitmentsTotalMax,
+  CommitmentsTotalMin,
+  QueryParams,
+} from "../utils/types";
+import { useUpdateSearchParams } from "~/utils/utils";
+import { Agency, AgencyBudget } from "~/gen";
 import { analyticsTrackSearchByAttributeToggle } from "~/utils/analytics";
-import { showRedesign } from "~/utils/envFlags";
 
 export const SearchByAttributeMenu = ({
-  children,
-  defaultIndex,
-}: SearchByAttributeMenuProps) => (
-  <Accordion
-    allowToggle
-    allowMultiple={showRedesign ? false : true}
-    borderRadius={"none"}
-    padding={{ base: 3, lg: 4 }}
-    background={"white"}
-    width={{ base: "full", lg: showRedesign ? "full" : "21.25rem" }}
-    maxW={{ base: "21.25rem", lg: "unset" }}
-    marginBottom={{ base: 3, lg: 4 }}
-    borderY={"1px solid"}
-    borderColor={"gray.300"}
-    defaultIndex={showRedesign ? undefined : defaultIndex}
-    className={"searchByAttributeMenu"}
-    onChange={analyticsTrackSearchByAttributeToggle}
-  >
-    <AccordionItem border="none">
-      <AccordionButton aria-label="Close search by attribute menu" px={0}>
-        <Box
-          as="span"
+  agencies,
+  projectTypes,
+  onClear,
+}: SearchByAttributeMenuProps) => {
+  const [searchParams, updateSearchParams] = useUpdateSearchParams();
+
+  const managingAgency = searchParams.get(
+    "managingAgency",
+  ) as ManagingAgencyAcronym;
+  const agencyBudget = searchParams.get("agencyBudget") as AgencyBudgetType;
+  const commitmentsTotalMin = searchParams.get(
+    "commitmentsTotalMin",
+  ) as CommitmentsTotalMin;
+  const commitmentsTotalMax = searchParams.get(
+    "commitmentsTotalMax",
+  ) as CommitmentsTotalMax;
+
+  return (
+    <AccordionItem>
+      <AccordionButton aria-label="Close search by attribute menu" p={0}>
+        <Heading
           flex="1"
           textAlign="left"
-          fontSize="large"
-          fontWeight="medium"
+          fontSize="md"
+          fontWeight="bold"
+          lineHeight="32px"
+          pb={0}
         >
           Search by Attribute
-        </Box>
+        </Heading>
         <AccordionIcon />
       </AccordionButton>
-      <AccordionPanel pb={0} borderTopWidth="1px" borderColor="gray.200">
-        {children}
+      <AccordionPanel px={0} display={"flex"} flexDirection={"column"} gap={1}>
+        <AgencyDropdown
+          selectValue={managingAgency}
+          agencies={agencies}
+          onSelectValueChange={(value) => {
+            updateSearchParams({ managingAgency: value });
+          }}
+        />
+        <ProjectTypeDropdown
+          selectValue={agencyBudget}
+          projectTypes={projectTypes}
+          onSelectValueChange={(value) => {
+            updateSearchParams({ agencyBudget: value });
+          }}
+        />
+        <ProjectAmountMenu
+          commitmentsTotalMin={commitmentsTotalMin}
+          commitmentsTotalMax={commitmentsTotalMax}
+          onValidChange={(changes: QueryParams) => {
+            updateSearchParams(changes);
+          }}
+        />
+        <ClearFilterBtn onClear={onClear} />
       </AccordionPanel>
     </AccordionItem>
-  </Accordion>
-);
+  );
+};
 
 export interface SearchByAttributeMenuProps {
-  children: ReactNode;
-  defaultIndex?: number;
+  agencies: Array<Agency> | null;
+  projectTypes: Array<AgencyBudget> | null;
+  onClear: () => void;
 }
