@@ -297,10 +297,10 @@ export default function App() {
                   }}
                   gridRow={{
                     base: "3 / -1",
-                    md: "row-start / span 3",
-                    lg: "row-start / row-end",
+                    md: "row-start / row-end",
                   }}
-                  overflowY={{ lg: "scroll" }}
+                  overflowY={{ md: "auto" }}
+                  borderRadius={"base"}
                   alignSelf={{ base: "end", md: "start" }}
                   height={{ md: "100%" }}
                   zIndex={"2"}
@@ -308,22 +308,7 @@ export default function App() {
                     scrollbarWidth: "none",
                   }}
                 >
-                  <Flex
-                    direction={{ base: "column-reverse", lg: "column" }}
-                    justify={{ base: "flex-start", lg: "flex-start" }}
-                    align={"flex-end"}
-                    width={"full"}
-                    gap={3}
-                    pointerEvents={"none"}
-                    sx={{
-                      "> *": {
-                        pointerEvents: "auto",
-                      },
-                    }}
-                    overflowY={"hidden"}
-                  >
-                    <Outlet />
-                  </Flex>
+                  <Outlet />
                 </GridItem>
               </Grid>
             </>

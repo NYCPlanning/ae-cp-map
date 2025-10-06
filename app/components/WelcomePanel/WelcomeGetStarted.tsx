@@ -57,29 +57,31 @@ export function WelcomeGetStarted({
   }, [navigate, onDismiss]);
 
   return (
-    <>
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        boxSizing={"border-box"}
-        borderTop={"2px solid"}
-        borderColor={"gray.200"}
-        sx={{
-          scrollbarWidth: "none",
-        }}
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      boxSizing={"border-box"}
+      borderTop={"2px solid"}
+      borderColor={"gray.200"}
+      sx={{
+        scrollbarWidth: "none",
+      }}
+      height={"min-content"}
+    >
+      <Checkbox
+        onChange={handleChange}
+        {...checkboxProps}
+        marginBottom={"1rem"}
+        marginTop={"1rem"}
       >
-        {/* <Box></Box> */}
-        <Checkbox onChange={handleChange} {...checkboxProps}>
-          {label}
-        </Checkbox>
-        <Box width={"161px"}>
-          <Button size="md" variant="primary" onClick={handleButtonClick}>
-            Get Started
-            <ChevronRightIcon />
-          </Button>
-        </Box>
-        {/* <Box></Box> */}
+        {label}
+      </Checkbox>
+      <Box width={"161px"}>
+        <Button size="md" variant="primary" onClick={handleButtonClick}>
+          Get Started
+          <ChevronRightIcon />
+        </Button>
       </Box>
-    </>
+    </Box>
   );
 }

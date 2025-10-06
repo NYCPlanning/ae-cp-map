@@ -24,47 +24,37 @@ export function WelcomePanel() {
   return (
     <>
       <Show above="sm">
-        <Flex
-          background={"white"}
-          direction={"column"}
-          borderTopLeftRadius={"base"}
-          borderTopRightRadius={"base"}
-          borderBottomLeftRadius={"base"}
-          borderBottomRightRadius={"base"}
-          width={"full"}
+        <Accordion
+          backgroundColor={"white"}
+          borderRadius={"base"}
+          defaultIndex={[0]}
+          height={"fit-content"}
+          max-height={"100%"}
+          allowToggle
         >
-          <Accordion defaultIndex={[0]} allowToggle margin={"1dvh 1dvw 0 1dvw"}>
-            <AccordionItem
-              border="none"
-              display={{ md: "flex" }}
-              flexDirection={{ md: "column" }}
-              rowGap={"1dvh"}
-              padding={"0.5dvh 0"}
+          <AccordionItem borderRadius={"base"}>
+            <AccordionButton
+              aria-label="Toggle project list panel"
+              borderRadius={"base"}
             >
-              <AccordionButton
-                padding="0px"
-                aria-label="Toggle project list panel"
-                height={"initial"}
-              >
-                <Box as="span" flex="1" textAlign="left">
-                  <WelcomeHeader />
-                </Box>
-                <AccordionIcon size="lg" />
-                <Box paddingBottom={4} />
-              </AccordionButton>
-              <AccordionPanel
-                padding={"0px"}
-                overflowY={"hidden"}
-                display={{ base: "flex" }}
-                flexDirection={{ base: "column" }}
-              >
-                <WelcomeContent />
+              <Box as="span" flex="1" textAlign="left">
+                <WelcomeHeader />
+              </Box>
+              <AccordionIcon size="lg" />
+              <Box />
+            </AccordionButton>
+            <AccordionPanel
+              overflowY={"hidden"}
+              display={{ base: "flex" }}
+              flexDirection={{ base: "column" }}
+              height={"inherit"}
+            >
+              <WelcomeContent />
 
-                <WelcomeGetStarted onDismiss={() => setIsDismissed(true)} />
-              </AccordionPanel>
-            </AccordionItem>
-          </Accordion>
-        </Flex>
+              <WelcomeGetStarted onDismiss={() => setIsDismissed(true)} />
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
       </Show>
       <Hide above="sm">
         <Flex
