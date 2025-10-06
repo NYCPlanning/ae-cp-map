@@ -32,10 +32,6 @@ export function WelcomePanel() {
           borderBottomLeftRadius={"base"}
           borderBottomRightRadius={"base"}
           width={"full"}
-          display={{
-            base: "none",
-            md: "initial",
-          }}
         >
           <Accordion defaultIndex={[0]} allowToggle margin={"1dvh 1dvw 0 1dvw"}>
             <AccordionItem
@@ -82,13 +78,6 @@ export function WelcomePanel() {
           borderTopLeftRadius={"base"}
           borderTopRightRadius={"base"}
           width={"full"}
-          display={{
-            base: "initial",
-            md: "none",
-            lg: "none",
-            xl: "none",
-            "2xl": "none",
-          }}
         >
           <Accordion
             defaultIndex={[0]}
