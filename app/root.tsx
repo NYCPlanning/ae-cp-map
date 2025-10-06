@@ -209,19 +209,19 @@ export default function App() {
               <Grid
                 templateColumns={{
                   base: "0 [col-start] 1fr repeat(6, 1fr) 1fr [col-end] 0",
-                  md: "3.1dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 3.1dvw",
-                  lg: "2.4dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 2.4dvw",
-                  xl: "1.8dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.8dvw",
+                  md: "1.5dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.5dvw",
+                  lg: "1.18dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.18dvw",
+                  xl: "0.86dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.86dvw",
                 }}
                 gap={{
                   base: "0 3dvw",
-                  md: "12px 1.6dvw",
-                  lg: "24px 12px",
+                  md: "0 1.6dvw",
+                  lg: "0 1.22dvw",
+                  xl: "0 0.94dw",
                 }}
                 templateRows={{
                   base: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh 7dvh",
-                  md: "72px [row-start] 1fr [row-end] 0",
-                  lg: "72px [row-start] 1fr [row-end] 0",
+                  md: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh",
                 }}
                 height="100vh"
               >
@@ -230,7 +230,7 @@ export default function App() {
                   gridColumn={{
                     base: "col-start / span 7",
                     md: "col-start / span 4",
-                    lg: "col-start / span 3",
+                    xl: "col-start / span 3",
                   }}
                   gridRow={{
                     base: "row-start / row-end",
