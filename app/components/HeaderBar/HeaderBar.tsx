@@ -28,7 +28,8 @@ export function HeaderBar() {
           />
           <Heading
             visibility={{ base: "hidden", md: "revert", lg: "revert" }}
-            display={{ base: "none" }}
+            display={{ base: "none", md: "revert" }}
+            ml={"1rem"}
             as="h1"
             fontSize="xl"
             fontWeight="bold"
