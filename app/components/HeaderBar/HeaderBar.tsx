@@ -16,7 +16,7 @@ export function HeaderBar() {
         flexDirection={"row"}
         justifyContent={{ base: "space-between", lg: "space-between" }}
         alignItems={"center"}
-        marginLeft={"3dvw"}
+        marginLeft={{ base: "3dvw", md: "3.1dvw", lg: "2.4dvw", xl: "1.8dvw" }}
         marginRight={"3dvw"}
         height={"100%"}
       >
@@ -28,10 +28,11 @@ export function HeaderBar() {
           />
           <Heading
             visibility={{ base: "hidden", md: "revert", lg: "revert" }}
-            display={{ base: "none" }}
+            display={{ base: "none", md: "revert" }}
             as="h1"
             fontSize="xl"
             fontWeight="bold"
+            marginLeft={"1rem"}
           >
             Capital Projects Portal
           </Heading>
