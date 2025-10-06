@@ -1,12 +1,15 @@
 import { GeoJsonLayer } from "@deck.gl/layers";
-import { useParams } from "react-router";
+import { useSearchParams } from "react-router";
 import { FlyToGeoJsonExtension } from "../../extensions";
+import { DistrictId, DistrictType } from "../../utils/types";
 
 export function useCityCouncilDistrictLayer() {
-  const { cityCouncilDistrictId } = useParams();
-  const hasCityCouncilDistrict = cityCouncilDistrictId !== undefined;
+  const [searchParams] = useSearchParams();
+  const districtType = searchParams.get("districtType") as DistrictType;
+  const districtId = searchParams.get("districtId") as DistrictId;
+  const hasCityCouncilDistrict = districtType === "ccd" && districtId !== null;
   const data = hasCityCouncilDistrict
-    ? `${import.meta.env.VITE_ZONING_API_URL}/api/city-council-districts/${cityCouncilDistrictId}/geojson`
+    ? `${import.meta.env.VITE_ZONING_API_URL}/api/city-council-districts/${districtId}/geojson`
     : [];
 
   return new GeoJsonLayer({
