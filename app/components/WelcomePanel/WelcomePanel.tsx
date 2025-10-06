@@ -59,12 +59,7 @@ export function WelcomePanel() {
                 flexDirection={{ base: "column" }}
               >
                 <WelcomeContent />
-              </AccordionPanel>
-              <AccordionPanel
-                paddingInlineStart={"0"}
-                paddingInlineEnd={"0"}
-                paddingBottom={"0"}
-              >
+
                 <WelcomeGetStarted onDismiss={() => setIsDismissed(true)} />
               </AccordionPanel>
             </AccordionItem>
