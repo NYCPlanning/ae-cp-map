@@ -16,35 +16,25 @@ export function Legend() {
         allowToggle
         borderBottomRadius={"base"}
         padding={{ base: 3, lg: "0 12px" }}
-        background={"white"}
         width={{ base: "full", lg: "full" }}
         maxW={{ base: "21.25rem", lg: "unset" }}
-        borderTopWidth={"1px"}
-        borderTopColor={"gray.50"}
       >
         <AccordionItem border="none">
           <AccordionButton aria-label="Toggle welcome panel" px={0}>
             <Heading
-              fontSize="medium"
-              fontWeight="medium"
-              lineHeight={"32px"}
-              display={"flex"}
-              justifyContent={"space-between"}
               flex="1"
+              textAlign="left"
+              fontSize="md"
+              fontWeight="bold"
+              lineHeight={"32px"}
+              pb={0}
             >
               Legend
             </Heading>
             <AccordionIcon />
           </AccordionButton>
-          <AccordionPanel
-            pb={0}
-            px={0}
-            borderBottomStyle={"solid"}
-            borderBottomColor={"gray.200"}
-            // borderBottomWidth={"1px"}
-          >
+          <AccordionPanel pb={0} px={0}>
             <Box>
-              <Box marginBottom={3}></Box>
               <Text fontSize={"small"}>LEGEND CONTENT</Text>
             </Box>
           </AccordionPanel>

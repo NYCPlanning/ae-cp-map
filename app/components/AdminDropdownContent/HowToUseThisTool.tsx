@@ -7,7 +7,7 @@ import {
   AccordionPanel,
 } from "@nycplanning/streetscape";
 
-export function HowToUseThisToolCopy() {
+export function HowToUseThisTool() {
   return (
     <AccordionItem>
       <AccordionButton aria-label="Toggle how to use this tool panel" p={0}>

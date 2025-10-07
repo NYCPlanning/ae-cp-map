@@ -46,7 +46,7 @@ import { zoningApiUrl } from "./utils/envFlags";
 import { BoroughId, DistrictType } from "./utils/types";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { HeaderBar } from "./components/HeaderBar";
-import { HowToUseThisToolCopy } from "./components/AdminDropdownContent/HowToUseThisToolCopy";
+import { HowToUseThisTool } from "./components/AdminDropdownContent/HowToUseThisTool";
 import {
   MapLayersPanel,
   LayerVisibilityToggles,
@@ -285,7 +285,7 @@ export default function App() {
                         projectTypes={agencyBudgets}
                         onClear={clearSelections}
                       />
-                      <HowToUseThisToolCopy />
+                      <HowToUseThisTool />
                     </Accordion>
                   </Flex>
                 </GridItem>
