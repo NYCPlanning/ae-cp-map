@@ -2,19 +2,24 @@ import { Box, Heading, Link, Text } from "@nycplanning/streetscape";
 
 export function WelcomeContent() {
   return (
-    <Box>
+    <Box
+      height={"fit-content"}
+      maxHeight={"51dvh"}
+      overflow={"auto"}
+      marginX={"1rem"}
+    >
       <Heading
         textAlign={"left"}
         fontSize="xl"
         fontWeight="bold"
-        lineHeight={"32px"}
-        overflow={"auto"}
+        lineHeight={"2rem"}
+        marginBottom={"1rem"}
       >
         Learn how New York City invests in building a better future.
       </Heading>
 
-      <Box overflow={"auto"}>
-        <Text fontSize={"md"}>
+      <Box>
+        <Text fontSize={"md"} marginBottom={3}>
           The Capital Projects Database includes information on New York City’s
           potential, planned, and ongoing capital projects. To better help you
           understand New York City’s capital project portfolio within and across

@@ -29,25 +29,34 @@ export function WelcomePanel() {
           borderRadius={"base"}
           defaultIndex={[0]}
           height={"fit-content"}
-          max-height={"100%"}
+          maxHeight={"89dvh"}
           allowToggle
         >
-          <AccordionItem borderRadius={"base"}>
+          <AccordionItem
+            borderRadius={"base"}
+            height={"fit-content"}
+            maxHeight={"100%"}
+            overflow={"auto"}
+          >
             <AccordionButton
               aria-label="Toggle project list panel"
               borderRadius={"base"}
+              height={"fit-content"}
+              maxHeight={"7dvh"}
+              overflow={"clip"}
+              display={"flex"}
+              justifyContent={"space-between"}
             >
-              <Box as="span" flex="1" textAlign="left">
-                <WelcomeHeader />
-              </Box>
+              <WelcomeHeader />
               <AccordionIcon size="lg" />
-              <Box />
             </AccordionButton>
             <AccordionPanel
-              overflowY={"hidden"}
               display={{ base: "flex" }}
               flexDirection={{ base: "column" }}
-              height={"inherit"}
+              padding={0}
+              height={"fit-content"}
+              maxHeight={"82dvh"}
+              overflow={"auto"}
             >
               <WelcomeContent />
 

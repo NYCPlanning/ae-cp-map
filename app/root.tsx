@@ -299,11 +299,10 @@ export default function App() {
                     base: "3 / -1",
                     md: "row-start / row-end",
                   }}
-                  overflowY={{ md: "auto" }}
                   borderRadius={"base"}
                   alignSelf={{ base: "end", md: "start" }}
-                  height={{ md: "100%" }}
                   zIndex={"2"}
+                  height={"100%"}
                   sx={{
                     scrollbarWidth: "none",
                   }}

@@ -66,7 +66,10 @@ export function WelcomeGetStarted({
       sx={{
         scrollbarWidth: "none",
       }}
-      height={"min-content"}
+      height={"fit-content"}
+      maxHeight={"31dvh"}
+      margin={"1rem"}
+      overflow={"clip"}
     >
       <Checkbox
         onChange={handleChange}
