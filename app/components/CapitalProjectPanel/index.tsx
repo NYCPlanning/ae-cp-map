@@ -66,7 +66,6 @@ export function CapitalProjectPanel(props: CapitalProjectPanelProps) {
       <CapitalProjectDetail
         capitalProject={props.capitalProject}
         agencies={props.agencies}
-        navigationBtn={props.navigationBtn}
         capitalCommitments={props.capitalCommitments}
         onNavigationClick={props.onNavigationClick}
       />

@@ -3,7 +3,6 @@ import {
   data,
   useLoaderData,
   useNavigate,
-  useSearchParams,
 } from "react-router";
 import {
   findCapitalProjectByManagingCodeCapitalProjectId,
@@ -64,7 +63,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function CapitalProject() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
   const {
     capitalProject,
     capitalCommitments,
@@ -77,11 +75,6 @@ export default function CapitalProject() {
       capitalProject={capitalProject}
       capitalCommitments={capitalCommitments}
       capitalCommitmentTypes={capitalCommitmentTypes}
-      navigationBtn={
-        searchParams.get("districtId") || searchParams.get("managingAgency")
-          ? "back"
-          : "exit"
-      }
       agencies={agencies}
       onNavigationClick={() => {
         analytics({
@@ -89,13 +82,7 @@ export default function CapitalProject() {
           action: "Click",
           name: "Closed",
         });
-        navigate({
-          pathname:
-            searchParams.get("districtId") || searchParams.get("managingAgency")
-              ? "/capital-projects"
-              : "/",
-          search: `?${searchParams.toString()}`,
-        });
+        navigate(-1);
       }}
     />
   );
