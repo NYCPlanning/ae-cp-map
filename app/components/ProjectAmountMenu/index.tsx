@@ -1,6 +1,6 @@
 import { Flex, IconButton, Text } from "@nycplanning/streetscape";
 import { CloseIcon } from "@chakra-ui/icons";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import {
   CommitmentsTotalMin,
   CommitmentsTotalMax,
@@ -57,8 +57,6 @@ export function ProjectAmountMenu({
     commitmentsTotalMinSelectValue !== "K" ||
     commitmentsTotalMaxSelectValue !== "K";
 
-  const handleOnValidChange = useCallback(onValidChange, []);
-
   useEffect(() => {
     const newCommitmentTotalInputsAreValid = checkCommitmentTotalInputsAreValid(
       {
@@ -69,7 +67,7 @@ export function ProjectAmountMenu({
       },
     );
     if (newCommitmentTotalInputsAreValid) {
-      handleOnValidChange({
+      onValidChange({
         commitmentsTotalMin:
           commitmentsTotalMinInputValue !== "" &&
           parseFloat(commitmentsTotalMinInputValue)
@@ -93,7 +91,6 @@ export function ProjectAmountMenu({
     commitmentsTotalMaxInputValue,
     commitmentsTotalMinSelectValue,
     commitmentsTotalMaxSelectValue,
-    handleOnValidChange,
   ]);
 
   return (
