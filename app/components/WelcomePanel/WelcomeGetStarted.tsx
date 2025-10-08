@@ -60,15 +60,15 @@ export function WelcomeGetStarted({
     <Box
       display={"flex"}
       flexDirection={"column"}
-      justifyContent={"space-around"}
       boxSizing={"border-box"}
       borderTop={"2px solid"}
       borderColor={"gray.200"}
-      height={"15dvh"}
       sx={{
         scrollbarWidth: "none",
       }}
+      gap={"1.5dvh"}
     >
+      <Box></Box>
       <Checkbox onChange={handleChange} {...checkboxProps}>
         {label}
       </Checkbox>
@@ -78,6 +78,7 @@ export function WelcomeGetStarted({
           <ChevronRightIcon />
         </Button>
       </Box>
+      <Box></Box>
     </Box>
   );
 }

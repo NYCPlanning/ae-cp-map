@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Accordion,
   AccordionButton,
@@ -10,9 +11,8 @@ import {
   Show,
 } from "@nycplanning/streetscape";
 import { WelcomeContent, WelcomeHeader } from ".";
-import { analyticsWelcomePanelToggle } from "../../utils/analytics";
 import { isWelcomeHidden, WelcomeGetStarted } from "./WelcomeGetStarted";
-import { useState } from "react";
+import { analyticsWelcomePanelToggle } from "../../utils/analytics";
 
 export function WelcomePanel() {
   const [isDismissed, setIsDismissed] = useState<boolean>(() =>
@@ -27,36 +27,31 @@ export function WelcomePanel() {
         <Flex
           background={"white"}
           direction={"column"}
-          borderTopLeftRadius={"base"}
-          borderTopRightRadius={"base"}
-          borderBottomLeftRadius={"base"}
-          borderBottomRightRadius={"base"}
+          borderRadius={"base"}
           width={"full"}
         >
-          <Accordion defaultIndex={[0]} allowToggle margin={"1dvh 1dvw 0 1dvw"}>
-            <AccordionItem
-              border="none"
-              display={{ md: "flex" }}
-              flexDirection={{ md: "column" }}
-              rowGap={"1dvh"}
-              padding={"0.5dvh 0"}
-            >
+          <Accordion
+            defaultIndex={[0]}
+            allowToggle
+            marginLeft={"2dvw"}
+            marginRight={"2dvw"}
+          >
+            <AccordionItem border="none">
               <AccordionButton
                 padding="0px"
                 aria-label="Toggle project list panel"
-                height={"initial"}
+                height={"7dvh"}
               >
                 <Box as="span" flex="1" textAlign="left">
                   <WelcomeHeader />
                 </Box>
                 <AccordionIcon size="lg" />
-                <Box paddingBottom={4} />
               </AccordionButton>
               <AccordionPanel
                 padding={"0px"}
                 overflowY={"hidden"}
-                display={{ base: "flex" }}
-                flexDirection={{ base: "column" }}
+                height={"65dvh"}
+                overflow={"scroll"}
               >
                 <WelcomeContent />
               </AccordionPanel>
@@ -82,14 +77,14 @@ export function WelcomePanel() {
           <Accordion
             defaultIndex={[0]}
             allowToggle
-            marginLeft={{ base: "3dvw" }}
-            marginRight={{ base: "3dvw" }}
+            marginLeft={"3dvw"}
+            marginRight={"3dvw"}
           >
             <AccordionItem border="none">
               <AccordionButton
                 padding="0px"
                 aria-label="Toggle project list panel"
-                height={{ base: "7dvh" }}
+                height={"7dvh"}
               >
                 <Box as="span" flex="1" textAlign="left">
                   <WelcomeHeader />
@@ -99,10 +94,10 @@ export function WelcomePanel() {
               <AccordionPanel
                 padding={"0px"}
                 overflowY={"hidden"}
-                height={{ base: "68dvh" }}
-                overflow={{ base: "scroll" }}
-                display={{ base: "flex" }}
-                flexDirection={{ base: "column" }}
+                height={"68dvh"}
+                overflow={"scroll"}
+                display={"flex"}
+                flexDirection={"column"}
               >
                 <WelcomeContent />
               </AccordionPanel>

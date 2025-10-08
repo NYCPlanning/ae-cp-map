@@ -300,7 +300,6 @@ export default function App() {
                     md: "row-start / span 3",
                     lg: "row-start / row-end",
                   }}
-                  overflowY={{ lg: "scroll" }}
                   alignSelf={{ base: "end", md: "start" }}
                   height={{ md: "100%" }}
                   zIndex={"2"}

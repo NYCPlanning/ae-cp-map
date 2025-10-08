@@ -5,10 +5,13 @@ export function WelcomeHeader() {
     <Heading
       flex="1"
       textAlign={"left"}
-      fontSize="large"
-      fontWeight="medium"
+      fontSize="md"
+      fontWeight="bold"
       lineHeight={"32px"}
-      mb={"1dvh"}
+      pt={"1dvh"}
+      pb={"1dvh"}
+      borderBottom={"2px solid"}
+      borderColor={"gray.200"}
     >
       Welcome
     </Heading>

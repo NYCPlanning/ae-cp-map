@@ -2,19 +2,19 @@ import { Box, Heading, Link, Text } from "@nycplanning/streetscape";
 
 export function WelcomeContent() {
   return (
-    <>
-      <Box paddingBottom={2}>
-        <Heading
-          flex="1"
-          textAlign={"left"}
-          fontSize="xl"
-          fontWeight="bold"
-          lineHeight={"32px"}
-          marginBottom={{ base: "1dvh" }}
-        >
-          Learn how New York City invests in building a better future.
-        </Heading>
+    <Box>
+      <Heading
+        textAlign={"left"}
+        fontSize="xl"
+        fontWeight="bold"
+        lineHeight={"32px"}
+        mt={2}
+        mb={2}
+      >
+        Learn how New York City invests in building a better future.
+      </Heading>
 
+      <Box>
         <Text fontSize={"md"}>
           The Capital Projects Database includes information on New York City’s
           potential, planned, and ongoing capital projects. To better help you
@@ -23,9 +23,7 @@ export function WelcomeContent() {
           Unmapped projects, such as the purchase of vehicles or digital
           infrastructure, are not included in this tool.
         </Text>
-      </Box>
 
-      <Box>
         <Text fontSize={"md"} marginBottom={3}>
           To learn more about the Capital Projects Database and how New York
           City invests in building a better future, go to{" "}
@@ -52,13 +50,13 @@ export function WelcomeContent() {
             Bytes of the Big Apple
           </Link>
         </Text>
-        <Text fontSize={"sm"}>
+        <Text fontSize={"sm"} mb={{ md: "1dvh" }}>
           *Indicates Continued Support. Continued Support requests are Capital
           requests which have received some degree of funding or approval, where
           the board is requesting that the agency continue its support of that
           ongoing item.
         </Text>
       </Box>
-    </>
+    </Box>
   );
 }
