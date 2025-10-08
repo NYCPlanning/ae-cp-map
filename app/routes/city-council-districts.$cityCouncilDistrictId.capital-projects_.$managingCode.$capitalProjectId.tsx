@@ -1,6 +1,7 @@
 import {
   useLoaderData,
   useNavigate,
+  useSearchParams,
   LoaderFunctionArgs,
   data,
 } from "react-router";
@@ -62,6 +63,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function CapitalProjectByCityCouncilDistrictId() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const {
     capitalProject,
     agencies,
@@ -76,7 +78,10 @@ export default function CapitalProjectByCityCouncilDistrictId() {
       capitalCommitments={capitalCommitments}
       capitalCommitmentTypes={capitalCommitmentTypes}
       onNavigationClick={() => {
-        navigate(-1);
+        navigate({
+          pathname: `/capital-projects`,
+          search: `?${searchParams.toString()}`,
+        });
       }}
     />
   );
