@@ -10,6 +10,11 @@ export function HeaderBar() {
       gridRowStart={"1"}
       gridRowEnd={"2"}
       boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.16)"}
+      sx={{
+        "@media (orientation: portrait) and (min-height: 1150px)": {
+          height: "4dvh",
+        },
+      }}
     >
       <Box
         display={"flex"}

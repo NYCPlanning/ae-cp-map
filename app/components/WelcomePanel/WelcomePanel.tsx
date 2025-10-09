@@ -41,6 +41,11 @@ export function WelcomePanel() {
                 padding="0px"
                 aria-label="Toggle project list panel"
                 height={"7dvh"}
+                sx={{
+                  "@media (orientation: portrait) and (min-height: 1150px)": {
+                    height: "4dvh",
+                  },
+                }}
               >
                 <Box as="span" flex="1" textAlign="left">
                   <WelcomeHeader />
@@ -50,8 +55,16 @@ export function WelcomePanel() {
               <AccordionPanel
                 padding={"0px"}
                 overflowY={"hidden"}
-                height={"65dvh"}
                 overflow={"scroll"}
+                height={"65dvh"}
+                sx={{
+                  "@media (orientation: portrait) and (min-height: 1150px)": {
+                    height: "fit-content",
+                  },
+                  "@media (orientation: landscape) and (min-height: 1150px)": {
+                    height: "fit-content",
+                  },
+                }}
               >
                 <WelcomeContent />
               </AccordionPanel>
@@ -59,6 +72,12 @@ export function WelcomePanel() {
                 paddingInlineStart={"0"}
                 paddingInlineEnd={"0"}
                 paddingBottom={"0"}
+                sx={{
+                  "@media (orientation: portrait) and (min-height: 1150px)": {
+                    height: "7dvh",
+                    paddingTop: 0,
+                  },
+                }}
               >
                 <WelcomeGetStarted onDismiss={() => setIsDismissed(true)} />
               </AccordionPanel>
