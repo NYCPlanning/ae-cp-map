@@ -138,7 +138,7 @@ function Document({
   title?: string;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ scrollbarWidth: "none" }}>
       <head>
         <Meta />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -224,6 +224,9 @@ export default function App() {
                   md: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh",
                 }}
                 height="100vh"
+                sx={{
+                  scrollbarWidth: "none",
+                }}
               >
                 <HeaderBar />
                 <GridItem
@@ -246,6 +249,7 @@ export default function App() {
                   sx={{
                     scrollbarWidth: "none",
                   }}
+                  className="gridItem1"
                 >
                   <Flex
                     direction={"column"}
@@ -263,6 +267,7 @@ export default function App() {
                     sx={{
                       scrollbarWidth: "none",
                     }}
+                    className="flex1"
                   >
                     <Accordion
                       allowMultiple
@@ -297,18 +302,22 @@ export default function App() {
                   }}
                   gridRow={{
                     base: "3 / -1",
-                    md: "row-start / span 3",
-                    lg: "row-start / row-end",
+                    md: "row-start / row-end",
+                    lg: "row-start / span 1",
+                  }}
+                  height={{
+                    base: "fit-content",
+                    md: "100%",
                   }}
                   alignSelf={{ base: "end", md: "start" }}
-                  height={{ md: "fit-content" }}
                   zIndex={"2"}
                   sx={{
                     scrollbarWidth: "none",
                   }}
+                  overflowY={{ lg: "scroll" }}
+                  className="gridItem2"
                 >
                   <Flex
-                    direction={{ base: "column-reverse", lg: "column" }}
                     justify={{ base: "flex-start", lg: "flex-start" }}
                     align={"flex-end"}
                     width={"full"}
@@ -318,8 +327,20 @@ export default function App() {
                       "> *": {
                         pointerEvents: "auto",
                       },
+                      scrollbarWidth: "none",
                     }}
-                    overflowY={"hidden"}
+                    direction={"column"}
+                    alignItems={"center"}
+                    flexShrink={{ lg: 0 }}
+                    maxHeight={{
+                      base: "82vh",
+                      lg: "full",
+                    }}
+                    backgroundColor={"white"}
+                    borderRadius={10}
+                    overflowY={"scroll"}
+                    padding={4}
+                    className="flex2"
                   >
                     <Outlet />
                   </Flex>

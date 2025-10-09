@@ -33,33 +33,23 @@ export function WelcomePanel() {
           <Accordion
             defaultIndex={[0]}
             allowToggle
-            marginLeft={"2dvw"}
-            marginRight={"2dvw"}
+            // marginLeft={"2dvw"}
+            // marginRight={"2dvw"}
           >
             <AccordionItem border="none">
               <AccordionButton
                 padding="0px"
                 aria-label="Toggle project list panel"
-                height={"7dvh"}
               >
-                <Box as="span" flex="1" textAlign="left">
-                  <WelcomeHeader />
-                </Box>
+                <WelcomeHeader />
                 <AccordionIcon size="lg" />
               </AccordionButton>
               <AccordionPanel
                 padding={"0px"}
-                overflowY={"hidden"}
-                height={"65dvh"}
-                overflow={"scroll"}
+                display={"flex"}
+                flexDirection={"column"}
               >
                 <WelcomeContent />
-              </AccordionPanel>
-              <AccordionPanel
-                paddingInlineStart={"0"}
-                paddingInlineEnd={"0"}
-                paddingBottom={"0"}
-              >
                 <WelcomeGetStarted onDismiss={() => setIsDismissed(true)} />
               </AccordionPanel>
             </AccordionItem>
@@ -74,28 +64,20 @@ export function WelcomePanel() {
           borderTopRightRadius={"base"}
           width={"full"}
         >
-          <Accordion
-            defaultIndex={[0]}
-            allowToggle
-            marginLeft={"3dvw"}
-            marginRight={"3dvw"}
-          >
-            <AccordionItem border="none">
+          <Accordion defaultIndex={[0]} allowToggle width={"100%"}>
+            <AccordionItem borderTop="none">
               <AccordionButton
-                padding="0px"
+                padding={"0"}
                 aria-label="Toggle project list panel"
-                height={"7dvh"}
+                // height={"7dvh"}
               >
-                <Box as="span" flex="1" textAlign="left">
-                  <WelcomeHeader />
-                </Box>
+                {/* <Box as="span" flex="1" textAlign="left"> */}
+                <WelcomeHeader />
+                {/* </Box> */}
                 <AccordionIcon size="lg" />
               </AccordionButton>
               <AccordionPanel
                 padding={"0px"}
-                overflowY={"hidden"}
-                height={"68dvh"}
-                overflow={"scroll"}
                 display={"flex"}
                 flexDirection={"column"}
               >

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { Box, Checkbox, type CheckboxProps } from "@chakra-ui/react";
+import { Box, Checkbox, Flex, type CheckboxProps } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { Button } from "@nycplanning/streetscape";
 import { useCallback } from "react";
@@ -57,18 +57,17 @@ export function WelcomeGetStarted({
   }, [navigate, onDismiss]);
 
   return (
-    <Box
-      display={"flex"}
-      flexDirection={"column"}
+    <Flex
+      direction={"column"}
       boxSizing={"border-box"}
       borderTop={"2px solid"}
       borderColor={"gray.200"}
+      paddingTop={"1rem"}
+      gap={"1rem"}
       sx={{
         scrollbarWidth: "none",
       }}
-      gap={"1.5dvh"}
     >
-      <Box></Box>
       <Checkbox onChange={handleChange} {...checkboxProps}>
         {label}
       </Checkbox>
@@ -78,7 +77,6 @@ export function WelcomeGetStarted({
           <ChevronRightIcon />
         </Button>
       </Box>
-      <Box></Box>
-    </Box>
+    </Flex>
   );
 }

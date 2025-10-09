@@ -2,7 +2,7 @@ import { Box, Heading, Link, Text } from "@nycplanning/streetscape";
 
 export function WelcomeContent() {
   return (
-    <Box>
+    <Box marginBottom={"1rem"}>
       <Heading
         textAlign={"left"}
         fontSize="xl"
@@ -50,7 +50,7 @@ export function WelcomeContent() {
             Bytes of the Big Apple
           </Link>
         </Text>
-        <Text fontSize={"sm"} mb={{ md: "1dvh" }}>
+        <Text fontSize={"sm"}>
           *Indicates Continued Support. Continued Support requests are Capital
           requests which have received some degree of funding or approval, where
           the board is requesting that the agency continue its support of that
