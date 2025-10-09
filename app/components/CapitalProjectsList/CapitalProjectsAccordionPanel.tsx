@@ -45,7 +45,7 @@ export const CapitalProjectsAccordionPanel = ({
             <AccordionButton
               padding="0px"
               aria-label="Toggle project list panel"
-              height={"7dvh"}
+              // height={"7dvh"}
             >
               <Box as="span" flex="1" textAlign="left">
                 {capitalProjectsTotal} Results
@@ -55,7 +55,7 @@ export const CapitalProjectsAccordionPanel = ({
             <AccordionPanel
               padding={"0px"}
               overflowY={"hidden"}
-              height={{ md: "65dvh", xl: "50dvh" }}
+              // height={{ md: "65dvh", xl: "50dvh" }}
               overflow={"scroll"}
             >
               <CapitalProjectsList
