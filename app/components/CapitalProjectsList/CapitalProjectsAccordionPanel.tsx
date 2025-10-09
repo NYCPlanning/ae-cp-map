@@ -32,48 +32,31 @@ export const CapitalProjectsAccordionPanel = ({
       <Flex
         background={"white"}
         direction={"column"}
-        borderTopLeftRadius={"base"}
-        borderTopRightRadius={"base"}
+        borderRadius={"base"}
         width={"full"}
-        zIndex={{ base: "2" }}
       >
         <Accordion
           defaultIndex={[0]}
           allowToggle
-          margin={{
-            base: "0 3dvw",
-            md: "1dvh 1dvw .5dvh 1dvw",
-          }}
+          marginLeft={"2dvw"}
+          marginRight={"2dvw"}
         >
           <AccordionItem border="none">
             <AccordionButton
               padding="0px"
               aria-label="Toggle project list panel"
-              height={{
-                base: "7dvh",
-                md: "initial",
-              }}
+              height={"7dvh"}
             >
               <Box as="span" flex="1" textAlign="left">
-                <Heading
-                  color="gray.600"
-                  fontWeight={"bold"}
-                  fontSize={"lg"}
-                  marginBottom={{ md: "1dvh" }}
-                  padding={{ md: "0.5dvh 0" }}
-                >
-                  {capitalProjectsTotal} Results
-                </Heading>
+                {capitalProjectsTotal} Results
               </Box>
               <AccordionIcon size="lg" />
-              <Box borderTopWidth={"1px"} paddingBottom={4} />
             </AccordionButton>
             <AccordionPanel
               padding={"0px"}
               overflowY={"hidden"}
-              height={{ base: "83dvh", md: "initial" }}
-              display={{ base: "flex" }}
-              flexDirection={{ base: "column" }}
+              height={{ md: "65dvh", xl: "50dvh" }}
+              overflow={"scroll"}
             >
               <CapitalProjectsList
                 capitalProjects={capitalProjects}
@@ -81,6 +64,13 @@ export const CapitalProjectsAccordionPanel = ({
                 capitalProjectsTotal={capitalProjectsTotal}
                 isExpanded={isExpanded}
               />
+              {/* {children} */}
+            </AccordionPanel>
+            <AccordionPanel
+              paddingInlineStart={"0"}
+              paddingInlineEnd={"0"}
+              paddingBottom={"1dvh"}
+            >
               {children}
             </AccordionPanel>
           </AccordionItem>

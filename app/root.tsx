@@ -301,7 +301,7 @@ export default function App() {
                     lg: "row-start / row-end",
                   }}
                   alignSelf={{ base: "end", md: "start" }}
-                  height={{ md: "100%" }}
+                  height={{ md: "fit-content" }}
                   zIndex={"2"}
                   sx={{
                     scrollbarWidth: "none",
