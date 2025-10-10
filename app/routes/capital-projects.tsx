@@ -136,6 +136,7 @@ export default function CapitalProjects() {
         alignItems="center"
         justifyContent={"space-between"}
         marginTop={"auto"}
+        marginBottom={{ base: "1rem", md: "0rem" }}
       >
         <Pagination total={capitalProjectsTotal} />
         {exportModal}

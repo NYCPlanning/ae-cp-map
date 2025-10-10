@@ -40,7 +40,6 @@ describe("CapitalProjectsList", () => {
           capitalProjects={[]}
           agencies={agencies}
           capitalProjectsTotal={2}
-          isExpanded={false}
         />
       </BrowserRouter>,
     );
@@ -53,7 +52,6 @@ describe("CapitalProjectsList", () => {
           capitalProjects={capitalProjects}
           agencies={agencies}
           capitalProjectsTotal={2}
-          isExpanded={false}
         />
       </BrowserRouter>,
     );
@@ -68,7 +66,6 @@ describe("CapitalProjectsList", () => {
           capitalProjects={[]}
           agencies={agencies}
           capitalProjectsTotal={0}
-          isExpanded={false}
         />
       </BrowserRouter>,
     );

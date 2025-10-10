@@ -240,10 +240,7 @@ export default function App() {
                     md: "row-start / row-end",
                     lg: "row-start / span 1",
                   }}
-                  height={{
-                    base: "fit-content",
-                    md: "100%",
-                  }}
+                  height={"100%"}
                   overflowY={{ lg: "scroll" }}
                   zIndex={"1"}
                   sx={{
@@ -268,6 +265,7 @@ export default function App() {
                       scrollbarWidth: "none",
                     }}
                     className="flex1"
+                    boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
                   >
                     <Accordion
                       allowMultiple
@@ -305,21 +303,19 @@ export default function App() {
                     md: "row-start / row-end",
                     lg: "row-start / span 1",
                   }}
-                  height={{
-                    base: "fit-content",
-                    md: "100%",
-                  }}
-                  alignSelf={{ base: "end", md: "start" }}
+                  height={"100%"}
+                  pointerEvents={"none"}
                   zIndex={"2"}
                   sx={{
                     scrollbarWidth: "none",
                   }}
-                  overflowY={{ lg: "scroll" }}
+                  overflowY={"scroll"}
                   className="gridItem2"
+                  display={"flex"}
+                  flexDirection={"column"}
+                  justifyContent={{ base: "end", md: "start" }}
                 >
                   <Flex
-                    justify={{ base: "flex-start", lg: "flex-start" }}
-                    align={"flex-end"}
                     width={"full"}
                     gap={3}
                     pointerEvents={"none"}
@@ -330,16 +326,14 @@ export default function App() {
                       scrollbarWidth: "none",
                     }}
                     direction={"column"}
-                    alignItems={"center"}
                     flexShrink={{ lg: 0 }}
-                    maxHeight={{
-                      base: "82vh",
-                      lg: "full",
-                    }}
+                    maxHeight={"full"}
+                    justify={"end"}
                     backgroundColor={"white"}
                     borderRadius={10}
                     overflowY={"scroll"}
                     padding={4}
+                    boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
                     className="flex2"
                   >
                     <Outlet />
