@@ -63,6 +63,7 @@ export function WelcomeGetStarted({
       borderTop={"2px solid"}
       borderColor={"gray.200"}
       paddingTop={"1rem"}
+      paddingBottom={{ base: "1rem", md: "0rem" }}
       gap={"1rem"}
       sx={{
         scrollbarWidth: "none",
