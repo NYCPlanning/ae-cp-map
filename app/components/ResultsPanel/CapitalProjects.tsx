@@ -105,8 +105,8 @@ export default function CapitalProjects() {
 
   let exportModal = (
     <ExportDataModal
-      geography={`City Council District {cityCouncilDistrictId}`}
-      fileName={`city_council_district_{cityCouncilDistrictId}.csv`}
+      geography={"All"}
+      fileName={"projects_in_geographies.zip"}
     />
   );
 
@@ -118,10 +118,12 @@ export default function CapitalProjects() {
       />
     );
   } else if (cityCouncilDistrictId !== null) {
-    <ExportDataModal
-      geography={`City Council District ${cityCouncilDistrictId}`}
-      fileName={`city_council_district_${cityCouncilDistrictId}.csv`}
-    />;
+    exportModal = (
+      <ExportDataModal
+        geography={`City Council District ${cityCouncilDistrictId}`}
+        fileName={`city_council_district_${cityCouncilDistrictId}.csv`}
+      />
+    );
   }
 
   return (
