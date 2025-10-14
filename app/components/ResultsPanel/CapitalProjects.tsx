@@ -5,8 +5,8 @@ import {
   findCapitalProjects,
   findBoroughs,
   Borough,
-} from "../gen";
-import { CapitalProjectsAccordionPanel } from "../components/CapitalProjectsList";
+} from "~/gen";
+import { CapitalProjectsAccordionPanel } from "~/components/CapitalProjectsList";
 import { Flex } from "@nycplanning/streetscape";
 import { Pagination } from "~/components/Pagination";
 import { ExportDataModal } from "~/components/ExportDataModal";
