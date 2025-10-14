@@ -30,5 +30,10 @@ export default function CommunityBoardBudgetRequests() {
   const { communityBoardBudgetRequests, totalBudgetRequests, limit, offset } =
     useLoaderData<typeof loader>();
   console.log("total", totalBudgetRequests);
-  return <ResultsPanelLayout totalResults={totalBudgetRequests} />;
+  return (
+    <ResultsPanelLayout
+      totalResults={totalBudgetRequests}
+      budgetRequests={communityBoardBudgetRequests}
+    />
+  );
 }
