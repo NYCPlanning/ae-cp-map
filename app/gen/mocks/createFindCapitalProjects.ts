@@ -30,6 +30,7 @@ export function createFindCapitalProjectsQueryParams(): NonNullable<FindCapitalP
       faker.string.alpha(),
       new RandExp("^[+-]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\\.[0-9]{2})?$").gen(),
     ]),
+    isMapped: faker.datatype.boolean(),
     limit: faker.number.int(),
     offset: faker.number.int(),
   };

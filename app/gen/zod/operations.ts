@@ -97,6 +97,12 @@ import {
   findCapitalProjectTilesByCityCouncilDistrictIdPathParamsSchema,
 } from "./findCapitalProjectTilesByCityCouncilDistrictIdSchema";
 import {
+  findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdQueryResponseSchema,
+  findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId400Schema,
+  findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId500Schema,
+  findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdPathParamsSchema,
+} from "./findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdSchema";
+import {
   findCapitalProjectsByCityCouncilIdQueryResponseSchema,
   findCapitalProjectsByCityCouncilId400Schema,
   findCapitalProjectsByCityCouncilId500Schema,
@@ -109,6 +115,48 @@ import {
   findCityCouncilDistrictTiles500Schema,
   findCityCouncilDistrictTilesPathParamsSchema,
 } from "./findCityCouncilDistrictTilesSchema";
+import {
+  findCommunityBoardBudgetRequestsQueryResponseSchema,
+  findCommunityBoardBudgetRequests400Schema,
+  findCommunityBoardBudgetRequests500Schema,
+  findCommunityBoardBudgetRequestsQueryParamsSchema,
+} from "./findCommunityBoardBudgetRequestsSchema";
+import {
+  findCommunityBoardBudgetRequestByIdQueryResponseSchema,
+  findCommunityBoardBudgetRequestById400Schema,
+  findCommunityBoardBudgetRequestById404Schema,
+  findCommunityBoardBudgetRequestById500Schema,
+  findCommunityBoardBudgetRequestByIdPathParamsSchema,
+} from "./findCommunityBoardBudgetRequestByIdSchema";
+import {
+  findCommunityBoardBudgetRequestAgenciesQueryResponseSchema,
+  findCommunityBoardBudgetRequestAgencies400Schema,
+  findCommunityBoardBudgetRequestAgencies500Schema,
+  findCommunityBoardBudgetRequestAgenciesQueryParamsSchema,
+} from "./findCommunityBoardBudgetRequestAgenciesSchema";
+import {
+  findCommunityBoardBudgetRequestAgencyResponseTypesQueryResponseSchema,
+  findCommunityBoardBudgetRequestAgencyResponseTypes400Schema,
+  findCommunityBoardBudgetRequestAgencyResponseTypes500Schema,
+} from "./findCommunityBoardBudgetRequestAgencyResponseTypesSchema";
+import {
+  findCommunityBoardBudgetRequestNeedGroupsQueryResponseSchema,
+  findCommunityBoardBudgetRequestNeedGroups400Schema,
+  findCommunityBoardBudgetRequestNeedGroups500Schema,
+  findCommunityBoardBudgetRequestNeedGroupsQueryParamsSchema,
+} from "./findCommunityBoardBudgetRequestNeedGroupsSchema";
+import {
+  findCommunityBoardBudgetRequestPolicyAreasQueryResponseSchema,
+  findCommunityBoardBudgetRequestPolicyAreas400Schema,
+  findCommunityBoardBudgetRequestPolicyAreas500Schema,
+  findCommunityBoardBudgetRequestPolicyAreasQueryParamsSchema,
+} from "./findCommunityBoardBudgetRequestPolicyAreasSchema";
+import {
+  findCommunityBoardBudgetRequestTilesQueryResponseSchema,
+  findCommunityBoardBudgetRequestTiles400Schema,
+  findCommunityBoardBudgetRequestTiles500Schema,
+  findCommunityBoardBudgetRequestTilesPathParamsSchema,
+} from "./findCommunityBoardBudgetRequestTilesSchema";
 import {
   findCommunityDistrictTilesQueryResponseSchema,
   findCommunityDistrictTiles400Schema,
@@ -495,6 +543,25 @@ export const operations = {
       500: findCapitalProjectTilesByCityCouncilDistrictId500Schema,
     },
   },
+  findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId: {
+    request: undefined,
+    parameters: {
+      path: findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdPathParamsSchema,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId400Schema,
+      500: findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId500Schema,
+      default:
+        findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId400Schema,
+      500: findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId500Schema,
+    },
+  },
   findCapitalProjectsByCityCouncilId: {
     request: undefined,
     parameters: {
@@ -529,6 +596,135 @@ export const operations = {
     errors: {
       400: findCityCouncilDistrictTiles400Schema,
       500: findCityCouncilDistrictTiles500Schema,
+    },
+  },
+  findCommunityBoardBudgetRequests: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: findCommunityBoardBudgetRequestsQueryParamsSchema,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestsQueryResponseSchema,
+      400: findCommunityBoardBudgetRequests400Schema,
+      500: findCommunityBoardBudgetRequests500Schema,
+      default: findCommunityBoardBudgetRequestsQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequests400Schema,
+      500: findCommunityBoardBudgetRequests500Schema,
+    },
+  },
+  findCommunityBoardBudgetRequestById: {
+    request: undefined,
+    parameters: {
+      path: findCommunityBoardBudgetRequestByIdPathParamsSchema,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestByIdQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestById400Schema,
+      404: findCommunityBoardBudgetRequestById404Schema,
+      500: findCommunityBoardBudgetRequestById500Schema,
+      default: findCommunityBoardBudgetRequestByIdQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequestById400Schema,
+      404: findCommunityBoardBudgetRequestById404Schema,
+      500: findCommunityBoardBudgetRequestById500Schema,
+    },
+  },
+  findCommunityBoardBudgetRequestAgencies: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: findCommunityBoardBudgetRequestAgenciesQueryParamsSchema,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestAgenciesQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestAgencies400Schema,
+      500: findCommunityBoardBudgetRequestAgencies500Schema,
+      default: findCommunityBoardBudgetRequestAgenciesQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequestAgencies400Schema,
+      500: findCommunityBoardBudgetRequestAgencies500Schema,
+    },
+  },
+  findCommunityBoardBudgetRequestAgencyResponseTypes: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestAgencyResponseTypesQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestAgencyResponseTypes400Schema,
+      500: findCommunityBoardBudgetRequestAgencyResponseTypes500Schema,
+      default:
+        findCommunityBoardBudgetRequestAgencyResponseTypesQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequestAgencyResponseTypes400Schema,
+      500: findCommunityBoardBudgetRequestAgencyResponseTypes500Schema,
+    },
+  },
+  findCommunityBoardBudgetRequestNeedGroups: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: findCommunityBoardBudgetRequestNeedGroupsQueryParamsSchema,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestNeedGroupsQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestNeedGroups400Schema,
+      500: findCommunityBoardBudgetRequestNeedGroups500Schema,
+      default: findCommunityBoardBudgetRequestNeedGroupsQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequestNeedGroups400Schema,
+      500: findCommunityBoardBudgetRequestNeedGroups500Schema,
+    },
+  },
+  findCommunityBoardBudgetRequestPolicyAreas: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: findCommunityBoardBudgetRequestPolicyAreasQueryParamsSchema,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestPolicyAreasQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestPolicyAreas400Schema,
+      500: findCommunityBoardBudgetRequestPolicyAreas500Schema,
+      default: findCommunityBoardBudgetRequestPolicyAreasQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequestPolicyAreas400Schema,
+      500: findCommunityBoardBudgetRequestPolicyAreas500Schema,
+    },
+  },
+  findCommunityBoardBudgetRequestTiles: {
+    request: undefined,
+    parameters: {
+      path: findCommunityBoardBudgetRequestTilesPathParamsSchema,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestTilesQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestTiles400Schema,
+      500: findCommunityBoardBudgetRequestTiles500Schema,
+      default: findCommunityBoardBudgetRequestTilesQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequestTiles400Schema,
+      500: findCommunityBoardBudgetRequestTiles500Schema,
     },
   },
   findCommunityDistrictTiles: {
@@ -817,11 +1013,38 @@ export const paths = {
     {
       get: operations["findCapitalProjectTilesByCityCouncilDistrictId"],
     },
+  "/city-council-districts/{cityCouncilDistrictId}/community-board-budget-requests/{z}/{x}/{y}.pbf":
+    {
+      get: operations[
+        "findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId"
+      ],
+    },
   "/city-council-districts/{cityCouncilDistrictId}/capital-projects": {
     get: operations["findCapitalProjectsByCityCouncilId"],
   },
   "/city-council-districts/{z}/{x}/{y}.pbf": {
     get: operations["findCityCouncilDistrictTiles"],
+  },
+  "/community-board-budget-requests": {
+    get: operations["findCommunityBoardBudgetRequests"],
+  },
+  "/community-board-budget-requests/{cbbrId}": {
+    get: operations["findCommunityBoardBudgetRequestById"],
+  },
+  "/community-board-budget-requests/agencies": {
+    get: operations["findCommunityBoardBudgetRequestAgencies"],
+  },
+  "/community-board-budget-requests/agency-response-types": {
+    get: operations["findCommunityBoardBudgetRequestAgencyResponseTypes"],
+  },
+  "/community-board-budget-requests/need-groups": {
+    get: operations["findCommunityBoardBudgetRequestNeedGroups"],
+  },
+  "/community-board-budget-requests/policy-areas": {
+    get: operations["findCommunityBoardBudgetRequestPolicyAreas"],
+  },
+  "/community-board-budget-requests/{z}/{x}/{y}.pbf": {
+    get: operations["findCommunityBoardBudgetRequestTiles"],
   },
   "/community-districts/{z}/{x}/{y}.pbf": {
     get: operations["findCommunityDistrictTiles"],

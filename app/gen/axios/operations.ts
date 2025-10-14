@@ -63,12 +63,44 @@ export const operations = {
     path: "/city-council-districts/:cityCouncilDistrictId/capital-projects/:z/:x/:y.pbf",
     method: "get",
   },
+  findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId: {
+    path: "/city-council-districts/:cityCouncilDistrictId/community-board-budget-requests/:z/:x/:y.pbf",
+    method: "get",
+  },
   findCapitalProjectsByCityCouncilId: {
     path: "/city-council-districts/:cityCouncilDistrictId/capital-projects",
     method: "get",
   },
   findCityCouncilDistrictTiles: {
     path: "/city-council-districts/:z/:x/:y.pbf",
+    method: "get",
+  },
+  findCommunityBoardBudgetRequests: {
+    path: "/community-board-budget-requests",
+    method: "get",
+  },
+  findCommunityBoardBudgetRequestById: {
+    path: "/community-board-budget-requests/:cbbrId",
+    method: "get",
+  },
+  findCommunityBoardBudgetRequestAgencies: {
+    path: "/community-board-budget-requests/agencies",
+    method: "get",
+  },
+  findCommunityBoardBudgetRequestAgencyResponseTypes: {
+    path: "/community-board-budget-requests/agency-response-types",
+    method: "get",
+  },
+  findCommunityBoardBudgetRequestNeedGroups: {
+    path: "/community-board-budget-requests/need-groups",
+    method: "get",
+  },
+  findCommunityBoardBudgetRequestPolicyAreas: {
+    path: "/community-board-budget-requests/policy-areas",
+    method: "get",
+  },
+  findCommunityBoardBudgetRequestTiles: {
+    path: "/community-board-budget-requests/:z/:x/:y.pbf",
     method: "get",
   },
   findCommunityDistrictTiles: {

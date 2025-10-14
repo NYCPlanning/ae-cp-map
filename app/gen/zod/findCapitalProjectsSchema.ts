@@ -42,6 +42,12 @@ export const findCapitalProjectsQueryParamsSchema = z
         "Maximum sum of total capital commitments to a given capital project, represented by USD amount, with cents and thousands separators both optional.",
       )
       .optional(),
+    isMapped: z
+      .boolean()
+      .describe(
+        "Used to filter whether a capital project or community board budget request has associated geographic coordinates.",
+      )
+      .optional(),
     limit: z
       .number()
       .int()
