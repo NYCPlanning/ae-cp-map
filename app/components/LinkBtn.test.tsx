@@ -6,7 +6,6 @@ describe("LinkBtn", () => {
     const testUrl = "test.com";
     const testText = "Test Text";
     render(<LinkBtn href={testUrl}>{testText}</LinkBtn>);
-    screen.debug();
     expect(
       screen.getByRole("link", {
         name: "Test Text",

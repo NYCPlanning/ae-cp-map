@@ -7,7 +7,7 @@ describe("Pagination", () => {
     render(
       // need to wrap in browser component to avoid https://github.com/remix-run/react-router/issues/9187
       <BrowserRouter>
-        <Pagination total={7} />
+        <Pagination total={7} pageParamKey="cpPage" />
       </BrowserRouter>,
     );
     expect(screen.getByLabelText("left")).toBeInTheDocument();

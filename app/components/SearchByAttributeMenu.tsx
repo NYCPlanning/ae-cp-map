@@ -17,7 +17,6 @@ import {
 } from "../utils/types";
 import { useUpdateSearchParams } from "~/utils/utils";
 import { Agency, AgencyBudget } from "~/gen";
-import { analyticsTrackSearchByAttributeToggle } from "~/utils/analytics";
 
 export const SearchByAttributeMenu = ({
   agencies,
