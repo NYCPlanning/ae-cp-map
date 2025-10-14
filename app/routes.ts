@@ -1,21 +1,32 @@
-import { type RouteConfig } from "@react-router/dev/routes";
-import { remixRoutesOptionAdapter } from "@react-router/remix-routes-option-adapter";
+import {
+  index,
+  layout,
+  route,
+  type RouteConfig,
+} from "@react-router/dev/routes";
 
-export default remixRoutesOptionAdapter((defineRoutes) => {
-  return defineRoutes((route) => {
-    route("/", "routes/home.tsx");
-    route("capital-projects", "routes/capital-projects.tsx");
+export default [
+  index("routes/home.tsx"),
+  layout("components/ResultsPanel/Main.tsx", [
     route(
-      "capital-projects/:managingCode/:capitalProjectId",
-      "routes/capital-projects_.$managingCode.$capitalProjectId.tsx",
-    );
+      "community-board-budget-requests",
+      "components/ResultsPanel/CommunityBoardBudgetRequestsFilter.tsx",
+    ),
     route(
-      "boroughs/:boroughId/community-districts/:communityDistrictId/capital-projects/:managingCode/:capitalProjectId",
-      "routes/boroughs.$boroughId.community-districts.$communityDistrictId.capital-projects_.$managingCode.$capitalProjectId.tsx",
-    );
-    route(
-      "city-council-districts/:cityCouncilDistrictId/capital-projects/:managingCode/:capitalProjectId",
-      "routes/city-council-districts.$cityCouncilDistrictId.capital-projects_.$managingCode.$capitalProjectId.tsx",
-    );
-  });
-}) satisfies RouteConfig;
+      "capital-projects",
+      "components/ResultsPanel/CapitalProjectsFilter.tsx",
+    ),
+  ]),
+  route(
+    "capital-projects/:managingCode/:capitalProjectId",
+    "routes/capital-projects_.$managingCode.$capitalProjectId.tsx",
+  ),
+  route(
+    "boroughs/:boroughId/community-districts/:communityDistrictId/capital-projects/:managingCode/:capitalProjectId",
+    "routes/boroughs.$boroughId.community-districts.$communityDistrictId.capital-projects_.$managingCode.$capitalProjectId.tsx",
+  ),
+  route(
+    "city-council-districts/:cityCouncilDistrictId/capital-projects/:managingCode/:capitalProjectId",
+    "routes/city-council-districts.$cityCouncilDistrictId.capital-projects_.$managingCode.$capitalProjectId.tsx",
+  ),
+] satisfies RouteConfig;
