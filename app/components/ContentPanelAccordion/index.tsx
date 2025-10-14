@@ -24,8 +24,9 @@ export function ContentPanelAccordion({
       defaultIndex={[0]}
       allowToggle
       overflowY={"scroll"}
+      sx={{ scrollbarWidth: "none" }}
     >
-      <AccordionItem borderTop={"none"}>
+      <AccordionItem border={"none"}>
         {({ isExpanded }) => (
           <>
             <AccordionButton aria-label="Toggle project list panel" p={0}>
@@ -38,18 +39,19 @@ export function ContentPanelAccordion({
               >
                 {accordionHeading}
               </Heading>
-              <AccordionIcon
-                transform={
-                  isExpanded && iconShouldFlip
-                    ? "rotate(0deg)"
-                    : "rotate(180deg)"
-                }
-              />
+              {iconShouldFlip ? (
+                <AccordionIcon
+                  transform={isExpanded ? "rotate(0deg)" : "rotate(180deg)"}
+                />
+              ) : (
+                <AccordionIcon />
+              )}
             </AccordionButton>
             <AccordionPanel
               padding={"0px"}
               overflowY={"hidden"}
               overflow={"scroll"}
+              sx={{ scrollbarWidth: "none" }}
             >
               {children}
             </AccordionPanel>
