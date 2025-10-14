@@ -1,19 +1,12 @@
-import {
-  index,
-  layout,
-  route,
-  type RouteConfig,
-} from "@react-router/dev/routes";
+import { index, route, type RouteConfig } from "@react-router/dev/routes";
 
 export default [
   index("routes/home.tsx"),
-  layout("components/ResultsPanel/Layout.tsx", [
-    route("capital-projects", "components/ResultsPanel/CapitalProjects.tsx"),
-    route(
-      "community-board-budget-requests",
-      "components/ResultsPanel/CommunityBoardBudgetRequests.tsx",
-    ),
-  ]),
+  route("capital-projects", "components/ResultsPanel/CapitalProjects.tsx"),
+  route(
+    "community-board-budget-requests",
+    "components/ResultsPanel/CommunityBoardBudgetRequests.tsx",
+  ),
   route(
     "capital-projects/:managingCode/:capitalProjectId",
     "routes/capital-projects_.$managingCode.$capitalProjectId.tsx",
