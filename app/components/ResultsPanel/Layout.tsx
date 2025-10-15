@@ -5,6 +5,7 @@ import {
 } from "~/gen";
 import {
   data,
+  Link,
   LoaderFunctionArgs,
   Outlet,
   useLoaderData,
@@ -47,6 +48,7 @@ import {
 } from "~/icons";
 import { useEffect, useState } from "react";
 import { formatFiscalYearRange } from "~/utils/utils";
+import { analytics } from "~/utils/analytics";
 
 export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 
@@ -234,7 +236,21 @@ export default function ResultsPanelLayout() {
                             </Text>
                           </CardBody>
                         </Flex>
-                        <ChevronRightIcon boxSize={6} marginY={"auto"} />
+                        <Link
+                          to={{
+                            search: `?${searchParams.toString()}`,
+                            pathname: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
+                          }}
+                          onClick={() =>
+                            analytics({
+                              category: "Capital Project",
+                              action: "Click",
+                              name: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
+                            })
+                          }
+                        >
+                          <ChevronRightIcon boxSize={6} marginY={"auto"} />
+                        </Link>
                       </Card>
                     );
                   })}
