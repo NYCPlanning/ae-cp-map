@@ -1,4 +1,10 @@
-import { AccordionPanel, Card, CardBody, Icon } from "@chakra-ui/icons";
+import {
+  AccordionPanel,
+  Card,
+  CardBody,
+  ChevronRightIcon,
+  Icon,
+} from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
@@ -91,19 +97,35 @@ export function ResultsPanelLayout({
                   <h2>Filters</h2>
                   <h2>Selected</h2>
                 </Flex>
-                <VStack align={"start"}>
+                <VStack align={"start"} marginTop={"1rem"}>
                   {budgetRequests.map((budgetRequest) => {
                     return (
-                      <Card key={budgetRequest.id} direction={"row"}>
-                        {policyAreaIcons[budgetRequest.cbbrPolicyAreaId]}
-                        <CardBody>
-                          <Heading fontSize={"sm"} fontWeight={"bold"}>
-                            {budgetRequest.title}
-                          </Heading>
-                          <Text fontSize={"xs"}>
-                            Communty Board {budgetRequest.communityBoardId}
-                          </Text>
-                        </CardBody>
+                      <Card
+                        key={budgetRequest.id}
+                        direction={"row"}
+                        padding={"0.75rem"}
+                        width={"100%"}
+                        backgroundColor={"gray.50"}
+                        borderRadius={"0.5rem"}
+                        justifyContent={"space-between"}
+                      >
+                        <Flex direction={"row"}>
+                          {policyAreaIcons[budgetRequest.cbbrPolicyAreaId]}
+                          <CardBody
+                            marginLeft={"1.25rem"}
+                            marginRight={"1.5rem"}
+                          >
+                            <Heading fontSize={"sm"} fontWeight={"bold"}>
+                              {budgetRequest.title}
+                            </Heading>
+                            <Text fontSize={"xs"}>
+                              Communty Board{" "}
+                              {budgetRequest.communityBoardId.slice(0, 2)}{" "}
+                              {budgetRequest.communityBoardId.slice(2, 4)}
+                            </Text>
+                          </CardBody>
+                        </Flex>
+                        <ChevronRightIcon boxSize={6} marginY={"auto"} />
                       </Card>
                     );
                   })}
