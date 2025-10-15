@@ -165,6 +165,7 @@ export default function App() {
   }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [, updateSearchParams] = useUpdateSearchParams();
   const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
   const showCbbr = searchParams.get("cbbr") !== "off";
 
@@ -218,7 +219,7 @@ export default function App() {
                     lg: "1.18dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.18dvw",
                     xl: "0.86dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.86dvw",
                     "2xl":
-                    "0.8dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.82dvw",
+                      "0.8dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.82dvw",
                   }}
                   gap={{
                     base: "0 3dvw",
