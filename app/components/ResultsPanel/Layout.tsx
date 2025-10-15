@@ -1,3 +1,13 @@
+import { findCommunityBoardBudgetRequests } from "~/gen";
+import {
+  data,
+  LoaderFunctionArgs,
+  Outlet,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router";
 import {
   AccordionPanel,
   Card,
@@ -31,7 +41,9 @@ import {
   SafetyIcon,
   TransportationIcon,
 } from "~/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 
 export const policyAreaIcons = [
   <Icon key={0} boxSize={10} />,
@@ -45,25 +57,51 @@ export const policyAreaIcons = [
   <EducationIcon key={8} boxSize={10} />,
 ];
 
-export interface ResultsPanelLayoutProps {
-  totalResults: number;
-  budgetRequests: Array<{
-    id: string;
-    cbbrPolicyAreaId: number;
-    title: string;
-    communityBoardId: string;
-    isMapped: boolean;
-    isContinuedSupport: boolean;
-  }>;
+export async function loader({ request }: LoaderFunctionArgs) {
+  const url = new URL(request.url);
+  const itemsPerPage = 7;
+  const cbbrPageParam = url.searchParams.get("cbbrPage");
+  const cbbrPage = cbbrPageParam === null ? 1 : parseInt(cbbrPageParam);
+  if (isNaN(cbbrPage)) {
+    throw data("Bad Request", { status: 400 });
+  }
+  const offset = (cbbrPage - 1) * itemsPerPage;
+  const budgetRequestPromise = findCommunityBoardBudgetRequests(
+    {
+      limit: itemsPerPage,
+      offset,
+    },
+    {
+      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    },
+  );
+
+  const [budgetRequestResponse] = await Promise.all([budgetRequestPromise]);
+
+  return budgetRequestResponse;
 }
 
-export function ResultsPanelLayout({
-  totalResults,
-  budgetRequests,
-}: ResultsPanelLayoutProps) {
-  const [tabIndex, setTabIndex] = useState(0);
+export default function CommunityBoardBudgetRequests() {
+  const { communityBoardBudgetRequests, totalBudgetRequests } =
+    useLoaderData<typeof loader>();
 
-  const handleTabsChange = (index: number) => setTabIndex(index);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [tabIndex, setTabIndex] = useState(() =>
+    urlPaths.findIndex((path) => `/${path}` === pathname),
+  );
+
+  useEffect(() => {
+    setTabIndex(urlPaths.findIndex((path) => `/${path}` === pathname));
+  }, [pathname]);
+
+  const handleTabsChange = (index: number) => {
+    navigate({
+      pathname: urlPaths[index],
+      search: `?${searchParams.toString()}`,
+    });
+  };
 
   return (
     <Accordion width={"100%"} maxHeight={"100%"} defaultIndex={[0]} allowToggle>
@@ -76,7 +114,7 @@ export function ResultsPanelLayout({
             fontWeight="bold"
             lineHeight="32px"
           >
-            {totalResults} Results
+            {totalBudgetRequests} Results
           </Heading>
           <AccordionIcon />
         </AccordionButton>
@@ -90,15 +128,14 @@ export function ResultsPanelLayout({
               <Tab>Capital Projects</Tab>
               <Tab>Community Board Budget Requests</Tab>
             </TabList>
+            <Flex justifyContent={"space-between"} marginTop={"0.5rem"}>
+              <Outlet />
+            </Flex>
             <TabPanels>
               <TabPanel>Capital Projects</TabPanel>
               <TabPanel>
-                <Flex justifyContent={"space-between"}>
-                  <h2>Filters</h2>
-                  <h2>Selected</h2>
-                </Flex>
-                <VStack align={"start"} marginTop={"1rem"}>
-                  {budgetRequests.map((budgetRequest) => {
+                <VStack align={"start"}>
+                  {communityBoardBudgetRequests.map((budgetRequest) => {
                     return (
                       <Card
                         key={budgetRequest.id}
@@ -140,7 +177,7 @@ export function ResultsPanelLayout({
             marginTop={"auto"}
             marginBottom={{ base: "1rem", md: "0rem" }}
           >
-            <Pagination total={totalResults} pageParamKey="cbbrPage" />
+            <Pagination total={totalBudgetRequests} pageParamKey="cbbrPage" />
           </Flex>
         </AccordionPanel>
       </AccordionItem>
