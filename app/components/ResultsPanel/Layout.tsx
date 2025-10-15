@@ -31,7 +31,7 @@ export const policyAreaIcons = [
   <Icon key={0} boxSize={8} fill={"none"} />,
   <InfrastructureIcon key={1} boxSize={12} fill={"none"} />,
   <HealthIcon key={2} boxSize={12} fill={"none"} />,
-  <HousingIcon key={3} boxSize={8} fill={"none"} />,
+  <HousingIcon key={3} boxSize={12} fill={"none"} />,
   <PeopleIcon key={4} boxSize={12} fill={"none"} />,
   <ParksIcon key={5} boxSize={12} fill={"none"} />,
   <SafetyIcon key={6} boxSize={12} fill={"none"} />,
