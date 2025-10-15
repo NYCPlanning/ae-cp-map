@@ -35,8 +35,14 @@ export type PaginationQueryParams = {
   page?: number;
 };
 
+export type LayerParamKey = "capitalProjects" | "cbbr";
+
+export type LayerParamValue = "off" | undefined;
+
+export type LayerQueryParams = Partial<Record<LayerParamKey, LayerParamValue>>;
+
 export type QueryParams = Partial<
-  AdminQueryParams & AttributeParams & PaginationQueryParams
+  AdminQueryParams & AttributeParams & PaginationQueryParams & LayerQueryParams
 >;
 
 export type ProjectAmountMenuParams = {
