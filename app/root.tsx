@@ -164,9 +164,9 @@ export default function App() {
     initFullStoryAnalytics();
   }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
-  const [, setSearchParams] = useSearchParams();
-  const [, updateSearchParams] = useUpdateSearchParams();
-  const [showCapitalProjects, setShowCapitalProjects] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
+  const showCbbr = searchParams.get("cbbr") !== "off";
 
   const {
     boroughs,
@@ -209,6 +209,7 @@ export default function App() {
                   viewState={viewState}
                   setViewState={(MapViewState) => setViewState(MapViewState)}
                   showCapitalProjects={showCapitalProjects}
+                  showCbbr={showCbbr}
                 />{" "}
                 <Grid
                   templateColumns={{
@@ -216,12 +217,15 @@ export default function App() {
                     md: "1.5dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.5dvw",
                     lg: "1.18dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.18dvw",
                     xl: "0.86dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.86dvw",
+                    "2xl":
+                    "0.8dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.82dvw",
                   }}
                   gap={{
                     base: "0 3dvw",
                     md: "0 1.6dvw",
                     lg: "0 1.22dvw",
                     xl: "0 0.94dw",
+                    "2xl": "0 0.78dw",
                   }}
                   templateRows={{
                     base: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh 7dvh",
@@ -238,6 +242,7 @@ export default function App() {
                       base: "col-start / span 7",
                       md: "col-start / span 4",
                       xl: "col-start / span 3",
+                      "2xl": "col-start / span 2",
                     }}
                     gridRow={{
                       base: "row-start / row-end",
@@ -275,10 +280,7 @@ export default function App() {
                         width={"100%"}
                       >
                         <MapLayersPanel>
-                          <LayerVisibilityToggles
-                            capitalProjectsOn={showCapitalProjects}
-                            onCapitalProjectsToggle={setShowCapitalProjects}
-                          />
+                          <LayerVisibilityToggles />
                           <SearchByAttributeMenu
                             agencies={managingAgencies}
                             projectTypes={agencyBudgets}
@@ -299,6 +301,7 @@ export default function App() {
                       base: "1 / -1",
                       md: "9 / span 5",
                       xl: "10 / col-end",
+                      "2xl": "11 / col-end",
                     }}
                     gridRow={{
                       base: "3 / -1",
