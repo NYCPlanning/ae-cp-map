@@ -3,11 +3,7 @@ import { Icon, IconProps } from "@chakra-ui/icons";
 export function EducationIcon(props: IconProps & { dark?: boolean }) {
   const { dark } = props;
   return (
-<<<<<<< HEAD
     <Icon viewBox="0 0 16 16" fill="none" {...props}>
-=======
-    <Icon {...props}>
->>>>>>> cc426cc (people icon themed)
       <rect
         width="16"
         height="16"

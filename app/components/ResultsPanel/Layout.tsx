@@ -28,15 +28,15 @@ import {
 import { useState } from "react";
 
 export const policyAreaIcons = [
-  <Icon key={0} boxSize={8} fill={"none"} />,
-  <InfrastructureIcon key={1} boxSize={12} fill={"none"} />,
-  <HealthIcon key={2} boxSize={12} fill={"none"} />,
-  <HousingIcon key={3} boxSize={12} fill={"none"} />,
-  <PeopleIcon key={4} boxSize={12} fill={"none"} />,
-  <ParksIcon key={5} boxSize={12} fill={"none"} />,
-  <SafetyIcon key={6} boxSize={12} fill={"none"} />,
-  <TransportationIcon key={7} boxSize={12} fill={"none"} />,
-  <EducationIcon key={8} boxSize={12} fill={"none"} />,
+  <Icon key={0} boxSize={10} />,
+  <InfrastructureIcon key={1} boxSize={10} />,
+  <HealthIcon key={2} boxSize={10} />,
+  <HousingIcon key={3} boxSize={10} />,
+  <PeopleIcon key={4} boxSize={10} />,
+  <ParksIcon key={5} boxSize={10} />,
+  <SafetyIcon key={6} boxSize={10} />,
+  <TransportationIcon key={7} boxSize={10} />,
+  <EducationIcon key={8} boxSize={10} />,
 ];
 
 export interface ResultsPanelLayoutProps {
@@ -97,10 +97,10 @@ export function ResultsPanelLayout({
                       <Card key={budgetRequest.id} direction={"row"}>
                         {policyAreaIcons[budgetRequest.cbbrPolicyAreaId]}
                         <CardBody>
-                          <Heading size={"md"} fontWeight={"bold"}>
+                          <Heading fontSize={"sm"} fontWeight={"bold"}>
                             {budgetRequest.title}
                           </Heading>
-                          <Text>
+                          <Text fontSize={"xs"}>
                             Communty Board {budgetRequest.communityBoardId}
                           </Text>
                         </CardBody>
