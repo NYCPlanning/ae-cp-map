@@ -49,6 +49,7 @@ import {
 import { useEffect, useState } from "react";
 import { formatFiscalYearRange } from "~/utils/utils";
 import { analytics } from "~/utils/analytics";
+import { ResultsPanelNoResultsWarning } from "./NoResultsWarning";
 
 export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 
@@ -194,101 +195,109 @@ export default function ResultsPanelLayout() {
             <TabPanels>
               <TabPanel>
                 <VStack align={"start"}>
-                  {capitalProjects.map((capitalProject) => {
-                    return (
-                      <Card
-                        key={`${capitalProject.managingCode}${capitalProject.id}`}
-                        direction={"row"}
-                        padding={"0.75rem"}
-                        width={"100%"}
-                        backgroundColor={"gray.50"}
-                        borderRadius={"0.5rem"}
-                        justifyContent={"space-between"}
-                      >
-                        <Flex direction={"row"} width={"100%"}>
-                          <CardBody
-                            marginLeft={"1.25rem"}
-                            marginRight={"1.5rem"}
-                            width={"100%"}
-                          >
-                            <Flex
-                              direction={"row"}
-                              justifyContent={"space-between"}
-                            >
-                              <Heading fontSize={"sm"} fontWeight={"bold"}>
-                                {capitalProject.description}
-                              </Heading>
-                              <Text fontSize={"xs"}>
-                                {formatFiscalYearRange(
-                                  new Date(capitalProject.minDate),
-                                  new Date(capitalProject.maxDate),
-                                )}
-                              </Text>
-                            </Flex>
-                            <Text fontSize={"xs"}>
-                              {
-                                agencies.find(
-                                  (agency) =>
-                                    agency.initials ===
-                                    capitalProject.managingAgency,
-                                )?.name
-                              }
-                            </Text>
-                          </CardBody>
-                        </Flex>
-                        <Link
-                          to={{
-                            search: `?${searchParams.toString()}`,
-                            pathname: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
-                          }}
-                          onClick={() =>
-                            analytics({
-                              category: "Capital Project",
-                              action: "Click",
-                              name: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
-                            })
-                          }
+                  {capitalProjects.length === 0 ? (
+                    <ResultsPanelNoResultsWarning />
+                  ) : (
+                    capitalProjects.map((capitalProject) => {
+                      return (
+                        <Card
+                          key={`${capitalProject.managingCode}${capitalProject.id}`}
+                          direction={"row"}
+                          padding={"0.75rem"}
+                          width={"100%"}
+                          backgroundColor={"gray.50"}
+                          borderRadius={"0.5rem"}
+                          justifyContent={"space-between"}
                         >
-                          <ChevronRightIcon boxSize={6} marginY={"auto"} />
-                        </Link>
-                      </Card>
-                    );
-                  })}
+                          <Flex direction={"row"} width={"100%"}>
+                            <CardBody
+                              marginLeft={"1.25rem"}
+                              marginRight={"1.5rem"}
+                              width={"100%"}
+                            >
+                              <Flex
+                                direction={"row"}
+                                justifyContent={"space-between"}
+                              >
+                                <Heading fontSize={"sm"} fontWeight={"bold"}>
+                                  {capitalProject.description}
+                                </Heading>
+                                <Text fontSize={"xs"}>
+                                  {formatFiscalYearRange(
+                                    new Date(capitalProject.minDate),
+                                    new Date(capitalProject.maxDate),
+                                  )}
+                                </Text>
+                              </Flex>
+                              <Text fontSize={"xs"}>
+                                {
+                                  agencies.find(
+                                    (agency) =>
+                                      agency.initials ===
+                                      capitalProject.managingAgency,
+                                  )?.name
+                                }
+                              </Text>
+                            </CardBody>
+                          </Flex>
+                          <Link
+                            to={{
+                              search: `?${searchParams.toString()}`,
+                              pathname: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
+                            }}
+                            onClick={() =>
+                              analytics({
+                                category: "Capital Project",
+                                action: "Click",
+                                name: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
+                              })
+                            }
+                          >
+                            <ChevronRightIcon boxSize={6} marginY={"auto"} />
+                          </Link>
+                        </Card>
+                      );
+                    })
+                  )}
                 </VStack>
               </TabPanel>
               <TabPanel>
                 <VStack align={"start"}>
-                  {communityBoardBudgetRequests.map((budgetRequest) => {
-                    return (
-                      <Card
-                        key={budgetRequest.id}
-                        direction={"row"}
-                        padding={"0.75rem"}
-                        width={"100%"}
-                        backgroundColor={"gray.50"}
-                        borderRadius={"0.5rem"}
-                        justifyContent={"space-between"}
-                      >
-                        <Flex direction={"row"}>
-                          {policyAreaIcons[budgetRequest.cbbrPolicyAreaId]}
-                          <CardBody
-                            marginLeft={"1.25rem"}
-                            marginRight={"1.5rem"}
-                          >
-                            <Heading fontSize={"sm"} fontWeight={"bold"}>
-                              {budgetRequest.title}
-                            </Heading>
-                            <Text fontSize={"xs"}>
-                              Communty Board{" "}
-                              {budgetRequest.communityBoardId.slice(0, 2)}{" "}
-                              {budgetRequest.communityBoardId.slice(2, 4)}
-                            </Text>
-                          </CardBody>
-                        </Flex>
-                        <ChevronRightIcon boxSize={6} marginY={"auto"} />
-                      </Card>
-                    );
-                  })}
+                  {communityBoardBudgetRequests.length === 0 ? (
+                    <ResultsPanelNoResultsWarning />
+                  ) : (
+                    communityBoardBudgetRequests.map((budgetRequest) => {
+                      return (
+                        <Card
+                          key={budgetRequest.id}
+                          direction={"row"}
+                          padding={"0.75rem"}
+                          width={"100%"}
+                          backgroundColor={"gray.50"}
+                          borderRadius={"0.5rem"}
+                          justifyContent={"space-between"}
+                        >
+                          <Flex direction={"row"}>
+                            {policyAreaIcons[budgetRequest.cbbrPolicyAreaId]}
+                            <CardBody
+                              marginLeft={"1.25rem"}
+                              marginRight={"1.5rem"}
+                            >
+                              <Heading fontSize={"sm"} fontWeight={"bold"}>
+                                {budgetRequest.title}
+                              </Heading>
+                              <Text fontSize={"xs"}>
+                                Communty Board{" "}
+                                {budgetRequest.communityBoardId.slice(0, 2)}{" "}
+                                {budgetRequest.communityBoardId.slice(2, 4)}
+                              </Text>
+                            </CardBody>
+                          </Flex>
+                          <ChevronRightIcon boxSize={6} marginY={"auto"} />
+                        </Card>
+                      );
+                    })
+                  )}
                 </VStack>
               </TabPanel>
             </TabPanels>
