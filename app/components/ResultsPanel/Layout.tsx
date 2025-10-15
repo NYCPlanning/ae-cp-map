@@ -32,11 +32,11 @@ export const policyAreaIcons = [
   <InfrastructureIcon key={1} boxSize={8} fill={"none"} />,
   <HealthIcon key={2} boxSize={12} fill={"none"} />,
   <HousingIcon key={3} boxSize={8} fill={"none"} />,
-  <PeopleIcon key={4} boxSize={8} fill={"none"} />,
+  <PeopleIcon key={4} boxSize={12} fill={"none"} />,
   <ParksIcon key={5} boxSize={12} fill={"none"} />,
   <SafetyIcon key={6} boxSize={12} fill={"none"} />,
   <TransportationIcon key={7} boxSize={12} fill={"none"} />,
-  <EducationIcon key={8} boxSize={8} fill={"none"} />,
+  <EducationIcon key={8} boxSize={12} fill={"none"} />,
 ];
 
 export interface ResultsPanelLayoutProps {
