@@ -14,7 +14,7 @@ import { ExportDataModal } from "~/components/ExportDataModal";
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const itemsPerPage = 7;
-  const pageParam = url.searchParams.get("page");
+  const pageParam = url.searchParams.get("cpPage");
   const managingAgency = url.searchParams.get("managingAgency");
   const agencyBudget = url.searchParams.get("agencyBudget");
   const commitmentsTotalMin = url.searchParams.get("commitmentsTotalMin");
@@ -140,7 +140,7 @@ export default function CapitalProjects() {
         marginTop={"auto"}
         marginBottom={{ base: "1rem", md: "0rem" }}
       >
-        <Pagination total={capitalProjectsTotal} />
+        <Pagination total={capitalProjectsTotal} pageParamKey="cpPage" />
         {exportModal}
       </Flex>
     </CapitalProjectsAccordionPanel>

@@ -5,12 +5,12 @@ import { data, LoaderFunctionArgs, useLoaderData } from "react-router";
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const itemsPerPage = 7;
-  const pageParam = url.searchParams.get("page");
-  const page = pageParam === null ? 1 : parseInt(pageParam);
-  if (isNaN(page)) {
+  const cbbrPageParam = url.searchParams.get("cbbrPage");
+  const cbbrPage = cbbrPageParam === null ? 1 : parseInt(cbbrPageParam);
+  if (isNaN(cbbrPage)) {
     throw data("Bad Request", { status: 400 });
   }
-  const offset = (page - 1) * itemsPerPage;
+  const offset = (cbbrPage - 1) * itemsPerPage;
   const budgetRequestPromise = findCommunityBoardBudgetRequests(
     {
       limit: itemsPerPage,
@@ -27,9 +27,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function CommunityBoardBudgetRequests() {
-  const { communityBoardBudgetRequests, totalBudgetRequests, limit, offset } =
+  const { communityBoardBudgetRequests, totalBudgetRequests } =
     useLoaderData<typeof loader>();
-  console.log("total", totalBudgetRequests);
   return (
     <ResultsPanelLayout
       totalResults={totalBudgetRequests}

@@ -140,7 +140,7 @@ export function ResultsPanelLayout({
             marginTop={"auto"}
             marginBottom={{ base: "1rem", md: "0rem" }}
           >
-            <Pagination total={totalResults} />
+            <Pagination total={totalResults} pageParamKey="cbbrPage" />
           </Flex>
         </AccordionPanel>
       </AccordionItem>
