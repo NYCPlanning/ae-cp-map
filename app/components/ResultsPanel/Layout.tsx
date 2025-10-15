@@ -1,4 +1,4 @@
-import { findCommunityBoardBudgetRequests } from "~/gen";
+import { findCapitalProjects, findCommunityBoardBudgetRequests } from "~/gen";
 import {
   data,
   LoaderFunctionArgs,
@@ -42,6 +42,7 @@ import {
   TransportationIcon,
 } from "~/icons";
 import { useEffect, useState } from "react";
+import { formatFiscalYearRange } from "~/utils/utils";
 
 export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 
@@ -59,31 +60,58 @@ export const policyAreaIcons = [
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
+
   const itemsPerPage = 7;
   const cbbrPageParam = url.searchParams.get("cbbrPage");
   const cbbrPage = cbbrPageParam === null ? 1 : parseInt(cbbrPageParam);
   if (isNaN(cbbrPage)) {
     throw data("Bad Request", { status: 400 });
   }
-  const offset = (cbbrPage - 1) * itemsPerPage;
+  const cbbrOffset = (cbbrPage - 1) * itemsPerPage;
   const budgetRequestPromise = findCommunityBoardBudgetRequests(
     {
       limit: itemsPerPage,
-      offset,
+      offset: cbbrOffset,
     },
     {
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
     },
   );
 
-  const [budgetRequestResponse] = await Promise.all([budgetRequestPromise]);
+  const cpPageParam = url.searchParams.get("cpPage");
+  const cpPage = cpPageParam === null ? 1 : parseInt(cpPageParam);
+  if (isNaN(cpPage)) {
+    throw data("Bad Request", { status: 400 });
+  }
+  const cpOffset = (cpPage - 1) * itemsPerPage;
+  const capitalProjectPromise = findCapitalProjects(
+    {
+      limit: itemsPerPage,
+      offset: cpOffset,
+    },
+    {
+      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    },
+  );
+  const [budgetRequestResponse, capitalProjectResponse] = await Promise.all([
+    budgetRequestPromise,
+    capitalProjectPromise,
+  ]);
 
-  return budgetRequestResponse;
+  return {
+    budgetRequestResponse,
+    capitalProjectResponse,
+  };
 }
 
 export default function CommunityBoardBudgetRequests() {
-  const { communityBoardBudgetRequests, totalBudgetRequests } =
-    useLoaderData<typeof loader>();
+  const {
+    budgetRequestResponse: {
+      communityBoardBudgetRequests,
+      totalBudgetRequests,
+    },
+    capitalProjectResponse: { capitalProjects, totalProjects },
+  } = useLoaderData<typeof loader>();
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -114,7 +142,7 @@ export default function CommunityBoardBudgetRequests() {
             fontWeight="bold"
             lineHeight="32px"
           >
-            {totalBudgetRequests} Results
+            {tabIndex === 0 ? totalProjects : totalBudgetRequests} Results
           </Heading>
           <AccordionIcon />
         </AccordionButton>
@@ -132,7 +160,50 @@ export default function CommunityBoardBudgetRequests() {
               <Outlet />
             </Flex>
             <TabPanels>
-              <TabPanel>Capital Projects</TabPanel>
+              <TabPanel>
+                <VStack align={"start"}>
+                  {capitalProjects.map((capitalProject) => {
+                    return (
+                      <Card
+                        key={`${capitalProject.managingCode}${capitalProject.id}`}
+                        direction={"row"}
+                        padding={"0.75rem"}
+                        width={"100%"}
+                        backgroundColor={"gray.50"}
+                        borderRadius={"0.5rem"}
+                        justifyContent={"space-between"}
+                      >
+                        <Flex direction={"row"} width={"100%"}>
+                          <CardBody
+                            marginLeft={"1.25rem"}
+                            marginRight={"1.5rem"}
+                            width={"100%"}
+                          >
+                            <Flex
+                              direction={"row"}
+                              justifyContent={"space-between"}
+                            >
+                              <Heading fontSize={"sm"} fontWeight={"bold"}>
+                                {capitalProject.description}
+                              </Heading>
+                              <Text fontSize={"xs"}>
+                                {formatFiscalYearRange(
+                                  new Date(capitalProject.minDate),
+                                  new Date(capitalProject.maxDate),
+                                )}
+                              </Text>
+                            </Flex>
+                            <Text fontSize={"xs"}>
+                              {capitalProject.managingAgency}
+                            </Text>
+                          </CardBody>
+                        </Flex>
+                        <ChevronRightIcon boxSize={6} marginY={"auto"} />
+                      </Card>
+                    );
+                  })}
+                </VStack>
+              </TabPanel>
               <TabPanel>
                 <VStack align={"start"}>
                   {communityBoardBudgetRequests.map((budgetRequest) => {
@@ -177,7 +248,10 @@ export default function CommunityBoardBudgetRequests() {
             marginTop={"auto"}
             marginBottom={{ base: "1rem", md: "0rem" }}
           >
-            <Pagination total={totalBudgetRequests} pageParamKey="cbbrPage" />
+            <Pagination
+              total={tabIndex === 0 ? totalProjects : totalBudgetRequests}
+              pageParamKey={tabIndex === 0 ? "cpPage" : "cbbrPage"}
+            />
           </Flex>
         </AccordionPanel>
       </AccordionItem>
