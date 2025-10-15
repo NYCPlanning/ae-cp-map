@@ -1,4 +1,8 @@
-import { findCapitalProjects, findCommunityBoardBudgetRequests } from "~/gen";
+import {
+  findAgencies,
+  findCapitalProjects,
+  findCommunityBoardBudgetRequests,
+} from "~/gen";
 import {
   data,
   LoaderFunctionArgs,
@@ -84,8 +88,25 @@ export async function loader({ request }: LoaderFunctionArgs) {
     throw data("Bad Request", { status: 400 });
   }
   const cpOffset = (cpPage - 1) * itemsPerPage;
+  const managingAgency = url.searchParams.get("managingAgency");
+  const agencyBudget = url.searchParams.get("agencyBudget");
+  const commitmentsTotalMin = url.searchParams.get("commitmentsTotalMin");
+  const commitmentsTotalMax = url.searchParams.get("commitmentsTotalMax");
+  const districtType = url.searchParams.get("districtType");
+  const boroughId = url.searchParams.get("boroughId");
+  const districtId = url.searchParams.get("districtId");
   const capitalProjectPromise = findCapitalProjects(
     {
+      ...(boroughId !== null && districtId !== null && districtType === "cd"
+        ? { communityDistrictId: `${boroughId}${districtId}` }
+        : {}),
+      ...(districtId !== null && districtType === "ccd"
+        ? { cityCouncilDistrictId: districtId }
+        : {}),
+      ...(managingAgency === null ? {} : { managingAgency }),
+      ...(agencyBudget === null ? {} : { agencyBudget }),
+      ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
+      ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
       limit: itemsPerPage,
       offset: cpOffset,
     },
@@ -93,24 +114,33 @@ export async function loader({ request }: LoaderFunctionArgs) {
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
     },
   );
-  const [budgetRequestResponse, capitalProjectResponse] = await Promise.all([
-    budgetRequestPromise,
-    capitalProjectPromise,
-  ]);
+
+  const agenciesPromise = findAgencies({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
+  const [budgetRequestResponse, capitalProjectResponse, agenciesResponse] =
+    await Promise.all([
+      budgetRequestPromise,
+      capitalProjectPromise,
+      agenciesPromise,
+    ]);
 
   return {
+    agenciesResponse,
     budgetRequestResponse,
     capitalProjectResponse,
   };
 }
 
-export default function CommunityBoardBudgetRequests() {
+export default function ResultsPanelLayout() {
   const {
     budgetRequestResponse: {
       communityBoardBudgetRequests,
       totalBudgetRequests,
     },
     capitalProjectResponse: { capitalProjects, totalProjects },
+    agenciesResponse: { agencies },
   } = useLoaderData<typeof loader>();
 
   const { pathname } = useLocation();
@@ -194,7 +224,13 @@ export default function CommunityBoardBudgetRequests() {
                               </Text>
                             </Flex>
                             <Text fontSize={"xs"}>
-                              {capitalProject.managingAgency}
+                              {
+                                agencies.find(
+                                  (agency) =>
+                                    agency.initials ===
+                                    capitalProject.managingAgency,
+                                )?.name
+                              }
                             </Text>
                           </CardBody>
                         </Flex>
