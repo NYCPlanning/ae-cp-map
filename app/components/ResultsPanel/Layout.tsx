@@ -275,6 +275,18 @@ export default function ResultsPanelLayout() {
                           backgroundColor={"gray.50"}
                           borderRadius={"0.5rem"}
                           justifyContent={"space-between"}
+                          _hover={{ cursor: "pointer" }}
+                          onClick={() => {
+                            navigate({
+                              search: `?${searchParams.toString()}`,
+                              pathname: `community-board-budget-requests/${budgetRequest.id}`,
+                            });
+                            analytics({
+                              category: "Community Board Budget Requests",
+                              action: "Click",
+                              pathname: `community-board-budget-requests/${budgetRequest.id}`,
+                            });
+                          }}
                         >
                           <Flex direction={"row"}>
                             {policyAreaIcons[budgetRequest.cbbrPolicyAreaId]}
