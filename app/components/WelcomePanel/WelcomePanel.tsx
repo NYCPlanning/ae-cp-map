@@ -5,10 +5,6 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
-  Flex,
-  Hide,
-  Show,
 } from "@nycplanning/streetscape";
 import { WelcomeContent, WelcomeHeader } from ".";
 import { isWelcomeHidden, WelcomeGetStarted } from "./WelcomeGetStarted";
