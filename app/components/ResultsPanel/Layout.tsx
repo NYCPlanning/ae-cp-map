@@ -77,6 +77,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const cbbrOffset = (cbbrPage - 1) * itemsPerPage;
   const budgetRequestPromise = findCommunityBoardBudgetRequests(
     {
+      cbbrType: "C",
       limit: itemsPerPage,
       offset: cbbrOffset,
     },
