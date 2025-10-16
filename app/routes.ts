@@ -7,7 +7,7 @@ import {
 
 export default [
   index("routes/home.tsx"),
-  layout("components/ResultsPanel/Layout.tsx", [
+  layout("components/ResultsPanel/Main.tsx", [
     route(
       "community-board-budget-requests",
       "components/ResultsPanel/CommunityBoardBudgetRequestsFilter.tsx",

@@ -285,7 +285,7 @@ export default function ResultsPanelLayout() {
                                 }
                               </Text>
                             </Flex>
-                            <Text fontSize={"xs"} textAlign={"right"}>
+                            <Text fontSize={"xs"} textAlign={"left"}>
                               {formatFiscalYearRange(
                                 new Date(capitalProject.minDate),
                                 new Date(capitalProject.maxDate),
