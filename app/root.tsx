@@ -39,6 +39,7 @@ import {
 } from "./utils/analytics";
 import { zoningApiUrl } from "./utils/envFlags";
 import { BoroughId, DistrictType } from "./utils/types";
+import { useToggleParam } from "./utils/utils";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { HeaderBar } from "./components/HeaderBar";
 import { HowToUseThisTool } from "./components/AdminDropdownContent/HowToUseThisTool";
@@ -46,6 +47,7 @@ import {
   MapLayersPanel,
   LayerVisibilityToggles,
 } from "./components/AdminMapLayersPanel";
+// import { Legend } from "./components/AdminDropdownContent/Legend";
 
 export const links: LinksFunction = () => {
   return [
@@ -160,7 +162,9 @@ export default function App() {
   }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const [, setSearchParams] = useSearchParams();
-  const [showCapitalProjects, setShowCapitalProjects] = useState(true);
+  const [showCapitalProjects, setShowCapitalProjects] =
+    useToggleParam("capitalProjects");
+  const [showCbbr, setShowCbbr] = useToggleParam("cbbr");
 
   const {
     boroughs,
@@ -189,6 +193,7 @@ export default function App() {
                 viewState={viewState}
                 setViewState={(MapViewState) => setViewState(MapViewState)}
                 showCapitalProjects={showCapitalProjects}
+                // pass cbbr layer here
               />{" "}
               <Grid
                 templateColumns={{
@@ -258,8 +263,11 @@ export default function App() {
                         <LayerVisibilityToggles
                           capitalProjectsOn={showCapitalProjects}
                           onCapitalProjectsToggle={setShowCapitalProjects}
+                          cbbrOn={showCbbr}
+                          onCbbrToggle={setShowCbbr}
                         />
                       </MapLayersPanel>
+                      {/* <Legend /> */}
                       <FilterMenu
                         boroughs={boroughs}
                         communityDistricts={communityDistricts}
