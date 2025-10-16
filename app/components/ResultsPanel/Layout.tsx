@@ -110,6 +110,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(agencyBudget === null ? {} : { agencyBudget }),
       ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
       ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
+      isMapped: true,
       limit: itemsPerPage,
       offset: cpOffset,
     },
