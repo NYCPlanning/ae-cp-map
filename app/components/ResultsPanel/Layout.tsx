@@ -1,5 +1,6 @@
 import {
   findAgencies,
+  findBoroughs,
   findCapitalProjects,
   findCommunityBoardBudgetRequests,
 } from "~/gen";
@@ -49,6 +50,7 @@ import { useEffect, useState } from "react";
 import { formatFiscalYearRange } from "~/utils/utils";
 import { analytics } from "~/utils/analytics";
 import { ResultsPanelNoResultsWarning } from "./NoResultsWarning";
+import { ExportDataModal } from "../ExportDataModal";
 
 export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 
@@ -110,7 +112,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(agencyBudget === null ? {} : { agencyBudget }),
       ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
       ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
-      isMapped: true,
+      ...(districtId !== null ? {} : { isMapped: true }),
       limit: itemsPerPage,
       offset: cpOffset,
     },
@@ -123,15 +125,25 @@ export async function loader({ request }: LoaderFunctionArgs) {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
-  const [budgetRequestResponse, capitalProjectResponse, agenciesResponse] =
-    await Promise.all([
-      budgetRequestPromise,
-      capitalProjectPromise,
-      agenciesPromise,
-    ]);
+  const boroughsPromise = findBoroughs({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
+  const [
+    budgetRequestResponse,
+    capitalProjectResponse,
+    agenciesResponse,
+    boroughsResponse,
+  ] = await Promise.all([
+    budgetRequestPromise,
+    capitalProjectPromise,
+    agenciesPromise,
+    boroughsPromise,
+  ]);
 
   return {
     agenciesResponse,
+    boroughsResponse,
     budgetRequestResponse,
     capitalProjectResponse,
   };
@@ -145,6 +157,7 @@ export default function ResultsPanelLayout() {
     },
     capitalProjectResponse: { capitalProjects, totalProjects },
     agenciesResponse: { agencies },
+    boroughsResponse: { boroughs },
   } = useLoaderData<typeof loader>();
 
   const { pathname } = useLocation();
@@ -164,6 +177,32 @@ export default function ResultsPanelLayout() {
       search: `?${searchParams.toString()}`,
     });
   };
+
+  const districtTypeParam = searchParams.get("districtType");
+  const boroughIdParam = searchParams.get("boroughId");
+  const districtIdParam = searchParams.get("districtId");
+  let exportDataGeography = "All";
+  let exportDataFileName = "projects_in_geographies.zip";
+  if (
+    districtTypeParam === "cd" &&
+    boroughIdParam !== null &&
+    districtIdParam !== null
+  ) {
+    const borough = boroughs.find((borough) => borough.id === boroughIdParam);
+    exportDataGeography =
+      borough !== undefined
+        ? `Community District ${borough.abbr}${districtIdParam}`
+        : "";
+    exportDataFileName =
+      borough !== undefined
+        ? `community_district_${borough.title.toLowerCase()}_cd${districtIdParam}.csv`
+        : "";
+  }
+
+  if (districtTypeParam === "ccd" && districtIdParam !== null) {
+    exportDataGeography = `City Council District ${districtIdParam}`;
+    exportDataFileName = `city_council_district_${districtIdParam}.csv`;
+  }
 
   return (
     <Accordion width={"100%"} maxHeight={"100%"} defaultIndex={[0]} allowToggle>
@@ -325,6 +364,12 @@ export default function ResultsPanelLayout() {
               total={tabIndex === 0 ? totalProjects : totalBudgetRequests}
               pageParamKey={tabIndex === 0 ? "cpPage" : "cbbrPage"}
             />
+            {tabIndex === 0 && (
+              <ExportDataModal
+                geography={exportDataGeography}
+                fileName={exportDataFileName}
+              />
+            )}
           </Flex>
         </AccordionPanel>
       </AccordionItem>
