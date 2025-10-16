@@ -287,6 +287,7 @@ export default function ResultsPanelLayout() {
                             >
                               <Heading fontSize={"sm"} fontWeight={"bold"}>
                                 {budgetRequest.title}
+                                {budgetRequest.isContinuedSupport ? "*" : ""}
                               </Heading>
                               <Text fontSize={"xs"}>
                                 Communty Board{" "}
