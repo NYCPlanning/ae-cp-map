@@ -5,7 +5,6 @@ import {
 } from "~/gen";
 import {
   data,
-  Link,
   LoaderFunctionArgs,
   Outlet,
   useLoaderData,
@@ -191,11 +190,15 @@ export default function ResultsPanelLayout() {
               <Tab>Capital Projects</Tab>
               <Tab>Community Board Budget Requests</Tab>
             </TabList>
-            <Flex justifyContent={"space-between"} marginTop={"0.5rem"}>
+            <Flex
+              justifyContent={"space-between"}
+              marginTop={"0.5rem"}
+              marginBottom={"1rem"}
+            >
               <Outlet />
             </Flex>
             <TabPanels>
-              <TabPanel>
+              <TabPanel padding={0}>
                 <VStack align={"start"}>
                   {capitalProjects.length === 0 ? (
                     <ResultsPanelNoResultsWarning />
@@ -210,27 +213,29 @@ export default function ResultsPanelLayout() {
                           backgroundColor={"gray.50"}
                           borderRadius={"0.5rem"}
                           justifyContent={"space-between"}
+                          _hover={{ cursor: "pointer" }}
+                          onClick={() => {
+                            navigate({
+                              search: `?${searchParams.toString()}`,
+                              pathname: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
+                            });
+                            analytics({
+                              category: "Capital Project",
+                              action: "Click",
+                              name: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
+                            });
+                          }}
                         >
-                          <Flex direction={"row"} width={"100%"}>
-                            <CardBody
-                              marginLeft={"1.25rem"}
-                              marginRight={"1.5rem"}
-                              width={"100%"}
-                            >
-                              <Flex
-                                direction={"row"}
-                                justifyContent={"space-between"}
-                              >
-                                <Heading fontSize={"sm"} fontWeight={"bold"}>
-                                  {capitalProject.description}
-                                </Heading>
-                                <Text fontSize={"xs"}>
-                                  {formatFiscalYearRange(
-                                    new Date(capitalProject.minDate),
-                                    new Date(capitalProject.maxDate),
-                                  )}
-                                </Text>
-                              </Flex>
+                          <CardBody
+                            marginRight={"1.5rem"}
+                            width={"100%"}
+                            display={"flex"}
+                            justifyContent={"space-between"}
+                          >
+                            <Flex direction={"column"} marginRight={"0.5rem"}>
+                              <Heading fontSize={"sm"} fontWeight={"bold"}>
+                                {capitalProject.description}
+                              </Heading>
                               <Text fontSize={"xs"}>
                                 {
                                   agencies.find(
@@ -240,30 +245,22 @@ export default function ResultsPanelLayout() {
                                   )?.name
                                 }
                               </Text>
-                            </CardBody>
-                          </Flex>
-                          <Link
-                            to={{
-                              search: `?${searchParams.toString()}`,
-                              pathname: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
-                            }}
-                            onClick={() =>
-                              analytics({
-                                category: "Capital Project",
-                                action: "Click",
-                                name: `capital-projects/${capitalProject.managingCode}/${capitalProject.id}`,
-                              })
-                            }
-                          >
-                            <ChevronRightIcon boxSize={6} marginY={"auto"} />
-                          </Link>
+                            </Flex>
+                            <Text fontSize={"xs"} textAlign={"right"}>
+                              {formatFiscalYearRange(
+                                new Date(capitalProject.minDate),
+                                new Date(capitalProject.maxDate),
+                              )}
+                            </Text>
+                          </CardBody>
+                          <ChevronRightIcon boxSize={6} marginY={"auto"} />
                         </Card>
                       );
                     })
                   )}
                 </VStack>
               </TabPanel>
-              <TabPanel>
+              <TabPanel padding={0}>
                 <VStack align={"start"}>
                   {communityBoardBudgetRequests.length === 0 ? (
                     <ResultsPanelNoResultsWarning />
