@@ -76,7 +76,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
     throw data("Bad Request", { status: 400 });
   }
   const cbbrOffset = (cbbrPage - 1) * itemsPerPage;
-  const budgetRequestPromise = findCommunityBoardBudgetRequests(
+  const budgetRequestsPromise = findCommunityBoardBudgetRequests(
     {
       cbbrType: "C",
       limit: itemsPerPage,
@@ -100,7 +100,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const districtType = url.searchParams.get("districtType");
   const boroughId = url.searchParams.get("boroughId");
   const districtId = url.searchParams.get("districtId");
-  const capitalProjectPromise = findCapitalProjects(
+  const capitalProjectsPromise = findCapitalProjects(
     {
       ...(boroughId !== null && districtId !== null && districtType === "cd"
         ? { communityDistrictId: `${boroughId}${districtId}` }
@@ -130,13 +130,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
   });
 
   const [
-    budgetRequestResponse,
-    capitalProjectResponse,
+    budgetRequestsResponse,
+    capitalProjectsResponse,
     agenciesResponse,
     boroughsResponse,
   ] = await Promise.all([
-    budgetRequestPromise,
-    capitalProjectPromise,
+    budgetRequestsPromise,
+    capitalProjectsPromise,
     agenciesPromise,
     boroughsPromise,
   ]);
@@ -144,18 +144,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return {
     agenciesResponse,
     boroughsResponse,
-    budgetRequestResponse,
-    capitalProjectResponse,
+    budgetRequestsResponse,
+    capitalProjectsResponse,
   };
 }
 
-export default function ResultsPanelLayout() {
+export default function ResultsPanelMain() {
   const {
-    budgetRequestResponse: {
+    budgetRequestsResponse: {
       communityBoardBudgetRequests,
       totalBudgetRequests,
     },
-    capitalProjectResponse: { capitalProjects, totalProjects },
+    capitalProjectsResponse: { capitalProjects, totalProjects },
     agenciesResponse: { agencies },
     boroughsResponse: { boroughs },
   } = useLoaderData<typeof loader>();

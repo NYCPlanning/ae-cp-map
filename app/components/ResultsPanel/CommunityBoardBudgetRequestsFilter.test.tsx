@@ -3,7 +3,7 @@ import CommunityBoardBudgetRequestsFilter from "./CommunityBoardBudgetRequestsFi
 import { createRoutesStub } from "react-router";
 
 describe("Community board budget request filter", () => {
-  it("should render with warning", async () => {
+  it("should render filter", async () => {
     const loader = async () => {
       return {};
     };
@@ -13,6 +13,7 @@ describe("Community board budget request filter", () => {
         path: "/community-board-budget-requests",
         Component: CommunityBoardBudgetRequestsFilter,
         loader,
+        HydrateFallback: () => <></>,
       },
     ]);
 

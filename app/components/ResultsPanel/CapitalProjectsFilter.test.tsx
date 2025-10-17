@@ -3,7 +3,7 @@ import CapitalProjectsFilter from "./CapitalProjectsFilter";
 import { createRoutesStub } from "react-router";
 
 describe("Capital projects filter", () => {
-  it("should render with warning", async () => {
+  it("should render filter", async () => {
     const loader = async () => {
       return {};
     };
@@ -13,6 +13,7 @@ describe("Capital projects filter", () => {
         path: "/capital-projects",
         Component: CapitalProjectsFilter,
         loader,
+        HydrateFallback: () => <></>,
       },
     ]);
 
