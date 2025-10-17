@@ -43,16 +43,17 @@ export const SearchByAttributeMenu = ({
         <Heading
           flex="1"
           textAlign="left"
-          fontSize="md"
+          fontSize="sm"
           fontWeight="bold"
           lineHeight="32px"
           pb={0}
+          px={2}
         >
-          Search by Attribute
+          Show Filters
         </Heading>
         <AccordionIcon />
       </AccordionButton>
-      <AccordionPanel px={0} display={"flex"} flexDirection={"column"} gap={1}>
+      <AccordionPanel display={"flex"} flexDirection={"column"} gap={1} px={2}>
         <AgencyDropdown
           selectValue={managingAgency}
           agencies={agencies}

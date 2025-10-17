@@ -14,12 +14,14 @@ import { Tooltip } from "@nycplanning/streetscape";
 
 export type LayerVisibilityTogglesProps = {
   capitalProjectsOn: boolean;
+  children: React.ReactNode;
   onCapitalProjectsToggle: (next: boolean) => void;
 };
 
 export function LayerVisibilityToggles({
   capitalProjectsOn,
   onCapitalProjectsToggle,
+  children,
 }: LayerVisibilityTogglesProps) {
   const capitalProjectsTooltipCopy = `New York City’s potential, planned, and ongoing capital projects.
   Unmapped projects, such as the purchase of vehicles or digital infrastructure, are not included in this tool.
@@ -87,6 +89,7 @@ export function LayerVisibilityToggles({
           ></Box>
         </HStack>
       </FormControl>
+      {children}
     </Box>
   );
 }

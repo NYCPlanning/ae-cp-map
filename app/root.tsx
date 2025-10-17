@@ -274,17 +274,25 @@ export default function App() {
                         <LayerVisibilityToggles
                           capitalProjectsOn={showCapitalProjects}
                           onCapitalProjectsToggle={setShowCapitalProjects}
-                        />
+                        >
+                          <Accordion
+                            width={"100%"}
+                            allowToggle
+                            background="gray.100"
+                            marginY={2}
+                          >
+                            <SearchByAttributeMenu
+                              agencies={agencies}
+                              projectTypes={agencyBudgets}
+                              onClear={clearSelections}
+                            />
+                          </Accordion>
+                        </LayerVisibilityToggles>
                       </MapLayersPanel>
                       <FilterMenu
                         boroughs={boroughs}
                         communityDistricts={communityDistricts}
                         cityCouncilDistricts={cityCouncilDistricts}
-                      />
-                      <SearchByAttributeMenu
-                        agencies={agencies}
-                        projectTypes={agencyBudgets}
-                        onClear={clearSelections}
                       />
                       <HowToUseThisTool />
                     </Accordion>
