@@ -13,18 +13,13 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router";
-import {
-  AccordionPanel,
-  Card,
-  CardBody,
-  ChevronRightIcon,
-  Icon,
-} from "@chakra-ui/icons";
+import { Card, CardBody, ChevronRightIcon, Icon } from "@chakra-ui/icons";
 import {
   Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
+  AccordionPanel,
   Flex,
   Heading,
   Tab,
