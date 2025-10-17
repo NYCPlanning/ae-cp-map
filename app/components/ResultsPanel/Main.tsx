@@ -226,8 +226,12 @@ export default function ResultsPanelLayout() {
         >
           <Tabs index={tabIndex} onChange={handleTabsChange}>
             <TabList>
-              <Tab>Capital Projects</Tab>
-              <Tab>Community Board Budget Requests</Tab>
+              <Tab fontFamily={"Helvetica Neue, Arial, sans-serif"}>
+                Capital Projects
+              </Tab>
+              <Tab fontFamily={"Helvetica Neue, Arial, sans-serif"}>
+                Community Board Budget Requests
+              </Tab>
             </TabList>
             <Flex
               justifyContent={"space-between"}
