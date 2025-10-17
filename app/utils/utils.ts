@@ -144,3 +144,17 @@ export function useUpdateSearchParams(): [
   };
   return [searchParams, updateSearchParams, setSearchParams];
 }
+
+export const CAPITAL_PROJECTS_PARAM = "capitalProjects";
+
+export function readCapitalProjectsOn(searchParams: URLSearchParams): boolean {
+  return searchParams.get(CAPITAL_PROJECTS_PARAM) !== "off";
+}
+
+export function useCapitalProjectsParam(): [boolean, (next: boolean) => void] {
+  const [searchParams, updateSearchParams] = useUpdateSearchParams();
+  const on = readCapitalProjectsOn(searchParams);
+  const setOn = (next: boolean) =>
+    updateSearchParams({ [CAPITAL_PROJECTS_PARAM]: next ? undefined : "off" });
+  return [on, setOn];
+}

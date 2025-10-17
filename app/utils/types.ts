@@ -35,8 +35,12 @@ export type PaginationQueryParams = {
   page?: number;
 };
 
+export type UiQueryParams = {
+  capitalProjects?: "off";
+};
+
 export type QueryParams = Partial<
-  AdminQueryParams & AttributeParams & PaginationQueryParams
+  AdminQueryParams & AttributeParams & PaginationQueryParams & UiQueryParams
 >;
 
 export type ProjectAmountMenuParams = {

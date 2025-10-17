@@ -44,6 +44,7 @@ import {
 } from "./utils/analytics";
 import { zoningApiUrl } from "./utils/envFlags";
 import { BoroughId, DistrictType } from "./utils/types";
+import { useCapitalProjectsParam } from "./utils/utils";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { HeaderBar } from "./components/HeaderBar";
 import { HowToUseThisTool } from "./components/AdminDropdownContent/HowToUseThisTool";
@@ -167,7 +168,8 @@ export default function App() {
   }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const [, setSearchParams] = useSearchParams();
-  const [showCapitalProjects, setShowCapitalProjects] = useState(true);
+  const [showCapitalProjects, onCapitalProjectsToggle] =
+    useCapitalProjectsParam();
 
   const {
     boroughs,
@@ -273,7 +275,7 @@ export default function App() {
                       <MapLayersPanel>
                         <LayerVisibilityToggles
                           capitalProjectsOn={showCapitalProjects}
-                          onCapitalProjectsToggle={setShowCapitalProjects}
+                          onCapitalProjectsToggle={onCapitalProjectsToggle}
                         />
                       </MapLayersPanel>
                       <FilterMenu
