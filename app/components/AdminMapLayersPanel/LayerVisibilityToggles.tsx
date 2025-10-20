@@ -15,11 +15,16 @@ import { Tooltip } from "@nycplanning/streetscape";
 export type LayerVisibilityTogglesProps = {
   capitalProjectsOn: boolean;
   onCapitalProjectsToggle: (next: boolean) => void;
+
+  cbbrOn: boolean;
+  onCbbrToggle: (next: boolean) => void;
 };
 
 export function LayerVisibilityToggles({
   capitalProjectsOn,
   onCapitalProjectsToggle,
+  cbbrOn,
+  onCbbrToggle,
 }: LayerVisibilityTogglesProps) {
   const capitalProjectsTooltipCopy = `New York City’s potential, planned, and ongoing capital projects.
   Unmapped projects, such as the purchase of vehicles or digital infrastructure, are not included in this tool.
@@ -111,7 +116,11 @@ export function LayerVisibilityToggles({
             gap={3}
           >
             <HStack alignItems={"flex-start"}>
-              <Switch id="cb-capital-budget-requests" />
+              <Switch
+                id="cb-capital-budget-requests"
+                isChecked={cbbrOn}
+                onChange={(e) => onCbbrToggle(e.target.checked)}
+              />
               <FormLabel
                 htmlFor="cb-capital-budget-requests"
                 mb="0"

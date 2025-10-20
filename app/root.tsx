@@ -44,7 +44,7 @@ import {
 } from "./utils/analytics";
 import { zoningApiUrl } from "./utils/envFlags";
 import { BoroughId, DistrictType } from "./utils/types";
-import { useCapitalProjectsParam } from "./utils/utils";
+import { useToggleParam } from "./utils/utils";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { HeaderBar } from "./components/HeaderBar";
 import { HowToUseThisTool } from "./components/AdminDropdownContent/HowToUseThisTool";
@@ -168,8 +168,9 @@ export default function App() {
   }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const [, setSearchParams] = useSearchParams();
-  const [showCapitalProjects, onCapitalProjectsToggle] =
-    useCapitalProjectsParam();
+  const [showCapitalProjects, setShowCapitalProjects] =
+    useToggleParam("capitalProjects");
+  const [showCbbr, setShowCbbr] = useToggleParam("cbbr");
 
   const {
     boroughs,
@@ -207,6 +208,7 @@ export default function App() {
                 viewState={viewState}
                 setViewState={(MapViewState) => setViewState(MapViewState)}
                 showCapitalProjects={showCapitalProjects}
+                // pass cbbr layer here
               />{" "}
               <Grid
                 templateColumns={{
@@ -275,7 +277,9 @@ export default function App() {
                       <MapLayersPanel>
                         <LayerVisibilityToggles
                           capitalProjectsOn={showCapitalProjects}
-                          onCapitalProjectsToggle={onCapitalProjectsToggle}
+                          onCapitalProjectsToggle={setShowCapitalProjects}
+                          cbbrOn={showCbbr}
+                          onCbbrToggle={setShowCbbr}
                         />
                       </MapLayersPanel>
                       <FilterMenu

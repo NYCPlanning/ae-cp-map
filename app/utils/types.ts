@@ -35,12 +35,16 @@ export type PaginationQueryParams = {
   page?: number;
 };
 
-export type UiQueryParams = {
-  capitalProjects?: "off";
-};
+export type ToggleParamKey = "capitalProjects" | "cbbr";
+
+export type ToggleParamValue = "off" | undefined;
+
+export type ToggleQueryParams = Partial<
+  Record<ToggleParamKey, ToggleParamValue>
+>;
 
 export type QueryParams = Partial<
-  AdminQueryParams & AttributeParams & PaginationQueryParams & UiQueryParams
+  AdminQueryParams & AttributeParams & PaginationQueryParams & ToggleQueryParams
 >;
 
 export type ProjectAmountMenuParams = {
