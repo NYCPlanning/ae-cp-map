@@ -9,6 +9,7 @@ import {
   useCommunityDistrictsLayer,
   useCityCouncilDistrictsLayer,
   useCommunityDistrictLayer,
+  useCommunityBoardBudgetRequestsLayer,
   useCityCouncilDistrictLayer,
   useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
@@ -41,8 +42,11 @@ export function Atlas({
   });
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
+  const communityBoardBudgetRequestsLayer =
+    useCommunityBoardBudgetRequestsLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
+  
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
 
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
@@ -97,6 +101,7 @@ export function Atlas({
         capitalProjectBudgetedGeoJsonLayer,
         communityDistrictsLayer,
         communityDistrictLayer,
+        communityBoardBudgetRequestsLayer,
         cityCouncilDistrictsLayer,
         cityCouncilDistrictLayer,
       ]}
