@@ -12,8 +12,8 @@ import {
   findCommunityBoardBudgetRequestPolicyAreas,
 } from "../gen";
 import { Show } from "@nycplanning/streetscape";
-import { CommunityBoardBudgetRequestPanel } from "~/components/CommunityBoardBudgetRequestPanel";
-import { ReverseAccordion } from "~/components/ReverseAccordion";
+import { CommunityBoardBudgetRequestDetail } from "~/components/CommunityBoardBudgetRequestDetail";
+import { ContentPanelAccordion } from "~/components/ContentPanelAccordion";
 import { analytics } from "~/utils/analytics";
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -93,19 +93,19 @@ export default function CommunityBoardBudgetRequest() {
   return (
     <>
       <Show below="md">
-        <ReverseAccordion accordionHeading="Project Details">
-          <CommunityBoardBudgetRequestPanel
+        <ContentPanelAccordion accordionHeading="Project Details">
+          <CommunityBoardBudgetRequestDetail
             cbbr={cbbr}
             agencyName={agencyName}
             policyArea={policyArea}
             agencyResponseType={agencyResponseType}
             onNavigationClick={onNavigationClick}
           />
-        </ReverseAccordion>
+        </ContentPanelAccordion>
       </Show>
 
       <Show above="md">
-        <CommunityBoardBudgetRequestPanel
+        <CommunityBoardBudgetRequestDetail
           cbbr={cbbr}
           agencyName={agencyName}
           policyArea={policyArea}
