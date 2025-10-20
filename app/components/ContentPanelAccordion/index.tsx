@@ -4,16 +4,19 @@ import {
   AccordionButton,
   AccordionItem,
   AccordionPanel,
+  AccordionIcon,
+  useMediaQuery,
 } from "@nycplanning/streetscape";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 
-export function ReverseAccordion({
+export function ContentPanelAccordion({
   children,
   accordionHeading,
 }: {
   children: React.ReactNode;
   accordionHeading: string;
 }) {
+  const iconShouldFlip = useMediaQuery("(max-width: 767px)")[0];
+
   return (
     <Accordion
       width={"100%"}
@@ -35,8 +38,12 @@ export function ReverseAccordion({
               >
                 {accordionHeading}
               </Heading>
-              <ChevronDownIcon
-                transform={isExpanded ? "rotate(0deg)" : "rotate(180deg)"}
+              <AccordionIcon
+                transform={
+                  isExpanded && iconShouldFlip
+                    ? "rotate(0deg)"
+                    : "rotate(180deg)"
+                }
               />
             </AccordionButton>
             <AccordionPanel

@@ -6,9 +6,9 @@ import {
   createCommunityBoardBudgetRequestPolicyArea,
   createCommunityBoardBudgetRequestAgencyResponseType,
 } from "~/gen";
-import { CommunityBoardBudgetRequestPanel } from ".";
+import { CommunityBoardBudgetRequestDetail } from ".";
 
-describe("CommunityBoardBudgetRequestPanel", () => {
+describe("CommunityBoardBudgetRequestDetail", () => {
   let cbbr: CommunityBoardBudgetRequest;
   let agencyName: string;
   let policyArea: string;
@@ -29,7 +29,7 @@ describe("CommunityBoardBudgetRequestPanel", () => {
 
   it("should render the request panel with the cbbr tracking number", () => {
     render(
-      <CommunityBoardBudgetRequestPanel
+      <CommunityBoardBudgetRequestDetail
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}
@@ -43,7 +43,7 @@ describe("CommunityBoardBudgetRequestPanel", () => {
 
   it("should render the request panel with the community board", () => {
     render(
-      <CommunityBoardBudgetRequestPanel
+      <CommunityBoardBudgetRequestDetail
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}
@@ -57,7 +57,7 @@ describe("CommunityBoardBudgetRequestPanel", () => {
 
   it("should render the request panel with the agency", () => {
     render(
-      <CommunityBoardBudgetRequestPanel
+      <CommunityBoardBudgetRequestDetail
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}
@@ -71,7 +71,7 @@ describe("CommunityBoardBudgetRequestPanel", () => {
 
   it("should render the request panel with the policy area", () => {
     render(
-      <CommunityBoardBudgetRequestPanel
+      <CommunityBoardBudgetRequestDetail
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}
@@ -85,7 +85,7 @@ describe("CommunityBoardBudgetRequestPanel", () => {
 
   it("should render the request panel with the cbbr priority", () => {
     render(
-      <CommunityBoardBudgetRequestPanel
+      <CommunityBoardBudgetRequestDetail
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}

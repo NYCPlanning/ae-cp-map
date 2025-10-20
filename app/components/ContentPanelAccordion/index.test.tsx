@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { ReverseAccordion } from ".";
+import { ContentPanelAccordion } from ".";
 
 describe("CommunityBoardBudgetRequestPanel", () => {
   it("should render the accordion panel with the given title", () => {
     render(
-      <ReverseAccordion accordionHeading="CBBR Title">
+      <ContentPanelAccordion accordionHeading="CBBR Title">
         CBBR Content
-      </ReverseAccordion>,
+      </ContentPanelAccordion>,
     );
 
     expect(screen.getByText(/CBBR Title/)).toBeVisible();
@@ -15,9 +15,9 @@ describe("CommunityBoardBudgetRequestPanel", () => {
 
   it("should render the accordion panel in the closed state", () => {
     render(
-      <ReverseAccordion accordionHeading="CBBR Title">
+      <ContentPanelAccordion accordionHeading="CBBR Title">
         CBBR Content
-      </ReverseAccordion>,
+      </ContentPanelAccordion>,
     );
 
     expect(screen.getByText(/CBBR Content/)).not.toBeVisible();
@@ -25,9 +25,9 @@ describe("CommunityBoardBudgetRequestPanel", () => {
 
   it("should open the accordion panel when the title is clicked", async () => {
     render(
-      <ReverseAccordion accordionHeading="CBBR Title">
+      <ContentPanelAccordion accordionHeading="CBBR Title">
         CBBR Content
-      </ReverseAccordion>,
+      </ContentPanelAccordion>,
     );
 
     await userEvent.click(screen.getByText(/CBBR Title/));

@@ -11,7 +11,7 @@ import {
 } from "@nycplanning/streetscape";
 import { ChevronLeftIcon, InfoIcon } from "@chakra-ui/icons";
 
-export type CommunityBoardBudgetRequestPanelProps = {
+export type CommunityBoardBudgetRequestDetailProps = {
   cbbr: CommunityBoardBudgetRequest;
   agencyName: string | undefined;
   policyArea: string | undefined;
@@ -19,13 +19,13 @@ export type CommunityBoardBudgetRequestPanelProps = {
   onNavigationClick: () => void;
 };
 
-export function CommunityBoardBudgetRequestPanel({
+export function CommunityBoardBudgetRequestDetail({
   cbbr,
   agencyName,
   policyArea,
   agencyResponseType,
   onNavigationClick,
-}: CommunityBoardBudgetRequestPanelProps) {
+}: CommunityBoardBudgetRequestDetailProps) {
   return (
     <VStack alignItems={"flex-start"} gap={2}>
       <HStack align={"center"}>
@@ -53,28 +53,29 @@ export function CommunityBoardBudgetRequestPanel({
         width="100%"
         paddingBottom={2}
         justifyContent={"flex-start"}
+        fontSize={"sm"}
       >
         <Flex gap={2} flexWrap={"wrap"}>
-          <HStack>
-            <Text fontWeight={700}>Tracking Number: </Text>
+          <HStack align={"flex-start"}>
+            <Text fontWeight={"bold"}>Tracking Number: </Text>
             <Text>{cbbr.id}</Text>
           </HStack>
-          <HStack>
-            <Text fontWeight={700}>Community Board: </Text>
+          <HStack align={"flex-start"}>
+            <Text fontWeight={"bold"}>Community Board: </Text>
             <Tag>{cbbr.communityBoardId}</Tag>
           </HStack>
         </Flex>
-        <HStack>
-          <Text fontWeight={700}>Agency: </Text>
+        <HStack align={"flex-start"}>
+          <Text fontWeight={"bold"}>Agency: </Text>
           <Tag>{agencyName}</Tag>
         </HStack>
       </VStack>
-      <HStack>
-        <Text fontWeight={700}>Policy Area: </Text>
+      <HStack fontSize={"sm"} align={"flex-start"}>
+        <Text fontWeight={"bold"}>Policy Area: </Text>
         <Tag>{policyArea}</Tag>
       </HStack>
-      <HStack paddingBottom={2}>
-        <Text fontWeight={700}>Priority: </Text>
+      <HStack paddingBottom={2} fontSize={"sm"} align={"flex-start"}>
+        <Text fontWeight={"bold"}>Priority: </Text>
         <Text>
           <Tag>{cbbr.priority}</Tag> for {cbbr.communityBoardId} Capital Budget
           Requests
@@ -84,11 +85,15 @@ export function CommunityBoardBudgetRequestPanel({
         </Tooltip>
       </HStack>
       <VStack alignItems={"flex-start"} gap={0}>
-        <Text fontWeight={700}>Request from {cbbr.communityBoardId}:</Text>
+        <Text fontWeight={"bold"} fontSize={"sm"}>
+          Request from {cbbr.communityBoardId}:
+        </Text>
         <Text>{cbbr.description}</Text>
       </VStack>
       <VStack alignItems={"flex-start"} gap={0}>
-        <Text fontWeight={700}>Response from {agencyName}:</Text>
+        <Text fontWeight={"bold"} fontSize={"sm"}>
+          Response from {agencyName}:
+        </Text>
         <Text>
           {agencyResponseType}. {cbbr.cbbrAgencyResponse}
         </Text>
@@ -99,11 +104,11 @@ export function CommunityBoardBudgetRequestPanel({
           borderColor={"gray.200"}
           width="100%"
           paddingTop={2}
-          fontSize={"sm"}
+          fontSize={"xs"}
         >
-          <span style={{ fontWeight: 700 }}>
+          <Text as="span" fontWeight={"bold"}>
             *Indicates Continued Support.{" "}
-          </span>
+          </Text>
           Continued Support requests are Capital requests which have received
           some degree of funding or approval, where the board is requesting that
           the agency continue its support of that ongoing item.
