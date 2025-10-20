@@ -2,6 +2,9 @@ import { MVTLayer } from "@deck.gl/geo-layers";
 // import {
 // useLoaderData,
 // useNavigate,
+import {
+  useSearchParams,
+} from "react-router";
 // useParams,
 // useSearchParams,
 // useMatches,
@@ -12,6 +15,11 @@ import {
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 // import { FindAgenciesQueryResponse } from "../../gen";
+import {
+  BoroughId,
+  DistrictId,
+  DistrictType,
+} from "../../utils/types";
 
 export interface CommunityBoardBudgetRequestProperties {
   id: string;
@@ -26,7 +34,7 @@ export interface CommunityBoardBudgetRequestProperties {
 
 export function useCommunityBoardBudgetRequestsLayer() {
   // const { cbbrId } = useParams();
-  // const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   // const agencyInitials = searchParams.get("cbbrAgencyInitials");
   // const navigate = useNavigate();
 
@@ -38,9 +46,20 @@ export function useCommunityBoardBudgetRequestsLayer() {
   //   layoutRoute?.id.startsWith(
   //     communityBoardBudgetRequestsInCityCouncilDistrictRoutePrefix,
   //   );
+    const districtType = searchParams.get("districtType") as DistrictType;
+  const boroughId = searchParams.get("boroughId") as BoroughId;
+  const districtId = searchParams.get("districtId") as DistrictId;
+const onCapitalProjectsInCityCouncilDistrictPath =
+    districtType === "ccd" && districtId !== null;
+  const onCapitalProjectsInCommunityDistrictPath =
+    districtType === "cd" && boroughId !== null && districtId !== null;
 
-  const endpointPrefix = ""; // "city-council-districts/1/";
-//   const realEndpointPrefix = "";
+  let endpointPrefix = "";
+  if (onCapitalProjectsInCityCouncilDistrictPath) {
+    endpointPrefix = `city-council-districts/${districtId}/`;
+  } else if (onCapitalProjectsInCommunityDistrictPath) {
+    endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
+  }
 
   // let endpointPrefix = "";
   // if (onCommunityBoardBudgetRequestsInCityCouncilDistrictPath) {
@@ -54,6 +73,9 @@ export function useCommunityBoardBudgetRequestsLayer() {
   // const fullAgencyAcronymList = loaderData.agencies
   //   ? loaderData.agencies.map((agency) => agency.initials)
   //   : [];
+  const ICON_MAPPING = {
+    marker: { x: 0, y: 0, width: 128, height: 128, mask: true },
+  };
 
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
@@ -74,6 +96,11 @@ export function useCommunityBoardBudgetRequestsLayer() {
     //   [1],
     // ],
     // getFillColor: [43, 108, 176, 166],
+    pointType: 'icon',
+    iconAtlas:
+        "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
+    getIcon: (data: any) => "marker",
+    iconSizeScale: 12,
     getFillColor: (data) => {
       if (data.properties.layerName === "community-board-budget-request-label")
         console.log("data", data);
@@ -86,7 +113,7 @@ export function useCommunityBoardBudgetRequestsLayer() {
       return [43, 108, 176, 166];
       // }
     },
-    getPointRadius: 5,
+    getPointRadius: 150,
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
     // onClick: (data) => {
