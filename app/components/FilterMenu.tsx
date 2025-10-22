@@ -16,6 +16,7 @@ import {
   CityCouncilDistrictDropdown,
 } from "./AdminDropdown";
 import { useUpdateSearchParams, setNewSearchParams } from "~/utils/utils";
+import { EducationIcon } from "~/icons";
 
 export const FilterMenu = ({
   boroughs,
@@ -57,6 +58,7 @@ export const FilterMenu = ({
           lineHeight="32px"
         >
           Filter by Location
+          <EducationIcon />
         </Heading>
         <AccordionIcon />
       </AccordionButton>
