@@ -1,25 +1,21 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-// import {
-// useLoaderData,
-// useNavigate,
 import {
   useSearchParams,
 } from "react-router";
-// useParams,
-// useSearchParams,
-// useMatches,
-// } from "react-router";
 import {
-  // DataFilterExtension,
   DataFilterExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
-// import { FindAgenciesQueryResponse } from "../../gen";
 import {
   BoroughId,
   DistrictId,
   DistrictType,
 } from "../../utils/types";
+import { IconLayer } from "@deck.gl/layers";
+import { EducationIcon } from "app/icons";
+import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { renderToStaticMarkup } from 'react-dom/server';
+import { url } from "inspector";
 
 export interface CommunityBoardBudgetRequestProperties {
   id: string;
@@ -29,27 +25,12 @@ export interface CommunityBoardBudgetRequestProperties {
     | "community-board-budget-request-label";
 }
 
-// const communityBoardBudgetRequestsInCityCouncilDistrictRoutePrefix =
-//   "routes/city-council-districts.$cityCouncilDistrictId.community-board-budget-requests";
-
 export function useCommunityBoardBudgetRequestsLayer() {
-  // const { cbbrId } = useParams();
   const [searchParams] = useSearchParams();
-  // const agencyInitials = searchParams.get("cbbrAgencyInitials");
-  // const navigate = useNavigate();
-
-  // const matches = useMatches();
-
-  // const layoutRoute = matches[1];
-
-  // const onCommunityBoardBudgetRequestsInCityCouncilDistrictPath =
-  //   layoutRoute?.id.startsWith(
-  //     communityBoardBudgetRequestsInCityCouncilDistrictRoutePrefix,
-  //   );
-    const districtType = searchParams.get("districtType") as DistrictType;
+  const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
-const onCapitalProjectsInCityCouncilDistrictPath =
+  const onCapitalProjectsInCityCouncilDistrictPath =
     districtType === "ccd" && districtId !== null;
   const onCapitalProjectsInCommunityDistrictPath =
     districtType === "cd" && boroughId !== null && districtId !== null;
@@ -61,23 +42,39 @@ const onCapitalProjectsInCityCouncilDistrictPath =
     endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
   }
 
-  // let endpointPrefix = "";
-  // if (onCommunityBoardBudgetRequestsInCityCouncilDistrictPath) {
-  //   endpointPrefix = `city-council-districts/${layoutRoute.params.cityCouncilDistrictId}/`;
-  // }
+  const education = <EducationIcon/>;
+  console.log(education);
 
-  // const loaderData = useLoaderData<
-  //   FindAgenciesQueryResponse | { agencies: null }
-  // >();
+  const educationString = encodeURIComponent(renderToStaticMarkup(<EducationIcon />));
+  console.log("education string ", educationString);
+  const dataUri = `url("data:image/svg+xml,${educationString}")`;
+  console.log("datauri ", dataUri);
+  const layer = new IconLayer({
+  id: 'IconLayer',
+  visible: true,
+  data: [
+      `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
+    ],
+  getColor: (d: { exits: number; }) => [Math.sqrt(d.exits), 140, 0],
+  pointType: 'circle',
+  getPointRadius: 150,
 
-  // const fullAgencyAcronymList = loaderData.agencies
-  //   ? loaderData.agencies.map((agency) => agency.initials)
-  //   : [];
-  const ICON_MAPPING = {
-    marker: { x: 0, y: 0, width: 128, height: 128, mask: true },
-  };
+    getFillColor: (d: { properties: { layerName: string; }; }) => {
+      if (d.properties.layerName === "community-board-budget-request-label")
+        console.log("POINT data", d);
+      return [430, 108, 176, 166];
+    },
+  // getIcon: (d) => {
+  //   return {
+  //     url: dataUri,
+  //     height: 240,
+  //     width: 240,
+  //   }
+  // },
+  pickable: true
+});
 
-  return new MVTLayer<
+const mvt = new MVTLayer<
     CommunityBoardBudgetRequestProperties,
     DataFilterExtensionProps<
       Feature<Geometry, CommunityBoardBudgetRequestProperties>
@@ -88,56 +85,30 @@ const onCapitalProjectsInCityCouncilDistrictPath =
       `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
     ],
     uniqueIdProperty: "id",
-    // autoHighlight: true,
-    // highlightColor: [129, 230, 217, 218],
+    visible: true,
     pickable: true,
-    // filterCategories: [
-    //   agencyInitials === null ? fullAgencyAcronymList : [agencyInitials],
-    //   [1],
-    // ],
-    // getFillColor: [43, 108, 176, 166],
-    pointType: 'icon',
-    iconAtlas:
-        "https://raw.githubusercontent.com/visgl/deck.gl-data/master/website/icon-atlas.png",
-    getIcon: (data: any) => "marker",
-    iconSizeScale: 12,
     getFillColor: (data) => {
       if (data.properties.layerName === "community-board-budget-request-label")
         console.log("data", data);
-      // console.log("properties", data.properties);
-      // const { id } = data.properties;
-      // switch (id) {
-      //   case cbbrId:
-      //     return [56, 178, 172, 166];
-      //   default:
       return [43, 108, 176, 166];
-      // }
     },
-    getPointRadius: 150,
-    getLineColor: [255, 255, 255, 255],
-    getLineWidth: 1,
-    // onClick: (data) => {
-    //   const nextId = data.object?.properties?.id;
-
-    //   if (nextId === undefined) return;
-    //   // Avoid adding the same capital project to the history stack
-    //   if (nextId === cbbrId) return;
-    //   const communityBoardBudgetRequestRouteSuffix = `community-board-budget-requests/${nextId}`;
-    //   navigate({
-    //     pathname: `${endpointPrefix}${communityBoardBudgetRequestRouteSuffix}`,
-    //     search: `?${searchParams.toString()}`,
-    //   });
-    // },
-    // updateTriggers: {
-    //   getFillColor: [cbbrId],
-    //   getPointColor: [cbbrId],
-    //   getFilterCategory: [agencyInitials],
-    // },
-    // extensions: [
-    //   new DataFilterExtension({
-    //     filterSize: 1,
-    //     categorySize: 2,
-    //   }),
-    // ],
+    pointType: 'icon',
+    getPointRadius: 50,
+    // getIconColor: [0, 0, 0, 255],
+    iconSizeUnits: 'pixels',
+    iconSizeScale: 5,
+    getIcon: (d: { properties: { id: any; }; }) => {
+    return {
+      url: dataUri,
+      height: 24,
+      width: 24,
+      // id: d.properties.
+    }
+  },
+    getIconSize: 15,
+    // getLineColor: [255, 255, 255, 255],
+    // getLineWidth: 1,
   });
+
+  return [mvt, layer]
 }
