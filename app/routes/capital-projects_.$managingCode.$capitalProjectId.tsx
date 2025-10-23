@@ -7,18 +7,15 @@ import {
 } from "react-router";
 import {
   findCapitalProjectByManagingCodeCapitalProjectId,
-  findAgencies,
   findCapitalCommitmentsByManagingCodeCapitalProjectId,
   findCapitalCommitmentTypes,
+  findCapitalProjectManagingAgencies,
 } from "../gen";
 import { CapitalProjectPanel } from "~/components/CapitalProjectPanel";
 import { analytics } from "~/utils/analytics";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { managingCode, capitalProjectId } = params;
-  const agenciesResponse = await findAgencies({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-  });
   if (managingCode === undefined || capitalProjectId === undefined) {
     throw data("Bad Request", { status: 400 });
   }
@@ -44,21 +41,26 @@ export async function loader({ params }: LoaderFunctionArgs) {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
+  const managingAgenciesPromise = findCapitalProjectManagingAgencies({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
+
   const [
     capitalProject,
     capitalCommitmentsResponse,
     capitalCommitmentTypesResponse,
+    managingAgenciesResponse,
   ] = await Promise.all([
     capitalProjectPromise,
     capitalCommitmentsPromise,
     capitalCommitmentTypesPromise,
+    managingAgenciesPromise,
   ]);
   return {
     capitalProject,
-    capitalCommitments: capitalCommitmentsResponse.capitalCommitments,
-    capitalCommitmentTypes:
-      capitalCommitmentTypesResponse.capitalCommitmentTypes,
-    agencies: agenciesResponse.agencies,
+    capitalCommitmentsResponse,
+    capitalCommitmentTypesResponse,
+    managingAgenciesResponse,
   };
 }
 
@@ -67,9 +69,9 @@ export default function CapitalProject() {
   const [searchParams] = useSearchParams();
   const {
     capitalProject,
-    capitalCommitments,
-    agencies,
-    capitalCommitmentTypes,
+    capitalCommitmentsResponse: { capitalCommitments },
+    capitalCommitmentTypesResponse: { capitalCommitmentTypes },
+    managingAgenciesResponse: { managingAgencies },
   } = useLoaderData<typeof loader>();
 
   return (
@@ -77,7 +79,7 @@ export default function CapitalProject() {
       capitalProject={capitalProject}
       capitalCommitments={capitalCommitments}
       capitalCommitmentTypes={capitalCommitmentTypes}
-      agencies={agencies}
+      managingAgencies={managingAgencies}
       onNavigationClick={() => {
         analytics({
           category: "Close Project Info Modal Button",

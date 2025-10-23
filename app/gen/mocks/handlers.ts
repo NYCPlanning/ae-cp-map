@@ -10,6 +10,7 @@ import { findCapitalProjectsHandler } from "./findCapitalProjectsHandler";
 import { findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler } from "./findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler";
 import { findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler";
 import { findCapitalProjectByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectByManagingCodeCapitalProjectIdHandler";
+import { findCapitalProjectManagingAgenciesHandler } from "./findCapitalProjectManagingAgenciesHandler";
 import { findCapitalProjectTilesHandler } from "./findCapitalProjectTilesHandler";
 import { findCityCouncilDistrictsHandler } from "./findCityCouncilDistrictsHandler";
 import { findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler } from "./findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler";
@@ -50,6 +51,7 @@ export const handlers = [
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler,
   findCapitalProjectByManagingCodeCapitalProjectIdHandler,
+  findCapitalProjectManagingAgenciesHandler,
   findCapitalProjectTilesHandler,
   findCityCouncilDistrictsHandler,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler,
