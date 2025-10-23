@@ -40,6 +40,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(agencyBudget === null ? {} : { agencyBudget }),
       ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
       ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
+      ...(districtId !== null ? {} : { isMapped: true }),
       limit: itemsPerPage,
       offset: offset,
     },
