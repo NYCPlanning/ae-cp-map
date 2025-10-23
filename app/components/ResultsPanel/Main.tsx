@@ -49,6 +49,7 @@ import { ExportDataModal } from "../ExportDataModal";
 
 export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 
+// TODO: Make less fragile to changes in order of policy areas
 export const policyAreaIcons = [
   <Icon key={0} boxSize={10} />,
   <InfrastructureIcon key={1} boxSize={10} />,
