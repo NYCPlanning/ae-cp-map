@@ -24,16 +24,11 @@ import { Atlas, INITIAL_VIEW_STATE } from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
 
 import {
-  FindBoroughsQueryResponse,
-  FindCityCouncilDistrictsQueryResponse,
-  FindCommunityDistrictsByBoroughIdQueryResponse,
   findBoroughs,
   findCityCouncilDistricts,
   findCommunityDistrictsByBoroughId,
-  findAgencies,
-  FindAgenciesQueryResponse,
   findAgencyBudgets,
-  FindAgencyBudgetsQueryResponse,
+  findCapitalProjectManagingAgencies,
 } from "./gen";
 import { FilterMenu } from "./components/FilterMenu";
 import { SearchByAttributeMenu } from "./components/SearchByAttributeMenu";
@@ -67,23 +62,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const districtType = url.searchParams.get("districtType") as DistrictType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
 
-  const { agencies } = await findAgencies({
+  const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${zoningApiUrl}/api`,
   });
 
   const { agencyBudgets } = await findAgencyBudgets({
     baseURL: `${zoningApiUrl}/api`,
   });
-
-  if (districtType === null) {
-    return {
-      boroughs: null,
-      communityDistricts: null,
-      cityCouncilDistricts: null,
-      agencies,
-      agencyBudgets,
-    };
-  }
 
   if (districtType === "cd") {
     const { boroughs } = await findBoroughs({
@@ -95,7 +80,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         boroughs,
         communityDistricts: null,
         cityCouncilDistricts: null,
-        agencies,
+        managingAgencies,
         agencyBudgets,
       };
     } else {
@@ -110,7 +95,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         boroughs,
         communityDistricts,
         cityCouncilDistricts: null,
-        agencies,
+        managingAgencies,
         agencyBudgets,
       };
     }
@@ -124,10 +109,18 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       boroughs: null,
       communityDistricts: null,
       cityCouncilDistricts,
-      agencies,
+      managingAgencies,
       agencyBudgets,
     };
   }
+
+  return {
+    boroughs: null,
+    communityDistricts: null,
+    cityCouncilDistricts: null,
+    managingAgencies,
+    agencyBudgets,
+  };
 };
 
 function Document({
@@ -173,18 +166,9 @@ export default function App() {
     boroughs,
     communityDistricts,
     cityCouncilDistricts,
-    agencies,
+    managingAgencies,
     agencyBudgets,
-  } = useLoaderData<
-    (FindBoroughsQueryResponse | { boroughs: null }) &
-      (
-        | FindCommunityDistrictsByBoroughIdQueryResponse
-        | { communityDistricts: null }
-      ) &
-      (FindCityCouncilDistrictsQueryResponse | { cityCouncilDistricts: null }) &
-      (FindAgenciesQueryResponse | { agencies: null }) &
-      (FindAgencyBudgetsQueryResponse | { agencyBudgets: null })
-  >();
+  } = useLoaderData<typeof loader>();
 
   const clearSelections = () => {
     setSearchParams({});
@@ -282,7 +266,7 @@ export default function App() {
                         cityCouncilDistricts={cityCouncilDistricts}
                       />
                       <SearchByAttributeMenu
-                        agencies={agencies}
+                        agencies={managingAgencies}
                         projectTypes={agencyBudgets}
                         onClear={clearSelections}
                       />

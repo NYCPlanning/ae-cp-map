@@ -47,6 +47,10 @@ export const operations = {
     path: "/capital-projects/:managingCode/:capitalProjectId",
     method: "get",
   },
+  findCapitalProjectManagingAgencies: {
+    path: "/capital-projects/managing-agencies",
+    method: "get",
+  },
   findCapitalProjectTiles: {
     path: "/capital-projects/:z/:x/:y.pbf",
     method: "get",

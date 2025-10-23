@@ -9,10 +9,10 @@ import { userEvent } from "@testing-library/user-event";
 
 describe("CapitalProjectDetail", () => {
   let capitalProject: CapitalProjectBudgeted;
-  let agencies: Agency[];
+  let managingAgencies: Agency[];
   let onNavigationClick: () => void;
   beforeAll(() => {
-    agencies = [
+    managingAgencies = [
       { initials: "DDC", name: "Department of Design and Construction" },
       { initials: "DEP", name: "Department of Environmental Protection" },
     ];
@@ -32,7 +32,7 @@ describe("CapitalProjectDetail", () => {
       <CapitalProjectDetail
         capitalProject={capitalProject}
         capitalCommitments={[]}
-        agencies={agencies}
+        managingAgencies={managingAgencies}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -44,11 +44,11 @@ describe("CapitalProjectDetail", () => {
       <CapitalProjectDetail
         capitalProject={capitalProject}
         capitalCommitments={[]}
-        agencies={agencies}
+        managingAgencies={managingAgencies}
         onNavigationClick={onNavigationClick}
       />,
     );
-    expect(screen.getByText(agencies[0].name)).toBeVisible();
+    expect(screen.getByText(managingAgencies[0].name)).toBeVisible();
   });
 
   it("should call onClose when the back chevron is clicked", async () => {
@@ -56,7 +56,7 @@ describe("CapitalProjectDetail", () => {
       <CapitalProjectDetail
         capitalProject={capitalProject}
         capitalCommitments={[]}
-        agencies={agencies}
+        managingAgencies={managingAgencies}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -72,7 +72,7 @@ describe("CapitalProjectDetail", () => {
       <CapitalProjectDetail
         capitalProject={capitalProject}
         capitalCommitments={[]}
-        agencies={agencies}
+        managingAgencies={managingAgencies}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -84,7 +84,7 @@ describe("CapitalProjectDetail", () => {
       <CapitalProjectDetail
         capitalProject={capitalProject}
         capitalCommitments={[]}
-        agencies={agencies}
+        managingAgencies={managingAgencies}
         onNavigationClick={onNavigationClick}
       />,
     );
