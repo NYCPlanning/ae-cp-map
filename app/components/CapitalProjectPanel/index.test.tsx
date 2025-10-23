@@ -8,10 +8,10 @@ import { CapitalProjectPanel } from ".";
 
 describe("CapitalProjectPanel", () => {
   let capitalProject: CapitalProjectBudgeted;
-  let agencies: Agency[];
+  let managingAgencies: Agency[];
   let onNavigationClick: () => void;
   beforeAll(() => {
-    agencies = [
+    managingAgencies = [
       { initials: "DDC", name: "Department of Design and Construction" },
       { initials: "DEP", name: "Department of Environmental Protection" },
     ];
@@ -32,7 +32,7 @@ describe("CapitalProjectPanel", () => {
         capitalProject={capitalProject}
         capitalCommitments={[]}
         capitalCommitmentTypes={[]}
-        agencies={agencies}
+        managingAgencies={managingAgencies}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -46,7 +46,7 @@ describe("CapitalProjectPanel", () => {
         capitalProject={capitalProject}
         capitalCommitments={[]}
         capitalCommitmentTypes={[]}
-        agencies={agencies}
+        managingAgencies={managingAgencies}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -60,7 +60,7 @@ describe("CapitalProjectPanel", () => {
         capitalProject={capitalProject}
         capitalCommitments={[]}
         capitalCommitmentTypes={[]}
-        agencies={agencies}
+        managingAgencies={managingAgencies}
         onNavigationClick={onNavigationClick}
       />,
     );

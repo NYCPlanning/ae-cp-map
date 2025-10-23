@@ -10,7 +10,6 @@ import {
   DataFilterExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
-import { FindAgenciesQueryResponse } from "../../gen";
 import {
   BoroughId,
   DistrictId,
@@ -18,6 +17,7 @@ import {
   CommitmentsTotalMin,
   CommitmentsTotalMax,
 } from "../../utils/types";
+import { loader as rootLoader } from "~/root";
 
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
@@ -61,12 +61,10 @@ export function useCapitalProjectsLayer(opts?: { visible?: boolean }) {
     endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
   }
 
-  const loaderData = useLoaderData<
-    FindAgenciesQueryResponse | { agencies: null }
-  >();
+  const loaderData = useLoaderData<typeof rootLoader>();
 
-  const fullAgencyAcronymList = loaderData.agencies
-    ? loaderData.agencies.map((agency) => agency.initials)
+  const fullAgencyAcronymList = loaderData.managingAgencies
+    ? loaderData.managingAgencies.map((agency) => agency.initials)
     : [];
 
   return new MVTLayer<

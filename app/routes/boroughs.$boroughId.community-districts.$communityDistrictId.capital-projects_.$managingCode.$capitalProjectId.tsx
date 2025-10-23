@@ -7,17 +7,14 @@ import {
 } from "react-router";
 import {
   findCapitalProjectByManagingCodeCapitalProjectId,
-  findAgencies,
   findCapitalCommitmentsByManagingCodeCapitalProjectId,
   findCapitalCommitmentTypes,
+  findCapitalProjectManagingAgencies,
 } from "../gen";
 import { CapitalProjectPanel } from "~/components/CapitalProjectPanel";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { managingCode, capitalProjectId } = params;
-  const agenciesResponse = await findAgencies({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
-  });
   if (managingCode === undefined || capitalProjectId === undefined) {
     throw data("Bad Request", { status: 400 });
   }
@@ -43,21 +40,25 @@ export async function loader({ params }: LoaderFunctionArgs) {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
+  const managingAgenciesPromise = findCapitalProjectManagingAgencies({
+    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+  });
   const [
-    capitalProject,
+    capitalProjectResponse,
     capitalCommitmentsResponse,
     capitalCommitmentTypesResponse,
+    managingAgenciesResponse,
   ] = await Promise.all([
     capitalProjectPromise,
     capitalCommitmentsPromise,
     capitalCommitmentTypesPromise,
+    managingAgenciesPromise,
   ]);
   return {
-    capitalProject,
-    capitalCommitments: capitalCommitmentsResponse.capitalCommitments,
-    capitalCommitmentTypes:
-      capitalCommitmentTypesResponse.capitalCommitmentTypes,
-    agencies: agenciesResponse.agencies,
+    capitalProjectResponse,
+    capitalCommitmentsResponse,
+    capitalCommitmentTypesResponse,
+    managingAgenciesResponse,
   };
 }
 
@@ -65,16 +66,16 @@ export default function CapitalProjectByBoroughIdCommunityDistrictId() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const {
-    capitalProject,
-    agencies,
-    capitalCommitments,
-    capitalCommitmentTypes,
+    capitalProjectResponse: capitalProject,
+    capitalCommitmentsResponse: { capitalCommitments },
+    capitalCommitmentTypesResponse: { capitalCommitmentTypes },
+    managingAgenciesResponse: { managingAgencies },
   } = useLoaderData<typeof loader>();
 
   return (
     <CapitalProjectPanel
       capitalProject={capitalProject}
-      agencies={agencies}
+      managingAgencies={managingAgencies}
       capitalCommitments={capitalCommitments}
       capitalCommitmentTypes={capitalCommitmentTypes}
       onNavigationClick={() => {

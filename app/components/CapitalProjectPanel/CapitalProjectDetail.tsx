@@ -17,14 +17,14 @@ import { CapitalCommitmentsTimeline } from "./CapitalCommitmentsTimeline";
 export interface CapitalProjectDetailProps {
   capitalProject: CapitalProjectBudgeted;
   capitalCommitments: Array<CapitalCommitment>;
-  agencies: Agency[];
+  managingAgencies: Agency[];
   onNavigationClick: () => void;
 }
 
 export const CapitalProjectDetail = ({
   capitalProject,
   capitalCommitments,
-  agencies,
+  managingAgencies,
   onNavigationClick,
 }: CapitalProjectDetailProps) => {
   return (
@@ -107,7 +107,7 @@ export const CapitalProjectDetail = ({
             <Text fontSize={"xs"}>Managing Agency</Text>
             <Heading color="gray.600" fontWeight={"medium"} fontSize={"sm"}>
               {
-                agencies.find(
+                managingAgencies.find(
                   (agency) => agency.initials === capitalProject.managingAgency,
                 )?.name
               }
