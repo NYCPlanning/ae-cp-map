@@ -13,38 +13,36 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router";
-import { Card, CardBody, ChevronRightIcon, Icon } from "@chakra-ui/icons";
 import {
+  ChevronRightIcon,
+  EducationIcon,
   Flex,
   Heading,
+  HealthIcon,
+  HousingIcon,
+  Icon,
+  InfrastructureIcon,
+  ParksIcon,
+  PeopleIcon,
+  SafetyIcon,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
   Text,
+  TransportationIcon,
   VStack,
 } from "@nycplanning/streetscape";
 import { Pagination } from "../Pagination";
-import {
-  EducationIcon,
-  HealthIcon,
-  HousingIcon,
-  InfrastructureIcon,
-  ParksIcon,
-  PeopleIcon,
-  SafetyIcon,
-  TransportationIcon,
-} from "~/icons";
-import { useEffect, useState } from "react";
-import { formatFiscalYearRange } from "~/utils/utils";
+import { Card, CardBody } from "@chakra-ui/icons";
+import { useState, useEffect } from "react";
 import { analytics } from "~/utils/analytics";
-import { ResultsPanelNoResultsWarning } from "./NoResultsWarning";
-import { ExportDataModal } from "../ExportDataModal";
+import { formatFiscalYearRange } from "~/utils/utils";
 import { ContentPanelAccordion } from "../ContentPanelAccordion";
-
 export const urlPaths = ["capital-projects", "community-board-budget-requests"];
-
+import { ExportDataModal } from "../ExportDataModal";
+import { ResultsPanelNoResultsWarning } from "./NoResultsWarning";
 // TODO: Make less fragile to changes in order of policy areas
 export const policyAreaIcons = [
   <Icon key={0} boxSize={10} />,

@@ -6,7 +6,7 @@ import {
   AccordionIcon,
   Heading,
   Box,
-} from "@chakra-ui/react";
+} from "@nycplanning/streetscape";
 
 export function MapLayersPanel({ children }: { children: React.ReactNode }) {
   return (

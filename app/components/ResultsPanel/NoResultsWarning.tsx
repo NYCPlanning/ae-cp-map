@@ -1,6 +1,5 @@
-import { WarningIcon } from "@chakra-ui/icons";
 import { Card, CardBody } from "@chakra-ui/react";
-import { Flex, Heading, Text } from "@nycplanning/streetscape";
+import { Flex, Heading, Text, WarningIcon } from "@nycplanning/streetscape";
 
 export function ResultsPanelNoResultsWarning() {
   return (

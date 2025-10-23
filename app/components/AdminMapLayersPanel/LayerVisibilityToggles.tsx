@@ -1,4 +1,4 @@
-import { InfoIcon } from "@chakra-ui/icons";
+import { PlacementWithLogical } from "@chakra-ui/react";
 import {
   Box,
   FormControl,
@@ -6,11 +6,11 @@ import {
   Heading,
   HStack,
   IconButton,
-  PlacementWithLogical,
+  InfoIcon,
   Switch,
+  Tooltip,
   useBreakpointValue,
-} from "@chakra-ui/react";
-import { Tooltip } from "@nycplanning/streetscape";
+} from "@nycplanning/streetscape";
 
 export type LayerVisibilityTogglesProps = {
   capitalProjectsOn: boolean;

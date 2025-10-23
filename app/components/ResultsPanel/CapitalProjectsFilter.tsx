@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/icons";
+import { Heading } from "@nycplanning/streetscape";
 
 export default function ResultsPanelCapitalProjectsFilter() {
   return (
