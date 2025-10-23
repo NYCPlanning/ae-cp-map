@@ -46,3 +46,5 @@ export type ProjectAmountMenuParams = {
   commitmentsTotalMaxSelectValue: CommitmentsTotalMaxSelectValue;
   commitmentTotalInputsAreValid: CommitmentTotalInputsAreValid;
 };
+
+export type PageParamKey = "cbbrPage" | "cpPage";

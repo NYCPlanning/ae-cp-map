@@ -1,5 +1,4 @@
-import { Flex, IconButton, Text } from "@nycplanning/streetscape";
-import { CloseIcon } from "@chakra-ui/icons";
+import { CloseIcon, Flex, IconButton, Text } from "@nycplanning/streetscape";
 import { useState, useEffect } from "react";
 import {
   CommitmentsTotalMin,
@@ -57,41 +56,44 @@ export function ProjectAmountMenu({
     commitmentsTotalMinSelectValue !== "K" ||
     commitmentsTotalMaxSelectValue !== "K";
 
-  useEffect(() => {
-    const newCommitmentTotalInputsAreValid = checkCommitmentTotalInputsAreValid(
-      {
-        commitmentsTotalMinInputValue,
-        commitmentsTotalMaxInputValue,
-        commitmentsTotalMinSelectValue,
-        commitmentsTotalMaxSelectValue,
-      },
-    );
-    if (newCommitmentTotalInputsAreValid) {
-      onValidChange({
-        commitmentsTotalMin:
-          commitmentsTotalMinInputValue !== "" &&
-          parseFloat(commitmentsTotalMinInputValue)
-            ? (
-                parseFloat(commitmentsTotalMinInputValue) *
-                getMultiplier(commitmentsTotalMinSelectValue)
-              ).toString()
-            : null,
-        commitmentsTotalMax:
-          commitmentsTotalMaxInputValue !== "" &&
-          parseFloat(commitmentsTotalMaxInputValue)
-            ? (
-                parseFloat(commitmentsTotalMaxInputValue) *
-                getMultiplier(commitmentsTotalMaxSelectValue)
-              ).toString()
-            : null,
-      });
-    }
-  }, [
-    commitmentsTotalMinInputValue,
-    commitmentsTotalMaxInputValue,
-    commitmentsTotalMinSelectValue,
-    commitmentsTotalMaxSelectValue,
-  ]);
+  useEffect(
+    () => {
+      const newCommitmentTotalInputsAreValid =
+        checkCommitmentTotalInputsAreValid({
+          commitmentsTotalMinInputValue,
+          commitmentsTotalMaxInputValue,
+          commitmentsTotalMinSelectValue,
+          commitmentsTotalMaxSelectValue,
+        });
+      if (newCommitmentTotalInputsAreValid) {
+        onValidChange({
+          commitmentsTotalMin:
+            commitmentsTotalMinInputValue !== "" &&
+            parseFloat(commitmentsTotalMinInputValue)
+              ? (
+                  parseFloat(commitmentsTotalMinInputValue) *
+                  getMultiplier(commitmentsTotalMinSelectValue)
+                ).toString()
+              : null,
+          commitmentsTotalMax:
+            commitmentsTotalMaxInputValue !== "" &&
+            parseFloat(commitmentsTotalMaxInputValue)
+              ? (
+                  parseFloat(commitmentsTotalMaxInputValue) *
+                  getMultiplier(commitmentsTotalMaxSelectValue)
+                ).toString()
+              : null,
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [
+      commitmentsTotalMinInputValue,
+      commitmentsTotalMaxInputValue,
+      commitmentsTotalMinSelectValue,
+      commitmentsTotalMaxSelectValue,
+    ],
+  );
 
   return (
     <>

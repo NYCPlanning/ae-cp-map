@@ -1,5 +1,7 @@
 import { CommunityBoardBudgetRequest } from "~/gen";
 import {
+  ChevronLeftIcon,
+  InfoIcon,
   Flex,
   Heading,
   HStack,
@@ -9,7 +11,6 @@ import {
   Tooltip,
   VStack,
 } from "@nycplanning/streetscape";
-import { ChevronLeftIcon, InfoIcon } from "@chakra-ui/icons";
 
 export type CommunityBoardBudgetRequestDetailProps = {
   cbbr: CommunityBoardBudgetRequest;

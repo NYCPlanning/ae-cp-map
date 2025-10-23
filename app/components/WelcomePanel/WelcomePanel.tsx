@@ -5,14 +5,9 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
-  Flex,
-  Hide,
-  Show,
 } from "@nycplanning/streetscape";
 import { WelcomeContent, WelcomeHeader } from ".";
 import { isWelcomeHidden, WelcomeGetStarted } from "./WelcomeGetStarted";
-import { analyticsWelcomePanelToggle } from "../../utils/analytics";
 
 export function WelcomePanel() {
   const [isDismissed, setIsDismissed] = useState<boolean>(() =>
