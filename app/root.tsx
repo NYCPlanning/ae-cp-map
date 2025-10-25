@@ -20,7 +20,12 @@ import {
   LoaderFunctionArgs,
   LinksFunction,
 } from "react-router";
-import { Atlas, INITIAL_VIEW_STATE } from "./components/atlas.client";
+import {
+  Atlas,
+  INITIAL_VIEW_STATE,
+  MAX_ZOOM,
+  MIN_ZOOM,
+} from "./components/atlas.client";
 import { ClientOnly } from "remix-utils/client-only";
 
 import {
@@ -51,6 +56,7 @@ import {
   MapLayersPanel,
   LayerVisibilityToggles,
 } from "./components/AdminMapLayersPanel";
+import { ZoomPanel } from "./components/ZoomPanel";
 
 export const links: LinksFunction = () => {
   return [
@@ -289,6 +295,20 @@ export default function App() {
                       <HowToUseThisTool />
                     </Accordion>
                   </Flex>
+                </GridItem>
+                <GridItem
+                  gridColumnStart={{ base: 9, md: 5, lg: 6 }}
+                  gridRowStart={{ base: 3, md: 3, lg: 3 }}
+                  width={"fit-content"}
+                  height={"fit-content"}
+                  className={"zoomPanel"}
+                >
+                  <ZoomPanel
+                    viewState={viewState}
+                    setViewState={setViewState}
+                    minZoom={MIN_ZOOM}
+                    maxZoom={MAX_ZOOM}
+                  />
                 </GridItem>
                 <GridItem
                   gridColumn={{
