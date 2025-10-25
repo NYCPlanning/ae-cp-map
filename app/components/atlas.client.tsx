@@ -1,7 +1,5 @@
 import { DeckGL } from "@deck.gl/react";
 import { Map } from "react-map-gl/maplibre";
-import { ZoomWidget, CompassWidget } from "@deck.gl/widgets";
-import { useMediaQuery } from "@nycplanning/streetscape";
 import "maplibre-gl/dist/maplibre-gl.css";
 import "@deck.gl/widgets/stylesheet.css";
 import {
@@ -15,6 +13,7 @@ import {
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 import { env } from "~/utils/env";
+
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
@@ -55,30 +54,6 @@ export function Atlas({
 
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
 
-  const isMobile = useMediaQuery("(max-width: 767px)")[0];
-  const widgetPlacement = isMobile ? "top-right" : "bottom-right";
-  const widgetStyles = isMobile
-    ? {
-        position: "relative",
-        top: "2rem",
-        left: "5rem",
-      }
-    : {
-        position: "relative",
-        bottom: "4.5rem",
-      };
-
-  const ZoomControls = new ZoomWidget({
-    id: "zoom",
-    placement: widgetPlacement,
-    style: widgetStyles,
-  });
-  const CompassControls = new CompassWidget({
-    id: "compass",
-    placement: widgetPlacement,
-    style: widgetStyles,
-  });
-
   return (
     <DeckGL<MapView>
       viewState={viewState}
@@ -117,11 +92,9 @@ export function Atlas({
         }
         return isHovering ? "pointer" : "grab";
       }}
-      widgets={isMobile ? [] : [ZoomControls, CompassControls]}
     >
       <Map
         mapStyle={`${basemapUrl}/styles/positron/style.json`}
-        attributionControl={isMobile ? false : true}
       ></Map>
     </DeckGL>
   );
