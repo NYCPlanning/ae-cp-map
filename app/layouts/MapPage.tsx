@@ -5,7 +5,12 @@ import {
   useOutletContext,
   LoaderFunctionArgs,
 } from "react-router";
-import { Atlas } from "../components/atlas.client";
+import {
+  Atlas,
+  INITIAL_VIEW_STATE,
+  MAX_ZOOM,
+  MIN_ZOOM,
+} from "../components/atlas.client";
 import {
   findBoroughs,
   findCityCouncilDistricts,
@@ -26,6 +31,7 @@ import {
 import { CommunityBoardBudgetRequestLegend } from "../components/CommunityBoardBudgetRequestLegend";
 import { useUpdateSearchParams } from "../utils/utils";
 import type { RootContextType } from "../root";
+import { MapViewControls } from "~/components/MapViewControls";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -190,6 +196,19 @@ export default function MapPage() {
             <HowToUseThisTool />
           </Accordion>
         </Flex>
+      </GridItem>
+      <GridItem
+        gridColumnStart={{ base: 9, md: 6, lg: 6, xl: 5, "2xl": 4 }}
+        gridRowStart={{ base: 3, md: 3, lg: 3 }}
+        width={"fit-content"}
+        height={"fit-content"}
+      >
+        <MapViewControls
+          viewState={viewState}
+          setViewState={setViewState}
+          minZoom={MIN_ZOOM}
+          maxZoom={MAX_ZOOM}
+        />
       </GridItem>
       <GridItem
         gridColumn={{
