@@ -15,7 +15,7 @@ export type CommunityBoardBudgetRequestDetailProps = {
   cbbr: CommunityBoardBudgetRequest;
   agencyName: string | undefined;
   policyArea: string | undefined;
-  agencyResponseType: string | undefined;
+  agencyCategoryResponse: string | undefined;
   onNavigationClick: () => void;
 };
 
@@ -23,7 +23,7 @@ export function CommunityBoardBudgetRequestDetail({
   cbbr,
   agencyName,
   policyArea,
-  agencyResponseType,
+  agencyCategoryResponse,
   onNavigationClick,
 }: CommunityBoardBudgetRequestDetailProps) {
   return (
@@ -95,7 +95,7 @@ export function CommunityBoardBudgetRequestDetail({
           Response from {agencyName}:
         </Text>
         <Text>
-          {agencyResponseType}. {cbbr.cbbrAgencyResponse}
+          {agencyCategoryResponse}. {cbbr.cbbrAgencyResponse}
         </Text>
       </VStack>
       {cbbr.isContinuedSupport && (

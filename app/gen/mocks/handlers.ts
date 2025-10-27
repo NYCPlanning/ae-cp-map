@@ -10,6 +10,7 @@ import { findCapitalProjectsHandler } from "./findCapitalProjectsHandler";
 import { findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler } from "./findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler";
 import { findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler";
 import { findCapitalProjectByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectByManagingCodeCapitalProjectIdHandler";
+import { findCapitalProjectManagingAgenciesHandler } from "./findCapitalProjectManagingAgenciesHandler";
 import { findCapitalProjectTilesHandler } from "./findCapitalProjectTilesHandler";
 import { findCityCouncilDistrictsHandler } from "./findCityCouncilDistrictsHandler";
 import { findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler } from "./findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler";
@@ -20,7 +21,7 @@ import { findCityCouncilDistrictTilesHandler } from "./findCityCouncilDistrictTi
 import { findCommunityBoardBudgetRequestsHandler } from "./findCommunityBoardBudgetRequestsHandler";
 import { findCommunityBoardBudgetRequestByIdHandler } from "./findCommunityBoardBudgetRequestByIdHandler";
 import { findCommunityBoardBudgetRequestAgenciesHandler } from "./findCommunityBoardBudgetRequestAgenciesHandler";
-import { findCommunityBoardBudgetRequestAgencyResponseTypesHandler } from "./findCommunityBoardBudgetRequestAgencyResponseTypesHandler";
+import { findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler } from "./findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler";
 import { findCommunityBoardBudgetRequestNeedGroupsHandler } from "./findCommunityBoardBudgetRequestNeedGroupsHandler";
 import { findCommunityBoardBudgetRequestPolicyAreasHandler } from "./findCommunityBoardBudgetRequestPolicyAreasHandler";
 import { findCommunityBoardBudgetRequestTilesHandler } from "./findCommunityBoardBudgetRequestTilesHandler";
@@ -50,6 +51,7 @@ export const handlers = [
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler,
   findCapitalProjectByManagingCodeCapitalProjectIdHandler,
+  findCapitalProjectManagingAgenciesHandler,
   findCapitalProjectTilesHandler,
   findCityCouncilDistrictsHandler,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler,
@@ -60,7 +62,7 @@ export const handlers = [
   findCommunityBoardBudgetRequestsHandler,
   findCommunityBoardBudgetRequestByIdHandler,
   findCommunityBoardBudgetRequestAgenciesHandler,
-  findCommunityBoardBudgetRequestAgencyResponseTypesHandler,
+  findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler,
   findCommunityBoardBudgetRequestNeedGroupsHandler,
   findCommunityBoardBudgetRequestPolicyAreasHandler,
   findCommunityBoardBudgetRequestTilesHandler,

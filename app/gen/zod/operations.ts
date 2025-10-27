@@ -73,6 +73,11 @@ import {
   findCapitalProjectByManagingCodeCapitalProjectIdPathParamsSchema,
 } from "./findCapitalProjectByManagingCodeCapitalProjectIdSchema";
 import {
+  findCapitalProjectManagingAgenciesQueryResponseSchema,
+  findCapitalProjectManagingAgencies400Schema,
+  findCapitalProjectManagingAgencies500Schema,
+} from "./findCapitalProjectManagingAgenciesSchema";
+import {
   findCapitalProjectTilesQueryResponseSchema,
   findCapitalProjectTiles400Schema,
   findCapitalProjectTiles500Schema,
@@ -135,10 +140,10 @@ import {
   findCommunityBoardBudgetRequestAgenciesQueryParamsSchema,
 } from "./findCommunityBoardBudgetRequestAgenciesSchema";
 import {
-  findCommunityBoardBudgetRequestAgencyResponseTypesQueryResponseSchema,
-  findCommunityBoardBudgetRequestAgencyResponseTypes400Schema,
-  findCommunityBoardBudgetRequestAgencyResponseTypes500Schema,
-} from "./findCommunityBoardBudgetRequestAgencyResponseTypesSchema";
+  findCommunityBoardBudgetRequestAgencyCategoryResponsesQueryResponseSchema,
+  findCommunityBoardBudgetRequestAgencyCategoryResponses400Schema,
+  findCommunityBoardBudgetRequestAgencyCategoryResponses500Schema,
+} from "./findCommunityBoardBudgetRequestAgencyCategoryResponsesSchema";
 import {
   findCommunityBoardBudgetRequestNeedGroupsQueryResponseSchema,
   findCommunityBoardBudgetRequestNeedGroups400Schema,
@@ -467,6 +472,24 @@ export const operations = {
       500: findCapitalProjectByManagingCodeCapitalProjectId500Schema,
     },
   },
+  findCapitalProjectManagingAgencies: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCapitalProjectManagingAgenciesQueryResponseSchema,
+      400: findCapitalProjectManagingAgencies400Schema,
+      500: findCapitalProjectManagingAgencies500Schema,
+      default: findCapitalProjectManagingAgenciesQueryResponseSchema,
+    },
+    errors: {
+      400: findCapitalProjectManagingAgencies400Schema,
+      500: findCapitalProjectManagingAgencies500Schema,
+    },
+  },
   findCapitalProjectTiles: {
     request: undefined,
     parameters: {
@@ -654,7 +677,7 @@ export const operations = {
       500: findCommunityBoardBudgetRequestAgencies500Schema,
     },
   },
-  findCommunityBoardBudgetRequestAgencyResponseTypes: {
+  findCommunityBoardBudgetRequestAgencyCategoryResponses: {
     request: undefined,
     parameters: {
       path: undefined,
@@ -662,15 +685,15 @@ export const operations = {
       header: undefined,
     },
     responses: {
-      200: findCommunityBoardBudgetRequestAgencyResponseTypesQueryResponseSchema,
-      400: findCommunityBoardBudgetRequestAgencyResponseTypes400Schema,
-      500: findCommunityBoardBudgetRequestAgencyResponseTypes500Schema,
+      200: findCommunityBoardBudgetRequestAgencyCategoryResponsesQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestAgencyCategoryResponses400Schema,
+      500: findCommunityBoardBudgetRequestAgencyCategoryResponses500Schema,
       default:
-        findCommunityBoardBudgetRequestAgencyResponseTypesQueryResponseSchema,
+        findCommunityBoardBudgetRequestAgencyCategoryResponsesQueryResponseSchema,
     },
     errors: {
-      400: findCommunityBoardBudgetRequestAgencyResponseTypes400Schema,
-      500: findCommunityBoardBudgetRequestAgencyResponseTypes500Schema,
+      400: findCommunityBoardBudgetRequestAgencyCategoryResponses400Schema,
+      500: findCommunityBoardBudgetRequestAgencyCategoryResponses500Schema,
     },
   },
   findCommunityBoardBudgetRequestNeedGroups: {
@@ -1000,6 +1023,9 @@ export const paths = {
   "/capital-projects/{managingCode}/{capitalProjectId}": {
     get: operations["findCapitalProjectByManagingCodeCapitalProjectId"],
   },
+  "/capital-projects/managing-agencies": {
+    get: operations["findCapitalProjectManagingAgencies"],
+  },
   "/capital-projects/{z}/{x}/{y}.pbf": {
     get: operations["findCapitalProjectTiles"],
   },
@@ -1034,8 +1060,8 @@ export const paths = {
   "/community-board-budget-requests/agencies": {
     get: operations["findCommunityBoardBudgetRequestAgencies"],
   },
-  "/community-board-budget-requests/agency-response-types": {
-    get: operations["findCommunityBoardBudgetRequestAgencyResponseTypes"],
+  "/community-board-budget-requests/agency-category-responses": {
+    get: operations["findCommunityBoardBudgetRequestAgencyCategoryResponses"],
   },
   "/community-board-budget-requests/need-groups": {
     get: operations["findCommunityBoardBudgetRequestNeedGroups"],

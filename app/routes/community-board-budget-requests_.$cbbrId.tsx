@@ -7,7 +7,7 @@ import {
 } from "react-router";
 import {
   findCommunityBoardBudgetRequestAgencies,
-  findCommunityBoardBudgetRequestAgencyResponseTypes,
+  findCommunityBoardBudgetRequestAgencyCategoryResponses,
   findCommunityBoardBudgetRequestById,
   findCommunityBoardBudgetRequestPolicyAreas,
 } from "../gen";
@@ -31,8 +31,8 @@ export async function loader({ params }: LoaderFunctionArgs) {
     baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
   });
 
-  const agencyResponseTypesPromise =
-    findCommunityBoardBudgetRequestAgencyResponseTypes({
+  const agencyCategoryResponsePromise =
+    findCommunityBoardBudgetRequestAgencyCategoryResponses({
       baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
     });
 
@@ -46,18 +46,19 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const [
     cbbr,
     agenciesResponse,
-    agencyResponseTypesResponse,
+    agencyCategoryResponseResponse,
     policyAreasResponse,
   ] = await Promise.all([
     cbbrPromise,
     agenciesPromise,
-    agencyResponseTypesPromise,
+    agencyCategoryResponsePromise,
     policyAreasPromise,
   ]);
   return {
     cbbr,
     agencies: agenciesResponse.cbbrAgencies,
-    agencyResponseTypes: agencyResponseTypesResponse.cbbrAgencyResponseTypes,
+    agencyCategoryResponses:
+      agencyCategoryResponseResponse.cbbrAgencyCategoryResponses,
     policyAreas: policyAreasResponse.cbbrPolicyAreas,
   };
 }
@@ -65,7 +66,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function CommunityBoardBudgetRequest() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { cbbr, agencies, agencyResponseTypes, policyAreas } =
+  const { cbbr, agencies, agencyCategoryResponses, policyAreas } =
     useLoaderData<typeof loader>();
 
   const agencyName = agencies.find(
@@ -74,8 +75,8 @@ export default function CommunityBoardBudgetRequest() {
   const policyArea = policyAreas.find(
     (area) => area.id === cbbr.cbbrPolicyAreaId,
   )?.description;
-  const agencyResponseType = agencyResponseTypes.find(
-    (category) => category.id === cbbr.cbbrAgencyResponseTypeId,
+  const agencyCategoryResponse = agencyCategoryResponses.find(
+    (category) => category.id === cbbr.cbbrAgencyCategoryResponseId,
   )?.description;
 
   const onNavigationClick = () => {
@@ -98,7 +99,7 @@ export default function CommunityBoardBudgetRequest() {
             cbbr={cbbr}
             agencyName={agencyName}
             policyArea={policyArea}
-            agencyResponseType={agencyResponseType}
+            agencyCategoryResponse={agencyCategoryResponse}
             onNavigationClick={onNavigationClick}
           />
         </ContentPanelAccordion>
@@ -109,7 +110,7 @@ export default function CommunityBoardBudgetRequest() {
           cbbr={cbbr}
           agencyName={agencyName}
           policyArea={policyArea}
-          agencyResponseType={agencyResponseType}
+          agencyCategoryResponse={agencyCategoryResponse}
           onNavigationClick={onNavigationClick}
         />
       </Show>
