@@ -1,12 +1,12 @@
-import React from "react";
 import {
-  AccordionItem,
   AccordionButton,
-  AccordionPanel,
   AccordionIcon,
-  Heading,
+  AccordionItem,
+  AccordionPanel,
   Box,
-} from "@chakra-ui/react";
+  Heading,
+} from "@nycplanning/streetscape";
+import React from "react";
 
 export function MapLayersPanel({ children }: { children: React.ReactNode }) {
   return (

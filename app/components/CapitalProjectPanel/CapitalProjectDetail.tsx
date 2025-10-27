@@ -1,7 +1,7 @@
 import numbro from "numbro";
-import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
   Box,
+  ChevronLeftIcon,
   Flex,
   Heading,
   HStack,

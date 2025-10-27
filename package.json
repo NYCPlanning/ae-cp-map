@@ -17,7 +17,7 @@
     "kubb:generate": "kubb generate"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/react": "^2.10.9",
     "@deck.gl/core": "^9.1.12",
     "@deck.gl/geo-layers": "^9.1.12",
     "@deck.gl/layers": "^9.1.12",
@@ -27,7 +27,7 @@
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.14.0",
     "@kubb/swagger-client": "^2.28.4",
-    "@nycplanning/streetscape": "^0.17.0",
+    "@nycplanning/streetscape": "^0.18.0",
     "@react-router/node": "^7.0.0",
     "@react-router/serve": "^7.0.0",
     "@turf/bbox": "^7.2.0",

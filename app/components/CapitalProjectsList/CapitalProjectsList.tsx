@@ -1,8 +1,14 @@
-import { Box, Flex, Heading, Text, VStack } from "@nycplanning/streetscape";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  WarningIcon,
+  VStack,
+} from "@nycplanning/streetscape";
 import { Agency, CapitalProject, CapitalProjectBudgeted } from "~/gen";
 import { CapitalProjectsListItem } from "./CapitalProjectsListItem";
 import { formatFiscalYearRange } from "../../utils/utils";
-import { WarningIcon } from "@chakra-ui/icons";
 
 export interface CapitalProjectsListProps {
   capitalProjects: CapitalProject[];
