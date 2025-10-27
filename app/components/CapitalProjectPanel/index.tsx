@@ -3,6 +3,8 @@ export { CapitalCommitmentsTimeline } from "./CapitalCommitmentsTimeline";
 export { CapitalCommitmentsTable } from "./CapitalCommitmentsTable";
 
 import {
+  ChevronDownIcon,
+  ChevronUpIcon,
   Collapse,
   Flex,
   Heading,
@@ -19,7 +21,6 @@ import {
   CapitalCommitmentsTable,
   CapitalCommitmentsTableProps,
 } from "./CapitalCommitmentsTable";
-import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 import { analytics } from "~/utils/analytics";
 
 export interface CapitalProjectPanelProps

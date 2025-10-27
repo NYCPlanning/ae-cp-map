@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router";
-import { Box, Checkbox, Flex, type CheckboxProps } from "@chakra-ui/react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
-import { Button } from "@nycplanning/streetscape";
+import {
+  Box,
+  Button,
+  ChevronRightIcon,
+  Checkbox,
+  Flex,
+  type CheckboxProps,
+} from "@nycplanning/streetscape";
 import { useCallback } from "react";
 
 export const HIDE_WELCOME_KEY = "hide_welcome_message";

@@ -1,5 +1,4 @@
-import { Flex, IconButton, Text } from "@nycplanning/streetscape";
-import { CloseIcon } from "@chakra-ui/icons";
+import { CloseIcon, Flex, IconButton, Text } from "@nycplanning/streetscape";
 import { useState, useEffect } from "react";
 import {
   CommitmentsTotalMin,
