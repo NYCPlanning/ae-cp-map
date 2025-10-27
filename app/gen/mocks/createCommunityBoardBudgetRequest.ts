@@ -18,7 +18,7 @@ export function createCommunityBoardBudgetRequest(
       cbbrType: createCommunityBoardBudgetRequestType(),
       isMapped: faker.datatype.boolean(),
       isContinuedSupport: faker.datatype.boolean(),
-      cbbrAgencyResponseTypeId: faker.number.float(),
+      cbbrAgencyCategoryResponseId: faker.number.float(),
       cbbrAgencyResponse: faker.string.alpha(),
     },
     ...data,

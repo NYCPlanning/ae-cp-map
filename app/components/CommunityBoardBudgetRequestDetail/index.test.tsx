@@ -4,7 +4,7 @@ import {
   CommunityBoardBudgetRequest,
   createAgency,
   createCommunityBoardBudgetRequestPolicyArea,
-  createCommunityBoardBudgetRequestAgencyResponseType,
+  createCommunityBoardBudgetRequestAgencyCategoryResponse,
 } from "~/gen";
 import { CommunityBoardBudgetRequestDetail } from ".";
 
@@ -12,15 +12,15 @@ describe("CommunityBoardBudgetRequestDetail", () => {
   let cbbr: CommunityBoardBudgetRequest;
   let agencyName: string;
   let policyArea: string;
-  let agencyResponseType: string;
+  let agencyCategoryResponse: string;
   let onNavigationClick: () => void;
 
   beforeAll(() => {
     cbbr = createCommunityBoardBudgetRequest();
     agencyName = createAgency().name;
     policyArea = createCommunityBoardBudgetRequestPolicyArea().description;
-    agencyResponseType =
-      createCommunityBoardBudgetRequestAgencyResponseType().description;
+    agencyCategoryResponse =
+      createCommunityBoardBudgetRequestAgencyCategoryResponse().description;
   });
 
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe("CommunityBoardBudgetRequestDetail", () => {
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}
-        agencyResponseType={agencyResponseType}
+        agencyCategoryResponse={agencyCategoryResponse}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -47,7 +47,7 @@ describe("CommunityBoardBudgetRequestDetail", () => {
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}
-        agencyResponseType={agencyResponseType}
+        agencyCategoryResponse={agencyCategoryResponse}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -61,7 +61,7 @@ describe("CommunityBoardBudgetRequestDetail", () => {
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}
-        agencyResponseType={agencyResponseType}
+        agencyCategoryResponse={agencyCategoryResponse}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -75,7 +75,7 @@ describe("CommunityBoardBudgetRequestDetail", () => {
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}
-        agencyResponseType={agencyResponseType}
+        agencyCategoryResponse={agencyCategoryResponse}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -89,7 +89,7 @@ describe("CommunityBoardBudgetRequestDetail", () => {
         cbbr={cbbr}
         agencyName={agencyName}
         policyArea={policyArea}
-        agencyResponseType={agencyResponseType}
+        agencyCategoryResponse={agencyCategoryResponse}
         onNavigationClick={onNavigationClick}
       />,
     );

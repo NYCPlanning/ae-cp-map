@@ -24,7 +24,7 @@ export function createFindCommunityBoardBudgetRequestsQueryParams(): NonNullable
     cbbrNeedGroupId: faker.number.int(),
     agencyInitials: faker.string.alpha(),
     cbbrType: faker.helpers.arrayElement<any>(["C", "E"]),
-    cbbrAgencyResponseTypeIds: faker.helpers.arrayElements([
+    cbbrAgencyCategoryResponseIds: faker.helpers.arrayElements([
       faker.number.int(),
     ]) as any,
     isMapped: faker.datatype.boolean(),
