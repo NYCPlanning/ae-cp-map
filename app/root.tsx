@@ -285,7 +285,6 @@ export default function App() {
                   gridRowStart={{ base: 3, md: 3, lg: 3 }}
                   width={"fit-content"}
                   height={"fit-content"}
-                  className={"zoomPanel"}
                 >
                   <ZoomPanel
                     viewState={viewState}
