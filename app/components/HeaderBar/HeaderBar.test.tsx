@@ -1,9 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import { HeaderBar } from "./index";
+import { BrowserRouter } from "react-router";
 
-describe("ClearFilterBtn", () => {
+describe("Header Bar", () => {
   it("renders with site name text", () => {
-    render(<HeaderBar />);
+    render(
+      <BrowserRouter>
+        <HeaderBar />
+      </BrowserRouter>,
+    );
     expect(screen.getByText("Capital Projects Portal")).toBeInTheDocument();
   });
 });
