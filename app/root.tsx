@@ -15,6 +15,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useLoaderData,
+  useLocation,
   useRouteError,
   useSearchParams,
   LoaderFunctionArgs,
@@ -46,6 +47,7 @@ import {
   MapLayersPanel,
   LayerVisibilityToggles,
 } from "./components/AdminMapLayersPanel";
+import About from "./routes/about";
 
 export const links: LinksFunction = () => {
   return [
@@ -179,149 +181,155 @@ export default function App() {
     });
   };
 
+  const location = useLocation();
+
   return (
     <Document>
       <StreetscapeProvider>
         <ClientOnly>
-          {() => (
-            <>
-              <Atlas
-                viewState={viewState}
-                setViewState={(MapViewState) => setViewState(MapViewState)}
-                showCapitalProjects={showCapitalProjects}
-              />{" "}
-              <Grid
-                templateColumns={{
-                  base: "0 [col-start] 1fr repeat(6, 1fr) 1fr [col-end] 0",
-                  md: "1.5dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.5dvw",
-                  lg: "1.18dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.18dvw",
-                  xl: "0.86dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.86dvw",
-                }}
-                gap={{
-                  base: "0 3dvw",
-                  md: "0 1.6dvw",
-                  lg: "0 1.22dvw",
-                  xl: "0 0.94dw",
-                }}
-                templateRows={{
-                  base: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh 7dvh",
-                  md: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh",
-                }}
-                height="100vh"
-                sx={{
-                  scrollbarWidth: "none",
-                }}
-              >
-                <HeaderBar />
-                <GridItem
-                  gridColumn={{
-                    base: "col-start / span 7",
-                    md: "col-start / span 4",
-                    xl: "col-start / span 3",
+          {() =>
+            location.pathname === "/about" ? (
+              <About />
+            ) : (
+              <>
+                <Atlas
+                  viewState={viewState}
+                  setViewState={(MapViewState) => setViewState(MapViewState)}
+                  showCapitalProjects={showCapitalProjects}
+                />{" "}
+                <Grid
+                  templateColumns={{
+                    base: "0 [col-start] 1fr repeat(6, 1fr) 1fr [col-end] 0",
+                    md: "1.5dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.5dvw",
+                    lg: "1.18dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.18dvw",
+                    xl: "0.86dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.86dvw",
                   }}
-                  gridRow={{
-                    base: "row-start / row-end",
-                    md: "row-start / row-end",
-                    lg: "row-start / span 1",
+                  gap={{
+                    base: "0 3dvw",
+                    md: "0 1.6dvw",
+                    lg: "0 1.22dvw",
+                    xl: "0 0.94dw",
                   }}
-                  height={"100%"}
-                  overflowY={{ lg: "scroll" }}
-                  zIndex={"1"}
+                  templateRows={{
+                    base: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh 7dvh",
+                    md: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh",
+                  }}
+                  height="100vh"
                   sx={{
                     scrollbarWidth: "none",
                   }}
                 >
-                  <Flex
-                    direction={"column"}
-                    width={{ base: "100%", lg: "auto" }}
-                    alignItems={"center"}
-                    flexShrink={{ lg: 0 }}
-                    maxHeight={{
-                      base: "82vh",
-                      lg: "full",
+                  <HeaderBar clearSelections={clearSelections} />
+                  <GridItem
+                    gridColumn={{
+                      base: "col-start / span 7",
+                      md: "col-start / span 4",
+                      xl: "col-start / span 3",
                     }}
-                    backgroundColor={"white"}
-                    borderRadius={10}
-                    overflowY={"scroll"}
-                    padding={4}
+                    gridRow={{
+                      base: "row-start / row-end",
+                      md: "row-start / row-end",
+                      lg: "row-start / span 1",
+                    }}
+                    height={"100%"}
+                    overflowY={{ lg: "scroll" }}
+                    zIndex={"1"}
                     sx={{
                       scrollbarWidth: "none",
                     }}
-                    boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
                   >
-                    <Accordion
-                      allowMultiple
-                      defaultIndex={[0, 1]}
-                      width={"100%"}
+                    <Flex
+                      direction={"column"}
+                      width={{ base: "100%", lg: "auto" }}
+                      alignItems={"center"}
+                      flexShrink={{ lg: 0 }}
+                      maxHeight={{
+                        base: "82vh",
+                        lg: "full",
+                      }}
+                      backgroundColor={"white"}
+                      borderRadius={10}
+                      overflowY={"scroll"}
+                      padding={4}
+                      sx={{
+                        scrollbarWidth: "none",
+                      }}
+                      boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
                     >
-                      <MapLayersPanel>
-                        <LayerVisibilityToggles
-                          capitalProjectsOn={showCapitalProjects}
-                          onCapitalProjectsToggle={setShowCapitalProjects}
+                      <Accordion
+                        allowMultiple
+                        defaultIndex={[0, 1]}
+                        width={"100%"}
+                      >
+                        <MapLayersPanel>
+                          <LayerVisibilityToggles
+                            capitalProjectsOn={showCapitalProjects}
+                            onCapitalProjectsToggle={setShowCapitalProjects}
+                          />
+                        </MapLayersPanel>
+                        <FilterMenu
+                          boroughs={boroughs}
+                          communityDistricts={communityDistricts}
+                          cityCouncilDistricts={cityCouncilDistricts}
                         />
-                      </MapLayersPanel>
-                      <FilterMenu
-                        boroughs={boroughs}
-                        communityDistricts={communityDistricts}
-                        cityCouncilDistricts={cityCouncilDistricts}
-                      />
-                      <SearchByAttributeMenu
-                        agencies={managingAgencies}
-                        projectTypes={agencyBudgets}
-                        onClear={clearSelections}
-                      />
-                      <HowToUseThisTool />
-                    </Accordion>
-                  </Flex>
-                </GridItem>
-                <GridItem
-                  gridColumn={{
-                    base: "1 / -1",
-                    md: "9 / span 5",
-                    xl: "10 / col-end",
-                  }}
-                  gridRow={{
-                    base: "3 / -1",
-                    md: "row-start / row-end",
-                    lg: "row-start / span 1",
-                  }}
-                  height={"100%"}
-                  pointerEvents={"none"}
-                  zIndex={"2"}
-                  sx={{
-                    scrollbarWidth: "none",
-                  }}
-                  overflowY={"scroll"}
-                  display={"flex"}
-                  flexDirection={"column"}
-                  justifyContent={{ base: "end", md: "start" }}
-                >
-                  <Flex
-                    width={"full"}
-                    gap={3}
+                        <SearchByAttributeMenu
+                          agencies={managingAgencies}
+                          projectTypes={agencyBudgets}
+                          onClear={clearSelections}
+                        />
+                        <HowToUseThisTool />
+                      </Accordion>
+                    </Flex>
+                  </GridItem>
+                  <GridItem
+                    gridColumn={{
+                      base: "1 / -1",
+                      md: "9 / span 5",
+                      xl: "10 / col-end",
+                    }}
+                    gridRow={{
+                      base: "3 / -1",
+                      md: "row-start / row-end",
+                      lg: "row-start / span 1",
+                    }}
+                    height={"100%"}
                     pointerEvents={"none"}
+                    zIndex={"2"}
                     sx={{
-                      "> *": {
-                        pointerEvents: "auto",
-                      },
                       scrollbarWidth: "none",
                     }}
-                    direction={"column"}
-                    flexShrink={{ lg: 0 }}
-                    maxHeight={"full"}
-                    justify={"end"}
-                    backgroundColor={"white"}
-                    borderRadius={10}
                     overflowY={"scroll"}
-                    padding={4}
-                    boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    justifyContent={{ base: "end", md: "start" }}
                   >
-                    <Outlet />
-                  </Flex>
-                </GridItem>
-              </Grid>
-            </>
-          )}
+                    <Flex
+                      width={"full"}
+                      gap={3}
+                      pointerEvents={"none"}
+                      sx={{
+                        "> *": {
+                          pointerEvents: "auto",
+                        },
+                        scrollbarWidth: "none",
+                      }}
+                      direction={"column"}
+                      flexShrink={{ lg: 0 }}
+                      maxHeight={"full"}
+                      justify={"end"}
+                      backgroundColor={"white"}
+                      borderRadius={10}
+                      overflowY={"scroll"}
+                      padding={4}
+                      boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
+                    >
+                      <Outlet />
+                    </Flex>
+                  </GridItem>
+                </Grid>
+              </>
+            )
+          }
         </ClientOnly>
       </StreetscapeProvider>
     </Document>

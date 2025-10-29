@@ -21,5 +21,6 @@ export default remixRoutesOptionAdapter((defineRoutes) => {
       "community-board-budget-requests/:cbbrId",
       "routes/community-board-budget-requests_.$cbbrId.tsx",
     );
+    route("about", "routes/about.tsx");
   });
 }) satisfies RouteConfig;
