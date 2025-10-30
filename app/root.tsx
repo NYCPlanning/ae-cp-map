@@ -41,7 +41,7 @@ import {
 import { zoningApiUrl } from "./utils/envFlags";
 import { BoroughId, DistrictType } from "./utils/types";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
-import { MapHeaderBar } from "./components/HeaderBar";
+import { HeaderBar } from "./components/HeaderBar";
 import { HowToUseThisTool } from "./components/AdminDropdownContent/HowToUseThisTool";
 import {
   MapLayersPanel,
@@ -219,7 +219,7 @@ export default function App() {
                     scrollbarWidth: "none",
                   }}
                 >
-                  <MapHeaderBar clearSelections={clearSelections} />
+                  <HeaderBar clearSelections={clearSelections} />
                   <GridItem
                     gridColumn={{
                       base: "col-start / span 7",

@@ -7,29 +7,54 @@ import {
   Box,
   ExternalLinkIcon,
   Flex,
+  Grid,
+  GridItem,
   Link,
   Text,
   VStack,
 } from "@nycplanning/streetscape";
-import { NonMapHeaderBar } from "~/components/HeaderBar";
+import { HeaderBar } from "~/components/HeaderBar";
 
 export default function About() {
   return (
-    <>
-      <NonMapHeaderBar />
-      <Flex
-        width={"100%"}
-        direction={{ base: "column", lg: "row" }}
-        height={"100%"}
-        alignItems={"beginning"}
-        justifyContent={"center"}
-        gap={3}
-        py={16}
-        px={3}
+    <Grid
+      templateColumns={{
+        base: "0 [col-start] 1fr repeat(6, 1fr) 1fr [col-end] 0",
+        md: "1.5dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.5dvw",
+        lg: "1.18dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.18dvw",
+        xl: "0.86dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.86dvw",
+      }}
+      gap={{
+        base: "0 3dvw",
+        md: "0 1.6dvw",
+        lg: "0 1.22dvw",
+        xl: "0 0.94dw",
+      }}
+      gridAutoRows={{
+        base: "7dvh auto auto auto",
+      }}
+      sx={{
+        scrollbarWidth: "none",
+      }}
+    >
+      <HeaderBar />
+      <GridItem
+        gridColumnStart={{
+          base: "2",
+          lg: "3",
+          xl: "4",
+        }}
+        gridColumnEnd={{
+          base: "-2",
+          lg: "10",
+          xl: "9",
+        }}
+        gridRowStart={"2"}
+        gridRowEnd={"3"}
+        pt={8}
       >
         <Flex
           direction={"column"}
-          width={{ base: "100%", lg: "545px", xl: "507px", "2xl": "613px" }}
           alignItems={"center"}
           flexShrink={{ lg: 0 }}
           sx={{
@@ -506,10 +531,34 @@ export default function About() {
             Community Board Budget Requests (CBBR)
           </VStack>
         </Flex>
+      </GridItem>
+      <GridItem
+        gridColumnStart={{
+          base: "2",
+          lg: "10",
+          xl: "9",
+        }}
+        gridColumnEnd={{
+          base: "-2",
+          lg: "12",
+          xl: "12",
+        }}
+        gridRowStart={{
+          base: "3",
+          lg: "2",
+        }}
+        gridRowEnd={{
+          base: "4",
+          lg: "3",
+        }}
+        pt={8}
+      >
         <VStack
           alignItems={"flex-start"}
-          px={2}
-          width={{ base: "100%", lg: "211px", xl: "283px", "2xl": "347px" }}
+          py={{
+            base: 9,
+            lg: 0,
+          }}
         >
           <Text color={"gray.700"} fontWeight={"bold"}>
             Feedback
@@ -527,7 +576,7 @@ export default function About() {
             Email CAPS@planning.nyc.gov
           </Link>
         </VStack>
-      </Flex>
-    </>
+      </GridItem>
+    </Grid>
   );
 }
