@@ -14,7 +14,6 @@ import {
   useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
-import { EducationIcon } from "~/icons";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
@@ -44,11 +43,10 @@ export function Atlas({
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
   const communityBoardBudgetRequestsLayer =
-    useCommunityBoardBudgetRequestsLayer()[0];
-  const iconLayer = useCommunityBoardBudgetRequestsLayer()[2]
+    useCommunityBoardBudgetRequestsLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
-  
+
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
 
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
@@ -104,7 +102,6 @@ export function Atlas({
         communityDistrictsLayer,
         communityDistrictLayer,
         communityBoardBudgetRequestsLayer,
-        iconLayer,
         cityCouncilDistrictsLayer,
         cityCouncilDistrictLayer,
       ]}

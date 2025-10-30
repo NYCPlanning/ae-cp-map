@@ -40,7 +40,7 @@ export function useCommunityBoardBudgetRequestsLayer() {
     8: "other",
   };
 
-  const mvt = new MVTLayer<
+  return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
     DataFilterExtensionProps<
       Feature<Geometry, CommunityBoardBudgetRequestProperties>
@@ -64,7 +64,7 @@ export function useCommunityBoardBudgetRequestsLayer() {
     getIcon: (d: any) => {
       const icon = policyAreaIconsMap[d.properties.policyAreaId];
       return {
-        url: `/public/policy-area-icons/${icon}.svg`,
+        url: `/policy-area-icons/${icon}.svg`,
         width: 40,
         height: 40,
       };
@@ -73,6 +73,4 @@ export function useCommunityBoardBudgetRequestsLayer() {
     iconSizeMinPixels: 24,
     iconSizeMaxPixels: 24,
   });
-
-  return [mvt];
 }
