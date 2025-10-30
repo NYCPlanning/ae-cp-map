@@ -54,13 +54,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     uniqueIdProperty: "id",
     visible,
     pickable: true,
-    getFillColor: (data) => {
-      console.log("data", data);
-      if (data.properties.layerName === "community-board-budget-request-fill")
-        console.log("data", data);
-
-      return [43, 108, 176, 166];
-    },
+    getFillColor: [43, 108, 176, 166],
     pointType: "icon",
     getIcon: (d: any) => {
       const icon = policyAreaIconsMap[d.properties.policyAreaId];
