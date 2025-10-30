@@ -7,9 +7,7 @@ import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
 export interface CommunityBoardBudgetRequestProperties {
   id: string;
   agencyInitials: string;
-  layerName:
-    | "community-board-budget-request-fill"
-    | "community-board-budget-request-label";
+  layerName: string;
 }
 
 export function useCommunityBoardBudgetRequestsLayer(opts?: {

@@ -47,7 +47,6 @@ import {
   MapLayersPanel,
   LayerVisibilityToggles,
 } from "./components/AdminMapLayersPanel";
-// import { Legend } from "./components/AdminDropdownContent/Legend";
 
 export const links: LinksFunction = () => {
   return [
@@ -194,7 +193,6 @@ export default function App() {
                 setViewState={(MapViewState) => setViewState(MapViewState)}
                 showCapitalProjects={showCapitalProjects}
                 showCbbr={showCbbr}
-                // pass cbbr layer here
               />{" "}
               <Grid
                 templateColumns={{
@@ -268,7 +266,6 @@ export default function App() {
                           onCbbrToggle={setShowCbbr}
                         />
                       </MapLayersPanel>
-                      {/* <Legend /> */}
                       <FilterMenu
                         boroughs={boroughs}
                         communityDistricts={communityDistricts}
