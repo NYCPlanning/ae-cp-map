@@ -193,6 +193,7 @@ export default function App() {
                 viewState={viewState}
                 setViewState={(MapViewState) => setViewState(MapViewState)}
                 showCapitalProjects={showCapitalProjects}
+                showCbbr={showCbbr}
                 // pass cbbr layer here
               />{" "}
               <Grid

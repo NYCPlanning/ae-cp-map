@@ -30,12 +30,14 @@ interface AtlasProps {
   viewState: MapViewState;
   setViewState: (newViewState: MapViewState) => void;
   showCapitalProjects: boolean;
+  showCbbr: boolean;
 }
 
 export function Atlas({
   viewState,
   setViewState,
   showCapitalProjects,
+  showCbbr,
 }: AtlasProps) {
   const capitalProjectsLayer = useCapitalProjectsLayer({
     visible: showCapitalProjects,
@@ -43,7 +45,7 @@ export function Atlas({
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
   const communityBoardBudgetRequestsLayer =
-    useCommunityBoardBudgetRequestsLayer();
+    useCommunityBoardBudgetRequestsLayer({ visible: showCbbr });
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
 

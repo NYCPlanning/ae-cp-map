@@ -12,7 +12,10 @@ export interface CommunityBoardBudgetRequestProperties {
     | "community-board-budget-request-label";
 }
 
-export function useCommunityBoardBudgetRequestsLayer() {
+export function useCommunityBoardBudgetRequestsLayer(opts?: {
+  visible?: boolean;
+}) {
+  const visible = opts?.visible ?? true;
   const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
@@ -51,7 +54,7 @@ export function useCommunityBoardBudgetRequestsLayer() {
       `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
     ],
     uniqueIdProperty: "id",
-    visible: true,
+    visible,
     pickable: true,
     getFillColor: (data) => {
       console.log("data", data);
