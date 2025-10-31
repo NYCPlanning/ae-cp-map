@@ -9,6 +9,7 @@ import {
   useCommunityDistrictsLayer,
   useCityCouncilDistrictsLayer,
   useCommunityDistrictLayer,
+  useCommunityBoardBudgetRequestsLayer,
   useCityCouncilDistrictLayer,
   useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
@@ -29,20 +30,25 @@ interface AtlasProps {
   viewState: MapViewState;
   setViewState: (newViewState: MapViewState) => void;
   showCapitalProjects: boolean;
+  showCbbr: boolean;
 }
 
 export function Atlas({
   viewState,
   setViewState,
   showCapitalProjects,
+  showCbbr,
 }: AtlasProps) {
   const capitalProjectsLayer = useCapitalProjectsLayer({
     visible: showCapitalProjects,
   });
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
+  const communityBoardBudgetRequestsLayer =
+    useCommunityBoardBudgetRequestsLayer({ visible: showCbbr });
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
+
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
 
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
@@ -97,6 +103,7 @@ export function Atlas({
         capitalProjectBudgetedGeoJsonLayer,
         communityDistrictsLayer,
         communityDistrictLayer,
+        communityBoardBudgetRequestsLayer,
         cityCouncilDistrictsLayer,
         cityCouncilDistrictLayer,
       ]}

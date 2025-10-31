@@ -39,6 +39,7 @@ import {
 } from "./utils/analytics";
 import { zoningApiUrl } from "./utils/envFlags";
 import { BoroughId, DistrictType } from "./utils/types";
+import { useToggleParam } from "./utils/utils";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { HeaderBar } from "./components/HeaderBar";
 import { HowToUseThisTool } from "./components/AdminDropdownContent/HowToUseThisTool";
@@ -160,7 +161,9 @@ export default function App() {
   }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const [, setSearchParams] = useSearchParams();
-  const [showCapitalProjects, setShowCapitalProjects] = useState(true);
+  const [showCapitalProjects, setShowCapitalProjects] =
+    useToggleParam("capitalProjects");
+  const [showCbbr, setShowCbbr] = useToggleParam("cbbr");
 
   const {
     boroughs,
@@ -189,6 +192,7 @@ export default function App() {
                 viewState={viewState}
                 setViewState={(MapViewState) => setViewState(MapViewState)}
                 showCapitalProjects={showCapitalProjects}
+                showCbbr={showCbbr}
               />{" "}
               <Grid
                 templateColumns={{
@@ -196,12 +200,15 @@ export default function App() {
                   md: "1.5dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.5dvw",
                   lg: "1.18dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.18dvw",
                   xl: "0.86dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.86dvw",
+                  "2xl":
+                    "0.8dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.82dvw",
                 }}
                 gap={{
                   base: "0 3dvw",
                   md: "0 1.6dvw",
                   lg: "0 1.22dvw",
                   xl: "0 0.94dw",
+                  "2xl": "0 0.78dw",
                 }}
                 templateRows={{
                   base: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh 7dvh",
@@ -218,6 +225,7 @@ export default function App() {
                     base: "col-start / span 7",
                     md: "col-start / span 4",
                     xl: "col-start / span 3",
+                    "2xl": "col-start / span 2",
                   }}
                   gridRow={{
                     base: "row-start / row-end",
@@ -258,6 +266,8 @@ export default function App() {
                         <LayerVisibilityToggles
                           capitalProjectsOn={showCapitalProjects}
                           onCapitalProjectsToggle={setShowCapitalProjects}
+                          cbbrOn={showCbbr}
+                          onCbbrToggle={setShowCbbr}
                         />
                       </MapLayersPanel>
                       <FilterMenu
@@ -279,6 +289,7 @@ export default function App() {
                     base: "1 / -1",
                     md: "9 / span 5",
                     xl: "10 / col-end",
+                    "2xl": "11 / col-end",
                   }}
                   gridRow={{
                     base: "3 / -1",
