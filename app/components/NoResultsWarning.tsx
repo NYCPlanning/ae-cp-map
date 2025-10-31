@@ -7,7 +7,7 @@ import {
   WarningIcon,
 } from "@nycplanning/streetscape";
 
-export function ResultsPanelNoResultsWarning() {
+export function NoResultsWarning() {
   return (
     <Card
       variant={"calm"}

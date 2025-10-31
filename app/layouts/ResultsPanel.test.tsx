@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import ResultsPanelMain from "./Main";
+import ResultsPanelMain from "./ResultsPanel";
 import { createRoutesStub } from "react-router";
 import {
   createFindAgencies200,

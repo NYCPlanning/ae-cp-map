@@ -7,15 +7,12 @@ import {
 
 export default [
   index("routes/home.tsx"),
-  layout("components/ResultsPanel/Main.tsx", [
+  layout("layouts/ResultsPanel.tsx", [
     route(
       "community-board-budget-requests",
-      "components/ResultsPanel/CommunityBoardBudgetRequestsFilter.tsx",
+      "routes/community-board-budget-requests.tsx",
     ),
-    route(
-      "capital-projects",
-      "components/ResultsPanel/CapitalProjectsFilter.tsx",
-    ),
+    route("capital-projects", "routes/capital-projects.tsx"),
   ]),
   route(
     "capital-projects/:managingCode/:capitalProjectId",

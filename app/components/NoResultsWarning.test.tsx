@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import { ResultsPanelNoResultsWarning } from "./NoResultsWarning";
+import { NoResultsWarning } from "./NoResultsWarning";
 
 describe("NoResultsWarning", () => {
   it("should render with warning", () => {
-    render(<ResultsPanelNoResultsWarning />);
+    render(<NoResultsWarning />);
     expect(screen.getByText(/No results/)).toBeInTheDocument();
     expect(
       screen.getByText(/No available results with current filters applied./),

@@ -7,7 +7,6 @@ import {
 import {
   data,
   LoaderFunctionArgs,
-  Outlet,
   useLoaderData,
   useLocation,
   useNavigate,
@@ -37,14 +36,14 @@ import {
   TransportationIcon,
   VStack,
 } from "@nycplanning/streetscape";
-import { Pagination } from "../Pagination";
+import { Pagination } from "../components/Pagination";
 import { useState, useEffect } from "react";
 import { analytics } from "~/utils/analytics";
 import { formatFiscalYearRange } from "~/utils/utils";
-import { ContentPanelAccordion } from "../ContentPanelAccordion";
+import { ContentPanelAccordion } from "../components/ContentPanelAccordion";
 export const urlPaths = ["capital-projects", "community-board-budget-requests"];
-import { ExportDataModal } from "../ExportDataModal";
-import { ResultsPanelNoResultsWarning } from "./NoResultsWarning";
+import { ExportDataModal } from "../components/ExportDataModal";
+import { NoResultsWarning } from "~/components/NoResultsWarning";
 
 export const policyAreaIcons: Record<
   number,
@@ -143,7 +142,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   };
 }
 
-export default function ResultsPanelMain() {
+export default function ResultsPanel() {
   const {
     budgetRequestsResponse: {
       communityBoardBudgetRequests,
@@ -211,18 +210,11 @@ export default function ResultsPanelMain() {
             Community Board Budget Requests
           </Tab>
         </TabList>
-        <Flex
-          justifyContent={"space-between"}
-          marginTop={"0.5rem"}
-          marginBottom={"1rem"}
-        >
-          <Outlet />
-        </Flex>
         <TabPanels>
           <TabPanel padding={0}>
             <VStack align={"start"}>
               {capitalProjects.length === 0 ? (
-                <ResultsPanelNoResultsWarning />
+                <NoResultsWarning />
               ) : (
                 capitalProjects.map((capitalProject) => {
                   return (
@@ -282,7 +274,7 @@ export default function ResultsPanelMain() {
           <TabPanel padding={0}>
             <VStack align={"start"}>
               {communityBoardBudgetRequests.length === 0 ? (
-                <ResultsPanelNoResultsWarning />
+                <NoResultsWarning />
               ) : (
                 communityBoardBudgetRequests.map((budgetRequest) => {
                   const PolicyAreaIcon =
