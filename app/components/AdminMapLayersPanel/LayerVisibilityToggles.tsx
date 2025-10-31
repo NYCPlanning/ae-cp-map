@@ -50,7 +50,7 @@ export function LayerVisibilityToggles({
             gap={3}
             paddingTop={2}
           >
-            <HStack spacing={3}>
+            <HStack alignItems={"flex-start"}>
               <Switch
                 id="capital-projects-toggle"
                 isChecked={capitalProjectsOn}
@@ -60,7 +60,7 @@ export function LayerVisibilityToggles({
                 <Heading
                   as="h2"
                   fontWeight="medium"
-                  fontSize="md"
+                  fontSize={{ base: "md", "2xl": "sm" }}
                   color="gray.600"
                 >
                   Capital Projects
@@ -119,12 +119,12 @@ export function LayerVisibilityToggles({
               <FormLabel
                 htmlFor="cb-capital-budget-requests"
                 mb="0"
-                width={{ base: "40dvw", md: "12dvw" }}
+                width={{ base: "40dvw", md: "12dvw", "2xl": "5dvw" }}
               >
                 <Heading
                   as="h2"
                   fontWeight="medium"
-                  fontSize="md"
+                  fontSize={{ base: "md", "2xl": "sm" }}
                   color="gray.600"
                 >
                   Community Board Capital Budget Requests
