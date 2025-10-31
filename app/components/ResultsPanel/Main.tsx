@@ -203,9 +203,13 @@ export default function ResultsPanelMain() {
       accordionHeading={`${tabIndex === 0 ? totalProjects : totalBudgetRequests} Results`}
     >
       <Tabs index={tabIndex} onChange={handleTabsChange}>
-        <TabList>
-          <Tab fontFamily={"body"}>Capital Projects</Tab>
-          <Tab fontFamily={"body"}>Community Board Budget Requests</Tab>
+        <TabList overflow={"auto"}>
+          <Tab fontFamily={"body"} whiteSpace={"nowrap"}>
+            Capital Projects
+          </Tab>
+          <Tab fontFamily={"body"} whiteSpace={"nowrap"}>
+            Community Board Budget Requests
+          </Tab>
         </TabList>
         <Flex
           justifyContent={"space-between"}
