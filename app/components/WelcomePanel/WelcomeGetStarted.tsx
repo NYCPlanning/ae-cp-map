@@ -2,10 +2,10 @@ import { useNavigate } from "react-router";
 import {
   Box,
   Button,
-  ChevronRightIcon,
   Checkbox,
-  Flex,
   type CheckboxProps,
+  ChevronRightIcon,
+  Flex,
 } from "@nycplanning/streetscape";
 import { useCallback } from "react";
 

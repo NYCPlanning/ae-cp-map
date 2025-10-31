@@ -9,15 +9,17 @@ import {
 import { Link, useSearchParams } from "react-router";
 import { setNewSearchParams } from "~/utils/utils";
 import { analytics } from "~/utils/analytics";
+import { PageParamKey } from "~/utils/types";
 
 export interface PaginationProps {
   total: number;
+  pageParamKey: PageParamKey;
 }
 
-export const Pagination = ({ total }: PaginationProps) => {
+export const Pagination = ({ total, pageParamKey }: PaginationProps) => {
   const [searchParams] = useSearchParams();
   const itemsPerPage = 7;
-  const pageParam = searchParams.get("page");
+  const pageParam = searchParams.get(pageParamKey);
   const page = pageParam === null ? 1 : parseInt(pageParam);
   const canSkipBackward = page > 1;
   const totalPages = Math.ceil(total / itemsPerPage);
@@ -32,7 +34,7 @@ export const Pagination = ({ total }: PaginationProps) => {
         <Link
           to={{
             search: setNewSearchParams(searchParams, {
-              page: page - 1,
+              [pageParamKey]: page - 1,
             }).toString(),
           }}
           onClick={() =>
@@ -66,7 +68,7 @@ export const Pagination = ({ total }: PaginationProps) => {
         <Link
           to={{
             search: setNewSearchParams(searchParams, {
-              page: page + 1,
+              [pageParamKey]: page + 1,
             }).toString(),
           }}
           onClick={() =>

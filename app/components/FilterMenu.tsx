@@ -7,7 +7,6 @@ import {
 } from "@nycplanning/streetscape";
 import { useLocation, useNavigate } from "react-router";
 import { CityCouncilDistrict, Borough, CommunityDistrict } from "~/gen";
-import { analyticsTrackFilterByDistrictToggle } from "../utils/analytics";
 import { BoroughId, DistrictId, DistrictType } from "../utils/types";
 import {
   BoroughDropdown,
