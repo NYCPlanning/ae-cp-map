@@ -203,7 +203,7 @@ export default function ResultsPanelMain() {
       accordionHeading={`${tabIndex === 0 ? totalProjects : totalBudgetRequests} Results`}
     >
       <Tabs index={tabIndex} onChange={handleTabsChange}>
-        <TabList overflow={"auto"}>
+        <TabList overflow={"auto"} sx={{ scrollbarWidth: "none" }}>
           <Tab fontFamily={"body"} whiteSpace={"nowrap"}>
             Capital Projects
           </Tab>

@@ -24,6 +24,7 @@ export function ContentPanelAccordion({
       defaultIndex={[0]}
       allowToggle
       overflowY={"scroll"}
+      sx={{ scrollbarWidth: "none" }}
     >
       <AccordionItem borderTop={"none"}>
         {({ isExpanded }) => (
@@ -50,6 +51,7 @@ export function ContentPanelAccordion({
               padding={"0px"}
               overflowY={"hidden"}
               overflow={"scroll"}
+              sx={{ scrollbarWidth: "none" }}
             >
               {children}
             </AccordionPanel>
