@@ -432,20 +432,6 @@ export default function About() {
             backgroundColor={"brand.50"}
           >
             <VStack alignItems={"flex-start"}>
-              <Text fontWeight={"bold"}>Data Dictionary</Text>
-              <Link
-                href="LINK TBD"
-                isExternal
-                color={"primary.600"}
-                textDecorationLine={"underline"}
-              >
-                CBBR Data Dictionary
-              </Link>
-              <Text fontSize={"xs"} textTransform={"uppercase"}>
-                EXCEL, SIZE TBD
-              </Text>
-            </VStack>
-            <VStack alignItems={"flex-start"}>
               <Text fontWeight={"bold"}>Version</Text>
               <Text>FY26 Preliminary</Text>
               <Text fontSize={"xs"} textTransform={"uppercase"}>
