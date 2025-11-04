@@ -38,7 +38,7 @@ import {
   initializeMatomoTagManager,
   initFullStoryAnalytics,
 } from "./utils/analytics";
-import { zoningApiUrl } from "./utils/envFlags";
+import { env } from "./utils/env";
 import { BoroughId, DistrictType } from "./utils/types";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { HeaderBar } from "./components/HeaderBar";
@@ -59,6 +59,8 @@ export const links: LinksFunction = () => {
     },
   ];
 };
+
+const { zoningApiUrl } = env;
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);

@@ -13,9 +13,11 @@ import {
   useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
+import { env } from "~/utils/env";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
+const { basemapUrl } = env;
 
 export const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
@@ -109,7 +111,7 @@ export function Atlas({
       widgets={isMobile ? [] : [ZoomControls, CompassControls]}
     >
       <Map
-        mapStyle={`${import.meta.env.VITE_BASEMAP_URL}/styles/positron/style.json`}
+        mapStyle={`${basemapUrl}/styles/positron/style.json`}
         attributionControl={isMobile ? false : true}
       ></Map>
     </DeckGL>

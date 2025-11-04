@@ -1,6 +1,8 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { useSearchParams } from "react-router";
+import { env } from "~/utils/env";
 
+const { zoningApiUrl } = env;
 export interface CityCouncilDistrictProperties {
   layerName: string;
   id: string;
@@ -12,9 +14,7 @@ export function useCityCouncilDistrictsLayer() {
 
   return new MVTLayer<CityCouncilDistrictProperties>({
     id: "CityCouncilDistricts",
-    data: [
-      `${import.meta.env.VITE_ZONING_API_URL}/api/city-council-districts/{z}/{x}/{y}.pbf`,
-    ],
+    data: [`${zoningApiUrl}/api/city-council-districts/{z}/{x}/{y}.pbf`],
     visible: districtType === "ccd",
     uniqueIdProperty: "boroughIdCityCouncilDistrictId",
     pickable: true,
