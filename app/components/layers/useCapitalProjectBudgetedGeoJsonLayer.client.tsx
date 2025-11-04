@@ -2,6 +2,9 @@ import { GeoJsonLayer } from "@deck.gl/layers";
 import { CapitalProjectBudgetedGeoJson } from "~/gen";
 import { useParams } from "react-router";
 import { FlyToGeoJsonExtension } from "../../extensions";
+import { env } from "~/utils/env";
+
+const { zoningApiUrl } = env;
 
 export function useCapitalProjectBudgetedGeoJsonLayer() {
   const { managingCode, capitalProjectId } = useParams();
@@ -11,7 +14,7 @@ export function useCapitalProjectBudgetedGeoJsonLayer() {
     data:
       managingCode === undefined || capitalProjectId === undefined
         ? []
-        : `${import.meta.env.VITE_ZONING_API_URL}/api/capital-projects/${managingCode}/${capitalProjectId}/geojson`,
+        : `${zoningApiUrl}/api/capital-projects/${managingCode}/${capitalProjectId}/geojson`,
     pickable: false,
     getFillColor: ({ id }) => {
       switch (id) {

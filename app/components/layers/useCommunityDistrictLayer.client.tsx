@@ -2,6 +2,9 @@ import { GeoJsonLayer } from "@deck.gl/layers";
 import { useSearchParams } from "react-router";
 import { FlyToGeoJsonExtension } from "../../extensions";
 import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
+import { env } from "~/utils/env";
+
+const { zoningApiUrl } = env;
 
 export function useCommunityDistrictLayer() {
   const [searchParams] = useSearchParams();
@@ -11,7 +14,7 @@ export function useCommunityDistrictLayer() {
   const hasCommunityDistrict =
     districtType === "cd" && boroughId !== null && districtId !== null;
   const data = hasCommunityDistrict
-    ? `${import.meta.env.VITE_ZONING_API_URL}/api/boroughs/${boroughId}/community-districts/${districtId}/geojson`
+    ? `${zoningApiUrl}/api/boroughs/${boroughId}/community-districts/${districtId}/geojson`
     : [];
 
   return new GeoJsonLayer({
