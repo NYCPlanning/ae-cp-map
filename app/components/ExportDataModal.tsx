@@ -17,11 +17,14 @@ import {
 
 import { useState } from "react";
 import { LinkBtn } from "./LinkBtn";
+import { env } from "~/utils/env";
 
 export interface ExportDataModalProps {
   geography: string;
   fileName: string;
 }
+
+const { cpdbDataUrl } = env;
 
 export function ExportDataModal({ geography, fileName }: ExportDataModalProps) {
   const [allDistricts, setAllDistricts] = useState(false);
@@ -89,7 +92,7 @@ export function ExportDataModal({ geography, fileName }: ExportDataModalProps) {
           <ModalFooter>
             <LinkBtn
               isExternal
-              href={`${import.meta.env.VITE_CPDB_DATA_URL}/${allDistricts ? "projects_in_geographies.zip" : fileName}`}
+              href={`${cpdbDataUrl}/${allDistricts ? "projects_in_geographies.zip" : fileName}`}
               width={"full"}
               textAlign={"center"}
             >

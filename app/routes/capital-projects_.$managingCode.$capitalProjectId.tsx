@@ -13,6 +13,9 @@ import {
 } from "../gen";
 import { CapitalProjectPanel } from "~/components/CapitalProjectPanel";
 import { analytics } from "~/utils/analytics";
+import { env } from "~/utils/env";
+
+const { zoningApiUrl } = env;
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { managingCode, capitalProjectId } = params;
@@ -24,7 +27,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       managingCode,
       capitalProjectId,
       {
-        baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+        baseURL: `${zoningApiUrl}/api`,
       },
     );
 
@@ -33,16 +36,16 @@ export async function loader({ params }: LoaderFunctionArgs) {
       managingCode,
       capitalProjectId,
       {
-        baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+        baseURL: `${zoningApiUrl}/api`,
       },
     );
 
   const capitalCommitmentTypesPromise = findCapitalCommitmentTypes({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    baseURL: `${zoningApiUrl}/api`,
   });
 
   const managingAgenciesPromise = findCapitalProjectManagingAgencies({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    baseURL: `${zoningApiUrl}/api`,
   });
 
   const [

@@ -1,6 +1,8 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { useSearchParams } from "react-router";
+import { env } from "~/utils/env";
 
+const { zoningApiUrl } = env;
 export interface CommunityDistrictProperties {
   boroughIdCommunityDistrictId: string;
   layerName: string;
@@ -13,9 +15,7 @@ export function useCommunityDistrictsLayer() {
 
   return new MVTLayer<CommunityDistrictProperties>({
     id: "CommunityDistricts",
-    data: [
-      `${import.meta.env.VITE_ZONING_API_URL}/api/community-districts/{z}/{x}/{y}.pbf`,
-    ],
+    data: [`${zoningApiUrl}/api/community-districts/{z}/{x}/{y}.pbf`],
     visible: districtType === "cd",
     uniqueIdProperty: "boroughIdCommunityDistrictId",
     pickable: true,

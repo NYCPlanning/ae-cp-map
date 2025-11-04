@@ -44,6 +44,7 @@ import { ContentPanelAccordion } from "../components/ContentPanelAccordion";
 export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 import { ExportDataModal } from "../components/ExportDataModal";
 import { NoResultsWarning } from "~/components/NoResultsWarning";
+import { env } from "~/utils/env";
 
 export const policyAreaIcons: Record<
   number,
@@ -58,6 +59,8 @@ export const policyAreaIcons: Record<
   7: ParksIcon,
   8: PeopleIcon,
 };
+
+const { zoningApiUrl } = env;
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -76,7 +79,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       offset: cbbrOffset,
     },
     {
-      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+      baseURL: `${zoningApiUrl}/api`,
     },
   );
 
@@ -110,16 +113,16 @@ export async function loader({ request }: LoaderFunctionArgs) {
       offset: cpOffset,
     },
     {
-      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+      baseURL: `${zoningApiUrl}/api`,
     },
   );
 
   const agenciesPromise = findAgencies({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    baseURL: `${zoningApiUrl}/api`,
   });
 
   const boroughsPromise = findBoroughs({
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    baseURL: `${zoningApiUrl}/api`,
   });
 
   const [

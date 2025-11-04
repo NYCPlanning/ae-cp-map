@@ -15,6 +15,9 @@ import { Show } from "@nycplanning/streetscape";
 import { CommunityBoardBudgetRequestDetail } from "~/components/CommunityBoardBudgetRequestDetail";
 import { ContentPanelAccordion } from "~/components/ContentPanelAccordion";
 import { analytics } from "~/utils/analytics";
+import { env } from "~/utils/env";
+
+const { zoningApiUrl } = env;
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { cbbrId } = params;
@@ -24,22 +27,22 @@ export async function loader({ params }: LoaderFunctionArgs) {
   }
 
   const cbbrPromise = findCommunityBoardBudgetRequestById(cbbrId, {
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    baseURL: `${zoningApiUrl}/api`,
   });
 
   const agenciesPromise = findCommunityBoardBudgetRequestAgencies(undefined, {
-    baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+    baseURL: `${zoningApiUrl}/api`,
   });
 
   const agencyCategoryResponsePromise =
     findCommunityBoardBudgetRequestAgencyCategoryResponses({
-      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+      baseURL: `${zoningApiUrl}/api`,
     });
 
   const policyAreasPromise = findCommunityBoardBudgetRequestPolicyAreas(
     undefined,
     {
-      baseURL: `${import.meta.env.VITE_ZONING_API_URL}/api`,
+      baseURL: `${zoningApiUrl}/api`,
     },
   );
 

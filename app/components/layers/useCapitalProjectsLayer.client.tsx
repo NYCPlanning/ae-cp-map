@@ -18,7 +18,9 @@ import {
   CommitmentsTotalMax,
 } from "../../utils/types";
 import { loader as rootLoader } from "~/root";
+import { env } from "~/utils/env";
 
+const { zoningApiUrl } = env;
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
@@ -73,7 +75,7 @@ export function useCapitalProjectsLayer(opts?: { visible?: boolean }) {
   >({
     id: "capitalProjects",
     data: [
-      `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
+      `${zoningApiUrl}/api/${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
     ],
     uniqueIdProperty: "managingCodeCapitalProjectId",
     autoHighlight: true,
