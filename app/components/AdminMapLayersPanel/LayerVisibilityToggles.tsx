@@ -11,21 +11,20 @@ import {
   Tooltip,
   useBreakpointValue,
 } from "@nycplanning/streetscape";
+import { useUpdateSearchParams } from "../../utils/utils";
 
-export type LayerVisibilityTogglesProps = {
-  capitalProjectsOn: boolean;
-  onCapitalProjectsToggle: (next: boolean) => void;
+export function LayerVisibilityToggles() {
+  const [searchParams, updateSearchParams] = useUpdateSearchParams();
 
-  cbbrOn: boolean;
-  onCbbrToggle: (next: boolean) => void;
-};
+  const capitalProjectsOn = searchParams.get("capitalProjects") !== "off";
+  const cbbrOn = searchParams.get("cbbr") !== "off";
 
-export function LayerVisibilityToggles({
-  capitalProjectsOn,
-  onCapitalProjectsToggle,
-  cbbrOn,
-  onCbbrToggle,
-}: LayerVisibilityTogglesProps) {
+  const setCapitalProjects = (next: boolean) =>
+    updateSearchParams({ capitalProjects: next ? undefined : "off" });
+
+  const setCbbr = (next: boolean) =>
+    updateSearchParams({ cbbr: next ? undefined : "off" });
+
   const capitalProjectsTooltipCopy = `New York City’s potential, planned, and ongoing capital projects.
   Unmapped projects, such as the purchase of vehicles or digital infrastructure, are not included in this tool.
   `;
@@ -54,7 +53,7 @@ export function LayerVisibilityToggles({
               <Switch
                 id="capital-projects-toggle"
                 isChecked={capitalProjectsOn}
-                onChange={(e) => onCapitalProjectsToggle(e.target.checked)}
+                onChange={(e) => setCapitalProjects(e.target.checked)}
               />
               <FormLabel htmlFor="capital-projects-toggle" padding={"0"}>
                 <Heading
@@ -114,7 +113,7 @@ export function LayerVisibilityToggles({
               <Switch
                 id="cb-capital-budget-requests"
                 isChecked={cbbrOn}
-                onChange={(e) => onCbbrToggle(e.target.checked)}
+                onChange={(e) => setCbbr(e.target.checked)}
               />
               <FormLabel
                 htmlFor="cb-capital-budget-requests"

@@ -39,7 +39,6 @@ import {
 } from "./utils/analytics";
 import { zoningApiUrl } from "./utils/envFlags";
 import { BoroughId, DistrictType } from "./utils/types";
-import { useToggleParam } from "./utils/utils";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { HeaderBar } from "./components/HeaderBar";
 import { HowToUseThisTool } from "./components/AdminDropdownContent/HowToUseThisTool";
@@ -160,10 +159,9 @@ export default function App() {
     initFullStoryAnalytics();
   }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
-  const [, setSearchParams] = useSearchParams();
-  const [showCapitalProjects, setShowCapitalProjects] =
-    useToggleParam("capitalProjects");
-  const [showCbbr, setShowCbbr] = useToggleParam("cbbr");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
+  const showCbbr = searchParams.get("cbbr") !== "off";
 
   const {
     boroughs,
@@ -263,12 +261,7 @@ export default function App() {
                       width={"100%"}
                     >
                       <MapLayersPanel>
-                        <LayerVisibilityToggles
-                          capitalProjectsOn={showCapitalProjects}
-                          onCapitalProjectsToggle={setShowCapitalProjects}
-                          cbbrOn={showCbbr}
-                          onCbbrToggle={setShowCbbr}
-                        />
+                        <LayerVisibilityToggles />
                       </MapLayersPanel>
                       <FilterMenu
                         boroughs={boroughs}

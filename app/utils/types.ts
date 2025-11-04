@@ -35,16 +35,14 @@ export type PaginationQueryParams = {
   page?: number;
 };
 
-export type ToggleParamKey = "capitalProjects" | "cbbr";
+export type LayerParamKey = "capitalProjects" | "cbbr";
 
-export type ToggleParamValue = "off" | undefined;
+export type LayerParamValue = "off" | undefined;
 
-export type ToggleQueryParams = Partial<
-  Record<ToggleParamKey, ToggleParamValue>
->;
+export type LayerQueryParams = Partial<Record<LayerParamKey, LayerParamValue>>;
 
 export type QueryParams = Partial<
-  AdminQueryParams & AttributeParams & PaginationQueryParams & ToggleQueryParams
+  AdminQueryParams & AttributeParams & PaginationQueryParams & LayerQueryParams
 >;
 
 export type ProjectAmountMenuParams = {

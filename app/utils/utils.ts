@@ -8,7 +8,6 @@ import {
   CommitmentsTotalMinSelectValue,
   CommitmentsTotalMaxSelectValue,
   QueryParams,
-  ToggleParamKey,
 } from "./types";
 
 const getFiscalYearForDate = (date: Date): number => {
@@ -144,21 +143,4 @@ export function useUpdateSearchParams(): [
     setSearchParams(setNewSearchParams(searchParams, changes));
   };
   return [searchParams, updateSearchParams, setSearchParams];
-}
-
-export function readToggleOn(
-  searchParams: URLSearchParams,
-  key: ToggleParamKey,
-): boolean {
-  return searchParams.get(key) !== "off";
-}
-
-export function useToggleParam(
-  key: ToggleParamKey,
-): [boolean, (next: boolean) => void] {
-  const [searchParams, updateSearchParams] = useUpdateSearchParams();
-  const on = readToggleOn(searchParams, key);
-  const setOn = (next: boolean) =>
-    updateSearchParams({ [key]: next ? undefined : "off" });
-  return [on, setOn];
 }
