@@ -1,9 +1,9 @@
 import { Agency } from "~/gen";
-import { AdminDropdownProps, AdminDropdown } from ".";
+import { DropdownControlProps, DropdownControl } from ".";
 import { ManagingAgencyAcronym } from "../../utils/types";
 
 export interface AgencyDropdownProps
-  extends Pick<AdminDropdownProps, "selectValue"> {
+  extends Pick<DropdownControlProps, "selectValue"> {
   agencies: Array<Agency> | null;
   onSelectValueChange?: (value: null | string) => void;
 }
@@ -24,14 +24,17 @@ export function AgencyDropdown({
     </option>
   ));
   return (
-    <AdminDropdown
+    <DropdownControl
       formId="managingAgency"
       formLabel="Managing Agency"
       isSelectDisabled={agencies === null}
       selectValue={selectValue}
       onSelectValueChange={updateManagingAgencyAcronym}
+      fontWeight="700"
+      placeholder="--All agencies--"
+      marginBottom={4}
     >
       {agencyOptions}
-    </AdminDropdown>
+    </DropdownControl>
   );
 }

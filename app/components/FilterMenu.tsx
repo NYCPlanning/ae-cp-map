@@ -13,7 +13,7 @@ import {
   DistrictTypeDropdown,
   CommunityDistrictDropdown,
   CityCouncilDistrictDropdown,
-} from "./AdminDropdown";
+} from "./DropdownControl";
 import { useUpdateSearchParams, setNewSearchParams } from "~/utils/utils";
 
 export const FilterMenu = ({

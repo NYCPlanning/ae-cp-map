@@ -21,13 +21,16 @@ export function ClearFilterBtn({
     <Button
       width="full"
       onClick={handleClear}
+      fontSize={"sm"}
+      lineHeight={"20px"}
       variant="tertiarty"
       textDecoration={"underline"}
-      color={"primary.500"}
-      textAlign={"right"}
+      color={"primary.600"}
+      textAlign={"left"}
       role={"button"}
       minHeight={"unset"}
-      p={0}
+      marginY={3}
+      padding={0}
     >
       {buttonLabel}
     </Button>

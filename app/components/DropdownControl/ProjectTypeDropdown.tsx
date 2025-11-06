@@ -1,10 +1,10 @@
 import { AgencyBudget } from "~/gen";
-import { AdminDropdownProps, AdminDropdown } from ".";
+import { DropdownControlProps, DropdownControl } from ".";
 import { AgencyBudgetType } from "../../utils/types";
 import { analytics } from "../../utils/analytics";
 
 export interface ProjectTypeDropdownProps
-  extends Pick<AdminDropdownProps, "selectValue"> {
+  extends Pick<DropdownControlProps, "selectValue"> {
   projectTypes: Array<AgencyBudget> | null;
   onSelectValueChange?: (value: null | string) => void;
 }
@@ -31,14 +31,17 @@ export function ProjectTypeDropdown({
       </option>
     ));
   return (
-    <AdminDropdown
+    <DropdownControl
       formId="projectType"
       formLabel="Project Type"
       isSelectDisabled={projectTypes === null}
       selectValue={selectValue}
       onSelectValueChange={updateProjectType}
+      fontWeight="700"
+      placeholder="--All areas--"
+      marginBottom={4}
     >
       {projectTypeOptions}
-    </AdminDropdown>
+    </DropdownControl>
   );
 }

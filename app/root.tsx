@@ -48,6 +48,7 @@ import {
   LayerVisibilityToggles,
 } from "./components/AdminMapLayersPanel";
 import About from "./routes/about";
+import { useUpdateSearchParams } from "./utils/utils";
 
 export const links: LinksFunction = () => {
   return [
@@ -162,6 +163,7 @@ export default function App() {
   }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const [, setSearchParams] = useSearchParams();
+  const [, updateSearchParams] = useUpdateSearchParams();
   const [showCapitalProjects, setShowCapitalProjects] = useState(true);
 
   const {
@@ -172,12 +174,21 @@ export default function App() {
     agencyBudgets,
   } = useLoaderData<typeof loader>();
 
-  const clearSelections = () => {
+  const clearAllFilters = () => {
     setSearchParams({});
     setViewState({
       ...INITIAL_VIEW_STATE,
       transitionDuration: 2000,
       transitionInterpolator: new FlyToInterpolator(),
+    });
+  };
+
+  const clearCapitalProjectFilters = () => {
+    updateSearchParams({
+      managingAgency: null,
+      agencyBudget: null,
+      commitmentsTotalMin: null,
+      commitmentsTotalMax: null,
     });
   };
 
@@ -219,7 +230,7 @@ export default function App() {
                     scrollbarWidth: "none",
                   }}
                 >
-                  <HeaderBar clearSelections={clearSelections} />
+                  <HeaderBar clearSelections={clearAllFilters} />
                   <GridItem
                     gridColumn={{
                       base: "col-start / span 7",
@@ -258,7 +269,7 @@ export default function App() {
                     >
                       <Accordion
                         allowMultiple
-                        defaultIndex={[0, 1]}
+                        defaultIndex={[0]}
                         width={"100%"}
                       >
                         <MapLayersPanel>
@@ -266,16 +277,16 @@ export default function App() {
                             capitalProjectsOn={showCapitalProjects}
                             onCapitalProjectsToggle={setShowCapitalProjects}
                           />
+                          <SearchByAttributeMenu
+                            agencies={managingAgencies}
+                            projectTypes={agencyBudgets}
+                            onClear={clearCapitalProjectFilters}
+                          />
                         </MapLayersPanel>
                         <FilterMenu
                           boroughs={boroughs}
                           communityDistricts={communityDistricts}
                           cityCouncilDistricts={cityCouncilDistricts}
-                        />
-                        <SearchByAttributeMenu
-                          agencies={managingAgencies}
-                          projectTypes={agencyBudgets}
-                          onClear={clearSelections}
                         />
                         <HowToUseThisTool />
                       </Accordion>

@@ -102,7 +102,13 @@ export function ProjectAmountMenu({
         alignItems={"center"}
         justifyContent={"space-between"}
       >
-        <Text fontWeight="500" flexGrow={"1"} pb={1} fontSize={"xs"}>
+        <Text
+          fontWeight="700"
+          flexGrow={"1"}
+          pb={1}
+          fontSize={"xs"}
+          color={"gray.600"}
+        >
           Project Amount
         </Text>
         {!commitmentTotalInputsAreValid && (
