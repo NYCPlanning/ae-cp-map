@@ -17,8 +17,8 @@ import {
   CommitmentsTotalMin,
   CommitmentsTotalMax,
 } from "../../utils/types";
-import { loader as rootLoader } from "~/root";
 import { env } from "~/utils/env";
+import { loader as mapPageLoader } from "~/layouts/MapPage";
 
 const { zoningApiUrl } = env;
 export interface CapitalProjectProperties {
@@ -63,7 +63,7 @@ export function useCapitalProjectsLayer(opts?: { visible?: boolean }) {
     endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
   }
 
-  const loaderData = useLoaderData<typeof rootLoader>();
+  const loaderData = useLoaderData<typeof mapPageLoader>();
 
   const fullAgencyAcronymList = loaderData.managingAgencies
     ? loaderData.managingAgencies.map((agency) => agency.initials)
