@@ -1,14 +1,14 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { AdminDropdown } from ".";
+import { DropdownControl } from ".";
 import { act } from "react";
 
-describe("AdminDropdown", () => {
+describe("DropdownControl", () => {
   it("should render with form details", () => {
     render(
-      <AdminDropdown formId="testBoundary" formLabel="Test Boundary">
+      <DropdownControl formId="testBoundary" formLabel="Test Boundary">
         <option>Test option</option>
-      </AdminDropdown>,
+      </DropdownControl>,
     );
 
     expect(screen.getByLabelText("Test Boundary")).toBeInTheDocument();
@@ -17,9 +17,9 @@ describe("AdminDropdown", () => {
 
   it("should render with default select option", () => {
     render(
-      <AdminDropdown formId="testBoundary" formLabel="Test Boundary">
+      <DropdownControl formId="testBoundary" formLabel="Test Boundary">
         <option value="test-option">Test option</option>
-      </AdminDropdown>,
+      </DropdownControl>,
     );
 
     const options: Array<HTMLOptionElement> = screen.getAllByRole("option");
@@ -33,13 +33,13 @@ describe("AdminDropdown", () => {
 
   it("should render with test select option", () => {
     render(
-      <AdminDropdown
+      <DropdownControl
         formId="testBoundary"
         formLabel="Test Boundary"
         selectValue="test-option"
       >
         <option value="test-option">Test option</option>
-      </AdminDropdown>,
+      </DropdownControl>,
     );
 
     const options: Array<HTMLOptionElement> = screen.getAllByRole("option");
@@ -55,14 +55,14 @@ describe("AdminDropdown", () => {
     const onFormLabelClick = vi.fn();
 
     render(
-      <AdminDropdown
+      <DropdownControl
         formId="testBoundary"
         formLabel="Test Boundary"
         selectValue="test-option"
         onFormLabelClick={onFormLabelClick}
       >
         <option value="test-option">Test option</option>
-      </AdminDropdown>,
+      </DropdownControl>,
     );
 
     await act(() => fireEvent.click(screen.getByText("Test Boundary")));
@@ -72,14 +72,14 @@ describe("AdminDropdown", () => {
   it("should call select function with null when changing to default select option", async () => {
     const onSelectValueChange = vi.fn();
     render(
-      <AdminDropdown
+      <DropdownControl
         formId="testBoundary"
         formLabel="Test Boundary"
         selectValue="test-option"
         onSelectValueChange={onSelectValueChange}
       >
         <option value="test-option">Test option</option>
-      </AdminDropdown>,
+      </DropdownControl>,
     );
 
     // Establish default option is not selected

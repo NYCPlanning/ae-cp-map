@@ -1,8 +1,8 @@
 import { AdminQueryParams } from "~/utils/types";
-import { AdminDropdownProps, AdminDropdown } from ".";
+import { DropdownControlProps, DropdownControl } from ".";
 
 export interface DistrictTypeDropdownProps
-  extends Pick<AdminDropdownProps, "selectValue"> {
+  extends Pick<DropdownControlProps, "selectValue"> {
   setAdminParams: (value: AdminQueryParams) => void;
 }
 
@@ -24,14 +24,15 @@ export function DistrictTypeDropdown({
   };
 
   return (
-    <AdminDropdown
+    <DropdownControl
       formId="districtType"
       formLabel="District Type"
       selectValue={selectValue}
       onSelectValueChange={updateDistrictType}
+      fontWeight="700"
     >
       <option value={"cd"}>Community District</option>
       <option value={"ccd"}>City Council District</option>
-    </AdminDropdown>
+    </DropdownControl>
   );
 }

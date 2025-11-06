@@ -1,9 +1,9 @@
 import { Borough } from "~/gen";
-import { AdminDropdownProps, AdminDropdown } from ".";
+import { DropdownControlProps, DropdownControl } from ".";
 import { AdminQueryParams, BoroughId } from "~/utils/types";
 
 export interface BoroughDropdownProps
-  extends Pick<AdminDropdownProps, "selectValue"> {
+  extends Pick<DropdownControlProps, "selectValue"> {
   boroughs: Array<Borough> | null;
   setAdminParams: (value: AdminQueryParams) => void;
 }
@@ -28,14 +28,15 @@ export function BoroughDropdown({
   ));
 
   return (
-    <AdminDropdown
+    <DropdownControl
       formId="boroughId"
       formLabel="Borough"
       isSelectDisabled={boroughs === null}
       selectValue={selectValue}
       onSelectValueChange={updateBoroughId}
+      fontWeight="700"
     >
       {boroughOptions}
-    </AdminDropdown>
+    </DropdownControl>
   );
 }

@@ -20,7 +20,7 @@ export function MapLayersPanel({ children }: { children: React.ReactNode }) {
           lineHeight="32px"
           pb={0}
         >
-          Capital Planning Layers
+          Capital Planning Data
         </Heading>
         <AccordionIcon />
       </AccordionButton>

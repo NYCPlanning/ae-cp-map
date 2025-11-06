@@ -5,7 +5,7 @@ import {
   AccordionPanel,
   Heading,
 } from "@nycplanning/streetscape";
-import { AgencyDropdown, ProjectTypeDropdown } from "./AdminDropdown";
+import { AgencyDropdown, ProjectTypeDropdown } from "./DropdownControl";
 import { ProjectAmountMenu } from "./ProjectAmountMenu";
 import { ClearFilterBtn } from "./ClearFilter";
 import {
@@ -24,7 +24,6 @@ export const SearchByAttributeMenu = ({
   onClear,
 }: SearchByAttributeMenuProps) => {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
-
   const managingAgency = searchParams.get(
     "managingAgency",
   ) as ManagingAgencyAcronym;
@@ -36,45 +35,74 @@ export const SearchByAttributeMenu = ({
     "commitmentsTotalMax",
   ) as CommitmentsTotalMax;
 
+  const appliedFilters: number[] = [
+    managingAgency !== null ? 1 : 0,
+    agencyBudget !== null ? 1 : 0,
+    commitmentsTotalMin !== null || commitmentsTotalMax !== null ? 1 : 0,
+  ];
+
   return (
-    <AccordionItem>
-      <AccordionButton aria-label="Close search by attribute menu" p={0}>
-        <Heading
-          flex="1"
-          textAlign="left"
-          fontSize="md"
-          fontWeight="bold"
-          lineHeight="32px"
-          pb={0}
-        >
-          Search by Attribute
-        </Heading>
-        <AccordionIcon />
-      </AccordionButton>
-      <AccordionPanel px={0} display={"flex"} flexDirection={"column"} gap={1}>
-        <AgencyDropdown
-          selectValue={managingAgency}
-          agencies={agencies}
-          onSelectValueChange={(value) => {
-            updateSearchParams({ managingAgency: value });
-          }}
-        />
-        <ProjectTypeDropdown
-          selectValue={agencyBudget}
-          projectTypes={projectTypes}
-          onSelectValueChange={(value) => {
-            updateSearchParams({ agencyBudget: value });
-          }}
-        />
-        <ProjectAmountMenu
-          commitmentsTotalMin={commitmentsTotalMin}
-          commitmentsTotalMax={commitmentsTotalMax}
-          onValidChange={(changes: QueryParams) => {
-            updateSearchParams(changes);
-          }}
-        />
-        <ClearFilterBtn onClear={onClear} />
-      </AccordionPanel>
+    <AccordionItem
+      fontFamily="body"
+      color="primary.600"
+      backgroundColor="gray.50"
+      borderStyle="solid"
+      borderRadius={"sm"}
+      borderWidth={"1px"}
+      marginTop={2}
+      marginX={2}
+    >
+      {({ isExpanded }) => (
+        <>
+          <AccordionButton
+            aria-label="Close search by attribute menu"
+            paddingY={0}
+            paddingX={3}
+          >
+            <Heading
+              flex="1"
+              textAlign="left"
+              fontSize="xs"
+              fontWeight="bold"
+              lineHeight="32px"
+              paddingBottom={0}
+            >
+              {`${isExpanded ? "Hide" : "Show"} Filters (${appliedFilters.reduce((acc, curr) => acc + curr, 0)})`}
+            </Heading>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel
+            paddingTop={0}
+            paddingX={3}
+            paddingBottom={6}
+            display={"flex"}
+            flexDirection={"column"}
+          >
+            <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
+            <AgencyDropdown
+              selectValue={managingAgency}
+              agencies={agencies}
+              onSelectValueChange={(value) => {
+                updateSearchParams({ managingAgency: value });
+              }}
+            />
+            <ProjectTypeDropdown
+              selectValue={agencyBudget}
+              projectTypes={projectTypes}
+              onSelectValueChange={(value) => {
+                updateSearchParams({ agencyBudget: value });
+              }}
+            />
+            <ProjectAmountMenu
+              commitmentsTotalMin={commitmentsTotalMin}
+              commitmentsTotalMax={commitmentsTotalMax}
+              onValidChange={(changes: QueryParams) => {
+                updateSearchParams(changes);
+              }}
+            />
+          </AccordionPanel>
+        </>
+      )}
     </AccordionItem>
   );
 };
