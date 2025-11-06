@@ -99,7 +99,9 @@ export function Atlas({
         });
       }}
       controller={true}
-      style={{ height: "100vh", width: "100vw" }}
+      style={{
+        position: "relative",
+      }}
       layers={[
         capitalProjectsLayer,
         capitalProjectBudgetedGeoJsonLayer,
