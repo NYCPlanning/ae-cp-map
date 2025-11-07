@@ -60,15 +60,15 @@ export default function NonMapHeaderPage() {
           <Text>
             This tool is in active development and DCP is open to any and all
             feedback. For questions, inquires or feedback on CPP or its content,
-            please send us an email.
+            please send us an email to&nbsp;
+            <Link
+              href="mailto:CAPS@planning.nyc.gov"
+              color={"primary.600"}
+              textDecorationLine={"underline"}
+            >
+              CAPS@planning.nyc.gov
+            </Link>
           </Text>
-          <Link
-            href="mailto:CAPS@planning.nyc.gov"
-            color={"primary.600"}
-            textDecorationLine={"underline"}
-          >
-            Email CAPS@planning.nyc.gov
-          </Link>
         </VStack>
       </GridItem>
     </Grid>
