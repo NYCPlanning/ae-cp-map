@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router";
 import { DataFilterExtensionProps } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
+import { IconClusterLayer } from "./icon-cluster-layer";
 
 export interface CommunityBoardBudgetRequestProperties {
   id: string;
@@ -53,19 +54,32 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     ],
     uniqueIdProperty: "id",
     visible,
-    pickable: true,
+    pickable: false,
     getFillColor: [43, 108, 176, 166],
+    binary: false,
     pointType: "icon",
-    getIcon: (d: any) => {
-      const icon = policyAreaIconsMap[d.properties.policyAreaId];
-      return {
-        url: `/policy-area-icons/${icon}.svg`,
-        width: 40,
-        height: 40,
-      };
+    // getIconSize: 20,
+    iconSizeScale: 40,
+    iconAtlas:
+      "https://raw.githubusercontent.com/visgl/deck.gl/master/examples/website/icon/data/location-icon-atlas.png",
+    iconMapping:
+      "https://raw.githubusercontent.com/visgl/deck.gl/master/examples/website/icon/data/location-icon-mapping.json",
+    // iconSizeMinPixels: 50,
+    // getIcon: (d: any) => {
+    //   const icon = policyAreaIconsMap[d.properties.policyAreaId];
+    //   return {
+    //     url: `/policy-area-icons/${icon}.svg`,
+    //     width: 40,
+    //     height: 40,
+    //   };
+    // },
+    _subLayerProps: {
+      "points-icon": {
+        type: IconClusterLayer,
+      },
     },
-    iconSizeScale: 1,
-    iconSizeMinPixels: 24,
-    iconSizeMaxPixels: 24,
+    // iconSizeScale: 1,
+    // iconSizeMinPixels: 24,
+    // iconSizeMaxPixels: 24,
   });
 }
