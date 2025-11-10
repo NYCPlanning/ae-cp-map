@@ -1,5 +1,5 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import { useSearchParams } from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 import { DataFilterExtensionProps } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
@@ -14,6 +14,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
   visible?: boolean;
 }) {
   const visible = opts?.visible ?? true;
+  const { cbbrId } = useParams();
   const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
@@ -22,6 +23,8 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     districtType === "ccd" && districtId !== null;
   const onCapitalProjectsInCommunityDistrictPath =
     districtType === "cd" && boroughId !== null && districtId !== null;
+
+  const navigate = useNavigate();
 
   let endpointPrefix = "";
   if (onCapitalProjectsInCityCouncilDistrictPath) {
@@ -67,5 +70,16 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     iconSizeScale: 1,
     iconSizeMinPixels: 24,
     iconSizeMaxPixels: 24,
+    onClick: (data) => {
+      const indvidualCbbrId = data.object?.properties?.id;
+      if (indvidualCbbrId === undefined) return;
+      if (indvidualCbbrId === `${cbbrId}`) return;
+      const cbbrRouteSuffix = `/community-board-budget-requests/${indvidualCbbrId}`;
+      navigate({
+        pathname: `${endpointPrefix}${cbbrRouteSuffix}`,
+        search: `?${searchParams.toString}`,
+      });
+    }
+
   });
 }
