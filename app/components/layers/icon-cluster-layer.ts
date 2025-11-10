@@ -52,14 +52,15 @@ export class IconClusterLayer<
     //   changeFlags.dataChanged || props.sizeScale !== oldProps.sizeScale;
     const rebuildIndex = true;
 
-    // console.log({ sizeScale: props.sizeScale });
+    console.log({ sizeScale: props.sizeScale });
     // console.log({ rebuildIndex });
     const z = Math.floor(this.context.viewport.zoom);
-    console.log({ z });
+    // console.log({ z });
+
     if (rebuildIndex) {
       const index = new Supercluster<DataT, DataT>({
         maxZoom: 16,
-        radius: props.sizeScale * Math.sqrt(z * 1.5),
+        radius: 1500,
       });
       index.load(
         // @ts-ignore Supercluster expects proper GeoJSON feature
@@ -70,7 +71,7 @@ export class IconClusterLayer<
       );
       this.setState({ index });
     }
-
+    // console.log({ foo: z, bar: this.state.z });
     if (rebuildIndex || z !== this.state.z) {
       this.setState({
         data: this.state.index.getClusters([-180, -85, 180, 85], z),
@@ -152,11 +153,11 @@ export class IconClusterLayer<
         getIcon: (d) =>
           getIconName(d.properties.cluster ? d.properties.point_count : 1),
         getSize: (d) => {
-          // console.log(d.properties.cluster, d.properties.point_count);
-          console.log({
-            cluster: d.properties.cluster,
-            count: d.properties.point_count,
-          });
+          console.log(d.properties.cluster, d.properties.point_count);
+          // console.log({
+          //   cluster: d.properties.cluster,
+          //   count: d.properties.point_count,
+          // });
           return getIconSize(
             d.properties.cluster ? d.properties.point_count : 1,
           );
