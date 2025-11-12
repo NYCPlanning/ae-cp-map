@@ -8,6 +8,7 @@ export interface CommunityBoardBudgetRequestProperties {
   id: string;
   agencyInitials: string;
   layerName: string;
+  policyAreaId: number;
 }
 
 export function useCommunityBoardBudgetRequestsLayer(opts?: {
@@ -56,7 +57,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     pickable: true,
     getFillColor: [43, 108, 176, 166],
     pointType: "icon",
-    getIcon: (d: any) => {
+    getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
       const icon = policyAreaIconsMap[d.properties.policyAreaId];
       return {
         url: `/policy-area-icons/${icon}.svg`,
