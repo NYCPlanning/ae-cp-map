@@ -6,6 +6,7 @@ import {
   Grid,
   GridItem,
   Accordion,
+  AccordionItem,
 } from "@nycplanning/streetscape";
 import {
   Links,
@@ -49,6 +50,7 @@ import {
 } from "./components/AdminMapLayersPanel";
 import About from "./routes/about";
 import { useUpdateSearchParams } from "./utils/utils";
+import { Legend } from "./components/AdminDropdownContent/Legend";
 
 export const links: LinksFunction = () => {
   return [
@@ -287,6 +289,12 @@ export default function App() {
                             projectTypes={agencyBudgets}
                             onClear={clearCapitalProjectFilters}
                           />
+                          <AccordionItem
+                            borderTop={"none"}
+                            paddingBottom={"12px"}
+                          >
+                            <Legend />
+                          </AccordionItem>
                         </MapLayersPanel>
                         <FilterMenu
                           boroughs={boroughs}
