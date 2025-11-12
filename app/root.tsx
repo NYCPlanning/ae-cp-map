@@ -50,7 +50,7 @@ import {
 } from "./components/AdminMapLayersPanel";
 import About from "./routes/about";
 import { useUpdateSearchParams } from "./utils/utils";
-import { Legend } from "./components/AdminDropdownContent/Legend";
+import { CommunityBoardBudgetRequestLegend } from "./components/CommunityBoardBudgetRequestLegend";
 
 export const links: LinksFunction = () => {
   return [
@@ -293,7 +293,7 @@ export default function App() {
                             borderTop={"none"}
                             paddingBottom={"12px"}
                           >
-                            <Legend />
+                            <CommunityBoardBudgetRequestLegend />
                           </AccordionItem>
                         </MapLayersPanel>
                         <FilterMenu

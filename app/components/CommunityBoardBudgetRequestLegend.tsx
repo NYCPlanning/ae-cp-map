@@ -1,6 +1,5 @@
 import {
   Heading,
-  Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
@@ -18,31 +17,44 @@ import {
   TransportationIcon,
 } from "@nycplanning/streetscape";
 
-export function Legend() {
+export function CommunityBoardBudgetRequestLegend() {
   return (
-    <>
-      <Accordion
-        allowToggle
-        padding={{ base: 3, lg: "0 12px" }}
-        paddingTop={0}
-        width={"full"}
-      >
-        <AccordionItem border="none">
-          <AccordionButton aria-label="Toggle legend panel" px={0} py={0}>
+    <AccordionItem
+      fontFamily="body"
+      color="primary.600"
+      backgroundColor="gray.50"
+      borderStyle="solid"
+      borderRadius={"sm"}
+      borderWidth={"1px"}
+      marginTop={2}
+      marginX={2}
+    >
+      {({ isExpanded }) => (
+        <>
+          <AccordionButton
+            aria-label="Toggle legend panel"
+            paddingY={0}
+            paddingX={3}
+          >
             <Heading
               flex="1"
               textAlign="left"
-              fontSize="md"
-              fontStyle={"normal"}
+              fontSize="xs"
               fontWeight="bold"
-              lineHeight={"20px"}
-              pb={0}
+              lineHeight="32px"
+              paddingBottom={0}
             >
-              Legend
+              {`${isExpanded ? "Hide" : "Show"} Legend`}
             </Heading>
             <AccordionIcon />
           </AccordionButton>
-          <AccordionPanel pb={0} px={0}>
+          <AccordionPanel
+            paddingTop={0}
+            paddingX={3}
+            paddingBottom={6}
+            display={"flex"}
+            flexDirection={"column"}
+          >
             <VStack>
               <Flex
                 alignItems="center"
@@ -155,8 +167,8 @@ export function Legend() {
               </Flex>
             </VStack>
           </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-    </>
+        </>
+      )}
+    </AccordionItem>
   );
 }
