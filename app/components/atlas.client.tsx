@@ -76,21 +76,45 @@ export function Atlas({
   return (
     <DeckGL<MapView>
       viewState={viewState}
-      onViewStateChange={({ viewState: newViewState }) => {
-        setViewState({
-          ...newViewState,
-          longitude:
-            newViewState.zoom < MIN_ZOOM
-              ? viewState.longitude
-              : Math.min(-73.6311, Math.max(-74.3308, newViewState.longitude)),
-          latitude:
-            newViewState.zoom < MIN_ZOOM
-              ? viewState.latitude
-              : Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
-          bearing: newViewState.bearing,
-          pitch: 0,
-          zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
-        });
+      onViewStateChange={({ viewState: newViewState, interactionState }) => {
+        if (interactionState.isZooming) {
+          setViewState({
+            ...newViewState,
+            longitude:
+              newViewState.zoom < MIN_ZOOM
+                ? viewState.longitude
+                : Math.min(
+                    -73.6311,
+                    Math.max(-74.3308, newViewState.longitude),
+                  ),
+            latitude:
+              newViewState.zoom < MIN_ZOOM
+                ? viewState.latitude
+                : Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
+            bearing: newViewState.bearing,
+            pitch: 0,
+            zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
+            transitionDuration: 0,
+          });
+        } else {
+          setViewState({
+            ...newViewState,
+            longitude:
+              newViewState.zoom < MIN_ZOOM
+                ? viewState.longitude
+                : Math.min(
+                    -73.6311,
+                    Math.max(-74.3308, newViewState.longitude),
+                  ),
+            latitude:
+              newViewState.zoom < MIN_ZOOM
+                ? viewState.latitude
+                : Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
+            bearing: newViewState.bearing,
+            pitch: 0,
+            zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
+          });
+        }
       }}
       controller={true}
       style={{ height: "100vh", width: "100vw" }}
