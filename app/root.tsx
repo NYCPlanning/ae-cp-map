@@ -6,7 +6,6 @@ import {
   Grid,
   GridItem,
   Accordion,
-  AccordionItem,
 } from "@nycplanning/streetscape";
 import {
   Links,
@@ -44,13 +43,14 @@ import { BoroughId, DistrictType } from "./utils/types";
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { HeaderBar } from "./components/HeaderBar";
 import { HowToUseThisTool } from "./components/AdminDropdownContent/HowToUseThisTool";
-import {
-  MapLayersPanel,
-  LayerVisibilityToggles,
-} from "./components/AdminMapLayersPanel";
+import { MapLayersPanel } from "./components/AdminMapLayersPanel";
 import About from "./routes/about";
 import { useUpdateSearchParams } from "./utils/utils";
 import { CommunityBoardBudgetRequestLegend } from "./components/CommunityBoardBudgetRequestLegend";
+import {
+  CapitalProjectLayerToggle,
+  CommunityBoardBudgetRequestLayerToggle,
+} from "./components/MapLayerToggle";
 
 export const links: LinksFunction = () => {
   return [
@@ -283,18 +283,20 @@ export default function App() {
                         width={"100%"}
                       >
                         <MapLayersPanel>
-                          <LayerVisibilityToggles />
-                          <SearchByAttributeMenu
-                            agencies={managingAgencies}
-                            projectTypes={agencyBudgets}
-                            onClear={clearCapitalProjectFilters}
-                          />
-                          <AccordionItem
-                            borderTop={"none"}
-                            paddingBottom={"12px"}
+                          <Box
+                            display={"flex"}
+                            flexDirection={"column"}
+                            gap={2}
                           >
+                            <CapitalProjectLayerToggle />
+                            <SearchByAttributeMenu
+                              agencies={managingAgencies}
+                              projectTypes={agencyBudgets}
+                              onClear={clearCapitalProjectFilters}
+                            />
+                            <CommunityBoardBudgetRequestLayerToggle />
                             <CommunityBoardBudgetRequestLegend />
-                          </AccordionItem>
+                          </Box>
                         </MapLayersPanel>
                         <FilterMenu
                           boroughs={boroughs}

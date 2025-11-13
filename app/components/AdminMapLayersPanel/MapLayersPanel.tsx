@@ -17,7 +17,7 @@ export function MapLayersPanel({ children }: { children: React.ReactNode }) {
           textAlign="left"
           fontSize="md"
           fontWeight="bold"
-          lineHeight={{ base: "32px", "2xl": "initial" }}
+          lineHeight="32px"
           pb={0}
         >
           Capital Planning Data

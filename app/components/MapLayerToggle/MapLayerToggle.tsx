@@ -9,6 +9,7 @@ import {
   InfoIcon,
   Switch,
   Tooltip,
+  useBreakpointValue,
 } from "@nycplanning/streetscape";
 
 export function MapLayerToggle({
@@ -17,7 +18,6 @@ export function MapLayerToggle({
   isChecked,
   onChange,
   tooltipLabel,
-  tooltipPlacement,
   iconColor,
 }: {
   id: string;
@@ -25,9 +25,14 @@ export function MapLayerToggle({
   isChecked: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   tooltipLabel: string;
-  tooltipPlacement: PlacementWithLogical;
   iconColor: string;
 }) {
+  const tooltipPlacement =
+    useBreakpointValue<PlacementWithLogical>({
+      base: "bottom-start",
+      md: "right",
+    }) ?? "bottom";
+
   return (
     <FormControl
       display="flex"
