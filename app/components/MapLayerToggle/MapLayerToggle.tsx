@@ -63,7 +63,7 @@ export function MapLayerToggle({
           placement={tooltipPlacement}
         >
           <IconButton
-            aria-label="information about the capital planning portal"
+            aria-label={`information about the ${label}`}
             icon={<InfoIcon boxSize={5} verticalAlign={"top"} />}
             size="sm"
             isRound
