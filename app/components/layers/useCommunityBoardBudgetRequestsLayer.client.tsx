@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router";
 import { DataFilterExtensionProps } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
+import { IconClusterLayer } from "./icon-cluster-layer";
 
 export interface CommunityBoardBudgetRequestProperties {
   id: string;
@@ -13,6 +14,7 @@ export interface CommunityBoardBudgetRequestProperties {
 
 export function useCommunityBoardBudgetRequestsLayer(opts?: {
   visible?: boolean;
+  zoomToCluster;
 }) {
   const visible = opts?.visible ?? true;
   const [searchParams] = useSearchParams();
@@ -41,6 +43,58 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     7: "parks",
     8: "other",
   };
+
+  return new MVTLayer<
+    CommunityBoardBudgetRequestProperties,
+    DataFilterExtensionProps<
+      Feature<Geometry, CommunityBoardBudgetRequestProperties>
+    >
+  >({
+    id: "communityBoardBudgetRequests",
+    data: [
+      `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
+    ],
+    uniqueIdProperty: "id",
+    visible,
+    pickable: true,
+    getFillColor: [43, 108, 176, 166],
+    binary: false,
+    pointType: "icon",
+    // getIconSize: 20,
+    iconSizeScale: 40,
+    onClick: function (data, event) {
+      console.log({ context: this });
+      console.log({ data, event });
+      console.log({ viewport: data.viewport });
+      const { object } = data;
+      opts?.zoomToCluster(
+        object.properties.expansionZoom,
+        object.geometry.coordinates[1],
+        object.geometry.coordinates[0],
+      );
+    },
+    iconAtlas:
+      "https://raw.githubusercontent.com/visgl/deck.gl/master/examples/website/icon/data/location-icon-atlas.png",
+    iconMapping:
+      "https://raw.githubusercontent.com/visgl/deck.gl/master/examples/website/icon/data/location-icon-mapping.json",
+    // iconSizeMinPixels: 50,
+    // getIcon: (d: any) => {
+    //   const icon = policyAreaIconsMap[d.properties.policyAreaId];
+    //   return {
+    //     url: `/policy-area-icons/${icon}.svg`,
+    //     width: 40,
+    //     height: 40,
+    //   };
+    // },
+    _subLayerProps: {
+      "points-icon": {
+        type: IconClusterLayer,
+      },
+    },
+    // iconSizeScale: 1,
+    // iconSizeMinPixels: 24,
+    // iconSizeMaxPixels: 24,
+  });
 
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,

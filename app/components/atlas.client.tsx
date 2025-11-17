@@ -11,11 +11,17 @@ import {
   useCityCouncilDistrictLayer,
   useCapitalProjectBudgetedGeoJsonLayer,
 } from "./layers";
+import {
+  Layer,
+  LayerExtension,
+  UpdateParameters,
+  FlyToInterpolator,
+  WebMercatorViewport,
+} from "@deck.gl/core";
 import type { MapView, MapViewState } from "@deck.gl/core";
 import { env } from "~/utils/env";
 
-
-export const MAX_ZOOM = 20;
+export const MAX_ZOOM = 200;
 export const MIN_ZOOM = 10;
 const { basemapUrl } = env;
 
@@ -45,8 +51,22 @@ export function Atlas({
   });
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
+
+  const zoomToCluster = (
+    zoom: number,
+    latitude: number,
+    longitude: number,
+  ): void => {
+    setViewState({
+      longitude,
+      latitude,
+      zoom: zoom,
+      transitionDuration: 750,
+      transitionInterpolator: new FlyToInterpolator(),
+    });
+  };
   const communityBoardBudgetRequestsLayer =
-    useCommunityBoardBudgetRequestsLayer({ visible: showCbbr });
+    useCommunityBoardBudgetRequestsLayer({ visible: showCbbr, zoomToCluster });
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
 
@@ -57,21 +77,45 @@ export function Atlas({
   return (
     <DeckGL<MapView>
       viewState={viewState}
-      onViewStateChange={({ viewState: newViewState }) => {
-        setViewState({
-          ...newViewState,
-          longitude:
-            newViewState.zoom < MIN_ZOOM
-              ? viewState.longitude
-              : Math.min(-73.6311, Math.max(-74.3308, newViewState.longitude)),
-          latitude:
-            newViewState.zoom < MIN_ZOOM
-              ? viewState.latitude
-              : Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
-          bearing: newViewState.bearing,
-          pitch: 0,
-          zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
-        });
+      onViewStateChange={({ viewState: newViewState, interactionState }) => {
+        if (interactionState.isZooming) {
+          setViewState({
+            ...newViewState,
+            longitude:
+              newViewState.zoom < MIN_ZOOM
+                ? viewState.longitude
+                : Math.min(
+                    -73.6311,
+                    Math.max(-74.3308, newViewState.longitude),
+                  ),
+            latitude:
+              newViewState.zoom < MIN_ZOOM
+                ? viewState.latitude
+                : Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
+            bearing: newViewState.bearing,
+            pitch: 0,
+            zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
+            transitionDuration: 0,
+          });
+        } else {
+          setViewState({
+            ...newViewState,
+            longitude:
+              newViewState.zoom < MIN_ZOOM
+                ? viewState.longitude
+                : Math.min(
+                    -73.6311,
+                    Math.max(-74.3308, newViewState.longitude),
+                  ),
+            latitude:
+              newViewState.zoom < MIN_ZOOM
+                ? viewState.latitude
+                : Math.min(41.103, Math.max(40.2989, newViewState.latitude)),
+            bearing: newViewState.bearing,
+            pitch: 0,
+            zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
+          });
+        }
       }}
       controller={true}
       style={{
@@ -93,9 +137,7 @@ export function Atlas({
         return isHovering ? "pointer" : "grab";
       }}
     >
-      <Map
-        mapStyle={`${basemapUrl}/styles/positron/style.json`}
-      ></Map>
+      <Map mapStyle={`${basemapUrl}/styles/positron/style.json`}></Map>
     </DeckGL>
   );
 }
