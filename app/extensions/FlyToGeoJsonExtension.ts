@@ -46,7 +46,11 @@ export class FlyToGeoJsonExtension extends LayerExtension {
       deckInstance.props.onViewStateChange({
         viewState: newViewState,
         viewId: viewport.id,
-        interactionState: {},
+        interactionState: {
+          isZooming: true,
+          isPanning: true,
+          inTransition: true,
+        },
       });
     }
   }
