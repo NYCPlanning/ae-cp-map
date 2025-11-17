@@ -10,6 +10,7 @@ import {
   useCommunityBoardBudgetRequestsLayer,
   useCityCouncilDistrictLayer,
   useCapitalProjectBudgetedGeoJsonLayer,
+  useCommunityBoardBudgetRequestsGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 import { env } from "~/utils/env";
@@ -46,6 +47,8 @@ export function Atlas({
     useCapitalProjectBudgetedGeoJsonLayer();
   const communityBoardBudgetRequestsLayer =
     useCommunityBoardBudgetRequestsLayer({ visible: showCbbr });
+  const communityBoardBudgetRequestGeoJsonLayer =
+    useCommunityBoardBudgetRequestsGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
 
@@ -113,6 +116,7 @@ export function Atlas({
         communityDistrictsLayer,
         communityDistrictLayer,
         communityBoardBudgetRequestsLayer,
+        communityBoardBudgetRequestGeoJsonLayer,
         cityCouncilDistrictsLayer,
         cityCouncilDistrictLayer,
       ]}
