@@ -28,7 +28,12 @@ export function CommunityBoardBudgetRequestDetail({
   onNavigationClick,
 }: CommunityBoardBudgetRequestDetailProps) {
   return (
-    <VStack alignItems={"flex-start"} gap={2}>
+    <VStack
+      alignItems={"flex-start"}
+      gap={2}
+      overflowY={"scroll"}
+      sx={{ scrollbarWidth: "none" }}
+    >
       <HStack align={"center"}>
         <IconButton
           aria-label="Close budget request detail panel"
@@ -49,7 +54,7 @@ export function CommunityBoardBudgetRequestDetail({
 
       <VStack
         alignItems={"flex-start"}
-        borderBottom={"1px solid"}
+        borderBottom={"100px solid"}
         borderColor={"gray.200"}
         width="100%"
         paddingBottom={2}
