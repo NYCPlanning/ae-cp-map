@@ -20,6 +20,7 @@ import { findCapitalProjectsByCityCouncilIdHandler } from "./findCapitalProjects
 import { findCityCouncilDistrictTilesHandler } from "./findCityCouncilDistrictTilesHandler";
 import { findCommunityBoardBudgetRequestsHandler } from "./findCommunityBoardBudgetRequestsHandler";
 import { findCommunityBoardBudgetRequestByIdHandler } from "./findCommunityBoardBudgetRequestByIdHandler";
+import { findCommunityBoardBudgetRequestGeoJsonByIdHandler } from "./findCommunityBoardBudgetRequestGeoJsonByIdHandler";
 import { findCommunityBoardBudgetRequestAgenciesHandler } from "./findCommunityBoardBudgetRequestAgenciesHandler";
 import { findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler } from "./findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler";
 import { findCommunityBoardBudgetRequestNeedGroupsHandler } from "./findCommunityBoardBudgetRequestNeedGroupsHandler";
@@ -61,6 +62,7 @@ export const handlers = [
   findCityCouncilDistrictTilesHandler,
   findCommunityBoardBudgetRequestsHandler,
   findCommunityBoardBudgetRequestByIdHandler,
+  findCommunityBoardBudgetRequestGeoJsonByIdHandler,
   findCommunityBoardBudgetRequestAgenciesHandler,
   findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler,
   findCommunityBoardBudgetRequestNeedGroupsHandler,
