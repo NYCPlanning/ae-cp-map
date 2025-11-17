@@ -5,3 +5,4 @@ export { useCityCouncilDistrictsLayer } from "./useCityCouncilDistrictsLayer.cli
 export { useCityCouncilDistrictLayer } from "./useCityCouncilDistrictLayer.client";
 export { useCapitalProjectBudgetedGeoJsonLayer } from "./useCapitalProjectBudgetedGeoJsonLayer.client";
 export { useCommunityBoardBudgetRequestsLayer } from "./useCommunityBoardBudgetRequestsLayer.client";
+export { useCommunityBoardBudgetRequestsGeoJsonLayer } from "./useCommunityBoardBudgetRequestsGeoJsonLayer.client";

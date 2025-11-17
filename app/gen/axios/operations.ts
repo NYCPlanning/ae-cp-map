@@ -87,6 +87,10 @@ export const operations = {
     path: "/community-board-budget-requests/:cbbrId",
     method: "get",
   },
+  findCommunityBoardBudgetRequestGeoJsonById: {
+    path: "/community-board-budget-requests/:cbbrId/geojson",
+    method: "get",
+  },
   findCommunityBoardBudgetRequestAgencies: {
     path: "/community-board-budget-requests/agencies",
     method: "get",

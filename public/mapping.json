@@ -1,0 +1,167 @@
+{
+"health": {
+    "x": 0,
+    "y": 768,
+    "width": 128,
+    "height": 128
+},
+"infrastructure": {
+    "x": 128,
+    "y": 768,
+    "width": 128,
+    "height": 128
+
+},
+"parks": {
+    "x": 256,
+    "y": 768,
+    "width": 128,
+    "height": 128
+
+},
+"education": {
+    "x": 384,
+    "y": 768,
+    "width": 128,
+    "height": 128
+
+},
+"housing": {
+    "x": 0,
+    "y": 896,
+    "width": 128,
+    "height": 128
+
+},
+"other": {
+    "x": 128,
+    "y": 896,
+    "width": 128,
+    "height": 128
+
+},
+"transportation": {
+    "x": 256,
+    "y": 896,
+    "width": 128,
+    "height": 128
+
+},
+"safety": {
+    "x": 384,
+    "y": 896,
+    "width": 128,
+    "height": 128
+
+},
+"health-hover": {
+    "x": 0,
+    "y": 1024,
+    "width": 128,
+    "height": 128
+},
+"infrastructure-hover": {
+    "x": 128,
+    "y": 1024,
+    "width": 128,
+    "height": 128
+
+},
+"parks-hover": {
+    "x": 256,
+    "y": 1024,
+    "width": 128,
+    "height": 128
+
+},
+"education-hover": {
+    "x": 384,
+    "y": 1024,
+    "width": 128,
+    "height": 128
+
+},
+"housing-hover": {
+    "x": 0,
+    "y": 1152,
+    "width": 128,
+    "height": 128
+
+},
+"other-hover": {
+    "x": 128,
+    "y": 1152,
+    "width": 128,
+    "height": 128
+
+},
+"transportation-hover": {
+    "x": 256,
+    "y": 1152,
+    "width": 128,
+    "height": 128
+
+},
+"safety-hover": {
+    "x": 384,
+    "y": 1152,
+    "width": 128,
+    "height": 128
+
+},
+"health-click": {
+    "x": 0,
+    "y": 1280,
+    "width": 128,
+    "height": 128
+},
+"infrastructure-click": {
+    "x": 128,
+    "y": 1280,
+    "width": 128,
+    "height": 128
+
+},
+"parks-click": {
+    "x": 256,
+    "y": 1280,
+    "width": 128,
+    "height": 128
+
+},
+"education-click": {
+    "x": 384,
+    "y": 1280,
+    "width": 128,
+    "height": 128
+
+},
+"housing-click": {
+    "x": 0,
+    "y": 1408,
+    "width": 128,
+    "height": 128
+
+},
+"other-click": {
+    "x": 128,
+    "y": 1408,
+    "width": 128,
+    "height": 128
+
+},
+"transportation-click": {
+    "x": 256,
+    "y": 1408,
+    "width": 128,
+    "height": 128
+
+},
+"safety-click": {
+    "x": 384,
+    "y": 1408,
+    "width": 128,
+    "height": 128
+
+}
+}
