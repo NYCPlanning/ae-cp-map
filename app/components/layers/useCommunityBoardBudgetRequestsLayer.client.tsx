@@ -1,16 +1,38 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import { useNavigate, useParams, useSearchParams } from "react-router";
-import { DataFilterExtensionProps } from "@deck.gl/extensions";
-import type { Feature, Geometry } from "geojson";
-import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
+import {
+  useNavigate,
+  useParams,
+  useLoaderData,
+  useSearchParams,
+} from "react-router";
 import { useState } from "react";
 import { Accessor, Color } from "@deck.gl/core";
+import {
+  DataFilterExtension,
+  DataFilterExtensionProps,
+} from "@deck.gl/extensions";
+import type { Feature, Geometry } from "geojson";
+import {
+  BoroughId,
+  CommunityBoardBudgetRequestAgencyCategoryResponseId,
+  CommunityBoardBudgetRequestNeedGroupId,
+  CommunityBoardBudgetRequestPolicyAreaId,
+  DistrictId,
+  DistrictType,
+} from "../../utils/types";
+import { loader as mapPageLoader } from "../../layouts/MapPage";
+import { env } from "~/utils/env";
+
+const { zoningApiUrl } = env;
 
 export interface CommunityBoardBudgetRequestProperties {
   id: string;
   agencyInitials: string;
   layerName: string;
   policyAreaId: number;
+  needGroupId: number;
+  agencyCategoryReponseId: string;
+  cbbrAgencyCategoryResponseId: string;
 }
 
 export function useCommunityBoardBudgetRequestsLayer(opts?: {
@@ -22,6 +44,21 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+  const cbbrNeedGroupId = searchParams.get(
+    "cbbrNeedGroupIds",
+  ) as CommunityBoardBudgetRequestNeedGroupId;
+  const cbbrPolicyAreaId = searchParams.get(
+    "cbbrPolicyAreaId",
+  ) as CommunityBoardBudgetRequestPolicyAreaId;
+  const cbbrAgencyInitials = searchParams.get("cbbrAgencyInitials");
+  const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
+    "cbbrAgencyCategoryResponseIds",
+  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  const cbbrAgencyCategoryResponseIds =
+    cbbrAgencyCategoryResponseIdsParam === null
+      ? []
+      : cbbrAgencyCategoryResponseIdsParam.split(",").map((id) => parseInt(id));
+
   const onCapitalProjectsInCityCouncilDistrictPath =
     districtType === "ccd" && districtId !== null;
   const onCapitalProjectsInCommunityDistrictPath =
@@ -45,6 +82,23 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     7: "parks",
     8: "other",
   };
+  const loaderData = useLoaderData<typeof mapPageLoader>();
+
+  const fullAgencyList = loaderData.cbbrAgencies
+    ? loaderData.cbbrAgencies.map((data) => data.initials)
+    : [];
+
+  const fullNeedGroupList = loaderData.cbbrNeedGroups
+    ? loaderData.cbbrNeedGroups.map((data) => data.id)
+    : [];
+
+  const fullPolicyAreaList = loaderData.cbbrPolicyAreas
+    ? loaderData.cbbrPolicyAreas.map((data) => data.id)
+    : [];
+
+  const fullAgencyCategoryResponseList = loaderData.cbbrAgencyCategoryResponses
+    ? loaderData.cbbrAgencyCategoryResponses.map((data) => data.id)
+    : [];
 
   const [clickInfo, setClickInfo] = useState({ id: "", clicked: false });
 
@@ -65,7 +119,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
   >({
     id: "communityBoardBudgetRequests",
     data: [
-      `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
+      `${zoningApiUrl}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
     ],
     visible,
     uniqueIdProperty: "id",
@@ -117,5 +171,36 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
         search: `?${searchParams.toString()}`,
       });
     },
+    iconSizeScale: 1,
+    iconSizeMinPixels: 24,
+    iconSizeMaxPixels: 24,
+    getFilterCategory: (d) => {
+      const {
+        agencyInitials,
+        needGroupId,
+        policyAreaId,
+        agencyCategoryReponseId,
+      } = d.properties;
+
+      return [
+        agencyInitials,
+        needGroupId,
+        policyAreaId,
+        agencyCategoryReponseId,
+      ];
+    },
+    filterCategories: [
+      cbbrAgencyInitials !== null ? [cbbrAgencyInitials] : fullAgencyList,
+      cbbrNeedGroupId !== null ? [cbbrNeedGroupId] : fullNeedGroupList,
+      cbbrPolicyAreaId !== null ? [cbbrPolicyAreaId] : fullPolicyAreaList,
+      cbbrAgencyCategoryResponseIds.length > 0
+        ? cbbrAgencyCategoryResponseIds
+        : fullAgencyCategoryResponseList,
+    ],
+    extensions: [
+      new DataFilterExtension({
+        categorySize: 4,
+      }),
+    ],
   });
 }

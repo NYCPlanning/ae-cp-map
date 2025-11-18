@@ -70,8 +70,19 @@ const { zoningApiUrl } = env;
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
 
+  const districtType = url.searchParams.get("districtType");
+  const boroughId = url.searchParams.get("boroughId");
+  const districtId = url.searchParams.get("districtId");
+  const cbbrAgencyCategoryResponseIds = url.searchParams.get(
+    "cbbrAgencyCategoryResponseIds",
+  );
+  const cbbrNeedGroupId = url.searchParams.get("cbbrNeedGroupId");
+
   const itemsPerPage = 7;
   const cbbrPageParam = url.searchParams.get("cbbrPage");
+  const cbbrPolicyAreaId = url.searchParams.get("cbbrPolicyAreaId");
+  const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
+
   const cbbrPage = cbbrPageParam === null ? 1 : parseInt(cbbrPageParam);
   if (isNaN(cbbrPage)) {
     throw data("Bad Request", { status: 400 });
@@ -79,7 +90,25 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const cbbrOffset = (cbbrPage - 1) * itemsPerPage;
   const budgetRequestsPromise = findCommunityBoardBudgetRequests(
     {
+      ...(boroughId !== null && districtId !== null && districtType === "cd"
+        ? { communityDistrictId: `${boroughId}${districtId}` }
+        : {}),
+      ...(districtId !== null && districtType === "ccd"
+        ? { cityCouncilDistrictId: districtId }
+        : {}),
       cbbrType: "C",
+      cbbrAgencyCategoryResponseIds:
+        cbbrAgencyCategoryResponseIds === null
+          ? undefined
+          : cbbrAgencyCategoryResponseIds
+              .split(",")
+              .map((item) => parseInt(item)),
+      cbbrNeedGroupId:
+        cbbrNeedGroupId === null ? undefined : parseInt(cbbrNeedGroupId),
+      cbbrPolicyAreaId:
+        cbbrPolicyAreaId === null ? undefined : parseInt(cbbrPolicyAreaId),
+      agencyInitials:
+        cbbrAgencyInitials === null ? undefined : cbbrAgencyInitials,
       limit: itemsPerPage,
       offset: cbbrOffset,
     },
@@ -98,9 +127,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const agencyBudget = url.searchParams.get("agencyBudget");
   const commitmentsTotalMin = url.searchParams.get("commitmentsTotalMin");
   const commitmentsTotalMax = url.searchParams.get("commitmentsTotalMax");
-  const districtType = url.searchParams.get("districtType");
-  const boroughId = url.searchParams.get("boroughId");
-  const districtId = url.searchParams.get("districtId");
   const capitalProjectsPromise = findCapitalProjects(
     {
       ...(boroughId !== null && districtId !== null && districtType === "cd"

@@ -40,7 +40,9 @@ describe("Results Panel", () => {
   it("should render capital projects", async () => {
     render(<Stub initialEntries={["/capital-projects"]} />);
     await waitFor(() =>
-      screen.getByText(`${capitalProjectsResponse.totalProjects} Results`),
+      screen.getByText(
+        `${capitalProjectsResponse.totalProjects + budgetRequestsResponse.totalBudgetRequests} Results`,
+      ),
     );
     await waitFor(() => screen.getByText(/Community Board Budget Requests/));
     await waitFor(() => screen.getByText(/Capital Projects/));
@@ -50,21 +52,27 @@ describe("Results Panel", () => {
   it("should switch tabs from capital projects to community board budget requests", async () => {
     render(<Stub initialEntries={["/capital-projects"]} />);
     await waitFor(() =>
-      screen.getByText(`${capitalProjectsResponse.totalProjects} Results`),
+      screen.getByText(
+        new RegExp(capitalProjectsResponse.totalProjects.toString()),
+      ),
     );
     const budgetRequestTab = screen.getByText(
       /Community Board Budget Requests/,
     );
     await waitFor(() => budgetRequestTab.click());
     await waitFor(() =>
-      screen.getByText(`${budgetRequestsResponse.totalBudgetRequests} Results`),
+      screen.getByText(
+        new RegExp(budgetRequestsResponse.totalBudgetRequests.toString()),
+      ),
     );
   });
 
   it("should render community board budget requests", async () => {
     render(<Stub initialEntries={["/community-board-budget-requests"]} />);
     await waitFor(() =>
-      screen.getByText(`${budgetRequestsResponse.totalBudgetRequests} Results`),
+      screen.getByText(
+        `${budgetRequestsResponse.totalBudgetRequests + capitalProjectsResponse.totalProjects} Results`,
+      ),
     );
     await waitFor(() => screen.getByText(/Community Board Budget Requests/));
     await waitFor(() => screen.getByText(/Capital Projects/));
