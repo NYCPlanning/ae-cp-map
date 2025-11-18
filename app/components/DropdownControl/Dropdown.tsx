@@ -13,7 +13,7 @@ export interface DropdownControlProps {
   onFormLabelClick?: () => void;
   isSelectDisabled?: boolean;
   onSelectValueChange?: (value: null | string) => void;
-  selectValue?: null | string;
+  selectValue?: null | string | number;
   fontWeight?: TypographyProps["fontWeight"];
   placeholder?: string;
   marginBottom?: SpacerProps["marginBottom"];
@@ -52,7 +52,7 @@ export function DropdownControl({
           )
         }
         handleCancel={() => onSelectValueChange(null)}
-        value={selectValue ?? ""}
+        value={selectValue !== null ? selectValue : ""}
         textOverflow={"ellipsis"}
         color="gray.600"
         borderColor="gray.600"
