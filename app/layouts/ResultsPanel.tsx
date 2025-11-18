@@ -10,6 +10,7 @@ import {
   useLoaderData,
   useLocation,
   useNavigate,
+  useNavigation,
   useSearchParams,
 } from "react-router";
 import {
@@ -41,6 +42,10 @@ import { useState, useEffect } from "react";
 import { analytics } from "~/utils/analytics";
 import { formatFiscalYearRange } from "~/utils/utils";
 import { ContentPanelAccordion } from "../components/ContentPanelAccordion";
+import {
+  CapitalProjectListItemSkeleton,
+  CommunityBoardBudgetRequestListItemSkeleton,
+} from "~/components/Skeletons";
 export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 import { ExportDataModal } from "../components/ExportDataModal";
 import { NoResultsWarning } from "~/components/NoResultsWarning";
@@ -162,6 +167,8 @@ export default function ResultsPanel() {
   const [tabIndex, setTabIndex] = useState(() =>
     urlPaths.findIndex((path) => `/${path}` === pathname),
   );
+  const navigation = useNavigation();
+  const isNavigating = Boolean(navigation.location);
 
   useEffect(() => {
     setTabIndex(urlPaths.findIndex((path) => `/${path}` === pathname));
@@ -225,7 +232,13 @@ export default function ResultsPanel() {
               {capitalProjects.length === 0 ? (
                 <NoResultsWarning />
               ) : (
-                capitalProjects.map((capitalProject) => {
+                capitalProjects.map((capitalProject, index) => {
+                  if (isNavigating)
+                    return (
+                      <CapitalProjectListItemSkeleton
+                        key={`capitalproject${index}`}
+                      />
+                    );
                   return (
                     <Card
                       key={`${capitalProject.managingCode}${capitalProject.id}`}
@@ -247,12 +260,12 @@ export default function ResultsPanel() {
                       }}
                     >
                       <CardBody
-                        marginRight={"1.5rem"}
+                        marginRight={6}
                         width={"100%"}
                         display={"flex"}
                         justifyContent={"space-between"}
                       >
-                        <Flex direction={"column"} marginRight={"0.5rem"}>
+                        <Flex direction={"column"} marginRight={2}>
                           <Heading fontSize={"sm"} fontWeight={"bold"}>
                             {capitalProject.description}
                           </Heading>
@@ -285,7 +298,14 @@ export default function ResultsPanel() {
               {communityBoardBudgetRequests.length === 0 ? (
                 <NoResultsWarning />
               ) : (
-                communityBoardBudgetRequests.map((budgetRequest) => {
+                communityBoardBudgetRequests.map((budgetRequest, index) => {
+                  if (isNavigating)
+                    return (
+                      <CommunityBoardBudgetRequestListItemSkeleton
+                        key={`cbbr${index}`}
+                      />
+                    );
+
                   const PolicyAreaIcon =
                     budgetRequest.cbbrPolicyAreaId in policyAreaIcons
                       ? policyAreaIcons[budgetRequest.cbbrPolicyAreaId]
@@ -312,7 +332,7 @@ export default function ResultsPanel() {
                     >
                       <Flex direction={"row"}>
                         <PolicyAreaIcon boxSize={10} />
-                        <CardBody marginLeft={"1.25rem"} marginRight={"1.5rem"}>
+                        <CardBody marginLeft={5} marginRight={6}>
                           <Heading fontSize={"sm"} fontWeight={"bold"}>
                             {budgetRequest.title}
                             {budgetRequest.isContinuedSupport ? "*" : ""}
@@ -338,7 +358,7 @@ export default function ResultsPanel() {
         alignItems="center"
         justifyContent="space-between"
         marginTop="auto"
-        marginBottom={{ base: "1rem", md: "0rem" }}
+        marginBottom={{ base: 4, md: 0 }}
         borderTopWidth="1px"
         borderColor="gray.300"
       >
