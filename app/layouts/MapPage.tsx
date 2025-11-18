@@ -5,23 +5,28 @@ import {
   useOutletContext,
   LoaderFunctionArgs,
 } from "react-router";
-import {
-  Atlas,
-  INITIAL_VIEW_STATE,
-  MAX_ZOOM,
-  MIN_ZOOM,
-} from "../components/atlas.client";
+import { Atlas, MAX_ZOOM, MIN_ZOOM } from "../components/atlas.client";
 import {
   findBoroughs,
   findCityCouncilDistricts,
   findCommunityDistrictsByBoroughId,
   findAgencyBudgets,
   findCapitalProjectManagingAgencies,
+  findCommunityBoardBudgetRequestPolicyAreas,
+  findCommunityBoardBudgetRequestNeedGroups,
+  findCommunityBoardBudgetRequestAgencies,
+  findCommunityBoardBudgetRequestAgencyCategoryResponses,
 } from "../gen";
 import { FilterMenu } from "../components/FilterMenu";
 import { SearchByAttributeMenu } from "../components/SearchByAttributeMenu";
 import { env } from "../utils/env";
-import { BoroughId, DistrictType } from "../utils/types";
+import {
+  BoroughId,
+  CommunityBoardBudgetRequestAgencyCategoryResponseId,
+  CommunityBoardBudgetRequestNeedGroupId,
+  CommunityBoardBudgetRequestPolicyAreaId,
+  DistrictType,
+} from "../utils/types";
 import { HowToUseThisTool } from "../components/AdminDropdownContent/HowToUseThisTool";
 import { MapLayersPanel } from "../components/AdminMapLayersPanel";
 import {
@@ -32,11 +37,26 @@ import { CommunityBoardBudgetRequestLegend } from "../components/CommunityBoardB
 import { useUpdateSearchParams } from "../utils/utils";
 import type { RootContextType } from "../root";
 import { MapViewControls } from "~/components/MapViewControls";
+import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const districtType = url.searchParams.get("districtType") as DistrictType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
+  const cbbrNeedGroupId = url.searchParams.get(
+    "cbbrNeedGroupId",
+  ) as CommunityBoardBudgetRequestNeedGroupId;
+  const cbbrPolicyAreaId = url.searchParams.get(
+    "cbbrPolicyAreaId",
+  ) as CommunityBoardBudgetRequestPolicyAreaId;
+  const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
+  const cbbrAgencyCategoryResponseIdsParam = url.searchParams.get(
+    "cbbrAgencyCategoryResponseIds",
+  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  const cbbrAgencyCategoryResponseIds =
+    cbbrAgencyCategoryResponseIdsParam === null
+      ? []
+      : cbbrAgencyCategoryResponseIdsParam.split(",");
 
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
@@ -45,6 +65,47 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { agencyBudgets } = await findAgencyBudgets({
     baseURL: `${env.zoningApiUrl}/api`,
   });
+
+  const { cbbrPolicyAreas } = await findCommunityBoardBudgetRequestPolicyAreas(
+    {
+      cbbrNeedGroupId:
+        cbbrNeedGroupId !== null ? parseInt(cbbrNeedGroupId) : undefined,
+      agencyInitials:
+        cbbrAgencyInitials !== null ? cbbrAgencyInitials : undefined,
+    },
+    {
+      baseURL: `${env.zoningApiUrl}/api`,
+    },
+  );
+
+  const { cbbrNeedGroups } = await findCommunityBoardBudgetRequestNeedGroups(
+    {
+      cbbrPolicyAreaId:
+        cbbrPolicyAreaId !== null ? parseInt(cbbrPolicyAreaId) : undefined,
+      agencyInitials:
+        cbbrAgencyInitials !== null ? cbbrAgencyInitials : undefined,
+    },
+    {
+      baseURL: `${env.zoningApiUrl}/api`,
+    },
+  );
+
+  const { cbbrAgencies } = await findCommunityBoardBudgetRequestAgencies(
+    {
+      cbbrNeedGroupId:
+        cbbrNeedGroupId !== null ? parseInt(cbbrNeedGroupId) : undefined,
+      cbbrPolicyAreaId:
+        cbbrPolicyAreaId !== null ? parseInt(cbbrPolicyAreaId) : undefined,
+    },
+    {
+      baseURL: `${env.zoningApiUrl}/api`,
+    },
+  );
+
+  const { cbbrAgencyCategoryResponses } =
+    await findCommunityBoardBudgetRequestAgencyCategoryResponses({
+      baseURL: `${env.zoningApiUrl}/api`,
+    });
 
   if (districtType === "cd") {
     const { boroughs } = await findBoroughs({
@@ -58,6 +119,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cityCouncilDistricts: null,
         managingAgencies,
         agencyBudgets,
+        cbbrPolicyAreas,
+        cbbrNeedGroups,
+        cbbrAgencies,
+        cbbrAgencyCategoryResponses,
+        cbbrAgencyCategoryResponseIds,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -73,6 +139,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cityCouncilDistricts: null,
         managingAgencies,
         agencyBudgets,
+        cbbrPolicyAreas,
+        cbbrNeedGroups,
+        cbbrAgencies,
+        cbbrAgencyCategoryResponses,
+        cbbrAgencyCategoryResponseIds,
       };
     }
   }
@@ -87,6 +158,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       cityCouncilDistricts,
       managingAgencies,
       agencyBudgets,
+      cbbrPolicyAreas,
+      cbbrNeedGroups,
+      cbbrAgencies,
+      cbbrAgencyCategoryResponses,
+      cbbrAgencyCategoryResponseIds,
     };
   }
 
@@ -96,6 +172,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     cityCouncilDistricts: null,
     managingAgencies,
     agencyBudgets,
+    cbbrPolicyAreas,
+    cbbrNeedGroups,
+    cbbrAgencies,
+    cbbrAgencyCategoryResponses,
+    cbbrAgencyCategoryResponseIds,
   };
 };
 
@@ -111,6 +192,11 @@ export default function MapPage() {
     cityCouncilDistricts,
     managingAgencies,
     agencyBudgets,
+    cbbrPolicyAreas,
+    cbbrNeedGroups,
+    cbbrAgencies,
+    cbbrAgencyCategoryResponses,
+    cbbrAgencyCategoryResponseIds,
   } = useLoaderData<typeof loader>();
 
   const clearCapitalProjectFilters = () => {
@@ -119,6 +205,15 @@ export default function MapPage() {
       agencyBudget: null,
       commitmentsTotalMin: null,
       commitmentsTotalMax: null,
+    });
+  };
+
+  const clearCbbrProjectFilters = () => {
+    updateSearchParams({
+      cbbrPolicyAreaId: null,
+      cbbrNeedGroupId: null,
+      cbbrAgencyInitials: null,
+      cbbrAgencyCategoryResponseIds: null,
     });
   };
 
@@ -187,6 +282,14 @@ export default function MapPage() {
                   onClear={clearCapitalProjectFilters}
                 />
                 <CommunityBoardBudgetRequestLayerToggle />
+                <SearchByCbbrMenu
+                  cbbrPolicyAreas={cbbrPolicyAreas}
+                  cbbrNeedGroups={cbbrNeedGroups}
+                  cbbrAgencies={cbbrAgencies}
+                  cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
+                  cbbrAgencyCategoryResponseIds={cbbrAgencyCategoryResponseIds}
+                  onClear={clearCbbrProjectFilters}
+                />
                 <CommunityBoardBudgetRequestLegend />
               </Box>
             </MapLayersPanel>
