@@ -14,24 +14,38 @@ export type IconClusterLayerPickingInfo<DataT> = PickingInfo<
   { objects?: DataT[] }
 >;
 
-function getIconName(size: number): string {
+const policyAreaIconsMap: Record<number, string> = {
+  1: "health",
+  2: "education",
+  3: "safety",
+  4: "infrastructure",
+  5: "housing",
+  6: "transportation",
+  7: "parks",
+  8: "other",
+};
+
+function getIconName(d: any): string {
+  // console.log({ d });
+
+  if (!d.properties.point_count) {
+    return `marker-${policyAreaIconsMap[d.properties.policyAreaId]}`;
+  }
+  const size = d.properties.point_count;
   if (size === 0) {
-    return "";
+    return `marker-1`;
   }
   if (size < 10) {
     return `marker-${size}`;
   }
-  if (size < 100) {
+  if (size < 150) {
     return `marker-${Math.floor(size / 10)}0`;
   }
-  return "marker-100";
+  return "marker-150";
 }
 
 function getIconSize(size: number): number {
-  // console.log({ size });
-  return Math.min(100, size) / 100 + 1;
-  // return size / 100 + 1;
-  // return Math.min(500, size) / 100 + 1;
+  return Math.min(150, size) / 100 + 1;
 }
 
 export class IconClusterLayer<
@@ -49,7 +63,6 @@ export class IconClusterLayer<
   }
 
   onClick(info: PickingInfo, pickingEvent): boolean {
-    // console.log("onclick");
     if (this.props.onClick) {
       return this.props.onClick(info, pickingEvent) || false;
     }
@@ -58,36 +71,53 @@ export class IconClusterLayer<
 
   updateState({ props, oldProps, changeFlags }: UpdateParameters<this>) {
     // console.log({ props });
-    const rebuildIndex =
-      changeFlags.dataChanged || props.sizeScale !== oldProps.sizeScale;
+
     // const rebuildIndex = true;
     // console.log({ scale: this.parent?.internalState?.viewport?.scale });
 
     // console.log({ sizeScale: props.sizeScale });
     // console.log({ rebuildIndex });
+    // console.log({ zoom: this.context.viewport.zoom });
     const z = Math.floor(this.context.viewport.zoom);
-    const zoomScale = z / 10;
+    // const z = Math.round(this.context.viewport.zoom*10)/10;
+
+    const rebuildIndex =
+      changeFlags.dataChanged ||
+      props.sizeScale !== oldProps.sizeScale ||
+      z !== this.state.z;
+    const minZoom = 10;
+    const maxZoom = 15;
+    // const zoomScale = z / 10;
+    const zoomScale = (z - minZoom) / (maxZoom - minZoom);
     // console.log({ z });
-    const minRadius = 500;
-    const radius = minRadius * zoomScale;
+    const minRadius = 192;
+    const maxRadius = 2056;
+    const radius = (maxRadius - minRadius) * zoomScale + minRadius;
     // console.log({ radius, z });
     // const scale = this.parent?.internalState?.viewport?.scale;
     // const extent = scale ? scale / 2 : 512;
-
+    // Max zoom: 15
+    // radius at zoom 10: 192
+    // radius at zoom 15: 2056
     if (rebuildIndex) {
       const index = new Supercluster<DataT, DataT>({
-        maxZoom: 16,
-        radius: 128,
+        maxZoom: 15,
+        radius: radius,
         extent: 512,
+        reduce: (accumulated, props) => {
+          // console.log({ accumulated, props });
+          accumulated["sum"] += props.sum;
+        },
       });
       index.load(
         // @ts-ignore Supercluster expects proper GeoJSON feature
         (props.data as DataT[])
           .map((d) => {
-            console.log({ properties: d.__source.object.properties });
+            // console.log({ properties: d.__source.object.properties });
             return {
               geometry: { coordinates: (props.getPosition as Function)(d) },
-              properties: { ...d, ...d.__source.object.properties },
+              // properties: { ...d, ...d.__source.object.properties },
+              properties: d.__source.object.properties,
             };
           })
           .filter(
@@ -174,9 +204,6 @@ export class IconClusterLayer<
         objects = this.state.index
           .getLeaves(pickedObject.properties.cluster_id, 25)
           .map((f) => f.properties);
-        if (objects.length === 2) {
-          console.log({ objects });
-        }
       }
 
       // console.count("ONE");
@@ -199,8 +226,7 @@ export class IconClusterLayer<
         sizeScale,
         getPosition: (d) => d.geometry.coordinates as [number, number],
         getIcon: function (d) {
-          // console.log({ d });
-          // console.log({ context: this });
+          return getIconName(d);
           return getIconName(
             d.properties.cluster ? d.properties.point_count : 1,
           );

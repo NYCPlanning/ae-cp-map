@@ -63,9 +63,9 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     // getIconSize: 20,
     iconSizeScale: 40,
     onClick: function (data, event) {
-      console.log({ context: this });
-      console.log({ data, event });
-      console.log({ viewport: data.viewport });
+      // console.log({ context: this });
+      // console.log({ data, event });
+      // console.log({ viewport: data.viewport });
       const { object } = data;
       opts?.zoomToCluster(
         object.properties.expansionZoom,
@@ -73,10 +73,8 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
         object.geometry.coordinates[0],
       );
     },
-    iconAtlas:
-      "https://raw.githubusercontent.com/visgl/deck.gl/master/examples/website/icon/data/location-icon-atlas.png",
-    iconMapping:
-      "https://raw.githubusercontent.com/visgl/deck.gl/master/examples/website/icon/data/location-icon-mapping.json",
+    iconAtlas: "icon-atlas.png",
+    iconMapping: "icon-mapping.json",
     // iconSizeMinPixels: 50,
     // getIcon: (d: any) => {
     //   const icon = policyAreaIconsMap[d.properties.policyAreaId];

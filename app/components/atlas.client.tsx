@@ -78,7 +78,14 @@ export function Atlas({
     <DeckGL<MapView>
       viewState={viewState}
       onViewStateChange={({ viewState: newViewState, interactionState }) => {
-        if (interactionState.isZooming) {
+        // If the view state is in transition, or if the isZooming flag is false, set the new
+        // view state normally. Otherwise, set transitionDuration to 0 to fix trackpad scrolling bug
+        if (
+          (interactionState.inTransition &&
+            newViewState.transitionDuration &&
+            newViewState.transitionDuration !== "auto") ||
+          !interactionState.isZooming
+        ) {
           setViewState({
             ...newViewState,
             longitude:
@@ -95,7 +102,6 @@ export function Atlas({
             bearing: newViewState.bearing,
             pitch: 0,
             zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
-            transitionDuration: 0,
           });
         } else {
           setViewState({
@@ -114,6 +120,7 @@ export function Atlas({
             bearing: newViewState.bearing,
             pitch: 0,
             zoom: Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, newViewState.zoom)),
+            transitionDuration: 0,
           });
         }
       }}
