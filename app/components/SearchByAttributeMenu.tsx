@@ -9,7 +9,7 @@ import { AgencyDropdown, ProjectTypeDropdown } from "./DropdownControl";
 import { ProjectAmountMenu } from "./ProjectAmountMenu";
 import { ClearFilterBtn } from "./ClearFilter";
 import {
-  ManagingAgencyAcronym,
+  ManagingAgencyInitials,
   AgencyBudgetType,
   CommitmentsTotalMax,
   CommitmentsTotalMin,
@@ -26,7 +26,7 @@ export const SearchByAttributeMenu = ({
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const managingAgency = searchParams.get(
     "managingAgency",
-  ) as ManagingAgencyAcronym;
+  ) as ManagingAgencyInitials;
   const agencyBudget = searchParams.get("agencyBudget") as AgencyBudgetType;
   const commitmentsTotalMin = searchParams.get(
     "commitmentsTotalMin",

@@ -14,7 +14,6 @@ import {
 import type { MapView, MapViewState } from "@deck.gl/core";
 import { env } from "~/utils/env";
 
-
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
 const { basemapUrl } = env;
@@ -93,9 +92,7 @@ export function Atlas({
         return isHovering ? "pointer" : "grab";
       }}
     >
-      <Map
-        mapStyle={`${basemapUrl}/styles/positron/style.json`}
-      ></Map>
+      <Map mapStyle={`${basemapUrl}/styles/positron/style.json`}></Map>
     </DeckGL>
   );
 }
