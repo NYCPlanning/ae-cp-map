@@ -1,0 +1,30 @@
+name: Bug Report
+description: File a bug report.
+title: "[Bug]: "
+projects: ["NYCPlanning/35"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened? What did you expect to happen?
+      description: Including screenshots is helpful. If you do include them, please screenshot the whole app, not just the section where you see your bug.
+      placeholder: Please describe the bug here
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Which operating system are you using?
+      options:
+        - Windows
+        - MacOS
