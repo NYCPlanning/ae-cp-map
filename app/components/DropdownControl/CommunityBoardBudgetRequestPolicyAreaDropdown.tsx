@@ -33,7 +33,7 @@ export function CommunityBoardBudgetRequestPolicyAreaDropdown({
       selectValue={selectValue}
       onSelectValueChange={updateCbbrPolicyArea}
       fontWeight="700"
-      placeholder="--All community board budget request policy areas--"
+      placeholder="--All areas--"
       marginBottom={4}
     >
       {cbbrPolicyAreaOptions}
