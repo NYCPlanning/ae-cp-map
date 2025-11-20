@@ -32,7 +32,7 @@ export function CommunityBoardBudgetRequestNeedGroupDropdown({
       selectValue={selectValue}
       onSelectValueChange={updateCbbrNeedGroup}
       fontWeight="700"
-      placeholder="--All community board budget request need groups--"
+      placeholder="--All need groups--"
       marginBottom={4}
     >
       {cbbrNeedGroupOptions}
