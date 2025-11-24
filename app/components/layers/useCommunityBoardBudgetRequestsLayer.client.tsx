@@ -173,7 +173,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       highlightedFeatureId: [hoveredCbbr],
     },
     onHover: (data) => {
-      const id = data.object?.properties?.id;
+      const id = data.object?.properties;
       if (data.index === -1) {
         setHoveredOverCbbr(null);
       } else if (id) {
@@ -200,6 +200,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         needGroupId,
         policyAreaId,
         agencyCategoryReponseId,
+        layerName,
       } = d.properties;
 
       return [
@@ -207,6 +208,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         needGroupId,
         policyAreaId,
         agencyCategoryReponseId,
+        layerName,
       ];
     },
     filterCategories: [
@@ -216,10 +218,11 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       cbbrAgencyCategoryResponseIds.length > 0
         ? cbbrAgencyCategoryResponseIds
         : fullAgencyCategoryResponseList,
+      ["community-board-budget-request-fill"],
     ],
     extensions: [
       new DataFilterExtension({
-        categorySize: 4,
+        categorySize: 5,
       }),
     ],
   });

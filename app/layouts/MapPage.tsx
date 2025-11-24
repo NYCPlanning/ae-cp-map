@@ -16,6 +16,7 @@ import {
   findCommunityBoardBudgetRequestNeedGroups,
   findCommunityBoardBudgetRequestAgencies,
   findCommunityBoardBudgetRequestAgencyCategoryResponses,
+  findCommunityBoardBudgetRequests,
 } from "../gen";
 import { FilterMenu } from "../components/FilterMenu";
 import { SearchByAttributeMenu } from "../components/SearchByAttributeMenu";

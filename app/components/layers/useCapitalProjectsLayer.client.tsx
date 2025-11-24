@@ -116,8 +116,7 @@ export function useCapitalProjectsLayer(opts: {
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
     onHover: (data) => {
-      const managingCodeCapitalProjectId =
-        data.object?.properties?.managingCodeCapitalProjectId;
+      const managingCodeCapitalProjectId = data.object?.properties;
       if (data.index === -1) {
         setHoveredOverProject(null);
       } else if (managingCodeCapitalProjectId) {
