@@ -5,7 +5,7 @@ import { CbbrCheckbox } from "./CbbrCheckbox";
 
 export interface CommunityBoardBudgetRequestAgencyCategoryResponseProps {
   cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
-  selectedId: CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  selectedIds: Array<CommunityBoardBudgetRequestAgencyCategoryResponseId>;
   onCheckedChange: (
     value: CommunityBoardBudgetRequestAgencyCategoryResponseId,
   ) => void;
@@ -13,7 +13,7 @@ export interface CommunityBoardBudgetRequestAgencyCategoryResponseProps {
 
 export function CbbrAgencyCategoryResponseCheckbox({
   cbbrAgencyCategoryResponses,
-  selectedId,
+  selectedIds,
   onCheckedChange = () => null,
 }: CommunityBoardBudgetRequestAgencyCategoryResponseProps) {
   console.debug("cbbrAgencyCategoryResponses", cbbrAgencyCategoryResponses);
@@ -27,7 +27,7 @@ export function CbbrAgencyCategoryResponseCheckbox({
     >
       {cbbrAgencyCategoryResponses?.map((cbbrACR) => {
         const id = String(cbbrACR.id);
-        const isChecked = selectedId === id;
+        const isChecked = selectedIds.includes(id);
 
         return (
           <CbbrCheckbox

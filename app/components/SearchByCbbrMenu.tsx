@@ -51,9 +51,14 @@ export const SearchByCbbrMenu = ({
   const cbbrAgencyInitials = searchParams.get(
     "cbbrAgencyInitials",
   ) as CommunityBoardBudgetRequestAgencyInitials;
-  const cbbrAgencyCategoryResponseId = searchParams.get(
-    "cbbrAgencyCategoryResponseId",
-  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
+    "cbbrAgencyCategoryResponseIds",
+  );
+
+  const cbbrAgencyCategoryResponseIds =
+    cbbrAgencyCategoryResponseIdsParam === null
+      ? []
+      : cbbrAgencyCategoryResponseIdsParam.split(",");
 
   const appliedFilters: number[] = [
     cbbrPolicyAreaId !== null ? 1 : 0,
@@ -122,10 +127,10 @@ export const SearchByCbbrMenu = ({
             />
             <CbbrAgencyCategoryResponseCheckbox
               cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
-              selectedId={cbbrAgencyCategoryResponseId}
+              selectedIds={cbbrAgencyCategoryResponseIds}
               onCheckedChange={(value) => {
                 updateSearchParams({
-                  cbbrAgencyCategoryResponseId: value,
+                  cbbrAgencyCategoryResponseIds: value,
                 });
               }}
             />

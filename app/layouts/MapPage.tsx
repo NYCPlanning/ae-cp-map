@@ -55,8 +55,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     "cbbrPolicyAreaId",
   ) as CommunityBoardBudgetRequestPolicyAreaId;
   const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
-  const cbbrAgencyCategoryResponseId = url.searchParams.get(
-    "cbbrAgencyCategoryResponseId",
+  const cbbrAgencyCategoryResponseIds = url.searchParams.get(
+    "cbbrAgencyCategoryResponseIds",
   ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
 
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
@@ -209,7 +209,7 @@ export default function MapPage() {
       cbbrPolicyAreaId: null,
       cbbrNeedGroupId: null,
       cbbrAgencyInitials: null,
-      cbbrAgencyCategoryResponseId: null, // not right! must come back to this
+      cbbrAgencyCategoryResponseIds: null, // not right! must come back to this
     });
   };
 

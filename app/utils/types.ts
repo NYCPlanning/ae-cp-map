@@ -26,21 +26,10 @@ export type AttributeParams = {
   agencyBudget: AgencyBudgetType;
   commitmentsTotalMin: CommitmentsTotalMin;
   commitmentsTotalMax: CommitmentsTotalMax;
-  cbbrPolicyAreaId?: CommunityBoardBudgetRequestPolicyAreaId;
-  cbbrNeedGroupId?: CommunityBoardBudgetRequestNeedGroupId;
-  cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
-  cbbrAgencyCategoryResponseId?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
-};
-
-export type AttributeQueryParams = {
-  managingAgency?: ManagingAgencyInitials;
-  agencyBudget?: AgencyBudgetType;
-  commitmentsTotalMin?: CommitmentsTotalMin;
-  commitmentsTotalMax?: CommitmentsTotalMax;
-  cbbrPolicyAreaId?: CommunityBoardBudgetRequestPolicyAreaId;
-  cbbrNeedGroupId?: CommunityBoardBudgetRequestNeedGroupId;
-  cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
-  cbbrAgencyCategoryResponseId?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  cbbrPolicyAreaId: CommunityBoardBudgetRequestPolicyAreaId;
+  cbbrNeedGroupId: CommunityBoardBudgetRequestNeedGroupId;
+  cbbrAgencyInitials: CommunityBoardBudgetRequestAgencyInitials;
+  cbbrAgencyCategoryResponseIds: CommunityBoardBudgetRequestAgencyCategoryResponseId;
 };
 
 export type PaginationQueryParams = {
