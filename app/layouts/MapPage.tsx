@@ -38,6 +38,7 @@ import { useUpdateSearchParams } from "../utils/utils";
 import type { RootContextType } from "../root";
 import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
+import { useState } from "react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -185,6 +186,7 @@ export default function MapPage() {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
   const showCbbr = searchParams.get("cbbr") !== "off";
+  const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
 
   const {
     boroughs,
@@ -231,6 +233,8 @@ export default function MapPage() {
           setViewState={(MapViewState) => setViewState(MapViewState)}
           showCapitalProjects={showCapitalProjects}
           showCbbr={showCbbr}
+          hoveredOverItem={hoveredOverItem}
+          setHoveredOverItem={setHoveredOverItem}
         />{" "}
       </GridItem>
       <GridItem
@@ -358,7 +362,7 @@ export default function MapPage() {
           padding={4}
           boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
         >
-          <Outlet />
+          <Outlet context={{ hoveredOverItem, setHoveredOverItem }} />
         </Flex>
       </GridItem>
     </>
