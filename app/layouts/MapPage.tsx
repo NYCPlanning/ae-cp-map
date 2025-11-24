@@ -20,12 +20,14 @@ import {
   findCommunityBoardBudgetRequestPolicyAreas,
   findCommunityBoardBudgetRequestNeedGroups,
   findCommunityBoardBudgetRequestAgencies,
+  findCommunityBoardBudgetRequestAgencyCategoryResponses,
 } from "../gen";
 import { FilterMenu } from "../components/FilterMenu";
 import { SearchByAttributeMenu } from "../components/SearchByAttributeMenu";
 import { env } from "../utils/env";
 import {
   BoroughId,
+  CommunityBoardBudgetRequestAgencyCategoryResponseId,
   CommunityBoardBudgetRequestNeedGroupId,
   CommunityBoardBudgetRequestPolicyAreaId,
   DistrictType,
@@ -53,6 +55,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     "cbbrPolicyAreaId",
   ) as CommunityBoardBudgetRequestPolicyAreaId;
   const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
+  const cbbrAgencyCategoryResponseId = url.searchParams.get(
+    "cbbrAgencyCategoryResponseId",
+  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
 
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
@@ -98,6 +103,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     },
   );
 
+  const { cbbrAgencyCategoryResponses } =
+    await findCommunityBoardBudgetRequestAgencyCategoryResponses({
+      baseURL: `${env.zoningApiUrl}/api`,
+    });
+
   if (districtType === "cd") {
     const { boroughs } = await findBoroughs({
       baseURL: `${env.zoningApiUrl}/api`,
@@ -113,6 +123,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrPolicyAreas,
         cbbrNeedGroups,
         cbbrAgencies,
+        cbbrAgencyCategoryResponses,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -131,6 +142,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrPolicyAreas,
         cbbrNeedGroups,
         cbbrAgencies,
+        cbbrAgencyCategoryResponses,
       };
     }
   }
@@ -148,6 +160,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       cbbrPolicyAreas,
       cbbrNeedGroups,
       cbbrAgencies,
+      cbbrAgencyCategoryResponses,
     };
   }
 
@@ -160,6 +173,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     cbbrPolicyAreas,
     cbbrNeedGroups,
     cbbrAgencies,
+    cbbrAgencyCategoryResponses,
   };
 };
 
@@ -178,6 +192,7 @@ export default function MapPage() {
     cbbrPolicyAreas,
     cbbrNeedGroups,
     cbbrAgencies,
+    cbbrAgencyCategoryResponses,
   } = useLoaderData<typeof loader>();
 
   const clearCapitalProjectFilters = () => {
@@ -194,6 +209,7 @@ export default function MapPage() {
       cbbrPolicyAreaId: null,
       cbbrNeedGroupId: null,
       cbbrAgencyInitials: null,
+      cbbrAgencyCategoryResponseId: null, // not right! must come back to this
     });
   };
 
@@ -264,6 +280,7 @@ export default function MapPage() {
                   cbbrPolicyAreas={cbbrPolicyAreas}
                   cbbrNeedGroups={cbbrNeedGroups}
                   cbbrAgencies={cbbrAgencies}
+                  cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
                   onClear={clearCbbrProjectFilters}
                 />
                 <CommunityBoardBudgetRequestLegend />
