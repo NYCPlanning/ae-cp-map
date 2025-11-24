@@ -8,23 +8,29 @@ import {
 import { useUpdateSearchParams } from "../utils/utils";
 import {
   Agency,
+  CommunityBoardBudgetRequestAgencyCategoryResponse,
   CommunityBoardBudgetRequestNeedGroup,
   CommunityBoardBudgetRequestPolicyArea,
 } from "../gen";
 import {
+  CommunityBoardBudgetRequestAgencyCategoryResponseId,
   CommunityBoardBudgetRequestAgencyInitials,
   CommunityBoardBudgetRequestNeedGroupId,
   CommunityBoardBudgetRequestPolicyAreaId,
 } from "../utils/types";
 import { ClearFilterBtn } from "./ClearFilter";
-import { CommunityBoardBudgetRequestPolicyAreaDropdown } from "./DropdownControl/CommunityBoardBudgetRequestPolicyAreaDropdown";
-import { CommunityBoardBudgetRequestNeedGroupDropdown } from "./DropdownControl/CommunityBoardBudgetRequestNeedGroupDropdown";
-import { CommunityBoardBudgetRequestAgencyDropdown } from "./DropdownControl/CommunityBoardBudgetRequestAgencyDropdown";
+import {
+  CommunityBoardBudgetRequestPolicyAreaDropdown,
+  CommunityBoardBudgetRequestNeedGroupDropdown,
+  CommunityBoardBudgetRequestAgencyDropdown,
+} from "./DropdownControl";
+import { CbbrAgencyCategoryResponseCheckbox } from "./CheckboxControl";
 
 export interface SearchByCbbrMenuProps {
   cbbrPolicyAreas: Array<CommunityBoardBudgetRequestPolicyArea> | null;
   cbbrNeedGroups: Array<CommunityBoardBudgetRequestNeedGroup> | null;
   cbbrAgencies: Array<Agency> | null;
+  cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
   onClear: () => void;
 }
 
@@ -32,6 +38,7 @@ export const SearchByCbbrMenu = ({
   cbbrPolicyAreas,
   cbbrNeedGroups,
   cbbrAgencies,
+  cbbrAgencyCategoryResponses,
   onClear,
 }: SearchByCbbrMenuProps) => {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
@@ -44,6 +51,9 @@ export const SearchByCbbrMenu = ({
   const cbbrAgencyInitials = searchParams.get(
     "cbbrAgencyInitials",
   ) as CommunityBoardBudgetRequestAgencyInitials;
+  const cbbrAgencyCategoryResponseId = searchParams.get(
+    "cbbrAgencyCategoryResponseId",
+  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
 
   const appliedFilters: number[] = [
     cbbrPolicyAreaId !== null ? 1 : 0,
@@ -108,6 +118,15 @@ export const SearchByCbbrMenu = ({
               cbbrAgencies={cbbrAgencies}
               onSelectValueChange={(value) => {
                 updateSearchParams({ cbbrAgencyInitials: value });
+              }}
+            />
+            <CbbrAgencyCategoryResponseCheckbox
+              cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
+              selectedId={cbbrAgencyCategoryResponseId}
+              onCheckedChange={(value) => {
+                updateSearchParams({
+                  cbbrAgencyCategoryResponseId: value,
+                });
               }}
             />
           </AccordionPanel>
