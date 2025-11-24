@@ -11,6 +11,7 @@ import {
   useLocation,
   useNavigate,
   useNavigation,
+  useOutletContext,
   useSearchParams,
 } from "react-router";
 import {
@@ -252,6 +253,10 @@ export default function ResultsPanel() {
     ...(agencyInitials === null ? {} : { agencyInitials }),
   }).toString();
 
+  const { hoveredOverItem, setHoveredOverItem } = useOutletContext<{
+    hoveredOverItem: string;
+    setHoveredOverItem: (newHoveredOverItem: string | null) => void;
+  }>();
   return (
     <ContentPanelAccordion
       accordionHeading={`${totalProjects + totalBudgetRequests} Results`}
@@ -287,11 +292,28 @@ export default function ResultsPanel() {
                   return (
                     <Card
                       key={`${capitalProject.managingCode}${capitalProject.id}`}
+                      backgroundColor={
+                        `${capitalProject.managingCode}${capitalProject.id}` ===
+                        hoveredOverItem
+                          ? "gray.100"
+                          : "gray.50"
+                      }
                       variant={"calm"}
                       direction={"row"}
                       width={"100%"}
                       justifyContent={"space-between"}
-                      _hover={{ cursor: "pointer" }}
+                      _hover={{
+                        cursor: "pointer",
+                        backgroundColor: "gray.100",
+                      }}
+                      onMouseOver={() => {
+                        setHoveredOverItem(
+                          `${capitalProject.managingCode}${capitalProject.id}`,
+                        );
+                      }}
+                      onMouseLeave={() => {
+                        setHoveredOverItem(null);
+                      }}
                       onClick={() => {
                         navigate({
                           search: `?${searchParams.toString()}`,
@@ -358,11 +380,25 @@ export default function ResultsPanel() {
                   return (
                     <Card
                       key={budgetRequest.id}
+                      backgroundColor={
+                        budgetRequest.id === hoveredOverItem
+                          ? "gray.100"
+                          : "gray.50"
+                      }
                       variant={"calm"}
                       direction={"row"}
                       width={"100%"}
                       justifyContent={"space-between"}
-                      _hover={{ cursor: "pointer" }}
+                      _hover={{
+                        cursor: "pointer",
+                        backgroundColor: "gray.100",
+                      }}
+                      onMouseOver={() => {
+                        setHoveredOverItem(`${budgetRequest.id}`);
+                      }}
+                      onMouseLeave={() => {
+                        setHoveredOverItem(null);
+                      }}
                       onClick={() => {
                         navigate({
                           search: `?${searchParams.toString()}`,

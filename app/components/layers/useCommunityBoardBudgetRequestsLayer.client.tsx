@@ -1,17 +1,12 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import {
-  useNavigate,
-  useParams,
-  useLoaderData,
-  useSearchParams,
-} from "react-router";
-import { useState } from "react";
-import { Accessor, Color } from "@deck.gl/core";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 import {
   DataFilterExtension,
   DataFilterExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
+import { useState } from "react";
+import { Accessor, Color } from "@deck.gl/core";
 import {
   BoroughId,
   CommunityBoardBudgetRequestAgencyCategoryResponseId,
@@ -35,10 +30,14 @@ export interface CommunityBoardBudgetRequestProperties {
   cbbrAgencyCategoryResponseId: string;
 }
 
-export function useCommunityBoardBudgetRequestsLayer(opts?: {
+export function useCommunityBoardBudgetRequestsLayer(opts: {
   visible?: boolean;
+  hoveredCbbr: string | null;
+  setHoveredOverCbbr: (newHoveredOverCbbr: string | null) => void;
 }) {
-  const visible = opts?.visible ?? true;
+  const visible = opts.visible ?? true;
+  const hoveredCbbr = opts.hoveredCbbr;
+  const setHoveredOverCbbr = opts.setHoveredOverCbbr;
   const { cbbrId } = useParams();
   const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
@@ -110,6 +109,10 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     Feature<Geometry, CommunityBoardBudgetRequestProperties>,
     Color
   > = [43, 108, 176, 255];
+  const highlightColor: Accessor<
+    Feature<Geometry, CommunityBoardBudgetRequestProperties>,
+    Color
+  > = [255, 255, 255, 100];
 
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
@@ -123,8 +126,10 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     ],
     visible,
     uniqueIdProperty: "id",
-    getFillColor: (d) => {
-      if (clickInfo.id === d.properties.id && clickInfo.clicked) {
+    highlightedFeatureId: hoveredCbbr,
+    getFillColor: ({ properties }) => {
+      const { id } = properties;
+      if (clickInfo.id === id && clickInfo.clicked) {
         return selectedColor;
       } else {
         return defaultColor;
@@ -138,6 +143,8 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
         return 25;
       }
     },
+    autoHighlight: true,
+    highlightColor: highlightColor,
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
     getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
@@ -159,10 +166,17 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
       getIconSize: [clickInfo.id, cbbrId],
       getFillColor: [clickInfo.id, cbbrId],
     },
-    onClick: (d) => {
-      setClickInfo({ id: d.object?.properties?.id, clicked: d.picked });
-
-      const indvidualCbbrId = d.object?.properties?.id;
+    onHover: (data) => {
+      const id = data.object?.properties;
+      if (data.index === -1) {
+        setHoveredOverCbbr(null);
+      } else if (id) {
+        setHoveredOverCbbr(id);
+      }
+    },
+    onClick: (data) => {
+      setClickInfo({ id: data.object?.properties?.id, clicked: data.picked });
+      const indvidualCbbrId = data.object?.properties?.id;
       if (indvidualCbbrId === undefined) return;
       if (indvidualCbbrId === `${cbbrId}`) return;
       const cbbrRouteSuffix = `/community-board-budget-requests/${indvidualCbbrId}`;
@@ -180,6 +194,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
         needGroupId,
         policyAreaId,
         agencyCategoryReponseId,
+        layerName,
       } = d.properties;
 
       return [
@@ -187,6 +202,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
         needGroupId,
         policyAreaId,
         agencyCategoryReponseId,
+        layerName
       ];
     },
     filterCategories: [
@@ -196,10 +212,11 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
       cbbrAgencyCategoryResponseIds.length > 0
         ? cbbrAgencyCategoryResponseIds
         : fullAgencyCategoryResponseList,
+      ["community-board-budget-request-fill"],
     ],
     extensions: [
       new DataFilterExtension({
-        categorySize: 4,
+        categorySize: 5,
       }),
     ],
   });
