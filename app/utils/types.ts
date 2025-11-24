@@ -13,6 +13,7 @@ export type CommitmentTotalInputsAreValid = boolean;
 export type CommunityBoardBudgetRequestPolicyAreaId = null | string;
 export type CommunityBoardBudgetRequestNeedGroupId = null | string;
 export type CommunityBoardBudgetRequestAgencyInitials = string | null;
+export type CommunityBoardBudgetRequestAgencyCategoryResponseId = string | null;
 
 export type AdminQueryParams = {
   districtType?: DistrictType;
@@ -28,6 +29,7 @@ export type AttributeParams = {
   cbbrPolicyAreaId?: CommunityBoardBudgetRequestPolicyAreaId;
   cbbrNeedGroupId?: CommunityBoardBudgetRequestNeedGroupId;
   cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
+  cbbrAgencyCategoryResponseId?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
 };
 
 export type AttributeQueryParams = {
@@ -38,6 +40,7 @@ export type AttributeQueryParams = {
   cbbrPolicyAreaId?: CommunityBoardBudgetRequestPolicyAreaId;
   cbbrNeedGroupId?: CommunityBoardBudgetRequestNeedGroupId;
   cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
+  cbbrAgencyCategoryResponseId?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
 };
 
 export type PaginationQueryParams = {
