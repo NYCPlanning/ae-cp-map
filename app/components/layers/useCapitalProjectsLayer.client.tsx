@@ -28,8 +28,14 @@ export interface CapitalProjectProperties {
   commitmentsTotal: number;
 }
 
-export function useCapitalProjectsLayer(opts?: { visible?: boolean }) {
-  const visible = opts?.visible ?? true;
+export function useCapitalProjectsLayer(opts: {
+  visible?: boolean;
+  hoveredCapitalProject?: string | null;
+  setHoveredOverProject: (newHoveredOverProject: string | null) => void;
+}) {
+  const visible = opts.visible ?? true;
+  const hoveredCapitalProject = opts.hoveredCapitalProject;
+  const setHoveredOverProject = opts.setHoveredOverProject;
   const { managingCode, capitalProjectId } = useParams();
   const [searchParams] = useSearchParams();
   const managingAgency = searchParams.get("managingAgency");
@@ -81,6 +87,7 @@ export function useCapitalProjectsLayer(opts?: { visible?: boolean }) {
     autoHighlight: true,
     visible,
     highlightColor: [129, 230, 217, 218],
+    highlightedFeatureId: hoveredCapitalProject,
     pickable: true,
     getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
       f.properties.commitmentsTotal,
@@ -108,6 +115,15 @@ export function useCapitalProjectsLayer(opts?: { visible?: boolean }) {
     getPointRadius: 5,
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
+    onHover: (data) => {
+      const managingCodeCapitalProjectId =
+        data.object?.properties?.managingCodeCapitalProjectId;
+      if (data.index === -1) {
+        setHoveredOverProject(null);
+      } else if (managingCodeCapitalProjectId) {
+        setHoveredOverProject(managingCodeCapitalProjectId);
+      }
+    },
     onClick: (data) => {
       const managingCodeCapitalProjectId =
         data.object?.properties?.managingCodeCapitalProjectId;
