@@ -25,6 +25,7 @@ import {
   CommunityBoardBudgetRequestAgencyDropdown,
 } from "./DropdownControl";
 import { CbbrAgencyCategoryResponseCheckbox } from "./CheckboxControl";
+import { SEARCH_PARAMS } from "~/utils/params";
 
 export interface SearchByCbbrMenuProps {
   cbbrPolicyAreas: Array<CommunityBoardBudgetRequestPolicyArea> | null;
@@ -42,28 +43,40 @@ export const SearchByCbbrMenu = ({
   onClear,
 }: SearchByCbbrMenuProps) => {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
-  const cbbrPolicyAreaId = searchParams.get(
-    "cbbrPolicyAreaId",
-  ) as CommunityBoardBudgetRequestPolicyAreaId;
-  const cbbrNeedGroupId = searchParams.get(
-    "cbbrNeedGroupId",
-  ) as CommunityBoardBudgetRequestNeedGroupId;
-  const cbbrAgencyInitials = searchParams.get(
-    "cbbrAgencyInitials",
-  ) as CommunityBoardBudgetRequestAgencyInitials;
-  const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
-    "cbbrAgencyCategoryResponseIds",
+  const cbbrPolicyAreaIdParam = searchParams.get(
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.POLICY_AREA_ID.KEY,
   );
-
+  const cbbrPolicyAreaId =
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.POLICY_AREA_ID.PARSER(
+      cbbrPolicyAreaIdParam,
+    );
+  const cbbrNeedGroupIdParam = searchParams.get(
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.NEED_GROUP_ID.KEY,
+  );
+  const cbbrNeedGroupId =
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.NEED_GROUP_ID.PARSER(
+      cbbrNeedGroupIdParam,
+    );
+  const cbbrAgencyInitialsParam = searchParams.get(
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.AGENCY_INITIALS.KEY,
+  );
+  const cbbrAgencyInitials =
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.AGENCY_INITIALS.PARSER(
+      cbbrAgencyInitialsParam,
+    );
+  const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST
+      .AGENCY_RESPONSE_CATEGORY_IDS.KEY,
+  );
   const cbbrAgencyCategoryResponseIds =
-    cbbrAgencyCategoryResponseIdsParam === null
-      ? []
-      : cbbrAgencyCategoryResponseIdsParam.split(",");
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.AGENCY_RESPONSE_CATEGORY_IDS.PARSER(
+      cbbrAgencyCategoryResponseIdsParam,
+    );
 
   const appliedFilters: number[] = [
-    cbbrPolicyAreaId !== null ? 1 : 0,
-    cbbrNeedGroupId !== null ? 1 : 0,
-    cbbrAgencyInitials !== null ? 1 : 0,
+    cbbrPolicyAreaId !== undefined ? 1 : 0,
+    cbbrNeedGroupId !== undefined ? 1 : 0,
+    cbbrAgencyInitials !== undefined ? 1 : 0,
   ];
 
   return (
@@ -129,8 +142,20 @@ export const SearchByCbbrMenu = ({
               cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
               selectedIds={cbbrAgencyCategoryResponseIds}
               onCheckedChange={(value) => {
+                let nextValue;
+                if (cbbrAgencyCategoryResponseIds === undefined) {
+                  nextValue = [value];
+                } else if (cbbrAgencyCategoryResponseIds.includes(value)) {
+                  const removedValue = cbbrAgencyCategoryResponseIds.filter(
+                    (item) => item !== value,
+                  );
+                  nextValue =
+                    removedValue.length === 0 ? undefined : removedValue;
+                } else {
+                  nextValue = cbbrAgencyCategoryResponseIds.concat([value]);
+                }
                 updateSearchParams({
-                  cbbrAgencyCategoryResponseIds: value,
+                  cbbrAgencyCategoryResponseIds: nextValue,
                 });
               }}
             />

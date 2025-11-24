@@ -15,6 +15,7 @@ import {
   CityCouncilDistrictDropdown,
 } from "./DropdownControl";
 import { useUpdateSearchParams, setNewSearchParams } from "~/utils/utils";
+import { SEARCH_PARAMS } from "~/utils/params";
 
 export const FilterMenu = ({
   boroughs,
@@ -24,9 +25,20 @@ export const FilterMenu = ({
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const districtType = searchParams.get("districtType") as DistrictType;
-  const boroughId = searchParams.get("boroughId") as BoroughId;
-  const districtId = searchParams.get("districtId") as DistrictId;
+  const districtTypeParam = searchParams.get(
+    SEARCH_PARAMS.GEOGRAPHY.DISTRICT_TYPE.KEY,
+  );
+  const districtType =
+    SEARCH_PARAMS.GEOGRAPHY.DISTRICT_TYPE.PARSER(districtTypeParam);
+  const boroughIdParam = searchParams.get(
+    SEARCH_PARAMS.GEOGRAPHY.BOROUGH_ID.KEY,
+  );
+  const boroughId = SEARCH_PARAMS.GEOGRAPHY.BOROUGH_ID.PARSER(boroughIdParam);
+  const districtIdParam = searchParams.get(
+    SEARCH_PARAMS.GEOGRAPHY.DISTRICT_ID.KEY,
+  );
+  const districtId =
+    SEARCH_PARAMS.GEOGRAPHY.DISTRICT_ID.PARSER(districtIdParam);
 
   // When a new district is selected while user is on welcome page, update the param
   // and navigate to /capital-projects. Otherwise, just update param.

@@ -5,10 +5,8 @@ import { CbbrCheckbox } from "./CbbrCheckbox";
 
 export interface CommunityBoardBudgetRequestAgencyCategoryResponseProps {
   cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
-  selectedIds: Array<CommunityBoardBudgetRequestAgencyCategoryResponseId>;
-  onCheckedChange: (
-    value: CommunityBoardBudgetRequestAgencyCategoryResponseId,
-  ) => void;
+  selectedIds?: Array<number>;
+  onCheckedChange: (value: number) => void;
 }
 
 export function CbbrAgencyCategoryResponseCheckbox({
@@ -26,8 +24,9 @@ export function CbbrAgencyCategoryResponseCheckbox({
       marginBottom={2}
     >
       {cbbrAgencyCategoryResponses?.map((cbbrACR) => {
-        const id = String(cbbrACR.id);
-        const isChecked = selectedIds.includes(id);
+        const id = cbbrACR.id;
+        const isChecked =
+          selectedIds === undefined ? false : selectedIds.includes(id);
 
         return (
           <CbbrCheckbox
@@ -36,13 +35,7 @@ export function CbbrAgencyCategoryResponseCheckbox({
             checkboxLabel={cbbrACR.description}
             isChecked={isChecked}
             onCheckedChange={(value, checked) => {
-              if (checked) {
-                onCheckedChange(
-                  value as CommunityBoardBudgetRequestAgencyCategoryResponseId,
-                );
-              } else {
-                onCheckedChange(null);
-              }
+              onCheckedChange(value as number);
             }}
           />
         );

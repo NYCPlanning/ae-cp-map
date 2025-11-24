@@ -43,21 +43,40 @@ import { useUpdateSearchParams } from "../utils/utils";
 import type { RootContextType } from "../root";
 import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
+import { SEARCH_PARAMS } from "~/utils/params";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
-  const districtType = url.searchParams.get("districtType") as DistrictType;
-  const boroughId = url.searchParams.get("boroughId") as BoroughId;
-  const cbbrNeedGroupId = url.searchParams.get(
-    "cbbrNeedGroupId",
-  ) as CommunityBoardBudgetRequestNeedGroupId;
-  const cbbrPolicyAreaId = url.searchParams.get(
-    "cbbrPolicyAreaId",
-  ) as CommunityBoardBudgetRequestPolicyAreaId;
-  const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
-  const cbbrAgencyCategoryResponseIds = url.searchParams.get(
-    "cbbrAgencyCategoryResponseIds",
-  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  const districtTypeParam = url.searchParams.get(
+    SEARCH_PARAMS.GEOGRAPHY.DISTRICT_TYPE.KEY,
+  );
+  const districtType =
+    SEARCH_PARAMS.GEOGRAPHY.DISTRICT_TYPE.PARSER(districtTypeParam);
+  const boroughIdParam = url.searchParams.get(
+    SEARCH_PARAMS.GEOGRAPHY.BOROUGH_ID.KEY,
+  );
+  const boroughId = SEARCH_PARAMS.GEOGRAPHY.BOROUGH_ID.PARSER(boroughIdParam);
+  const cbbrNeedGroupIdParam = url.searchParams.get(
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.NEED_GROUP_ID.KEY,
+  );
+  const cbbrNeedGroupId =
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.NEED_GROUP_ID.PARSER(
+      cbbrNeedGroupIdParam,
+    );
+  const cbbrPolicyAreaIdParam = url.searchParams.get(
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.POLICY_AREA_ID.KEY,
+  );
+  const cbbrPolicyAreaId =
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.POLICY_AREA_ID.PARSER(
+      cbbrPolicyAreaIdParam,
+    );
+  const cbbrAgencyInitialsParam = url.searchParams.get(
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.AGENCY_INITIALS.KEY,
+  );
+  const agencyInitials =
+    SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.AGENCY_INITIALS.PARSER(
+      cbbrAgencyInitialsParam,
+    );
 
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
@@ -69,10 +88,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const { cbbrPolicyAreas } = await findCommunityBoardBudgetRequestPolicyAreas(
     {
-      cbbrNeedGroupId:
-        cbbrNeedGroupId !== null ? parseInt(cbbrNeedGroupId) : undefined,
-      agencyInitials:
-        cbbrAgencyInitials !== null ? cbbrAgencyInitials : undefined,
+      cbbrNeedGroupId,
+      agencyInitials,
     },
     {
       baseURL: `${env.zoningApiUrl}/api`,
@@ -81,10 +98,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const { cbbrNeedGroups } = await findCommunityBoardBudgetRequestNeedGroups(
     {
-      cbbrPolicyAreaId:
-        cbbrPolicyAreaId !== null ? parseInt(cbbrPolicyAreaId) : undefined,
-      agencyInitials:
-        cbbrAgencyInitials !== null ? cbbrAgencyInitials : undefined,
+      cbbrPolicyAreaId,
+      agencyInitials,
     },
     {
       baseURL: `${env.zoningApiUrl}/api`,
@@ -93,10 +108,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const { cbbrAgencies } = await findCommunityBoardBudgetRequestAgencies(
     {
-      cbbrNeedGroupId:
-        cbbrNeedGroupId !== null ? parseInt(cbbrNeedGroupId) : undefined,
-      cbbrPolicyAreaId:
-        cbbrPolicyAreaId !== null ? parseInt(cbbrPolicyAreaId) : undefined,
+      cbbrNeedGroupId,
+      cbbrPolicyAreaId,
     },
     {
       baseURL: `${env.zoningApiUrl}/api`,

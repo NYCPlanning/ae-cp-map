@@ -42,10 +42,11 @@ export type LayerParamValue = "off" | undefined;
 
 export type LayerQueryParams = Partial<Record<LayerParamKey, LayerParamValue>>;
 
-export type QueryParams = Partial<
-  AdminQueryParams & AttributeParams & PaginationQueryParams & LayerQueryParams
->;
+// export type QueryParams = Partial<
+//   AdminQueryParams & AttributeParams & PaginationQueryParams & LayerQueryParams
+// >;
 
+export type QueryParams = Record<string, unknown>;
 export type ProjectAmountMenuParams = {
   commitmentsTotalMinInputValue: CommitmentsTotalMinInputValue;
   commitmentsTotalMinSelectValue: CommitmentsTotalMinSelectValue;
