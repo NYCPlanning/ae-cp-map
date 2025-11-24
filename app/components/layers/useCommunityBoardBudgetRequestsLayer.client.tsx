@@ -53,11 +53,14 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
       `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
     ],
     uniqueIdProperty: "id",
+    autoHighlight: true,
     visible,
     pickable: true,
-    getFillColor: [43, 108, 176, 166],
+    getFillColor: [43, 108, 176, 153],
+    highlightColor: [43, 108, 176, 204], 
     pointType: "icon",
     getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
+      console.log('data', d);
       const icon = policyAreaIconsMap[d.properties.policyAreaId];
       return {
         url: `/policy-area-icons/${icon}.svg`,
