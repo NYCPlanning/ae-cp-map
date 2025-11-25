@@ -63,6 +63,9 @@ export const SearchByCbbrMenu = ({
     cbbrPolicyAreaId !== null ? 1 : 0,
     cbbrNeedGroupId !== null ? 1 : 0,
     cbbrAgencyInitials !== null ? 1 : 0,
+    cbbrAgencyCategoryResponseIds !== null
+      ? cbbrAgencyCategoryResponseIds.length
+      : 0,
   ];
 
   return (
