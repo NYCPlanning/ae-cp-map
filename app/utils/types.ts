@@ -29,7 +29,7 @@ export type AttributeParams = {
   cbbrPolicyAreaId?: CommunityBoardBudgetRequestPolicyAreaId;
   cbbrNeedGroupId?: CommunityBoardBudgetRequestNeedGroupId;
   cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
-  cbbrAgencyCategoryResponseId?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  cbbrAgencyCategoryResponseIds?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
 };
 
 export type AttributeQueryParams = {

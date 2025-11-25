@@ -5,12 +5,7 @@ import {
   useOutletContext,
   LoaderFunctionArgs,
 } from "react-router";
-import {
-  Atlas,
-  INITIAL_VIEW_STATE,
-  MAX_ZOOM,
-  MIN_ZOOM,
-} from "../components/atlas.client";
+import { Atlas, MAX_ZOOM, MIN_ZOOM } from "../components/atlas.client";
 import {
   findBoroughs,
   findCityCouncilDistricts,
@@ -55,9 +50,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     "cbbrPolicyAreaId",
   ) as CommunityBoardBudgetRequestPolicyAreaId;
   const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
-  const cbbrAgencyCategoryResponseId = url.searchParams.get(
+  const cbbrAgencyCategoryResponseIdsParam = url.searchParams.get(
     "cbbrAgencyCategoryResponseId",
   ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  const cbbrAgencyCategoryResponseIds =
+    cbbrAgencyCategoryResponseIdsParam === null
+      ? []
+      : cbbrAgencyCategoryResponseIdsParam.split(",");
 
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
@@ -209,7 +208,7 @@ export default function MapPage() {
       cbbrPolicyAreaId: null,
       cbbrNeedGroupId: null,
       cbbrAgencyInitials: null,
-      cbbrAgencyCategoryResponseId: null, // not right! must come back to this
+      cbbrAgencyCategoryResponseIds: null, // not right! must come back to this
     });
   };
 
