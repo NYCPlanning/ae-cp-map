@@ -31,6 +31,7 @@ export interface SearchByCbbrMenuProps {
   cbbrNeedGroups: Array<CommunityBoardBudgetRequestNeedGroup> | null;
   cbbrAgencies: Array<Agency> | null;
   cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
+  cbbrAgencyCategoryResponseIds: Array<CommunityBoardBudgetRequestAgencyCategoryResponseId> | null;
   onClear: () => void;
 }
 
