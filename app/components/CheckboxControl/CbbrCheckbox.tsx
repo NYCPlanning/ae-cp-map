@@ -1,4 +1,4 @@
-import { Checkbox } from "@nycplanning/streetscape";
+import { Checkbox, Text } from "@nycplanning/streetscape";
 import type { TypographyProps } from "@chakra-ui/react";
 
 export interface CbbrCheckboxProps {
@@ -25,8 +25,11 @@ export function CbbrCheckbox({
       colorScheme="gray"
       fontWeight={fontWeight}
       fontSize={fontSize}
+      marginBottom={1.8}
     >
-      {checkboxLabel}
+      <Text fontSize={"sm"} fontWeight={fontWeight}>
+        {checkboxLabel}
+      </Text>
     </Checkbox>
   );
 }
