@@ -51,9 +51,13 @@ export const SearchByCbbrMenu = ({
   const cbbrAgencyInitials = searchParams.get(
     "cbbrAgencyInitials",
   ) as CommunityBoardBudgetRequestAgencyInitials;
-  const cbbrAgencyCategoryResponseId = searchParams.get(
-    "cbbrAgencyCategoryResponseId",
+  const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
+    "cbbrAgencyCategoryResponseIds",
   ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  const cbbrAgencyCategoryResponseIds =
+    cbbrAgencyCategoryResponseIdsParam === null
+      ? []
+      : cbbrAgencyCategoryResponseIdsParam.split(",");
 
   const appliedFilters: number[] = [
     cbbrPolicyAreaId !== null ? 1 : 0,
@@ -122,10 +126,26 @@ export const SearchByCbbrMenu = ({
             />
             <CbbrAgencyCategoryResponseCheckbox
               cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
-              selectedId={cbbrAgencyCategoryResponseId}
+              selectedIds={cbbrAgencyCategoryResponseIds}
               onCheckedChange={(value) => {
+                if (value === null)
+                  throw new Error(
+                    "Unexpected null for agency category response id",
+                  );
+                let nextValue: Array<string> | null;
+                if (cbbrAgencyCategoryResponseIds === null) {
+                  nextValue = [value];
+                } else if (cbbrAgencyCategoryResponseIds.includes(value)) {
+                  const removedValue = cbbrAgencyCategoryResponseIds.filter(
+                    (item) => item !== value,
+                  );
+                  nextValue = removedValue.length === 0 ? null : removedValue;
+                } else {
+                  nextValue = cbbrAgencyCategoryResponseIds.concat([value]);
+                }
                 updateSearchParams({
-                  cbbrAgencyCategoryResponseId: value,
+                  cbbrAgencyCategoryResponseIds:
+                    nextValue === null ? nextValue : String(nextValue),
                 });
               }}
             />
