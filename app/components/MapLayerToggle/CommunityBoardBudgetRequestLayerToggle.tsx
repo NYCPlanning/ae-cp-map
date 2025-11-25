@@ -1,5 +1,6 @@
 import { useUpdateSearchParams } from "~/utils/utils";
 import { MapLayerToggle } from ".";
+import { SEARCH_PARAMS } from "~/utils/params";
 
 export function CommunityBoardBudgetRequestLayerToggle() {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
@@ -7,7 +8,11 @@ export function CommunityBoardBudgetRequestLayerToggle() {
   const cbbrOn = searchParams.get("cbbr") !== "off";
 
   const setCbbr = (next: boolean) =>
-    updateSearchParams({ cbbr: next ? undefined : "off" });
+    updateSearchParams({
+      [SEARCH_PARAMS.LAYER.COMMUNITY_BOARD_BUDGET_REQUEST.KEY]: next
+        ? undefined
+        : "off",
+    });
 
   const capitalProjectsBudgetTooltipCopy = `Every year, boards submit prioritized capital budget requests that address local needs.
     Expense requests are not included in this tool. All capital budget requests, mapped and unmapped, are included.

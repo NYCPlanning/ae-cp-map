@@ -1,24 +1,16 @@
 import { CommunityBoardBudgetRequestNeedGroup } from "../../gen";
-import { CommunityBoardBudgetRequestNeedGroupId } from "../../utils/types";
 import { DropdownControlProps, DropdownControl } from ".";
 
 export interface CommunityBoardBudgetRequestNeedGroupProps
-  extends Pick<DropdownControlProps, "selectValue"> {
+  extends Pick<DropdownControlProps, "selectValue" | "onSelectValueChange"> {
   cbbrNeedGroups: Array<CommunityBoardBudgetRequestNeedGroup> | null;
-  onSelectValueChange?: (value: null | string) => void;
 }
 
 export function CommunityBoardBudgetRequestNeedGroupDropdown({
   selectValue,
   cbbrNeedGroups,
-  onSelectValueChange = () => null,
+  onSelectValueChange,
 }: CommunityBoardBudgetRequestNeedGroupProps) {
-  const updateCbbrNeedGroup = (
-    nextCbbrNeedGroupId: CommunityBoardBudgetRequestNeedGroupId,
-  ) => {
-    onSelectValueChange(nextCbbrNeedGroupId);
-  };
-
   const cbbrNeedGroupOptions = cbbrNeedGroups?.map((cbbrNeedGroup) => (
     <option key={cbbrNeedGroup.id} value={cbbrNeedGroup.id}>
       {cbbrNeedGroup.description}
@@ -30,7 +22,7 @@ export function CommunityBoardBudgetRequestNeedGroupDropdown({
       formLabel="Needs Group"
       isSelectDisabled={cbbrNeedGroups === null}
       selectValue={selectValue}
-      onSelectValueChange={updateCbbrNeedGroup}
+      onSelectValueChange={onSelectValueChange}
       fontWeight="700"
       placeholder="--All need groups--"
       marginBottom={4}

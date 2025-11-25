@@ -17,6 +17,7 @@ import {
 } from "../utils/types";
 import { useUpdateSearchParams } from "~/utils/utils";
 import { Agency, AgencyBudget } from "~/gen";
+import { SEARCH_PARAMS } from "~/utils/params";
 
 export const SearchByAttributeMenu = ({
   agencies,
@@ -83,14 +84,20 @@ export const SearchByAttributeMenu = ({
               selectValue={managingAgency}
               agencies={agencies}
               onSelectValueChange={(value) => {
-                updateSearchParams({ managingAgency: value });
+                updateSearchParams({
+                  [SEARCH_PARAMS.ATTRIBUTE.CAPITAL_PROJECT
+                    .MANAGING_AGENCY_INITIALS.KEY]: value,
+                });
               }}
             />
             <ProjectTypeDropdown
               selectValue={agencyBudget}
               projectTypes={projectTypes}
               onSelectValueChange={(value) => {
-                updateSearchParams({ agencyBudget: value });
+                updateSearchParams({
+                  [SEARCH_PARAMS.ATTRIBUTE.CAPITAL_PROJECT.AGENCY_BUDGET_ID
+                    .KEY]: value,
+                });
               }}
             />
             <ProjectAmountMenu

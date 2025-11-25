@@ -13,12 +13,6 @@ export function AgencyDropdown({
   agencies,
   onSelectValueChange = () => null,
 }: AgencyDropdownProps) {
-  const updateManagingAgencyInitials = (
-    nextManagingAgencyInitials: ManagingAgencyInitials,
-  ) => {
-    onSelectValueChange(nextManagingAgencyInitials);
-  };
-
   const agencyOptions = agencies?.map((agency) => (
     <option key={agency.initials} value={agency.initials}>
       {agency.name} ({agency.initials})
@@ -30,7 +24,11 @@ export function AgencyDropdown({
       formLabel="Managing Agency"
       isSelectDisabled={agencies === null}
       selectValue={selectValue}
-      onSelectValueChange={updateManagingAgencyInitials}
+      onSelectValueChange={(nextManagingAgencyInitials) => {
+        if (typeof nextManagingAgencyInitials !== "string")
+          throw new Error("Unexpected agency initials type. Expected string");
+        onSelectValueChange(nextManagingAgencyInitials);
+      }}
       fontWeight="700"
       placeholder="--All agencies--"
       marginBottom={4}

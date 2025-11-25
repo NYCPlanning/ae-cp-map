@@ -11,6 +11,7 @@ import {
   getMultiplier,
 } from "~/utils/utils";
 import { ProjectAmountMenuInput } from "./ProjectAmountMenuInput";
+import { SEARCH_PARAMS } from "~/utils/params";
 
 export type ProjectAmountMenuValues = {
   commitmentsTotalMinInputValue: string;
@@ -67,7 +68,7 @@ export function ProjectAmountMenu({
         });
       if (newCommitmentTotalInputsAreValid) {
         onValidChange({
-          commitmentsTotalMin:
+          [SEARCH_PARAMS.ATTRIBUTE.CAPITAL_PROJECT.COMMITMENTS_TOTAL_MIN.KEY]:
             commitmentsTotalMinInputValue !== "" &&
             parseFloat(commitmentsTotalMinInputValue)
               ? (
@@ -75,7 +76,7 @@ export function ProjectAmountMenu({
                   getMultiplier(commitmentsTotalMinSelectValue)
                 ).toString()
               : null,
-          commitmentsTotalMax:
+          [SEARCH_PARAMS.ATTRIBUTE.CAPITAL_PROJECT.COMMITMENTS_TOTAL_MAX.KEY]:
             commitmentsTotalMaxInputValue !== "" &&
             parseFloat(commitmentsTotalMaxInputValue)
               ? (

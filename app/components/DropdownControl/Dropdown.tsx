@@ -10,10 +10,10 @@ import { FormEvent, ReactNode } from "react";
 export interface DropdownControlProps {
   formId: string;
   formLabel: string;
+  onSelectValueChange: (value: null | string | number) => void;
+  selectValue: string | number | null;
   onFormLabelClick?: () => void;
   isSelectDisabled?: boolean;
-  onSelectValueChange?: (value: null | string) => void;
-  selectValue?: string | number;
   fontWeight?: TypographyProps["fontWeight"];
   placeholder?: string;
   marginBottom?: SpacerProps["marginBottom"];
@@ -23,10 +23,10 @@ export interface DropdownControlProps {
 export function DropdownControl({
   formId,
   formLabel,
+  onSelectValueChange,
+  selectValue,
   isSelectDisabled = false,
   onFormLabelClick = () => null,
-  onSelectValueChange = () => null,
-  selectValue,
   fontWeight = "normal",
   placeholder = "-Select-",
   marginBottom = 2,

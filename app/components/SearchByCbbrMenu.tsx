@@ -74,9 +74,9 @@ export const SearchByCbbrMenu = ({
     );
 
   const appliedFilters: number[] = [
-    cbbrPolicyAreaId !== undefined ? 1 : 0,
-    cbbrNeedGroupId !== undefined ? 1 : 0,
-    cbbrAgencyInitials !== undefined ? 1 : 0,
+    cbbrPolicyAreaId !== null ? 1 : 0,
+    cbbrNeedGroupId !== null ? 1 : 0,
+    cbbrAgencyInitials !== null ? 1 : 0,
   ];
 
   return (
@@ -121,21 +121,42 @@ export const SearchByCbbrMenu = ({
               selectValue={cbbrPolicyAreaId}
               cbbrPolicyAreas={cbbrPolicyAreas}
               onSelectValueChange={(value) => {
-                updateSearchParams({ cbbrPolicyAreaId: value });
+                if (typeof value !== "number")
+                  throw new Error(
+                    "Unexpected policy area type. Expected number.",
+                  );
+                updateSearchParams({
+                  [SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST
+                    .POLICY_AREA_ID.KEY]: value,
+                });
               }}
             />
             <CommunityBoardBudgetRequestNeedGroupDropdown
               selectValue={cbbrNeedGroupId}
               cbbrNeedGroups={cbbrNeedGroups}
               onSelectValueChange={(value) => {
-                updateSearchParams({ cbbrNeedGroupId: value });
+                if (typeof value !== "number")
+                  throw new Error(
+                    "Unexpected need group type. Expected number.",
+                  );
+                updateSearchParams({
+                  [SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST
+                    .NEED_GROUP_ID.KEY]: value,
+                });
               }}
             />
             <CommunityBoardBudgetRequestAgencyDropdown
               selectValue={cbbrAgencyInitials}
               cbbrAgencies={cbbrAgencies}
               onSelectValueChange={(value) => {
-                updateSearchParams({ cbbrAgencyInitials: value });
+                if (typeof value !== "string")
+                  throw new Error(
+                    "Unexpected agency initials type. Expected string.",
+                  );
+                updateSearchParams({
+                  [SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST
+                    .AGENCY_INITIALS.KEY]: value,
+                });
               }}
             />
             <CbbrAgencyCategoryResponseCheckbox
@@ -143,7 +164,7 @@ export const SearchByCbbrMenu = ({
               selectedIds={cbbrAgencyCategoryResponseIds}
               onCheckedChange={(value) => {
                 let nextValue;
-                if (cbbrAgencyCategoryResponseIds === undefined) {
+                if (cbbrAgencyCategoryResponseIds === null) {
                   nextValue = [value];
                 } else if (cbbrAgencyCategoryResponseIds.includes(value)) {
                   const removedValue = cbbrAgencyCategoryResponseIds.filter(
@@ -155,7 +176,8 @@ export const SearchByCbbrMenu = ({
                   nextValue = cbbrAgencyCategoryResponseIds.concat([value]);
                 }
                 updateSearchParams({
-                  cbbrAgencyCategoryResponseIds: nextValue,
+                  [SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST
+                    .AGENCY_RESPONSE_CATEGORY_IDS.KEY]: nextValue,
                 });
               }}
             />

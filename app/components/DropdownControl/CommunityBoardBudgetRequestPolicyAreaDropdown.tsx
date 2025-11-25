@@ -3,22 +3,15 @@ import { DropdownControlProps, DropdownControl } from ".";
 import { CommunityBoardBudgetRequestPolicyAreaId } from "../../utils/types";
 
 export interface CommunityBoardBudgetRequestPolicyAreaProps
-  extends Pick<DropdownControlProps, "selectValue"> {
+  extends Pick<DropdownControlProps, "selectValue" | "onSelectValueChange"> {
   cbbrPolicyAreas: Array<CommunityBoardBudgetRequestPolicyArea> | null;
-  onSelectValueChange?: (value: null | string) => void;
 }
 
 export function CommunityBoardBudgetRequestPolicyAreaDropdown({
   selectValue,
   cbbrPolicyAreas,
-  onSelectValueChange = () => null,
+  onSelectValueChange,
 }: CommunityBoardBudgetRequestPolicyAreaProps) {
-  const updateCbbrPolicyArea = (
-    nextCbbrPolicyAreaId: CommunityBoardBudgetRequestPolicyAreaId,
-  ) => {
-    onSelectValueChange(nextCbbrPolicyAreaId);
-  };
-
   const cbbrPolicyAreaOptions = cbbrPolicyAreas?.map((cbbrPolicyArea) => (
     <option key={cbbrPolicyArea.id} value={cbbrPolicyArea.id}>
       {cbbrPolicyArea.description}
@@ -31,7 +24,7 @@ export function CommunityBoardBudgetRequestPolicyAreaDropdown({
       formLabel="Policy Area"
       isSelectDisabled={cbbrPolicyAreas === null}
       selectValue={selectValue}
-      onSelectValueChange={updateCbbrPolicyArea}
+      onSelectValueChange={onSelectValueChange}
       fontWeight="700"
       placeholder="--All areas--"
       marginBottom={4}

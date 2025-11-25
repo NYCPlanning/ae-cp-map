@@ -7,7 +7,12 @@ import {
 } from "@nycplanning/streetscape";
 import { useLocation, useNavigate } from "react-router";
 import { CityCouncilDistrict, Borough, CommunityDistrict } from "~/gen";
-import { BoroughId, DistrictId, DistrictType } from "../utils/types";
+import {
+  BoroughId,
+  DistrictId,
+  DistrictType,
+  QueryParams,
+} from "../utils/types";
 import {
   BoroughDropdown,
   DistrictTypeDropdown,
@@ -42,7 +47,7 @@ export const FilterMenu = ({
 
   // When a new district is selected while user is on welcome page, update the param
   // and navigate to /capital-projects. Otherwise, just update param.
-  const onDistrictChange = ({ districtId }: { districtId?: DistrictId }) => {
+  const onDistrictChange = ({ districtId }: QueryParams) => {
     if (pathname === "/") {
       const nextSearchParams = setNewSearchParams(searchParams, { districtId });
       navigate(
@@ -53,7 +58,9 @@ export const FilterMenu = ({
         { replace: true },
       );
     } else {
-      updateSearchParams({ districtId });
+      updateSearchParams({
+        [SEARCH_PARAMS.GEOGRAPHY.DISTRICT_ID.KEY]: districtId,
+      });
     }
   };
 
@@ -76,9 +83,9 @@ export const FilterMenu = ({
           selectValue={districtType}
           setAdminParams={({ districtType }) => {
             updateSearchParams({
-              districtType,
-              boroughId: null,
-              districtId: null,
+              [SEARCH_PARAMS.GEOGRAPHY.DISTRICT_TYPE.KEY]: districtType,
+              [SEARCH_PARAMS.GEOGRAPHY.BOROUGH_ID.KEY]: null,
+              [SEARCH_PARAMS.GEOGRAPHY.DISTRICT_ID.KEY]: null,
             });
           }}
         />
@@ -86,7 +93,10 @@ export const FilterMenu = ({
           selectValue={boroughId}
           boroughs={boroughs}
           setAdminParams={({ boroughId }) => {
-            updateSearchParams({ boroughId, districtId: null });
+            updateSearchParams({
+              [SEARCH_PARAMS.GEOGRAPHY.BOROUGH_ID.KEY]: boroughId,
+              [SEARCH_PARAMS.GEOGRAPHY.DISTRICT_ID.KEY]: null,
+            });
           }}
         />
         {districtType !== "ccd" ? (

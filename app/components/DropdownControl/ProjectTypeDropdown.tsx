@@ -13,16 +13,6 @@ export function ProjectTypeDropdown({
   projectTypes,
   onSelectValueChange = () => null,
 }: ProjectTypeDropdownProps) {
-  const updateProjectType = (nextProjectType: AgencyBudgetType) => {
-    analytics({
-      category: "Dropdown Menu",
-      action: "Change Project Type",
-      name: nextProjectType,
-    });
-
-    onSelectValueChange(nextProjectType);
-  };
-
   const projectTypeOptions = projectTypes
     ?.sort((a, b) => a.type.localeCompare(b.type))
     .map((projectType) => (
@@ -36,7 +26,16 @@ export function ProjectTypeDropdown({
       formLabel="Project Type"
       isSelectDisabled={projectTypes === null}
       selectValue={selectValue}
-      onSelectValueChange={updateProjectType}
+      onSelectValueChange={(nextProjectType) => {
+        analytics({
+          category: "Dropdown Menu",
+          action: "Change Project Type",
+          name: nextProjectType,
+        });
+        if (typeof nextProjectType !== "string")
+          throw new Error("Unexpected type for project type. Expected string");
+        onSelectValueChange(nextProjectType);
+      }}
       fontWeight="700"
       placeholder="--All areas--"
       marginBottom={4}

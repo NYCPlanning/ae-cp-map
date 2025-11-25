@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export type QueryParam = string | null;
-const passthrough = (value: QueryParam) => (value !== null ? value : undefined);
+const passthrough = (value: QueryParam) => value;
 
 const layerParamSchema = z.enum(["off"]);
 const layerParser = (value: QueryParam) => {
@@ -17,7 +17,7 @@ const integerLikeStringParser = (value: QueryParam) =>
   integerLikeParamSchema.nullable().parse(value);
 
 const integerParser = (value: QueryParam) => {
-  if (value === null) return undefined;
+  if (value === null) return value;
   const f = parseFloat(value);
   if (isNaN(f))
     throw new Error(`Value ${value} is not a number, expected integer`);
@@ -27,7 +27,7 @@ const integerParser = (value: QueryParam) => {
 };
 
 const integerArrayParser = (value: QueryParam) => {
-  if (value === null) return undefined;
+  if (value === null) return value;
   return value
     .split(",")
     .map((item) => parseInt(integerLikeParamSchema.parse(item)));
@@ -56,7 +56,7 @@ export const SEARCH_PARAMS = {
       },
     },
     CAPITAL_PROJECT: {
-      AGENCY_BUDGET_ID: { KEY: "cpAgency", PARSER: passthrough },
+      AGENCY_BUDGET_ID: { KEY: "cpAgencyBudgetId", PARSER: passthrough },
       MANAGING_AGENCY_INITIALS: {
         KEY: "cpManagingAgency",
         PARSER: passthrough,

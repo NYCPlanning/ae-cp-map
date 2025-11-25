@@ -15,14 +15,6 @@ export function CommunityDistrictDropdown({
   communityDistricts,
   setAdminParams,
 }: CommunityDistrictDropdownProps) {
-  const updateDistrictId = (nextDistrictId: DistrictId) => {
-    setAdminParams({
-      districtType: "cd",
-      boroughId: boroughId,
-      districtId: nextDistrictId,
-    });
-  };
-
   const communityDistrictOptions = communityDistricts?.map((cd) => (
     <option key={cd.id} value={cd.id}>
       {cd.id}
@@ -34,7 +26,15 @@ export function CommunityDistrictDropdown({
       formLabel="District Number"
       isSelectDisabled={communityDistricts === null}
       selectValue={selectValue}
-      onSelectValueChange={updateDistrictId}
+      onSelectValueChange={(nextDistrictId) => {
+        if (typeof nextDistrictId !== "string")
+          throw new Error("Unexpected type for borough id. Expected string");
+        setAdminParams({
+          districtType: "cd",
+          boroughId: boroughId,
+          districtId: nextDistrictId,
+        });
+      }}
       marginBottom={0}
       fontWeight="700"
     >

@@ -1,6 +1,7 @@
 import { Borough } from "~/gen";
 import { DropdownControlProps, DropdownControl } from ".";
 import { AdminQueryParams, BoroughId } from "~/utils/types";
+import { SEARCH_PARAMS } from "~/utils/params";
 
 export interface BoroughDropdownProps
   extends Pick<DropdownControlProps, "selectValue"> {
@@ -13,14 +14,6 @@ export function BoroughDropdown({
   boroughs,
   setAdminParams,
 }: BoroughDropdownProps) {
-  const updateBoroughId = (nextBoroughId: BoroughId) => {
-    setAdminParams({
-      districtType: "cd",
-      boroughId: nextBoroughId,
-      districtId: null,
-    });
-  };
-
   const boroughOptions = boroughs?.map((borough) => (
     <option key={borough.id} value={borough.id}>
       {borough.title}
@@ -33,7 +26,15 @@ export function BoroughDropdown({
       formLabel="Borough"
       isSelectDisabled={boroughs === null}
       selectValue={selectValue}
-      onSelectValueChange={updateBoroughId}
+      onSelectValueChange={(nextBoroughId) => {
+        if (typeof nextBoroughId !== "string")
+          throw new Error("Unexpected type for borough id. Expected string");
+        setAdminParams({
+          [SEARCH_PARAMS.GEOGRAPHY.DISTRICT_TYPE.KEY]: "cd",
+          [SEARCH_PARAMS.GEOGRAPHY.BOROUGH_ID.KEY]: nextBoroughId,
+          [SEARCH_PARAMS.GEOGRAPHY.DISTRICT_ID.KEY]: null,
+        });
+      }}
       fontWeight="700"
     >
       {boroughOptions}

@@ -3,22 +3,15 @@ import { CommunityBoardBudgetRequestAgencyInitials } from "../../utils/types";
 import { DropdownControlProps, DropdownControl } from ".";
 
 export interface CommunityBoardBudgetRequestAgencyProps
-  extends Pick<DropdownControlProps, "selectValue"> {
+  extends Pick<DropdownControlProps, "selectValue" | "onSelectValueChange"> {
   cbbrAgencies: Array<Agency> | null;
-  onSelectValueChange?: (value: null | string) => void;
 }
 
 export function CommunityBoardBudgetRequestAgencyDropdown({
   selectValue,
   cbbrAgencies,
-  onSelectValueChange = () => null,
+  onSelectValueChange,
 }: CommunityBoardBudgetRequestAgencyProps) {
-  const updateCbbrAgencyInitials = (
-    nextCbbrAgencyInitials: CommunityBoardBudgetRequestAgencyInitials,
-  ) => {
-    onSelectValueChange(nextCbbrAgencyInitials);
-  };
-
   const cbbrAgencyOptions = cbbrAgencies?.map((cbbrAgency) => (
     <option key={cbbrAgency.initials} value={cbbrAgency.initials}>
       {cbbrAgency.name} ({cbbrAgency.initials})
@@ -30,7 +23,7 @@ export function CommunityBoardBudgetRequestAgencyDropdown({
       formLabel="Agency"
       isSelectDisabled={cbbrAgencies === null}
       selectValue={selectValue}
-      onSelectValueChange={updateCbbrAgencyInitials}
+      onSelectValueChange={onSelectValueChange}
       fontWeight="700"
       placeholder="--All agencies--"
       marginBottom={4}

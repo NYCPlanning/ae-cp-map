@@ -88,8 +88,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const { cbbrPolicyAreas } = await findCommunityBoardBudgetRequestPolicyAreas(
     {
-      cbbrNeedGroupId,
-      agencyInitials,
+      ...(cbbrNeedGroupId !== null && { cbbrNeedGroupId }),
+      ...(agencyInitials !== null && { agencyInitials }),
     },
     {
       baseURL: `${env.zoningApiUrl}/api`,
@@ -98,8 +98,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const { cbbrNeedGroups } = await findCommunityBoardBudgetRequestNeedGroups(
     {
-      cbbrPolicyAreaId,
-      agencyInitials,
+      ...(cbbrPolicyAreaId !== null && { cbbrPolicyAreaId }),
+      ...(agencyInitials !== null && { agencyInitials }),
     },
     {
       baseURL: `${env.zoningApiUrl}/api`,
@@ -108,8 +108,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const { cbbrAgencies } = await findCommunityBoardBudgetRequestAgencies(
     {
-      cbbrNeedGroupId,
-      cbbrPolicyAreaId,
+      ...(cbbrNeedGroupId !== null && { cbbrNeedGroupId }),
+      ...(cbbrPolicyAreaId !== null && { cbbrPolicyAreaId }),
     },
     {
       baseURL: `${env.zoningApiUrl}/api`,
@@ -193,8 +193,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 export default function MapPage() {
   const { viewState, setViewState } = useOutletContext<RootContextType>();
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
-  const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
-  const showCbbr = searchParams.get("cbbr") !== "off";
+  const cpLayerParam = searchParams.get(
+    SEARCH_PARAMS.LAYER.CAPITAL_PROJECT.KEY,
+  );
+  const cpLayer = SEARCH_PARAMS.LAYER.CAPITAL_PROJECT.PARSER(cpLayerParam);
+  const showCapitalProjectsLayer = cpLayer !== "off";
+  const cbbrLayerParam = searchParams.get(
+    SEARCH_PARAMS.LAYER.COMMUNITY_BOARD_BUDGET_REQUEST.KEY,
+  );
+  const cbbrLayer =
+    SEARCH_PARAMS.LAYER.COMMUNITY_BOARD_BUDGET_REQUEST.PARSER(cbbrLayerParam);
+  const showCbbrLayer = cbbrLayer !== "off";
 
   const {
     boroughs,
@@ -210,19 +219,24 @@ export default function MapPage() {
 
   const clearCapitalProjectFilters = () => {
     updateSearchParams({
-      managingAgency: null,
-      agencyBudget: null,
-      commitmentsTotalMin: null,
-      commitmentsTotalMax: null,
+      [SEARCH_PARAMS.ATTRIBUTE.CAPITAL_PROJECT.MANAGING_AGENCY_INITIALS.KEY]:
+        null,
+      [SEARCH_PARAMS.ATTRIBUTE.CAPITAL_PROJECT.AGENCY_BUDGET_ID.KEY]: null,
+      [SEARCH_PARAMS.ATTRIBUTE.CAPITAL_PROJECT.COMMITMENTS_TOTAL_MIN.KEY]: null,
+      [SEARCH_PARAMS.ATTRIBUTE.CAPITAL_PROJECT.COMMITMENTS_TOTAL_MAX.KEY]: null,
     });
   };
 
   const clearCbbrProjectFilters = () => {
     updateSearchParams({
-      cbbrPolicyAreaId: null,
-      cbbrNeedGroupId: null,
-      cbbrAgencyInitials: null,
-      cbbrAgencyCategoryResponseIds: null, // not right! must come back to this
+      [SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.AGENCY_INITIALS
+        .KEY]: null,
+      [SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST
+        .AGENCY_RESPONSE_CATEGORY_IDS.KEY]: null,
+      [SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.POLICY_AREA_ID
+        .KEY]: null,
+      [SEARCH_PARAMS.ATTRIBUTE.COMMUNITY_BOARD_BUDGET_REQUEST.NEED_GROUP_ID
+        .KEY]: null,
     });
   };
 
@@ -238,8 +252,8 @@ export default function MapPage() {
         <Atlas
           viewState={viewState}
           setViewState={(MapViewState) => setViewState(MapViewState)}
-          showCapitalProjects={showCapitalProjects}
-          showCbbr={showCbbr}
+          showCapitalProjects={showCapitalProjectsLayer}
+          showCbbr={showCbbrLayer}
         />{" "}
       </GridItem>
       <GridItem

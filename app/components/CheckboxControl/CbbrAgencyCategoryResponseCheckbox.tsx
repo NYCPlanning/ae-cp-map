@@ -5,14 +5,14 @@ import { CbbrCheckbox } from "./CbbrCheckbox";
 
 export interface CommunityBoardBudgetRequestAgencyCategoryResponseProps {
   cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
-  selectedIds?: Array<number>;
+  selectedIds: Array<number> | null;
   onCheckedChange: (value: number) => void;
 }
 
 export function CbbrAgencyCategoryResponseCheckbox({
   cbbrAgencyCategoryResponses,
   selectedIds,
-  onCheckedChange = () => null,
+  onCheckedChange,
 }: CommunityBoardBudgetRequestAgencyCategoryResponseProps) {
   console.debug("cbbrAgencyCategoryResponses", cbbrAgencyCategoryResponses);
 
@@ -26,7 +26,7 @@ export function CbbrAgencyCategoryResponseCheckbox({
       {cbbrAgencyCategoryResponses?.map((cbbrACR) => {
         const id = cbbrACR.id;
         const isChecked =
-          selectedIds === undefined ? false : selectedIds.includes(id);
+          selectedIds === null ? false : selectedIds.includes(id);
 
         return (
           <CbbrCheckbox
@@ -34,8 +34,12 @@ export function CbbrAgencyCategoryResponseCheckbox({
             checkboxValue={id}
             checkboxLabel={cbbrACR.description}
             isChecked={isChecked}
-            onCheckedChange={(value, checked) => {
-              onCheckedChange(value as number);
+            onCheckedChange={(value) => {
+              if (typeof value !== "number")
+                throw new Error(
+                  "Unexpected category response id type. Expected number.",
+                );
+              onCheckedChange(value);
             }}
           />
         );
