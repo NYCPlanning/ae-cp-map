@@ -16,14 +16,13 @@ export function CbbrAgencyCategoryResponseCheckbox({
   selectedIds,
   onCheckedChange = () => null,
 }: CommunityBoardBudgetRequestAgencyCategoryResponseProps) {
-  console.debug("cbbrAgencyCategoryResponses", cbbrAgencyCategoryResponses);
-
   return (
     <CbbrCheckboxGroup
       formId="agencyCatergoryResponse"
       formLabel="Agency Response"
       fontWeight="700"
       marginBottom={2}
+      fontSize={"xs"}
     >
       {cbbrAgencyCategoryResponses?.map((cbbrACR) => {
         const id = String(cbbrACR.id);
