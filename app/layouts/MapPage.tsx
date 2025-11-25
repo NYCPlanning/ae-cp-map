@@ -123,6 +123,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrNeedGroups,
         cbbrAgencies,
         cbbrAgencyCategoryResponses,
+        cbbrAgencyCategoryResponseIds,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -142,6 +143,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrNeedGroups,
         cbbrAgencies,
         cbbrAgencyCategoryResponses,
+        cbbrAgencyCategoryResponseIds,
       };
     }
   }
@@ -160,6 +162,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       cbbrNeedGroups,
       cbbrAgencies,
       cbbrAgencyCategoryResponses,
+      cbbrAgencyCategoryResponseIds,
     };
   }
 
@@ -173,6 +176,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     cbbrNeedGroups,
     cbbrAgencies,
     cbbrAgencyCategoryResponses,
+    cbbrAgencyCategoryResponseIds,
   };
 };
 
@@ -192,6 +196,7 @@ export default function MapPage() {
     cbbrNeedGroups,
     cbbrAgencies,
     cbbrAgencyCategoryResponses,
+    cbbrAgencyCategoryResponseIds,
   } = useLoaderData<typeof loader>();
 
   const clearCapitalProjectFilters = () => {
@@ -208,7 +213,7 @@ export default function MapPage() {
       cbbrPolicyAreaId: null,
       cbbrNeedGroupId: null,
       cbbrAgencyInitials: null,
-      cbbrAgencyCategoryResponseIds: null, // not right! must come back to this
+      cbbrAgencyCategoryResponseIds: null,
     });
   };
 
@@ -280,6 +285,7 @@ export default function MapPage() {
                   cbbrNeedGroups={cbbrNeedGroups}
                   cbbrAgencies={cbbrAgencies}
                   cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
+                  cbbrAgencyCategoryResponseIds={cbbrAgencyCategoryResponseIds}
                   onClear={clearCbbrProjectFilters}
                 />
                 <CommunityBoardBudgetRequestLegend />

@@ -70,8 +70,16 @@ const { zoningApiUrl } = env;
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
 
+  const cbbrAgencyCategoryResponseIds = url.searchParams.get(
+    "cbbrAgencyCategoryResponseIds",
+  );
+  const cbbrNeedGroupId = url.searchParams.get("cbbrNeedGroupId");
+
   const itemsPerPage = 7;
   const cbbrPageParam = url.searchParams.get("cbbrPage");
+  const cbbrPolicyAreaId = url.searchParams.get("cbbrPolicyAreaId");
+  const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
+
   const cbbrPage = cbbrPageParam === null ? 1 : parseInt(cbbrPageParam);
   if (isNaN(cbbrPage)) {
     throw data("Bad Request", { status: 400 });
@@ -80,6 +88,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const budgetRequestsPromise = findCommunityBoardBudgetRequests(
     {
       cbbrType: "C",
+      cbbrAgencyCategoryResponseIds:
+        cbbrAgencyCategoryResponseIds === null
+          ? undefined
+          : cbbrAgencyCategoryResponseIds
+              .split(",")
+              .map((item) => parseInt(item)),
+      cbbrNeedGroupId:
+        cbbrNeedGroupId === null ? undefined : parseInt(cbbrNeedGroupId),
+      cbbrPolicyAreaId:
+        cbbrPolicyAreaId === null ? undefined : parseInt(cbbrPolicyAreaId),
+      agencyInitials:
+        cbbrAgencyInitials === null ? undefined : cbbrAgencyInitials,
       limit: itemsPerPage,
       offset: cbbrOffset,
     },
