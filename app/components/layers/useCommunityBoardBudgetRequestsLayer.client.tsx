@@ -73,7 +73,10 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
       const icon = policyAreaIconsMap[d.properties.policyAreaId];
       if (hoverInfo.id === d.properties.id && hoverInfo.hovered) {
         return `${icon}-hover`;
-      } else if (clickInfo.id === d.properties.id && clickInfo.clicked) {
+      } else if (
+        (clickInfo.id === d.properties.id && clickInfo.clicked) ||
+        cbbrId === d.properties.id
+      ) {
         return `${icon}-click`;
       } else {
         return `${icon}`;
@@ -82,17 +85,17 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     iconAtlas: `/policy-area-icons/all-icons.png`,
     iconMapping: `/mapping.json`,
     pickable: true,
-    onHover: (info, event) => {
-      setHoverInfo({ id: info.object?.properties?.id, hovered: info.picked });
+    onHover: (d) => {
+      setHoverInfo({ id: d.object?.properties?.id, hovered: d.picked });
     },
     updateTriggers: {
-      getIcon: [hoverInfo.id, clickInfo.id],
-      getIconSize: [hoverInfo.id, clickInfo.id],
+      getIcon: [hoverInfo.id, clickInfo.id, cbbrId],
+      getIconSize: [hoverInfo.id, clickInfo.id, cbbrId],
     },
-    onClick: (data) => {
-      setClickInfo({ id: data.object?.properties?.id, clicked: data.picked });
+    onClick: (d) => {
+      setClickInfo({ id: d.object?.properties?.id, clicked: d.picked });
 
-      const indvidualCbbrId = data.object?.properties?.id;
+      const indvidualCbbrId = d.object?.properties?.id;
       if (indvidualCbbrId === undefined) return;
       if (indvidualCbbrId === `${cbbrId}`) return;
       const cbbrRouteSuffix = `/community-board-budget-requests/${indvidualCbbrId}`;
