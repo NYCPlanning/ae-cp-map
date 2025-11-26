@@ -27,8 +27,9 @@ export const Pagination = ({ total, pageParamKey }: PaginationProps) => {
   const totalPages = Math.ceil(total / itemsPerPage);
   const canSkipForward = page < totalPages;
 
-  const firstItem = (page - 1) * itemsPerPage + 1;
-  const lastItem = Math.min(page * itemsPerPage, total);
+  const firstItem = total === 0 ? 0 : (page - 1) * itemsPerPage + 1;
+
+  const lastItem = total === 0 ? 0 : Math.min(page * itemsPerPage, total);
 
   const navigation = useNavigation();
   const isNavigating = Boolean(navigation.location);
@@ -75,7 +76,12 @@ export const Pagination = ({ total, pageParamKey }: PaginationProps) => {
             fontWeight={700}
             paddingTop={1}
           >
-            {isNavigating ? page + pageLoaderIncrement : page} of {totalPages}
+            {totalPages === 0
+              ? 0
+              : isNavigating
+                ? page + pageLoaderIncrement
+                : page}{" "}
+            of {totalPages}
           </Text>
         </Skeleton>
         <Link
