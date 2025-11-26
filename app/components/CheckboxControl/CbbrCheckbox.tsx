@@ -26,8 +26,17 @@ export function CbbrCheckbox({
       fontWeight={fontWeight}
       fontSize={fontSize}
       marginBottom={1.8}
+      alignItems={"flex-start"}
+      sx={{
+        "& > span.chakra-checkbox__control": {
+          width: 4,
+          height: 4,
+          marginTop: "3px",
+          borderColor: "gray.600",
+        },
+      }}
     >
-      <Text fontSize={"sm"} fontWeight={fontWeight}>
+      <Text fontSize={"sm"} fontWeight={fontWeight} color={"gray.600"}>
         {checkboxLabel}
       </Text>
     </Checkbox>
