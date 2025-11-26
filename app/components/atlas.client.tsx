@@ -14,7 +14,6 @@ import {
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 import { env } from "~/utils/env";
-import { communityBoardBudgetRequestGeoJsonSchema } from "~/gen";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
