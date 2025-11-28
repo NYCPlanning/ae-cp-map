@@ -1,14 +1,29 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import { useSearchParams } from "react-router";
-import { DataFilterExtensionProps } from "@deck.gl/extensions";
+import { useLoaderData, useSearchParams } from "react-router";
+import {
+  DataFilterExtension,
+  DataFilterExtensionProps,
+} from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
-import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
+import {
+  BoroughId,
+  CommunityBoardBudgetRequestAgencyCategoryResponseId,
+  CommunityBoardBudgetRequestNeedGroupId,
+  CommunityBoardBudgetRequestPolicyAreaId,
+  DistrictId,
+  DistrictType,
+} from "../../utils/types";
+import { loader as mapPageLoader } from "../../layouts/MapPage";
 
 export interface CommunityBoardBudgetRequestProperties {
   id: string;
   agencyInitials: string;
   layerName: string;
   policyAreaId: number;
+  cbbrNeedGroupId: number;
+  cbbrPolicyAreaId: number;
+  cbbrAgencyInitials: string;
+  cbbrAgencyCategoryResponseIds: string[];
 }
 
 export function useCommunityBoardBudgetRequestsLayer(opts?: {
@@ -19,6 +34,21 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+  const cbbrNeedGroupId = searchParams.get(
+    "cbbrNeedGroupIds",
+  ) as CommunityBoardBudgetRequestNeedGroupId;
+  const cbbrPolicyAreaId = searchParams.get(
+    "cbbrPolicyAreaId",
+  ) as CommunityBoardBudgetRequestPolicyAreaId;
+  const cbbrAgencyInitials = searchParams.get("cbbrAgencyInitials");
+  const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
+    "cbbrAgencyCategoryResponseId",
+  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
+  const cbbrAgencyCategoryResponseIds =
+    cbbrAgencyCategoryResponseIdsParam === null
+      ? []
+      : cbbrAgencyCategoryResponseIdsParam.split(",");
+
   const onCapitalProjectsInCityCouncilDistrictPath =
     districtType === "ccd" && districtId !== null;
   const onCapitalProjectsInCommunityDistrictPath =
@@ -41,7 +71,13 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     7: "parks",
     8: "other",
   };
+  const loaderData = useLoaderData<typeof mapPageLoader>();
 
+  const fullAgencyList = loaderData.cbbrAgencies
+    ? loaderData.cbbrAgencies.map((agency) => agency.initials)
+    : [];
+
+  // console.debug("fullAgencyList", fullAgencyList);
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
     DataFilterExtensionProps<
@@ -68,5 +104,21 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     iconSizeScale: 1,
     iconSizeMinPixels: 24,
     iconSizeMaxPixels: 24,
+    getFilterCategory: (d) => {
+      return d.properties.agencyInitials;
+    },
+    filterCategories: [
+      // cbbrAgencyInitials === null ? fullAgencyList : [cbbrAgencyInitials],
+      fullAgencyList,
+    ],
+    extensions: [
+      new DataFilterExtension({
+        // filterSize: 1,
+        categorySize: 1,
+      }),
+    ],
+    updateTriggers: {
+      getFilterCategory: [cbbrAgencyInitials],
+    },
   });
 }

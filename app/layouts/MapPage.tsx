@@ -51,7 +51,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   ) as CommunityBoardBudgetRequestPolicyAreaId;
   const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
   const cbbrAgencyCategoryResponseIdsParam = url.searchParams.get(
-    "cbbrAgencyCategoryResponseId",
+    "cbbrAgencyCategoryResponseIds",
   ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
   const cbbrAgencyCategoryResponseIds =
     cbbrAgencyCategoryResponseIdsParam === null
