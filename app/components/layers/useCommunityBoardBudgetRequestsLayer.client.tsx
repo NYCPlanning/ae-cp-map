@@ -77,7 +77,64 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     ? loaderData.cbbrAgencies.map((agency) => agency.initials)
     : [];
 
-  // console.debug("fullAgencyList", fullAgencyList);
+  const fullNeedGroupList = loaderData.cbbrNeedGroups
+    ? loaderData.cbbrNeedGroups.map((ng) => ng.id)
+    : [];
+
+  const fullPolicyAreaList = loaderData.cbbrPolicyAreas
+    ? loaderData.cbbrPolicyAreas.map((ng) => ng.id)
+    : [];
+
+  // const fullAgencyList = [
+  //   "ACS",
+  //   "BPL",
+  //   "DFTA",
+  //   "DOB",
+  //   "DCP",
+  //   "DCAS",
+  //   "DCWP",
+  //   "DCLA",
+  //   "DOE",
+  //   "DEP",
+  //   "DOHMH",
+  //   "DHS",
+  //   "DPR",
+  //   "DSNY",
+  //   "SBS",
+  //   "DOT",
+  //   "DYCD",
+  //   "EDC",
+  //   "FDNY",
+  //   "HHC",
+  //   "NYCHA",
+  //   "HPD",
+  //   "HRA",
+  //   "LPC",
+  //   "CECM",
+  //   "MOME",
+  //   "NYPL",
+  //   "MOCJ",
+  //   "OEM",
+  //   "OMB",
+  //   "OTI",
+  //   "OTH",
+  //   "NYPD",
+  //   "QPL",
+  //   "SCA",
+  //   "TLC",
+  //   "NYCTA",
+  // ];
+
+  console.debug(
+    "fullAgencyList",
+    fullAgencyList,
+    "fullNeedGroupList",
+    fullNeedGroupList,
+    "fullPolicyAreaList",
+    fullPolicyAreaList,
+  );
+  // cbbrAgencyInitials === null ? fullAgencyList : [cbbrAgencyInitials];
+  console.debug("cbbrAgencyInitials", cbbrAgencyInitials);
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
     DataFilterExtensionProps<
@@ -105,11 +162,13 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     iconSizeMinPixels: 24,
     iconSizeMaxPixels: 24,
     getFilterCategory: (d) => {
+      // console.debug("d.properties.agencyInitials;", d.properties.agencyInitials);
       return d.properties.agencyInitials;
     },
     filterCategories: [
-      // cbbrAgencyInitials === null ? fullAgencyList : [cbbrAgencyInitials],
-      fullAgencyList,
+      cbbrAgencyInitials !== null ? [cbbrAgencyInitials] : fullAgencyList,
+      cbbrNeedGroupId !== null ? [cbbrNeedGroupId] : fullNeedGroupList,
+      cbbrPolicyAreaId !== null ? [cbbrPolicyAreaId] : fullPolicyAreaList,
     ],
     extensions: [
       new DataFilterExtension({
