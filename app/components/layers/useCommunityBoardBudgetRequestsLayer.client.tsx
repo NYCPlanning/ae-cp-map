@@ -1,8 +1,9 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import { useSearchParams } from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 import { DataFilterExtensionProps } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
+import { useState } from "react";
 
 export interface CommunityBoardBudgetRequestProperties {
   id: string;
@@ -15,6 +16,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
   visible?: boolean;
 }) {
   const visible = opts?.visible ?? true;
+  const { cbbrId } = useParams();
   const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
@@ -24,6 +26,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
   const onCapitalProjectsInCommunityDistrictPath =
     districtType === "cd" && boroughId !== null && districtId !== null;
 
+  const navigate = useNavigate();
   let endpointPrefix = "";
   if (onCapitalProjectsInCityCouncilDistrictPath) {
     endpointPrefix = `city-council-districts/${districtId}/`;
@@ -41,6 +44,8 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     7: "parks",
     8: "other",
   };
+  const [hoverInfo, setHoverInfo] = useState({ id: "", hovered: false });
+  const [clickInfo, setClickInfo] = useState({ id: "", clicked: false });
 
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
@@ -52,21 +57,52 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     data: [
       `${import.meta.env.VITE_ZONING_API_URL}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
     ],
-    uniqueIdProperty: "id",
-    visible,
-    pickable: true,
     getFillColor: [43, 108, 176, 166],
     pointType: "icon",
+    getIconSize: (d) => {
+      if (
+        (hoverInfo.id === d.properties.id && hoverInfo.hovered) ||
+        (clickInfo.id === d.properties.id && clickInfo.clicked)
+      ) {
+        return 27;
+      } else {
+        return 25;
+      }
+    },
     getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
       const icon = policyAreaIconsMap[d.properties.policyAreaId];
-      return {
-        url: `/policy-area-icons/${icon}.svg`,
-        width: 40,
-        height: 40,
-      };
+      if (hoverInfo.id === d.properties.id && hoverInfo.hovered) {
+        return `${icon}-hover`;
+      } else if (
+        (clickInfo.id === d.properties.id && clickInfo.clicked) ||
+        cbbrId === d.properties.id
+      ) {
+        return `${icon}-click`;
+      } else {
+        return `${icon}`;
+      }
     },
-    iconSizeScale: 1,
-    iconSizeMinPixels: 24,
-    iconSizeMaxPixels: 24,
+    iconAtlas: `/policy-area-icons/all-icons.png`,
+    iconMapping: `/mapping.json`,
+    pickable: true,
+    onHover: (d) => {
+      setHoverInfo({ id: d.object?.properties?.id, hovered: d.picked });
+    },
+    updateTriggers: {
+      getIcon: [hoverInfo.id, clickInfo.id, cbbrId],
+      getIconSize: [hoverInfo.id, clickInfo.id, cbbrId],
+    },
+    onClick: (d) => {
+      setClickInfo({ id: d.object?.properties?.id, clicked: d.picked });
+
+      const indvidualCbbrId = d.object?.properties?.id;
+      if (indvidualCbbrId === undefined) return;
+      if (indvidualCbbrId === `${cbbrId}`) return;
+      const cbbrRouteSuffix = `/community-board-budget-requests/${indvidualCbbrId}`;
+      navigate({
+        pathname: `${endpointPrefix}${cbbrRouteSuffix}`,
+        search: `?${searchParams.toString()}`,
+      });
+    },
   });
 }
