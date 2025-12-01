@@ -1,8 +1,16 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { useSearchParams } from "react-router";
-import { DataFilterExtensionProps } from "@deck.gl/extensions";
+import {
+  DataFilterExtension,
+  DataFilterExtensionProps,
+} from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
-import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
+import {
+  ManagingAgencyInitials,
+  BoroughId,
+  DistrictId,
+  DistrictType,
+} from "../../utils/types";
 
 export interface CommunityBoardBudgetRequestProperties {
   id: string;
@@ -19,6 +27,9 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+  const agencyInitials = searchParams.get("cbbrAgencyInitials") as
+    | null
+    | string;
   const onCapitalProjectsInCityCouncilDistrictPath =
     districtType === "ccd" && districtId !== null;
   const onCapitalProjectsInCommunityDistrictPath =
@@ -68,5 +79,20 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     iconSizeScale: 1,
     iconSizeMinPixels: 24,
     iconSizeMaxPixels: 24,
+    getFilterCategory: (f: Feature<Geometry, any>) => {
+      return [f.properties.agencyInitials, f.properties.communityBoardId];
+    },
+    filterCategories: [
+      agencyInitials === null ? ["DPR", "DOE"] : [agencyInitials],
+      ["MN11", "MN12"],
+    ],
+    updateTriggers: {
+      getFilterCategory: [agencyInitials],
+    },
+    extensions: [
+      new DataFilterExtension({
+        categorySize: 2,
+      }),
+    ],
   });
 }
