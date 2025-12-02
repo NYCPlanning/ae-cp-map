@@ -120,6 +120,20 @@ export function setNewSearchParams(
   searchParams: URLSearchParams,
   changes: QueryParams,
 ) {
+  const CAPITAL_PROJECTS_SEARCH_PARAMS = [
+    "managingAgency",
+    "agencyBudget",
+    "commitmentsTotalMin",
+    "commitmentsTotalMax",
+  ];
+  const CBBR_SEARCH_PARAMS = [
+    "cbbrPolicyAreaId",
+    "cbbrNeedGroupId",
+    "cbbrAgencyInitials",
+    "cbbrAgencyCategoryResponseIds",
+  ];
+  const GEO_SEARCH_PARAMS = ["districtType", "boroughId", "districtId"];
+
   const newSearchParams = new URLSearchParams(searchParams);
 
   for (const [key, value] of Object.entries(changes)) {
@@ -128,6 +142,16 @@ export function setNewSearchParams(
       continue;
     }
     newSearchParams.set(key, String(value));
+    if (CAPITAL_PROJECTS_SEARCH_PARAMS.includes(key)) {
+      newSearchParams.delete("cpPage");
+    }
+    if (CBBR_SEARCH_PARAMS.includes(key)) {
+      newSearchParams.delete("cbbrPage");
+    }
+    if (GEO_SEARCH_PARAMS.includes(key)) {
+      newSearchParams.delete("cpPage");
+      newSearchParams.delete("cbbrPage");
+    }
   }
 
   return newSearchParams;
