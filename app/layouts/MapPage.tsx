@@ -150,7 +150,7 @@ export default function MapPage() {
           md: "row-start / row-end",
           lg: "row-start / span 1",
         }}
-        height={"100%"}
+        height={"fit-content"}
         overflowY={{ lg: "scroll" }}
         zIndex={"1"}
         sx={{
