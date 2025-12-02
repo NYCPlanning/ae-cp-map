@@ -5,9 +5,9 @@ export function WelcomeContent() {
     <Box marginBottom={"1rem"}>
       <Heading
         textAlign={"left"}
-        fontSize="xl"
+        fontSize="2xl"
         fontWeight="bold"
-        lineHeight={"32px"}
+        lineHeight={"42px"}
         mt={2}
         mb={2}
       >
@@ -16,38 +16,22 @@ export function WelcomeContent() {
 
       <Box>
         <Text fontSize={"md"}>
-          The Capital Projects Database includes information on New York City’s
-          potential, planned, and ongoing capital projects. To better help you
-          understand New York City’s capital project portfolio within and across
-          major agencies, we have organized mapped projects in this portal.
-          Unmapped projects, such as the purchase of vehicles or digital
-          infrastructure, are not included in this tool.
+          The Capital Projects Portal has been designed to help users explore
+          where and how the city is investing its capital money across NYC and
+          highlight community board priorities across these unique
+          neighborhoods. The application currently includes data from multiple
+          sources to improve transparency, guide engagement, and support
+          planning decisions.
         </Text>
 
-        <Text fontSize={"md"} marginBottom={3}>
-          To learn more about the Capital Projects Database and how New York
-          City invests in building a better future, go to{" "}
+        <Text fontSize={"md"} my={3}>
+          To learn more about the capital planning and budget request processes,{" "}
           <Link
-            color={"primary.500"}
-            _hover={{
-              textDecoration: "underline",
-            }}
-            href="https://www.nyc.gov/site/omb/publications/publications.page"
+            textDecoration="underline"
+            href="https://www.nyc.gov/content/planning/pages/planning/capital-planning#overview"
             isExternal
           >
-            The Mayor&apos;s Office of Management and Budget
-          </Link>
-          . If you would like to download the complete database, including
-          unmapped projects, you can find it at{" "}
-          <Link
-            color={"primary.500"}
-            _hover={{
-              textDecoration: "underline",
-            }}
-            href="https://www.nyc.gov/site/planning/data-maps/open-data/dwn-capital-planning-database.page"
-            isExternal
-          >
-            Bytes of the Big Apple
+            visit the City Planning website.
           </Link>
         </Text>
       </Box>
