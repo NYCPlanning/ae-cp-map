@@ -73,7 +73,7 @@ export function ProjectAmountMenu({
               ? (
                   parseFloat(commitmentsTotalMinInputValue) *
                   getMultiplier(commitmentsTotalMinSelectValue)
-                ).toString()
+                ).toFixed(2)
               : null,
           commitmentsTotalMax:
             commitmentsTotalMaxInputValue !== "" &&
@@ -81,7 +81,7 @@ export function ProjectAmountMenu({
               ? (
                   parseFloat(commitmentsTotalMaxInputValue) *
                   getMultiplier(commitmentsTotalMaxSelectValue)
-                ).toString()
+                ).toFixed(2)
               : null,
         });
       }
