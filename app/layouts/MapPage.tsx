@@ -150,7 +150,8 @@ export default function MapPage() {
           md: "row-start / row-end",
           lg: "row-start / span 1",
         }}
-        height={"100%"}
+        height={"fit-content"}
+        maxHeight={"100%"}
         overflowY={{ lg: "scroll" }}
         zIndex={"1"}
         sx={{
@@ -164,6 +165,7 @@ export default function MapPage() {
           flexShrink={{ lg: 0 }}
           maxHeight={{
             base: "82vh",
+            md: "89vh",
             lg: "full",
           }}
           backgroundColor={"white"}
