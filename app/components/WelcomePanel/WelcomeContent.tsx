@@ -50,12 +50,6 @@ export function WelcomeContent() {
             Bytes of the Big Apple
           </Link>
         </Text>
-        <Text fontSize={"sm"}>
-          *Indicates Continued Support. Continued Support requests are Capital
-          requests which have received some degree of funding or approval, where
-          the board is requesting that the agency continue its support of that
-          ongoing item.
-        </Text>
       </Box>
     </Box>
   );
