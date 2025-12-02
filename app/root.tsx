@@ -18,10 +18,7 @@ import {
 import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { ClientOnly } from "remix-utils/client-only";
 import { useEffect, useState } from "react";
-import {
-  initializeMatomoTagManager,
-  initFullStoryAnalytics,
-} from "./utils/analytics";
+import { initializeMatomoTagManager } from "./utils/analytics";
 import { HeaderBar } from "./components/HeaderBar";
 import { INITIAL_VIEW_STATE } from "./components/atlas.client";
 
@@ -73,7 +70,6 @@ export type RootContextType = {
 export default function App() {
   useEffect(() => {
     initializeMatomoTagManager("SmoWWpiD");
-    initFullStoryAnalytics();
   }, []);
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const [, setSearchParams] = useSearchParams();
