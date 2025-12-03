@@ -1,11 +1,12 @@
 import { CommunityBoardBudgetRequestAgencyCategoryResponse } from "../../gen";
 import { CbbrCheckboxGroup } from "./CbbrCheckboxGroup";
 import { CommunityBoardBudgetRequestAgencyCategoryResponseId } from "../../utils/types";
-import { CbbrCheckbox } from "./CbbrCheckbox";
+import { CbbrCheckbox } from ".";
 
 export interface CommunityBoardBudgetRequestAgencyCategoryResponseProps {
   cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
   selectedIds: Array<CommunityBoardBudgetRequestAgencyCategoryResponseId>;
+  isChecked?: boolean;
   onCheckedChange: (
     value: CommunityBoardBudgetRequestAgencyCategoryResponseId,
   ) => void;

@@ -1,10 +1,11 @@
 import { Agency } from "../../gen";
-import { CommunityBoardBudgetRequestAgencyInitials } from "../../utils/types";
+import { CommunityBoardBudgetRequestAgencyInitials } from "~/utils/types";
 import { DropdownControlProps, DropdownControl } from ".";
 
 export interface CommunityBoardBudgetRequestAgencyProps
   extends Pick<DropdownControlProps, "selectValue"> {
   cbbrAgencies: Array<Agency> | null;
+  cbbrAgencyInitials?: string | null;
   onSelectValueChange?: (value: null | string) => void;
 }
 

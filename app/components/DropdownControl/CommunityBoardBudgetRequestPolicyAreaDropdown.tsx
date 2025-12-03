@@ -1,10 +1,11 @@
 import { CommunityBoardBudgetRequestPolicyArea } from "../../gen";
 import { DropdownControlProps, DropdownControl } from ".";
-import { CommunityBoardBudgetRequestPolicyAreaId } from "../../utils/types";
+import { CommunityBoardBudgetRequestPolicyAreaId } from "~/utils/types";
 
 export interface CommunityBoardBudgetRequestPolicyAreaProps
   extends Pick<DropdownControlProps, "selectValue"> {
   cbbrPolicyAreas: Array<CommunityBoardBudgetRequestPolicyArea> | null;
+  id?: number | null;
   onSelectValueChange?: (value: null | string) => void;
 }
 

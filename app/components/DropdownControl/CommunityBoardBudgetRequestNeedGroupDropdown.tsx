@@ -1,10 +1,11 @@
 import { CommunityBoardBudgetRequestNeedGroup } from "../../gen";
-import { CommunityBoardBudgetRequestNeedGroupId } from "../../utils/types";
+import { CommunityBoardBudgetRequestNeedGroupId } from "~/utils/types";
 import { DropdownControlProps, DropdownControl } from ".";
 
 export interface CommunityBoardBudgetRequestNeedGroupProps
   extends Pick<DropdownControlProps, "selectValue"> {
   cbbrNeedGroups: Array<CommunityBoardBudgetRequestNeedGroup> | null;
+  id?: number | null;
   onSelectValueChange?: (value: null | string) => void;
 }
 
