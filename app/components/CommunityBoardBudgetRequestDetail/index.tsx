@@ -27,6 +27,11 @@ export function CommunityBoardBudgetRequestDetail({
   agencyCategoryResponse,
   onNavigationClick,
 }: CommunityBoardBudgetRequestDetailProps) {
+  const agencyCategoryResponseAndResponse: Array<string> =
+    `${agencyCategoryResponse}. ${cbbr.cbbrAgencyResponse}`
+      .split("\\n")
+      .filter((line: string) => line !== "");
+
   return (
     <VStack
       alignItems={"flex-start"}
@@ -100,9 +105,17 @@ export function CommunityBoardBudgetRequestDetail({
         <Text fontWeight={"bold"} fontSize={"sm"}>
           Response from {agencyName}:
         </Text>
-        <Text>
-          {agencyCategoryResponse}. {cbbr.cbbrAgencyResponse}
-        </Text>
+        {agencyCategoryResponseAndResponse.map(
+          (line: string, index: number) => (
+            <Text
+              key={`cbbrAgencyResponse${index}`}
+              overflowWrap={"anywhere"}
+              mb={2}
+            >
+              {line}
+            </Text>
+          ),
+        )}
       </VStack>
       {cbbr.isContinuedSupport && (
         <Text
