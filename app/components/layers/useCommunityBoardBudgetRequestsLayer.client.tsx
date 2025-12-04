@@ -57,10 +57,10 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
     visible,
     pickable: true,
     getFillColor: [43, 108, 176, 153],
-    highlightColor: [43, 108, 176, 204], 
+    highlightColor: [255, 255, 255, 50],
     pointType: "icon",
     getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
-      console.log('data', d);
+      console.log("data", d);
       const icon = policyAreaIconsMap[d.properties.policyAreaId];
       return {
         url: `/policy-area-icons/${icon}.svg`,
