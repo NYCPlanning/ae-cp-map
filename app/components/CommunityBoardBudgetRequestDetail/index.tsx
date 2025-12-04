@@ -94,13 +94,13 @@ export function CommunityBoardBudgetRequestDetail({
         <Text fontWeight={"bold"} fontSize={"sm"}>
           Request from {cbbr.communityBoardId}:
         </Text>
-        <Text>{cbbr.description}</Text>
+        <Text overflowWrap={"anywhere"}>{cbbr.description}</Text>
       </VStack>
       <VStack alignItems={"flex-start"} gap={0}>
         <Text fontWeight={"bold"} fontSize={"sm"}>
           Response from {agencyName}:
         </Text>
-        <Text>
+        <Text overflowWrap={"anywhere"}>
           {agencyCategoryResponse}. {cbbr.cbbrAgencyResponse}
         </Text>
       </VStack>
