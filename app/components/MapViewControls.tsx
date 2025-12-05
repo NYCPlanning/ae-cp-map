@@ -1,6 +1,5 @@
 import { VStack } from "@chakra-ui/react";
 import {
-  Tooltip,
   ButtonGroup,
   Icon,
   IconButton,

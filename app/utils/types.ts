@@ -1,7 +1,7 @@
 export type BoroughId = null | string;
 export type DistrictType = null | "cd" | "ccd";
 export type DistrictId = null | string;
-export type ManagingAgencyAcronym = null | string;
+export type ManagingAgencyInitials = null | string;
 export type AgencyBudgetType = null | string;
 export type CommitmentsTotalMin = null | string;
 export type CommitmentsTotalMax = null | string;
@@ -10,6 +10,10 @@ export type CommitmentsTotalMinSelectValue = string;
 export type CommitmentsTotalMaxInputValue = string;
 export type CommitmentsTotalMaxSelectValue = string;
 export type CommitmentTotalInputsAreValid = boolean;
+export type CommunityBoardBudgetRequestPolicyAreaId = null | string;
+export type CommunityBoardBudgetRequestNeedGroupId = null | string;
+export type CommunityBoardBudgetRequestAgencyInitials = string | null;
+export type CommunityBoardBudgetRequestAgencyCategoryResponseId = string | null;
 
 export type AdminQueryParams = {
   districtType?: DistrictType;
@@ -18,17 +22,25 @@ export type AdminQueryParams = {
 };
 
 export type AttributeParams = {
-  managingAgency: ManagingAgencyAcronym;
+  managingAgency: ManagingAgencyInitials;
   agencyBudget: AgencyBudgetType;
   commitmentsTotalMin: CommitmentsTotalMin;
   commitmentsTotalMax: CommitmentsTotalMax;
+  cbbrPolicyAreaId?: CommunityBoardBudgetRequestPolicyAreaId;
+  cbbrNeedGroupId?: CommunityBoardBudgetRequestNeedGroupId;
+  cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
+  cbbrAgencyCategoryResponseIds?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
 };
 
 export type AttributeQueryParams = {
-  managingAgency?: ManagingAgencyAcronym;
+  managingAgency?: ManagingAgencyInitials;
   agencyBudget?: AgencyBudgetType;
   commitmentsTotalMin?: CommitmentsTotalMin;
   commitmentsTotalMax?: CommitmentsTotalMax;
+  cbbrPolicyAreaId?: CommunityBoardBudgetRequestPolicyAreaId;
+  cbbrNeedGroupId?: CommunityBoardBudgetRequestNeedGroupId;
+  cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
+  cbbrAgencyCategoryResponseId?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
 };
 
 export type PaginationQueryParams = {

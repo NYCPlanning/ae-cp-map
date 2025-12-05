@@ -1,6 +1,7 @@
-import { Agency } from "~/gen";
+// import { Agency } from "/gen";
+import { Agency } from "../../gen"; // remove this and uncomment line 1 before merging
 import { DropdownControlProps, DropdownControl } from ".";
-import { ManagingAgencyAcronym } from "../../utils/types";
+import { ManagingAgencyInitials } from "../../utils/types";
 
 export interface AgencyDropdownProps
   extends Pick<DropdownControlProps, "selectValue"> {
@@ -12,10 +13,10 @@ export function AgencyDropdown({
   agencies,
   onSelectValueChange = () => null,
 }: AgencyDropdownProps) {
-  const updateManagingAgencyAcronym = (
-    nextManagingAgencyAcronym: ManagingAgencyAcronym,
+  const updateManagingAgencyInitials = (
+    nextManagingAgencyInitials: ManagingAgencyInitials,
   ) => {
-    onSelectValueChange(nextManagingAgencyAcronym);
+    onSelectValueChange(nextManagingAgencyInitials);
   };
 
   const agencyOptions = agencies?.map((agency) => (
@@ -29,7 +30,7 @@ export function AgencyDropdown({
       formLabel="Managing Agency"
       isSelectDisabled={agencies === null}
       selectValue={selectValue}
-      onSelectValueChange={updateManagingAgencyAcronym}
+      onSelectValueChange={updateManagingAgencyInitials}
       fontWeight="700"
       placeholder="--All agencies--"
       marginBottom={4}
