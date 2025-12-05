@@ -50,6 +50,7 @@ export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 import { ExportDataModal } from "../components/ExportDataModal";
 import { NoResultsWarning } from "~/components/NoResultsWarning";
 import { env } from "~/utils/env";
+import { LinkBtn } from "~/components/LinkBtn";
 
 export const policyAreaIcons: Record<
   number,
@@ -207,31 +208,49 @@ export default function ResultsPanel() {
     });
   };
 
-  const districtTypeParam = searchParams.get("districtType");
-  const boroughIdParam = searchParams.get("boroughId");
-  const districtIdParam = searchParams.get("districtId");
+  const districtType = searchParams.get("districtType");
+  const boroughId = searchParams.get("boroughId");
+  const districtId = searchParams.get("districtId");
   let exportDataGeography = "All";
   let exportDataFileName = "projects_in_geographies.zip";
-  if (
-    districtTypeParam === "cd" &&
-    boroughIdParam !== null &&
-    districtIdParam !== null
-  ) {
-    const borough = boroughs.find((borough) => borough.id === boroughIdParam);
+  if (districtType === "cd" && boroughId !== null && districtId !== null) {
+    const borough = boroughs.find((borough) => borough.id === boroughId);
     exportDataGeography =
       borough !== undefined
-        ? `Community District ${borough.abbr}${districtIdParam}`
+        ? `Community District ${borough.abbr}${districtId}`
         : "";
     exportDataFileName =
       borough !== undefined
-        ? `community_district_${borough.title.toLowerCase()}_cd${districtIdParam}.csv`
+        ? `community_district_${borough.title.toLowerCase()}_cd${districtId}.csv`
         : "";
   }
 
-  if (districtTypeParam === "ccd" && districtIdParam !== null) {
-    exportDataGeography = `City Council District ${districtIdParam}`;
-    exportDataFileName = `city_council_district_${districtIdParam}.csv`;
+  if (districtType === "ccd" && districtId !== null) {
+    exportDataGeography = `City Council District ${districtId}`;
+    exportDataFileName = `city_council_district_${districtId}.csv`;
   }
+
+  const cbbrAgencyCategoryResponseIds = searchParams.get(
+    "cbbrAgencyCategoryResponseIds",
+  );
+  const cbbrNeedGroupId = searchParams.get("cbbrNeedGroupId");
+  const cbbrPolicyAreaId = searchParams.get("cbbrPolicyAreaId");
+  const agencyInitials = searchParams.get("agencyInitials");
+  const cbbrDownloadParams = new URLSearchParams({
+    cbbrType: "C",
+    ...(boroughId !== null && districtId !== null && districtType === "cd"
+      ? { communityDistrictId: `${boroughId}${districtId}` }
+      : {}),
+    ...(districtId !== null && districtType === "ccd"
+      ? { cityCouncilDistrictId: districtId }
+      : {}),
+    ...(cbbrAgencyCategoryResponseIds === null
+      ? {}
+      : { cbbrAgencyCategoryResponseIds }),
+    ...(cbbrNeedGroupId === null ? {} : { cbbrNeedGroupId }),
+    ...(cbbrPolicyAreaId === null ? {} : { cbbrPolicyAreaId }),
+    ...(agencyInitials === null ? {} : { agencyInitials }),
+  }).toString();
 
   return (
     <ContentPanelAccordion
@@ -397,6 +416,14 @@ export default function ResultsPanel() {
             geography={exportDataGeography}
             fileName={exportDataFileName}
           />
+        )}
+        {tabIndex === 1 && (
+          <LinkBtn
+            isExternal
+            href={`${zoningApiUrl}/api${pathname}/csv?${cbbrDownloadParams}`}
+          >
+            Export Data
+          </LinkBtn>
         )}
       </Flex>
     </ContentPanelAccordion>
