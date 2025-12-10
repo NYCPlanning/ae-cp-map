@@ -167,7 +167,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts?: {
       if (indvidualCbbrId === `${cbbrId}`) return;
       const cbbrRouteSuffix = `/community-board-budget-requests/${indvidualCbbrId}`;
       navigate({
-        pathname: `${endpointPrefix}${cbbrRouteSuffix}`,
+        pathname: `${cbbrRouteSuffix}`,
         search: `?${searchParams.toString()}`,
       });
     },
