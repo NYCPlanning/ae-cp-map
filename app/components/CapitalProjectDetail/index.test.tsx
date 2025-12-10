@@ -4,9 +4,9 @@ import {
   CapitalProjectBudgeted,
   createCapitalProjectBudgeted,
 } from "~/gen";
-import { CapitalProjectPanel } from ".";
+import { CapitalProjectDetail } from ".";
 
-describe("CapitalProjectPanel", () => {
+describe("CapitalProjectDetail", () => {
   let capitalProject: CapitalProjectBudgeted;
   let managingAgencies: Agency[];
   let onNavigationClick: () => void;
@@ -26,23 +26,9 @@ describe("CapitalProjectPanel", () => {
     onNavigationClick = vi.fn();
   });
 
-  it("should render a resize bar", () => {
-    render(
-      <CapitalProjectPanel
-        capitalProject={capitalProject}
-        capitalCommitments={[]}
-        capitalCommitmentTypes={[]}
-        managingAgencies={managingAgencies}
-        onNavigationClick={onNavigationClick}
-      />,
-    );
-
-    expect(screen.getByLabelText(/Expand/)).toBeVisible();
-  });
-
   it("should render capital project details", () => {
     render(
-      <CapitalProjectPanel
+      <CapitalProjectDetail
         capitalProject={capitalProject}
         capitalCommitments={[]}
         capitalCommitmentTypes={[]}
@@ -56,7 +42,7 @@ describe("CapitalProjectPanel", () => {
 
   it("should render commitments", () => {
     render(
-      <CapitalProjectPanel
+      <CapitalProjectDetail
         capitalProject={capitalProject}
         capitalCommitments={[]}
         capitalCommitmentTypes={[]}

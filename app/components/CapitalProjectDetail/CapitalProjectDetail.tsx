@@ -6,15 +6,25 @@ import {
   Heading,
   HStack,
   Text,
-  Wrap,
-  WrapItem,
   IconButton,
+  VStack,
+  Tag,
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
 } from "@nycplanning/streetscape";
 import { CapitalProjectBudgeted, Agency, CapitalCommitment } from "../../gen";
 import { formatFiscalYearRange } from "~/utils/utils";
 import { CapitalCommitmentsTimeline } from "./CapitalCommitmentsTimeline";
+import {
+  CapitalCommitmentsTable,
+  CapitalCommitmentsTableProps,
+} from "./CapitalCommitmentsTable";
 
-export interface CapitalProjectDetailProps {
+export interface CapitalProjectDetailProps
+  extends CapitalCommitmentsTableProps {
   capitalProject: CapitalProjectBudgeted;
   capitalCommitments: Array<CapitalCommitment>;
   managingAgencies: Agency[];
@@ -25,20 +35,22 @@ export const CapitalProjectDetail = ({
   capitalProject,
   capitalCommitments,
   managingAgencies,
+  capitalCommitmentTypes,
   onNavigationClick,
 }: CapitalProjectDetailProps) => {
   return (
-    <Flex direction={"column"} padding={{ base: 3, lg: 4 }}>
-      <HStack
-        align={"center"}
-        borderBottom={"1px"}
-        borderStyle={"solid"}
-        borderColor={"gray.200"}
-        paddingBottom={"0.25rem"}
-      >
+    <VStack
+      alignItems={"flex-start"}
+      gap={2}
+      overflowY={"scroll"}
+      width="100%"
+      sx={{ scrollbarWidth: "none" }}
+      id="OUTER"
+    >
+      <HStack align={"center"}>
         <IconButton
           aria-label="Close project detail panel"
-          icon={<ChevronLeftIcon boxSize={10} />}
+          icon={<ChevronLeftIcon boxSize={6} />}
           color={"gray.600"}
           backgroundColor={"inherit"}
           _hover={{
@@ -47,56 +59,45 @@ export const CapitalProjectDetail = ({
           }}
           onClick={onNavigationClick}
         />
-        <Heading color="gray.600" fontWeight={"bold"} fontSize={"lg"}>
+        <Heading color="gray.600" fontWeight={"bold"} fontSize={"md"}>
           {capitalProject.description}
         </Heading>
       </HStack>
-      <Box marginY={"1rem"}>
-        <Box display={"flex"} fontSize={"sm"}>
-          <Heading
-            color="gray.600"
-            fontWeight={"bold"}
-            minWidth={"fit-content"}
-          >
-            Project ID:&nbsp;
-          </Heading>
-          <Text>
-            {capitalProject.managingCode}
-            {capitalProject.id}
-          </Text>
-        </Box>
-        <Box display={"flex"} fontSize={"sm"}>
-          <Heading
-            color="gray.600"
-            fontWeight={"bold"}
-            minWidth={"fit-content"}
-          >
-            Project Type:&nbsp;
-          </Heading>
-          <Wrap spacing={1}>
+
+      <VStack
+        alignItems={"flex-start"}
+        borderBottom={"1px solid"}
+        borderColor={"gray.200"}
+        width="100%"
+        paddingBottom={2}
+        justifyContent={"flex-start"}
+        fontSize={"sm"}
+      >
+        <Flex gap={2} flexWrap={"wrap"}>
+          <HStack align={"flex-start"}>
+            <Text fontWeight={"bold"}>Project ID: </Text>
+            <Text>
+              {capitalProject.managingCode}
+              {capitalProject.id}
+            </Text>
+          </HStack>
+          <HStack align={"flex-start"}>
+            <Text fontWeight={"bold"}>Project Type: </Text>
             {capitalProject.budgetTypes.map((budgetType) => (
-              <WrapItem key={budgetType}>
-                <Text
-                  as={"span"}
-                  display={"inline-block"}
-                  width="auto"
-                  paddingX={0.5}
-                  paddingY={0.25}
-                  borderRadius={"0.25rem"}
-                  backgroundColor={"gray.100"}
-                >
-                  {budgetType}
-                </Text>
-              </WrapItem>
+              <Tag key={budgetType}>
+                <Text>{budgetType}</Text>
+              </Tag>
             ))}
-          </Wrap>
-        </Box>
-      </Box>
+          </HStack>
+        </Flex>
+      </VStack>
+
       <Flex
         height={"auto"}
         direction={"column"}
         transition={"height 0.5s ease-in-out"}
         gap={4}
+        width={"100%"}
       >
         <Box
           backgroundColor="gray.50"
@@ -148,7 +149,44 @@ export const CapitalProjectDetail = ({
           </Box>
           <CapitalCommitmentsTimeline capitalCommitments={capitalCommitments} />
         </Box>
+        <Flex
+          direction={"column"}
+          backgroundColor="gray.50"
+          paddingX={4}
+          borderRadius={"base"}
+        >
+          <Accordion
+            width={"100%"}
+            maxHeight={"100%"}
+            defaultIndex={[0]}
+            allowToggle
+            overflowY={"scroll"}
+            sx={{ scrollbarWidth: "none" }}
+          >
+            <AccordionItem border={"none"}>
+              <AccordionButton p={0} aria-label="Toggle layers panel">
+                <Heading
+                  flex="1"
+                  textAlign="left"
+                  fontSize="md"
+                  fontWeight="bold"
+                  lineHeight="32px"
+                  pb={0}
+                >
+                  Commitment Details
+                </Heading>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel px={0} pb={3}>
+                <CapitalCommitmentsTable
+                  capitalCommitments={capitalCommitments}
+                  capitalCommitmentTypes={capitalCommitmentTypes}
+                />
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </Flex>
       </Flex>
-    </Flex>
+    </VStack>
   );
 };
