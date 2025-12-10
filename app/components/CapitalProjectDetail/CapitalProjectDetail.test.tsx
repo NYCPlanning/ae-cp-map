@@ -3,6 +3,7 @@ import {
   CapitalProjectBudgeted,
   createCapitalProjectBudgeted,
   Agency,
+  CapitalCommitmentType,
 } from "~/gen";
 import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
@@ -10,17 +11,19 @@ import { userEvent } from "@testing-library/user-event";
 describe("CapitalProjectDetail", () => {
   let capitalProject: CapitalProjectBudgeted;
   let managingAgencies: Agency[];
+  let capitalCommitmentTypes: CapitalCommitmentType[];
   let onNavigationClick: () => void;
   beforeAll(() => {
     managingAgencies = [
       { initials: "DDC", name: "Department of Design and Construction" },
       { initials: "DEP", name: "Department of Environmental Protection" },
     ];
-    capitalProject = {
-      ...createCapitalProjectBudgeted(),
-      managingAgency: "DDC",
-      sponsoringAgencies: ["DEP"],
-    };
+    (capitalCommitmentTypes = []),
+      (capitalProject = {
+        ...createCapitalProjectBudgeted(),
+        managingAgency: "DDC",
+        sponsoringAgencies: ["DEP"],
+      });
   });
 
   beforeEach(() => {
@@ -33,6 +36,7 @@ describe("CapitalProjectDetail", () => {
         capitalProject={capitalProject}
         capitalCommitments={[]}
         managingAgencies={managingAgencies}
+        capitalCommitmentTypes={capitalCommitmentTypes}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -45,6 +49,7 @@ describe("CapitalProjectDetail", () => {
         capitalProject={capitalProject}
         capitalCommitments={[]}
         managingAgencies={managingAgencies}
+        capitalCommitmentTypes={capitalCommitmentTypes}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -57,6 +62,7 @@ describe("CapitalProjectDetail", () => {
         capitalProject={capitalProject}
         capitalCommitments={[]}
         managingAgencies={managingAgencies}
+        capitalCommitmentTypes={capitalCommitmentTypes}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -73,6 +79,7 @@ describe("CapitalProjectDetail", () => {
         capitalProject={capitalProject}
         capitalCommitments={[]}
         managingAgencies={managingAgencies}
+        capitalCommitmentTypes={capitalCommitmentTypes}
         onNavigationClick={onNavigationClick}
       />,
     );
@@ -85,6 +92,7 @@ describe("CapitalProjectDetail", () => {
         capitalProject={capitalProject}
         capitalCommitments={[]}
         managingAgencies={managingAgencies}
+        capitalCommitmentTypes={capitalCommitmentTypes}
         onNavigationClick={onNavigationClick}
       />,
     );

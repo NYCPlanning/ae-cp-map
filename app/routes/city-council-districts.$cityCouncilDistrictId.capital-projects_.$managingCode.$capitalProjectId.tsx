@@ -11,7 +11,10 @@ import {
   findCapitalCommitmentTypes,
   findCapitalProjectManagingAgencies,
 } from "../gen";
-import { CapitalProjectPanel } from "~/components/CapitalProjectPanel";
+import { Show } from "@nycplanning/streetscape";
+import { CapitalProjectDetail } from "~/components/CapitalProjectDetail";
+import { ContentPanelAccordion } from "~/components/ContentPanelAccordion";
+import { analytics } from "~/utils/analytics";
 import { env } from "~/utils/env";
 
 const { zoningApiUrl } = env;
@@ -76,17 +79,48 @@ export default function CapitalProjectByCityCouncilDistrictId() {
   } = useLoaderData<typeof loader>();
 
   return (
-    <CapitalProjectPanel
-      capitalProject={capitalProject}
-      managingAgencies={managingAgencies}
-      capitalCommitments={capitalCommitments}
-      capitalCommitmentTypes={capitalCommitmentTypes}
-      onNavigationClick={() => {
-        navigate({
-          pathname: `/capital-projects`,
-          search: `?${searchParams.toString()}`,
-        });
-      }}
-    />
+    <>
+      <Show below="md">
+        <ContentPanelAccordion accordionHeading="Project Details">
+          <CapitalProjectDetail
+            capitalProject={capitalProject}
+            capitalCommitments={capitalCommitments}
+            managingAgencies={managingAgencies}
+            capitalCommitmentTypes={capitalCommitmentTypes}
+            onNavigationClick={() => {
+              analytics({
+                category: "Close Project Info Modal Button",
+                action: "Click",
+                name: "Closed",
+              });
+              navigate({
+                pathname: `/capital-projects`,
+                search: `?${searchParams.toString()}`,
+              });
+            }}
+          />
+        </ContentPanelAccordion>
+      </Show>
+
+      <Show above="md">
+        <CapitalProjectDetail
+          capitalProject={capitalProject}
+          capitalCommitments={capitalCommitments}
+          managingAgencies={managingAgencies}
+          capitalCommitmentTypes={capitalCommitmentTypes}
+          onNavigationClick={() => {
+            analytics({
+              category: "Close Project Info Modal Button",
+              action: "Click",
+              name: "Closed",
+            });
+            navigate({
+              pathname: `/capital-projects`,
+              search: `?${searchParams.toString()}`,
+            });
+          }}
+        />
+      </Show>
+    </>
   );
 }

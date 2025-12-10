@@ -97,7 +97,7 @@ export default function CommunityBoardBudgetRequest() {
   return (
     <>
       <Show below="md">
-        <ContentPanelAccordion accordionHeading="Project Details">
+        <ContentPanelAccordion accordionHeading="Request Details">
           <CommunityBoardBudgetRequestDetail
             cbbr={cbbr}
             agencyName={agencyName}
