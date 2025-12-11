@@ -32,6 +32,8 @@ interface AtlasProps {
   setViewState: (newViewState: MapViewState) => void;
   showCapitalProjects: boolean;
   showCbbr: boolean;
+  hoveredOverItem: string | null;
+  setHoveredOverItem: (newHoveredOverItem: string | null) => void;
 }
 
 export function Atlas({
@@ -39,14 +41,22 @@ export function Atlas({
   setViewState,
   showCapitalProjects,
   showCbbr,
+  hoveredOverItem,
+  setHoveredOverItem,
 }: AtlasProps) {
   const capitalProjectsLayer = useCapitalProjectsLayer({
     visible: showCapitalProjects,
+    hoveredCapitalProject: hoveredOverItem,
+    setHoveredOverProject: setHoveredOverItem,
   });
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
   const communityBoardBudgetRequestsLayer =
-    useCommunityBoardBudgetRequestsLayer({ visible: showCbbr });
+    useCommunityBoardBudgetRequestsLayer({
+      visible: showCbbr,
+      hoveredCbbr: hoveredOverItem,
+      setHoveredOverCbbr: setHoveredOverItem,
+    });
   const communityBoardBudgetRequestGeoJsonLayer =
     useCommunityBoardBudgetRequestsGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
@@ -55,7 +65,6 @@ export function Atlas({
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
 
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
-
   return (
     <DeckGL<MapView>
       viewState={viewState}
