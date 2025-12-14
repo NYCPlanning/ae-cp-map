@@ -2,8 +2,8 @@ import { MVTLayer } from "@deck.gl/geo-layers";
 import {
   useNavigate,
   useParams,
-  useLoaderData,
   useSearchParams,
+  useLoaderData,
 } from "react-router";
 import {
   DataFilterExtension,
@@ -22,6 +22,7 @@ import {
 } from "../../utils/types";
 import { loader as mapPageLoader } from "../../layouts/MapPage";
 import { env } from "~/utils/env";
+import { IconClusterLayer } from "./icon-cluster-layer";
 
 const { zoningApiUrl } = env;
 
@@ -191,16 +192,16 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         search: `?${searchParams.toString()}`,
       });
     },
-    iconSizeScale: 1,
-    iconSizeMinPixels: 24,
-    iconSizeMaxPixels: 24,
+    iconSizeScale: 40,
+    // iconSizeMinPixels: 24,
+    // iconSizeMaxPixels: 24,
     getFilterCategory: (d) => {
       const {
         agencyInitials,
         needGroupId,
         policyAreaId,
         agencyCategoryReponseId,
-        layerName,
+        // layerName,
       } = d.properties;
 
       return [
@@ -208,7 +209,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         needGroupId,
         policyAreaId,
         agencyCategoryReponseId,
-        layerName,
+        // layerName,
       ];
     },
     filterCategories: [
@@ -218,11 +219,16 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       cbbrAgencyCategoryResponseIds.length > 0
         ? cbbrAgencyCategoryResponseIds
         : fullAgencyCategoryResponseList,
-      ["community-board-budget-request-fill"],
+      // ["community-board-budget-request-fill"],
     ],
+    _subLayerProps: {
+      "points-icon": {
+        type: IconClusterLayer,
+      },
+    },
     extensions: [
       new DataFilterExtension({
-        categorySize: 5,
+        categorySize: 4,
       }),
     ],
   });
