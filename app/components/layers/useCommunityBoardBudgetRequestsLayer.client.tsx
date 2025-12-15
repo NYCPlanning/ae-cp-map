@@ -22,6 +22,7 @@ import {
 } from "../../utils/types";
 import { loader as mapPageLoader } from "../../layouts/MapPage";
 import { env } from "~/utils/env";
+import { CommunityBoardBudgetRequestType } from "~/gen";
 
 const { zoningApiUrl } = env;
 
@@ -33,6 +34,7 @@ export interface CommunityBoardBudgetRequestProperties {
   needGroupId: number;
   agencyCategoryReponseId: string;
   cbbrAgencyCategoryResponseId: string;
+  requestType: CommunityBoardBudgetRequestType;
 }
 
 export function useCommunityBoardBudgetRequestsLayer(opts: {
@@ -97,7 +99,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     : [];
 
   const fullPolicyAreaList = loaderData.cbbrPolicyAreas
-    ? loaderData.cbbrPolicyAreas.map((data) => data.id)
+    ? loaderData.cbbrPolicyAreas.map((data) => `Capital-${data.id}`)
     : [];
 
   const fullAgencyCategoryResponseList = loaderData.cbbrAgencyCategoryResponses
@@ -200,19 +202,21 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         needGroupId,
         policyAreaId,
         agencyCategoryReponseId,
+        requestType,
       } = d.properties;
-
       return [
         agencyInitials,
         needGroupId,
-        policyAreaId,
+        `${requestType}-${policyAreaId}`,
         agencyCategoryReponseId,
       ];
     },
     filterCategories: [
       cbbrAgencyInitials !== null ? [cbbrAgencyInitials] : fullAgencyList,
       cbbrNeedGroupId !== null ? [cbbrNeedGroupId] : fullNeedGroupList,
-      cbbrPolicyAreaId !== null ? [cbbrPolicyAreaId] : fullPolicyAreaList,
+      cbbrPolicyAreaId !== null
+        ? [`Capital-${cbbrPolicyAreaId}`]
+        : fullPolicyAreaList,
       cbbrAgencyCategoryResponseIds.length > 0
         ? cbbrAgencyCategoryResponseIds
         : fullAgencyCategoryResponseList,
