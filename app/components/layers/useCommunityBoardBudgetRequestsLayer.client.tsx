@@ -142,28 +142,28 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       }
     },
     pointType: "icon",
-    getIconSize: (d) => {
-      if (clickInfo.id === d.properties.id && clickInfo.clicked) {
-        return 30;
-      } else {
-        return 25;
-      }
-    },
+    // getIconSize: (d) => {
+    //   if (clickInfo.id === d.properties.id && clickInfo.clicked) {
+    //     return 30;
+    //   } else {
+    //     return 25;
+    //   }
+    // },
     autoHighlight: true,
     highlightColor: highlightColor,
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
-    getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
-      const icon = policyAreaIconsMap[d.properties.policyAreaId];
-      if (
-        (clickInfo.id === d.properties.id && clickInfo.clicked) ||
-        cbbrId === d.properties.id
-      ) {
-        return `${icon}-click`;
-      } else {
-        return `${icon}`;
-      }
-    },
+    // getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
+    //   const icon = policyAreaIconsMap[d.properties.policyAreaId];
+    //   if (
+    //     (clickInfo.id === d.properties.id && clickInfo.clicked) ||
+    //     cbbrId === d.properties.id
+    //   ) {
+    //     return `${icon}-click`;
+    //   } else {
+    //     return `${icon}`;
+    //   }
+    // },
     iconAtlas: `/policy-area-icons/all-icons.png`,
     iconMapping: `/mapping.json`,
     pickable: true,
@@ -192,7 +192,8 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         search: `?${searchParams.toString()}`,
       });
     },
-    iconSizeScale: 40,
+    iconSizeScale: 25,
+    binary: false,
     // iconSizeMinPixels: 24,
     // iconSizeMaxPixels: 24,
     getFilterCategory: (d) => {
