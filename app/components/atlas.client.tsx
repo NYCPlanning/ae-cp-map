@@ -44,11 +44,11 @@ export function Atlas({
   hoveredOverItem,
   setHoveredOverItem,
 }: AtlasProps) {
-  const capitalProjectsLayer = useCapitalProjectsLayer({
-    visible: showCapitalProjects,
-    hoveredCapitalProject: hoveredOverItem,
-    setHoveredOverProject: setHoveredOverItem,
-  });
+  // const capitalProjectsLayer = useCapitalProjectsLayer({
+  //   visible: showCapitalProjects,
+  //   hoveredCapitalProject: hoveredOverItem,
+  //   setHoveredOverProject: setHoveredOverItem,
+  // });
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
   const communityBoardBudgetRequestsLayer =
@@ -120,7 +120,7 @@ export function Atlas({
         position: "relative",
       }}
       layers={[
-        capitalProjectsLayer,
+        // capitalProjectsLayer,
         capitalProjectBudgetedGeoJsonLayer,
         communityDistrictsLayer,
         communityDistrictLayer,

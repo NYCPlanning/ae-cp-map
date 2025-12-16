@@ -71,11 +71,7 @@ export class IconClusterLayer<
 
   updateState({ props, oldProps, changeFlags }: UpdateParameters<this>) {
     const z = Math.floor(this.context.viewport.zoom);
-    console.log({ changeFlags });
-    // console.log({
-    //   datachanged: changeFlags.dataChanged,
-    //   zChanged: z !== this.state.z,
-    // });
+
     const rebuildIndex =
       changeFlags.somethingChanged ||
       props.sizeScale !== oldProps.sizeScale ||
@@ -95,25 +91,19 @@ export class IconClusterLayer<
         radius: radius,
         extent: 512,
         reduce: (accumulated, props) => {
-          // console.log({ accumulated, props });
           accumulated["sum"] += props.sum;
         },
       });
       index.load(
         // @ts-ignore Supercluster expects proper GeoJSON feature
-        (props.data as DataT[])
-          .map((d) => {
-            // console.log({ properties: d.__source.object.properties });
-            return {
-              geometry: { coordinates: (props.getPosition as Function)(d) },
-              // properties: { ...d, ...d.__source.object.properties },
-              properties: d.__source.object.properties,
-            };
-          })
-          .filter(
-            (d) =>
-              d.properties.layerName !== "community-board-budget-request-fill",
-          ),
+        (props.data as DataT[]).map((d) => {
+          return {
+            geometry: { coordinates: (props.getPosition as Function)(d) },
+            properties: {
+              ...d.__source.object.properties,
+            },
+          };
+        }),
       );
       this.setState({ index });
     }
@@ -121,17 +111,26 @@ export class IconClusterLayer<
       const _data = this.state.index.getClusters([-100, 0, 100, 100], z);
 
       const data = _data.map((d) => {
-        return {
-          id: d.id,
+        const result = {
+          id:
+            d.properties.cluster === true
+              ? d.properties.cluster_id.toString()
+              : d.properties.id,
           type: d.type,
           geometry: d.geometry,
           properties: {
             ...d.properties,
+            id:
+              d.properties.cluster === true
+                ? d.properties.cluster_id.toString()
+                : d.properties.id,
             expansionZoom: this.state.index.getClusterExpansionZoom(
               d.properties.cluster_id,
             ),
           },
         };
+        // console.log({ result });
+        return result;
       });
       this.setState({
         data,
@@ -143,14 +142,21 @@ export class IconClusterLayer<
   getPickingInfo({
     info,
     mode,
+    sourceLayer,
   }: {
     info: PickingInfo<PointFeature<DataT> | ClusterFeature<DataT>>;
     mode: string;
   }): IconClusterLayerPickingInfo<DataT> {
+    // console.log({ sourceLayer });
     const pickedObject = info.object;
+    console.log({ pickedObject });
+    if (mode === "hover") {
+      // console.log({ info, sourceLayer });
+      sourceLayer.props.onHover(info);
+    }
     if (pickedObject) {
       let objects: DataT[] | undefined;
-      if (pickedObject.properties.cluster && mode !== "hover") {
+      if (pickedObject.properties.cluster && mode === "hover") {
         objects = this.state.index
           .getLeaves(pickedObject.properties.cluster_id, 25)
           .map((f) => f.properties);
@@ -158,12 +164,24 @@ export class IconClusterLayer<
 
       return { ...info, object: pickedObject, objects };
     }
+
     return { ...info, object: undefined };
   }
 
   renderLayers() {
     const { data } = this.state;
-    const { iconAtlas, iconMapping, sizeScale } = this.props;
+    const {
+      iconAtlas,
+      iconMapping,
+      sizeScale,
+      getIcon,
+      getSize,
+      onHover,
+      autoHighlight,
+      highlightColor,
+      // highlightedFeatureId,
+      // uniqueIdProperty,
+    } = this.props;
 
     return new IconLayer<PointFeature<DataT> | ClusterFeature<DataT>>(
       {
@@ -172,14 +190,13 @@ export class IconClusterLayer<
         iconMapping,
         sizeScale,
         getPosition: (d) => d.geometry.coordinates as [number, number],
-        getIcon: function (d) {
-          return getIconName(d);
-        },
-        getSize: (d) => {
-          return getIconSize(
-            d.properties.cluster ? d.properties.point_count : 1,
-          );
-        },
+        getIcon,
+        getSize,
+        onHover,
+        autoHighlight,
+        highlightColor,
+        // highlightedFeatureId,
+        // uniqueIdProperty,
       },
       this.getSubLayerProps({
         id: "icon",

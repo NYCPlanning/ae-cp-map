@@ -188,6 +188,10 @@ export default function MapPage() {
   const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
   const showCbbr = searchParams.get("cbbr") !== "off";
   const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
+  const updateHoveredItem = (newHover) => {
+    console.log("UPDATE");
+    setHoveredOverItem(newHover);
+  };
 
   const {
     boroughs,
@@ -235,7 +239,7 @@ export default function MapPage() {
           showCapitalProjects={showCapitalProjects}
           showCbbr={showCbbr}
           hoveredOverItem={hoveredOverItem}
-          setHoveredOverItem={setHoveredOverItem}
+          setHoveredOverItem={updateHoveredItem}
         />{" "}
       </GridItem>
       <GridItem

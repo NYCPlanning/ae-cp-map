@@ -34,6 +34,7 @@ export interface CommunityBoardBudgetRequestProperties {
   needGroupId: number;
   agencyCategoryReponseId: string;
   cbbrAgencyCategoryResponseId: string;
+  cluster: boolean;
 }
 
 export function useCommunityBoardBudgetRequestsLayer(opts: {
@@ -43,6 +44,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
 }) {
   const visible = opts.visible ?? true;
   const hoveredCbbr = opts.hoveredCbbr;
+  // console.log("Prop id", { hoveredCbbr });
   const setHoveredOverCbbr = opts.setHoveredOverCbbr;
   const { cbbrId } = useParams();
   const [searchParams] = useSearchParams();
@@ -141,29 +143,21 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         return defaultColor;
       }
     },
-    pointType: "icon",
-    // getIconSize: (d) => {
-    //   if (clickInfo.id === d.properties.id && clickInfo.clicked) {
-    //     return 30;
-    //   } else {
-    //     return 25;
+    // onHover: (data) => {
+    //   console.log({ data });
+    //   console.log("hover");
+    //   const id = data.object?.properties;
+    //   if (data.index === -1) {
+    //     setHoveredOverCbbr(null);
+    //   } else if (id) {
+    //     setHoveredOverCbbr(id);
     //   }
     // },
-    autoHighlight: true,
-    highlightColor: highlightColor,
+    pointType: "icon",
+    // autoHighlight: true,
+    // highlightColor: highlightColor,
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
-    // getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
-    //   const icon = policyAreaIconsMap[d.properties.policyAreaId];
-    //   if (
-    //     (clickInfo.id === d.properties.id && clickInfo.clicked) ||
-    //     cbbrId === d.properties.id
-    //   ) {
-    //     return `${icon}-click`;
-    //   } else {
-    //     return `${icon}`;
-    //   }
-    // },
     iconAtlas: `/policy-area-icons/all-icons.png`,
     iconMapping: `/mapping.json`,
     pickable: true,
@@ -171,15 +165,6 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       getIcon: [clickInfo.id, cbbrId],
       getIconSize: [clickInfo.id, cbbrId],
       getFillColor: [clickInfo.id, cbbrId],
-      highlightedFeatureId: [hoveredCbbr],
-    },
-    onHover: (data) => {
-      const id = data.object?.properties;
-      if (data.index === -1) {
-        setHoveredOverCbbr(null);
-      } else if (id) {
-        setHoveredOverCbbr(id);
-      }
     },
     onClick: (data) => {
       setClickInfo({ id: data.object?.properties?.id, clicked: data.picked });
@@ -194,15 +179,12 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     },
     iconSizeScale: 25,
     binary: false,
-    // iconSizeMinPixels: 24,
-    // iconSizeMaxPixels: 24,
     getFilterCategory: (d) => {
       const {
         agencyInitials,
         needGroupId,
         policyAreaId,
         agencyCategoryReponseId,
-        // layerName,
       } = d.properties;
 
       return [
@@ -210,7 +192,6 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         needGroupId,
         policyAreaId,
         agencyCategoryReponseId,
-        // layerName,
       ];
     },
     filterCategories: [
@@ -220,11 +201,62 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       cbbrAgencyCategoryResponseIds.length > 0
         ? cbbrAgencyCategoryResponseIds
         : fullAgencyCategoryResponseList,
-      // ["community-board-budget-request-fill"],
     ],
     _subLayerProps: {
       "points-icon": {
         type: IconClusterLayer,
+        autoHighlight: true,
+        highlightColor: highlightColor,
+        getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
+          if (d.properties.cluster !== true) {
+            const icon = policyAreaIconsMap[d.properties.policyAreaId];
+            if (
+              (clickInfo.id === d.properties.id && clickInfo.clicked) ||
+              cbbrId === d.properties.id
+            ) {
+              return `${icon}-click`;
+            } else {
+              return `${icon}`;
+            }
+          } else {
+            const size = d.properties.point_count;
+            if (size === 0) {
+              return `marker-1`;
+            }
+            if (size < 10) {
+              return `marker-${size}`;
+            }
+            if (size < 150) {
+              return `marker-${Math.floor(size / 10)}0`;
+            }
+            return "marker-150";
+          }
+        },
+        onHover: (d) => {
+          // console.log({ data });
+          // console.log("subLayerProps onHover", { data, hoveredCbbr });
+          // console.log({ object: d.object });
+          const id = d.object?.properties.id;
+          // console.log({ hoveredCbbr, id });
+          if (!id) {
+            // console.log("one");
+            setHoveredOverCbbr(null);
+          } else if (id) {
+            // console.log("two");
+            setHoveredOverCbbr(id);
+          }
+        },
+        getSize: (d) => {
+          if (d.properties.cluster !== true) {
+            if (clickInfo.id === d.properties.id && clickInfo.clicked) {
+              return 1.2;
+            } else {
+              return 1;
+            }
+          } else {
+            return Math.min(150, d.properties.point_count) / 100 + 1;
+          }
+        },
       },
     },
     extensions: [
