@@ -10,7 +10,6 @@ import {
   DataFilterExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
-import { useState } from "react";
 import { Accessor, Color } from "@deck.gl/core";
 import {
   BoroughId,
@@ -106,8 +105,6 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     ? loaderData.cbbrAgencyCategoryResponses.map((data) => data.id)
     : [];
 
-  const [clickInfo, setClickInfo] = useState({ id: "", clicked: false });
-
   const defaultColor: Accessor<
     Feature<Geometry, CommunityBoardBudgetRequestProperties>,
     Color
@@ -136,7 +133,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     highlightedFeatureId: hoveredCbbr,
     getFillColor: ({ properties }) => {
       const { id } = properties;
-      if (clickInfo.id === id && clickInfo.clicked) {
+      if (cbbrId === id) {
         return selectedColor;
       } else {
         return defaultColor;
@@ -144,7 +141,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     },
     pointType: "icon",
     getIconSize: (d) => {
-      if (clickInfo.id === d.properties.id && clickInfo.clicked) {
+      if (cbbrId === d.properties.id) {
         return 30;
       } else {
         return 25;
@@ -156,10 +153,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     getLineWidth: 1,
     getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
       const icon = policyAreaIconsMap[d.properties.policyAreaId];
-      if (
-        (clickInfo.id === d.properties.id && clickInfo.clicked) ||
-        cbbrId === d.properties.id
-      ) {
+      if (cbbrId === d.properties.id) {
         return `${icon}-click`;
       } else {
         return `${icon}`;
@@ -169,9 +163,9 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     iconMapping: `/mapping.json`,
     pickable: true,
     updateTriggers: {
-      getIcon: [clickInfo.id, cbbrId],
-      getIconSize: [clickInfo.id, cbbrId],
-      getFillColor: [clickInfo.id, cbbrId],
+      getIcon: [cbbrId],
+      getIconSize: [cbbrId],
+      getFillColor: [cbbrId],
       highlightedFeatureId: [hoveredCbbr],
     },
     onHover: (data) => {
@@ -183,7 +177,6 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       }
     },
     onClick: (data) => {
-      setClickInfo({ id: data.object?.properties?.id, clicked: data.picked });
       const indvidualCbbrId = data.object?.properties?.id;
       if (indvidualCbbrId === undefined) return;
       if (indvidualCbbrId === `${cbbrId}`) return;
