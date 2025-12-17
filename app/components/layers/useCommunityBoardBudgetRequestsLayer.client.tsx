@@ -109,10 +109,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     Feature<Geometry, CommunityBoardBudgetRequestProperties>,
     Color
   > = [43, 108, 176, 153];
-  const selectedColor: Accessor<
-    Feature<Geometry, CommunityBoardBudgetRequestProperties>,
-    Color
-  > = [43, 108, 176, 255];
+
   const highlightColor: Accessor<
     Feature<Geometry, CommunityBoardBudgetRequestProperties>,
     Color
@@ -131,22 +128,9 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     visible,
     uniqueIdProperty: "id",
     highlightedFeatureId: hoveredCbbr,
-    getFillColor: ({ properties }) => {
-      const { id } = properties;
-      if (cbbrId === id) {
-        return selectedColor;
-      } else {
-        return defaultColor;
-      }
-    },
+    getFillColor: defaultColor,
     pointType: "icon",
-    getIconSize: (d) => {
-      if (cbbrId === d.properties.id) {
-        return 30;
-      } else {
-        return 25;
-      }
-    },
+    getIconSize: 24,
     autoHighlight: true,
     highlightColor: highlightColor,
     getLineColor: [255, 255, 255, 255],
@@ -154,10 +138,9 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
       const icon = policyAreaIconsMap[d.properties.policyAreaId];
       if (cbbrId === d.properties.id) {
-        return `${icon}-click`;
-      } else {
-        return `${icon}`;
+        return null;
       }
+      return `${icon}`;
     },
     iconAtlas: `/policy-area-icons/all-icons.png`,
     iconMapping: `/mapping.json`,
@@ -172,7 +155,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       const id = data.object?.properties?.id;
       if (data.index === -1) {
         setHoveredOverCbbr(null);
-      } else if (id) {
+      } else if (id !== undefined) {
         setHoveredOverCbbr(id);
       }
     },
@@ -188,7 +171,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     },
     iconSizeScale: 1,
     iconSizeMinPixels: 24,
-    iconSizeMaxPixels: 24,
+    iconSizeMaxPixels: 30,
     getFilterCategory: (d) => {
       const {
         agencyInitials,
