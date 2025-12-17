@@ -3,9 +3,23 @@ import { CommunityBoardBudgetRequestGeoJson } from "~/gen";
 import { useParams } from "react-router";
 import { FlyToGeoJsonExtension } from "../../extensions";
 import { env } from "~/utils/env";
-import { CommunityBoardBudgetRequestProperties } from "./useCommunityBoardBudgetRequestsLayer.client";
 
 const { zoningApiUrl } = env;
+
+export interface CommunityBoardBudgetRequestProperties {
+  agencyInitials: string;
+  cbbrAgencyCategoryResponseId: number;
+  cbbrAgencyResponse: string;
+  cbbrPolicyAreaId: number;
+  cbbrType: string;
+  communityBoardId: string;
+  description: string;
+  id: string;
+  isContinuedSupport: boolean;
+  isMapped: boolean;
+  priority: number;
+  title: string;
+}
 
 export function useCommunityBoardBudgetRequestsGeoJsonLayer() {
   const { cbbrId } = useParams();
@@ -19,6 +33,7 @@ export function useCommunityBoardBudgetRequestsGeoJsonLayer() {
     7: "parks",
     8: "other",
   };
+
   return new GeoJsonLayer<CommunityBoardBudgetRequestGeoJson>({
     id: "communityBoardBudgetRequestsGeoJson",
     data:
@@ -29,13 +44,14 @@ export function useCommunityBoardBudgetRequestsGeoJsonLayer() {
     getFillColor: [43, 108, 176, 255],
     pointType: "icon",
     getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
-      const icon = policyAreaIconsMap[d.properties.policyAreaId];
-      return {
-        url: `/policy-area-icons/${icon}.svg`,
-        width: 40,
-        height: 40,
-      };
+      const icon = policyAreaIconsMap[d.properties.cbbrPolicyAreaId];
+      return `${icon}-click`;
     },
+    iconAtlas: `/policy-area-icons/all-icons.png`,
+    iconMapping: `/mapping.json`,
+    getIconSize: 30,
+    iconSizeMinPixels: 24,
+    iconSizeMaxPixels: 30,
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
     updateTriggers: {

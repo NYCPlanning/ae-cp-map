@@ -120,7 +120,7 @@ export function useCapitalProjectsLayer(opts: {
         data.object?.properties?.managingCodeCapitalProjectId;
       if (data.index === -1) {
         setHoveredOverProject(null);
-      } else if (managingCodeCapitalProjectId) {
+      } else if (managingCodeCapitalProjectId !== undefined) {
         setHoveredOverProject(managingCodeCapitalProjectId);
       }
     },
