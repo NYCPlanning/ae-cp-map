@@ -271,9 +271,9 @@ export default function About() {
       >
         <VStack alignItems={"flex-start"}>
           <Text fontWeight={"bold"}>Version</Text>
-          <Text>FY26 Executive</Text>
+          <Text>FY26 Adopted</Text>
           <Text fontSize={"xs"} textTransform={"uppercase"}>
-            APRIL, 2025
+            SEPTEMBER, 2025
           </Text>
         </VStack>
         <VStack alignItems={"flex-start"}>
