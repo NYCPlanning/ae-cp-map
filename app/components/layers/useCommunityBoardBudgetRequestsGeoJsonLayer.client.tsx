@@ -24,14 +24,14 @@ export interface CommunityBoardBudgetRequestProperties {
 export function useCommunityBoardBudgetRequestsGeoJsonLayer() {
   const { cbbrId } = useParams();
   const policyAreaIconsMap: Record<number, string> = {
-    1: "health",
-    2: "education",
-    3: "safety",
-    4: "infrastructure",
-    5: "housing",
-    6: "transportation",
-    7: "parks",
-    8: "other",
+    1: "infrastructure",
+    2: "health",
+    3: "housing",
+    4: "other",
+    5: "parks",
+    6: "safety",
+    7: "transportation",
+    8: "education",
   };
 
   return new GeoJsonLayer<CommunityBoardBudgetRequestGeoJson>({

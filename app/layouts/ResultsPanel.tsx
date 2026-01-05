@@ -57,14 +57,14 @@ export const policyAreaIcons: Record<
   number,
   (props: DarkableIconProps) => JSX.Element
 > = {
-  1: HealthIcon,
-  2: EducationIcon,
-  3: SafetyIcon,
-  4: InfrastructureIcon,
-  5: HousingIcon,
-  6: TransportationIcon,
-  7: ParksIcon,
-  8: PeopleIcon,
+  1: InfrastructureIcon,
+  2: HealthIcon,
+  3: HousingIcon,
+  4: PeopleIcon,
+  5: ParksIcon,
+  6: SafetyIcon,
+  7: TransportationIcon,
+  8: EducationIcon,
 };
 
 const { zoningApiUrl } = env;
