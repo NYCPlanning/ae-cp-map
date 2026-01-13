@@ -8,6 +8,8 @@ import {
 import {
   DataFilterExtension,
   DataFilterExtensionProps,
+  FillStyleExtension,
+  FillStyleExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import {
@@ -77,7 +79,8 @@ export function useCapitalProjectsLayer(opts: {
 
   return new MVTLayer<
     CapitalProjectProperties,
-    DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>>
+    FillStyleExtensionProps &
+      DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>>
   >({
     id: "capitalProjects",
     data: [
@@ -112,6 +115,10 @@ export function useCapitalProjectsLayer(opts: {
           return [217, 107, 39, 166];
       }
     },
+    fillPatternEnabled: env.facDbPhase1 === "ON",
+    getFillPattern: (f) => "cross-hatch",
+    fillPatternAtlas: "/cross-hatch.png",
+    fillPatternMapping: "/mapping.json",
     getPointRadius: 5,
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
@@ -153,6 +160,7 @@ export function useCapitalProjectsLayer(opts: {
         filterSize: 1,
         categorySize: 2,
       }),
+      new FillStyleExtension({ pattern: true }),
     ],
   });
 }

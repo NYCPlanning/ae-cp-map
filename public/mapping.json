@@ -163,5 +163,11 @@
     "width": 128,
     "height": 128
 
+},
+"cross-hatch": {
+    "x": 4,
+    "y": 4,
+    "width": 120,
+    "height": 120
 }
 }
