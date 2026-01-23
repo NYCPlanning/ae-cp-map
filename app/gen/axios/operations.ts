@@ -27,6 +27,10 @@ export const operations = {
     path: "/boroughs/:boroughId/community-districts/:communityDistrictId/capital-projects/:z/:x/:y.pbf",
     method: "get",
   },
+  findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId: {
+    path: "/boroughs/:boroughId/community-districts/:communityDistrictId/community-board-budget-requests/:z/:x/:y.pbf",
+    method: "get",
+  },
   findCapitalCommitmentTypes: {
     path: "/capital-commitment-types",
     method: "get",
@@ -97,6 +101,10 @@ export const operations = {
   },
   findCommunityBoardBudgetRequestAgencyCategoryResponses: {
     path: "/community-board-budget-requests/agency-category-responses",
+    method: "get",
+  },
+  findCommunityBoardBudgetRequestsCsv: {
+    path: "/community-board-budget-requests/csv",
     method: "get",
   },
   findCommunityBoardBudgetRequestNeedGroups: {

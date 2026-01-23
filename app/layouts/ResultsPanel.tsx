@@ -93,7 +93,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const budgetRequestsPromise = findCommunityBoardBudgetRequests(
     {
       ...(boroughId !== null && districtId !== null && districtType === "cd"
-        ? { communityDistrictId: `${boroughId}${districtId}` }
+        ? { boroughId, communityDistrictId: districtId }
+        : {}),
+      ...(boroughId !== null && districtId === null && districtType === "cd"
+        ? { boroughId }
         : {}),
       ...(districtId !== null && districtType === "ccd"
         ? { cityCouncilDistrictId: districtId }
@@ -132,7 +135,10 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const capitalProjectsPromise = findCapitalProjects(
     {
       ...(boroughId !== null && districtId !== null && districtType === "cd"
-        ? { communityDistrictId: `${boroughId}${districtId}` }
+        ? { boroughId, communityDistrictId: districtId }
+        : {}),
+      ...(boroughId !== null && districtId === null && districtType === "cd"
+        ? { boroughId }
         : {}),
       ...(districtId !== null && districtType === "ccd"
         ? { cityCouncilDistrictId: districtId }
@@ -141,7 +147,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(agencyBudget === null ? {} : { agencyBudget }),
       ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
       ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
-      ...(districtId !== null ? {} : { isMapped: true }),
       limit: itemsPerPage,
       offset: cpOffset,
     },
@@ -240,7 +245,10 @@ export default function ResultsPanel() {
   const cbbrDownloadParams = new URLSearchParams({
     cbbrType: "C",
     ...(boroughId !== null && districtId !== null && districtType === "cd"
-      ? { communityDistrictId: `${boroughId}${districtId}` }
+      ? { boroughId, communityDistrictId: districtId }
+      : {}),
+    ...(boroughId !== null && districtId === null && districtType === "cd"
+      ? { boroughId }
       : {}),
     ...(districtId !== null && districtType === "ccd"
       ? { cityCouncilDistrictId: districtId }
