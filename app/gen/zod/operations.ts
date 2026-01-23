@@ -41,6 +41,12 @@ import {
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdPathParamsSchema,
 } from "./findCapitalProjectTilesByBoroughIdCommunityDistrictIdSchema";
 import {
+  findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdQueryResponseSchema,
+  findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId400Schema,
+  findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId500Schema,
+  findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdPathParamsSchema,
+} from "./findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdSchema";
+import {
   findCapitalCommitmentTypesQueryResponseSchema,
   findCapitalCommitmentTypes400Schema,
   findCapitalCommitmentTypes500Schema,
@@ -151,6 +157,12 @@ import {
   findCommunityBoardBudgetRequestAgencyCategoryResponses400Schema,
   findCommunityBoardBudgetRequestAgencyCategoryResponses500Schema,
 } from "./findCommunityBoardBudgetRequestAgencyCategoryResponsesSchema";
+import {
+  findCommunityBoardBudgetRequestsCsvQueryResponseSchema,
+  findCommunityBoardBudgetRequestsCsv400Schema,
+  findCommunityBoardBudgetRequestsCsv500Schema,
+  findCommunityBoardBudgetRequestsCsvQueryParamsSchema,
+} from "./findCommunityBoardBudgetRequestsCsvSchema";
 import {
   findCommunityBoardBudgetRequestNeedGroupsQueryResponseSchema,
   findCommunityBoardBudgetRequestNeedGroups400Schema,
@@ -378,6 +390,25 @@ export const operations = {
     errors: {
       400: findCapitalProjectTilesByBoroughIdCommunityDistrictId400Schema,
       500: findCapitalProjectTilesByBoroughIdCommunityDistrictId500Schema,
+    },
+  },
+  findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId: {
+    request: undefined,
+    parameters: {
+      path: findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdPathParamsSchema,
+      query: undefined,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId400Schema,
+      500: findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId500Schema,
+      default:
+        findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId400Schema,
+      500: findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId500Schema,
     },
   },
   findCapitalCommitmentTypes: {
@@ -723,6 +754,24 @@ export const operations = {
       500: findCommunityBoardBudgetRequestAgencyCategoryResponses500Schema,
     },
   },
+  findCommunityBoardBudgetRequestsCsv: {
+    request: undefined,
+    parameters: {
+      path: undefined,
+      query: findCommunityBoardBudgetRequestsCsvQueryParamsSchema,
+      header: undefined,
+    },
+    responses: {
+      200: findCommunityBoardBudgetRequestsCsvQueryResponseSchema,
+      400: findCommunityBoardBudgetRequestsCsv400Schema,
+      500: findCommunityBoardBudgetRequestsCsv500Schema,
+      default: findCommunityBoardBudgetRequestsCsvQueryResponseSchema,
+    },
+    errors: {
+      400: findCommunityBoardBudgetRequestsCsv400Schema,
+      500: findCommunityBoardBudgetRequestsCsv500Schema,
+    },
+  },
   findCommunityBoardBudgetRequestNeedGroups: {
     request: undefined,
     parameters: {
@@ -1035,6 +1084,12 @@ export const paths = {
     {
       get: operations["findCapitalProjectTilesByBoroughIdCommunityDistrictId"],
     },
+  "/boroughs/{boroughId}/community-districts/{communityDistrictId}/community-board-budget-requests/{z}/{x}/{y}.pbf":
+    {
+      get: operations[
+        "findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId"
+      ],
+    },
   "/capital-commitment-types": {
     get: operations["findCapitalCommitmentTypes"],
   },
@@ -1092,6 +1147,9 @@ export const paths = {
   },
   "/community-board-budget-requests/agency-category-responses": {
     get: operations["findCommunityBoardBudgetRequestAgencyCategoryResponses"],
+  },
+  "/community-board-budget-requests/csv": {
+    get: operations["findCommunityBoardBudgetRequestsCsv"],
   },
   "/community-board-budget-requests/need-groups": {
     get: operations["findCommunityBoardBudgetRequestNeedGroups"],
