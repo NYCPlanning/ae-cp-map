@@ -189,7 +189,7 @@ export default function MapPage() {
   const showCbbr = searchParams.get("cbbr") !== "off";
   const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
   const updateHoveredItem = (newHover) => {
-    console.log("UPDATE");
+    console.log("UPDATE", newHover);
     setHoveredOverItem(newHover);
   };
 

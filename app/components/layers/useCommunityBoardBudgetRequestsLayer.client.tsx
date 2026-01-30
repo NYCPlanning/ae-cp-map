@@ -10,7 +10,7 @@ import {
   DataFilterExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Accessor, Color } from "@deck.gl/core";
 import {
   BoroughId,
@@ -39,13 +39,13 @@ export interface CommunityBoardBudgetRequestProperties {
 
 export function useCommunityBoardBudgetRequestsLayer(opts: {
   visible?: boolean;
-  hoveredCbbr: string | null;
-  setHoveredOverCbbr: (newHoveredOverCbbr: string | null) => void;
+  // hoveredCbbr: string | null;
+  // setHoveredOverCbbr: (newHoveredOverCbbr: string | null) => void;
 }) {
   const visible = opts.visible ?? true;
-  const hoveredCbbr = opts.hoveredCbbr;
+  // const hoveredCbbr = opts.hoveredCbbr;
   // console.log("Prop id", { hoveredCbbr });
-  const setHoveredOverCbbr = opts.setHoveredOverCbbr;
+  // const setHoveredOverCbbr = opts.setHoveredOverCbbr;
   const { cbbrId } = useParams();
   const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
@@ -108,6 +108,8 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     : [];
 
   const [clickInfo, setClickInfo] = useState({ id: "", clicked: false });
+  const [hoveredCbbr, setHoveredOverCbbr] = useState(null);
+  console.log({ hoveredCbbr });
 
   const defaultColor: Accessor<
     Feature<Geometry, CommunityBoardBudgetRequestProperties>,
@@ -122,92 +124,63 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     Color
   > = [255, 255, 255, 100];
 
-  return new MVTLayer<
-    CommunityBoardBudgetRequestProperties,
-    DataFilterExtensionProps<
-      Feature<Geometry, CommunityBoardBudgetRequestProperties>
-    >
-  >({
-    id: "communityBoardBudgetRequests",
-    data: [
-      `${zoningApiUrl}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
-    ],
-    visible,
-    uniqueIdProperty: "id",
-    highlightedFeatureId: hoveredCbbr,
-    getFillColor: ({ properties }) => {
-      const { id } = properties;
-      if (clickInfo.id === id && clickInfo.clicked) {
-        return selectedColor;
-      } else {
-        return defaultColor;
-      }
-    },
-    // onHover: (data) => {
-    //   console.log({ data });
-    //   console.log("hover");
-    //   const id = data.object?.properties;
-    //   if (data.index === -1) {
-    //     setHoveredOverCbbr(null);
-    //   } else if (id) {
-    //     setHoveredOverCbbr(id);
-    //   }
-    // },
-    pointType: "icon",
-    // autoHighlight: true,
-    // highlightColor: highlightColor,
-    getLineColor: [255, 255, 255, 255],
-    getLineWidth: 1,
-    iconAtlas: `/policy-area-icons/all-icons.png`,
-    iconMapping: `/mapping.json`,
-    pickable: true,
-    updateTriggers: {
-      getIcon: [clickInfo.id, cbbrId],
-      getIconSize: [clickInfo.id, cbbrId],
-      getFillColor: [clickInfo.id, cbbrId],
-    },
-    onClick: (data) => {
-      setClickInfo({ id: data.object?.properties?.id, clicked: data.picked });
-      const indvidualCbbrId = data.object?.properties?.id;
-      if (indvidualCbbrId === undefined) return;
-      if (indvidualCbbrId === `${cbbrId}`) return;
-      const cbbrRouteSuffix = `/community-board-budget-requests/${indvidualCbbrId}`;
-      navigate({
-        pathname: `${cbbrRouteSuffix}`,
-        search: `?${searchParams.toString()}`,
-      });
-    },
-    iconSizeScale: 25,
-    binary: false,
-    getFilterCategory: (d) => {
-      const {
-        agencyInitials,
-        needGroupId,
-        policyAreaId,
-        agencyCategoryReponseId,
-      } = d.properties;
-
-      return [
-        agencyInitials,
-        needGroupId,
-        policyAreaId,
-        agencyCategoryReponseId,
-      ];
-    },
-    filterCategories: [
-      cbbrAgencyInitials !== null ? [cbbrAgencyInitials] : fullAgencyList,
-      cbbrNeedGroupId !== null ? [cbbrNeedGroupId] : fullNeedGroupList,
-      cbbrPolicyAreaId !== null ? [cbbrPolicyAreaId] : fullPolicyAreaList,
-      cbbrAgencyCategoryResponseIds.length > 0
-        ? cbbrAgencyCategoryResponseIds
-        : fullAgencyCategoryResponseList,
-    ],
-    _subLayerProps: {
-      "points-icon": {
-        type: IconClusterLayer,
-        autoHighlight: true,
-        highlightColor: highlightColor,
+  return useMemo(
+    () =>
+      new MVTLayer<
+        CommunityBoardBudgetRequestProperties,
+        DataFilterExtensionProps<
+          Feature<Geometry, CommunityBoardBudgetRequestProperties>
+        >
+      >({
+        id: "communityBoardBudgetRequests",
+        data: [
+          `${zoningApiUrl}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
+        ],
+        visible,
+        // uniqueIdProperty: "id",
+        // highlightedFeatureId: hoveredCbbr,
+        getIconColor: ({ properties }) => {
+          const { id } = properties;
+          // console.log("getIconColor", { hoveredCbbr, id });
+          if (hoveredCbbr === id) {
+            console.log("match!");
+            return [0, 255, 0, 255];
+          } else {
+            return [0, 0, 255, 255];
+          }
+        },
+        getFillColor: ({ properties }) => {
+          console.log("getFillColor");
+          const { id } = properties;
+          if (clickInfo.id === id && clickInfo.clicked) {
+            return selectedColor;
+          } else {
+            return defaultColor;
+          }
+        },
+        // onHover: () => {
+        //   console.log("hover");
+        // },
+        // onClick: (data) => {
+        //   console.log(data.object.properties.id);
+        //   console.log("onClick");
+        // },
+        onHover: (data) => {
+          // console.log({ data });
+          // console.log("hover");
+          // console.log(data.object);
+          // console.log("index: ", data.index);
+          if (data.index === -1) {
+            console.log("one");
+            setHoveredOverCbbr(null);
+          } else if (data.object?.properties) {
+            const { id } = data.object?.properties;
+            console.log("two", id);
+            setHoveredOverCbbr(id);
+          }
+        },
         getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
+          console.log("getIcon");
           if (d.properties.cluster !== true) {
             const icon = policyAreaIconsMap[d.properties.policyAreaId];
             if (
@@ -232,37 +205,139 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
             return "marker-150";
           }
         },
-        onHover: (d) => {
-          // console.log({ data });
-          // console.log("subLayerProps onHover", { data, hoveredCbbr });
-          // console.log({ object: d.object });
-          const id = d.object?.properties.id;
-          // console.log({ hoveredCbbr, id });
-          if (!id) {
-            // console.log("one");
-            setHoveredOverCbbr(null);
-          } else if (id) {
-            // console.log("two");
-            setHoveredOverCbbr(id);
-          }
+        pointType: "icon",
+        // autoHighlight: true,
+        // highlightColor: highlightColor,
+        getLineColor: [255, 255, 255, 255],
+        getLineWidth: 1,
+        iconAtlas: `/policy-area-icons/all-icons.png`,
+        iconMapping: `/mapping.json`,
+        pickable: true,
+        updateTriggers: {
+          getIcon: [clickInfo.id, cbbrId, hoveredCbbr],
+          getIconSize: [clickInfo.id, cbbrId],
+          getFillColor: [clickInfo.id, cbbrId],
+          // highlightedFeatureId: hoveredCbbr,
+          // getIconColor: [hoveredCbbr],
         },
-        getSize: (d) => {
-          if (d.properties.cluster !== true) {
-            if (clickInfo.id === d.properties.id && clickInfo.clicked) {
-              return 1.2;
-            } else {
-              return 1;
-            }
-          } else {
-            return Math.min(150, d.properties.point_count) / 100 + 1;
-          }
+        onClick: (data) => {
+          setClickInfo({
+            id: data.object?.properties?.id,
+            clicked: data.picked,
+          });
+          console.log("cbbr layer onclick");
+          const indvidualCbbrId = data.object?.properties?.id;
+          if (indvidualCbbrId === undefined) return;
+          if (indvidualCbbrId === `${cbbrId}`) return;
+          const cbbrRouteSuffix = `/community-board-budget-requests/${indvidualCbbrId}`;
+          navigate({
+            pathname: `${cbbrRouteSuffix}`,
+            search: `?${searchParams.toString()}`,
+          });
         },
-      },
-    },
-    extensions: [
-      new DataFilterExtension({
-        categorySize: 4,
+        iconSizeScale: 25,
+        binary: false,
+        getFilterCategory: (d) => {
+          const {
+            agencyInitials,
+            needGroupId,
+            policyAreaId,
+            agencyCategoryReponseId,
+          } = d.properties;
+
+          return [
+            agencyInitials,
+            needGroupId,
+            policyAreaId,
+            agencyCategoryReponseId,
+          ];
+        },
+        filterCategories: [
+          cbbrAgencyInitials !== null ? [cbbrAgencyInitials] : fullAgencyList,
+          cbbrNeedGroupId !== null ? [cbbrNeedGroupId] : fullNeedGroupList,
+          cbbrPolicyAreaId !== null ? [cbbrPolicyAreaId] : fullPolicyAreaList,
+          cbbrAgencyCategoryResponseIds.length > 0
+            ? cbbrAgencyCategoryResponseIds
+            : fullAgencyCategoryResponseList,
+        ],
+        _subLayerProps: {
+          "points-icon": {
+            type: IconClusterLayer,
+            // autoHighlight: true,
+            // highlightColor: highlightColor,
+            // getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
+            //   if (d.properties.cluster !== true) {
+            //     const icon = policyAreaIconsMap[d.properties.policyAreaId];
+            //     if (
+            //       (clickInfo.id === d.properties.id && clickInfo.clicked) ||
+            //       cbbrId === d.properties.id
+            //     ) {
+            //       return `${icon}-click`;
+            //     } else {
+            //       return `${icon}`;
+            //     }
+            //   } else {
+            //     const size = d.properties.point_count;
+            //     if (size === 0) {
+            //       return `marker-1`;
+            //     }
+            //     if (size < 10) {
+            //       return `marker-${size}`;
+            //     }
+            //     if (size < 150) {
+            //       return `marker-${Math.floor(size / 10)}0`;
+            //     }
+            //     return "marker-150";
+            //   }
+            // },
+            // onHover: (d) => {
+            //   // console.log({ data });
+            //   // console.log("subLayerProps onHover", { data, hoveredCbbr });
+            //   // console.log({ object: d.object });
+            //   const id = d.object?.properties.id;
+            //   // console.log({ hoveredCbbr, id });
+            //   if (!id) {
+            //     // console.log("one");
+            //     setHoveredOverCbbr(null);
+            //   } else if (id) {
+            //     // console.log("two");
+            //     setHoveredOverCbbr(id);
+            //   }
+            // },
+            // onClick: (data) => {
+            //   console.log("cbbr layer onclick");
+            //   setClickInfo({
+            //     id: data.object?.properties?.id,
+            //     clicked: data.picked,
+            //   });
+            //   const indvidualCbbrId = data.object?.properties?.id;
+            //   if (indvidualCbbrId === undefined) return;
+            //   if (indvidualCbbrId === `${cbbrId}`) return;
+            //   const cbbrRouteSuffix = `/community-board-budget-requests/${indvidualCbbrId}`;
+            //   navigate({
+            //     pathname: `${cbbrRouteSuffix}`,
+            //     search: `?${searchParams.toString()}`,
+            //   });
+            // },
+            getSize: (d) => {
+              if (d.properties.cluster !== true) {
+                if (clickInfo.id === d.properties.id && clickInfo.clicked) {
+                  return 1.2;
+                } else {
+                  return 1;
+                }
+              } else {
+                return Math.min(150, d.properties.point_count) / 100 + 1;
+              }
+            },
+          },
+        },
+        extensions: [
+          new DataFilterExtension({
+            categorySize: 4,
+          }),
+        ],
       }),
-    ],
-  });
+    [hoveredCbbr, clickInfo.id],
+  );
 }

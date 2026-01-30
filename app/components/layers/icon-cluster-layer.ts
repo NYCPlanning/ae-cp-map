@@ -52,6 +52,9 @@ export class IconClusterLayer<
   DataT extends { [key: string]: any } = any,
   ExtraProps extends {} = {},
 > extends CompositeLayer<Required<IconLayerProps<DataT>> & ExtraProps> {
+  // constructor() {
+  //   super();
+  // }
   state!: {
     data: (PointFeature<DataT> | ClusterFeature<DataT>)[];
     index: Supercluster<DataT, DataT>;
@@ -62,18 +65,22 @@ export class IconClusterLayer<
     return changeFlags.somethingChanged;
   }
 
-  onClick(info: PickingInfo, pickingEvent): boolean {
-    if (this.props.onClick) {
-      return this.props.onClick(info, pickingEvent) || false;
-    }
-    return false;
-  }
+  // onClick(info: PickingInfo, pickingEvent): boolean {
+  //   console.log("cluster layer onclick");
+  //   console.log(super.onClick);
+  //   // this.props.onClick && this.props.onClick(info, pickingEvent);
+  //   if (this.props.onClick) {
+  //     console.log("FOO");
+  //     return this.props.onClick(info, pickingEvent) || false;
+  //   }
+  //   return false;
+  // }
 
   updateState({ props, oldProps, changeFlags }: UpdateParameters<this>) {
     const z = Math.floor(this.context.viewport.zoom);
 
     const rebuildIndex =
-      changeFlags.somethingChanged ||
+      changeFlags.dataChanged ||
       props.sizeScale !== oldProps.sizeScale ||
       z !== this.state.z;
     const minZoom = 10;
@@ -116,7 +123,7 @@ export class IconClusterLayer<
             d.properties.cluster === true
               ? d.properties.cluster_id.toString()
               : d.properties.id,
-          type: d.type,
+          type: d.type ? d.type : "Feature",
           geometry: d.geometry,
           properties: {
             ...d.properties,
@@ -132,6 +139,7 @@ export class IconClusterLayer<
         // console.log({ result });
         return result;
       });
+      // console.log({ data });
       this.setState({
         data,
         z,
@@ -139,34 +147,37 @@ export class IconClusterLayer<
     }
   }
 
-  getPickingInfo({
-    info,
-    mode,
-    sourceLayer,
-  }: {
-    info: PickingInfo<PointFeature<DataT> | ClusterFeature<DataT>>;
-    mode: string;
-  }): IconClusterLayerPickingInfo<DataT> {
-    // console.log({ sourceLayer });
-    const pickedObject = info.object;
-    console.log({ pickedObject });
-    if (mode === "hover") {
-      // console.log({ info, sourceLayer });
-      sourceLayer.props.onHover(info);
+  getPickingInfo({ info }) {
+    if (info.object?.properties) {
+      info.object = {
+        ...info.object,
+        data: info.object.properties,
+      };
     }
-    if (pickedObject) {
-      let objects: DataT[] | undefined;
-      if (pickedObject.properties.cluster && mode === "hover") {
-        objects = this.state.index
-          .getLeaves(pickedObject.properties.cluster_id, 25)
-          .map((f) => f.properties);
-      }
-
-      return { ...info, object: pickedObject, objects };
-    }
-
-    return { ...info, object: undefined };
+    return info;
   }
+
+  // getPickingInfo({
+  //   info,
+  //   mode,
+  // }: {
+  //   info: PickingInfo<PointFeature<DataT> | ClusterFeature<DataT>>;
+  //   mode: string;
+  // }): IconClusterLayerPickingInfo<DataT> {
+  //   const pickedObject = info.object;
+  //   if (pickedObject) {
+  //     let objects: DataT[] | undefined;
+  //     if (pickedObject.properties.cluster && mode !== "hover") {
+  //       objects = this.state.index
+  //         .getLeaves(pickedObject.properties.cluster_id, 25)
+  //         .map((f) => f.properties);
+  //     }
+  //     // console.log("one", { ...info, object: pickedObject, objects });
+  //     return { ...info, object: pickedObject, objects };
+  //   }
+  //   // console.log("two", { ...info, object: undefined });
+  //   return { ...info, object: undefined };
+  // }
 
   renderLayers() {
     const { data } = this.state;
@@ -176,15 +187,17 @@ export class IconClusterLayer<
       sizeScale,
       getIcon,
       getSize,
-      onHover,
       autoHighlight,
       highlightColor,
+      getColor,
+      updateTriggers,
+      // onClick,
       // highlightedFeatureId,
       // uniqueIdProperty,
     } = this.props;
-
     return new IconLayer<PointFeature<DataT> | ClusterFeature<DataT>>(
       {
+        id: `${this.id}-icons`,
         data,
         iconAtlas,
         iconMapping,
@@ -192,9 +205,12 @@ export class IconClusterLayer<
         getPosition: (d) => d.geometry.coordinates as [number, number],
         getIcon,
         getSize,
-        onHover,
         autoHighlight,
         highlightColor,
+        pickable: true,
+        getColor,
+        updateTriggers,
+        // onClick,
         // highlightedFeatureId,
         // uniqueIdProperty,
       },
