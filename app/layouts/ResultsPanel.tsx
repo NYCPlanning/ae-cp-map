@@ -147,6 +147,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(agencyBudget === null ? {} : { agencyBudget }),
       ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
       ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
+      ...(boroughId === null && districtId === null ? { isMapped: true } : {}),
       limit: itemsPerPage,
       offset: cpOffset,
     },
