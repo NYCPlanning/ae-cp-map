@@ -52,9 +52,6 @@ export class IconClusterLayer<
   DataT extends { [key: string]: any } = any,
   ExtraProps extends {} = {},
 > extends CompositeLayer<Required<IconLayerProps<DataT>> & ExtraProps> {
-  // constructor() {
-  //   super();
-  // }
   state!: {
     data: (PointFeature<DataT> | ClusterFeature<DataT>)[];
     index: Supercluster<DataT, DataT>;
@@ -64,17 +61,6 @@ export class IconClusterLayer<
   shouldUpdateState({ changeFlags }: UpdateParameters<this>) {
     return changeFlags.somethingChanged;
   }
-
-  // onClick(info: PickingInfo, pickingEvent): boolean {
-  //   console.log("cluster layer onclick");
-  //   console.log(super.onClick);
-  //   // this.props.onClick && this.props.onClick(info, pickingEvent);
-  //   if (this.props.onClick) {
-  //     console.log("FOO");
-  //     return this.props.onClick(info, pickingEvent) || false;
-  //   }
-  //   return false;
-  // }
 
   updateState({ props, oldProps, changeFlags }: UpdateParameters<this>) {
     const z = Math.floor(this.context.viewport.zoom);
@@ -136,10 +122,8 @@ export class IconClusterLayer<
             ),
           },
         };
-        // console.log({ result });
         return result;
       });
-      // console.log({ data });
       this.setState({
         data,
         z,
@@ -147,76 +131,76 @@ export class IconClusterLayer<
     }
   }
 
-  getPickingInfo({ info }) {
-    if (info.object?.properties) {
-      info.object = {
-        ...info.object,
-        data: info.object.properties,
-      };
-    }
-    return info;
-  }
-
-  // getPickingInfo({
-  //   info,
-  //   mode,
-  // }: {
-  //   info: PickingInfo<PointFeature<DataT> | ClusterFeature<DataT>>;
-  //   mode: string;
-  // }): IconClusterLayerPickingInfo<DataT> {
-  //   const pickedObject = info.object;
-  //   if (pickedObject) {
-  //     let objects: DataT[] | undefined;
-  //     if (pickedObject.properties.cluster && mode !== "hover") {
-  //       objects = this.state.index
-  //         .getLeaves(pickedObject.properties.cluster_id, 25)
-  //         .map((f) => f.properties);
-  //     }
-  //     // console.log("one", { ...info, object: pickedObject, objects });
-  //     return { ...info, object: pickedObject, objects };
+  // getPickingInfo({ info }) {
+  //   if (info.object?.properties) {
+  //     info.object = {
+  //       ...info.object,
+  //       data: info.object.properties,
+  //     };
   //   }
-  //   // console.log("two", { ...info, object: undefined });
-  //   return { ...info, object: undefined };
+  //   return info;
   // }
+
+  getPickingInfo({
+    info,
+    mode,
+  }: {
+    info: PickingInfo<PointFeature<DataT> | ClusterFeature<DataT>>;
+    mode: string;
+  }): IconClusterLayerPickingInfo<DataT> {
+    const pickedObject = info.object;
+    if (pickedObject) {
+      let objects: DataT[] | undefined;
+      if (pickedObject.properties.cluster && mode !== "hover") {
+        objects = this.state.index
+          .getLeaves(pickedObject.properties.cluster_id, 25)
+          .map((f) => f.properties);
+      }
+      return { ...info, object: pickedObject, objects };
+    }
+    return { ...info, object: undefined };
+  }
 
   renderLayers() {
     const { data } = this.state;
-    const {
-      iconAtlas,
-      iconMapping,
-      sizeScale,
-      getIcon,
-      getSize,
-      autoHighlight,
-      highlightColor,
-      getColor,
-      updateTriggers,
-      // onClick,
-      // highlightedFeatureId,
-      // uniqueIdProperty,
-    } = this.props;
+    const { iconAtlas, iconMapping, sizeScale, getIcon, getSize } = this.props;
     return new IconLayer<PointFeature<DataT> | ClusterFeature<DataT>>(
-      {
-        id: `${this.id}-icons`,
-        data,
-        iconAtlas,
-        iconMapping,
-        sizeScale,
-        getPosition: (d) => d.geometry.coordinates as [number, number],
-        getIcon,
-        getSize,
-        autoHighlight,
-        highlightColor,
-        pickable: true,
-        getColor,
-        updateTriggers,
-        // onClick,
-        // highlightedFeatureId,
-        // uniqueIdProperty,
-      },
+      // {
+      //   id: `${this.id}-icons`,
+      //   data,
+      //   pickable: false,
+      //   iconAtlas,
+      //   iconMapping,
+      //   sizeScale,
+      //   getPosition: (d) => d.geometry.coordinates as [number, number],
+      //   getIcon,
+      //   getSize,
+      //   updateTriggers: {
+      //     getIcon: this.props.updateTriggers?.getIcon,
+      //     getSize: this.props.updateTriggers?.getSize,
+      //   },
+      // },
       this.getSubLayerProps({
-        id: "icon",
+        id: "icons",
+        data,
+        pickable: true,
+        getPosition: (d) => d.geometry.coordinates as [number, number],
+        getIcon: this.props.getIcon,
+        getSize: this.props.getSize,
+        onHover: this.props.onHover,
+        updateTriggers: {
+          getIcon: this.props.updateTriggers?.getIcon,
+          getSize: this.props.updateTriggers?.getSize,
+          getColor: this.props.getColor,
+        },
+        getColor: this.props.getColor,
+        iconAtlas: this.props.iconAtlas,
+        iconMapping: this.props.iconMapping,
+        sizeScale: this.props.sizeScale,
       }),
+      // this.getSubLayerProps({
+      //   id: "icon",
+      // }),
     );
   }
 }
