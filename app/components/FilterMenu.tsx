@@ -15,6 +15,7 @@ import {
   CityCouncilDistrictDropdown,
 } from "./DropdownControl";
 import { useUpdateSearchParams, setNewSearchParams } from "~/utils/utils";
+import { env } from "../utils/env";
 
 export const FilterMenu = ({
   boroughs,
@@ -46,12 +47,12 @@ export const FilterMenu = ({
   };
 
   return (
-    <AccordionItem>
+    <AccordionItem borderBottom={ env.facDbPhase1 == "ON" ? "none" : ""}>
       <AccordionButton aria-label="Close geography filter menu" p={0}>
         <Heading
           flex="1"
           textAlign="left"
-          fontSize="medium"
+          fontSize={env.facDbPhase1 == "ON" ? "sm" : "md"}
           fontWeight="bold"
           lineHeight="32px"
         >

@@ -17,6 +17,7 @@ import {
 } from "../utils/types";
 import { useUpdateSearchParams } from "~/utils/utils";
 import { Agency, AgencyBudget } from "~/gen";
+import { env } from "~/utils/env";
 
 export const SearchByAttributeMenu = ({
   agencies,
@@ -50,7 +51,7 @@ export const SearchByAttributeMenu = ({
       borderRadius={"sm"}
       borderWidth={"1px"}
       marginTop={2}
-      marginX={2}
+      marginX={env.facDbPhase1 == "ON" ? 0 : 2}
     >
       {({ isExpanded }) => (
         <>
