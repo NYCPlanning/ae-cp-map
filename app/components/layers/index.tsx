@@ -6,3 +6,4 @@ export { useCityCouncilDistrictLayer } from "./useCityCouncilDistrictLayer.clien
 export { useCapitalProjectBudgetedGeoJsonLayer } from "./useCapitalProjectBudgetedGeoJsonLayer.client";
 export { useCommunityBoardBudgetRequestsLayer } from "./useCommunityBoardBudgetRequestsLayer.client";
 export { useCommunityBoardBudgetRequestsGeoJsonLayer } from "./useCommunityBoardBudgetRequestsGeoJsonLayer.client";
+export { IconClusterLayer } from "./icon-cluster-layer";
