@@ -21,7 +21,7 @@
       "vite/client",
       "vitest/globals",
       "vitest/jsdom",
-      "@remix-run/node"
+      "@react-router/node"
     ],
     "noEmit": true
   }

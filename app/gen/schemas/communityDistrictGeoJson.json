@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Three character code to represent a borough and community district.",
+      "pattern": "^([0-9]{3})$",
+      "example": "101"
+    },
+    "type": { "type": "string", "enum": ["Feature"] },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The two character numeric string containing the number used to refer to the community district.",
+          "pattern": "^([0-9]{2})$",
+          "example": "01"
+        },
+        "boroughId": {
+          "type": "string",
+          "description": "A single character numeric string containing the common number used to refer to the borough. Possible values are 1-5.",
+          "pattern": "^([0-9])$",
+          "example": "1"
+        }
+      },
+      "required": ["id", "boroughId"],
+      "x-readme-ref-name": "CommunityDistrict"
+    },
+    "geometry": {
+      "type": "object",
+      "description": "A geojson implementation of a MultiPolygon Simple Feature",
+      "properties": {
+        "type": { "type": "string", "enum": ["MultiPolygon"] },
+        "coordinates": {
+          "type": "array",
+          "description": "Array of polygon coordinate arrays.",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "description": "The fundamental spatial construct",
+                "minItems": 2,
+                "maxItems": 3,
+                "items": { "type": "number" },
+                "example": [-74.010835, 40.708442],
+                "x-readme-ref-name": "Position"
+              }
+            }
+          }
+        }
+      },
+      "required": ["type", "coordinates"],
+      "x-readme-ref-name": "MultiPolygon"
+    }
+  },
+  "required": ["id", "type", "geometry", "properties"],
+  "x-readme-ref-name": "CommunityDistrictGeoJson"
+}

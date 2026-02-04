@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "string",
+      "enum": ["Residential", "Commercial", "Manufacturing"],
+      "description": "The type of zoning district.",
+      "x-readme-ref-name": "ZoningDistrictClassCategory"
+    },
+    "color": {
+      "type": "string",
+      "description": "The color for the zoning district class category.",
+      "pattern": "^#([A-Fa-f0-9]{8})$",
+      "example": "#f3b3ffff"
+    }
+  },
+  "required": ["category", "color"],
+  "x-readme-ref-name": "ZoningDistrictClassCategoryColor"
+}
