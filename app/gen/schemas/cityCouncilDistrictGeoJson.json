@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "One or two character code to represent city council districts.",
+      "pattern": "^([0-9]{1,2})$",
+      "example": "25"
+    },
+    "type": { "type": "string", "enum": ["Feature"] },
+    "properties": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "One or two character code to represent city council districts.",
+          "pattern": "^([0-9]{1,2})$",
+          "example": "25"
+        }
+      },
+      "required": ["id"],
+      "x-readme-ref-name": "CityCouncilDistrict"
+    },
+    "geometry": {
+      "type": "object",
+      "description": "A geojson implementation of a MultiPolygon Simple Feature",
+      "properties": {
+        "type": { "type": "string", "enum": ["MultiPolygon"] },
+        "coordinates": {
+          "type": "array",
+          "description": "Array of polygon coordinate arrays.",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "description": "The fundamental spatial construct",
+                "minItems": 2,
+                "maxItems": 3,
+                "items": { "type": "number" },
+                "example": [-74.010835, 40.708442],
+                "x-readme-ref-name": "Position"
+              }
+            }
+          }
+        }
+      },
+      "required": ["type", "coordinates"],
+      "x-readme-ref-name": "MultiPolygon"
+    }
+  },
+  "required": ["id", "type", "geometry", "properties"],
+  "x-readme-ref-name": "CityCouncilDistrictGeoJson"
+}

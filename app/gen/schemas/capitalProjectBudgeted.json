@@ -1,0 +1,88 @@
+{
+  "allOf": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The id for the project, which combines with the managing code to make a unique id",
+          "example": "HWPEDSF5"
+        },
+        "description": {
+          "type": "string",
+          "description": "The capital project title.",
+          "example": "Multi-Site Pedestrian Safety Phase 5"
+        },
+        "managingCode": {
+          "type": "string",
+          "description": "Three character string of numbers representing managing agency",
+          "pattern": "^([0-9]{3})$",
+          "example": "850"
+        },
+        "managingAgency": {
+          "type": "string",
+          "description": "The managing agency name abbreviation or acronym",
+          "example": "DOT"
+        },
+        "minDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The starting date of the capital project",
+          "example": "2024-05-15"
+        },
+        "maxDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The ending date of the capital project",
+          "example": "2024-05-15"
+        },
+        "category": {
+          "nullable": true,
+          "type": "string",
+          "enum": [
+            "Fixed Asset",
+            "Lump Sum",
+            "ITT, Vehicles, and Equipment",
+            null
+          ],
+          "description": "The type of Capital Project.",
+          "x-readme-ref-name": "CapitalProjectCategory"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "managingCode",
+        "managingAgency",
+        "minDate",
+        "maxDate",
+        "category"
+      ],
+      "x-readme-ref-name": "CapitalProject"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "commitmentsTotal": {
+          "type": "number",
+          "description": "The sum total of commitments for the capital project",
+          "example": 200000
+        },
+        "sponsoringAgencies": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "An array containing string values representing the sponsoring agencies initials.",
+          "example": ["DOT"]
+        },
+        "budgetTypes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "An array containing string values representing the budget types.",
+          "example": ["Highways", "Highway Bridges"]
+        }
+      },
+      "required": ["commitmentsTotal", "sponsoringAgencies", "budgetTypes"]
+    }
+  ],
+  "x-readme-ref-name": "CapitalProjectBudgeted"
+}
