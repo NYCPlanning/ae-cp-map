@@ -16,6 +16,7 @@ import {
   SafetyIcon,
   TransportationIcon,
 } from "@nycplanning/streetscape";
+import { env } from "~/utils/env";
 
 export function CommunityBoardBudgetRequestLegend() {
   return (
@@ -27,7 +28,7 @@ export function CommunityBoardBudgetRequestLegend() {
       borderRadius={"sm"}
       borderWidth={"1px"}
       marginTop={2}
-      marginX={2}
+      marginX={env.facDbPhase1 == "ON" ? "" : "2"}
     >
       {({ isExpanded }) => (
         <>
