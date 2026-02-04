@@ -13,6 +13,7 @@ import {
   useCommunityBoardBudgetRequestsGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
+import { FlyToInterpolator } from "@deck.gl/core";
 import { env } from "~/utils/env";
 
 export const MAX_ZOOM = 20;
@@ -51,11 +52,26 @@ export function Atlas({
   });
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
+
+  const onClusterClick = (
+    zoom: number,
+    latitude: number,
+    longitude: number,
+  ): void => {
+    setViewState({
+      longitude,
+      latitude,
+      zoom: zoom,
+      transitionDuration: 250,
+      transitionInterpolator: new FlyToInterpolator(),
+    });
+  };
   const communityBoardBudgetRequestsLayer =
     useCommunityBoardBudgetRequestsLayer({
       visible: showCbbr,
       hoveredCbbr: hoveredOverItem,
       setHoveredOverCbbr: setHoveredOverItem,
+      onClusterClick,
     });
   const communityBoardBudgetRequestGeoJsonLayer =
     useCommunityBoardBudgetRequestsGeoJsonLayer();
