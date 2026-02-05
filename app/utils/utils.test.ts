@@ -1,6 +1,7 @@
 import {
   handleCommitmentTotalsInputs,
   checkCommitmentTotalInputsAreValid,
+  formatResultsTotal,
 } from "./utils";
 
 describe("handleCommitmentTotalsInputs", () => {
@@ -226,5 +227,24 @@ describe("checkCommitmentTotalInputsAreValid", () => {
       commitmentsTotalMaxSelectValue: "K",
     });
     expect(result).toBe(false);
+  });
+});
+
+describe("formatResultsTotal", () => {
+  it("should round to the nearest thousand when input is over 4 digits", async () => {
+    const result = formatResultsTotal(12345);
+    expect(result === "12K").toBe(true);
+  });
+  it("should round to the nearest thousand when input is 4 digits and rounded decimal place is 0", async () => {
+    const result = formatResultsTotal(1023);
+    expect(result === "1K").toBe(true);
+  });
+  it("should round to the nearest thousand with one decimal place when input is 4 digits and rounded decimal place is not 0", async () => {
+    const result = formatResultsTotal(1234);
+    expect(result === "1.2K").toBe(true);
+  });
+  it("should return the input unchanged when input is less than 4 digits", async () => {
+    const result = formatResultsTotal(123);
+    expect(result === 123).toBe(true);
   });
 });
