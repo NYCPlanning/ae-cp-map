@@ -41,7 +41,7 @@ import {
 import { Pagination } from "../components/Pagination";
 import { useState, useEffect } from "react";
 import { analytics } from "~/utils/analytics";
-import { formatFiscalYearRange } from "~/utils/utils";
+import { formatFiscalYearRange, formatResultsTotal } from "~/utils/utils";
 import { ContentPanelAccordion } from "../components/ContentPanelAccordion";
 import {
   CapitalProjectListItemSkeleton,
@@ -68,6 +68,12 @@ export const policyAreaIcons: Record<
 };
 
 const { zoningApiUrl } = env;
+
+const tabs = [
+  { urlPath: "capital-projects", label: "Capital Projects" },
+  { urlPath: "community-board-budget-requests", label: "Budget Requests" },
+  { urlPath: "facilities", label: "Facilities" },
+];
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
@@ -193,18 +199,23 @@ export default function ResultsPanel() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [tabIndex, setTabIndex] = useState(() =>
-    urlPaths.findIndex((path) => `/${path}` === pathname),
+    env.facDbPhase1 === "ON"
+      ? tabs.findIndex((tab) => `/${tab.urlPath}` === pathname)
+      : urlPaths.findIndex((path) => `/${path}` === pathname),
   );
   const navigation = useNavigation();
   const isNavigating = Boolean(navigation.location);
 
   useEffect(() => {
-    setTabIndex(urlPaths.findIndex((path) => `/${path}` === pathname));
+    env.facDbPhase1 === "ON"
+      ? setTabIndex(tabs.findIndex((tab) => `/${tab.urlPath}` === pathname))
+      : setTabIndex(urlPaths.findIndex((path) => `/${path}` === pathname));
   }, [pathname]);
 
   const handleTabsChange = (index: number) => {
     navigate({
-      pathname: urlPaths[index],
+      pathname:
+        env.facDbPhase1 === "ON" ? tabs[index].urlPath : urlPaths[index],
       search: `?${searchParams.toString()}`,
     });
   };
@@ -259,23 +270,53 @@ export default function ResultsPanel() {
   }>();
   return (
     <ContentPanelAccordion
-      accordionHeading={`${totalProjects + totalBudgetRequests} Results`}
+      accordionHeading={
+        env.facDbPhase1 === "ON"
+          ? `Results`
+          : `${totalProjects + totalBudgetRequests} Results`
+      }
     >
-      <Tabs index={tabIndex} onChange={handleTabsChange}>
-        <TabList
-          overflow={"auto"}
-          sx={{ scrollbarWidth: "none" }}
-          borderBottomWidth="1px"
-          borderColor="gray.200"
-          marginY={2}
-        >
-          <Tab fontFamily={"body"} whiteSpace={"nowrap"}>
-            Capital Projects
-          </Tab>
-          <Tab fontFamily={"body"} whiteSpace={"nowrap"}>
-            Community Board Budget Requests
-          </Tab>
-        </TabList>
+      <Tabs
+        index={tabIndex}
+        onChange={handleTabsChange}
+        isFitted={env.facDbPhase1 === "ON"}
+      >
+        {env.facDbPhase1 === "ON" ? (
+          <TabList
+            maxWidth={"100%"}
+            borderBottomWidth="1px"
+            borderColor="gray.200"
+            marginY={2}
+          >
+            <Tab fontSize={"xs"} flexWrap={"wrap"}>
+              <Text>Capital&nbsp;Projects&nbsp;</Text>
+              <Text fontSize={"0.625rem"}>
+                ({formatResultsTotal(totalProjects)})
+              </Text>
+            </Tab>
+            <Tab fontSize={"xs"} flexWrap={"wrap"}>
+              <Text>Budget&nbsp;Requests&nbsp;</Text>
+              <Text fontSize={"0.625rem"}>
+                ({formatResultsTotal(totalBudgetRequests)})
+              </Text>
+            </Tab>
+          </TabList>
+        ) : (
+          <TabList
+            overflow={"auto"}
+            sx={{ scrollbarWidth: "none" }}
+            borderBottomWidth="1px"
+            borderColor="gray.200"
+            marginY={2}
+          >
+            <Tab fontFamily={"body"} whiteSpace={"nowrap"}>
+              Capital Projects
+            </Tab>
+            <Tab fontFamily={"body"} whiteSpace={"nowrap"}>
+              Community Board Budget Requests
+            </Tab>
+          </TabList>
+        )}
         <TabPanels>
           <TabPanel padding={0}>
             <VStack align={"start"}>
@@ -446,6 +487,7 @@ export default function ResultsPanel() {
         <Pagination
           total={tabIndex === 0 ? totalProjects : totalBudgetRequests}
           pageParamKey={tabIndex === 0 ? "cpPage" : "cbbrPage"}
+          label={tabs[tabIndex].label}
         />
         {tabIndex === 0 && (
           <ExportDataModal

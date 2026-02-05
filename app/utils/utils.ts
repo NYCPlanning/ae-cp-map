@@ -115,6 +115,20 @@ export const checkCommitmentTotalInputsAreValid = ({
   return false;
 };
 
+export function formatResultsTotal(total: number) {
+  /****
+   * Tabs have counts in parentheses. Any number than can be rounded up to a thousand
+   * or more should be rounded up and displayed with an abbreviation (i.e., 1K, 2K,
+   * 3K). Include one decimal point if needed (i.e., 1.5K)
+   ****/
+  if (total >= 10000) {
+    return `${(total / 1000).toFixed(0)}K`;
+  } else if (total >= 1000) {
+    return `${(total / 1000).toFixed(1)}K`.replace(".0", "");
+  }
+  return total;
+}
+
 // from https://www.jacobparis.com/content/remix-pagination
 export function setNewSearchParams(
   searchParams: URLSearchParams,
