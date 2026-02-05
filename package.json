@@ -55,7 +55,7 @@
     "@kubb/plugin-oas": "^4.20.2",
     "@kubb/plugin-ts": "^4.20.2",
     "@kubb/plugin-zod": "^4.20.2",
-    "@playwright/test": "^1.52.0",
+    "@playwright/test": "^1.58.1",
     "@react-router/dev": "^7.13.0",
     "@react-router/fs-routes": "^7.13.0",
     "@react-router/remix-routes-option-adapter": "^7.13.0",
