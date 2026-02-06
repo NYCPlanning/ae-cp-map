@@ -19,6 +19,10 @@ import {
 } from "../../utils/types";
 import { env } from "~/utils/env";
 import { loader as mapPageLoader } from "~/layouts/MapPage";
+import {
+  PolygonFillStyleExtension,
+  PointFillStyleExtension,
+} from "~/extensions";
 
 const { zoningApiUrl } = env;
 export interface CapitalProjectProperties {
@@ -111,6 +115,22 @@ export function useCapitalProjectsLayer(opts: {
         default:
           return [217, 107, 39, 166];
       }
+    },
+    _subLayerProps: {
+      "polygons-fill": {
+        extensions: [new PolygonFillStyleExtension({ pattern: true })],
+        fillPatternEnabled: env.facDbPhase1 === "ON",
+        fillPatternMapping: "/mapping.json",
+        getFillPattern: "1x1",
+        fillPatternAtlas: "/1x1.svg",
+      },
+      "points-circle": {
+        extensions: [new PointFillStyleExtension({ pattern: true })],
+        fillPatternEnabled: env.facDbPhase1 === "ON",
+        fillPatternMapping: "/mapping.json",
+        getFillPattern: "1x1",
+        fillPatternAtlas: "/1x1.svg",
+      },
     },
     getPointRadius: 5,
     getLineColor: [255, 255, 255, 255],
