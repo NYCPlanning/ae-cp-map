@@ -21,6 +21,10 @@ import {
 } from "../../utils/types";
 import { env } from "~/utils/env";
 import { loader as mapPageLoader } from "~/layouts/MapPage";
+import {
+  PolygonFillStyleExtension,
+  PointFillStyleExtension,
+} from "~/extensions";
 
 const { zoningApiUrl, facDbPhase1 } = env;
 export interface CapitalProjectProperties {
@@ -175,7 +179,7 @@ export function useCapitalProjectsLayer(opts: {
     uniqueIdProperty: "managingCodeCapitalProjectId",
     autoHighlight: true,
     visible,
-    highlightColor: [129, 230, 217, 218],
+    highlightColor: [217, 107, 39, 166],
     highlightedFeatureId: hoveredCapitalProject,
     pickable: true,
     getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
@@ -192,18 +196,27 @@ export function useCapitalProjectsLayer(opts: {
       managingAgency === null ? fullAgencyAcronymList : [managingAgency],
       [1],
     ],
-    getFillColor: ({ properties }) => {
-      const { managingCodeCapitalProjectId } = properties;
-      switch (managingCodeCapitalProjectId) {
-        case `${managingCode}${capitalProjectId}`:
-          return [56, 178, 172, 166];
-        default:
-          return [217, 107, 39, 166];
-      }
+    getFillColor: [0, 0, 0, 0],
+    getLineColor: [217, 107, 39, 255],
+    getLineWidth: 1,
+    lineWidthUnits: "meters",
+    _subLayerProps: {
+      "polygons-fill": {
+        extensions: [new PolygonFillStyleExtension({ pattern: true })],
+        fillPatternEnabled: env.facDbPhase1 === "ON",
+        fillPatternMapping: "/mapping.json",
+        getFillPattern: "1x1",
+        fillPatternAtlas: "/1x1.svg",
+      },
+      "points-circle": {
+        extensions: [new PointFillStyleExtension({ pattern: true })],
+        fillPatternEnabled: env.facDbPhase1 === "ON",
+        fillPatternMapping: "/mapping.json",
+        getFillPattern: "1x1",
+        fillPatternAtlas: "/1x1.svg",
+      },
     },
     getPointRadius: 5,
-    getLineColor: [255, 255, 255, 255],
-    getLineWidth: 1,
     onHover: (data) => {
       const managingCodeCapitalProjectId =
         data.object?.properties?.managingCodeCapitalProjectId;
