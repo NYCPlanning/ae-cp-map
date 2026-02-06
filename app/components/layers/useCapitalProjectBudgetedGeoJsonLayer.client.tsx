@@ -16,10 +16,11 @@ export function useCapitalProjectBudgetedGeoJsonLayer() {
         ? []
         : `${zoningApiUrl}/api/capital-projects/${managingCode}/${capitalProjectId}/geojson`,
     pickable: false,
-    getFillColor: [56, 178, 172, 166],
+    getFillColor: [0, 0, 0, 50],
     getPointRadius: 5,
-    getLineColor: [255, 255, 255, 255],
+    getLineColor: [217, 107, 39, 255],
     getLineWidth: 1,
+    lineWidthUnits: "pixels",
     updateTriggers: {
       getFillColor: [managingCode, capitalProjectId],
       getPointColor: [managingCode, capitalProjectId],
