@@ -6,6 +6,8 @@ const { zoningApiUrl } = env;
 export interface CityCouncilDistrictProperties {
   layerName: string;
   id: string;
+  abbr: string;
+  title: string;
 }
 
 export function useCityCouncilDistrictsLayer() {
@@ -14,7 +16,7 @@ export function useCityCouncilDistrictsLayer() {
 
   return new MVTLayer<CityCouncilDistrictProperties>({
     id: "CityCouncilDistricts",
-    data: [`${zoningApiUrl}/api/city-council-districts/{z}/{x}/{y}.pbf`],
+    data: [`${zoningApiUrl}/api/boroughs/{z}/{x}/{y}.pbf`],
     visible: districtType === "ccd",
     uniqueIdProperty: "boroughIdCityCouncilDistrictId",
     pickable: true,
@@ -24,8 +26,14 @@ export function useCityCouncilDistrictsLayer() {
     getLineWidth: 3,
     lineWidthUnits: "pixels",
     pointType: "text",
-    getText: ({ properties }: { properties: CityCouncilDistrictProperties }) =>
-      properties.id,
+    getText: ({
+      properties,
+    }: {
+      properties: CityCouncilDistrictProperties;
+    }) => {
+      console.debug("props", properties);
+      return properties.title;
+    },
     getTextColor: [98, 98, 98, 255],
     textFontFamily: "Helvetica Neue, Arial, sans-serif",
     getTextSize: 15,
