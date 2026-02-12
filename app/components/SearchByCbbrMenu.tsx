@@ -25,6 +25,7 @@ import {
   CommunityBoardBudgetRequestAgencyDropdown,
 } from "./DropdownControl";
 import { CbbrAgencyCategoryResponseCheckbox } from "./CheckboxControl";
+import { env } from "~/utils/env";
 
 export interface SearchByCbbrMenuProps {
   cbbrPolicyAreas: Array<CommunityBoardBudgetRequestPolicyArea> | null;
@@ -78,7 +79,7 @@ export const SearchByCbbrMenu = ({
       borderRadius={"sm"}
       borderWidth={"1px"}
       marginTop={2}
-      marginX={2}
+      marginX={env.facDbPhase1 == "ON" ? 0 : 2}
     >
       {({ isExpanded }) => (
         <>

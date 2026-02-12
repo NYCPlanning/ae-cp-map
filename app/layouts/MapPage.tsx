@@ -1,4 +1,4 @@
-import { Flex, GridItem, Accordion, Box } from "@nycplanning/streetscape";
+import { Flex, GridItem, Accordion, Box, Collapse, AccordionItem, AccordionButton, Heading, AccordionIcon, AccordionPanel } from "@nycplanning/streetscape";
 import {
   Outlet,
   useLoaderData,
@@ -276,34 +276,86 @@ export default function MapPage() {
           }}
           boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
         >
-          <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
-            <MapLayersPanel>
-              <Box display={"flex"} flexDirection={"column"} gap={2}>
-                <CapitalProjectLayerToggle />
-                <SearchByAttributeMenu
-                  agencies={managingAgencies}
-                  projectTypes={agencyBudgets}
-                  onClear={clearCapitalProjectFilters}
-                />
-                <CommunityBoardBudgetRequestLayerToggle />
-                <SearchByCbbrMenu
-                  cbbrPolicyAreas={cbbrPolicyAreas}
-                  cbbrNeedGroups={cbbrNeedGroups}
-                  cbbrAgencies={cbbrAgencies}
-                  cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
-                  cbbrAgencyCategoryResponseIds={cbbrAgencyCategoryResponseIds}
-                  onClear={clearCbbrProjectFilters}
-                />
-                <CommunityBoardBudgetRequestLegend />
-              </Box>
-            </MapLayersPanel>
-            <FilterMenu
-              boroughs={boroughs}
-              communityDistricts={communityDistricts}
-              cityCouncilDistricts={cityCouncilDistricts}
-            />
-            <HowToUseThisTool />
-          </Accordion>
+          {env.facDbPhase1 == "ON" ? (
+            <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
+              <AccordionItem borderTop={"none"} borderBottom={"none"}>
+                <AccordionButton p={0} aria-label="Toggle layers panel">
+                  <Heading
+                    flex="1"
+                    textAlign="left"
+                    fontSize="md"
+                    fontWeight="bold"
+                    lineHeight="32px"
+                    pb={0}
+                  >
+                    Capital Planning Data
+                  </Heading>
+                  <AccordionIcon />
+                </AccordionButton>
+                <AccordionPanel px={0} py={0}>
+                  <Box>
+                    <Box display={"flex"} flexDirection={"column"} gap={2} paddingBottom={2}>
+                      <CapitalProjectLayerToggle />
+                      <SearchByAttributeMenu
+                        agencies={managingAgencies}
+                        projectTypes={agencyBudgets}
+                        onClear={clearCapitalProjectFilters} />
+                      <CommunityBoardBudgetRequestLayerToggle />
+                      <SearchByCbbrMenu
+                        cbbrPolicyAreas={cbbrPolicyAreas}
+                        cbbrNeedGroups={cbbrNeedGroups}
+                        cbbrAgencies={cbbrAgencies}
+                        cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
+                        cbbrAgencyCategoryResponseIds={cbbrAgencyCategoryResponseIds}
+                        onClear={clearCbbrProjectFilters} />
+                      <CommunityBoardBudgetRequestLegend />
+                    </Box>
+                    <Box display={"flex"} flexDirection={"column"} gap={2}>
+                      <FilterMenu
+                        boroughs={boroughs}
+                        communityDistricts={communityDistricts}
+                        cityCouncilDistricts={cityCouncilDistricts} />
+
+                    </Box>
+
+                    <HowToUseThisTool />
+                  </Box>
+                </AccordionPanel>
+              </AccordionItem>
+
+
+            </Accordion>
+          ) : (
+            <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
+              <MapLayersPanel>
+                <Box display={"flex"} flexDirection={"column"} gap={2}>
+                  <CapitalProjectLayerToggle />
+                  <SearchByAttributeMenu
+                    agencies={managingAgencies}
+                    projectTypes={agencyBudgets}
+                    onClear={clearCapitalProjectFilters}
+                  />
+                  <CommunityBoardBudgetRequestLayerToggle />
+                  <SearchByCbbrMenu
+                    cbbrPolicyAreas={cbbrPolicyAreas}
+                    cbbrNeedGroups={cbbrNeedGroups}
+                    cbbrAgencies={cbbrAgencies}
+                    cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
+                    cbbrAgencyCategoryResponseIds={cbbrAgencyCategoryResponseIds}
+                    onClear={clearCbbrProjectFilters}
+                  />
+                  <CommunityBoardBudgetRequestLegend />
+                </Box>
+              </MapLayersPanel>
+              <FilterMenu
+                boroughs={boroughs}
+                communityDistricts={communityDistricts}
+                cityCouncilDistricts={cityCouncilDistricts}
+              />
+              <HowToUseThisTool />
+            </Accordion>
+          )
+          }
         </Flex>
       </GridItem>
       <GridItem

@@ -6,15 +6,16 @@ import {
   AccordionItem,
   AccordionPanel,
 } from "@nycplanning/streetscape";
+import { env } from "~/utils/env";
 
 export function HowToUseThisTool() {
   return (
-    <AccordionItem>
+    <AccordionItem borderBottom={ env.facDbPhase1 == "ON" ? "none" : ""}>
       <AccordionButton aria-label="Toggle how to use this tool panel" p={0}>
         <Heading
           flex="1"
           textAlign="left"
-          fontSize="md"
+          fontSize={env.facDbPhase1 == "ON" ? "sm" : "md"}
           fontWeight="bold"
           lineHeight="32px"
           pb={0}
