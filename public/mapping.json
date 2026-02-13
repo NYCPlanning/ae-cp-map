@@ -1,167 +1,314 @@
 {
-"health": {
+  "marker-1": {
+    "x": 0,
+    "y": 0,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-2": {
+    "x": 128,
+    "y": 0,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-3": {
+    "x": 256,
+    "y": 0,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-4": {
+    "x": 384,
+    "y": 0,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-5": {
+    "x": 0,
+    "y": 128,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-6": {
+    "x": 128,
+    "y": 128,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-7": {
+    "x": 256,
+    "y": 128,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-8": {
+    "x": 384,
+    "y": 128,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-9": {
+    "x": 0,
+    "y": 256,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-10": {
+    "x": 128,
+    "y": 256,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-20": {
+    "x": 256,
+    "y": 256,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-30": {
+    "x": 384,
+    "y": 256,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-40": {
+    "x": 0,
+    "y": 384,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-50": {
+    "x": 128,
+    "y": 384,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-60": {
+    "x": 256,
+    "y": 384,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-70": {
+    "x": 384,
+    "y": 384,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-80": {
+    "x": 0,
+    "y": 512,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-90": {
+    "x": 128,
+    "y": 512,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-100": {
+    "x": 256,
+    "y": 512,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-110": {
+    "x": 384,
+    "y": 512,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-120": {
+    "x": 0,
+    "y": 640,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-130": {
+    "x": 128,
+    "y": 640,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-140": {
+    "x": 256,
+    "y": 640,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "marker-150": {
+    "x": 384,
+    "y": 640,
+    "width": 128,
+    "height": 128,
+    "anchorY": 128
+  },
+  "health": {
     "x": 0,
     "y": 768,
     "width": 128,
     "height": 128
-},
-"infrastructure": {
+  },
+  "infrastructure": {
     "x": 128,
     "y": 768,
     "width": 128,
     "height": 128
-
-},
-"parks": {
+  },
+  "parks": {
     "x": 256,
     "y": 768,
     "width": 128,
     "height": 128
-
-},
-"education": {
+  },
+  "education": {
     "x": 384,
     "y": 768,
     "width": 128,
     "height": 128
-
-},
-"housing": {
+  },
+  "housing": {
     "x": 0,
     "y": 896,
     "width": 128,
     "height": 128
-
-},
-"other": {
+  },
+  "other": {
     "x": 128,
     "y": 896,
     "width": 128,
     "height": 128
-
-},
-"transportation": {
+  },
+  "transportation": {
     "x": 256,
     "y": 896,
     "width": 128,
     "height": 128
-
-},
-"safety": {
+  },
+  "safety": {
     "x": 384,
     "y": 896,
     "width": 128,
     "height": 128
-
-},
-"health-hover": {
+  },
+  "health-hover": {
     "x": 0,
     "y": 1024,
     "width": 128,
     "height": 128
-},
-"infrastructure-hover": {
+  },
+  "infrastructure-hover": {
     "x": 128,
     "y": 1024,
     "width": 128,
     "height": 128
-
-},
-"parks-hover": {
+  },
+  "parks-hover": {
     "x": 256,
     "y": 1024,
     "width": 128,
     "height": 128
-
-},
-"education-hover": {
+  },
+  "education-hover": {
     "x": 384,
     "y": 1024,
     "width": 128,
     "height": 128
-
-},
-"housing-hover": {
+  },
+  "housing-hover": {
     "x": 0,
     "y": 1152,
     "width": 128,
     "height": 128
-
-},
-"other-hover": {
+  },
+  "other-hover": {
     "x": 128,
     "y": 1152,
     "width": 128,
     "height": 128
-
-},
-"transportation-hover": {
+  },
+  "transportation-hover": {
     "x": 256,
     "y": 1152,
     "width": 128,
     "height": 128
-
-},
-"safety-hover": {
+  },
+  "safety-hover": {
     "x": 384,
     "y": 1152,
     "width": 128,
     "height": 128
-
-},
-"health-click": {
+  },
+  "health-click": {
     "x": 0,
     "y": 1280,
     "width": 128,
     "height": 128
-},
-"infrastructure-click": {
+  },
+  "infrastructure-click": {
     "x": 128,
     "y": 1280,
     "width": 128,
     "height": 128
-
-},
-"parks-click": {
+  },
+  "parks-click": {
     "x": 256,
     "y": 1280,
     "width": 128,
     "height": 128
-
-},
-"education-click": {
+  },
+  "education-click": {
     "x": 384,
     "y": 1280,
     "width": 128,
     "height": 128
-
-},
-"housing-click": {
+  },
+  "housing-click": {
     "x": 0,
     "y": 1408,
     "width": 128,
     "height": 128
-
-},
-"other-click": {
+  },
+  "other-click": {
     "x": 128,
     "y": 1408,
     "width": 128,
     "height": 128
-
-},
-"transportation-click": {
+  },
+  "transportation-click": {
     "x": 256,
     "y": 1408,
     "width": 128,
     "height": 128
-
-},
-"safety-click": {
+  },
+  "safety-click": {
     "x": 384,
     "y": 1408,
     "width": 128,
     "height": 128
-
-}
+  }
 }

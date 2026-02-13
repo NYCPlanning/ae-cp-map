@@ -10,7 +10,6 @@ import {
   DataFilterExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
-import { Accessor, Color } from "@deck.gl/core";
 import {
   BoroughId,
   CommunityBoardBudgetRequestAgencyCategoryResponseId,
@@ -22,6 +21,7 @@ import {
 import { loader as mapPageLoader } from "../../layouts/MapPage";
 import { env } from "~/utils/env";
 import { CommunityBoardBudgetRequestType } from "~/gen";
+import { IconClusterLayer } from "./icon-cluster-layer";
 
 const { zoningApiUrl } = env;
 
@@ -34,16 +34,20 @@ export interface CommunityBoardBudgetRequestProperties {
   agencyCategoryReponseId: string;
   cbbrAgencyCategoryResponseId: string;
   requestType: CommunityBoardBudgetRequestType;
+  cluster: boolean;
+  point_count: number;
 }
 
 export function useCommunityBoardBudgetRequestsLayer(opts: {
   visible?: boolean;
   hoveredCbbr: string | null;
   setHoveredOverCbbr: (newHoveredOverCbbr: string | null) => void;
+  onClusterClick: (zoom: number, latitude: number, longitude: number) => void;
 }) {
   const visible = opts.visible ?? true;
   const hoveredCbbr = opts.hoveredCbbr;
   const setHoveredOverCbbr = opts.setHoveredOverCbbr;
+  const onClusterClick = opts.onClusterClick;
   const { cbbrId } = useParams();
   const [searchParams] = useSearchParams();
   const districtType = searchParams.get("districtType") as DistrictType;
@@ -105,16 +109,6 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     ? loaderData.cbbrAgencyCategoryResponses.map((data) => data.id)
     : [];
 
-  const defaultColor: Accessor<
-    Feature<Geometry, CommunityBoardBudgetRequestProperties>,
-    Color
-  > = [43, 108, 176, 153];
-
-  const highlightColor: Accessor<
-    Feature<Geometry, CommunityBoardBudgetRequestProperties>,
-    Color
-  > = [255, 255, 255, 100];
-
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
     DataFilterExtensionProps<
@@ -127,51 +121,94 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     ],
     visible,
     uniqueIdProperty: "id",
-    highlightedFeatureId: hoveredCbbr,
-    getFillColor: defaultColor,
+    getFillColor: ({ properties }) => {
+      if (properties.id === hoveredCbbr) {
+        return [43, 108, 176, 100];
+      } else {
+        return [43, 108, 176, 153];
+      }
+    },
     pointType: "icon",
-    getIconSize: 24,
-    autoHighlight: true,
-    highlightColor: highlightColor,
     getLineColor: [255, 255, 255, 255],
     getLineWidth: 1,
-    getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
-      const icon = policyAreaIconsMap[d.properties.policyAreaId];
-      if (cbbrId === d.properties.id) {
-        return null;
-      }
-      return `${icon}`;
-    },
     iconAtlas: `/policy-area-icons/all-icons.png`,
     iconMapping: `/mapping.json`,
     pickable: true,
     updateTriggers: {
+      getFillColor: [hoveredCbbr],
       getIcon: [cbbrId],
       getIconSize: [cbbrId],
-      getFillColor: [cbbrId],
-      highlightedFeatureId: [hoveredCbbr],
+      getIconColor: [hoveredCbbr],
     },
-    onHover: (data) => {
-      const id = data.object?.properties?.id;
-      if (data.index === -1) {
+    onHover: (info) => {
+      if (info.index === -1) {
         setHoveredOverCbbr(null);
-      } else if (id !== undefined) {
-        setHoveredOverCbbr(id);
+      } else {
+        setHoveredOverCbbr(info.object?.properties?.id ?? null);
       }
     },
     onClick: (data) => {
-      const indvidualCbbrId = data.object?.properties?.id;
-      if (indvidualCbbrId === undefined) return;
-      if (indvidualCbbrId === `${cbbrId}`) return;
-      const cbbrRouteSuffix = `/community-board-budget-requests/${indvidualCbbrId}`;
-      navigate({
-        pathname: `${cbbrRouteSuffix}`,
-        search: `?${searchParams.toString()}`,
-      });
+      if (data.object.properties.cluster !== true) {
+        const individualCbbrId = data.object?.properties?.id;
+        if (individualCbbrId === undefined) return;
+        if (individualCbbrId === `${cbbrId}`) return;
+        const cbbrRouteSuffix = `/community-board-budget-requests/${individualCbbrId}`;
+        navigate({
+          pathname: `${cbbrRouteSuffix}`,
+          search: `?${searchParams.toString()}`,
+        });
+      } else {
+        onClusterClick(
+          data.object.properties.expansionZoom,
+          data.object.geometry.coordinates[1],
+          data.object.geometry.coordinates[0],
+        );
+      }
     },
-    iconSizeScale: 1,
-    iconSizeMinPixels: 24,
-    iconSizeMaxPixels: 30,
+    iconSizeScale: 25,
+    binary: false,
+    getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
+      if (d.properties.cluster !== true) {
+        const icon = policyAreaIconsMap[d.properties.policyAreaId];
+        if (cbbrId === d.properties.id) {
+          return null;
+        } else {
+          return `${icon}`;
+        }
+      } else {
+        const size = d.properties.point_count;
+        if (size === 0) {
+          return `marker-1`;
+        }
+        if (size < 10) {
+          return `marker-${size}`;
+        }
+        if (size < 150) {
+          return `marker-${Math.floor(size / 10)}0`;
+        }
+        return "marker-150";
+      }
+    },
+    getIconSize: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
+      if (d.properties.cluster !== true) {
+        if (cbbrId === d.properties.id) {
+          return 1.2;
+        } else {
+          return 1;
+        }
+      } else {
+        return Math.min(150, d.properties.point_count) / 100 + 1;
+      }
+    },
+    getIconColor: (d: {
+      properties: CommunityBoardBudgetRequestProperties;
+    }) => {
+      if (d.properties.id === hoveredCbbr) {
+        return [255, 255, 255, 200];
+      } else {
+        return [43, 108, 176, 255];
+      }
+    },
     getFilterCategory: (d) => {
       const {
         agencyInitials,
@@ -197,6 +234,11 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         ? cbbrAgencyCategoryResponseIds
         : fullAgencyCategoryResponseList,
     ],
+    _subLayerProps: {
+      "points-icon": {
+        type: IconClusterLayer<CommunityBoardBudgetRequestProperties>,
+      },
+    },
     extensions: [
       new DataFilterExtension({
         categorySize: 4,
