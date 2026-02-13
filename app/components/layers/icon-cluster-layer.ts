@@ -14,12 +14,11 @@ export type IconClusterLayerPickingInfo<DataT> = PickingInfo<
 >;
 
 export class IconClusterLayer<
-  DataT extends { [key: string]: any } = any,
-  ExtraProps extends object = object,
-> extends CompositeLayer<Required<IconLayerProps<DataT>> & ExtraProps> {
+  PropertiesT extends Record<string, unknown> & { id: string },
+> extends CompositeLayer<Required<IconLayerProps<PropertiesT>>> {
   state!: {
-    data: (PointFeature<DataT> | ClusterFeature<DataT>)[];
-    index: Supercluster<DataT, DataT>;
+    data: (PointFeature<PropertiesT> | ClusterFeature<PropertiesT>)[];
+    index: Supercluster<PropertiesT, PropertiesT>;
     z: number;
   };
 
@@ -44,7 +43,7 @@ export class IconClusterLayer<
     // radius at zoom 10: 192
     // radius at zoom 15: 2056
     if (rebuildIndex) {
-      const index = new Supercluster<DataT, DataT>({
+      const index = new Supercluster<PropertiesT, PropertiesT>({
         maxZoom: 15,
         radius: radius,
         extent: 512,
@@ -53,13 +52,18 @@ export class IconClusterLayer<
         },
       });
       index.load(
-        // @ts-ignore Supercluster expects proper GeoJSON feature
-        (props.data as DataT[]).map((d) => {
+        (props.data as PropertiesT[]).map((d) => {
           return {
-            // eslint-disable-next-line getPosition type does not accept type of d
-            geometry: { coordinates: (props.getPosition as Function)(d) },
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: (
+                props.getPosition as unknown as (d: PropertiesT) => number[]
+              )(d),
+            },
             properties: {
-              ...d.__source.object.properties,
+              ...(d.__source as { object: { properties: PropertiesT } }).object
+                .properties,
             },
           };
         }),
@@ -73,7 +77,7 @@ export class IconClusterLayer<
         const result = {
           id:
             d.properties.cluster === true
-              ? d.properties.cluster_id.toString()
+              ? (d.properties as ClusterProperties).cluster_id.toString()
               : d.properties.id,
           type: d.type ? d.type : "Feature",
           geometry: d.geometry,
@@ -81,10 +85,10 @@ export class IconClusterLayer<
             ...d.properties,
             id:
               d.properties.cluster === true
-                ? d.properties.cluster_id.toString()
+                ? (d.properties as ClusterProperties).cluster_id.toString()
                 : d.properties.id,
             expansionZoom: this.state.index.getClusterExpansionZoom(
-              d.properties.cluster_id,
+              (d.properties as ClusterProperties).cluster_id,
             ),
           },
         };
@@ -100,9 +104,9 @@ export class IconClusterLayer<
   getPickingInfo({
     info,
   }: {
-    info: PickingInfo<PointFeature<DataT> | ClusterFeature<DataT>>;
+    info: PickingInfo<PointFeature<PropertiesT> | ClusterFeature<PropertiesT>>;
     mode: string;
-  }): IconClusterLayerPickingInfo<PointFeature<DataT>> {
+  }): IconClusterLayerPickingInfo<PointFeature<PropertiesT>> {
     const pickedObject = info.object;
     return pickedObject
       ? { ...info, object: pickedObject }
@@ -121,12 +125,14 @@ export class IconClusterLayer<
       onHover,
       updateTriggers,
     } = this.props;
-    return new IconLayer<PointFeature<DataT> | ClusterFeature<DataT>>(
+    return new IconLayer<
+      PointFeature<PropertiesT> | ClusterFeature<PropertiesT>
+    >(
       this.getSubLayerProps({
         id: "icons",
         data,
         pickable: true,
-        getPosition: (d: PointFeature<DataT>) =>
+        getPosition: (d: PointFeature<PropertiesT>) =>
           d.geometry.coordinates as [number, number],
         getIcon,
         getSize,

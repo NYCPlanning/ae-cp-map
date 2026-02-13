@@ -25,7 +25,7 @@ import { IconClusterLayer } from "./icon-cluster-layer";
 
 const { zoningApiUrl } = env;
 
-export interface CommunityBoardBudgetRequestProperties {
+export type CommunityBoardBudgetRequestProperties = {
   id: string;
   agencyInitials: string;
   layerName: string;
@@ -36,7 +36,7 @@ export interface CommunityBoardBudgetRequestProperties {
   requestType: CommunityBoardBudgetRequestType;
   cluster: boolean;
   point_count: number;
-}
+};
 
 export function useCommunityBoardBudgetRequestsLayer(opts: {
   visible?: boolean;
