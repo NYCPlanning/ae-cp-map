@@ -4,8 +4,8 @@
  */
 
 import RandExp from "randexp";
-import type { CapitalProjectBudgeted } from "../types/CapitalProjectBudgeted";
-import { createCapitalProject } from "./createCapitalProject";
+import type { CapitalProjectBudgeted } from "../types/CapitalProjectBudgeted.js";
+import { createCapitalProject } from "./createCapitalProject.js";
 import { faker } from "@faker-js/faker";
 
 export function createCapitalProjectBudgeted(

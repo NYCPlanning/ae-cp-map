@@ -7,7 +7,7 @@ import type {
   FindCommunityBoardBudgetRequestPolicyAreasQueryResponse,
   FindCommunityBoardBudgetRequestPolicyAreas400,
   FindCommunityBoardBudgetRequestPolicyAreas500,
-} from "../types/FindCommunityBoardBudgetRequestPolicyAreas";
+} from "../types/FindCommunityBoardBudgetRequestPolicyAreas.js";
 import { http } from "msw";
 
 export function findCommunityBoardBudgetRequestPolicyAreasHandlerResponse200(

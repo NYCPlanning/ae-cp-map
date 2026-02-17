@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { agencyBudgetSchema } from "./agencyBudgetSchema";
-import { errorSchema } from "./errorSchema";
+import { agencyBudgetSchema } from "./agencyBudgetSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 /**

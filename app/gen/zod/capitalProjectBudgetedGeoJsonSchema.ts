@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { capitalProjectBudgetedSchema } from "./capitalProjectBudgetedSchema";
-import { multiPointSchema } from "./multiPointSchema";
-import { multiPolygonSchema } from "./multiPolygonSchema";
+import { capitalProjectBudgetedSchema } from "./capitalProjectBudgetedSchema.js";
+import { multiPointSchema } from "./multiPointSchema.js";
+import { multiPolygonSchema } from "./multiPolygonSchema.js";
 import { z } from "zod";
 
 export const capitalProjectBudgetedGeoJsonSchema = z.object({

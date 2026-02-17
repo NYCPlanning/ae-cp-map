@@ -7,7 +7,7 @@ import type {
   FindCapitalProjectTilesQueryResponse,
   FindCapitalProjectTiles400,
   FindCapitalProjectTiles500,
-} from "../types/FindCapitalProjectTiles";
+} from "../types/FindCapitalProjectTiles.js";
 import { http } from "msw";
 
 export function findCapitalProjectTilesHandlerResponse200(

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { errorSchema } from "./errorSchema";
-import { taxLotBasicPageSchema } from "./taxLotBasicPageSchema";
+import { errorSchema } from "./errorSchema.js";
+import { taxLotBasicPageSchema } from "./taxLotBasicPageSchema.js";
 import { z } from "zod";
 
 export const findTaxLotsQueryParamsSchema = z

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import { communityBoardBudgetRequestSchema } from "./communityBoardBudgetRequestSchema";
-import { multiPointSchema } from "./multiPointSchema";
-import { multiPolygonSchema } from "./multiPolygonSchema";
+import { communityBoardBudgetRequestSchema } from "./communityBoardBudgetRequestSchema.js";
+import { multiPointSchema } from "./multiPointSchema.js";
+import { multiPolygonSchema } from "./multiPolygonSchema.js";
 import { z } from "zod";
 
 export const communityBoardBudgetRequestGeoJsonSchema = z.object({

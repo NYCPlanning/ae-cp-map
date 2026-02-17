@@ -8,7 +8,7 @@ import type {
   FindCapitalProjectManagingAgenciesQueryResponse,
   FindCapitalProjectManagingAgencies400,
   FindCapitalProjectManagingAgencies500,
-} from "../types/FindCapitalProjectManagingAgencies";
+} from "../types/FindCapitalProjectManagingAgencies.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

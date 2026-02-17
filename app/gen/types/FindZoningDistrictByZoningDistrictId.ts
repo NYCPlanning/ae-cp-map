@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { Error } from "./Error";
-import type { ZoningDistrict } from "./ZoningDistrict";
+import type { Error } from "./Error.js";
+import type { ZoningDistrict } from "./ZoningDistrict.js";
 
 export type FindZoningDistrictByZoningDistrictIdPathParams = {
   /**

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import type { CapitalProjectBudgeted } from "./CapitalProjectBudgeted";
-import type { MultiPoint } from "./MultiPoint";
-import type { MultiPolygon } from "./MultiPolygon";
+import type { CapitalProjectBudgeted } from "./CapitalProjectBudgeted.js";
+import type { MultiPoint } from "./MultiPoint.js";
+import type { MultiPolygon } from "./MultiPolygon.js";
 
 export const capitalProjectBudgetedGeoJsonTypeEnum = {
   Feature: "Feature",

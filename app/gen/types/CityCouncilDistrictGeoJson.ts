@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CityCouncilDistrict } from "./CityCouncilDistrict";
-import type { MultiPolygon } from "./MultiPolygon";
+import type { CityCouncilDistrict } from "./CityCouncilDistrict.js";
+import type { MultiPolygon } from "./MultiPolygon.js";
 
 export const cityCouncilDistrictGeoJsonTypeEnum = {
   Feature: "Feature",

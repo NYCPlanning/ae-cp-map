@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { errorSchema } from "./errorSchema";
-import { zoningDistrictSchema } from "./zoningDistrictSchema";
+import { errorSchema } from "./errorSchema.js";
+import { zoningDistrictSchema } from "./zoningDistrictSchema.js";
 import { z } from "zod";
 
 export const findZoningDistrictByZoningDistrictIdPathParamsSchema = z.object({

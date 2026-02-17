@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { Error } from "../types/Error";
+import type { Error } from "../types/Error.js";
 import { faker } from "@faker-js/faker";
 
 export function createError(data?: Partial<Error>): Error {

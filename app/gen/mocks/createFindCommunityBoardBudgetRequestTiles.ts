@@ -7,8 +7,8 @@ import RandExp from "randexp";
 import type {
   FindCommunityBoardBudgetRequestTilesPathParams,
   FindCommunityBoardBudgetRequestTilesQueryResponse,
-} from "../types/FindCommunityBoardBudgetRequestTiles";
-import { createError } from "./createError";
+} from "../types/FindCommunityBoardBudgetRequestTiles.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCommunityBoardBudgetRequestTilesPathParams(

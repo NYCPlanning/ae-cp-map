@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCommunityBoardBudgetRequestAgencyCategoryResponses200,
   FindCommunityBoardBudgetRequestAgencyCategoryResponsesQueryResponse,
-} from "../types/FindCommunityBoardBudgetRequestAgencyCategoryResponses";
-import { createCommunityBoardBudgetRequestAgencyCategoryResponse } from "./createCommunityBoardBudgetRequestAgencyCategoryResponse";
-import { createError } from "./createError";
+} from "../types/FindCommunityBoardBudgetRequestAgencyCategoryResponses.js";
+import { createCommunityBoardBudgetRequestAgencyCategoryResponse } from "./createCommunityBoardBudgetRequestAgencyCategoryResponse.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 /**

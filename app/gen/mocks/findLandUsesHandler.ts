@@ -7,7 +7,7 @@ import type {
   FindLandUsesQueryResponse,
   FindLandUses400,
   FindLandUses500,
-} from "../types/FindLandUses";
+} from "../types/FindLandUses.js";
 import { http } from "msw";
 
 export function findLandUsesHandlerResponse200(

@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { capitalProjectCategorySchema } from "./capitalProjectCategorySchema";
+import { capitalProjectCategorySchema } from "./capitalProjectCategorySchema.js";
 import { z } from "zod";
 
 export const capitalProjectSchema = z.object({

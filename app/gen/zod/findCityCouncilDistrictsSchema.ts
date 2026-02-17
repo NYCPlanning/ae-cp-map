@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { cityCouncilDistrictSchema } from "./cityCouncilDistrictSchema";
-import { errorSchema } from "./errorSchema";
+import { cityCouncilDistrictSchema } from "./cityCouncilDistrictSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 /**

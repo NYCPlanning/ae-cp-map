@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { CapitalProjectCategory } from "../types/CapitalProjectCategory";
+import type { CapitalProjectCategory } from "../types/CapitalProjectCategory.js";
 import { faker } from "@faker-js/faker";
 
 /**

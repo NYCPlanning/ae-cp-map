@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CommunityBoardBudgetRequestAgencyCategoryResponse } from "./CommunityBoardBudgetRequestAgencyCategoryResponse";
-import type { Error } from "./Error";
+import type { CommunityBoardBudgetRequestAgencyCategoryResponse } from "./CommunityBoardBudgetRequestAgencyCategoryResponse.js";
+import type { Error } from "./Error.js";
 
 /**
  * @description An object containing a list of agency reponse categories

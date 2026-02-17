@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { errorSchema } from "./errorSchema";
-import { taxLotGeoJsonSchema } from "./taxLotGeoJsonSchema";
+import { errorSchema } from "./errorSchema.js";
+import { taxLotGeoJsonSchema } from "./taxLotGeoJsonSchema.js";
 import { z } from "zod";
 
 export const findTaxLotGeoJsonByBblPathParamsSchema = z.object({

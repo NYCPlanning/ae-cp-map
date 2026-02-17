@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { LandUse } from "../types/LandUse";
+import type { LandUse } from "../types/LandUse.js";
 import { faker } from "@faker-js/faker";
 
 export function createLandUse(data?: Partial<LandUse>): LandUse {

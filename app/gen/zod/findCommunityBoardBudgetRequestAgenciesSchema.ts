@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { agencySchema } from "./agencySchema";
-import { errorSchema } from "./errorSchema";
+import { agencySchema } from "./agencySchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 export const findCommunityBoardBudgetRequestAgenciesQueryParamsSchema = z

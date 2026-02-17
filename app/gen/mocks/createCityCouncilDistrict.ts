@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { CityCouncilDistrict } from "../types/CityCouncilDistrict";
+import type { CityCouncilDistrict } from "../types/CityCouncilDistrict.js";
 
 export function createCityCouncilDistrict(
   data?: Partial<CityCouncilDistrict>,

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { communityDistrictGeoJsonSchema } from "./communityDistrictGeoJsonSchema";
-import { errorSchema } from "./errorSchema";
+import { communityDistrictGeoJsonSchema } from "./communityDistrictGeoJsonSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 export const findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParamsSchema =

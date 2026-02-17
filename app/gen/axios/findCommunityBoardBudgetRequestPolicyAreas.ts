@@ -9,7 +9,7 @@ import type {
   FindCommunityBoardBudgetRequestPolicyAreasQueryParams,
   FindCommunityBoardBudgetRequestPolicyAreas400,
   FindCommunityBoardBudgetRequestPolicyAreas500,
-} from "../types/FindCommunityBoardBudgetRequestPolicyAreas";
+} from "../types/FindCommunityBoardBudgetRequestPolicyAreas.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

@@ -7,7 +7,7 @@ import type {
   FindCityCouncilDistrictsQueryResponse,
   FindCityCouncilDistricts400,
   FindCityCouncilDistricts500,
-} from "../types/FindCityCouncilDistricts";
+} from "../types/FindCityCouncilDistricts.js";
 import { http } from "msw";
 
 export function findCityCouncilDistrictsHandlerResponse200(

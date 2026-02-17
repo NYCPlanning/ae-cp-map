@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParams,
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdQueryResponse,
-} from "../types/FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId";
-import { createCommunityDistrictGeoJson } from "./createCommunityDistrictGeoJson";
-import { createError } from "./createError";
+} from "../types/FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId.js";
+import { createCommunityDistrictGeoJson } from "./createCommunityDistrictGeoJson.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParams(

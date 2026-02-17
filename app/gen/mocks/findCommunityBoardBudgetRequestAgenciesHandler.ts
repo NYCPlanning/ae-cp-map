@@ -7,7 +7,7 @@ import type {
   FindCommunityBoardBudgetRequestAgenciesQueryResponse,
   FindCommunityBoardBudgetRequestAgencies400,
   FindCommunityBoardBudgetRequestAgencies500,
-} from "../types/FindCommunityBoardBudgetRequestAgencies";
+} from "../types/FindCommunityBoardBudgetRequestAgencies.js";
 import { http } from "msw";
 
 export function findCommunityBoardBudgetRequestAgenciesHandlerResponse200(

@@ -8,7 +8,7 @@ import type {
   FindBoroughsQueryResponse,
   FindBoroughs400,
   FindBoroughs500,
-} from "../types/FindBoroughs";
+} from "../types/FindBoroughs.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

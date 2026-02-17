@@ -8,7 +8,7 @@ import type {
   FindAgencyBudgetsQueryResponse,
   FindAgencyBudgets400,
   FindAgencyBudgets500,
-} from "../types/FindAgencyBudgets";
+} from "../types/FindAgencyBudgets.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

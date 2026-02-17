@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { cityCouncilDistrictSchema } from "./cityCouncilDistrictSchema";
-import { multiPolygonSchema } from "./multiPolygonSchema";
+import { cityCouncilDistrictSchema } from "./cityCouncilDistrictSchema.js";
+import { multiPolygonSchema } from "./multiPolygonSchema.js";
 import { z } from "zod";
 
 export const cityCouncilDistrictGeoJsonSchema = z.object({

@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCapitalProjectsQueryParams,
   FindCapitalProjectsQueryResponse,
-} from "../types/FindCapitalProjects";
-import { createCapitalProjectPage } from "./createCapitalProjectPage";
-import { createError } from "./createError";
+} from "../types/FindCapitalProjects.js";
+import { createCapitalProjectPage } from "./createCapitalProjectPage.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCapitalProjectsQueryParams(

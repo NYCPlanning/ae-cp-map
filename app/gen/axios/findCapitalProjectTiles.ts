@@ -9,7 +9,7 @@ import type {
   FindCapitalProjectTilesPathParams,
   FindCapitalProjectTiles400,
   FindCapitalProjectTiles500,
-} from "../types/FindCapitalProjectTiles";
+} from "../types/FindCapitalProjectTiles.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

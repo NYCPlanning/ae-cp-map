@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CityCouncilDistrict } from "./CityCouncilDistrict";
-import type { Error } from "./Error";
+import type { CityCouncilDistrict } from "./CityCouncilDistrict.js";
+import type { Error } from "./Error.js";
 
 /**
  * @description an object of city council districts

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { Error } from "./Error";
-import type { LandUse } from "./LandUse";
+import type { Error } from "./Error.js";
+import type { LandUse } from "./LandUse.js";
 
 /**
  * @description An object containing all land uses.

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { errorSchema } from "./errorSchema";
-import { landUseSchema } from "./landUseSchema";
+import { errorSchema } from "./errorSchema.js";
+import { landUseSchema } from "./landUseSchema.js";
 import { z } from "zod";
 
 /**

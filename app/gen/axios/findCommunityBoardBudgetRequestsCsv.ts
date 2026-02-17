@@ -9,7 +9,7 @@ import type {
   FindCommunityBoardBudgetRequestsCsvQueryParams,
   FindCommunityBoardBudgetRequestsCsv400,
   FindCommunityBoardBudgetRequestsCsv500,
-} from "../types/FindCommunityBoardBudgetRequestsCsv";
+} from "../types/FindCommunityBoardBudgetRequestsCsv.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

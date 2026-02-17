@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CityCouncilDistrictGeoJson } from "./CityCouncilDistrictGeoJson";
-import type { Error } from "./Error";
+import type { CityCouncilDistrictGeoJson } from "./CityCouncilDistrictGeoJson.js";
+import type { Error } from "./Error.js";
 
 export type FindCityCouncilDistrictGeoJsonByCityCouncilDistrictIdPathParams = {
   /**

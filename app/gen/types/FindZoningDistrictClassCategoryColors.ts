@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { Error } from "./Error";
-import type { ZoningDistrictClassCategoryColor } from "./ZoningDistrictClassCategoryColor";
+import type { Error } from "./Error.js";
+import type { ZoningDistrictClassCategoryColor } from "./ZoningDistrictClassCategoryColor.js";
 
 /**
  * @description An object containing all zoning district category colors.

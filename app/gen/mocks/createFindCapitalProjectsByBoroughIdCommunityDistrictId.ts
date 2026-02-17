@@ -8,9 +8,9 @@ import type {
   FindCapitalProjectsByBoroughIdCommunityDistrictIdPathParams,
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryParams,
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
-} from "../types/FindCapitalProjectsByBoroughIdCommunityDistrictId";
-import { createCapitalProjectPage } from "./createCapitalProjectPage";
-import { createError } from "./createError";
+} from "../types/FindCapitalProjectsByBoroughIdCommunityDistrictId.js";
+import { createCapitalProjectPage } from "./createCapitalProjectPage.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCapitalProjectsByBoroughIdCommunityDistrictIdPathParams(

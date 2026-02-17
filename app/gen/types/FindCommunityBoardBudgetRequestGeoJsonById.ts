@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CommunityBoardBudgetRequestGeoJson } from "./CommunityBoardBudgetRequestGeoJson";
-import type { Error } from "./Error";
+import type { CommunityBoardBudgetRequestGeoJson } from "./CommunityBoardBudgetRequestGeoJson.js";
+import type { Error } from "./Error.js";
 
 export type FindCommunityBoardBudgetRequestGeoJsonByIdPathParams = {
   /**

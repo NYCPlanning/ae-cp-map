@@ -7,8 +7,8 @@ import RandExp from "randexp";
 import type {
   FindCityCouncilDistrictTilesPathParams,
   FindCityCouncilDistrictTilesQueryResponse,
-} from "../types/FindCityCouncilDistrictTiles";
-import { createError } from "./createError";
+} from "../types/FindCityCouncilDistrictTiles.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCityCouncilDistrictTilesPathParams(

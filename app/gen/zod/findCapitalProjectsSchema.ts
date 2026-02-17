@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { capitalProjectPageSchema } from "./capitalProjectPageSchema";
-import { errorSchema } from "./errorSchema";
+import { capitalProjectPageSchema } from "./capitalProjectPageSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 export const findCapitalProjectsQueryParamsSchema = z

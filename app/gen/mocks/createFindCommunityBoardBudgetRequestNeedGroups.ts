@@ -8,9 +8,9 @@ import type {
   FindCommunityBoardBudgetRequestNeedGroupsQueryParams,
   FindCommunityBoardBudgetRequestNeedGroups200,
   FindCommunityBoardBudgetRequestNeedGroupsQueryResponse,
-} from "../types/FindCommunityBoardBudgetRequestNeedGroups";
-import { createCommunityBoardBudgetRequestNeedGroup } from "./createCommunityBoardBudgetRequestNeedGroup";
-import { createError } from "./createError";
+} from "../types/FindCommunityBoardBudgetRequestNeedGroups.js";
+import { createCommunityBoardBudgetRequestNeedGroup } from "./createCommunityBoardBudgetRequestNeedGroup.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCommunityBoardBudgetRequestNeedGroupsQueryParams(

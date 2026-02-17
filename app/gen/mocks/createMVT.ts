@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { MVT } from "../types/MVT";
+import type { MVT } from "../types/MVT.js";
 import { faker } from "@faker-js/faker";
 
 export function createMVT(data?: Partial<MVT>): MVT {

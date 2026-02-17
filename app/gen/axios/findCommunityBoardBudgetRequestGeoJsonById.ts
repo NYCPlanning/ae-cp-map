@@ -10,7 +10,7 @@ import type {
   FindCommunityBoardBudgetRequestGeoJsonById400,
   FindCommunityBoardBudgetRequestGeoJsonById404,
   FindCommunityBoardBudgetRequestGeoJsonById500,
-} from "../types/FindCommunityBoardBudgetRequestGeoJsonById";
+} from "../types/FindCommunityBoardBudgetRequestGeoJsonById.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCityCouncilDistricts200,
   FindCityCouncilDistrictsQueryResponse,
-} from "../types/FindCityCouncilDistricts";
-import { createCityCouncilDistrict } from "./createCityCouncilDistrict";
-import { createError } from "./createError";
+} from "../types/FindCityCouncilDistricts.js";
+import { createCityCouncilDistrict } from "./createCityCouncilDistrict.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 /**

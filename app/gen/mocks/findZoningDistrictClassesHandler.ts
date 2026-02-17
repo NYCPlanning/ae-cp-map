@@ -7,7 +7,7 @@ import type {
   FindZoningDistrictClassesQueryResponse,
   FindZoningDistrictClasses400,
   FindZoningDistrictClasses500,
-} from "../types/FindZoningDistrictClasses";
+} from "../types/FindZoningDistrictClasses.js";
 import { http } from "msw";
 
 export function findZoningDistrictClassesHandlerResponse200(

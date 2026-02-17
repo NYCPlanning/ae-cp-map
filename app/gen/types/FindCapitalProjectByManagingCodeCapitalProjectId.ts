@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CapitalProjectBudgeted } from "./CapitalProjectBudgeted";
-import type { Error } from "./Error";
+import type { CapitalProjectBudgeted } from "./CapitalProjectBudgeted.js";
+import type { Error } from "./Error.js";
 
 export type FindCapitalProjectByManagingCodeCapitalProjectIdPathParams = {
   /**

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CommunityDistrict } from "./CommunityDistrict";
-import type { MultiPolygon } from "./MultiPolygon";
+import type { CommunityDistrict } from "./CommunityDistrict.js";
+import type { MultiPolygon } from "./MultiPolygon.js";
 
 export const communityDistrictGeoJsonTypeEnum = {
   Feature: "Feature",

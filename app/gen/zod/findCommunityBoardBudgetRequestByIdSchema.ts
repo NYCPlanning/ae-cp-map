@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { communityBoardBudgetRequestSchema } from "./communityBoardBudgetRequestSchema";
-import { errorSchema } from "./errorSchema";
+import { communityBoardBudgetRequestSchema } from "./communityBoardBudgetRequestSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 export const findCommunityBoardBudgetRequestByIdPathParamsSchema = z.object({

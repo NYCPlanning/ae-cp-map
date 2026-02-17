@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCommunityBoardBudgetRequestsQueryParams,
   FindCommunityBoardBudgetRequestsQueryResponse,
-} from "../types/FindCommunityBoardBudgetRequests";
-import { createCommunityBoardBudgetRequestPage } from "./createCommunityBoardBudgetRequestPage";
-import { createError } from "./createError";
+} from "../types/FindCommunityBoardBudgetRequests.js";
+import { createCommunityBoardBudgetRequestPage } from "./createCommunityBoardBudgetRequestPage.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCommunityBoardBudgetRequestsQueryParams(

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CapitalCommitmentType } from "./CapitalCommitmentType";
-import type { Error } from "./Error";
+import type { CapitalCommitmentType } from "./CapitalCommitmentType.js";
+import type { Error } from "./Error.js";
 
 /**
  * @description An object containing all capital commitment types.

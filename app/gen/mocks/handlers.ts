@@ -3,48 +3,49 @@
  * Do not edit manually.
  */
 
-import { findAgenciesHandler } from "./findAgenciesHandler";
-import { findAgencyBudgetsHandler } from "./findAgencyBudgetsHandler";
-import { findBoroughsHandler } from "./findBoroughsHandler";
-import { findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler } from "./findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler";
-import { findCapitalCommitmentTypesHandler } from "./findCapitalCommitmentTypesHandler";
-import { findCapitalProjectByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectByManagingCodeCapitalProjectIdHandler";
-import { findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler";
-import { findCapitalProjectManagingAgenciesHandler } from "./findCapitalProjectManagingAgenciesHandler";
-import { findCapitalProjectsByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectsByBoroughIdCommunityDistrictIdHandler";
-import { findCapitalProjectsByCityCouncilIdHandler } from "./findCapitalProjectsByCityCouncilIdHandler";
-import { findCapitalProjectsHandler } from "./findCapitalProjectsHandler";
-import { findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler";
-import { findCapitalProjectTilesByCityCouncilDistrictIdHandler } from "./findCapitalProjectTilesByCityCouncilDistrictIdHandler";
-import { findCapitalProjectTilesHandler } from "./findCapitalProjectTilesHandler";
-import { findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler } from "./findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler";
-import { findCityCouncilDistrictsHandler } from "./findCityCouncilDistrictsHandler";
-import { findCityCouncilDistrictTilesHandler } from "./findCityCouncilDistrictTilesHandler";
-import { findCommunityBoardBudgetRequestAgenciesHandler } from "./findCommunityBoardBudgetRequestAgenciesHandler";
-import { findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler } from "./findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler";
-import { findCommunityBoardBudgetRequestByIdHandler } from "./findCommunityBoardBudgetRequestByIdHandler";
-import { findCommunityBoardBudgetRequestGeoJsonByIdHandler } from "./findCommunityBoardBudgetRequestGeoJsonByIdHandler";
-import { findCommunityBoardBudgetRequestNeedGroupsHandler } from "./findCommunityBoardBudgetRequestNeedGroupsHandler";
-import { findCommunityBoardBudgetRequestPolicyAreasHandler } from "./findCommunityBoardBudgetRequestPolicyAreasHandler";
-import { findCommunityBoardBudgetRequestsCsvHandler } from "./findCommunityBoardBudgetRequestsCsvHandler";
-import { findCommunityBoardBudgetRequestsHandler } from "./findCommunityBoardBudgetRequestsHandler";
-import { findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandler } from "./findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandler";
-import { findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandler } from "./findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandler";
-import { findCommunityBoardBudgetRequestTilesHandler } from "./findCommunityBoardBudgetRequestTilesHandler";
-import { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler } from "./findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler";
-import { findCommunityDistrictsByBoroughIdHandler } from "./findCommunityDistrictsByBoroughIdHandler";
-import { findCommunityDistrictTilesHandler } from "./findCommunityDistrictTilesHandler";
-import { findLandUsesHandler } from "./findLandUsesHandler";
-import { findTaxLotByBblHandler } from "./findTaxLotByBblHandler";
-import { findTaxLotGeoJsonByBblHandler } from "./findTaxLotGeoJsonByBblHandler";
-import { findTaxLotsHandler } from "./findTaxLotsHandler";
-import { findZoningDistrictByZoningDistrictIdHandler } from "./findZoningDistrictByZoningDistrictIdHandler";
-import { findZoningDistrictClassByZoningDistrictClassIdHandler } from "./findZoningDistrictClassByZoningDistrictClassIdHandler";
-import { findZoningDistrictClassCategoryColorsHandler } from "./findZoningDistrictClassCategoryColorsHandler";
-import { findZoningDistrictClassesByTaxLotBblHandler } from "./findZoningDistrictClassesByTaxLotBblHandler";
-import { findZoningDistrictClassesByZoningDistrictIdHandler } from "./findZoningDistrictClassesByZoningDistrictIdHandler";
-import { findZoningDistrictClassesHandler } from "./findZoningDistrictClassesHandler";
-import { findZoningDistrictsByTaxLotBblHandler } from "./findZoningDistrictsByTaxLotBblHandler";
+import { findAgenciesHandler } from "./findAgenciesHandler.js";
+import { findAgencyBudgetsHandler } from "./findAgencyBudgetsHandler.js";
+import { findBoroughsHandler } from "./findBoroughsHandler.js";
+import { findBoroughTilesHandler } from "./findBoroughTilesHandler.js";
+import { findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler } from "./findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler.js";
+import { findCapitalCommitmentTypesHandler } from "./findCapitalCommitmentTypesHandler.js";
+import { findCapitalProjectByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectByManagingCodeCapitalProjectIdHandler.js";
+import { findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler.js";
+import { findCapitalProjectManagingAgenciesHandler } from "./findCapitalProjectManagingAgenciesHandler.js";
+import { findCapitalProjectsByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectsByBoroughIdCommunityDistrictIdHandler.js";
+import { findCapitalProjectsByCityCouncilIdHandler } from "./findCapitalProjectsByCityCouncilIdHandler.js";
+import { findCapitalProjectsHandler } from "./findCapitalProjectsHandler.js";
+import { findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler.js";
+import { findCapitalProjectTilesByCityCouncilDistrictIdHandler } from "./findCapitalProjectTilesByCityCouncilDistrictIdHandler.js";
+import { findCapitalProjectTilesHandler } from "./findCapitalProjectTilesHandler.js";
+import { findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler } from "./findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler.js";
+import { findCityCouncilDistrictsHandler } from "./findCityCouncilDistrictsHandler.js";
+import { findCityCouncilDistrictTilesHandler } from "./findCityCouncilDistrictTilesHandler.js";
+import { findCommunityBoardBudgetRequestAgenciesHandler } from "./findCommunityBoardBudgetRequestAgenciesHandler.js";
+import { findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler } from "./findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler.js";
+import { findCommunityBoardBudgetRequestByIdHandler } from "./findCommunityBoardBudgetRequestByIdHandler.js";
+import { findCommunityBoardBudgetRequestGeoJsonByIdHandler } from "./findCommunityBoardBudgetRequestGeoJsonByIdHandler.js";
+import { findCommunityBoardBudgetRequestNeedGroupsHandler } from "./findCommunityBoardBudgetRequestNeedGroupsHandler.js";
+import { findCommunityBoardBudgetRequestPolicyAreasHandler } from "./findCommunityBoardBudgetRequestPolicyAreasHandler.js";
+import { findCommunityBoardBudgetRequestsCsvHandler } from "./findCommunityBoardBudgetRequestsCsvHandler.js";
+import { findCommunityBoardBudgetRequestsHandler } from "./findCommunityBoardBudgetRequestsHandler.js";
+import { findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandler } from "./findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandler.js";
+import { findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandler } from "./findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandler.js";
+import { findCommunityBoardBudgetRequestTilesHandler } from "./findCommunityBoardBudgetRequestTilesHandler.js";
+import { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler } from "./findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler.js";
+import { findCommunityDistrictsByBoroughIdHandler } from "./findCommunityDistrictsByBoroughIdHandler.js";
+import { findCommunityDistrictTilesHandler } from "./findCommunityDistrictTilesHandler.js";
+import { findLandUsesHandler } from "./findLandUsesHandler.js";
+import { findTaxLotByBblHandler } from "./findTaxLotByBblHandler.js";
+import { findTaxLotGeoJsonByBblHandler } from "./findTaxLotGeoJsonByBblHandler.js";
+import { findTaxLotsHandler } from "./findTaxLotsHandler.js";
+import { findZoningDistrictByZoningDistrictIdHandler } from "./findZoningDistrictByZoningDistrictIdHandler.js";
+import { findZoningDistrictClassByZoningDistrictClassIdHandler } from "./findZoningDistrictClassByZoningDistrictClassIdHandler.js";
+import { findZoningDistrictClassCategoryColorsHandler } from "./findZoningDistrictClassCategoryColorsHandler.js";
+import { findZoningDistrictClassesByTaxLotBblHandler } from "./findZoningDistrictClassesByTaxLotBblHandler.js";
+import { findZoningDistrictClassesByZoningDistrictIdHandler } from "./findZoningDistrictClassesByZoningDistrictIdHandler.js";
+import { findZoningDistrictClassesHandler } from "./findZoningDistrictClassesHandler.js";
+import { findZoningDistrictsByTaxLotBblHandler } from "./findZoningDistrictsByTaxLotBblHandler.js";
 
 export const handlers = [
   findAgenciesHandler(),
@@ -55,6 +56,7 @@ export const handlers = [
   findCapitalProjectsByBoroughIdCommunityDistrictIdHandler(),
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler(),
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandler(),
+  findBoroughTilesHandler(),
   findCapitalCommitmentTypesHandler(),
   findCapitalProjectsHandler(),
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler(),

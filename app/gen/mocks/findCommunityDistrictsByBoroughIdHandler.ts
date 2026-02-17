@@ -8,7 +8,7 @@ import type {
   FindCommunityDistrictsByBoroughId400,
   FindCommunityDistrictsByBoroughId404,
   FindCommunityDistrictsByBoroughId500,
-} from "../types/FindCommunityDistrictsByBoroughId";
+} from "../types/FindCommunityDistrictsByBoroughId.js";
 import { http } from "msw";
 
 export function findCommunityDistrictsByBoroughIdHandlerResponse200(

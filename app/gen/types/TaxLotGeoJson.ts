@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { MultiPolygon } from "./MultiPolygon";
-import type { TaxLot } from "./TaxLot";
+import type { MultiPolygon } from "./MultiPolygon.js";
+import type { TaxLot } from "./TaxLot.js";
 
 export const taxLotGeoJsonTypeEnum = {
   Feature: "Feature",

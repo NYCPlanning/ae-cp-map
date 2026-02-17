@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { Borough } from "../types/Borough";
+import type { Borough } from "../types/Borough.js";
 import { faker } from "@faker-js/faker";
 
 export function createBorough(data?: Partial<Borough>): Borough {

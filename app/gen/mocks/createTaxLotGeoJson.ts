@@ -4,9 +4,9 @@
  */
 
 import RandExp from "randexp";
-import type { TaxLotGeoJson } from "../types/TaxLotGeoJson";
-import { createMultiPolygon } from "./createMultiPolygon";
-import { createTaxLot } from "./createTaxLot";
+import type { TaxLotGeoJson } from "../types/TaxLotGeoJson.js";
+import { createMultiPolygon } from "./createMultiPolygon.js";
+import { createTaxLot } from "./createTaxLot.js";
 import { faker } from "@faker-js/faker";
 
 export function createTaxLotGeoJson(

@@ -7,7 +7,7 @@ import type {
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdQueryResponse,
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId400,
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId500,
-} from "../types/FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId";
+} from "../types/FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId.js";
 import { http } from "msw";
 
 export function findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandlerResponse200(

@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindTaxLotGeoJsonByBblPathParams,
   FindTaxLotGeoJsonByBblQueryResponse,
-} from "../types/FindTaxLotGeoJsonByBbl";
-import { createError } from "./createError";
-import { createTaxLotGeoJson } from "./createTaxLotGeoJson";
+} from "../types/FindTaxLotGeoJsonByBbl.js";
+import { createError } from "./createError.js";
+import { createTaxLotGeoJson } from "./createTaxLotGeoJson.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindTaxLotGeoJsonByBblPathParams(

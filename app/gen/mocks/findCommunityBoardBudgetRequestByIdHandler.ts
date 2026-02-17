@@ -8,7 +8,7 @@ import type {
   FindCommunityBoardBudgetRequestById400,
   FindCommunityBoardBudgetRequestById404,
   FindCommunityBoardBudgetRequestById500,
-} from "../types/FindCommunityBoardBudgetRequestById";
+} from "../types/FindCommunityBoardBudgetRequestById.js";
 import { http } from "msw";
 
 export function findCommunityBoardBudgetRequestByIdHandlerResponse200(

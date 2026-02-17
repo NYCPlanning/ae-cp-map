@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { Position } from "../types/Position";
+import type { Position } from "../types/Position.js";
 import { faker } from "@faker-js/faker";
 
 /**

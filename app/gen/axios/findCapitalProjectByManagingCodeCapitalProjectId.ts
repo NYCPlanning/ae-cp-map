@@ -10,7 +10,7 @@ import type {
   FindCapitalProjectByManagingCodeCapitalProjectId400,
   FindCapitalProjectByManagingCodeCapitalProjectId404,
   FindCapitalProjectByManagingCodeCapitalProjectId500,
-} from "../types/FindCapitalProjectByManagingCodeCapitalProjectId";
+} from "../types/FindCapitalProjectByManagingCodeCapitalProjectId.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

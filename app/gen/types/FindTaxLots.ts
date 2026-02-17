@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { Error } from "./Error";
-import type { TaxLotBasicPage } from "./TaxLotBasicPage";
+import type { Error } from "./Error.js";
+import type { TaxLotBasicPage } from "./TaxLotBasicPage.js";
 
 export const findTaxLotsQueryParamsGeometryEnum = {
   Point: "Point",

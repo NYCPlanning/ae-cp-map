@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { ZoningDistrictClassCategory } from "../types/ZoningDistrictClassCategory";
+import type { ZoningDistrictClassCategory } from "../types/ZoningDistrictClassCategory.js";
 import { faker } from "@faker-js/faker";
 
 /**

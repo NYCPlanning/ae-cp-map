@@ -8,7 +8,7 @@ import type {
   FindCommunityBoardBudgetRequestGeoJsonById400,
   FindCommunityBoardBudgetRequestGeoJsonById404,
   FindCommunityBoardBudgetRequestGeoJsonById500,
-} from "../types/FindCommunityBoardBudgetRequestGeoJsonById";
+} from "../types/FindCommunityBoardBudgetRequestGeoJsonById.js";
 import { http } from "msw";
 
 export function findCommunityBoardBudgetRequestGeoJsonByIdHandlerResponse200(

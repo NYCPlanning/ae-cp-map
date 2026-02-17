@@ -9,7 +9,7 @@ import type {
   FindCommunityBoardBudgetRequestTilesPathParams,
   FindCommunityBoardBudgetRequestTiles400,
   FindCommunityBoardBudgetRequestTiles500,
-} from "../types/FindCommunityBoardBudgetRequestTiles";
+} from "../types/FindCommunityBoardBudgetRequestTiles.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

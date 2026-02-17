@@ -4,8 +4,8 @@
  */
 
 import RandExp from "randexp";
-import type { MultiPoint } from "../types/MultiPoint";
-import { createPosition } from "./createPosition";
+import type { MultiPoint } from "../types/MultiPoint.js";
+import { createPosition } from "./createPosition.js";
 import { faker } from "@faker-js/faker";
 
 /**

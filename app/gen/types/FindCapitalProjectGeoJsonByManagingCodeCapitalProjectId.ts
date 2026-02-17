@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CapitalProjectBudgetedGeoJson } from "./CapitalProjectBudgetedGeoJson";
-import type { Error } from "./Error";
+import type { CapitalProjectBudgetedGeoJson } from "./CapitalProjectBudgetedGeoJson.js";
+import type { Error } from "./Error.js";
 
 export type FindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParams =
   {

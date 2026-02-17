@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { CapitalCommitmentType } from "../types/CapitalCommitmentType";
+import type { CapitalCommitmentType } from "../types/CapitalCommitmentType.js";
 import { faker } from "@faker-js/faker";
 
 export function createCapitalCommitmentType(

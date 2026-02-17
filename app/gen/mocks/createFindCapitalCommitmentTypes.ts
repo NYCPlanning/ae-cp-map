@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCapitalCommitmentTypes200,
   FindCapitalCommitmentTypesQueryResponse,
-} from "../types/FindCapitalCommitmentTypes";
-import { createCapitalCommitmentType } from "./createCapitalCommitmentType";
-import { createError } from "./createError";
+} from "../types/FindCapitalCommitmentTypes.js";
+import { createCapitalCommitmentType } from "./createCapitalCommitmentType.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 /**

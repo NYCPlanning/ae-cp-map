@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { communityBoardBudgetRequestTypeSchema } from "./communityBoardBudgetRequestTypeSchema";
+import { communityBoardBudgetRequestTypeSchema } from "./communityBoardBudgetRequestTypeSchema.js";
 import { z } from "zod";
 
 export const communityBoardBudgetRequestSchema = z.object({

@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCapitalProjectManagingAgencies200,
   FindCapitalProjectManagingAgenciesQueryResponse,
-} from "../types/FindCapitalProjectManagingAgencies";
-import { createAgency } from "./createAgency";
-import { createError } from "./createError";
+} from "../types/FindCapitalProjectManagingAgencies.js";
+import { createAgency } from "./createAgency.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 /**

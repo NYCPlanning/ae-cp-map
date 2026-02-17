@@ -4,9 +4,9 @@
  */
 
 import RandExp from "randexp";
-import type { TaxLotBasicPage } from "../types/TaxLotBasicPage";
-import { createPage } from "./createPage";
-import { createTaxLotBasic } from "./createTaxLotBasic";
+import type { TaxLotBasicPage } from "../types/TaxLotBasicPage.js";
+import { createPage } from "./createPage.js";
+import { createTaxLotBasic } from "./createTaxLotBasic.js";
 import { faker } from "@faker-js/faker";
 
 export function createTaxLotBasicPage(

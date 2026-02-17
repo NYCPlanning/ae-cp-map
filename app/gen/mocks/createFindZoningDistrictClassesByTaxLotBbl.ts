@@ -8,9 +8,9 @@ import type {
   FindZoningDistrictClassesByTaxLotBblPathParams,
   FindZoningDistrictClassesByTaxLotBbl200,
   FindZoningDistrictClassesByTaxLotBblQueryResponse,
-} from "../types/FindZoningDistrictClassesByTaxLotBbl";
-import { createError } from "./createError";
-import { createZoningDistrictClass } from "./createZoningDistrictClass";
+} from "../types/FindZoningDistrictClassesByTaxLotBbl.js";
+import { createError } from "./createError.js";
+import { createZoningDistrictClass } from "./createZoningDistrictClass.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindZoningDistrictClassesByTaxLotBblPathParams(

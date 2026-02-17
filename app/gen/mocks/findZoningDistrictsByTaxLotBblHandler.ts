@@ -8,7 +8,7 @@ import type {
   FindZoningDistrictsByTaxLotBbl400,
   FindZoningDistrictsByTaxLotBbl404,
   FindZoningDistrictsByTaxLotBbl500,
-} from "../types/FindZoningDistrictsByTaxLotBbl";
+} from "../types/FindZoningDistrictsByTaxLotBbl.js";
 import { http } from "msw";
 
 export function findZoningDistrictsByTaxLotBblHandlerResponse200(

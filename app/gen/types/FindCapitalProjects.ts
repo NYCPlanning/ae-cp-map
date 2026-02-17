@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CapitalProjectPage } from "./CapitalProjectPage";
-import type { Error } from "./Error";
+import type { CapitalProjectPage } from "./CapitalProjectPage.js";
+import type { Error } from "./Error.js";
 
 export type FindCapitalProjectsQueryParams = {
   /**

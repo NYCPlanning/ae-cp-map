@@ -8,7 +8,7 @@ import type {
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId400,
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId404,
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId500,
-} from "../types/FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId";
+} from "../types/FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId.js";
 import { http } from "msw";
 
 export function findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandlerResponse200(

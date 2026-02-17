@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { Agency } from "../types/Agency";
+import type { Agency } from "../types/Agency.js";
 import { faker } from "@faker-js/faker";
 
 export function createAgency(data?: Partial<Agency>): Agency {

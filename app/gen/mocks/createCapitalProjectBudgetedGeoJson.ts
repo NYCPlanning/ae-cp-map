@@ -4,10 +4,10 @@
  */
 
 import RandExp from "randexp";
-import type { CapitalProjectBudgetedGeoJson } from "../types/CapitalProjectBudgetedGeoJson";
-import { createCapitalProjectBudgeted } from "./createCapitalProjectBudgeted";
-import { createMultiPoint } from "./createMultiPoint";
-import { createMultiPolygon } from "./createMultiPolygon";
+import type { CapitalProjectBudgetedGeoJson } from "../types/CapitalProjectBudgetedGeoJson.js";
+import { createCapitalProjectBudgeted } from "./createCapitalProjectBudgeted.js";
+import { createMultiPoint } from "./createMultiPoint.js";
+import { createMultiPolygon } from "./createMultiPolygon.js";
 import { faker } from "@faker-js/faker";
 
 export function createCapitalProjectBudgetedGeoJson(

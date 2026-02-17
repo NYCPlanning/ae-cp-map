@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindTaxLotsQueryParams,
   FindTaxLotsQueryResponse,
-} from "../types/FindTaxLots";
-import { createError } from "./createError";
-import { createTaxLotBasicPage } from "./createTaxLotBasicPage";
+} from "../types/FindTaxLots.js";
+import { createError } from "./createError.js";
+import { createTaxLotBasicPage } from "./createTaxLotBasicPage.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindTaxLotsQueryParams(

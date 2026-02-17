@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { positionSchema } from "./positionSchema";
+import { positionSchema } from "./positionSchema.js";
 import { z } from "zod";
 
 /**

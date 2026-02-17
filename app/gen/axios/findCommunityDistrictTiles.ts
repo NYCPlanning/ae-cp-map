@@ -9,7 +9,7 @@ import type {
   FindCommunityDistrictTilesPathParams,
   FindCommunityDistrictTiles400,
   FindCommunityDistrictTiles500,
-} from "../types/FindCommunityDistrictTiles";
+} from "../types/FindCommunityDistrictTiles.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

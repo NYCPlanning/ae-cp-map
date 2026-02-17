@@ -9,7 +9,7 @@ import type {
   FindCapitalProjectsQueryParams,
   FindCapitalProjects400,
   FindCapitalProjects500,
-} from "../types/FindCapitalProjects";
+} from "../types/FindCapitalProjects.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

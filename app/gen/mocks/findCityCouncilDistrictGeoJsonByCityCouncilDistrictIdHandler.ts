@@ -8,7 +8,7 @@ import type {
   FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId400,
   FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId404,
   FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId500,
-} from "../types/FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId";
+} from "../types/FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId.js";
 import { http } from "msw";
 
 export function findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandlerResponse200(

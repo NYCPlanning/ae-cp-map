@@ -10,7 +10,7 @@ import type {
   FindZoningDistrictClassByZoningDistrictClassId400,
   FindZoningDistrictClassByZoningDistrictClassId404,
   FindZoningDistrictClassByZoningDistrictClassId500,
-} from "../types/FindZoningDistrictClassByZoningDistrictClassId";
+} from "../types/FindZoningDistrictClassByZoningDistrictClassId.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { CommunityDistrict } from "../types/CommunityDistrict";
+import type { CommunityDistrict } from "../types/CommunityDistrict.js";
 
 export function createCommunityDistrict(
   data?: Partial<CommunityDistrict>,

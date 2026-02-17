@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCapitalProjectByManagingCodeCapitalProjectIdPathParams,
   FindCapitalProjectByManagingCodeCapitalProjectIdQueryResponse,
-} from "../types/FindCapitalProjectByManagingCodeCapitalProjectId";
-import { createCapitalProjectBudgeted } from "./createCapitalProjectBudgeted";
-import { createError } from "./createError";
+} from "../types/FindCapitalProjectByManagingCodeCapitalProjectId.js";
+import { createCapitalProjectBudgeted } from "./createCapitalProjectBudgeted.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCapitalProjectByManagingCodeCapitalProjectIdPathParams(

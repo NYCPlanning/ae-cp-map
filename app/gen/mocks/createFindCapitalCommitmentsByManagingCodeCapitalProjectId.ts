@@ -8,9 +8,9 @@ import type {
   FindCapitalCommitmentsByManagingCodeCapitalProjectIdPathParams,
   FindCapitalCommitmentsByManagingCodeCapitalProjectId200,
   FindCapitalCommitmentsByManagingCodeCapitalProjectIdQueryResponse,
-} from "../types/FindCapitalCommitmentsByManagingCodeCapitalProjectId";
-import { createCapitalCommitment } from "./createCapitalCommitment";
-import { createError } from "./createError";
+} from "../types/FindCapitalCommitmentsByManagingCodeCapitalProjectId.js";
+import { createCapitalCommitment } from "./createCapitalCommitment.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCapitalCommitmentsByManagingCodeCapitalProjectIdPathParams(

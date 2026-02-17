@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import type { Page } from "./Page";
+import type { Page } from "./Page.js";
 
 export type CommunityBoardBudgetRequestPage = Page & {
   /**

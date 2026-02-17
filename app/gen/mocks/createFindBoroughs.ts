@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindBoroughs200,
   FindBoroughsQueryResponse,
-} from "../types/FindBoroughs";
-import { createBorough } from "./createBorough";
-import { createError } from "./createError";
+} from "../types/FindBoroughs.js";
+import { createBorough } from "./createBorough.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 /**

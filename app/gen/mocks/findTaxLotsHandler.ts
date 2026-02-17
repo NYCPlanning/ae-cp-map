@@ -7,7 +7,7 @@ import type {
   FindTaxLotsQueryResponse,
   FindTaxLots400,
   FindTaxLots500,
-} from "../types/FindTaxLots";
+} from "../types/FindTaxLots.js";
 import { http } from "msw";
 
 export function findTaxLotsHandlerResponse200(data: FindTaxLotsQueryResponse) {

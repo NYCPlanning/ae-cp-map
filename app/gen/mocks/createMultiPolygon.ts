@@ -4,8 +4,8 @@
  */
 
 import RandExp from "randexp";
-import type { MultiPolygon } from "../types/MultiPolygon";
-import { createPosition } from "./createPosition";
+import type { MultiPolygon } from "../types/MultiPolygon.js";
+import { createPosition } from "./createPosition.js";
 import { faker } from "@faker-js/faker";
 
 /**

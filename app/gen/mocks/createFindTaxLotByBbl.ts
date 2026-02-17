@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindTaxLotByBblPathParams,
   FindTaxLotByBblQueryResponse,
-} from "../types/FindTaxLotByBbl";
-import { createError } from "./createError";
-import { createTaxLot } from "./createTaxLot";
+} from "../types/FindTaxLotByBbl.js";
+import { createError } from "./createError.js";
+import { createTaxLot } from "./createTaxLot.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindTaxLotByBblPathParams(

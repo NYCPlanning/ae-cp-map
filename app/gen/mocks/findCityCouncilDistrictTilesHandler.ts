@@ -7,7 +7,7 @@ import type {
   FindCityCouncilDistrictTilesQueryResponse,
   FindCityCouncilDistrictTiles400,
   FindCityCouncilDistrictTiles500,
-} from "../types/FindCityCouncilDistrictTiles";
+} from "../types/FindCityCouncilDistrictTiles.js";
 import { http } from "msw";
 
 export function findCityCouncilDistrictTilesHandlerResponse200(

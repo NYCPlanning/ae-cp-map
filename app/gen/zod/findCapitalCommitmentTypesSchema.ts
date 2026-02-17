@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { capitalCommitmentTypeSchema } from "./capitalCommitmentTypeSchema";
-import { errorSchema } from "./errorSchema";
+import { capitalCommitmentTypeSchema } from "./capitalCommitmentTypeSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 /**

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { communityDistrictSchema } from "./communityDistrictSchema";
-import { errorSchema } from "./errorSchema";
+import { communityDistrictSchema } from "./communityDistrictSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 export const findCommunityDistrictsByBoroughIdPathParamsSchema = z.object({

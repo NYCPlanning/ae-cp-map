@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { communityBoardBudgetRequestGeoJsonSchema } from "./communityBoardBudgetRequestGeoJsonSchema";
-import { errorSchema } from "./errorSchema";
+import { communityBoardBudgetRequestGeoJsonSchema } from "./communityBoardBudgetRequestGeoJsonSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 export const findCommunityBoardBudgetRequestGeoJsonByIdPathParamsSchema =

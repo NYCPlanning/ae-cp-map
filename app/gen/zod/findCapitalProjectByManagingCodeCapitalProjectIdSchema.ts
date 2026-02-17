@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { capitalProjectBudgetedSchema } from "./capitalProjectBudgetedSchema";
-import { errorSchema } from "./errorSchema";
+import { capitalProjectBudgetedSchema } from "./capitalProjectBudgetedSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 export const findCapitalProjectByManagingCodeCapitalProjectIdPathParamsSchema =

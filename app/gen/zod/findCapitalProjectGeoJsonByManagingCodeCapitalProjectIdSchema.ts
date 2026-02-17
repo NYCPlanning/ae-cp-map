@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { capitalProjectBudgetedGeoJsonSchema } from "./capitalProjectBudgetedGeoJsonSchema";
-import { errorSchema } from "./errorSchema";
+import { capitalProjectBudgetedGeoJsonSchema } from "./capitalProjectBudgetedGeoJsonSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 export const findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParamsSchema =

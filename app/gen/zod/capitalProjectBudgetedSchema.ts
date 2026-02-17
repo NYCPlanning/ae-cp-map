@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { capitalProjectSchema } from "./capitalProjectSchema";
+import { capitalProjectSchema } from "./capitalProjectSchema.js";
 import { z } from "zod";
 
 export const capitalProjectBudgetedSchema = z

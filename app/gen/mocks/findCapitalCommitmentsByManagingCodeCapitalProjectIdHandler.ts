@@ -8,7 +8,7 @@ import type {
   FindCapitalCommitmentsByManagingCodeCapitalProjectId400,
   FindCapitalCommitmentsByManagingCodeCapitalProjectId404,
   FindCapitalCommitmentsByManagingCodeCapitalProjectId500,
-} from "../types/FindCapitalCommitmentsByManagingCodeCapitalProjectId";
+} from "../types/FindCapitalCommitmentsByManagingCodeCapitalProjectId.js";
 import { http } from "msw";
 
 export function findCapitalCommitmentsByManagingCodeCapitalProjectIdHandlerResponse200(

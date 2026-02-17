@@ -8,9 +8,9 @@ import type {
   FindCommunityDistrictsByBoroughIdPathParams,
   FindCommunityDistrictsByBoroughId200,
   FindCommunityDistrictsByBoroughIdQueryResponse,
-} from "../types/FindCommunityDistrictsByBoroughId";
-import { createCommunityDistrict } from "./createCommunityDistrict";
-import { createError } from "./createError";
+} from "../types/FindCommunityDistrictsByBoroughId.js";
+import { createCommunityDistrict } from "./createCommunityDistrict.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCommunityDistrictsByBoroughIdPathParams(

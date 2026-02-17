@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { Page } from "../types/Page";
+import type { Page } from "../types/Page.js";
 import { faker } from "@faker-js/faker";
 
 export function createPage(data?: Partial<Page>): Page {

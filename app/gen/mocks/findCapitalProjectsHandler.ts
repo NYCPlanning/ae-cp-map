@@ -7,7 +7,7 @@ import type {
   FindCapitalProjectsQueryResponse,
   FindCapitalProjects400,
   FindCapitalProjects500,
-} from "../types/FindCapitalProjects";
+} from "../types/FindCapitalProjects.js";
 import { http } from "msw";
 
 export function findCapitalProjectsHandlerResponse200(

@@ -10,7 +10,7 @@ import type {
   FindCommunityBoardBudgetRequestById400,
   FindCommunityBoardBudgetRequestById404,
   FindCommunityBoardBudgetRequestById500,
-} from "../types/FindCommunityBoardBudgetRequestById";
+} from "../types/FindCommunityBoardBudgetRequestById.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

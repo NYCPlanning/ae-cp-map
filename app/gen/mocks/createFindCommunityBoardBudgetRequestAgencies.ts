@@ -8,9 +8,9 @@ import type {
   FindCommunityBoardBudgetRequestAgenciesQueryParams,
   FindCommunityBoardBudgetRequestAgencies200,
   FindCommunityBoardBudgetRequestAgenciesQueryResponse,
-} from "../types/FindCommunityBoardBudgetRequestAgencies";
-import { createAgency } from "./createAgency";
-import { createError } from "./createError";
+} from "../types/FindCommunityBoardBudgetRequestAgencies.js";
+import { createAgency } from "./createAgency.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCommunityBoardBudgetRequestAgenciesQueryParams(

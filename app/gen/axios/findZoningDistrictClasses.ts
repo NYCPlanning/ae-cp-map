@@ -8,7 +8,7 @@ import type {
   FindZoningDistrictClassesQueryResponse,
   FindZoningDistrictClasses400,
   FindZoningDistrictClasses500,
-} from "../types/FindZoningDistrictClasses";
+} from "../types/FindZoningDistrictClasses.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

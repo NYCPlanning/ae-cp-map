@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { boroughSchema } from "./boroughSchema";
-import { errorSchema } from "./errorSchema";
+import { boroughSchema } from "./boroughSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 /**

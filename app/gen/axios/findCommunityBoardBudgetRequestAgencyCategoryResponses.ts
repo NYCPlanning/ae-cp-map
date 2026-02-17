@@ -8,7 +8,7 @@ import type {
   FindCommunityBoardBudgetRequestAgencyCategoryResponsesQueryResponse,
   FindCommunityBoardBudgetRequestAgencyCategoryResponses400,
   FindCommunityBoardBudgetRequestAgencyCategoryResponses500,
-} from "../types/FindCommunityBoardBudgetRequestAgencyCategoryResponses";
+} from "../types/FindCommunityBoardBudgetRequestAgencyCategoryResponses.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

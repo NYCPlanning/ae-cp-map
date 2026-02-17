@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindAgencyBudgets200,
   FindAgencyBudgetsQueryResponse,
-} from "../types/FindAgencyBudgets";
-import { createAgencyBudget } from "./createAgencyBudget";
-import { createError } from "./createError";
+} from "../types/FindAgencyBudgets.js";
+import { createAgencyBudget } from "./createAgencyBudget.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 /**

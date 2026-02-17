@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { AgencyBudget } from "../types/AgencyBudget";
+import type { AgencyBudget } from "../types/AgencyBudget.js";
 import { faker } from "@faker-js/faker";
 
 export function createAgencyBudget(data?: Partial<AgencyBudget>): AgencyBudget {

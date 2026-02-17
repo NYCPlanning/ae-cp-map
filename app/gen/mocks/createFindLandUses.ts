@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindLandUses200,
   FindLandUsesQueryResponse,
-} from "../types/FindLandUses";
-import { createError } from "./createError";
-import { createLandUse } from "./createLandUse";
+} from "../types/FindLandUses.js";
+import { createError } from "./createError.js";
+import { createLandUse } from "./createLandUse.js";
 import { faker } from "@faker-js/faker";
 
 /**

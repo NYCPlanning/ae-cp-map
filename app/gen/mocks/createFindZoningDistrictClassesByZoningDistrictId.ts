@@ -8,9 +8,9 @@ import type {
   FindZoningDistrictClassesByZoningDistrictIdPathParams,
   FindZoningDistrictClassesByZoningDistrictId200,
   FindZoningDistrictClassesByZoningDistrictIdQueryResponse,
-} from "../types/FindZoningDistrictClassesByZoningDistrictId";
-import { createError } from "./createError";
-import { createZoningDistrictClass } from "./createZoningDistrictClass";
+} from "../types/FindZoningDistrictClassesByZoningDistrictId.js";
+import { createError } from "./createError.js";
+import { createZoningDistrictClass } from "./createZoningDistrictClass.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindZoningDistrictClassesByZoningDistrictIdPathParams(

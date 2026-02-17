@@ -4,9 +4,9 @@
  */
 
 import RandExp from "randexp";
-import type { TaxLot } from "../types/TaxLot";
-import { createBorough } from "./createBorough";
-import { createLandUse } from "./createLandUse";
+import type { TaxLot } from "../types/TaxLot.js";
+import { createBorough } from "./createBorough.js";
+import { createLandUse } from "./createLandUse.js";
 import { faker } from "@faker-js/faker";
 
 export function createTaxLot(data?: Partial<TaxLot>): TaxLot {

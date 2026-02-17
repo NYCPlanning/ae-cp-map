@@ -7,8 +7,8 @@ import RandExp from "randexp";
 import type {
   FindCapitalProjectTilesByCityCouncilDistrictIdPathParams,
   FindCapitalProjectTilesByCityCouncilDistrictIdQueryResponse,
-} from "../types/FindCapitalProjectTilesByCityCouncilDistrictId";
-import { createError } from "./createError";
+} from "../types/FindCapitalProjectTilesByCityCouncilDistrictId.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCapitalProjectTilesByCityCouncilDistrictIdPathParams(

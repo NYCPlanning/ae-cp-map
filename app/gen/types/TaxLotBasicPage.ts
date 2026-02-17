@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { Page } from "./Page";
-import type { TaxLotBasic } from "./TaxLotBasic";
+import type { Page } from "./Page.js";
+import type { TaxLotBasic } from "./TaxLotBasic.js";
 
 export type TaxLotBasicPage = Page & {
   /**

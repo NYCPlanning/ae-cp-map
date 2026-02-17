@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import type { CommunityBoardBudgetRequest } from "./CommunityBoardBudgetRequest";
-import type { MultiPoint } from "./MultiPoint";
-import type { MultiPolygon } from "./MultiPolygon";
+import type { CommunityBoardBudgetRequest } from "./CommunityBoardBudgetRequest.js";
+import type { MultiPoint } from "./MultiPoint.js";
+import type { MultiPolygon } from "./MultiPolygon.js";
 
 export const communityBoardBudgetRequestGeoJsonTypeEnum = {
   Feature: "Feature",

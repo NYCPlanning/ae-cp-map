@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { Error } from "./Error";
-import type { TaxLotGeoJson } from "./TaxLotGeoJson";
+import type { Error } from "./Error.js";
+import type { TaxLotGeoJson } from "./TaxLotGeoJson.js";
 
 export type FindTaxLotGeoJsonByBblPathParams = {
   /**

@@ -9,7 +9,7 @@ import type {
   FindTaxLotsQueryParams,
   FindTaxLots400,
   FindTaxLots500,
-} from "../types/FindTaxLots";
+} from "../types/FindTaxLots.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

@@ -8,7 +8,7 @@ import type {
   FindZoningDistrictByZoningDistrictId400,
   FindZoningDistrictByZoningDistrictId404,
   FindZoningDistrictByZoningDistrictId500,
-} from "../types/FindZoningDistrictByZoningDistrictId";
+} from "../types/FindZoningDistrictByZoningDistrictId.js";
 import { http } from "msw";
 
 export function findZoningDistrictByZoningDistrictIdHandlerResponse200(

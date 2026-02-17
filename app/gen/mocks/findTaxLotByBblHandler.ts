@@ -8,7 +8,7 @@ import type {
   FindTaxLotByBbl400,
   FindTaxLotByBbl404,
   FindTaxLotByBbl500,
-} from "../types/FindTaxLotByBbl";
+} from "../types/FindTaxLotByBbl.js";
 import { http } from "msw";
 
 export function findTaxLotByBblHandlerResponse200(

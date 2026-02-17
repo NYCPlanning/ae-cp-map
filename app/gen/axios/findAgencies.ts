@@ -8,7 +8,7 @@ import type {
   FindAgenciesQueryResponse,
   FindAgencies400,
   FindAgencies500,
-} from "../types/FindAgencies";
+} from "../types/FindAgencies.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

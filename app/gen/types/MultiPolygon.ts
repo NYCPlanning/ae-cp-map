@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import type { Position } from "./Position";
+import type { Position } from "./Position.js";
 
 export const multiPolygonTypeEnum = {
   MultiPolygon: "MultiPolygon",

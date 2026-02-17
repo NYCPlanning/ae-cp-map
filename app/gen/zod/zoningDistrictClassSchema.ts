@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { zoningDistrictClassCategorySchema } from "./zoningDistrictClassCategorySchema";
+import { zoningDistrictClassCategorySchema } from "./zoningDistrictClassCategorySchema.js";
 import { z } from "zod";
 
 export const zoningDistrictClassSchema = z.object({

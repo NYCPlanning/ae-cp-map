@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CommunityBoardBudgetRequestPolicyArea } from "./CommunityBoardBudgetRequestPolicyArea";
-import type { Error } from "./Error";
+import type { CommunityBoardBudgetRequestPolicyArea } from "./CommunityBoardBudgetRequestPolicyArea.js";
+import type { Error } from "./Error.js";
 
 export type FindCommunityBoardBudgetRequestPolicyAreasQueryParams = {
   /**

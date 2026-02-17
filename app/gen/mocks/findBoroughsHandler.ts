@@ -7,7 +7,7 @@ import type {
   FindBoroughsQueryResponse,
   FindBoroughs400,
   FindBoroughs500,
-} from "../types/FindBoroughs";
+} from "../types/FindBoroughs.js";
 import { http } from "msw";
 
 export function findBoroughsHandlerResponse200(

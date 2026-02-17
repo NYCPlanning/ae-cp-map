@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCommunityBoardBudgetRequestGeoJsonByIdPathParams,
   FindCommunityBoardBudgetRequestGeoJsonByIdQueryResponse,
-} from "../types/FindCommunityBoardBudgetRequestGeoJsonById";
-import { createCommunityBoardBudgetRequestGeoJson } from "./createCommunityBoardBudgetRequestGeoJson";
-import { createError } from "./createError";
+} from "../types/FindCommunityBoardBudgetRequestGeoJsonById.js";
+import { createCommunityBoardBudgetRequestGeoJson } from "./createCommunityBoardBudgetRequestGeoJson.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCommunityBoardBudgetRequestGeoJsonByIdPathParams(

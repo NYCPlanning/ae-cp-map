@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CapitalProject } from "./CapitalProject";
-import type { Page } from "./Page";
+import type { CapitalProject } from "./CapitalProject.js";
+import type { Page } from "./Page.js";
 
 export type CapitalProjectPage = Page & {
   /**

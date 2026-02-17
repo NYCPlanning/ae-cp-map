@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CommunityBoardBudgetRequestPage } from "./CommunityBoardBudgetRequestPage";
-import type { Error } from "./Error";
+import type { CommunityBoardBudgetRequestPage } from "./CommunityBoardBudgetRequestPage.js";
+import type { Error } from "./Error.js";
 
 export const findCommunityBoardBudgetRequestsQueryParamsCbbrTypeEnum = {
   C: "C",

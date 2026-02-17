@@ -4,9 +4,9 @@
  */
 
 import RandExp from "randexp";
-import type { CommunityDistrictGeoJson } from "../types/CommunityDistrictGeoJson";
-import { createCommunityDistrict } from "./createCommunityDistrict";
-import { createMultiPolygon } from "./createMultiPolygon";
+import type { CommunityDistrictGeoJson } from "../types/CommunityDistrictGeoJson.js";
+import { createCommunityDistrict } from "./createCommunityDistrict.js";
+import { createMultiPolygon } from "./createMultiPolygon.js";
 import { faker } from "@faker-js/faker";
 
 export function createCommunityDistrictGeoJson(

@@ -9,7 +9,7 @@ import type {
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdPathParams,
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId400,
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId500,
-} from "../types/FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId";
+} from "../types/FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

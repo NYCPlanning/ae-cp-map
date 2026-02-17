@@ -8,7 +8,7 @@ import type {
   FindCityCouncilDistrictsQueryResponse,
   FindCityCouncilDistricts400,
   FindCityCouncilDistricts500,
-} from "../types/FindCityCouncilDistricts";
+} from "../types/FindCityCouncilDistricts.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

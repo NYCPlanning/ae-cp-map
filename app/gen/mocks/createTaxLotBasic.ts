@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { TaxLotBasic } from "../types/TaxLotBasic";
+import type { TaxLotBasic } from "../types/TaxLotBasic.js";
 import { faker } from "@faker-js/faker";
 
 export function createTaxLotBasic(data?: Partial<TaxLotBasic>): TaxLotBasic {

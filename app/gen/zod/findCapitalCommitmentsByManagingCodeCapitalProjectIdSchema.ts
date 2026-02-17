@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { capitalCommitmentSchema } from "./capitalCommitmentSchema";
-import { errorSchema } from "./errorSchema";
+import { capitalCommitmentSchema } from "./capitalCommitmentSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 export const findCapitalCommitmentsByManagingCodeCapitalProjectIdPathParamsSchema =

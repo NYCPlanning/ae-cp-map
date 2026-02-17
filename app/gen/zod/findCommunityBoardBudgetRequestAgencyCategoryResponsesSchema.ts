@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { communityBoardBudgetRequestAgencyCategoryResponseSchema } from "./communityBoardBudgetRequestAgencyCategoryResponseSchema";
-import { errorSchema } from "./errorSchema";
+import { communityBoardBudgetRequestAgencyCategoryResponseSchema } from "./communityBoardBudgetRequestAgencyCategoryResponseSchema.js";
+import { errorSchema } from "./errorSchema.js";
 import { z } from "zod";
 
 /**

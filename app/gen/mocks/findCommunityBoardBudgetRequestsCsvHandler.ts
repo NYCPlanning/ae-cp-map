@@ -7,7 +7,7 @@ import type {
   FindCommunityBoardBudgetRequestsCsvQueryResponse,
   FindCommunityBoardBudgetRequestsCsv400,
   FindCommunityBoardBudgetRequestsCsv500,
-} from "../types/FindCommunityBoardBudgetRequestsCsv";
+} from "../types/FindCommunityBoardBudgetRequestsCsv.js";
 import { http } from "msw";
 
 export function findCommunityBoardBudgetRequestsCsvHandlerResponse200(

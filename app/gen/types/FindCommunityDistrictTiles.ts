@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import type { Error } from "./Error";
+import type { Error } from "./Error.js";
 
 export type FindCommunityDistrictTilesPathParams = {
   /**

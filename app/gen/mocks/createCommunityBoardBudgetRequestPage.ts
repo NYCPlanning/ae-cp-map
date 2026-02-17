@@ -4,8 +4,8 @@
  */
 
 import RandExp from "randexp";
-import type { CommunityBoardBudgetRequestPage } from "../types/CommunityBoardBudgetRequestPage";
-import { createPage } from "./createPage";
+import type { CommunityBoardBudgetRequestPage } from "../types/CommunityBoardBudgetRequestPage.js";
+import { createPage } from "./createPage.js";
 import { faker } from "@faker-js/faker";
 
 export function createCommunityBoardBudgetRequestPage(

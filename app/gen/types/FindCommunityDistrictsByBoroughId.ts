@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CommunityDistrict } from "./CommunityDistrict";
-import type { Error } from "./Error";
+import type { CommunityDistrict } from "./CommunityDistrict.js";
+import type { Error } from "./Error.js";
 
 export type FindCommunityDistrictsByBoroughIdPathParams = {
   /**

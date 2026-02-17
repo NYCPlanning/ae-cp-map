@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { multiPolygonSchema } from "./multiPolygonSchema";
-import { taxLotSchema } from "./taxLotSchema";
+import { multiPolygonSchema } from "./multiPolygonSchema.js";
+import { taxLotSchema } from "./taxLotSchema.js";
 import { z } from "zod";
 
 export const taxLotGeoJsonSchema = z.object({

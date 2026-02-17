@@ -10,7 +10,7 @@ import type {
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId400,
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId404,
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId500,
-} from "../types/FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId";
+} from "../types/FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

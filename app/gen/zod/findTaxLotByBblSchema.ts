@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { errorSchema } from "./errorSchema";
-import { taxLotSchema } from "./taxLotSchema";
+import { errorSchema } from "./errorSchema.js";
+import { taxLotSchema } from "./taxLotSchema.js";
 import { z } from "zod";
 
 export const findTaxLotByBblPathParamsSchema = z.object({

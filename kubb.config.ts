@@ -15,7 +15,7 @@ export default defineConfig({
     path: "./app/gen",
     clean: true,
     extension: {
-      ".ts": "",
+      ".ts": ".js",
     },
   },
   plugins: [

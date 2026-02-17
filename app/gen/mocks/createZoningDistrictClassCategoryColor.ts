@@ -4,8 +4,8 @@
  */
 
 import RandExp from "randexp";
-import type { ZoningDistrictClassCategoryColor } from "../types/ZoningDistrictClassCategoryColor";
-import { createZoningDistrictClassCategory } from "./createZoningDistrictClassCategory";
+import type { ZoningDistrictClassCategoryColor } from "../types/ZoningDistrictClassCategoryColor.js";
+import { createZoningDistrictClassCategory } from "./createZoningDistrictClassCategory.js";
 
 export function createZoningDistrictClassCategoryColor(
   data?: Partial<ZoningDistrictClassCategoryColor>,

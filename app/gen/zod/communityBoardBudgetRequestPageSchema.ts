@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { pageSchema } from "./pageSchema";
+import { pageSchema } from "./pageSchema.js";
 import { z } from "zod";
 
 export const communityBoardBudgetRequestPageSchema = z

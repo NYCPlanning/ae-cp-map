@@ -7,7 +7,7 @@ import type {
   FindCapitalProjectManagingAgenciesQueryResponse,
   FindCapitalProjectManagingAgencies400,
   FindCapitalProjectManagingAgencies500,
-} from "../types/FindCapitalProjectManagingAgencies";
+} from "../types/FindCapitalProjectManagingAgencies.js";
 import { http } from "msw";
 
 export function findCapitalProjectManagingAgenciesHandlerResponse200(

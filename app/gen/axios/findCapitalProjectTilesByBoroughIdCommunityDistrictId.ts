@@ -9,7 +9,7 @@ import type {
   FindCapitalProjectTilesByBoroughIdCommunityDistrictIdPathParams,
   FindCapitalProjectTilesByBoroughIdCommunityDistrictId400,
   FindCapitalProjectTilesByBoroughIdCommunityDistrictId500,
-} from "../types/FindCapitalProjectTilesByBoroughIdCommunityDistrictId";
+} from "../types/FindCapitalProjectTilesByBoroughIdCommunityDistrictId.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

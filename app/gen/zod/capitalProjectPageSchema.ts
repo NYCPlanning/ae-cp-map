@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { capitalProjectSchema } from "./capitalProjectSchema";
-import { pageSchema } from "./pageSchema";
+import { capitalProjectSchema } from "./capitalProjectSchema.js";
+import { pageSchema } from "./pageSchema.js";
 import { z } from "zod";
 
 export const capitalProjectPageSchema = z

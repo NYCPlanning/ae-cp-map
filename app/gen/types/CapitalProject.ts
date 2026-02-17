@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import type { CapitalProjectCategory } from "./CapitalProjectCategory";
+import type { CapitalProjectCategory } from "./CapitalProjectCategory.js";
 
 export type CapitalProject = {
   /**

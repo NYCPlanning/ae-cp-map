@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { boroughSchema } from "./boroughSchema";
-import { landUseSchema } from "./landUseSchema";
+import { boroughSchema } from "./boroughSchema.js";
+import { landUseSchema } from "./landUseSchema.js";
 import { z } from "zod";
 
 export const taxLotSchema = z.object({

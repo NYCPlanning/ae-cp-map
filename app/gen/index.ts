@@ -1,64 +1,72 @@
-export type { Agency } from "./types/Agency";
-export type { AgencyBudget } from "./types/AgencyBudget";
-export type { Borough } from "./types/Borough";
-export type { CapitalCommitment } from "./types/CapitalCommitment";
-export type { CapitalCommitmentType } from "./types/CapitalCommitmentType";
-export type { CapitalProject } from "./types/CapitalProject";
-export type { CapitalProjectBudgeted } from "./types/CapitalProjectBudgeted";
+export type { Agency } from "./types/Agency.js";
+export type { AgencyBudget } from "./types/AgencyBudget.js";
+export type { Borough } from "./types/Borough.js";
+export type { CapitalCommitment } from "./types/CapitalCommitment.js";
+export type { CapitalCommitmentType } from "./types/CapitalCommitmentType.js";
+export type { CapitalProject } from "./types/CapitalProject.js";
+export type { CapitalProjectBudgeted } from "./types/CapitalProjectBudgeted.js";
 export type {
   CapitalProjectBudgetedGeoJsonTypeEnumKey,
   CapitalProjectBudgetedGeoJson,
-} from "./types/CapitalProjectBudgetedGeoJson";
+} from "./types/CapitalProjectBudgetedGeoJson.js";
 export type {
   CapitalProjectCategoryEnumKey,
   CapitalProjectCategory,
-} from "./types/CapitalProjectCategory";
-export type { CapitalProjectPage } from "./types/CapitalProjectPage";
-export type { CityCouncilDistrict } from "./types/CityCouncilDistrict";
+} from "./types/CapitalProjectCategory.js";
+export type { CapitalProjectPage } from "./types/CapitalProjectPage.js";
+export type { CityCouncilDistrict } from "./types/CityCouncilDistrict.js";
 export type {
   CityCouncilDistrictGeoJsonTypeEnumKey,
   CityCouncilDistrictGeoJson,
-} from "./types/CityCouncilDistrictGeoJson";
-export type { CommunityBoardBudgetRequest } from "./types/CommunityBoardBudgetRequest";
-export type { CommunityBoardBudgetRequestAgencyCategoryResponse } from "./types/CommunityBoardBudgetRequestAgencyCategoryResponse";
+} from "./types/CityCouncilDistrictGeoJson.js";
+export type { CommunityBoardBudgetRequest } from "./types/CommunityBoardBudgetRequest.js";
+export type { CommunityBoardBudgetRequestAgencyCategoryResponse } from "./types/CommunityBoardBudgetRequestAgencyCategoryResponse.js";
 export type {
   CommunityBoardBudgetRequestGeoJsonTypeEnumKey,
   CommunityBoardBudgetRequestGeoJson,
-} from "./types/CommunityBoardBudgetRequestGeoJson";
-export type { CommunityBoardBudgetRequestNeedGroup } from "./types/CommunityBoardBudgetRequestNeedGroup";
-export type { CommunityBoardBudgetRequestPage } from "./types/CommunityBoardBudgetRequestPage";
-export type { CommunityBoardBudgetRequestPolicyArea } from "./types/CommunityBoardBudgetRequestPolicyArea";
+} from "./types/CommunityBoardBudgetRequestGeoJson.js";
+export type { CommunityBoardBudgetRequestNeedGroup } from "./types/CommunityBoardBudgetRequestNeedGroup.js";
+export type { CommunityBoardBudgetRequestPage } from "./types/CommunityBoardBudgetRequestPage.js";
+export type { CommunityBoardBudgetRequestPolicyArea } from "./types/CommunityBoardBudgetRequestPolicyArea.js";
 export type {
   CommunityBoardBudgetRequestTypeEnumKey,
   CommunityBoardBudgetRequestType,
-} from "./types/CommunityBoardBudgetRequestType";
-export type { CommunityDistrict } from "./types/CommunityDistrict";
+} from "./types/CommunityBoardBudgetRequestType.js";
+export type { CommunityDistrict } from "./types/CommunityDistrict.js";
 export type {
   CommunityDistrictGeoJsonTypeEnumKey,
   CommunityDistrictGeoJson,
-} from "./types/CommunityDistrictGeoJson";
-export type { Error } from "./types/Error";
+} from "./types/CommunityDistrictGeoJson.js";
+export type { Error } from "./types/Error.js";
 export type {
   FindAgencies200,
   FindAgencies400,
   FindAgencies500,
   FindAgenciesQueryResponse,
   FindAgenciesQuery,
-} from "./types/FindAgencies";
+} from "./types/FindAgencies.js";
 export type {
   FindAgencyBudgets200,
   FindAgencyBudgets400,
   FindAgencyBudgets500,
   FindAgencyBudgetsQueryResponse,
   FindAgencyBudgetsQuery,
-} from "./types/FindAgencyBudgets";
+} from "./types/FindAgencyBudgets.js";
 export type {
   FindBoroughs200,
   FindBoroughs400,
   FindBoroughs500,
   FindBoroughsQueryResponse,
   FindBoroughsQuery,
-} from "./types/FindBoroughs";
+} from "./types/FindBoroughs.js";
+export type {
+  FindBoroughTilesPathParams,
+  FindBoroughTiles200,
+  FindBoroughTiles400,
+  FindBoroughTiles500,
+  FindBoroughTilesQueryResponse,
+  FindBoroughTilesQuery,
+} from "./types/FindBoroughTiles.js";
 export type {
   FindCapitalCommitmentsByManagingCodeCapitalProjectIdPathParams,
   FindCapitalCommitmentsByManagingCodeCapitalProjectId200,
@@ -67,14 +75,14 @@ export type {
   FindCapitalCommitmentsByManagingCodeCapitalProjectId500,
   FindCapitalCommitmentsByManagingCodeCapitalProjectIdQueryResponse,
   FindCapitalCommitmentsByManagingCodeCapitalProjectIdQuery,
-} from "./types/FindCapitalCommitmentsByManagingCodeCapitalProjectId";
+} from "./types/FindCapitalCommitmentsByManagingCodeCapitalProjectId.js";
 export type {
   FindCapitalCommitmentTypes200,
   FindCapitalCommitmentTypes400,
   FindCapitalCommitmentTypes500,
   FindCapitalCommitmentTypesQueryResponse,
   FindCapitalCommitmentTypesQuery,
-} from "./types/FindCapitalCommitmentTypes";
+} from "./types/FindCapitalCommitmentTypes.js";
 export type {
   FindCapitalProjectByManagingCodeCapitalProjectIdPathParams,
   FindCapitalProjectByManagingCodeCapitalProjectId200,
@@ -83,7 +91,7 @@ export type {
   FindCapitalProjectByManagingCodeCapitalProjectId500,
   FindCapitalProjectByManagingCodeCapitalProjectIdQueryResponse,
   FindCapitalProjectByManagingCodeCapitalProjectIdQuery,
-} from "./types/FindCapitalProjectByManagingCodeCapitalProjectId";
+} from "./types/FindCapitalProjectByManagingCodeCapitalProjectId.js";
 export type {
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParams,
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId200,
@@ -92,14 +100,14 @@ export type {
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId500,
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdQueryResponse,
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdQuery,
-} from "./types/FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId";
+} from "./types/FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId.js";
 export type {
   FindCapitalProjectManagingAgencies200,
   FindCapitalProjectManagingAgencies400,
   FindCapitalProjectManagingAgencies500,
   FindCapitalProjectManagingAgenciesQueryResponse,
   FindCapitalProjectManagingAgenciesQuery,
-} from "./types/FindCapitalProjectManagingAgencies";
+} from "./types/FindCapitalProjectManagingAgencies.js";
 export type {
   FindCapitalProjectsQueryParams,
   FindCapitalProjects200,
@@ -107,7 +115,7 @@ export type {
   FindCapitalProjects500,
   FindCapitalProjectsQueryResponse,
   FindCapitalProjectsQuery,
-} from "./types/FindCapitalProjects";
+} from "./types/FindCapitalProjects.js";
 export type {
   FindCapitalProjectsByBoroughIdCommunityDistrictIdPathParams,
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryParams,
@@ -116,7 +124,7 @@ export type {
   FindCapitalProjectsByBoroughIdCommunityDistrictId500,
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQuery,
-} from "./types/FindCapitalProjectsByBoroughIdCommunityDistrictId";
+} from "./types/FindCapitalProjectsByBoroughIdCommunityDistrictId.js";
 export type {
   FindCapitalProjectsByCityCouncilIdPathParams,
   FindCapitalProjectsByCityCouncilIdQueryParams,
@@ -125,7 +133,7 @@ export type {
   FindCapitalProjectsByCityCouncilId500,
   FindCapitalProjectsByCityCouncilIdQueryResponse,
   FindCapitalProjectsByCityCouncilIdQuery,
-} from "./types/FindCapitalProjectsByCityCouncilId";
+} from "./types/FindCapitalProjectsByCityCouncilId.js";
 export type {
   FindCapitalProjectTilesPathParams,
   FindCapitalProjectTiles200,
@@ -133,7 +141,7 @@ export type {
   FindCapitalProjectTiles500,
   FindCapitalProjectTilesQueryResponse,
   FindCapitalProjectTilesQuery,
-} from "./types/FindCapitalProjectTiles";
+} from "./types/FindCapitalProjectTiles.js";
 export type {
   FindCapitalProjectTilesByBoroughIdCommunityDistrictIdPathParams,
   FindCapitalProjectTilesByBoroughIdCommunityDistrictId200,
@@ -141,7 +149,7 @@ export type {
   FindCapitalProjectTilesByBoroughIdCommunityDistrictId500,
   FindCapitalProjectTilesByBoroughIdCommunityDistrictIdQueryResponse,
   FindCapitalProjectTilesByBoroughIdCommunityDistrictIdQuery,
-} from "./types/FindCapitalProjectTilesByBoroughIdCommunityDistrictId";
+} from "./types/FindCapitalProjectTilesByBoroughIdCommunityDistrictId.js";
 export type {
   FindCapitalProjectTilesByCityCouncilDistrictIdPathParams,
   FindCapitalProjectTilesByCityCouncilDistrictId200,
@@ -149,7 +157,7 @@ export type {
   FindCapitalProjectTilesByCityCouncilDistrictId500,
   FindCapitalProjectTilesByCityCouncilDistrictIdQueryResponse,
   FindCapitalProjectTilesByCityCouncilDistrictIdQuery,
-} from "./types/FindCapitalProjectTilesByCityCouncilDistrictId";
+} from "./types/FindCapitalProjectTilesByCityCouncilDistrictId.js";
 export type {
   FindCityCouncilDistrictGeoJsonByCityCouncilDistrictIdPathParams,
   FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId200,
@@ -158,14 +166,14 @@ export type {
   FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId500,
   FindCityCouncilDistrictGeoJsonByCityCouncilDistrictIdQueryResponse,
   FindCityCouncilDistrictGeoJsonByCityCouncilDistrictIdQuery,
-} from "./types/FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId";
+} from "./types/FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId.js";
 export type {
   FindCityCouncilDistricts200,
   FindCityCouncilDistricts400,
   FindCityCouncilDistricts500,
   FindCityCouncilDistrictsQueryResponse,
   FindCityCouncilDistrictsQuery,
-} from "./types/FindCityCouncilDistricts";
+} from "./types/FindCityCouncilDistricts.js";
 export type {
   FindCityCouncilDistrictTilesPathParams,
   FindCityCouncilDistrictTiles200,
@@ -173,7 +181,7 @@ export type {
   FindCityCouncilDistrictTiles500,
   FindCityCouncilDistrictTilesQueryResponse,
   FindCityCouncilDistrictTilesQuery,
-} from "./types/FindCityCouncilDistrictTiles";
+} from "./types/FindCityCouncilDistrictTiles.js";
 export type {
   FindCommunityBoardBudgetRequestAgenciesQueryParams,
   FindCommunityBoardBudgetRequestAgencies200,
@@ -181,14 +189,14 @@ export type {
   FindCommunityBoardBudgetRequestAgencies500,
   FindCommunityBoardBudgetRequestAgenciesQueryResponse,
   FindCommunityBoardBudgetRequestAgenciesQuery,
-} from "./types/FindCommunityBoardBudgetRequestAgencies";
+} from "./types/FindCommunityBoardBudgetRequestAgencies.js";
 export type {
   FindCommunityBoardBudgetRequestAgencyCategoryResponses200,
   FindCommunityBoardBudgetRequestAgencyCategoryResponses400,
   FindCommunityBoardBudgetRequestAgencyCategoryResponses500,
   FindCommunityBoardBudgetRequestAgencyCategoryResponsesQueryResponse,
   FindCommunityBoardBudgetRequestAgencyCategoryResponsesQuery,
-} from "./types/FindCommunityBoardBudgetRequestAgencyCategoryResponses";
+} from "./types/FindCommunityBoardBudgetRequestAgencyCategoryResponses.js";
 export type {
   FindCommunityBoardBudgetRequestByIdPathParams,
   FindCommunityBoardBudgetRequestById200,
@@ -197,7 +205,7 @@ export type {
   FindCommunityBoardBudgetRequestById500,
   FindCommunityBoardBudgetRequestByIdQueryResponse,
   FindCommunityBoardBudgetRequestByIdQuery,
-} from "./types/FindCommunityBoardBudgetRequestById";
+} from "./types/FindCommunityBoardBudgetRequestById.js";
 export type {
   FindCommunityBoardBudgetRequestGeoJsonByIdPathParams,
   FindCommunityBoardBudgetRequestGeoJsonById200,
@@ -206,7 +214,7 @@ export type {
   FindCommunityBoardBudgetRequestGeoJsonById500,
   FindCommunityBoardBudgetRequestGeoJsonByIdQueryResponse,
   FindCommunityBoardBudgetRequestGeoJsonByIdQuery,
-} from "./types/FindCommunityBoardBudgetRequestGeoJsonById";
+} from "./types/FindCommunityBoardBudgetRequestGeoJsonById.js";
 export type {
   FindCommunityBoardBudgetRequestNeedGroupsQueryParams,
   FindCommunityBoardBudgetRequestNeedGroups200,
@@ -214,7 +222,7 @@ export type {
   FindCommunityBoardBudgetRequestNeedGroups500,
   FindCommunityBoardBudgetRequestNeedGroupsQueryResponse,
   FindCommunityBoardBudgetRequestNeedGroupsQuery,
-} from "./types/FindCommunityBoardBudgetRequestNeedGroups";
+} from "./types/FindCommunityBoardBudgetRequestNeedGroups.js";
 export type {
   FindCommunityBoardBudgetRequestPolicyAreasQueryParams,
   FindCommunityBoardBudgetRequestPolicyAreas200,
@@ -222,7 +230,7 @@ export type {
   FindCommunityBoardBudgetRequestPolicyAreas500,
   FindCommunityBoardBudgetRequestPolicyAreasQueryResponse,
   FindCommunityBoardBudgetRequestPolicyAreasQuery,
-} from "./types/FindCommunityBoardBudgetRequestPolicyAreas";
+} from "./types/FindCommunityBoardBudgetRequestPolicyAreas.js";
 export type {
   FindCommunityBoardBudgetRequestsQueryParamsCbbrTypeEnumKey,
   FindCommunityBoardBudgetRequestsQueryParams,
@@ -231,7 +239,7 @@ export type {
   FindCommunityBoardBudgetRequests500,
   FindCommunityBoardBudgetRequestsQueryResponse,
   FindCommunityBoardBudgetRequestsQuery,
-} from "./types/FindCommunityBoardBudgetRequests";
+} from "./types/FindCommunityBoardBudgetRequests.js";
 export type {
   FindCommunityBoardBudgetRequestsCsvQueryParamsCbbrTypeEnumKey,
   FindCommunityBoardBudgetRequestsCsvQueryParams,
@@ -240,7 +248,7 @@ export type {
   FindCommunityBoardBudgetRequestsCsv500,
   FindCommunityBoardBudgetRequestsCsvQueryResponse,
   FindCommunityBoardBudgetRequestsCsvQuery,
-} from "./types/FindCommunityBoardBudgetRequestsCsv";
+} from "./types/FindCommunityBoardBudgetRequestsCsv.js";
 export type {
   FindCommunityBoardBudgetRequestTilesPathParams,
   FindCommunityBoardBudgetRequestTiles200,
@@ -248,7 +256,7 @@ export type {
   FindCommunityBoardBudgetRequestTiles500,
   FindCommunityBoardBudgetRequestTilesQueryResponse,
   FindCommunityBoardBudgetRequestTilesQuery,
-} from "./types/FindCommunityBoardBudgetRequestTiles";
+} from "./types/FindCommunityBoardBudgetRequestTiles.js";
 export type {
   FindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdPathParams,
   FindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId200,
@@ -256,7 +264,7 @@ export type {
   FindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId500,
   FindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdQueryResponse,
   FindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdQuery,
-} from "./types/FindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId";
+} from "./types/FindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId.js";
 export type {
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdPathParams,
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId200,
@@ -264,7 +272,7 @@ export type {
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId500,
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdQueryResponse,
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdQuery,
-} from "./types/FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId";
+} from "./types/FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId.js";
 export type {
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParams,
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId200,
@@ -273,7 +281,7 @@ export type {
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId500,
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdQueryResponse,
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdQuery,
-} from "./types/FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId";
+} from "./types/FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId.js";
 export type {
   FindCommunityDistrictsByBoroughIdPathParams,
   FindCommunityDistrictsByBoroughId200,
@@ -282,7 +290,7 @@ export type {
   FindCommunityDistrictsByBoroughId500,
   FindCommunityDistrictsByBoroughIdQueryResponse,
   FindCommunityDistrictsByBoroughIdQuery,
-} from "./types/FindCommunityDistrictsByBoroughId";
+} from "./types/FindCommunityDistrictsByBoroughId.js";
 export type {
   FindCommunityDistrictTilesPathParams,
   FindCommunityDistrictTiles200,
@@ -290,14 +298,14 @@ export type {
   FindCommunityDistrictTiles500,
   FindCommunityDistrictTilesQueryResponse,
   FindCommunityDistrictTilesQuery,
-} from "./types/FindCommunityDistrictTiles";
+} from "./types/FindCommunityDistrictTiles.js";
 export type {
   FindLandUses200,
   FindLandUses400,
   FindLandUses500,
   FindLandUsesQueryResponse,
   FindLandUsesQuery,
-} from "./types/FindLandUses";
+} from "./types/FindLandUses.js";
 export type {
   FindTaxLotByBblPathParams,
   FindTaxLotByBbl200,
@@ -306,7 +314,7 @@ export type {
   FindTaxLotByBbl500,
   FindTaxLotByBblQueryResponse,
   FindTaxLotByBblQuery,
-} from "./types/FindTaxLotByBbl";
+} from "./types/FindTaxLotByBbl.js";
 export type {
   FindTaxLotGeoJsonByBblPathParams,
   FindTaxLotGeoJsonByBbl200,
@@ -315,7 +323,7 @@ export type {
   FindTaxLotGeoJsonByBbl500,
   FindTaxLotGeoJsonByBblQueryResponse,
   FindTaxLotGeoJsonByBblQuery,
-} from "./types/FindTaxLotGeoJsonByBbl";
+} from "./types/FindTaxLotGeoJsonByBbl.js";
 export type {
   FindTaxLotsQueryParamsGeometryEnumKey,
   FindTaxLotsQueryParams,
@@ -324,7 +332,7 @@ export type {
   FindTaxLots500,
   FindTaxLotsQueryResponse,
   FindTaxLotsQuery,
-} from "./types/FindTaxLots";
+} from "./types/FindTaxLots.js";
 export type {
   FindZoningDistrictByZoningDistrictIdPathParams,
   FindZoningDistrictByZoningDistrictId200,
@@ -333,7 +341,7 @@ export type {
   FindZoningDistrictByZoningDistrictId500,
   FindZoningDistrictByZoningDistrictIdQueryResponse,
   FindZoningDistrictByZoningDistrictIdQuery,
-} from "./types/FindZoningDistrictByZoningDistrictId";
+} from "./types/FindZoningDistrictByZoningDistrictId.js";
 export type {
   FindZoningDistrictClassByZoningDistrictClassIdPathParams,
   FindZoningDistrictClassByZoningDistrictClassId200,
@@ -342,21 +350,21 @@ export type {
   FindZoningDistrictClassByZoningDistrictClassId500,
   FindZoningDistrictClassByZoningDistrictClassIdQueryResponse,
   FindZoningDistrictClassByZoningDistrictClassIdQuery,
-} from "./types/FindZoningDistrictClassByZoningDistrictClassId";
+} from "./types/FindZoningDistrictClassByZoningDistrictClassId.js";
 export type {
   FindZoningDistrictClassCategoryColors200,
   FindZoningDistrictClassCategoryColors400,
   FindZoningDistrictClassCategoryColors500,
   FindZoningDistrictClassCategoryColorsQueryResponse,
   FindZoningDistrictClassCategoryColorsQuery,
-} from "./types/FindZoningDistrictClassCategoryColors";
+} from "./types/FindZoningDistrictClassCategoryColors.js";
 export type {
   FindZoningDistrictClasses200,
   FindZoningDistrictClasses400,
   FindZoningDistrictClasses500,
   FindZoningDistrictClassesQueryResponse,
   FindZoningDistrictClassesQuery,
-} from "./types/FindZoningDistrictClasses";
+} from "./types/FindZoningDistrictClasses.js";
 export type {
   FindZoningDistrictClassesByTaxLotBblPathParams,
   FindZoningDistrictClassesByTaxLotBbl200,
@@ -365,7 +373,7 @@ export type {
   FindZoningDistrictClassesByTaxLotBbl500,
   FindZoningDistrictClassesByTaxLotBblQueryResponse,
   FindZoningDistrictClassesByTaxLotBblQuery,
-} from "./types/FindZoningDistrictClassesByTaxLotBbl";
+} from "./types/FindZoningDistrictClassesByTaxLotBbl.js";
 export type {
   FindZoningDistrictClassesByZoningDistrictIdPathParams,
   FindZoningDistrictClassesByZoningDistrictId200,
@@ -374,7 +382,7 @@ export type {
   FindZoningDistrictClassesByZoningDistrictId500,
   FindZoningDistrictClassesByZoningDistrictIdQueryResponse,
   FindZoningDistrictClassesByZoningDistrictIdQuery,
-} from "./types/FindZoningDistrictClassesByZoningDistrictId";
+} from "./types/FindZoningDistrictClassesByZoningDistrictId.js";
 export type {
   FindZoningDistrictsByTaxLotBblPathParams,
   FindZoningDistrictsByTaxLotBbl200,
@@ -383,112 +391,120 @@ export type {
   FindZoningDistrictsByTaxLotBbl500,
   FindZoningDistrictsByTaxLotBblQueryResponse,
   FindZoningDistrictsByTaxLotBblQuery,
-} from "./types/FindZoningDistrictsByTaxLotBbl";
-export type { LandUse } from "./types/LandUse";
-export type { MultiPointTypeEnumKey, MultiPoint } from "./types/MultiPoint";
+} from "./types/FindZoningDistrictsByTaxLotBbl.js";
+export type { LandUse } from "./types/LandUse.js";
+export type { MultiPointTypeEnumKey, MultiPoint } from "./types/MultiPoint.js";
 export type {
   MultiPolygonTypeEnumKey,
   MultiPolygon,
-} from "./types/MultiPolygon";
-export type { MVT } from "./types/MVT";
-export type { Page } from "./types/Page";
-export type { Position } from "./types/Position";
-export type { TaxLot } from "./types/TaxLot";
-export type { TaxLotBasic } from "./types/TaxLotBasic";
-export type { TaxLotBasicPage } from "./types/TaxLotBasicPage";
+} from "./types/MultiPolygon.js";
+export type { MVT } from "./types/MVT.js";
+export type { Page } from "./types/Page.js";
+export type { Position } from "./types/Position.js";
+export type { TaxLot } from "./types/TaxLot.js";
+export type { TaxLotBasic } from "./types/TaxLotBasic.js";
+export type { TaxLotBasicPage } from "./types/TaxLotBasicPage.js";
 export type {
   TaxLotGeoJsonTypeEnumKey,
   TaxLotGeoJson,
-} from "./types/TaxLotGeoJson";
-export type { ZoningDistrict } from "./types/ZoningDistrict";
-export type { ZoningDistrictClass } from "./types/ZoningDistrictClass";
+} from "./types/TaxLotGeoJson.js";
+export type { ZoningDistrict } from "./types/ZoningDistrict.js";
+export type { ZoningDistrictClass } from "./types/ZoningDistrictClass.js";
 export type {
   ZoningDistrictClassCategoryEnumKey,
   ZoningDistrictClassCategory,
-} from "./types/ZoningDistrictClassCategory";
-export type { ZoningDistrictClassCategoryColor } from "./types/ZoningDistrictClassCategoryColor";
-export { findAgencies } from "./axios/findAgencies";
-export { findAgencyBudgets } from "./axios/findAgencyBudgets";
-export { findBoroughs } from "./axios/findBoroughs";
-export { findCapitalCommitmentsByManagingCodeCapitalProjectId } from "./axios/findCapitalCommitmentsByManagingCodeCapitalProjectId";
-export { findCapitalCommitmentTypes } from "./axios/findCapitalCommitmentTypes";
-export { findCapitalProjectByManagingCodeCapitalProjectId } from "./axios/findCapitalProjectByManagingCodeCapitalProjectId";
-export { findCapitalProjectGeoJsonByManagingCodeCapitalProjectId } from "./axios/findCapitalProjectGeoJsonByManagingCodeCapitalProjectId";
-export { findCapitalProjectManagingAgencies } from "./axios/findCapitalProjectManagingAgencies";
-export { findCapitalProjects } from "./axios/findCapitalProjects";
-export { findCapitalProjectsByBoroughIdCommunityDistrictId } from "./axios/findCapitalProjectsByBoroughIdCommunityDistrictId";
-export { findCapitalProjectsByCityCouncilId } from "./axios/findCapitalProjectsByCityCouncilId";
-export { findCapitalProjectTiles } from "./axios/findCapitalProjectTiles";
-export { findCapitalProjectTilesByBoroughIdCommunityDistrictId } from "./axios/findCapitalProjectTilesByBoroughIdCommunityDistrictId";
-export { findCapitalProjectTilesByCityCouncilDistrictId } from "./axios/findCapitalProjectTilesByCityCouncilDistrictId";
-export { findCityCouncilDistrictGeoJsonByCityCouncilDistrictId } from "./axios/findCityCouncilDistrictGeoJsonByCityCouncilDistrictId";
-export { findCityCouncilDistricts } from "./axios/findCityCouncilDistricts";
-export { findCityCouncilDistrictTiles } from "./axios/findCityCouncilDistrictTiles";
-export { findCommunityBoardBudgetRequestAgencies } from "./axios/findCommunityBoardBudgetRequestAgencies";
-export { findCommunityBoardBudgetRequestAgencyCategoryResponses } from "./axios/findCommunityBoardBudgetRequestAgencyCategoryResponses";
-export { findCommunityBoardBudgetRequestById } from "./axios/findCommunityBoardBudgetRequestById";
-export { findCommunityBoardBudgetRequestGeoJsonById } from "./axios/findCommunityBoardBudgetRequestGeoJsonById";
-export { findCommunityBoardBudgetRequestNeedGroups } from "./axios/findCommunityBoardBudgetRequestNeedGroups";
-export { findCommunityBoardBudgetRequestPolicyAreas } from "./axios/findCommunityBoardBudgetRequestPolicyAreas";
-export { findCommunityBoardBudgetRequests } from "./axios/findCommunityBoardBudgetRequests";
-export { findCommunityBoardBudgetRequestsCsv } from "./axios/findCommunityBoardBudgetRequestsCsv";
-export { findCommunityBoardBudgetRequestTiles } from "./axios/findCommunityBoardBudgetRequestTiles";
-export { findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId } from "./axios/findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId";
-export { findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId } from "./axios/findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId";
-export { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId } from "./axios/findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId";
-export { findCommunityDistrictsByBoroughId } from "./axios/findCommunityDistrictsByBoroughId";
-export { findCommunityDistrictTiles } from "./axios/findCommunityDistrictTiles";
-export { findLandUses } from "./axios/findLandUses";
-export { findTaxLotByBbl } from "./axios/findTaxLotByBbl";
-export { findTaxLotGeoJsonByBbl } from "./axios/findTaxLotGeoJsonByBbl";
-export { findTaxLots } from "./axios/findTaxLots";
-export { findZoningDistrictByZoningDistrictId } from "./axios/findZoningDistrictByZoningDistrictId";
-export { findZoningDistrictClassByZoningDistrictClassId } from "./axios/findZoningDistrictClassByZoningDistrictClassId";
-export { findZoningDistrictClassCategoryColors } from "./axios/findZoningDistrictClassCategoryColors";
-export { findZoningDistrictClasses } from "./axios/findZoningDistrictClasses";
-export { findZoningDistrictClassesByTaxLotBbl } from "./axios/findZoningDistrictClassesByTaxLotBbl";
-export { findZoningDistrictClassesByZoningDistrictId } from "./axios/findZoningDistrictClassesByZoningDistrictId";
-export { findZoningDistrictsByTaxLotBbl } from "./axios/findZoningDistrictsByTaxLotBbl";
-export { createAgency } from "./mocks/createAgency";
-export { createAgencyBudget } from "./mocks/createAgencyBudget";
-export { createBorough } from "./mocks/createBorough";
-export { createCapitalCommitment } from "./mocks/createCapitalCommitment";
-export { createCapitalCommitmentType } from "./mocks/createCapitalCommitmentType";
-export { createCapitalProject } from "./mocks/createCapitalProject";
-export { createCapitalProjectBudgeted } from "./mocks/createCapitalProjectBudgeted";
-export { createCapitalProjectBudgetedGeoJson } from "./mocks/createCapitalProjectBudgetedGeoJson";
-export { createCapitalProjectCategory } from "./mocks/createCapitalProjectCategory";
-export { createCapitalProjectPage } from "./mocks/createCapitalProjectPage";
-export { createCityCouncilDistrict } from "./mocks/createCityCouncilDistrict";
-export { createCityCouncilDistrictGeoJson } from "./mocks/createCityCouncilDistrictGeoJson";
-export { createCommunityBoardBudgetRequest } from "./mocks/createCommunityBoardBudgetRequest";
-export { createCommunityBoardBudgetRequestAgencyCategoryResponse } from "./mocks/createCommunityBoardBudgetRequestAgencyCategoryResponse";
-export { createCommunityBoardBudgetRequestGeoJson } from "./mocks/createCommunityBoardBudgetRequestGeoJson";
-export { createCommunityBoardBudgetRequestNeedGroup } from "./mocks/createCommunityBoardBudgetRequestNeedGroup";
-export { createCommunityBoardBudgetRequestPage } from "./mocks/createCommunityBoardBudgetRequestPage";
-export { createCommunityBoardBudgetRequestPolicyArea } from "./mocks/createCommunityBoardBudgetRequestPolicyArea";
-export { createCommunityBoardBudgetRequestType } from "./mocks/createCommunityBoardBudgetRequestType";
-export { createCommunityDistrict } from "./mocks/createCommunityDistrict";
-export { createCommunityDistrictGeoJson } from "./mocks/createCommunityDistrictGeoJson";
-export { createError } from "./mocks/createError";
+} from "./types/ZoningDistrictClassCategory.js";
+export type { ZoningDistrictClassCategoryColor } from "./types/ZoningDistrictClassCategoryColor.js";
+export { findAgencies } from "./axios/findAgencies.js";
+export { findAgencyBudgets } from "./axios/findAgencyBudgets.js";
+export { findBoroughs } from "./axios/findBoroughs.js";
+export { findBoroughTiles } from "./axios/findBoroughTiles.js";
+export { findCapitalCommitmentsByManagingCodeCapitalProjectId } from "./axios/findCapitalCommitmentsByManagingCodeCapitalProjectId.js";
+export { findCapitalCommitmentTypes } from "./axios/findCapitalCommitmentTypes.js";
+export { findCapitalProjectByManagingCodeCapitalProjectId } from "./axios/findCapitalProjectByManagingCodeCapitalProjectId.js";
+export { findCapitalProjectGeoJsonByManagingCodeCapitalProjectId } from "./axios/findCapitalProjectGeoJsonByManagingCodeCapitalProjectId.js";
+export { findCapitalProjectManagingAgencies } from "./axios/findCapitalProjectManagingAgencies.js";
+export { findCapitalProjects } from "./axios/findCapitalProjects.js";
+export { findCapitalProjectsByBoroughIdCommunityDistrictId } from "./axios/findCapitalProjectsByBoroughIdCommunityDistrictId.js";
+export { findCapitalProjectsByCityCouncilId } from "./axios/findCapitalProjectsByCityCouncilId.js";
+export { findCapitalProjectTiles } from "./axios/findCapitalProjectTiles.js";
+export { findCapitalProjectTilesByBoroughIdCommunityDistrictId } from "./axios/findCapitalProjectTilesByBoroughIdCommunityDistrictId.js";
+export { findCapitalProjectTilesByCityCouncilDistrictId } from "./axios/findCapitalProjectTilesByCityCouncilDistrictId.js";
+export { findCityCouncilDistrictGeoJsonByCityCouncilDistrictId } from "./axios/findCityCouncilDistrictGeoJsonByCityCouncilDistrictId.js";
+export { findCityCouncilDistricts } from "./axios/findCityCouncilDistricts.js";
+export { findCityCouncilDistrictTiles } from "./axios/findCityCouncilDistrictTiles.js";
+export { findCommunityBoardBudgetRequestAgencies } from "./axios/findCommunityBoardBudgetRequestAgencies.js";
+export { findCommunityBoardBudgetRequestAgencyCategoryResponses } from "./axios/findCommunityBoardBudgetRequestAgencyCategoryResponses.js";
+export { findCommunityBoardBudgetRequestById } from "./axios/findCommunityBoardBudgetRequestById.js";
+export { findCommunityBoardBudgetRequestGeoJsonById } from "./axios/findCommunityBoardBudgetRequestGeoJsonById.js";
+export { findCommunityBoardBudgetRequestNeedGroups } from "./axios/findCommunityBoardBudgetRequestNeedGroups.js";
+export { findCommunityBoardBudgetRequestPolicyAreas } from "./axios/findCommunityBoardBudgetRequestPolicyAreas.js";
+export { findCommunityBoardBudgetRequests } from "./axios/findCommunityBoardBudgetRequests.js";
+export { findCommunityBoardBudgetRequestsCsv } from "./axios/findCommunityBoardBudgetRequestsCsv.js";
+export { findCommunityBoardBudgetRequestTiles } from "./axios/findCommunityBoardBudgetRequestTiles.js";
+export { findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId } from "./axios/findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId.js";
+export { findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId } from "./axios/findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId.js";
+export { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId } from "./axios/findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId.js";
+export { findCommunityDistrictsByBoroughId } from "./axios/findCommunityDistrictsByBoroughId.js";
+export { findCommunityDistrictTiles } from "./axios/findCommunityDistrictTiles.js";
+export { findLandUses } from "./axios/findLandUses.js";
+export { findTaxLotByBbl } from "./axios/findTaxLotByBbl.js";
+export { findTaxLotGeoJsonByBbl } from "./axios/findTaxLotGeoJsonByBbl.js";
+export { findTaxLots } from "./axios/findTaxLots.js";
+export { findZoningDistrictByZoningDistrictId } from "./axios/findZoningDistrictByZoningDistrictId.js";
+export { findZoningDistrictClassByZoningDistrictClassId } from "./axios/findZoningDistrictClassByZoningDistrictClassId.js";
+export { findZoningDistrictClassCategoryColors } from "./axios/findZoningDistrictClassCategoryColors.js";
+export { findZoningDistrictClasses } from "./axios/findZoningDistrictClasses.js";
+export { findZoningDistrictClassesByTaxLotBbl } from "./axios/findZoningDistrictClassesByTaxLotBbl.js";
+export { findZoningDistrictClassesByZoningDistrictId } from "./axios/findZoningDistrictClassesByZoningDistrictId.js";
+export { findZoningDistrictsByTaxLotBbl } from "./axios/findZoningDistrictsByTaxLotBbl.js";
+export { createAgency } from "./mocks/createAgency.js";
+export { createAgencyBudget } from "./mocks/createAgencyBudget.js";
+export { createBorough } from "./mocks/createBorough.js";
+export { createCapitalCommitment } from "./mocks/createCapitalCommitment.js";
+export { createCapitalCommitmentType } from "./mocks/createCapitalCommitmentType.js";
+export { createCapitalProject } from "./mocks/createCapitalProject.js";
+export { createCapitalProjectBudgeted } from "./mocks/createCapitalProjectBudgeted.js";
+export { createCapitalProjectBudgetedGeoJson } from "./mocks/createCapitalProjectBudgetedGeoJson.js";
+export { createCapitalProjectCategory } from "./mocks/createCapitalProjectCategory.js";
+export { createCapitalProjectPage } from "./mocks/createCapitalProjectPage.js";
+export { createCityCouncilDistrict } from "./mocks/createCityCouncilDistrict.js";
+export { createCityCouncilDistrictGeoJson } from "./mocks/createCityCouncilDistrictGeoJson.js";
+export { createCommunityBoardBudgetRequest } from "./mocks/createCommunityBoardBudgetRequest.js";
+export { createCommunityBoardBudgetRequestAgencyCategoryResponse } from "./mocks/createCommunityBoardBudgetRequestAgencyCategoryResponse.js";
+export { createCommunityBoardBudgetRequestGeoJson } from "./mocks/createCommunityBoardBudgetRequestGeoJson.js";
+export { createCommunityBoardBudgetRequestNeedGroup } from "./mocks/createCommunityBoardBudgetRequestNeedGroup.js";
+export { createCommunityBoardBudgetRequestPage } from "./mocks/createCommunityBoardBudgetRequestPage.js";
+export { createCommunityBoardBudgetRequestPolicyArea } from "./mocks/createCommunityBoardBudgetRequestPolicyArea.js";
+export { createCommunityBoardBudgetRequestType } from "./mocks/createCommunityBoardBudgetRequestType.js";
+export { createCommunityDistrict } from "./mocks/createCommunityDistrict.js";
+export { createCommunityDistrictGeoJson } from "./mocks/createCommunityDistrictGeoJson.js";
+export { createError } from "./mocks/createError.js";
 export {
   createFindAgencies200,
   createFindAgencies400,
   createFindAgencies500,
   createFindAgenciesQueryResponse,
-} from "./mocks/createFindAgencies";
+} from "./mocks/createFindAgencies.js";
 export {
   createFindAgencyBudgets200,
   createFindAgencyBudgets400,
   createFindAgencyBudgets500,
   createFindAgencyBudgetsQueryResponse,
-} from "./mocks/createFindAgencyBudgets";
+} from "./mocks/createFindAgencyBudgets.js";
 export {
   createFindBoroughs200,
   createFindBoroughs400,
   createFindBoroughs500,
   createFindBoroughsQueryResponse,
-} from "./mocks/createFindBoroughs";
+} from "./mocks/createFindBoroughs.js";
+export {
+  createFindBoroughTilesPathParams,
+  createFindBoroughTiles200,
+  createFindBoroughTiles400,
+  createFindBoroughTiles500,
+  createFindBoroughTilesQueryResponse,
+} from "./mocks/createFindBoroughTiles.js";
 export {
   createFindCapitalCommitmentsByManagingCodeCapitalProjectIdPathParams,
   createFindCapitalCommitmentsByManagingCodeCapitalProjectId200,
@@ -496,13 +512,13 @@ export {
   createFindCapitalCommitmentsByManagingCodeCapitalProjectId404,
   createFindCapitalCommitmentsByManagingCodeCapitalProjectId500,
   createFindCapitalCommitmentsByManagingCodeCapitalProjectIdQueryResponse,
-} from "./mocks/createFindCapitalCommitmentsByManagingCodeCapitalProjectId";
+} from "./mocks/createFindCapitalCommitmentsByManagingCodeCapitalProjectId.js";
 export {
   createFindCapitalCommitmentTypes200,
   createFindCapitalCommitmentTypes400,
   createFindCapitalCommitmentTypes500,
   createFindCapitalCommitmentTypesQueryResponse,
-} from "./mocks/createFindCapitalCommitmentTypes";
+} from "./mocks/createFindCapitalCommitmentTypes.js";
 export {
   createFindCapitalProjectByManagingCodeCapitalProjectIdPathParams,
   createFindCapitalProjectByManagingCodeCapitalProjectId200,
@@ -510,7 +526,7 @@ export {
   createFindCapitalProjectByManagingCodeCapitalProjectId404,
   createFindCapitalProjectByManagingCodeCapitalProjectId500,
   createFindCapitalProjectByManagingCodeCapitalProjectIdQueryResponse,
-} from "./mocks/createFindCapitalProjectByManagingCodeCapitalProjectId";
+} from "./mocks/createFindCapitalProjectByManagingCodeCapitalProjectId.js";
 export {
   createFindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParams,
   createFindCapitalProjectGeoJsonByManagingCodeCapitalProjectId200,
@@ -518,20 +534,20 @@ export {
   createFindCapitalProjectGeoJsonByManagingCodeCapitalProjectId404,
   createFindCapitalProjectGeoJsonByManagingCodeCapitalProjectId500,
   createFindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdQueryResponse,
-} from "./mocks/createFindCapitalProjectGeoJsonByManagingCodeCapitalProjectId";
+} from "./mocks/createFindCapitalProjectGeoJsonByManagingCodeCapitalProjectId.js";
 export {
   createFindCapitalProjectManagingAgencies200,
   createFindCapitalProjectManagingAgencies400,
   createFindCapitalProjectManagingAgencies500,
   createFindCapitalProjectManagingAgenciesQueryResponse,
-} from "./mocks/createFindCapitalProjectManagingAgencies";
+} from "./mocks/createFindCapitalProjectManagingAgencies.js";
 export {
   createFindCapitalProjectsQueryParams,
   createFindCapitalProjects200,
   createFindCapitalProjects400,
   createFindCapitalProjects500,
   createFindCapitalProjectsQueryResponse,
-} from "./mocks/createFindCapitalProjects";
+} from "./mocks/createFindCapitalProjects.js";
 export {
   createFindCapitalProjectsByBoroughIdCommunityDistrictIdPathParams,
   createFindCapitalProjectsByBoroughIdCommunityDistrictIdQueryParams,
@@ -539,7 +555,7 @@ export {
   createFindCapitalProjectsByBoroughIdCommunityDistrictId400,
   createFindCapitalProjectsByBoroughIdCommunityDistrictId500,
   createFindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
-} from "./mocks/createFindCapitalProjectsByBoroughIdCommunityDistrictId";
+} from "./mocks/createFindCapitalProjectsByBoroughIdCommunityDistrictId.js";
 export {
   createFindCapitalProjectsByCityCouncilIdPathParams,
   createFindCapitalProjectsByCityCouncilIdQueryParams,
@@ -547,28 +563,28 @@ export {
   createFindCapitalProjectsByCityCouncilId400,
   createFindCapitalProjectsByCityCouncilId500,
   createFindCapitalProjectsByCityCouncilIdQueryResponse,
-} from "./mocks/createFindCapitalProjectsByCityCouncilId";
+} from "./mocks/createFindCapitalProjectsByCityCouncilId.js";
 export {
   createFindCapitalProjectTilesPathParams,
   createFindCapitalProjectTiles200,
   createFindCapitalProjectTiles400,
   createFindCapitalProjectTiles500,
   createFindCapitalProjectTilesQueryResponse,
-} from "./mocks/createFindCapitalProjectTiles";
+} from "./mocks/createFindCapitalProjectTiles.js";
 export {
   createFindCapitalProjectTilesByBoroughIdCommunityDistrictIdPathParams,
   createFindCapitalProjectTilesByBoroughIdCommunityDistrictId200,
   createFindCapitalProjectTilesByBoroughIdCommunityDistrictId400,
   createFindCapitalProjectTilesByBoroughIdCommunityDistrictId500,
   createFindCapitalProjectTilesByBoroughIdCommunityDistrictIdQueryResponse,
-} from "./mocks/createFindCapitalProjectTilesByBoroughIdCommunityDistrictId";
+} from "./mocks/createFindCapitalProjectTilesByBoroughIdCommunityDistrictId.js";
 export {
   createFindCapitalProjectTilesByCityCouncilDistrictIdPathParams,
   createFindCapitalProjectTilesByCityCouncilDistrictId200,
   createFindCapitalProjectTilesByCityCouncilDistrictId400,
   createFindCapitalProjectTilesByCityCouncilDistrictId500,
   createFindCapitalProjectTilesByCityCouncilDistrictIdQueryResponse,
-} from "./mocks/createFindCapitalProjectTilesByCityCouncilDistrictId";
+} from "./mocks/createFindCapitalProjectTilesByCityCouncilDistrictId.js";
 export {
   createFindCityCouncilDistrictGeoJsonByCityCouncilDistrictIdPathParams,
   createFindCityCouncilDistrictGeoJsonByCityCouncilDistrictId200,
@@ -576,33 +592,33 @@ export {
   createFindCityCouncilDistrictGeoJsonByCityCouncilDistrictId404,
   createFindCityCouncilDistrictGeoJsonByCityCouncilDistrictId500,
   createFindCityCouncilDistrictGeoJsonByCityCouncilDistrictIdQueryResponse,
-} from "./mocks/createFindCityCouncilDistrictGeoJsonByCityCouncilDistrictId";
+} from "./mocks/createFindCityCouncilDistrictGeoJsonByCityCouncilDistrictId.js";
 export {
   createFindCityCouncilDistricts200,
   createFindCityCouncilDistricts400,
   createFindCityCouncilDistricts500,
   createFindCityCouncilDistrictsQueryResponse,
-} from "./mocks/createFindCityCouncilDistricts";
+} from "./mocks/createFindCityCouncilDistricts.js";
 export {
   createFindCityCouncilDistrictTilesPathParams,
   createFindCityCouncilDistrictTiles200,
   createFindCityCouncilDistrictTiles400,
   createFindCityCouncilDistrictTiles500,
   createFindCityCouncilDistrictTilesQueryResponse,
-} from "./mocks/createFindCityCouncilDistrictTiles";
+} from "./mocks/createFindCityCouncilDistrictTiles.js";
 export {
   createFindCommunityBoardBudgetRequestAgenciesQueryParams,
   createFindCommunityBoardBudgetRequestAgencies200,
   createFindCommunityBoardBudgetRequestAgencies400,
   createFindCommunityBoardBudgetRequestAgencies500,
   createFindCommunityBoardBudgetRequestAgenciesQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestAgencies";
+} from "./mocks/createFindCommunityBoardBudgetRequestAgencies.js";
 export {
   createFindCommunityBoardBudgetRequestAgencyCategoryResponses200,
   createFindCommunityBoardBudgetRequestAgencyCategoryResponses400,
   createFindCommunityBoardBudgetRequestAgencyCategoryResponses500,
   createFindCommunityBoardBudgetRequestAgencyCategoryResponsesQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestAgencyCategoryResponses";
+} from "./mocks/createFindCommunityBoardBudgetRequestAgencyCategoryResponses.js";
 export {
   createFindCommunityBoardBudgetRequestByIdPathParams,
   createFindCommunityBoardBudgetRequestById200,
@@ -610,7 +626,7 @@ export {
   createFindCommunityBoardBudgetRequestById404,
   createFindCommunityBoardBudgetRequestById500,
   createFindCommunityBoardBudgetRequestByIdQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestById";
+} from "./mocks/createFindCommunityBoardBudgetRequestById.js";
 export {
   createFindCommunityBoardBudgetRequestGeoJsonByIdPathParams,
   createFindCommunityBoardBudgetRequestGeoJsonById200,
@@ -618,56 +634,56 @@ export {
   createFindCommunityBoardBudgetRequestGeoJsonById404,
   createFindCommunityBoardBudgetRequestGeoJsonById500,
   createFindCommunityBoardBudgetRequestGeoJsonByIdQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestGeoJsonById";
+} from "./mocks/createFindCommunityBoardBudgetRequestGeoJsonById.js";
 export {
   createFindCommunityBoardBudgetRequestNeedGroupsQueryParams,
   createFindCommunityBoardBudgetRequestNeedGroups200,
   createFindCommunityBoardBudgetRequestNeedGroups400,
   createFindCommunityBoardBudgetRequestNeedGroups500,
   createFindCommunityBoardBudgetRequestNeedGroupsQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestNeedGroups";
+} from "./mocks/createFindCommunityBoardBudgetRequestNeedGroups.js";
 export {
   createFindCommunityBoardBudgetRequestPolicyAreasQueryParams,
   createFindCommunityBoardBudgetRequestPolicyAreas200,
   createFindCommunityBoardBudgetRequestPolicyAreas400,
   createFindCommunityBoardBudgetRequestPolicyAreas500,
   createFindCommunityBoardBudgetRequestPolicyAreasQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestPolicyAreas";
+} from "./mocks/createFindCommunityBoardBudgetRequestPolicyAreas.js";
 export {
   createFindCommunityBoardBudgetRequestsQueryParams,
   createFindCommunityBoardBudgetRequests200,
   createFindCommunityBoardBudgetRequests400,
   createFindCommunityBoardBudgetRequests500,
   createFindCommunityBoardBudgetRequestsQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequests";
+} from "./mocks/createFindCommunityBoardBudgetRequests.js";
 export {
   createFindCommunityBoardBudgetRequestsCsvQueryParams,
   createFindCommunityBoardBudgetRequestsCsv200,
   createFindCommunityBoardBudgetRequestsCsv400,
   createFindCommunityBoardBudgetRequestsCsv500,
   createFindCommunityBoardBudgetRequestsCsvQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestsCsv";
+} from "./mocks/createFindCommunityBoardBudgetRequestsCsv.js";
 export {
   createFindCommunityBoardBudgetRequestTilesPathParams,
   createFindCommunityBoardBudgetRequestTiles200,
   createFindCommunityBoardBudgetRequestTiles400,
   createFindCommunityBoardBudgetRequestTiles500,
   createFindCommunityBoardBudgetRequestTilesQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestTiles";
+} from "./mocks/createFindCommunityBoardBudgetRequestTiles.js";
 export {
   createFindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdPathParams,
   createFindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId200,
   createFindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId400,
   createFindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId500,
   createFindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId";
+} from "./mocks/createFindCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId.js";
 export {
   createFindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdPathParams,
   createFindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId200,
   createFindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId400,
   createFindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId500,
   createFindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdQueryResponse,
-} from "./mocks/createFindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId";
+} from "./mocks/createFindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId.js";
 export {
   createFindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParams,
   createFindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId200,
@@ -675,7 +691,7 @@ export {
   createFindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId404,
   createFindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId500,
   createFindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdQueryResponse,
-} from "./mocks/createFindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId";
+} from "./mocks/createFindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId.js";
 export {
   createFindCommunityDistrictsByBoroughIdPathParams,
   createFindCommunityDistrictsByBoroughId200,
@@ -683,20 +699,20 @@ export {
   createFindCommunityDistrictsByBoroughId404,
   createFindCommunityDistrictsByBoroughId500,
   createFindCommunityDistrictsByBoroughIdQueryResponse,
-} from "./mocks/createFindCommunityDistrictsByBoroughId";
+} from "./mocks/createFindCommunityDistrictsByBoroughId.js";
 export {
   createFindCommunityDistrictTilesPathParams,
   createFindCommunityDistrictTiles200,
   createFindCommunityDistrictTiles400,
   createFindCommunityDistrictTiles500,
   createFindCommunityDistrictTilesQueryResponse,
-} from "./mocks/createFindCommunityDistrictTiles";
+} from "./mocks/createFindCommunityDistrictTiles.js";
 export {
   createFindLandUses200,
   createFindLandUses400,
   createFindLandUses500,
   createFindLandUsesQueryResponse,
-} from "./mocks/createFindLandUses";
+} from "./mocks/createFindLandUses.js";
 export {
   createFindTaxLotByBblPathParams,
   createFindTaxLotByBbl200,
@@ -704,7 +720,7 @@ export {
   createFindTaxLotByBbl404,
   createFindTaxLotByBbl500,
   createFindTaxLotByBblQueryResponse,
-} from "./mocks/createFindTaxLotByBbl";
+} from "./mocks/createFindTaxLotByBbl.js";
 export {
   createFindTaxLotGeoJsonByBblPathParams,
   createFindTaxLotGeoJsonByBbl200,
@@ -712,14 +728,14 @@ export {
   createFindTaxLotGeoJsonByBbl404,
   createFindTaxLotGeoJsonByBbl500,
   createFindTaxLotGeoJsonByBblQueryResponse,
-} from "./mocks/createFindTaxLotGeoJsonByBbl";
+} from "./mocks/createFindTaxLotGeoJsonByBbl.js";
 export {
   createFindTaxLotsQueryParams,
   createFindTaxLots200,
   createFindTaxLots400,
   createFindTaxLots500,
   createFindTaxLotsQueryResponse,
-} from "./mocks/createFindTaxLots";
+} from "./mocks/createFindTaxLots.js";
 export {
   createFindZoningDistrictByZoningDistrictIdPathParams,
   createFindZoningDistrictByZoningDistrictId200,
@@ -727,7 +743,7 @@ export {
   createFindZoningDistrictByZoningDistrictId404,
   createFindZoningDistrictByZoningDistrictId500,
   createFindZoningDistrictByZoningDistrictIdQueryResponse,
-} from "./mocks/createFindZoningDistrictByZoningDistrictId";
+} from "./mocks/createFindZoningDistrictByZoningDistrictId.js";
 export {
   createFindZoningDistrictClassByZoningDistrictClassIdPathParams,
   createFindZoningDistrictClassByZoningDistrictClassId200,
@@ -735,19 +751,19 @@ export {
   createFindZoningDistrictClassByZoningDistrictClassId404,
   createFindZoningDistrictClassByZoningDistrictClassId500,
   createFindZoningDistrictClassByZoningDistrictClassIdQueryResponse,
-} from "./mocks/createFindZoningDistrictClassByZoningDistrictClassId";
+} from "./mocks/createFindZoningDistrictClassByZoningDistrictClassId.js";
 export {
   createFindZoningDistrictClassCategoryColors200,
   createFindZoningDistrictClassCategoryColors400,
   createFindZoningDistrictClassCategoryColors500,
   createFindZoningDistrictClassCategoryColorsQueryResponse,
-} from "./mocks/createFindZoningDistrictClassCategoryColors";
+} from "./mocks/createFindZoningDistrictClassCategoryColors.js";
 export {
   createFindZoningDistrictClasses200,
   createFindZoningDistrictClasses400,
   createFindZoningDistrictClasses500,
   createFindZoningDistrictClassesQueryResponse,
-} from "./mocks/createFindZoningDistrictClasses";
+} from "./mocks/createFindZoningDistrictClasses.js";
 export {
   createFindZoningDistrictClassesByTaxLotBblPathParams,
   createFindZoningDistrictClassesByTaxLotBbl200,
@@ -755,7 +771,7 @@ export {
   createFindZoningDistrictClassesByTaxLotBbl404,
   createFindZoningDistrictClassesByTaxLotBbl500,
   createFindZoningDistrictClassesByTaxLotBblQueryResponse,
-} from "./mocks/createFindZoningDistrictClassesByTaxLotBbl";
+} from "./mocks/createFindZoningDistrictClassesByTaxLotBbl.js";
 export {
   createFindZoningDistrictClassesByZoningDistrictIdPathParams,
   createFindZoningDistrictClassesByZoningDistrictId200,
@@ -763,7 +779,7 @@ export {
   createFindZoningDistrictClassesByZoningDistrictId404,
   createFindZoningDistrictClassesByZoningDistrictId500,
   createFindZoningDistrictClassesByZoningDistrictIdQueryResponse,
-} from "./mocks/createFindZoningDistrictClassesByZoningDistrictId";
+} from "./mocks/createFindZoningDistrictClassesByZoningDistrictId.js";
 export {
   createFindZoningDistrictsByTaxLotBblPathParams,
   createFindZoningDistrictsByTaxLotBbl200,
@@ -771,342 +787,355 @@ export {
   createFindZoningDistrictsByTaxLotBbl404,
   createFindZoningDistrictsByTaxLotBbl500,
   createFindZoningDistrictsByTaxLotBblQueryResponse,
-} from "./mocks/createFindZoningDistrictsByTaxLotBbl";
-export { createLandUse } from "./mocks/createLandUse";
-export { createMultiPoint } from "./mocks/createMultiPoint";
-export { createMultiPolygon } from "./mocks/createMultiPolygon";
-export { createMVT } from "./mocks/createMVT";
-export { createPage } from "./mocks/createPage";
-export { createPosition } from "./mocks/createPosition";
-export { createTaxLot } from "./mocks/createTaxLot";
-export { createTaxLotBasic } from "./mocks/createTaxLotBasic";
-export { createTaxLotBasicPage } from "./mocks/createTaxLotBasicPage";
-export { createTaxLotGeoJson } from "./mocks/createTaxLotGeoJson";
-export { createZoningDistrict } from "./mocks/createZoningDistrict";
-export { createZoningDistrictClass } from "./mocks/createZoningDistrictClass";
-export { createZoningDistrictClassCategory } from "./mocks/createZoningDistrictClassCategory";
-export { createZoningDistrictClassCategoryColor } from "./mocks/createZoningDistrictClassCategoryColor";
+} from "./mocks/createFindZoningDistrictsByTaxLotBbl.js";
+export { createLandUse } from "./mocks/createLandUse.js";
+export { createMultiPoint } from "./mocks/createMultiPoint.js";
+export { createMultiPolygon } from "./mocks/createMultiPolygon.js";
+export { createMVT } from "./mocks/createMVT.js";
+export { createPage } from "./mocks/createPage.js";
+export { createPosition } from "./mocks/createPosition.js";
+export { createTaxLot } from "./mocks/createTaxLot.js";
+export { createTaxLotBasic } from "./mocks/createTaxLotBasic.js";
+export { createTaxLotBasicPage } from "./mocks/createTaxLotBasicPage.js";
+export { createTaxLotGeoJson } from "./mocks/createTaxLotGeoJson.js";
+export { createZoningDistrict } from "./mocks/createZoningDistrict.js";
+export { createZoningDistrictClass } from "./mocks/createZoningDistrictClass.js";
+export { createZoningDistrictClassCategory } from "./mocks/createZoningDistrictClassCategory.js";
+export { createZoningDistrictClassCategoryColor } from "./mocks/createZoningDistrictClassCategoryColor.js";
 export {
   findAgenciesHandlerResponse200,
   findAgenciesHandlerResponse400,
   findAgenciesHandlerResponse500,
   findAgenciesHandler,
-} from "./mocks/findAgenciesHandler";
+} from "./mocks/findAgenciesHandler.js";
 export {
   findAgencyBudgetsHandlerResponse200,
   findAgencyBudgetsHandlerResponse400,
   findAgencyBudgetsHandlerResponse500,
   findAgencyBudgetsHandler,
-} from "./mocks/findAgencyBudgetsHandler";
+} from "./mocks/findAgencyBudgetsHandler.js";
 export {
   findBoroughsHandlerResponse200,
   findBoroughsHandlerResponse400,
   findBoroughsHandlerResponse500,
   findBoroughsHandler,
-} from "./mocks/findBoroughsHandler";
+} from "./mocks/findBoroughsHandler.js";
+export {
+  findBoroughTilesHandlerResponse200,
+  findBoroughTilesHandlerResponse400,
+  findBoroughTilesHandlerResponse500,
+  findBoroughTilesHandler,
+} from "./mocks/findBoroughTilesHandler.js";
 export {
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandlerResponse200,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandlerResponse400,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandlerResponse404,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandlerResponse500,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler,
-} from "./mocks/findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler";
+} from "./mocks/findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler.js";
 export {
   findCapitalCommitmentTypesHandlerResponse200,
   findCapitalCommitmentTypesHandlerResponse400,
   findCapitalCommitmentTypesHandlerResponse500,
   findCapitalCommitmentTypesHandler,
-} from "./mocks/findCapitalCommitmentTypesHandler";
+} from "./mocks/findCapitalCommitmentTypesHandler.js";
 export {
   findCapitalProjectByManagingCodeCapitalProjectIdHandlerResponse200,
   findCapitalProjectByManagingCodeCapitalProjectIdHandlerResponse400,
   findCapitalProjectByManagingCodeCapitalProjectIdHandlerResponse404,
   findCapitalProjectByManagingCodeCapitalProjectIdHandlerResponse500,
   findCapitalProjectByManagingCodeCapitalProjectIdHandler,
-} from "./mocks/findCapitalProjectByManagingCodeCapitalProjectIdHandler";
+} from "./mocks/findCapitalProjectByManagingCodeCapitalProjectIdHandler.js";
 export {
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandlerResponse200,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandlerResponse400,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandlerResponse404,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandlerResponse500,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler,
-} from "./mocks/findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler";
+} from "./mocks/findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler.js";
 export {
   findCapitalProjectManagingAgenciesHandlerResponse200,
   findCapitalProjectManagingAgenciesHandlerResponse400,
   findCapitalProjectManagingAgenciesHandlerResponse500,
   findCapitalProjectManagingAgenciesHandler,
-} from "./mocks/findCapitalProjectManagingAgenciesHandler";
+} from "./mocks/findCapitalProjectManagingAgenciesHandler.js";
 export {
   findCapitalProjectsByBoroughIdCommunityDistrictIdHandlerResponse200,
   findCapitalProjectsByBoroughIdCommunityDistrictIdHandlerResponse400,
   findCapitalProjectsByBoroughIdCommunityDistrictIdHandlerResponse500,
   findCapitalProjectsByBoroughIdCommunityDistrictIdHandler,
-} from "./mocks/findCapitalProjectsByBoroughIdCommunityDistrictIdHandler";
+} from "./mocks/findCapitalProjectsByBoroughIdCommunityDistrictIdHandler.js";
 export {
   findCapitalProjectsByCityCouncilIdHandlerResponse200,
   findCapitalProjectsByCityCouncilIdHandlerResponse400,
   findCapitalProjectsByCityCouncilIdHandlerResponse500,
   findCapitalProjectsByCityCouncilIdHandler,
-} from "./mocks/findCapitalProjectsByCityCouncilIdHandler";
+} from "./mocks/findCapitalProjectsByCityCouncilIdHandler.js";
 export {
   findCapitalProjectsHandlerResponse200,
   findCapitalProjectsHandlerResponse400,
   findCapitalProjectsHandlerResponse500,
   findCapitalProjectsHandler,
-} from "./mocks/findCapitalProjectsHandler";
+} from "./mocks/findCapitalProjectsHandler.js";
 export {
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandlerResponse200,
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandlerResponse400,
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandlerResponse500,
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler,
-} from "./mocks/findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler";
+} from "./mocks/findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler.js";
 export {
   findCapitalProjectTilesByCityCouncilDistrictIdHandlerResponse200,
   findCapitalProjectTilesByCityCouncilDistrictIdHandlerResponse400,
   findCapitalProjectTilesByCityCouncilDistrictIdHandlerResponse500,
   findCapitalProjectTilesByCityCouncilDistrictIdHandler,
-} from "./mocks/findCapitalProjectTilesByCityCouncilDistrictIdHandler";
+} from "./mocks/findCapitalProjectTilesByCityCouncilDistrictIdHandler.js";
 export {
   findCapitalProjectTilesHandlerResponse200,
   findCapitalProjectTilesHandlerResponse400,
   findCapitalProjectTilesHandlerResponse500,
   findCapitalProjectTilesHandler,
-} from "./mocks/findCapitalProjectTilesHandler";
+} from "./mocks/findCapitalProjectTilesHandler.js";
 export {
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandlerResponse200,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandlerResponse400,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandlerResponse404,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandlerResponse500,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler,
-} from "./mocks/findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler";
+} from "./mocks/findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdHandler.js";
 export {
   findCityCouncilDistrictsHandlerResponse200,
   findCityCouncilDistrictsHandlerResponse400,
   findCityCouncilDistrictsHandlerResponse500,
   findCityCouncilDistrictsHandler,
-} from "./mocks/findCityCouncilDistrictsHandler";
+} from "./mocks/findCityCouncilDistrictsHandler.js";
 export {
   findCityCouncilDistrictTilesHandlerResponse200,
   findCityCouncilDistrictTilesHandlerResponse400,
   findCityCouncilDistrictTilesHandlerResponse500,
   findCityCouncilDistrictTilesHandler,
-} from "./mocks/findCityCouncilDistrictTilesHandler";
+} from "./mocks/findCityCouncilDistrictTilesHandler.js";
 export {
   findCommunityBoardBudgetRequestAgenciesHandlerResponse200,
   findCommunityBoardBudgetRequestAgenciesHandlerResponse400,
   findCommunityBoardBudgetRequestAgenciesHandlerResponse500,
   findCommunityBoardBudgetRequestAgenciesHandler,
-} from "./mocks/findCommunityBoardBudgetRequestAgenciesHandler";
+} from "./mocks/findCommunityBoardBudgetRequestAgenciesHandler.js";
 export {
   findCommunityBoardBudgetRequestAgencyCategoryResponsesHandlerResponse200,
   findCommunityBoardBudgetRequestAgencyCategoryResponsesHandlerResponse400,
   findCommunityBoardBudgetRequestAgencyCategoryResponsesHandlerResponse500,
   findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler,
-} from "./mocks/findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler";
+} from "./mocks/findCommunityBoardBudgetRequestAgencyCategoryResponsesHandler.js";
 export {
   findCommunityBoardBudgetRequestByIdHandlerResponse200,
   findCommunityBoardBudgetRequestByIdHandlerResponse400,
   findCommunityBoardBudgetRequestByIdHandlerResponse404,
   findCommunityBoardBudgetRequestByIdHandlerResponse500,
   findCommunityBoardBudgetRequestByIdHandler,
-} from "./mocks/findCommunityBoardBudgetRequestByIdHandler";
+} from "./mocks/findCommunityBoardBudgetRequestByIdHandler.js";
 export {
   findCommunityBoardBudgetRequestGeoJsonByIdHandlerResponse200,
   findCommunityBoardBudgetRequestGeoJsonByIdHandlerResponse400,
   findCommunityBoardBudgetRequestGeoJsonByIdHandlerResponse404,
   findCommunityBoardBudgetRequestGeoJsonByIdHandlerResponse500,
   findCommunityBoardBudgetRequestGeoJsonByIdHandler,
-} from "./mocks/findCommunityBoardBudgetRequestGeoJsonByIdHandler";
+} from "./mocks/findCommunityBoardBudgetRequestGeoJsonByIdHandler.js";
 export {
   findCommunityBoardBudgetRequestNeedGroupsHandlerResponse200,
   findCommunityBoardBudgetRequestNeedGroupsHandlerResponse400,
   findCommunityBoardBudgetRequestNeedGroupsHandlerResponse500,
   findCommunityBoardBudgetRequestNeedGroupsHandler,
-} from "./mocks/findCommunityBoardBudgetRequestNeedGroupsHandler";
+} from "./mocks/findCommunityBoardBudgetRequestNeedGroupsHandler.js";
 export {
   findCommunityBoardBudgetRequestPolicyAreasHandlerResponse200,
   findCommunityBoardBudgetRequestPolicyAreasHandlerResponse400,
   findCommunityBoardBudgetRequestPolicyAreasHandlerResponse500,
   findCommunityBoardBudgetRequestPolicyAreasHandler,
-} from "./mocks/findCommunityBoardBudgetRequestPolicyAreasHandler";
+} from "./mocks/findCommunityBoardBudgetRequestPolicyAreasHandler.js";
 export {
   findCommunityBoardBudgetRequestsCsvHandlerResponse200,
   findCommunityBoardBudgetRequestsCsvHandlerResponse400,
   findCommunityBoardBudgetRequestsCsvHandlerResponse500,
   findCommunityBoardBudgetRequestsCsvHandler,
-} from "./mocks/findCommunityBoardBudgetRequestsCsvHandler";
+} from "./mocks/findCommunityBoardBudgetRequestsCsvHandler.js";
 export {
   findCommunityBoardBudgetRequestsHandlerResponse200,
   findCommunityBoardBudgetRequestsHandlerResponse400,
   findCommunityBoardBudgetRequestsHandlerResponse500,
   findCommunityBoardBudgetRequestsHandler,
-} from "./mocks/findCommunityBoardBudgetRequestsHandler";
+} from "./mocks/findCommunityBoardBudgetRequestsHandler.js";
 export {
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandlerResponse200,
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandlerResponse400,
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandlerResponse500,
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandler,
-} from "./mocks/findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandler";
+} from "./mocks/findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandler.js";
 export {
   findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandlerResponse200,
   findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandlerResponse400,
   findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandlerResponse500,
   findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandler,
-} from "./mocks/findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandler";
+} from "./mocks/findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdHandler.js";
 export {
   findCommunityBoardBudgetRequestTilesHandlerResponse200,
   findCommunityBoardBudgetRequestTilesHandlerResponse400,
   findCommunityBoardBudgetRequestTilesHandlerResponse500,
   findCommunityBoardBudgetRequestTilesHandler,
-} from "./mocks/findCommunityBoardBudgetRequestTilesHandler";
+} from "./mocks/findCommunityBoardBudgetRequestTilesHandler.js";
 export {
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandlerResponse200,
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandlerResponse400,
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandlerResponse404,
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandlerResponse500,
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler,
-} from "./mocks/findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler";
+} from "./mocks/findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler.js";
 export {
   findCommunityDistrictsByBoroughIdHandlerResponse200,
   findCommunityDistrictsByBoroughIdHandlerResponse400,
   findCommunityDistrictsByBoroughIdHandlerResponse404,
   findCommunityDistrictsByBoroughIdHandlerResponse500,
   findCommunityDistrictsByBoroughIdHandler,
-} from "./mocks/findCommunityDistrictsByBoroughIdHandler";
+} from "./mocks/findCommunityDistrictsByBoroughIdHandler.js";
 export {
   findCommunityDistrictTilesHandlerResponse200,
   findCommunityDistrictTilesHandlerResponse400,
   findCommunityDistrictTilesHandlerResponse500,
   findCommunityDistrictTilesHandler,
-} from "./mocks/findCommunityDistrictTilesHandler";
+} from "./mocks/findCommunityDistrictTilesHandler.js";
 export {
   findLandUsesHandlerResponse200,
   findLandUsesHandlerResponse400,
   findLandUsesHandlerResponse500,
   findLandUsesHandler,
-} from "./mocks/findLandUsesHandler";
+} from "./mocks/findLandUsesHandler.js";
 export {
   findTaxLotByBblHandlerResponse200,
   findTaxLotByBblHandlerResponse400,
   findTaxLotByBblHandlerResponse404,
   findTaxLotByBblHandlerResponse500,
   findTaxLotByBblHandler,
-} from "./mocks/findTaxLotByBblHandler";
+} from "./mocks/findTaxLotByBblHandler.js";
 export {
   findTaxLotGeoJsonByBblHandlerResponse200,
   findTaxLotGeoJsonByBblHandlerResponse400,
   findTaxLotGeoJsonByBblHandlerResponse404,
   findTaxLotGeoJsonByBblHandlerResponse500,
   findTaxLotGeoJsonByBblHandler,
-} from "./mocks/findTaxLotGeoJsonByBblHandler";
+} from "./mocks/findTaxLotGeoJsonByBblHandler.js";
 export {
   findTaxLotsHandlerResponse200,
   findTaxLotsHandlerResponse400,
   findTaxLotsHandlerResponse500,
   findTaxLotsHandler,
-} from "./mocks/findTaxLotsHandler";
+} from "./mocks/findTaxLotsHandler.js";
 export {
   findZoningDistrictByZoningDistrictIdHandlerResponse200,
   findZoningDistrictByZoningDistrictIdHandlerResponse400,
   findZoningDistrictByZoningDistrictIdHandlerResponse404,
   findZoningDistrictByZoningDistrictIdHandlerResponse500,
   findZoningDistrictByZoningDistrictIdHandler,
-} from "./mocks/findZoningDistrictByZoningDistrictIdHandler";
+} from "./mocks/findZoningDistrictByZoningDistrictIdHandler.js";
 export {
   findZoningDistrictClassByZoningDistrictClassIdHandlerResponse200,
   findZoningDistrictClassByZoningDistrictClassIdHandlerResponse400,
   findZoningDistrictClassByZoningDistrictClassIdHandlerResponse404,
   findZoningDistrictClassByZoningDistrictClassIdHandlerResponse500,
   findZoningDistrictClassByZoningDistrictClassIdHandler,
-} from "./mocks/findZoningDistrictClassByZoningDistrictClassIdHandler";
+} from "./mocks/findZoningDistrictClassByZoningDistrictClassIdHandler.js";
 export {
   findZoningDistrictClassCategoryColorsHandlerResponse200,
   findZoningDistrictClassCategoryColorsHandlerResponse400,
   findZoningDistrictClassCategoryColorsHandlerResponse500,
   findZoningDistrictClassCategoryColorsHandler,
-} from "./mocks/findZoningDistrictClassCategoryColorsHandler";
+} from "./mocks/findZoningDistrictClassCategoryColorsHandler.js";
 export {
   findZoningDistrictClassesByTaxLotBblHandlerResponse200,
   findZoningDistrictClassesByTaxLotBblHandlerResponse400,
   findZoningDistrictClassesByTaxLotBblHandlerResponse404,
   findZoningDistrictClassesByTaxLotBblHandlerResponse500,
   findZoningDistrictClassesByTaxLotBblHandler,
-} from "./mocks/findZoningDistrictClassesByTaxLotBblHandler";
+} from "./mocks/findZoningDistrictClassesByTaxLotBblHandler.js";
 export {
   findZoningDistrictClassesByZoningDistrictIdHandlerResponse200,
   findZoningDistrictClassesByZoningDistrictIdHandlerResponse400,
   findZoningDistrictClassesByZoningDistrictIdHandlerResponse404,
   findZoningDistrictClassesByZoningDistrictIdHandlerResponse500,
   findZoningDistrictClassesByZoningDistrictIdHandler,
-} from "./mocks/findZoningDistrictClassesByZoningDistrictIdHandler";
+} from "./mocks/findZoningDistrictClassesByZoningDistrictIdHandler.js";
 export {
   findZoningDistrictClassesHandlerResponse200,
   findZoningDistrictClassesHandlerResponse400,
   findZoningDistrictClassesHandlerResponse500,
   findZoningDistrictClassesHandler,
-} from "./mocks/findZoningDistrictClassesHandler";
+} from "./mocks/findZoningDistrictClassesHandler.js";
 export {
   findZoningDistrictsByTaxLotBblHandlerResponse200,
   findZoningDistrictsByTaxLotBblHandlerResponse400,
   findZoningDistrictsByTaxLotBblHandlerResponse404,
   findZoningDistrictsByTaxLotBblHandlerResponse500,
   findZoningDistrictsByTaxLotBblHandler,
-} from "./mocks/findZoningDistrictsByTaxLotBblHandler";
-export { handlers } from "./mocks/handlers";
-export { capitalProjectBudgetedGeoJsonTypeEnum } from "./types/CapitalProjectBudgetedGeoJson";
-export { capitalProjectCategoryEnum } from "./types/CapitalProjectCategory";
-export { cityCouncilDistrictGeoJsonTypeEnum } from "./types/CityCouncilDistrictGeoJson";
-export { communityBoardBudgetRequestGeoJsonTypeEnum } from "./types/CommunityBoardBudgetRequestGeoJson";
-export { communityBoardBudgetRequestTypeEnum } from "./types/CommunityBoardBudgetRequestType";
-export { communityDistrictGeoJsonTypeEnum } from "./types/CommunityDistrictGeoJson";
-export { findCommunityBoardBudgetRequestsQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequests";
-export { findCommunityBoardBudgetRequestsCsvQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequestsCsv";
-export { findTaxLotsQueryParamsGeometryEnum } from "./types/FindTaxLots";
-export { multiPointTypeEnum } from "./types/MultiPoint";
-export { multiPolygonTypeEnum } from "./types/MultiPolygon";
-export { taxLotGeoJsonTypeEnum } from "./types/TaxLotGeoJson";
-export { zoningDistrictClassCategoryEnum } from "./types/ZoningDistrictClassCategory";
-export { agencyBudgetSchema } from "./zod/agencyBudgetSchema";
-export { agencySchema } from "./zod/agencySchema";
-export { boroughSchema } from "./zod/boroughSchema";
-export { capitalCommitmentSchema } from "./zod/capitalCommitmentSchema";
-export { capitalCommitmentTypeSchema } from "./zod/capitalCommitmentTypeSchema";
-export { capitalProjectBudgetedGeoJsonSchema } from "./zod/capitalProjectBudgetedGeoJsonSchema";
-export { capitalProjectBudgetedSchema } from "./zod/capitalProjectBudgetedSchema";
-export { capitalProjectCategorySchema } from "./zod/capitalProjectCategorySchema";
-export { capitalProjectPageSchema } from "./zod/capitalProjectPageSchema";
-export { capitalProjectSchema } from "./zod/capitalProjectSchema";
-export { cityCouncilDistrictGeoJsonSchema } from "./zod/cityCouncilDistrictGeoJsonSchema";
-export { cityCouncilDistrictSchema } from "./zod/cityCouncilDistrictSchema";
-export { communityBoardBudgetRequestAgencyCategoryResponseSchema } from "./zod/communityBoardBudgetRequestAgencyCategoryResponseSchema";
-export { communityBoardBudgetRequestGeoJsonSchema } from "./zod/communityBoardBudgetRequestGeoJsonSchema";
-export { communityBoardBudgetRequestNeedGroupSchema } from "./zod/communityBoardBudgetRequestNeedGroupSchema";
-export { communityBoardBudgetRequestPageSchema } from "./zod/communityBoardBudgetRequestPageSchema";
-export { communityBoardBudgetRequestPolicyAreaSchema } from "./zod/communityBoardBudgetRequestPolicyAreaSchema";
-export { communityBoardBudgetRequestSchema } from "./zod/communityBoardBudgetRequestSchema";
-export { communityBoardBudgetRequestTypeSchema } from "./zod/communityBoardBudgetRequestTypeSchema";
-export { communityDistrictGeoJsonSchema } from "./zod/communityDistrictGeoJsonSchema";
-export { communityDistrictSchema } from "./zod/communityDistrictSchema";
-export { errorSchema } from "./zod/errorSchema";
+} from "./mocks/findZoningDistrictsByTaxLotBblHandler.js";
+export { handlers } from "./mocks/handlers.js";
+export { capitalProjectBudgetedGeoJsonTypeEnum } from "./types/CapitalProjectBudgetedGeoJson.js";
+export { capitalProjectCategoryEnum } from "./types/CapitalProjectCategory.js";
+export { cityCouncilDistrictGeoJsonTypeEnum } from "./types/CityCouncilDistrictGeoJson.js";
+export { communityBoardBudgetRequestGeoJsonTypeEnum } from "./types/CommunityBoardBudgetRequestGeoJson.js";
+export { communityBoardBudgetRequestTypeEnum } from "./types/CommunityBoardBudgetRequestType.js";
+export { communityDistrictGeoJsonTypeEnum } from "./types/CommunityDistrictGeoJson.js";
+export { findCommunityBoardBudgetRequestsQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequests.js";
+export { findCommunityBoardBudgetRequestsCsvQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequestsCsv.js";
+export { findTaxLotsQueryParamsGeometryEnum } from "./types/FindTaxLots.js";
+export { multiPointTypeEnum } from "./types/MultiPoint.js";
+export { multiPolygonTypeEnum } from "./types/MultiPolygon.js";
+export { taxLotGeoJsonTypeEnum } from "./types/TaxLotGeoJson.js";
+export { zoningDistrictClassCategoryEnum } from "./types/ZoningDistrictClassCategory.js";
+export { agencyBudgetSchema } from "./zod/agencyBudgetSchema.js";
+export { agencySchema } from "./zod/agencySchema.js";
+export { boroughSchema } from "./zod/boroughSchema.js";
+export { capitalCommitmentSchema } from "./zod/capitalCommitmentSchema.js";
+export { capitalCommitmentTypeSchema } from "./zod/capitalCommitmentTypeSchema.js";
+export { capitalProjectBudgetedGeoJsonSchema } from "./zod/capitalProjectBudgetedGeoJsonSchema.js";
+export { capitalProjectBudgetedSchema } from "./zod/capitalProjectBudgetedSchema.js";
+export { capitalProjectCategorySchema } from "./zod/capitalProjectCategorySchema.js";
+export { capitalProjectPageSchema } from "./zod/capitalProjectPageSchema.js";
+export { capitalProjectSchema } from "./zod/capitalProjectSchema.js";
+export { cityCouncilDistrictGeoJsonSchema } from "./zod/cityCouncilDistrictGeoJsonSchema.js";
+export { cityCouncilDistrictSchema } from "./zod/cityCouncilDistrictSchema.js";
+export { communityBoardBudgetRequestAgencyCategoryResponseSchema } from "./zod/communityBoardBudgetRequestAgencyCategoryResponseSchema.js";
+export { communityBoardBudgetRequestGeoJsonSchema } from "./zod/communityBoardBudgetRequestGeoJsonSchema.js";
+export { communityBoardBudgetRequestNeedGroupSchema } from "./zod/communityBoardBudgetRequestNeedGroupSchema.js";
+export { communityBoardBudgetRequestPageSchema } from "./zod/communityBoardBudgetRequestPageSchema.js";
+export { communityBoardBudgetRequestPolicyAreaSchema } from "./zod/communityBoardBudgetRequestPolicyAreaSchema.js";
+export { communityBoardBudgetRequestSchema } from "./zod/communityBoardBudgetRequestSchema.js";
+export { communityBoardBudgetRequestTypeSchema } from "./zod/communityBoardBudgetRequestTypeSchema.js";
+export { communityDistrictGeoJsonSchema } from "./zod/communityDistrictGeoJsonSchema.js";
+export { communityDistrictSchema } from "./zod/communityDistrictSchema.js";
+export { errorSchema } from "./zod/errorSchema.js";
 export {
   findAgencies200Schema,
   findAgencies400Schema,
   findAgencies500Schema,
   findAgenciesQueryResponseSchema,
-} from "./zod/findAgenciesSchema";
+} from "./zod/findAgenciesSchema.js";
 export {
   findAgencyBudgets200Schema,
   findAgencyBudgets400Schema,
   findAgencyBudgets500Schema,
   findAgencyBudgetsQueryResponseSchema,
-} from "./zod/findAgencyBudgetsSchema";
+} from "./zod/findAgencyBudgetsSchema.js";
 export {
   findBoroughs200Schema,
   findBoroughs400Schema,
   findBoroughs500Schema,
   findBoroughsQueryResponseSchema,
-} from "./zod/findBoroughsSchema";
+} from "./zod/findBoroughsSchema.js";
+export {
+  findBoroughTilesPathParamsSchema,
+  findBoroughTiles200Schema,
+  findBoroughTiles400Schema,
+  findBoroughTiles500Schema,
+  findBoroughTilesQueryResponseSchema,
+} from "./zod/findBoroughTilesSchema.js";
 export {
   findCapitalCommitmentsByManagingCodeCapitalProjectIdPathParamsSchema,
   findCapitalCommitmentsByManagingCodeCapitalProjectId200Schema,
@@ -1114,13 +1143,13 @@ export {
   findCapitalCommitmentsByManagingCodeCapitalProjectId404Schema,
   findCapitalCommitmentsByManagingCodeCapitalProjectId500Schema,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdQueryResponseSchema,
-} from "./zod/findCapitalCommitmentsByManagingCodeCapitalProjectIdSchema";
+} from "./zod/findCapitalCommitmentsByManagingCodeCapitalProjectIdSchema.js";
 export {
   findCapitalCommitmentTypes200Schema,
   findCapitalCommitmentTypes400Schema,
   findCapitalCommitmentTypes500Schema,
   findCapitalCommitmentTypesQueryResponseSchema,
-} from "./zod/findCapitalCommitmentTypesSchema";
+} from "./zod/findCapitalCommitmentTypesSchema.js";
 export {
   findCapitalProjectByManagingCodeCapitalProjectIdPathParamsSchema,
   findCapitalProjectByManagingCodeCapitalProjectId200Schema,
@@ -1128,7 +1157,7 @@ export {
   findCapitalProjectByManagingCodeCapitalProjectId404Schema,
   findCapitalProjectByManagingCodeCapitalProjectId500Schema,
   findCapitalProjectByManagingCodeCapitalProjectIdQueryResponseSchema,
-} from "./zod/findCapitalProjectByManagingCodeCapitalProjectIdSchema";
+} from "./zod/findCapitalProjectByManagingCodeCapitalProjectIdSchema.js";
 export {
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParamsSchema,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectId200Schema,
@@ -1136,13 +1165,13 @@ export {
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectId404Schema,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectId500Schema,
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdQueryResponseSchema,
-} from "./zod/findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdSchema";
+} from "./zod/findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdSchema.js";
 export {
   findCapitalProjectManagingAgencies200Schema,
   findCapitalProjectManagingAgencies400Schema,
   findCapitalProjectManagingAgencies500Schema,
   findCapitalProjectManagingAgenciesQueryResponseSchema,
-} from "./zod/findCapitalProjectManagingAgenciesSchema";
+} from "./zod/findCapitalProjectManagingAgenciesSchema.js";
 export {
   findCapitalProjectsByBoroughIdCommunityDistrictIdPathParamsSchema,
   findCapitalProjectsByBoroughIdCommunityDistrictIdQueryParamsSchema,
@@ -1150,7 +1179,7 @@ export {
   findCapitalProjectsByBoroughIdCommunityDistrictId400Schema,
   findCapitalProjectsByBoroughIdCommunityDistrictId500Schema,
   findCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponseSchema,
-} from "./zod/findCapitalProjectsByBoroughIdCommunityDistrictIdSchema";
+} from "./zod/findCapitalProjectsByBoroughIdCommunityDistrictIdSchema.js";
 export {
   findCapitalProjectsByCityCouncilIdPathParamsSchema,
   findCapitalProjectsByCityCouncilIdQueryParamsSchema,
@@ -1158,35 +1187,35 @@ export {
   findCapitalProjectsByCityCouncilId400Schema,
   findCapitalProjectsByCityCouncilId500Schema,
   findCapitalProjectsByCityCouncilIdQueryResponseSchema,
-} from "./zod/findCapitalProjectsByCityCouncilIdSchema";
+} from "./zod/findCapitalProjectsByCityCouncilIdSchema.js";
 export {
   findCapitalProjectsQueryParamsSchema,
   findCapitalProjects200Schema,
   findCapitalProjects400Schema,
   findCapitalProjects500Schema,
   findCapitalProjectsQueryResponseSchema,
-} from "./zod/findCapitalProjectsSchema";
+} from "./zod/findCapitalProjectsSchema.js";
 export {
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdPathParamsSchema,
   findCapitalProjectTilesByBoroughIdCommunityDistrictId200Schema,
   findCapitalProjectTilesByBoroughIdCommunityDistrictId400Schema,
   findCapitalProjectTilesByBoroughIdCommunityDistrictId500Schema,
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdQueryResponseSchema,
-} from "./zod/findCapitalProjectTilesByBoroughIdCommunityDistrictIdSchema";
+} from "./zod/findCapitalProjectTilesByBoroughIdCommunityDistrictIdSchema.js";
 export {
   findCapitalProjectTilesByCityCouncilDistrictIdPathParamsSchema,
   findCapitalProjectTilesByCityCouncilDistrictId200Schema,
   findCapitalProjectTilesByCityCouncilDistrictId400Schema,
   findCapitalProjectTilesByCityCouncilDistrictId500Schema,
   findCapitalProjectTilesByCityCouncilDistrictIdQueryResponseSchema,
-} from "./zod/findCapitalProjectTilesByCityCouncilDistrictIdSchema";
+} from "./zod/findCapitalProjectTilesByCityCouncilDistrictIdSchema.js";
 export {
   findCapitalProjectTilesPathParamsSchema,
   findCapitalProjectTiles200Schema,
   findCapitalProjectTiles400Schema,
   findCapitalProjectTiles500Schema,
   findCapitalProjectTilesQueryResponseSchema,
-} from "./zod/findCapitalProjectTilesSchema";
+} from "./zod/findCapitalProjectTilesSchema.js";
 export {
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdPathParamsSchema,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictId200Schema,
@@ -1194,33 +1223,33 @@ export {
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictId404Schema,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictId500Schema,
   findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdQueryResponseSchema,
-} from "./zod/findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdSchema";
+} from "./zod/findCityCouncilDistrictGeoJsonByCityCouncilDistrictIdSchema.js";
 export {
   findCityCouncilDistricts200Schema,
   findCityCouncilDistricts400Schema,
   findCityCouncilDistricts500Schema,
   findCityCouncilDistrictsQueryResponseSchema,
-} from "./zod/findCityCouncilDistrictsSchema";
+} from "./zod/findCityCouncilDistrictsSchema.js";
 export {
   findCityCouncilDistrictTilesPathParamsSchema,
   findCityCouncilDistrictTiles200Schema,
   findCityCouncilDistrictTiles400Schema,
   findCityCouncilDistrictTiles500Schema,
   findCityCouncilDistrictTilesQueryResponseSchema,
-} from "./zod/findCityCouncilDistrictTilesSchema";
+} from "./zod/findCityCouncilDistrictTilesSchema.js";
 export {
   findCommunityBoardBudgetRequestAgenciesQueryParamsSchema,
   findCommunityBoardBudgetRequestAgencies200Schema,
   findCommunityBoardBudgetRequestAgencies400Schema,
   findCommunityBoardBudgetRequestAgencies500Schema,
   findCommunityBoardBudgetRequestAgenciesQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestAgenciesSchema";
+} from "./zod/findCommunityBoardBudgetRequestAgenciesSchema.js";
 export {
   findCommunityBoardBudgetRequestAgencyCategoryResponses200Schema,
   findCommunityBoardBudgetRequestAgencyCategoryResponses400Schema,
   findCommunityBoardBudgetRequestAgencyCategoryResponses500Schema,
   findCommunityBoardBudgetRequestAgencyCategoryResponsesQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestAgencyCategoryResponsesSchema";
+} from "./zod/findCommunityBoardBudgetRequestAgencyCategoryResponsesSchema.js";
 export {
   findCommunityBoardBudgetRequestByIdPathParamsSchema,
   findCommunityBoardBudgetRequestById200Schema,
@@ -1228,7 +1257,7 @@ export {
   findCommunityBoardBudgetRequestById404Schema,
   findCommunityBoardBudgetRequestById500Schema,
   findCommunityBoardBudgetRequestByIdQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestByIdSchema";
+} from "./zod/findCommunityBoardBudgetRequestByIdSchema.js";
 export {
   findCommunityBoardBudgetRequestGeoJsonByIdPathParamsSchema,
   findCommunityBoardBudgetRequestGeoJsonById200Schema,
@@ -1236,56 +1265,56 @@ export {
   findCommunityBoardBudgetRequestGeoJsonById404Schema,
   findCommunityBoardBudgetRequestGeoJsonById500Schema,
   findCommunityBoardBudgetRequestGeoJsonByIdQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestGeoJsonByIdSchema";
+} from "./zod/findCommunityBoardBudgetRequestGeoJsonByIdSchema.js";
 export {
   findCommunityBoardBudgetRequestNeedGroupsQueryParamsSchema,
   findCommunityBoardBudgetRequestNeedGroups200Schema,
   findCommunityBoardBudgetRequestNeedGroups400Schema,
   findCommunityBoardBudgetRequestNeedGroups500Schema,
   findCommunityBoardBudgetRequestNeedGroupsQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestNeedGroupsSchema";
+} from "./zod/findCommunityBoardBudgetRequestNeedGroupsSchema.js";
 export {
   findCommunityBoardBudgetRequestPolicyAreasQueryParamsSchema,
   findCommunityBoardBudgetRequestPolicyAreas200Schema,
   findCommunityBoardBudgetRequestPolicyAreas400Schema,
   findCommunityBoardBudgetRequestPolicyAreas500Schema,
   findCommunityBoardBudgetRequestPolicyAreasQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestPolicyAreasSchema";
+} from "./zod/findCommunityBoardBudgetRequestPolicyAreasSchema.js";
 export {
   findCommunityBoardBudgetRequestsCsvQueryParamsSchema,
   findCommunityBoardBudgetRequestsCsv200Schema,
   findCommunityBoardBudgetRequestsCsv400Schema,
   findCommunityBoardBudgetRequestsCsv500Schema,
   findCommunityBoardBudgetRequestsCsvQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestsCsvSchema";
+} from "./zod/findCommunityBoardBudgetRequestsCsvSchema.js";
 export {
   findCommunityBoardBudgetRequestsQueryParamsSchema,
   findCommunityBoardBudgetRequests200Schema,
   findCommunityBoardBudgetRequests400Schema,
   findCommunityBoardBudgetRequests500Schema,
   findCommunityBoardBudgetRequestsQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestsSchema";
+} from "./zod/findCommunityBoardBudgetRequestsSchema.js";
 export {
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdPathParamsSchema,
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId200Schema,
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId400Schema,
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictId500Schema,
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdSchema";
+} from "./zod/findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdSchema.js";
 export {
   findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdPathParamsSchema,
   findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId200Schema,
   findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId400Schema,
   findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId500Schema,
   findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdSchema";
+} from "./zod/findCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdSchema.js";
 export {
   findCommunityBoardBudgetRequestTilesPathParamsSchema,
   findCommunityBoardBudgetRequestTiles200Schema,
   findCommunityBoardBudgetRequestTiles400Schema,
   findCommunityBoardBudgetRequestTiles500Schema,
   findCommunityBoardBudgetRequestTilesQueryResponseSchema,
-} from "./zod/findCommunityBoardBudgetRequestTilesSchema";
+} from "./zod/findCommunityBoardBudgetRequestTilesSchema.js";
 export {
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParamsSchema,
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId200Schema,
@@ -1293,7 +1322,7 @@ export {
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId404Schema,
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId500Schema,
   findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdQueryResponseSchema,
-} from "./zod/findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdSchema";
+} from "./zod/findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdSchema.js";
 export {
   findCommunityDistrictsByBoroughIdPathParamsSchema,
   findCommunityDistrictsByBoroughId200Schema,
@@ -1301,20 +1330,20 @@ export {
   findCommunityDistrictsByBoroughId404Schema,
   findCommunityDistrictsByBoroughId500Schema,
   findCommunityDistrictsByBoroughIdQueryResponseSchema,
-} from "./zod/findCommunityDistrictsByBoroughIdSchema";
+} from "./zod/findCommunityDistrictsByBoroughIdSchema.js";
 export {
   findCommunityDistrictTilesPathParamsSchema,
   findCommunityDistrictTiles200Schema,
   findCommunityDistrictTiles400Schema,
   findCommunityDistrictTiles500Schema,
   findCommunityDistrictTilesQueryResponseSchema,
-} from "./zod/findCommunityDistrictTilesSchema";
+} from "./zod/findCommunityDistrictTilesSchema.js";
 export {
   findLandUses200Schema,
   findLandUses400Schema,
   findLandUses500Schema,
   findLandUsesQueryResponseSchema,
-} from "./zod/findLandUsesSchema";
+} from "./zod/findLandUsesSchema.js";
 export {
   findTaxLotByBblPathParamsSchema,
   findTaxLotByBbl200Schema,
@@ -1322,7 +1351,7 @@ export {
   findTaxLotByBbl404Schema,
   findTaxLotByBbl500Schema,
   findTaxLotByBblQueryResponseSchema,
-} from "./zod/findTaxLotByBblSchema";
+} from "./zod/findTaxLotByBblSchema.js";
 export {
   findTaxLotGeoJsonByBblPathParamsSchema,
   findTaxLotGeoJsonByBbl200Schema,
@@ -1330,14 +1359,14 @@ export {
   findTaxLotGeoJsonByBbl404Schema,
   findTaxLotGeoJsonByBbl500Schema,
   findTaxLotGeoJsonByBblQueryResponseSchema,
-} from "./zod/findTaxLotGeoJsonByBblSchema";
+} from "./zod/findTaxLotGeoJsonByBblSchema.js";
 export {
   findTaxLotsQueryParamsSchema,
   findTaxLots200Schema,
   findTaxLots400Schema,
   findTaxLots500Schema,
   findTaxLotsQueryResponseSchema,
-} from "./zod/findTaxLotsSchema";
+} from "./zod/findTaxLotsSchema.js";
 export {
   findZoningDistrictByZoningDistrictIdPathParamsSchema,
   findZoningDistrictByZoningDistrictId200Schema,
@@ -1345,7 +1374,7 @@ export {
   findZoningDistrictByZoningDistrictId404Schema,
   findZoningDistrictByZoningDistrictId500Schema,
   findZoningDistrictByZoningDistrictIdQueryResponseSchema,
-} from "./zod/findZoningDistrictByZoningDistrictIdSchema";
+} from "./zod/findZoningDistrictByZoningDistrictIdSchema.js";
 export {
   findZoningDistrictClassByZoningDistrictClassIdPathParamsSchema,
   findZoningDistrictClassByZoningDistrictClassId200Schema,
@@ -1353,13 +1382,13 @@ export {
   findZoningDistrictClassByZoningDistrictClassId404Schema,
   findZoningDistrictClassByZoningDistrictClassId500Schema,
   findZoningDistrictClassByZoningDistrictClassIdQueryResponseSchema,
-} from "./zod/findZoningDistrictClassByZoningDistrictClassIdSchema";
+} from "./zod/findZoningDistrictClassByZoningDistrictClassIdSchema.js";
 export {
   findZoningDistrictClassCategoryColors200Schema,
   findZoningDistrictClassCategoryColors400Schema,
   findZoningDistrictClassCategoryColors500Schema,
   findZoningDistrictClassCategoryColorsQueryResponseSchema,
-} from "./zod/findZoningDistrictClassCategoryColorsSchema";
+} from "./zod/findZoningDistrictClassCategoryColorsSchema.js";
 export {
   findZoningDistrictClassesByTaxLotBblPathParamsSchema,
   findZoningDistrictClassesByTaxLotBbl200Schema,
@@ -1367,7 +1396,7 @@ export {
   findZoningDistrictClassesByTaxLotBbl404Schema,
   findZoningDistrictClassesByTaxLotBbl500Schema,
   findZoningDistrictClassesByTaxLotBblQueryResponseSchema,
-} from "./zod/findZoningDistrictClassesByTaxLotBblSchema";
+} from "./zod/findZoningDistrictClassesByTaxLotBblSchema.js";
 export {
   findZoningDistrictClassesByZoningDistrictIdPathParamsSchema,
   findZoningDistrictClassesByZoningDistrictId200Schema,
@@ -1375,13 +1404,13 @@ export {
   findZoningDistrictClassesByZoningDistrictId404Schema,
   findZoningDistrictClassesByZoningDistrictId500Schema,
   findZoningDistrictClassesByZoningDistrictIdQueryResponseSchema,
-} from "./zod/findZoningDistrictClassesByZoningDistrictIdSchema";
+} from "./zod/findZoningDistrictClassesByZoningDistrictIdSchema.js";
 export {
   findZoningDistrictClasses200Schema,
   findZoningDistrictClasses400Schema,
   findZoningDistrictClasses500Schema,
   findZoningDistrictClassesQueryResponseSchema,
-} from "./zod/findZoningDistrictClassesSchema";
+} from "./zod/findZoningDistrictClassesSchema.js";
 export {
   findZoningDistrictsByTaxLotBblPathParamsSchema,
   findZoningDistrictsByTaxLotBbl200Schema,
@@ -1389,18 +1418,18 @@ export {
   findZoningDistrictsByTaxLotBbl404Schema,
   findZoningDistrictsByTaxLotBbl500Schema,
   findZoningDistrictsByTaxLotBblQueryResponseSchema,
-} from "./zod/findZoningDistrictsByTaxLotBblSchema";
-export { landUseSchema } from "./zod/landUseSchema";
-export { multiPointSchema } from "./zod/multiPointSchema";
-export { multiPolygonSchema } from "./zod/multiPolygonSchema";
-export { MVTSchema } from "./zod/MVTSchema";
-export { pageSchema } from "./zod/pageSchema";
-export { positionSchema } from "./zod/positionSchema";
-export { taxLotBasicPageSchema } from "./zod/taxLotBasicPageSchema";
-export { taxLotBasicSchema } from "./zod/taxLotBasicSchema";
-export { taxLotGeoJsonSchema } from "./zod/taxLotGeoJsonSchema";
-export { taxLotSchema } from "./zod/taxLotSchema";
-export { zoningDistrictClassCategoryColorSchema } from "./zod/zoningDistrictClassCategoryColorSchema";
-export { zoningDistrictClassCategorySchema } from "./zod/zoningDistrictClassCategorySchema";
-export { zoningDistrictClassSchema } from "./zod/zoningDistrictClassSchema";
-export { zoningDistrictSchema } from "./zod/zoningDistrictSchema";
+} from "./zod/findZoningDistrictsByTaxLotBblSchema.js";
+export { landUseSchema } from "./zod/landUseSchema.js";
+export { multiPointSchema } from "./zod/multiPointSchema.js";
+export { multiPolygonSchema } from "./zod/multiPolygonSchema.js";
+export { MVTSchema } from "./zod/MVTSchema.js";
+export { pageSchema } from "./zod/pageSchema.js";
+export { positionSchema } from "./zod/positionSchema.js";
+export { taxLotBasicPageSchema } from "./zod/taxLotBasicPageSchema.js";
+export { taxLotBasicSchema } from "./zod/taxLotBasicSchema.js";
+export { taxLotGeoJsonSchema } from "./zod/taxLotGeoJsonSchema.js";
+export { taxLotSchema } from "./zod/taxLotSchema.js";
+export { zoningDistrictClassCategoryColorSchema } from "./zod/zoningDistrictClassCategoryColorSchema.js";
+export { zoningDistrictClassCategorySchema } from "./zod/zoningDistrictClassCategorySchema.js";
+export { zoningDistrictClassSchema } from "./zod/zoningDistrictClassSchema.js";
+export { zoningDistrictSchema } from "./zod/zoningDistrictSchema.js";

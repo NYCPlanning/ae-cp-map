@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { Borough } from "./Borough";
-import type { LandUse } from "./LandUse";
+import type { Borough } from "./Borough.js";
+import type { LandUse } from "./LandUse.js";
 
 export type TaxLot = {
   /**

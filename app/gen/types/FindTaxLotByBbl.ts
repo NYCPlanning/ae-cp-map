@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { Error } from "./Error";
-import type { TaxLot } from "./TaxLot";
+import type { Error } from "./Error.js";
+import type { TaxLot } from "./TaxLot.js";
 
 export type FindTaxLotByBblPathParams = {
   /**

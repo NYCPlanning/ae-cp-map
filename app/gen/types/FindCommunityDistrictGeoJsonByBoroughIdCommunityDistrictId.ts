@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CommunityDistrictGeoJson } from "./CommunityDistrictGeoJson";
-import type { Error } from "./Error";
+import type { CommunityDistrictGeoJson } from "./CommunityDistrictGeoJson.js";
+import type { Error } from "./Error.js";
 
 export type FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParams =
   {

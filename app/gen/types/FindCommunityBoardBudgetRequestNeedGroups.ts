@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CommunityBoardBudgetRequestNeedGroup } from "./CommunityBoardBudgetRequestNeedGroup";
-import type { Error } from "./Error";
+import type { CommunityBoardBudgetRequestNeedGroup } from "./CommunityBoardBudgetRequestNeedGroup.js";
+import type { Error } from "./Error.js";
 
 export type FindCommunityBoardBudgetRequestNeedGroupsQueryParams = {
   /**

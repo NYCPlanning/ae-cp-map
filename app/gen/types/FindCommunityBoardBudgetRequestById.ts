@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { CommunityBoardBudgetRequest } from "./CommunityBoardBudgetRequest";
-import type { Error } from "./Error";
+import type { CommunityBoardBudgetRequest } from "./CommunityBoardBudgetRequest.js";
+import type { Error } from "./Error.js";
 
 export type FindCommunityBoardBudgetRequestByIdPathParams = {
   /**

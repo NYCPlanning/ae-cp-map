@@ -7,8 +7,8 @@ import RandExp from "randexp";
 import type {
   FindCommunityBoardBudgetRequestsCsvQueryParams,
   FindCommunityBoardBudgetRequestsCsvQueryResponse,
-} from "../types/FindCommunityBoardBudgetRequestsCsv";
-import { createError } from "./createError";
+} from "../types/FindCommunityBoardBudgetRequestsCsv.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCommunityBoardBudgetRequestsCsvQueryParams(

@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { CommunityBoardBudgetRequestAgencyCategoryResponse } from "../types/CommunityBoardBudgetRequestAgencyCategoryResponse";
+import type { CommunityBoardBudgetRequestAgencyCategoryResponse } from "../types/CommunityBoardBudgetRequestAgencyCategoryResponse.js";
 import { faker } from "@faker-js/faker";
 
 export function createCommunityBoardBudgetRequestAgencyCategoryResponse(

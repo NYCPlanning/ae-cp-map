@@ -8,7 +8,7 @@ import type {
   FindLandUsesQueryResponse,
   FindLandUses400,
   FindLandUses500,
-} from "../types/FindLandUses";
+} from "../types/FindLandUses.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

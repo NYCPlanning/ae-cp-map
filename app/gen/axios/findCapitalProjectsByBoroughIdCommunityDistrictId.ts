@@ -10,7 +10,7 @@ import type {
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryParams,
   FindCapitalProjectsByBoroughIdCommunityDistrictId400,
   FindCapitalProjectsByBoroughIdCommunityDistrictId500,
-} from "../types/FindCapitalProjectsByBoroughIdCommunityDistrictId";
+} from "../types/FindCapitalProjectsByBoroughIdCommunityDistrictId.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

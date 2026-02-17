@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import type { Agency } from "./Agency";
-import type { Error } from "./Error";
+import type { Agency } from "./Agency.js";
+import type { Error } from "./Error.js";
 
 /**
  * @description An object containing capital project managing agencies\n

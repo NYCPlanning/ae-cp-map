@@ -10,7 +10,7 @@ import type {
   FindTaxLotByBbl400,
   FindTaxLotByBbl404,
   FindTaxLotByBbl500,
-} from "../types/FindTaxLotByBbl";
+} from "../types/FindTaxLotByBbl.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

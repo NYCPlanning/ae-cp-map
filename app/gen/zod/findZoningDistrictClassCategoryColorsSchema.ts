@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { errorSchema } from "./errorSchema";
-import { zoningDistrictClassCategoryColorSchema } from "./zoningDistrictClassCategoryColorSchema";
+import { errorSchema } from "./errorSchema.js";
+import { zoningDistrictClassCategoryColorSchema } from "./zoningDistrictClassCategoryColorSchema.js";
 import { z } from "zod";
 
 /**

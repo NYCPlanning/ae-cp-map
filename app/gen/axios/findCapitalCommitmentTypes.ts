@@ -8,7 +8,7 @@ import type {
   FindCapitalCommitmentTypesQueryResponse,
   FindCapitalCommitmentTypes400,
   FindCapitalCommitmentTypes500,
-} from "../types/FindCapitalCommitmentTypes";
+} from "../types/FindCapitalCommitmentTypes.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

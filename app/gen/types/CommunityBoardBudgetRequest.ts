@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import type { CommunityBoardBudgetRequestType } from "./CommunityBoardBudgetRequestType";
+import type { CommunityBoardBudgetRequestType } from "./CommunityBoardBudgetRequestType.js";
 
 export type CommunityBoardBudgetRequest = {
   /**

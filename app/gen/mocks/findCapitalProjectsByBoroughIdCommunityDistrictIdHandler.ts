@@ -7,7 +7,7 @@ import type {
   FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryResponse,
   FindCapitalProjectsByBoroughIdCommunityDistrictId400,
   FindCapitalProjectsByBoroughIdCommunityDistrictId500,
-} from "../types/FindCapitalProjectsByBoroughIdCommunityDistrictId";
+} from "../types/FindCapitalProjectsByBoroughIdCommunityDistrictId.js";
 import { http } from "msw";
 
 export function findCapitalProjectsByBoroughIdCommunityDistrictIdHandlerResponse200(

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import { pageSchema } from "./pageSchema";
-import { taxLotBasicSchema } from "./taxLotBasicSchema";
+import { pageSchema } from "./pageSchema.js";
+import { taxLotBasicSchema } from "./taxLotBasicSchema.js";
 import { z } from "zod";
 
 export const taxLotBasicPageSchema = z

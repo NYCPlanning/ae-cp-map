@@ -4,10 +4,10 @@
  */
 
 import RandExp from "randexp";
-import type { CommunityBoardBudgetRequestGeoJson } from "../types/CommunityBoardBudgetRequestGeoJson";
-import { createCommunityBoardBudgetRequest } from "./createCommunityBoardBudgetRequest";
-import { createMultiPoint } from "./createMultiPoint";
-import { createMultiPolygon } from "./createMultiPolygon";
+import type { CommunityBoardBudgetRequestGeoJson } from "../types/CommunityBoardBudgetRequestGeoJson.js";
+import { createCommunityBoardBudgetRequest } from "./createCommunityBoardBudgetRequest.js";
+import { createMultiPoint } from "./createMultiPoint.js";
+import { createMultiPolygon } from "./createMultiPolygon.js";
 import { faker } from "@faker-js/faker";
 
 export function createCommunityBoardBudgetRequestGeoJson(

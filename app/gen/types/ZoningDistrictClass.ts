@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import type { ZoningDistrictClassCategory } from "./ZoningDistrictClassCategory";
+import type { ZoningDistrictClassCategory } from "./ZoningDistrictClassCategory.js";
 
 export type ZoningDistrictClass = {
   /**

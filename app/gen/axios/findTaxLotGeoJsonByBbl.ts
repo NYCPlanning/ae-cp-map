@@ -10,7 +10,7 @@ import type {
   FindTaxLotGeoJsonByBbl400,
   FindTaxLotGeoJsonByBbl404,
   FindTaxLotGeoJsonByBbl500,
-} from "../types/FindTaxLotGeoJsonByBbl";
+} from "../types/FindTaxLotGeoJsonByBbl.js";
 import type {
   RequestConfig,
   ResponseErrorConfig,

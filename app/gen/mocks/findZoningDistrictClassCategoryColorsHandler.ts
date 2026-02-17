@@ -7,7 +7,7 @@ import type {
   FindZoningDistrictClassCategoryColorsQueryResponse,
   FindZoningDistrictClassCategoryColors400,
   FindZoningDistrictClassCategoryColors500,
-} from "../types/FindZoningDistrictClassCategoryColors";
+} from "../types/FindZoningDistrictClassCategoryColors.js";
 import { http } from "msw";
 
 export function findZoningDistrictClassCategoryColorsHandlerResponse200(

@@ -4,7 +4,7 @@
  */
 
 import RandExp from "randexp";
-import type { ZoningDistrict } from "../types/ZoningDistrict";
+import type { ZoningDistrict } from "../types/ZoningDistrict.js";
 import { faker } from "@faker-js/faker";
 
 export function createZoningDistrict(

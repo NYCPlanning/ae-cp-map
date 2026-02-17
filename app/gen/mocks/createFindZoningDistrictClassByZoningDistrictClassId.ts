@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindZoningDistrictClassByZoningDistrictClassIdPathParams,
   FindZoningDistrictClassByZoningDistrictClassIdQueryResponse,
-} from "../types/FindZoningDistrictClassByZoningDistrictClassId";
-import { createError } from "./createError";
-import { createZoningDistrictClass } from "./createZoningDistrictClass";
+} from "../types/FindZoningDistrictClassByZoningDistrictClassId.js";
+import { createError } from "./createError.js";
+import { createZoningDistrictClass } from "./createZoningDistrictClass.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindZoningDistrictClassByZoningDistrictClassIdPathParams(

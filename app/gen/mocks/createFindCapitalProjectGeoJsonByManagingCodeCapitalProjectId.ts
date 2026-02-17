@@ -7,9 +7,9 @@ import RandExp from "randexp";
 import type {
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParams,
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdQueryResponse,
-} from "../types/FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId";
-import { createCapitalProjectBudgetedGeoJson } from "./createCapitalProjectBudgetedGeoJson";
-import { createError } from "./createError";
+} from "../types/FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId.js";
+import { createCapitalProjectBudgetedGeoJson } from "./createCapitalProjectBudgetedGeoJson.js";
+import { createError } from "./createError.js";
 import { faker } from "@faker-js/faker";
 
 export function createFindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParams(
