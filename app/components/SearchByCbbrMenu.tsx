@@ -34,6 +34,8 @@ export interface SearchByCbbrMenuProps {
   cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
   cbbrAgencyCategoryResponseIds: Array<CommunityBoardBudgetRequestAgencyCategoryResponseId> | null;
   onClear: () => void;
+  filtersAccordionIndex: Array<number>;
+  setFiltersAccordionIndex: (newIndexArray: Array<number>) => void;
 }
 
 export const SearchByCbbrMenu = ({
@@ -42,6 +44,8 @@ export const SearchByCbbrMenu = ({
   cbbrAgencies,
   cbbrAgencyCategoryResponses,
   onClear,
+  filtersAccordionIndex,
+  setFiltersAccordionIndex,
 }: SearchByCbbrMenuProps) => {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const cbbrPolicyAreaId = searchParams.get(
@@ -87,6 +91,13 @@ export const SearchByCbbrMenu = ({
             aria-label="Close search by attribute menu"
             paddingY={0}
             paddingX={3}
+            onClick={() => {
+              isExpanded
+                ? setFiltersAccordionIndex(
+                    filtersAccordionIndex.filter((index) => index !== 1),
+                  )
+                : setFiltersAccordionIndex([...filtersAccordionIndex, 1]);
+            }}
           >
             <Heading
               flex="1"
