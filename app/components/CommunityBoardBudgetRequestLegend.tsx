@@ -18,7 +18,9 @@ import {
 } from "@nycplanning/streetscape";
 import { env } from "~/utils/env";
 
-export function CommunityBoardBudgetRequestLegend() {
+export const CommunityBoardBudgetRequestLegend = ({
+  updateFiltersAccordion,
+}: CommunityBoardBudgetRequestLegendProps) => {
   return (
     <AccordionItem
       fontFamily="body"
@@ -36,6 +38,7 @@ export function CommunityBoardBudgetRequestLegend() {
             aria-label="Toggle legend panel"
             paddingY={0}
             paddingX={3}
+            onClick={updateFiltersAccordion}
           >
             <Heading
               flex="1"
@@ -172,4 +175,7 @@ export function CommunityBoardBudgetRequestLegend() {
       )}
     </AccordionItem>
   );
+};
+export interface CommunityBoardBudgetRequestLegendProps {
+  updateFiltersAccordion: () => void;
 }

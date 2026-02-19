@@ -23,6 +23,7 @@ export const SearchByAttributeMenu = ({
   agencies,
   projectTypes,
   onClear,
+  updateFiltersAccordion,
 }: SearchByAttributeMenuProps) => {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const managingAgency = searchParams.get(
@@ -59,6 +60,7 @@ export const SearchByAttributeMenu = ({
             aria-label="Close search by attribute menu"
             paddingY={0}
             paddingX={3}
+            onClick={updateFiltersAccordion}
           >
             <Heading
               flex="1"
@@ -112,4 +114,5 @@ export interface SearchByAttributeMenuProps {
   agencies: Array<Agency> | null;
   projectTypes: Array<AgencyBudget> | null;
   onClear: () => void;
+  updateFiltersAccordion: () => void;
 }

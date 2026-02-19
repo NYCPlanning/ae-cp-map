@@ -1,4 +1,18 @@
-import { Flex, GridItem, Accordion, Box, Collapse, AccordionItem, AccordionButton, Heading, AccordionIcon, AccordionPanel } from "@nycplanning/streetscape";
+import {
+  Flex,
+  GridItem,
+  Accordion,
+  Box,
+  Collapse,
+  AccordionItem,
+  AccordionButton,
+  Heading,
+  AccordionIcon,
+  AccordionPanel,
+  Text,
+  HStack,
+  Link,
+} from "@nycplanning/streetscape";
 import {
   Outlet,
   useLoaderData,
@@ -187,6 +201,19 @@ export default function MapPage() {
   const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
   const showCbbr = searchParams.get("cbbr") !== "off";
   const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
+  const [filtersAccordionIndex, setFiltersAccordionIndex] = useState<number[]>(
+    [],
+  );
+  const updateFiltersAccordion = (index: number) => {
+    const updateFunction = () => {
+      filtersAccordionIndex.includes(index)
+        ? setFiltersAccordionIndex(
+            filtersAccordionIndex.filter((i) => i !== index),
+          )
+        : setFiltersAccordionIndex([...filtersAccordionIndex, index]);
+    };
+    return updateFunction;
+  };
 
   const {
     boroughs,
@@ -292,38 +319,78 @@ export default function MapPage() {
                   </Heading>
                   <AccordionIcon />
                 </AccordionButton>
-                <AccordionPanel px={0} py={0}>
+                <AccordionPanel px={0} pt={2} pb={0}>
                   <Box>
-                    <Box display={"flex"} flexDirection={"column"} gap={2} paddingBottom={2}>
-                      <CapitalProjectLayerToggle />
-                      <SearchByAttributeMenu
-                        agencies={managingAgencies}
-                        projectTypes={agencyBudgets}
-                        onClear={clearCapitalProjectFilters} />
-                      <CommunityBoardBudgetRequestLayerToggle />
-                      <SearchByCbbrMenu
-                        cbbrPolicyAreas={cbbrPolicyAreas}
-                        cbbrNeedGroups={cbbrNeedGroups}
-                        cbbrAgencies={cbbrAgencies}
-                        cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
-                        cbbrAgencyCategoryResponseIds={cbbrAgencyCategoryResponseIds}
-                        onClear={clearCbbrProjectFilters} />
-                      <CommunityBoardBudgetRequestLegend />
-                    </Box>
+                    <Accordion
+                      allowMultiple
+                      index={filtersAccordionIndex}
+                      width={"100%"}
+                    >
+                      <Box
+                        display={"flex"}
+                        flexDirection={"column"}
+                        paddingBottom={2}
+                      >
+                        <Text fontSize={"xs"}>Layer Filters</Text>
+                        <HStack fontSize={"sm"} paddingBottom={2}>
+                          <Link
+                            color={"primary.600"}
+                            textDecor={"underline"}
+                            cursor={"pointer"}
+                            onClick={() => setFiltersAccordionIndex([0, 1, 2])}
+                          >
+                            Expand All
+                          </Link>
+                          <Text>|</Text>
+                          <Link
+                            color={"primary.600"}
+                            textDecor={"underline"}
+                            cursor={"pointer"}
+                            onClick={() => setFiltersAccordionIndex([])}
+                          >
+                            Collapse All
+                          </Link>
+                        </HStack>
+                        <Box display={"flex"} flexDirection={"column"} gap={2}>
+                          <CapitalProjectLayerToggle />
+                          <SearchByAttributeMenu
+                            agencies={managingAgencies}
+                            projectTypes={agencyBudgets}
+                            onClear={clearCapitalProjectFilters}
+                            updateFiltersAccordion={updateFiltersAccordion(0)}
+                          />
+                          <CommunityBoardBudgetRequestLayerToggle />
+                          <SearchByCbbrMenu
+                            cbbrPolicyAreas={cbbrPolicyAreas}
+                            cbbrNeedGroups={cbbrNeedGroups}
+                            cbbrAgencies={cbbrAgencies}
+                            cbbrAgencyCategoryResponses={
+                              cbbrAgencyCategoryResponses
+                            }
+                            cbbrAgencyCategoryResponseIds={
+                              cbbrAgencyCategoryResponseIds
+                            }
+                            onClear={clearCbbrProjectFilters}
+                            updateFiltersAccordion={updateFiltersAccordion(1)}
+                          />
+                          <CommunityBoardBudgetRequestLegend
+                            updateFiltersAccordion={updateFiltersAccordion(2)}
+                          />
+                        </Box>
+                      </Box>
+                    </Accordion>
                     <Box display={"flex"} flexDirection={"column"} gap={2}>
                       <FilterMenu
                         boroughs={boroughs}
                         communityDistricts={communityDistricts}
-                        cityCouncilDistricts={cityCouncilDistricts} />
-
+                        cityCouncilDistricts={cityCouncilDistricts}
+                      />
                     </Box>
 
                     <HowToUseThisTool />
                   </Box>
                 </AccordionPanel>
               </AccordionItem>
-
-
             </Accordion>
           ) : (
             <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
@@ -334,6 +401,7 @@ export default function MapPage() {
                     agencies={managingAgencies}
                     projectTypes={agencyBudgets}
                     onClear={clearCapitalProjectFilters}
+                    updateFiltersAccordion={updateFiltersAccordion(0)}
                   />
                   <CommunityBoardBudgetRequestLayerToggle />
                   <SearchByCbbrMenu
@@ -341,10 +409,15 @@ export default function MapPage() {
                     cbbrNeedGroups={cbbrNeedGroups}
                     cbbrAgencies={cbbrAgencies}
                     cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
-                    cbbrAgencyCategoryResponseIds={cbbrAgencyCategoryResponseIds}
+                    cbbrAgencyCategoryResponseIds={
+                      cbbrAgencyCategoryResponseIds
+                    }
                     onClear={clearCbbrProjectFilters}
+                    updateFiltersAccordion={updateFiltersAccordion(1)}
                   />
-                  <CommunityBoardBudgetRequestLegend />
+                  <CommunityBoardBudgetRequestLegend
+                    updateFiltersAccordion={updateFiltersAccordion(2)}
+                  />
                 </Box>
               </MapLayersPanel>
               <FilterMenu
@@ -354,8 +427,7 @@ export default function MapPage() {
               />
               <HowToUseThisTool />
             </Accordion>
-          )
-          }
+          )}
         </Flex>
       </GridItem>
       <GridItem
