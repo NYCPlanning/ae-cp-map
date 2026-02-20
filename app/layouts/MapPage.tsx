@@ -326,6 +326,7 @@ export default function MapPage() {
                           <Link
                             color={"primary.600"}
                             textDecor={"underline"}
+                            cursor={"pointer"}
                             onClick={() => setFiltersAccordionIndex([0, 1, 2])}
                           >
                             Expand All
@@ -334,6 +335,7 @@ export default function MapPage() {
                           <Link
                             color={"primary.600"}
                             textDecor={"underline"}
+                            cursor={"pointer"}
                             onClick={() => setFiltersAccordionIndex([])}
                           >
                             Collapse All
