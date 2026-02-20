@@ -23,6 +23,8 @@ export const SearchByAttributeMenu = ({
   agencies,
   projectTypes,
   onClear,
+  filtersAccordionIndex,
+  setFiltersAccordionIndex,
 }: SearchByAttributeMenuProps) => {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const managingAgency = searchParams.get(
@@ -59,6 +61,13 @@ export const SearchByAttributeMenu = ({
             aria-label="Close search by attribute menu"
             paddingY={0}
             paddingX={3}
+            onClick={() => {
+              isExpanded
+                ? setFiltersAccordionIndex(
+                    filtersAccordionIndex.filter((index) => index !== 0),
+                  )
+                : setFiltersAccordionIndex([...filtersAccordionIndex, 0]);
+            }}
           >
             <Heading
               flex="1"
@@ -112,4 +121,6 @@ export interface SearchByAttributeMenuProps {
   agencies: Array<Agency> | null;
   projectTypes: Array<AgencyBudget> | null;
   onClear: () => void;
+  filtersAccordionIndex: Array<number>;
+  setFiltersAccordionIndex: (newIndexArray: Array<number>) => void;
 }

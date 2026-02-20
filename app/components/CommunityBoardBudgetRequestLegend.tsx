@@ -18,7 +18,10 @@ import {
 } from "@nycplanning/streetscape";
 import { env } from "~/utils/env";
 
-export function CommunityBoardBudgetRequestLegend() {
+export const CommunityBoardBudgetRequestLegend = ({
+  filtersAccordionIndex,
+  setFiltersAccordionIndex,
+}: CommunityBoardBudgetRequestLegendProps) => {
   return (
     <AccordionItem
       fontFamily="body"
@@ -36,6 +39,13 @@ export function CommunityBoardBudgetRequestLegend() {
             aria-label="Toggle legend panel"
             paddingY={0}
             paddingX={3}
+            onClick={() => {
+              isExpanded
+                ? setFiltersAccordionIndex(
+                    filtersAccordionIndex.filter((index) => index !== 2),
+                  )
+                : setFiltersAccordionIndex([...filtersAccordionIndex, 2]);
+            }}
           >
             <Heading
               flex="1"
@@ -172,4 +182,8 @@ export function CommunityBoardBudgetRequestLegend() {
       )}
     </AccordionItem>
   );
+};
+export interface CommunityBoardBudgetRequestLegendProps {
+  filtersAccordionIndex: Array<number>;
+  setFiltersAccordionIndex: (newIndexArray: Array<number>) => void;
 }
