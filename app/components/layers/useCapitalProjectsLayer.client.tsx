@@ -8,6 +8,8 @@ import {
 import {
   DataFilterExtension,
   DataFilterExtensionProps,
+  MaskExtension,
+  MaskExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import {
@@ -49,6 +51,7 @@ export function useCapitalProjectsLayer(opts: {
   const districtType = searchParams.get("districtType") as DistrictType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
+  const districtIds = searchParams.get("districtIds") as DistrictId;
   const min = commitmentsTotalMin
     ? parseFloat(commitmentsTotalMin)
     : -1000000000000;
@@ -68,7 +71,6 @@ export function useCapitalProjectsLayer(opts: {
   } else if (onCapitalProjectsInCommunityDistrictPath) {
     endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
   }
-
   const loaderData = useLoaderData<typeof mapPageLoader>();
 
   const fullAgencyAcronymList = loaderData.managingAgencies
@@ -77,12 +79,11 @@ export function useCapitalProjectsLayer(opts: {
 
   return new MVTLayer<
     CapitalProjectProperties,
-    DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>>
+    DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>> &
+      MaskExtensionProps
   >({
     id: "capitalProjects",
-    data: [
-      `${zoningApiUrl}/api/${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
-    ],
+    data: [`${zoningApiUrl}/api/capital-projects/{z}/{x}/{y}.pbf`],
     uniqueIdProperty: "managingCodeCapitalProjectId",
     autoHighlight: true,
     visible,
@@ -149,10 +150,14 @@ export function useCapitalProjectsLayer(opts: {
       getFilterCategory: [agencyBudget],
     },
     extensions: [
+      new MaskExtension(),
       new DataFilterExtension({
         filterSize: 1,
         categorySize: 2,
       }),
     ],
+    maskId: `${districtIds !== null ? "boundary-mvt" : ""}`,
+    maskByInstance: true, //doesn't seem to have an effect
+    maskInverted: false,
   });
 }

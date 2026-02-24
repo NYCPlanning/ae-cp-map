@@ -18,6 +18,7 @@ export type CommunityBoardBudgetRequestAgencyCategoryResponseId = string | null;
 export type AdminQueryParams = {
   districtType?: DistrictType;
   districtId?: DistrictId;
+  districtIds?: Array<DistrictId>;
   boroughId?: BoroughId;
 };
 

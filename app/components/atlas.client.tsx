@@ -15,6 +15,7 @@ import {
 import type { MapView, MapViewState } from "@deck.gl/core";
 import { FlyToInterpolator } from "@deck.gl/core";
 import { env } from "~/utils/env";
+import { useBoundaryMVTMask } from "./layers/useBoundaryMVTMask.client";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
@@ -50,6 +51,7 @@ export function Atlas({
     hoveredCapitalProject: hoveredOverItem,
     setHoveredOverProject: setHoveredOverItem,
   });
+  const boundaryMvtMask = useBoundaryMVTMask();
   const capitalProjectBudgetedGeoJsonLayer =
     useCapitalProjectBudgetedGeoJsonLayer();
 
@@ -136,14 +138,15 @@ export function Atlas({
         position: "relative",
       }}
       layers={[
-        capitalProjectsLayer,
-        capitalProjectBudgetedGeoJsonLayer,
         communityDistrictsLayer,
         communityDistrictLayer,
-        communityBoardBudgetRequestsLayer,
-        communityBoardBudgetRequestGeoJsonLayer,
         cityCouncilDistrictsLayer,
         cityCouncilDistrictLayer,
+        boundaryMvtMask,
+        capitalProjectsLayer,
+        capitalProjectBudgetedGeoJsonLayer,
+        communityBoardBudgetRequestsLayer,
+        communityBoardBudgetRequestGeoJsonLayer,
       ]}
       getCursor={({ isDragging, isHovering }) => {
         if (isDragging) {
