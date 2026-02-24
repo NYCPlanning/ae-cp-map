@@ -1,7 +1,9 @@
 export { useCapitalProjectsLayer } from "./useCapitalProjectsLayer.client";
 export { useCommunityDistrictsLayer } from "./useCommunityDistrictsLayer.client";
+export { useCommunityDistrictsOutlinesLayer } from "./useCommunityDistrictsOutlinesLayer.client";
 export { useCommunityDistrictLayer } from "./useCommunityDistrictLayer.client";
 export { useCityCouncilDistrictsLayer } from "./useCityCouncilDistrictsLayer.client";
+export { useCityCouncilDistrictsOutlinesLayer } from "./useCityCouncilDistrictsOutlinesLayer.client";
 export { useCityCouncilDistrictLayer } from "./useCityCouncilDistrictLayer.client";
 export { useCapitalProjectBudgetedGeoJsonLayer } from "./useCapitalProjectBudgetedGeoJsonLayer.client";
 export { useCommunityBoardBudgetRequestsLayer } from "./useCommunityBoardBudgetRequestsLayer.client";

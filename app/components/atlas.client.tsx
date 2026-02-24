@@ -5,7 +5,9 @@ import "@deck.gl/widgets/stylesheet.css";
 import {
   useCapitalProjectsLayer,
   useCommunityDistrictsLayer,
+  useCommunityDistrictsOutlinesLayer,
   useCityCouncilDistrictsLayer,
+  useCityCouncilDistrictsOutlinesLayer,
   useCommunityDistrictLayer,
   useCommunityBoardBudgetRequestsLayer,
   useCityCouncilDistrictLayer,
@@ -18,7 +20,7 @@ import { env } from "~/utils/env";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
-const { basemapUrl } = env;
+const { basemapUrl, facDbPhase1 } = env;
 
 export const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
@@ -77,10 +79,38 @@ export function Atlas({
     useCommunityBoardBudgetRequestsGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer();
   const communityDistrictLayer = useCommunityDistrictLayer();
+  const communityDistrictsOutlinesLayer = useCommunityDistrictsOutlinesLayer();
 
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
-
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
+  const cityCouncilDistrictsOutlinesLayer =
+    useCityCouncilDistrictsOutlinesLayer();
+
+  const LAYER_LIST =
+    facDbPhase1 == "ON"
+      ? [
+          capitalProjectsLayer,
+          capitalProjectBudgetedGeoJsonLayer,
+          communityDistrictsOutlinesLayer,
+          cityCouncilDistrictsOutlinesLayer,
+          communityDistrictsLayer,
+          communityDistrictLayer,
+          communityBoardBudgetRequestsLayer,
+          communityBoardBudgetRequestGeoJsonLayer,
+          cityCouncilDistrictsLayer,
+          cityCouncilDistrictLayer,
+        ]
+      : [
+          capitalProjectsLayer,
+          capitalProjectBudgetedGeoJsonLayer,
+          communityDistrictsLayer,
+          communityDistrictLayer,
+          communityBoardBudgetRequestsLayer,
+          communityBoardBudgetRequestGeoJsonLayer,
+          cityCouncilDistrictsLayer,
+          cityCouncilDistrictLayer,
+        ];
+
   return (
     <DeckGL<MapView>
       viewState={viewState}
@@ -135,16 +165,7 @@ export function Atlas({
       style={{
         position: "relative",
       }}
-      layers={[
-        capitalProjectsLayer,
-        capitalProjectBudgetedGeoJsonLayer,
-        communityDistrictsLayer,
-        communityDistrictLayer,
-        communityBoardBudgetRequestsLayer,
-        communityBoardBudgetRequestGeoJsonLayer,
-        cityCouncilDistrictsLayer,
-        cityCouncilDistrictLayer,
-      ]}
+      layers={LAYER_LIST}
       getCursor={({ isDragging, isHovering }) => {
         if (isDragging) {
           return "grabbing";
