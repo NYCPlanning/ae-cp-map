@@ -8,6 +8,8 @@ import {
 import {
   DataFilterExtension,
   DataFilterExtensionProps,
+  MaskExtension,
+  MaskExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import {
@@ -23,7 +25,7 @@ import { env } from "~/utils/env";
 import { CommunityBoardBudgetRequestType } from "~/gen";
 import { IconClusterLayer } from "./icon-cluster-layer";
 
-const { zoningApiUrl } = env;
+const { zoningApiUrl, facDbPhase1 } = env;
 
 export type CommunityBoardBudgetRequestProperties = {
   id: string;
@@ -108,6 +110,151 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
   const fullAgencyCategoryResponseList = loaderData.cbbrAgencyCategoryResponses
     ? loaderData.cbbrAgencyCategoryResponses.map((data) => data.id)
     : [];
+
+  if (facDbPhase1 == "ON")
+    return new MVTLayer<
+      CommunityBoardBudgetRequestProperties,
+      DataFilterExtensionProps<
+        Feature<Geometry, CommunityBoardBudgetRequestProperties>
+      > &
+        MaskExtensionProps
+    >({
+      id: "communityBoardBudgetRequests",
+      data: [
+        `${zoningApiUrl}/api/community-board-budget-requests/{z}/{x}/{y}.pbf`,
+      ],
+      visible,
+      uniqueIdProperty: "id",
+      getFillColor: ({ properties }) => {
+        if (properties.id === hoveredCbbr) {
+          return [43, 108, 176, 100];
+        } else {
+          return [43, 108, 176, 153];
+        }
+      },
+      pointType: "icon",
+      getLineColor: [255, 255, 255, 255],
+      getLineWidth: 1,
+      iconAtlas: `/policy-area-icons/all-icons.png`,
+      iconMapping: `/mapping.json`,
+      pickable: true,
+      updateTriggers: {
+        getFillColor: [hoveredCbbr],
+        getIcon: [cbbrId],
+        getIconSize: [cbbrId],
+        getIconColor: [hoveredCbbr],
+      },
+      onHover: (info) => {
+        if (info.index === -1) {
+          setHoveredOverCbbr(null);
+        } else {
+          setHoveredOverCbbr(info.object?.properties?.id ?? null);
+        }
+      },
+      onClick: (data) => {
+        if (data.object.properties.cluster !== true) {
+          const individualCbbrId = data.object?.properties?.id;
+          if (individualCbbrId === undefined) return;
+          if (individualCbbrId === `${cbbrId}`) return;
+          const cbbrRouteSuffix = `/community-board-budget-requests/${individualCbbrId}`;
+          navigate({
+            pathname: `${cbbrRouteSuffix}`,
+            search: `?${searchParams.toString()}`,
+          });
+        } else {
+          onClusterClick(
+            data.object.properties.expansionZoom,
+            data.object.geometry.coordinates[1],
+            data.object.geometry.coordinates[0],
+          );
+        }
+      },
+      iconSizeScale: 25,
+      binary: false,
+      getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
+        if (d.properties.cluster !== true) {
+          const icon = policyAreaIconsMap[d.properties.policyAreaId];
+          if (cbbrId === d.properties.id) {
+            return null;
+          } else {
+            return `${icon}`;
+          }
+        } else {
+          const size = d.properties.point_count;
+          if (size === 0) {
+            return `marker-1`;
+          }
+          if (size < 10) {
+            return `marker-${size}`;
+          }
+          if (size < 150) {
+            return `marker-${Math.floor(size / 10)}0`;
+          }
+          return "marker-150";
+        }
+      },
+      getIconSize: (d: {
+        properties: CommunityBoardBudgetRequestProperties;
+      }) => {
+        if (d.properties.cluster !== true) {
+          if (cbbrId === d.properties.id) {
+            return 1.2;
+          } else {
+            return 1;
+          }
+        } else {
+          return Math.min(150, d.properties.point_count) / 100 + 1;
+        }
+      },
+      getIconColor: (d: {
+        properties: CommunityBoardBudgetRequestProperties;
+      }) => {
+        if (d.properties.id === hoveredCbbr) {
+          return [255, 255, 255, 200];
+        } else {
+          return [43, 108, 176, 255];
+        }
+      },
+      getFilterCategory: (d) => {
+        const {
+          agencyInitials,
+          needGroupId,
+          policyAreaId,
+          agencyCategoryReponseId,
+          requestType,
+        } = d.properties;
+        return [
+          agencyInitials,
+          needGroupId,
+          `${requestType}-${policyAreaId}`,
+          agencyCategoryReponseId,
+        ];
+      },
+      filterCategories: [
+        cbbrAgencyInitials !== null ? [cbbrAgencyInitials] : fullAgencyList,
+        cbbrNeedGroupId !== null ? [cbbrNeedGroupId] : fullNeedGroupList,
+        cbbrPolicyAreaId !== null
+          ? [`Capital-${cbbrPolicyAreaId}`]
+          : fullPolicyAreaList,
+        cbbrAgencyCategoryResponseIds.length > 0
+          ? cbbrAgencyCategoryResponseIds
+          : fullAgencyCategoryResponseList,
+      ],
+      _subLayerProps: {
+        "points-icon": {
+          type: IconClusterLayer<CommunityBoardBudgetRequestProperties>,
+        },
+      },
+      extensions: [
+        new MaskExtension(),
+        new DataFilterExtension({
+          categorySize: 4,
+        }),
+      ],
+      maskId: `${districtId !== null ? "boundary-mvt" : ""}`,
+      maskByInstance: true, //doesn't seem to have an effect
+      maskInverted: false,
+    });
 
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
