@@ -8,6 +8,8 @@ import {
 import {
   DataFilterExtension,
   DataFilterExtensionProps,
+  MaskExtension,
+  MaskExtensionProps,
 } from "@deck.gl/extensions";
 import type { Feature, Geometry } from "geojson";
 import {
@@ -20,7 +22,7 @@ import {
 import { env } from "~/utils/env";
 import { loader as mapPageLoader } from "~/layouts/MapPage";
 
-const { zoningApiUrl } = env;
+const { zoningApiUrl, facDbPhase1 } = env;
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
@@ -74,6 +76,93 @@ export function useCapitalProjectsLayer(opts: {
   const fullAgencyAcronymList = loaderData.managingAgencies
     ? loaderData.managingAgencies.map((agency) => agency.initials)
     : [];
+
+  if (facDbPhase1 == "ON")
+    return new MVTLayer<
+      CapitalProjectProperties,
+      DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>> &
+        MaskExtensionProps
+    >({
+      id: "capitalProjects",
+      data: [`${zoningApiUrl}/api/capital-projects/{z}/{x}/{y}.pbf`],
+      uniqueIdProperty: "managingCodeCapitalProjectId",
+      autoHighlight: true,
+      visible,
+      highlightColor: [129, 230, 217, 218],
+      highlightedFeatureId: hoveredCapitalProject,
+      pickable: true,
+      getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
+        f.properties.commitmentsTotal,
+      filterRange: [min, max],
+      getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => {
+        const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
+        return [
+          f.properties.managingAgency,
+          agencyBudget === null || agencyBudgets.includes(agencyBudget) ? 1 : 0,
+        ];
+      },
+      filterCategories: [
+        managingAgency === null ? fullAgencyAcronymList : [managingAgency],
+        [1],
+      ],
+      getFillColor: ({ properties }) => {
+        const { managingCodeCapitalProjectId } = properties;
+        switch (managingCodeCapitalProjectId) {
+          case `${managingCode}${capitalProjectId}`:
+            return [56, 178, 172, 166];
+          default:
+            return [217, 107, 39, 166];
+        }
+      },
+      getPointRadius: 5,
+      getLineColor: [255, 255, 255, 255],
+      getLineWidth: 1,
+      onHover: (data) => {
+        const managingCodeCapitalProjectId =
+          data.object?.properties?.managingCodeCapitalProjectId;
+        if (data.index === -1) {
+          setHoveredOverProject(null);
+        } else if (managingCodeCapitalProjectId !== undefined) {
+          setHoveredOverProject(managingCodeCapitalProjectId);
+        }
+      },
+      onClick: (data) => {
+        const managingCodeCapitalProjectId =
+          data.object?.properties?.managingCodeCapitalProjectId;
+
+        if (managingCodeCapitalProjectId === undefined) return;
+        // Avoid adding the same capital project to the history stack
+        if (
+          managingCodeCapitalProjectId === `${managingCode}${capitalProjectId}`
+        )
+          return;
+        const [nextManagingCode, nextCapitalProjectId] = [
+          managingCodeCapitalProjectId.slice(0, 3),
+          managingCodeCapitalProjectId.slice(3),
+        ];
+
+        const capitalProjectRouteSuffix = `capital-projects/${nextManagingCode}/${nextCapitalProjectId}`;
+        navigate({
+          pathname: `${endpointPrefix}${capitalProjectRouteSuffix}`,
+          search: `?${searchParams.toString()}`,
+        });
+      },
+      updateTriggers: {
+        getFillColor: [managingCode, capitalProjectId],
+        getPointColor: [managingCode, capitalProjectId],
+        getFilterCategory: [agencyBudget],
+      },
+      extensions: [
+        new MaskExtension(),
+        new DataFilterExtension({
+          filterSize: 1,
+          categorySize: 2,
+        }),
+      ],
+      maskId: `${districtId !== null ? "boundary-mvt" : ""}`,
+      maskByInstance: true, //doesn't seem to have an effect
+      maskInverted: false,
+    });
 
   return new MVTLayer<
     CapitalProjectProperties,
