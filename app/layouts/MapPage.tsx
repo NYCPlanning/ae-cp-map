@@ -332,23 +332,54 @@ export default function MapPage() {
                         paddingBottom={2}
                       >
                         <Text fontSize={"xs"}>Layer Filters</Text>
-                        <HStack fontSize={"sm"} paddingBottom={2}>
+                        <HStack
+                          fontSize={"sm"}
+                          paddingBottom={2}
+                          width={"100%"}
+                          justifyContent={"space-between"}
+                          whiteSpace={"nowrap"}
+                          flexWrap={"wrap"}
+                          rowGap={0}
+                        >
+                          <HStack>
+                            <Link
+                              color={"primary.600"}
+                              textDecor={"underline"}
+                              cursor={"pointer"}
+                              onClick={() =>
+                                setFiltersAccordionIndex([0, 1, 2])
+                              }
+                            >
+                              Expand All
+                            </Link>
+                            <Text>|</Text>
+                            <Link
+                              color={"primary.600"}
+                              textDecor={"underline"}
+                              cursor={"pointer"}
+                              onClick={() => setFiltersAccordionIndex([])}
+                            >
+                              Collapse All
+                            </Link>
+                          </HStack>
                           <Link
                             color={"primary.600"}
                             textDecor={"underline"}
                             cursor={"pointer"}
-                            onClick={() => setFiltersAccordionIndex([0, 1, 2])}
+                            onClick={() =>
+                              updateSearchParams({
+                                managingAgency: null,
+                                agencyBudget: null,
+                                commitmentsTotalMin: null,
+                                commitmentsTotalMax: null,
+                                cbbrPolicyAreaId: null,
+                                cbbrNeedGroupId: null,
+                                cbbrAgencyInitials: null,
+                                cbbrAgencyCategoryResponseIds: null,
+                              })
+                            }
                           >
-                            Expand All
-                          </Link>
-                          <Text>|</Text>
-                          <Link
-                            color={"primary.600"}
-                            textDecor={"underline"}
-                            cursor={"pointer"}
-                            onClick={() => setFiltersAccordionIndex([])}
-                          >
-                            Collapse All
+                            Clear All
                           </Link>
                         </HStack>
                         <Box display={"flex"} flexDirection={"column"} gap={2}>
