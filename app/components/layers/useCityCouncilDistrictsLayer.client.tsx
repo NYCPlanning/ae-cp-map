@@ -14,7 +14,7 @@ export function useCityCouncilDistrictsLayer() {
 
   return new MVTLayer<CityCouncilDistrictProperties>({
     id: "CityCouncilDistricts",
-    data: [`${zoningApiUrl}/api/city-council-districts/{z}/{x}/{y}.pbf`],
+    data: [`http://localhost/data/city-council-districts/{z}/{x}/{y}.pbf`],
     visible: districtType === "ccd",
     uniqueIdProperty: "boroughIdCityCouncilDistrictId",
     pickable: true,

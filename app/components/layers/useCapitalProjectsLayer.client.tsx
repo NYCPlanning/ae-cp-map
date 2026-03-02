@@ -81,7 +81,7 @@ export function useCapitalProjectsLayer(opts: {
   >({
     id: "capitalProjects",
     data: [
-      `${zoningApiUrl}/api/${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
+      `${endpointPrefix === "" ? "http://localhost/data/" : zoningApiUrl + "/api/"}${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
     ],
     uniqueIdProperty: "managingCodeCapitalProjectId",
     autoHighlight: true,
