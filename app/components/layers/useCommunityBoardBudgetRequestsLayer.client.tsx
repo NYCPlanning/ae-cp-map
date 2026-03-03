@@ -1,10 +1,5 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
-import {
-  useNavigate,
-  useParams,
-  useLoaderData,
-  useSearchParams,
-} from "react-router";
+import { useNavigate, useParams, useSearchParams } from "react-router";
 import {
   DataFilterExtension,
   DataFilterExtensionProps,
@@ -18,7 +13,6 @@ import {
   DistrictId,
   DistrictType,
 } from "../../utils/types";
-import { loader as mapPageLoader } from "../../layouts/MapPage";
 import { env } from "~/utils/env";
 import { CommunityBoardBudgetRequestType } from "~/gen";
 import { IconClusterLayer } from "./icon-cluster-layer";
@@ -54,7 +48,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const districtId = searchParams.get("districtId") as DistrictId;
   const cbbrNeedGroupId = searchParams.get(
-    "cbbrNeedGroupIds",
+    "cbbrNeedGroupId",
   ) as CommunityBoardBudgetRequestNeedGroupId;
   const cbbrPolicyAreaId = searchParams.get(
     "cbbrPolicyAreaId",
@@ -91,23 +85,6 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     7: "parks",
     8: "other",
   };
-  const loaderData = useLoaderData<typeof mapPageLoader>();
-
-  const fullAgencyList = loaderData.cbbrAgencies
-    ? loaderData.cbbrAgencies.map((data) => data.initials)
-    : [];
-
-  const fullNeedGroupList = loaderData.cbbrNeedGroups
-    ? loaderData.cbbrNeedGroups.map((data) => data.id)
-    : [];
-
-  const fullPolicyAreaList = loaderData.cbbrPolicyAreas
-    ? loaderData.cbbrPolicyAreas.map((data) => `Capital-${data.id}`)
-    : [];
-
-  const fullAgencyCategoryResponseList = loaderData.cbbrAgencyCategoryResponses
-    ? loaderData.cbbrAgencyCategoryResponses.map((data) => data.id)
-    : [];
 
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
@@ -139,6 +116,12 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       getIcon: [cbbrId],
       getIconSize: [cbbrId],
       getIconColor: [hoveredCbbr],
+      getFilterValue: [
+        cbbrPolicyAreaId,
+        cbbrNeedGroupId,
+        cbbrAgencyInitials,
+        cbbrAgencyCategoryResponseIds,
+      ],
     },
     onHover: (info) => {
       if (info.index === -1) {
@@ -209,39 +192,53 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
         return [43, 108, 176, 255];
       }
     },
-    getFilterCategory: (d) => {
-      const {
-        agencyInitials,
-        needGroupId,
-        policyAreaId,
-        agencyCategoryReponseId,
-        requestType,
-      } = d.properties;
-      return [
-        agencyInitials,
-        needGroupId,
-        `${requestType}-${policyAreaId}`,
-        agencyCategoryReponseId,
-      ];
+    getFilterValue: (d) => {
+      // Do not filter points, they are filtered in Icon sublayer
+      if (d.geometry.type === "Point") return 1;
+
+      // Filter out if it does not match one of the user selected filters
+      if (
+        cbbrPolicyAreaId !== null &&
+        d.properties.policyAreaId !== parseInt(cbbrPolicyAreaId)
+      )
+        return 0;
+
+      if (
+        cbbrNeedGroupId !== null &&
+        d.properties.needGroupId !== parseInt(cbbrNeedGroupId)
+      )
+        return 0;
+
+      if (
+        cbbrAgencyInitials !== null &&
+        d.properties.agencyInitials !== cbbrAgencyInitials
+      )
+        return 0;
+
+      if (
+        cbbrAgencyCategoryResponseIds.length > 0 &&
+        !cbbrAgencyCategoryResponseIds.includes(
+          parseInt(d.properties.agencyCategoryReponseId),
+        )
+      )
+        return 0;
+
+      // Otherwise, display it
+      return 1;
     },
-    filterCategories: [
-      cbbrAgencyInitials !== null ? [cbbrAgencyInitials] : fullAgencyList,
-      cbbrNeedGroupId !== null ? [cbbrNeedGroupId] : fullNeedGroupList,
-      cbbrPolicyAreaId !== null
-        ? [`Capital-${cbbrPolicyAreaId}`]
-        : fullPolicyAreaList,
-      cbbrAgencyCategoryResponseIds.length > 0
-        ? cbbrAgencyCategoryResponseIds
-        : fullAgencyCategoryResponseList,
-    ],
+    filterRange: [1, 1],
     _subLayerProps: {
       "points-icon": {
         type: IconClusterLayer<CommunityBoardBudgetRequestProperties>,
+        policyAreaId: cbbrPolicyAreaId ? parseInt(cbbrPolicyAreaId) : null,
+        needGroupId: cbbrNeedGroupId ? parseInt(cbbrNeedGroupId) : null,
+        agencyInitials: cbbrAgencyInitials,
+        agencyCategoryResponseIds: cbbrAgencyCategoryResponseIds,
       },
     },
     extensions: [
       new DataFilterExtension({
-        categorySize: 4,
+        filterSize: 1,
       }),
     ],
   });

@@ -13,6 +13,13 @@ export type IconClusterLayerPickingInfo<DataT> = PickingInfo<
   DataT | (DataT & ClusterProperties)
 >;
 
+export interface IconClusterLayerProps {
+  policyAreaId: number | null;
+  needGroupId: number | null;
+  agencyInitials: string | null;
+  agencyCategoryResponseIds: number[] | [];
+}
+
 export class IconClusterLayer<
   PropertiesT extends Record<string, unknown> & { id: string },
 > extends CompositeLayer<Required<IconLayerProps<PropertiesT>>> {
@@ -32,6 +39,7 @@ export class IconClusterLayer<
     const rebuildIndex =
       changeFlags.dataChanged ||
       props.sizeScale !== oldProps.sizeScale ||
+      props.updateTriggers !== oldProps.updateTriggers ||
       z !== this.state.z;
     const minZoom = 10;
     const maxZoom = 15;
@@ -49,8 +57,49 @@ export class IconClusterLayer<
           return;
         },
       });
+
+      const {
+        policyAreaId,
+        needGroupId,
+        agencyInitials,
+        agencyCategoryResponseIds,
+      } = props as IconClusterLayerProps;
+
+      const filteredData = (props.data as PropertiesT[]).reduce<PropertiesT[]>(
+        (acc, point) => {
+          if (
+            policyAreaId !== null &&
+            point.__source.object.properties.policyAreaId !== policyAreaId
+          )
+            return acc;
+
+          if (
+            needGroupId !== null &&
+            point.__source.object.properties.needGroupId !== needGroupId
+          )
+            return acc;
+
+          if (
+            agencyInitials !== null &&
+            point.__source.object.properties.agencyInitials !== agencyInitials
+          )
+            return acc;
+
+          if (
+            agencyCategoryResponseIds.length > 0 &&
+            !agencyCategoryResponseIds.includes(
+              point.__source.object.properties.agencyCategoryReponseId,
+            )
+          )
+            return acc;
+
+          return [...acc, point];
+        },
+        [],
+      );
+
       index.load(
-        (props.data as PropertiesT[]).map((d) => {
+        (filteredData as PropertiesT[]).map((d) => {
           return {
             type: "Feature",
             geometry: {
@@ -67,10 +116,8 @@ export class IconClusterLayer<
         }),
       );
       this.setState({ index });
-    }
-    if (rebuildIndex || z !== this.state.z) {
-      const _data = this.state.index.getClusters([-100, 0, 100, 100], z);
 
+      const _data = index.getClusters([-100, 0, 100, 100], z);
       const data = _data.map((d) => {
         const result = {
           id:
@@ -85,9 +132,18 @@ export class IconClusterLayer<
               d.properties.cluster === true
                 ? (d.properties as ClusterProperties).cluster_id.toString()
                 : d.properties.id,
-            expansionZoom: this.state.index.getClusterExpansionZoom(
+            expansionZoom: index.getClusterExpansionZoom(
               (d.properties as ClusterProperties).cluster_id,
             ),
+            collection:
+              d.properties.cluster === true
+                ? [
+                    d.properties,
+                    ...index
+                      .getLeaves(parseInt(d.id), Infinity)
+                      .map((child) => child.properties),
+                  ]
+                : [],
           },
         };
         return result;
