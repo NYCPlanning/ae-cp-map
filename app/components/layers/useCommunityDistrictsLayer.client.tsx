@@ -6,7 +6,7 @@ const { zoningApiUrl } = env;
 export interface CommunityDistrictProperties {
   boroughIdCommunityDistrictId: string;
   layerName: string;
-  abbr: string | null;
+  boroughAbbr: string | null;
 }
 
 export function useCommunityDistrictsLayer() {
@@ -15,7 +15,7 @@ export function useCommunityDistrictsLayer() {
 
   return new MVTLayer<CommunityDistrictProperties>({
     id: "CommunityDistricts",
-    data: [`${zoningApiUrl}/api/community-districts/{z}/{x}/{y}.pbf`],
+    data: [`http://localhost/data/community-districts/{z}/{x}/{y}.pbf`],
     visible: districtType === "cd",
     uniqueIdProperty: "boroughIdCommunityDistrictId",
     pickable: true,
@@ -25,13 +25,8 @@ export function useCommunityDistrictsLayer() {
     getLineWidth: 3,
     lineWidthUnits: "pixels",
     pointType: "text",
-    getText: ({ properties }: { properties: CommunityDistrictProperties }) => {
-      // If CommunityDistrictId > 18, the area represents a Park, not a Community District
-      if (parseInt(properties.boroughIdCommunityDistrictId.slice(-2)) > 18) {
-        return null;
-      }
-      return `${properties.abbr} ${parseInt(properties.boroughIdCommunityDistrictId.slice(-2))}`;
-    },
+    getText: ({ properties }: { properties: CommunityDistrictProperties }) =>
+      `${properties.boroughAbbr} ${parseInt(properties.boroughIdCommunityDistrictId.slice(-2))}`,
     getTextColor: [98, 98, 98, 255],
     textFontFamily: "Helvetica Neue, Arial, sans-serif",
     getTextSize: 15,
