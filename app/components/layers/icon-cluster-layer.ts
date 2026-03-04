@@ -65,25 +65,25 @@ export class IconClusterLayer<
         agencyCategoryResponseIds,
       } = props as IconClusterLayerProps;
 
-      const filteredData = (props.data as PropertiesT[]).reduce<PropertiesT[]>(
-        (acc, point) => {
+      const filteredData = (props.data as PropertiesT[]).filter(
+        (point) => {
           if (
             policyAreaId !== null &&
             point.__source.object.properties.policyAreaId !== policyAreaId
           )
-            return acc;
+            return false;
 
           if (
             needGroupId !== null &&
             point.__source.object.properties.needGroupId !== needGroupId
           )
-            return acc;
+            return false;
 
           if (
             agencyInitials !== null &&
             point.__source.object.properties.agencyInitials !== agencyInitials
           )
-            return acc;
+            return false;
 
           if (
             agencyCategoryResponseIds.length > 0 &&
@@ -91,11 +91,10 @@ export class IconClusterLayer<
               point.__source.object.properties.agencyCategoryReponseId,
             )
           )
-            return acc;
+            return false;
 
-          return [...acc, point];
-        },
-        [],
+          return true;
+        }
       );
 
       index.load(
