@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import { initializeMatomoTagManager } from "./utils/analytics";
 import { HeaderBar } from "./components/HeaderBar";
 import { INITIAL_VIEW_STATE } from "./components/atlas.client";
+import { env } from "~/utils/env";
 
 export const links: LinksFunction = () => {
   return [
@@ -104,10 +105,17 @@ export default function App() {
                 xl: "0 0.94dw",
                 "2xl": "0 0.78dw",
               }}
-              templateRows={{
-                base: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh 7dvh",
-                md: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh",
-              }}
+              templateRows={
+                env.facDbPhase1 == "ON"
+                  ? {
+                      base: "7dvh 2dvh [row-start] auto 1fr [row-end] 2dvh 7dvh",
+                      md: "7dvh 2dvh [row-start] auto 1fr [row-end] 2dvh",
+                    }
+                  : {
+                      base: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh 7dvh",
+                      md: "7dvh 2dvh [row-start] 1fr [row-end] 2dvh",
+                    }
+              }
               height="100vh"
             >
               <HeaderBar clearSelections={clearAllFilters} />
