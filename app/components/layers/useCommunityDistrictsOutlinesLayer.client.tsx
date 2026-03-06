@@ -17,7 +17,7 @@ export function useCommunityDistrictsOutlinesLayer() {
   return new MVTLayer<CommunityDistrictProperties>({
     id: "CommunityDistrictsOutlines",
     data: [`${zoningApiUrl}/api/community-districts/{z}/{x}/{y}.pbf`],
-    visible: districtType === "cd",
+    visible: districtType === "cd" || districtType === null,
     uniqueIdProperty: "boroughIdCommunityDistrictId",
     pickable: false,
     getLineColor: [113, 128, 150, 255],

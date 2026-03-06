@@ -211,8 +211,8 @@ export default function MapPage() {
     const updateFunction = () => {
       filtersAccordionIndex.includes(index)
         ? setFiltersAccordionIndex(
-          filtersAccordionIndex.filter((i) => i !== index),
-        )
+            filtersAccordionIndex.filter((i) => i !== index),
+          )
         : setFiltersAccordionIndex([...filtersAccordionIndex, index]);
     };
     return updateFunction;
@@ -367,16 +367,6 @@ export default function MapPage() {
                 }}
               >
                 City Council
-              </Tab>
-              <Tab
-                key={"Boroughs"}
-                fontSize={{
-                  base: "xs",
-                  md: "sm",
-                }}
-                onClick={() => null}
-              >
-                Boroughs
               </Tab>
             </TabList>
           </Tabs>

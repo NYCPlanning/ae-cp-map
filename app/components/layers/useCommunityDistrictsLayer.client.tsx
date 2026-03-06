@@ -22,7 +22,7 @@ export function useCommunityDistrictsLayer() {
     return new MVTLayer<CommunityDistrictProperties>({
       id: "CommunityDistricts",
       data: [`${zoningApiUrl}/api/community-districts/{z}/{x}/{y}.pbf`],
-      visible: districtType === "cd",
+      visible: districtType === "cd" || districtType === null,
       uniqueIdProperty: "boroughIdCommunityDistrictId",
       pickable: true,
       getPointRadius: 5,
@@ -74,11 +74,13 @@ export function useCommunityDistrictsLayer() {
         if (newDistrictId <= 18) {
           if (boroughId === newBoroughId && districtId === newDistrictId) {
             updateSearchParams({
+              districtType: "cd",
               boroughId: null,
               districtId: null,
             });
           } else {
             updateSearchParams({
+              districtType: "cd",
               boroughId: info.object.properties.boroughIdCommunityDistrictId[0],
               districtId:
                 info.object.properties.boroughIdCommunityDistrictId.slice(1),
