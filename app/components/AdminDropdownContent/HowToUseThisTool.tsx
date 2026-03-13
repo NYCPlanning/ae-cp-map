@@ -10,7 +10,7 @@ import { env } from "~/utils/env";
 
 export function HowToUseThisTool() {
   return (
-    <AccordionItem borderBottom={ env.facDbPhase1 == "ON" ? "none" : ""}>
+    <AccordionItem borderBottom={env.facDbPhase1 == "ON" ? "none" : ""}>
       <AccordionButton aria-label="Toggle how to use this tool panel" p={0}>
         <Heading
           flex="1"

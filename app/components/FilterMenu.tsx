@@ -47,7 +47,7 @@ export const FilterMenu = ({
   };
 
   return (
-    <AccordionItem borderBottom={ env.facDbPhase1 == "ON" ? "none" : ""}>
+    <AccordionItem borderBottom={env.facDbPhase1 == "ON" ? "none" : ""}>
       <AccordionButton aria-label="Close geography filter menu" p={0}>
         <Heading
           flex="1"

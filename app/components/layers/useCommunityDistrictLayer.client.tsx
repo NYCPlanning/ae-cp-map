@@ -21,11 +21,12 @@ export function useCommunityDistrictLayer() {
     id: "CommunityDistrict",
     data,
     visible: hasCommunityDistrict,
-    filled: false,
+    filled: true,
+    getFillColor: [119, 128, 190, 128],
     stroked: true,
     lineWidthUnits: "pixels",
     getLineWidth: 3,
-    getLineColor: [49, 151, 149],
+    getLineColor: [48, 66, 100],
     extensions: [new FlyToGeoJsonExtension()],
   });
 }
