@@ -16,7 +16,7 @@ jobs:
             - name: Deploy to Heroku
               uses: akhileshns/heroku-deploy@v3.13.15
               with:
-                heroku_email: tmatteo@planning.nyc.gov
+                heroku_email: dhochbaum@planning.nyc.gov
                 heroku_api_key: ${{secrets.DH_HEROKU_API_KEY}}
                 heroku_app_name: ${{secrets.HEROKU_APP_NAME}}
                 team: ${{secrets.HEROKU_TEAM}}
