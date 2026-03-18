@@ -28,7 +28,7 @@
     "@emotion/styled": "^11.14.0",
     "@kubb/plugin-client": "^4.24.0",
     "@kubb/swagger-client": "^2.28.4",
-    "@nycplanning/streetscape": "^0.20.0",
+    "@nycplanning/streetscape": "^0.21.2",
     "@react-router/node": "^7.13.0",
     "@react-router/serve": "^7.13.0",
     "@turf/bbox": "^7.2.0",

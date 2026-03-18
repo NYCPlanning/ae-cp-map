@@ -5,6 +5,7 @@ const {
   VITE_BASEMAP_URL,
   VITE_CPDB_DATA_URL,
   VITE_FACDB_PHASE_1,
+  VITE_FACDB_PHASE_2,
 } = import.meta.env;
 
 export const env = envSchema.parse({
@@ -12,4 +13,5 @@ export const env = envSchema.parse({
   basemapUrl: VITE_BASEMAP_URL,
   cpdbDataUrl: VITE_CPDB_DATA_URL,
   facDbPhase1: VITE_FACDB_PHASE_1,
+  facDbPhase2: VITE_FACDB_PHASE_2,
 });
