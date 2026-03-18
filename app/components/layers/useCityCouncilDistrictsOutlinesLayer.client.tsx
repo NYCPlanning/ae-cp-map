@@ -10,13 +10,13 @@ export interface CityCouncilDistrictProperties {
 
 export function useCityCouncilDistrictsOutlinesLayer() {
   const [searchParams] = useSearchParams();
-  const districtType = searchParams.get("districtType");
+  const boundaryType = searchParams.get("boundaryType");
 
   return new MVTLayer<CityCouncilDistrictProperties>({
     id: "CityCouncilDistrictsOutlines",
     data: [`${zoningApiUrl}/api/city-council-districts/{z}/{x}/{y}.pbf`],
-    visible: districtType === "ccd",
-    uniqueIdProperty: "boroughIdCityCouncilDistrictId",
+    visible: boundaryType === "ccd",
+    uniqueIdProperty: "cityCouncilDistrictId",
     pickable: false,
     getLineColor: [113, 128, 150, 255],
     getLineWidth: 1,

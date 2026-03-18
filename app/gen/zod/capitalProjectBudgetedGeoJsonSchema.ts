@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { capitalProjectBudgetedSchema } from "./capitalProjectBudgetedSchema";
 import { multiPointSchema } from "./multiPointSchema";
 import { multiPolygonSchema } from "./multiPolygonSchema";
-import { z } from "zod";
 
 export const capitalProjectBudgetedGeoJsonSchema = z.object({
   id: z

@@ -17,8 +17,20 @@ export function createFindCapitalProjectsQueryParams(
 ): FindCapitalProjectsQueryParams {
   return {
     ...{
+      boroughIds: faker.helpers.multiple(
+        () => new RandExp("^([0-9]{1})$").gen(),
+        { count: { min: 1, max: 5 } },
+      ),
       communityDistrictId: new RandExp("^([0-9]{3})$").gen(),
+      communityDistrictIds: faker.helpers.multiple(
+        () => new RandExp("^([0-9]{3})$").gen(),
+        { count: { min: 1, max: 10 } },
+      ),
       cityCouncilDistrictId: new RandExp("^([0-9]{1,2})$").gen(),
+      cityCouncilDistrictIds: faker.helpers.multiple(
+        () => new RandExp("^([0-9]{1,2})$").gen(),
+        { count: { min: 1, max: 10 } },
+      ),
       managingAgency: faker.string.alpha(),
       agencyBudget: faker.string.alpha(),
       commitmentsTotalMin: new RandExp(
@@ -30,6 +42,16 @@ export function createFindCapitalProjectsQueryParams(
       isMapped: faker.datatype.boolean(),
       limit: faker.number.int({ min: 1, max: 100 }),
       offset: faker.number.int({ min: 0 }),
+      geometry: faker.helpers.arrayElement<
+        NonNullable<FindCapitalProjectsQueryParams>["geometry"]
+      >(["Point"]),
+      lons: faker.helpers.multiple(() => faker.number.float(), {
+        count: { min: 1, max: 1 },
+      }),
+      lats: faker.helpers.multiple(() => faker.number.float(), {
+        count: { min: 1, max: 1 },
+      }),
+      buffer: faker.number.float({ min: 0 }),
     },
     ...(data || {}),
   };

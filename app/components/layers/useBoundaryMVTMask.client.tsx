@@ -5,18 +5,19 @@ import {
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { env } from "~/utils/env";
 import { useSearchParams } from "react-router";
-import { BoroughId, DistrictId, DistrictType } from "../../utils/types";
+import { BoroughId, BoundaryId, BoundaryType } from "../../utils/types";
 import { CommunityDistrictProperties } from "./useCommunityDistrictsLayer.client";
 
 const { zoningApiUrl } = env;
 
 export function useBoundaryMVTMask() {
   const [searchParams] = useSearchParams();
-  const districtType = searchParams.get("districtType") as DistrictType;
+  const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
-  const districtId = searchParams.get("districtId") as DistrictId;
+  const boroughIds = searchParams.get("boroughIds") as BoroughId;
+  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
 
-  switch (districtType) {
+  switch (boundaryType) {
     case "cd":
       return new MVTLayer<unknown, DataFilterExtensionProps>({
         id: "boundary-mvt",
@@ -31,8 +32,22 @@ export function useBoundaryMVTMask() {
           return properties.boroughIdCommunityDistrictId;
         },
         filterCategories: [
-          boroughId && districtId ? `${boroughId}${districtId}` : "",
+          boroughId && boundaryId ? `${boroughId}${boundaryId}` : "",
         ],
+        extensions: [
+          new DataFilterExtension({
+            categorySize: 1,
+          }),
+        ],
+        operation: "mask",
+      });
+    case "borough":
+      return new MVTLayer<unknown, DataFilterExtensionProps>({
+        id: "boundary-mvt",
+        data: [`${zoningApiUrl}/api/boroughs/{z}/{x}/{y}.pbf`],
+        binary: false,
+        getFilterCategory: ({ properties }) => properties.id,
+        filterCategories: [boroughIds ? boroughIds : ""],
         extensions: [
           new DataFilterExtension({
             categorySize: 1,
@@ -47,7 +62,7 @@ export function useBoundaryMVTMask() {
         // https://github.com/visgl/deck.gl/issues/8919#issuecomment-2134505299
         binary: false,
         getFilterCategory: ({ properties }) => properties.id,
-        filterCategories: [districtId ? districtId : ""],
+        filterCategories: [boundaryId ? boundaryId : ""],
         extensions: [
           new DataFilterExtension({
             categorySize: 1,

@@ -14,8 +14,8 @@ import {
 import type { Feature, Geometry } from "geojson";
 import {
   BoroughId,
-  DistrictId,
-  DistrictType,
+  BoundaryId,
+  BoundaryType,
   CommitmentsTotalMin,
   CommitmentsTotalMax,
 } from "../../utils/types";
@@ -52,9 +52,10 @@ export function useCapitalProjectsLayer(opts: {
   const commitmentsTotalMax = searchParams.get(
     "commitmentsTotalMax",
   ) as CommitmentsTotalMax;
-  const districtType = searchParams.get("districtType") as DistrictType;
+  const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
-  const districtId = searchParams.get("districtId") as DistrictId;
+  const boroughIds = searchParams.get("boroughIds") as BoroughId;
+  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
   const min = commitmentsTotalMin
     ? parseFloat(commitmentsTotalMin)
     : -1000000000000;
@@ -64,15 +65,15 @@ export function useCapitalProjectsLayer(opts: {
   const navigate = useNavigate();
 
   const onCapitalProjectsInCityCouncilDistrictPath =
-    districtType === "ccd" && districtId !== null;
+    boundaryType === "ccd" && boundaryId !== null;
   const onCapitalProjectsInCommunityDistrictPath =
-    districtType === "cd" && boroughId !== null && districtId !== null;
+    boundaryType === "cd" && boroughId !== null && boundaryId !== null;
 
   let endpointPrefix = "";
   if (onCapitalProjectsInCityCouncilDistrictPath) {
-    endpointPrefix = `city-council-districts/${districtId}/`;
+    endpointPrefix = `city-council-districts/${boundaryId}/`;
   } else if (onCapitalProjectsInCommunityDistrictPath) {
-    endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
+    endpointPrefix = `boroughs/${boroughId}/community-districts/${boundaryId}/`;
   }
 
   const loaderData = useLoaderData<typeof mapPageLoader>();
@@ -154,8 +155,14 @@ export function useCapitalProjectsLayer(opts: {
         getPointColor: [managingCode, capitalProjectId],
         getFilterCategory: [agencyBudget],
       },
-      extensions: [maskExtension, dataFilterExtension],
-      maskId: `${districtId !== null ? "boundary-mvt" : ""}`,
+      extensions: [
+        new MaskExtension(),
+        new DataFilterExtension({
+          filterSize: 1,
+          categorySize: 2,
+        }),
+      ],
+      maskId: `${(boundaryId !== null && (boundaryType === "cd" || boundaryType === "ccd")) || (boroughIds !== null && boundaryType === "borough") ? "boundary-mvt" : ""}`,
       maskByInstance: true, //doesn't seem to have an effect
       maskInverted: false,
       _subLayerProps: {
@@ -169,7 +176,7 @@ export function useCapitalProjectsLayer(opts: {
           fillPatternMapping: "/mapping.json",
           getFillPattern: "1x1",
           fillPatternAtlas: "/1x1.svg",
-          maskId: `${districtId !== null ? "boundary-mvt" : ""}`,
+          maskId: `${boundaryId !== null ? "boundary-mvt" : ""}`,
           maskByInstance: true, //doesn't seem to have an effect
           maskInverted: false,
           getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
@@ -201,7 +208,7 @@ export function useCapitalProjectsLayer(opts: {
           fillPatternMapping: "/mapping.json",
           getFillPattern: "1x1",
           fillPatternAtlas: "/1x1.svg",
-          maskId: `${districtId !== null ? "boundary-mvt" : ""}`,
+          maskId: `${boundaryId !== null ? "boundary-mvt" : ""}`,
           maskByInstance: true, //doesn't seem to have an effect
           maskInverted: false,
           getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>

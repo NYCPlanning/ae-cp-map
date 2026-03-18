@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { communityBoardBudgetRequestAgencyCategoryResponseSchema } from "./communityBoardBudgetRequestAgencyCategoryResponseSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 /**
  * @description An object containing a list of agency reponse categories

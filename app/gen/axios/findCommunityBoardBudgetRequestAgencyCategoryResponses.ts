@@ -10,6 +10,7 @@ import type {
   FindCommunityBoardBudgetRequestAgencyCategoryResponses500,
 } from "../types/FindCommunityBoardBudgetRequestAgencyCategoryResponses";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -27,7 +28,7 @@ function getFindCommunityBoardBudgetRequestAgencyCategoryResponsesUrl() {
  * {@link /community-board-budget-requests/agency-category-responses}
  */
 export async function findCommunityBoardBudgetRequestAgencyCategoryResponses(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

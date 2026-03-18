@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { communityBoardBudgetRequestTypeSchema } from "./communityBoardBudgetRequestTypeSchema";
-import { z } from "zod";
 
 export const communityBoardBudgetRequestSchema = z.object({
   id: z.string().describe("The id for the community board budget request."),

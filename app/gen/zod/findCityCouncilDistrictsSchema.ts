@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { cityCouncilDistrictSchema } from "./cityCouncilDistrictSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 /**
  * @description an object of city council districts

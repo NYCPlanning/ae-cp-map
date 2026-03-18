@@ -11,6 +11,7 @@ import type {
   FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId500,
 } from "../types/FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictId";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -37,7 +38,7 @@ export async function findCommunityBoardBudgetRequestTilesByCityCouncilDistrictI
   z: FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdPathParams["z"],
   x: FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdPathParams["x"],
   y: FindCommunityBoardBudgetRequestTilesByCityCouncilDistrictIdPathParams["y"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

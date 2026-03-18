@@ -41,8 +41,8 @@ import {
   CommunityBoardBudgetRequestAgencyCategoryResponseId,
   CommunityBoardBudgetRequestNeedGroupId,
   CommunityBoardBudgetRequestPolicyAreaId,
-  DistrictId,
-  DistrictType,
+  BoundaryId,
+  BoundaryType,
 } from "../utils/types";
 import { HowToUseThisTool } from "../components/AdminDropdownContent/HowToUseThisTool";
 import {
@@ -59,8 +59,9 @@ import { MapLayersPanel } from "~/components/AdminMapLayersPanel";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
-  const districtType = url.searchParams.get("districtType") as DistrictType;
+  const boundaryType = url.searchParams.get("boundaryType") as BoundaryType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
+  const boroughIds = url.searchParams.get("boroughIds") as BoroughId;
   const cbbrNeedGroupId = url.searchParams.get(
     "cbbrNeedGroupId",
   ) as CommunityBoardBudgetRequestNeedGroupId;
@@ -125,7 +126,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       baseURL: `${env.zoningApiUrl}/api`,
     });
 
-  if (districtType === "cd") {
+  if (boundaryType === "cd") {
     const { boroughs } = await findBoroughs({
       baseURL: `${env.zoningApiUrl}/api`,
     });
@@ -166,7 +167,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     }
   }
 
-  if (districtType === "ccd") {
+  if (boundaryType === "ccd") {
     const { cityCouncilDistricts } = await findCityCouncilDistricts({
       baseURL: `${env.zoningApiUrl}/api`,
     });
@@ -249,23 +250,27 @@ export default function MapPage() {
     });
   };
 
-  const districtType = searchParams.get("districtType") as DistrictType;
-  const districtId = searchParams.get("districtId") as DistrictId;
+  const boundaryType = searchParams.get("boundaryType") as BoundaryType;
+  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
   const boroughId = searchParams.get("boroughId") as BoroughId;
+  const boroughIds = searchParams.get("boroughIds") as BoroughId;
 
-  const getDefaultIndex = (type: DistrictType | null) => {
+  const getDefaultIndex = (type: BoundaryType | null) => {
     switch (type) {
       case "ccd":
         return 1;
+      case "borough":
+        return 2;
       default:
         return 0;
     }
   };
 
   const [savedGeoSelection, setSavedGeoSelection] = useState<{
-    cd: { boroughId: BoroughId; districtId: DistrictId } | undefined;
-    ccd: { districtId: DistrictId } | undefined;
-  }>({ cd: undefined, ccd: undefined });
+    cd: { boroughId: BoroughId; boundaryId: BoundaryId } | undefined;
+    ccd: { boundaryId: BoundaryId } | undefined;
+    borough: { boroughIds: BoroughId } | undefined;
+  }>({ cd: undefined, ccd: undefined, borough: undefined });
 
   if (env.facDbPhase1 == "ON")
     return (
@@ -307,7 +312,7 @@ export default function MapPage() {
             }}
             whiteSpace={"nowrap"}
             width={{ base: "100%", md: "fit-content" }}
-            defaultIndex={getDefaultIndex(districtType)}
+            defaultIndex={getDefaultIndex(boundaryType)}
           >
             <TabList
               key={"TabList"}
@@ -322,22 +327,29 @@ export default function MapPage() {
                 }}
                 gridRow={1}
                 onClick={() => {
-                  if (districtId !== null)
+                  if (boundaryType === "borough" && boroughIds !== null)
                     setSavedGeoSelection({
                       ...savedGeoSelection,
-                      ccd: { districtId },
+                      borough: { boroughIds },
+                    });
+                  if (boundaryType === "ccd" && boundaryId !== null)
+                    setSavedGeoSelection({
+                      ...savedGeoSelection,
+                      ccd: { boundaryId },
                     });
                   if (savedGeoSelection.cd === undefined) {
                     updateSearchParams({
-                      districtType: "cd",
+                      boundaryType: "cd",
                       boroughId: null,
-                      districtId: null,
+                      boundaryId: null,
+                      boroughIds: null,
                     });
                   } else {
                     updateSearchParams({
-                      districtType: "cd",
+                      boundaryType: "cd",
                       boroughId: savedGeoSelection.cd.boroughId,
-                      districtId: savedGeoSelection.cd.districtId,
+                      boundaryId: savedGeoSelection.cd.boundaryId,
+                      boroughIds: null,
                     });
                   }
                 }}
@@ -352,27 +364,79 @@ export default function MapPage() {
                 }}
                 gridRow={1}
                 onClick={() => {
-                  if (districtId !== null)
+                  if (boundaryType === "borough" && boroughIds !== null)
                     setSavedGeoSelection({
                       ...savedGeoSelection,
-                      cd: { boroughId, districtId },
+                      borough: { boroughIds },
+                    });
+                  if (
+                    boundaryType === "cd" &&
+                    boundaryId !== null &&
+                    boroughId !== null
+                  )
+                    setSavedGeoSelection({
+                      ...savedGeoSelection,
+                      cd: { boroughId, boundaryId },
                     });
                   if (savedGeoSelection.ccd === undefined) {
                     updateSearchParams({
-                      districtType: "ccd",
+                      boundaryType: "ccd",
                       boroughId: null,
-                      districtId: null,
+                      boundaryId: null,
+                      boroughIds: null,
                     });
                   } else {
                     updateSearchParams({
-                      districtType: "ccd",
+                      boundaryType: "ccd",
                       boroughId: null,
-                      districtId: savedGeoSelection.ccd.districtId,
+                      boroughIds: null,
+                      boundaryId: savedGeoSelection.ccd.boundaryId,
                     });
                   }
                 }}
               >
                 City Council
+              </Tab>
+              <Tab
+                key={"Boroughs"}
+                fontSize={{
+                  base: "xs",
+                  md: "sm",
+                }}
+                gridRow={1}
+                onClick={() => {
+                  if (
+                    boundaryType === "cd" &&
+                    boundaryId !== null &&
+                    boroughId !== null
+                  )
+                    setSavedGeoSelection({
+                      ...savedGeoSelection,
+                      cd: { boroughId, boundaryId },
+                    });
+                  if (boundaryType === "ccd" && boundaryId !== null)
+                    setSavedGeoSelection({
+                      ...savedGeoSelection,
+                      ccd: { boundaryId },
+                    });
+                  if (savedGeoSelection.borough === undefined) {
+                    updateSearchParams({
+                      boundaryType: "borough",
+                      boroughIds: null,
+                      boroughId: null,
+                      boundaryId: null,
+                    });
+                  } else {
+                    updateSearchParams({
+                      boundaryType: "borough",
+                      boroughIds: savedGeoSelection.borough.boroughIds,
+                      boroughId: null,
+                      boundaryId: null,
+                    });
+                  }
+                }}
+              >
+                Boroughs
               </Tab>
             </TabList>
           </Tabs>
@@ -522,14 +586,6 @@ export default function MapPage() {
                         </Box>
                       </Box>
                     </Accordion>
-                    <Box display={"flex"} flexDirection={"column"} gap={2}>
-                      <FilterMenu
-                        boroughs={boroughs}
-                        communityDistricts={communityDistricts}
-                        cityCouncilDistricts={cityCouncilDistricts}
-                      />
-                    </Box>
-
                     <HowToUseThisTool />
                   </Box>
                 </AccordionPanel>
@@ -765,14 +821,6 @@ export default function MapPage() {
                         </Box>
                       </Box>
                     </Accordion>
-                    <Box display={"flex"} flexDirection={"column"} gap={2}>
-                      <FilterMenu
-                        boroughs={boroughs}
-                        communityDistricts={communityDistricts}
-                        cityCouncilDistricts={cityCouncilDistricts}
-                      />
-                    </Box>
-
                     <HowToUseThisTool />
                   </Box>
                 </AccordionPanel>
@@ -806,11 +854,13 @@ export default function MapPage() {
                   />
                 </Box>
               </MapLayersPanel>
-              <FilterMenu
-                boroughs={boroughs}
-                communityDistricts={communityDistricts}
-                cityCouncilDistricts={cityCouncilDistricts}
-              />
+              {env.facDbPhase1 !== "ON" && (
+                <FilterMenu
+                  boroughs={boroughs}
+                  communityDistricts={communityDistricts}
+                  cityCouncilDistricts={cityCouncilDistricts}
+                />
+              )}
               <HowToUseThisTool />
             </Accordion>
           )}

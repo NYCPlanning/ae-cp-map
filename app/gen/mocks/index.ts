@@ -1,6 +1,7 @@
 export { createAgency } from "./createAgency";
 export { createAgencyBudget } from "./createAgencyBudget";
 export { createBorough } from "./createBorough";
+export { createBoroughGeoJson } from "./createBoroughGeoJson";
 export { createCapitalCommitment } from "./createCapitalCommitment";
 export { createCapitalCommitmentType } from "./createCapitalCommitmentType";
 export { createCapitalProject } from "./createCapitalProject";
@@ -33,11 +34,26 @@ export {
   createFindAgencyBudgetsQueryResponse,
 } from "./createFindAgencyBudgets";
 export {
+  createFindBoroughGeoJsonByBoroughIdPathParams,
+  createFindBoroughGeoJsonByBoroughId200,
+  createFindBoroughGeoJsonByBoroughId400,
+  createFindBoroughGeoJsonByBoroughId404,
+  createFindBoroughGeoJsonByBoroughId500,
+  createFindBoroughGeoJsonByBoroughIdQueryResponse,
+} from "./createFindBoroughGeoJsonByBoroughId";
+export {
   createFindBoroughs200,
   createFindBoroughs400,
   createFindBoroughs500,
   createFindBoroughsQueryResponse,
 } from "./createFindBoroughs";
+export {
+  createFindBoroughTilesPathParams,
+  createFindBoroughTiles200,
+  createFindBoroughTiles400,
+  createFindBoroughTiles500,
+  createFindBoroughTilesQueryResponse,
+} from "./createFindBoroughTiles";
 export {
   createFindCapitalCommitmentsByManagingCodeCapitalProjectIdPathParams,
   createFindCapitalCommitmentsByManagingCodeCapitalProjectId200,
@@ -348,11 +364,24 @@ export {
   findAgencyBudgetsHandler,
 } from "./findAgencyBudgetsHandler";
 export {
+  findBoroughGeoJsonByBoroughIdHandlerResponse200,
+  findBoroughGeoJsonByBoroughIdHandlerResponse400,
+  findBoroughGeoJsonByBoroughIdHandlerResponse404,
+  findBoroughGeoJsonByBoroughIdHandlerResponse500,
+  findBoroughGeoJsonByBoroughIdHandler,
+} from "./findBoroughGeoJsonByBoroughIdHandler";
+export {
   findBoroughsHandlerResponse200,
   findBoroughsHandlerResponse400,
   findBoroughsHandlerResponse500,
   findBoroughsHandler,
 } from "./findBoroughsHandler";
+export {
+  findBoroughTilesHandlerResponse200,
+  findBoroughTilesHandlerResponse400,
+  findBoroughTilesHandlerResponse500,
+  findBoroughTilesHandler,
+} from "./findBoroughTilesHandler";
 export {
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandlerResponse200,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandlerResponse400,

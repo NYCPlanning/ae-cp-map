@@ -12,6 +12,7 @@ import type {
   FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId500,
 } from "../types/FindCityCouncilDistrictGeoJsonByCityCouncilDistrictId";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -32,7 +33,7 @@ function getFindCityCouncilDistrictGeoJsonByCityCouncilDistrictIdUrl(
  */
 export async function findCityCouncilDistrictGeoJsonByCityCouncilDistrictId(
   cityCouncilDistrictId: FindCityCouncilDistrictGeoJsonByCityCouncilDistrictIdPathParams["cityCouncilDistrictId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

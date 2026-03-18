@@ -11,6 +11,7 @@ import type {
   FindCityCouncilDistrictTiles500,
 } from "../types/FindCityCouncilDistrictTiles";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -35,7 +36,7 @@ export async function findCityCouncilDistrictTiles(
   z: FindCityCouncilDistrictTilesPathParams["z"],
   x: FindCityCouncilDistrictTilesPathParams["x"],
   y: FindCityCouncilDistrictTilesPathParams["y"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

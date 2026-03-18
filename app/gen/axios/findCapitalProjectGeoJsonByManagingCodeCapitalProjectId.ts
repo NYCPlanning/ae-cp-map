@@ -12,6 +12,7 @@ import type {
   FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId500,
 } from "../types/FindCapitalProjectGeoJsonByManagingCodeCapitalProjectId";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -34,7 +35,7 @@ function getFindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdUrl(
 export async function findCapitalProjectGeoJsonByManagingCodeCapitalProjectId(
   managingCode: FindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParams["managingCode"],
   capitalProjectId: FindCapitalProjectGeoJsonByManagingCodeCapitalProjectIdPathParams["capitalProjectId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

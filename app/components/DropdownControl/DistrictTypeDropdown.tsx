@@ -19,13 +19,13 @@ export function DistrictTypeDropdown({
       throw new Error("invalid district type selected");
 
     setAdminParams({
-      districtType: nextDistrictType,
+      boundaryType: nextDistrictType,
     });
   };
 
   return (
     <DropdownControl
-      formId="districtType"
+      formId="boundaryType"
       formLabel="District Type"
       selectValue={selectValue}
       onSelectValueChange={updateDistrictType}

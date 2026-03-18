@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod";
+import z from "zod";
 
 export const zoningDistrictSchema = z.object({
   id: z.string().uuid().describe("An automatically generated uuid."),

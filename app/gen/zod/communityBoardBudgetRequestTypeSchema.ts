@@ -3,7 +3,7 @@
  * Do not edit manually.
  */
 
-import { z } from "zod";
+import z from "zod";
 
 /**
  * @description The type of budget request (Capital or Expense).

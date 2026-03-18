@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { capitalProjectPageSchema } from "./capitalProjectPageSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 export const findCapitalProjectsByBoroughIdCommunityDistrictIdPathParamsSchema =
   z.object({

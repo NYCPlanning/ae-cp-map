@@ -15,9 +15,9 @@ export function BoroughDropdown({
 }: BoroughDropdownProps) {
   const updateBoroughId = (nextBoroughId: BoroughId) => {
     setAdminParams({
-      districtType: "cd",
+      boundaryType: "cd",
       boroughId: nextBoroughId,
-      districtId: null,
+      boundaryId: null,
     });
   };
 

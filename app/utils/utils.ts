@@ -146,7 +146,7 @@ export function setNewSearchParams(
     "cbbrAgencyInitials",
     "cbbrAgencyCategoryResponseIds",
   ];
-  const GEO_SEARCH_PARAMS = ["districtType", "boroughId", "districtId"];
+  const GEO_SEARCH_PARAMS = ["boundaryType", "boroughId", "boundaryId"];
 
   const newSearchParams = new URLSearchParams(searchParams);
 

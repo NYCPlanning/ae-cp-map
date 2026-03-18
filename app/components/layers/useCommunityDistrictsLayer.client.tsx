@@ -1,7 +1,7 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { useState } from "react";
 import { useUpdateSearchParams } from "~/utils/utils";
-import { BoroughId, DistrictId, DistrictType } from "~/utils/types";
+import { BoroughId, BoundaryId, BoundaryType } from "~/utils/types";
 import { env } from "~/utils/env";
 
 const { zoningApiUrl, facDbPhase1 } = env;
@@ -14,15 +14,15 @@ export interface CommunityDistrictProperties {
 export function useCommunityDistrictsLayer() {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const [isHovered, setIsHovered] = useState<string | undefined>();
-  const districtType = searchParams.get("districtType") as DistrictType;
+  const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
-  const districtId = searchParams.get("districtId") as DistrictId;
+  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
 
   if (facDbPhase1 == "ON")
     return new MVTLayer<CommunityDistrictProperties>({
       id: "CommunityDistricts",
       data: [`${zoningApiUrl}/api/community-districts/{z}/{x}/{y}.pbf`],
-      visible: districtType === "cd" || districtType === null,
+      visible: boundaryType === "cd" || boundaryType === null,
       uniqueIdProperty: "boroughIdCommunityDistrictId",
       pickable: true,
       getPointRadius: 5,
@@ -55,7 +55,7 @@ export function useCommunityDistrictsLayer() {
         if (info.picked) {
           if (
             info?.object.properties.boroughIdCommunityDistrictId ===
-              `${boroughId}${districtId}` ||
+              `${boroughId}${boundaryId}` ||
             parseInt(
               info?.object.properties.boroughIdCommunityDistrictId.slice(-2),
             ) > 18
@@ -72,17 +72,17 @@ export function useCommunityDistrictsLayer() {
         const newDistrictId =
           info.object.properties.boroughIdCommunityDistrictId.slice(1);
         if (newDistrictId <= 18) {
-          if (boroughId === newBoroughId && districtId === newDistrictId) {
+          if (boroughId === newBoroughId && boundaryId === newDistrictId) {
             updateSearchParams({
-              districtType: "cd",
+              boundaryType: "cd",
               boroughId: null,
-              districtId: null,
+              boundaryId: null,
             });
           } else {
             updateSearchParams({
-              districtType: "cd",
+              boundaryType: "cd",
               boroughId: info.object.properties.boroughIdCommunityDistrictId[0],
-              districtId:
+              boundaryId:
                 info.object.properties.boroughIdCommunityDistrictId.slice(1),
             });
           }
@@ -105,7 +105,7 @@ export function useCommunityDistrictsLayer() {
   return new MVTLayer<CommunityDistrictProperties>({
     id: "CommunityDistricts",
     data: [`${zoningApiUrl}/api/community-districts/{z}/{x}/{y}.pbf`],
-    visible: districtType === "cd",
+    visible: boundaryType === "cd",
     uniqueIdProperty: "boroughIdCommunityDistrictId",
     pickable: true,
     getPointRadius: 5,

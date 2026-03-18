@@ -1,7 +1,7 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { useState } from "react";
 import { useUpdateSearchParams } from "~/utils/utils";
-import { DistrictId, DistrictType } from "~/utils/types";
+import { BoundaryId, BoundaryType } from "~/utils/types";
 import { env } from "~/utils/env";
 
 const { zoningApiUrl, facDbPhase1 } = env;
@@ -13,15 +13,15 @@ export interface CityCouncilDistrictProperties {
 export function useCityCouncilDistrictsLayer() {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const [isHovered, setIsHovered] = useState<string | undefined>();
-  const districtType = searchParams.get("districtType") as DistrictType;
-  const districtId = searchParams.get("districtId") as DistrictId;
+  const boundaryType = searchParams.get("boundaryType") as BoundaryType;
+  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
 
   if (facDbPhase1 == "ON")
     return new MVTLayer<CityCouncilDistrictProperties>({
       id: "CityCouncilDistricts",
       data: [`${zoningApiUrl}/api/city-council-districts/{z}/{x}/{y}.pbf`],
-      visible: districtType === "ccd",
-      uniqueIdProperty: "boroughIdCityCouncilDistrictId",
+      visible: boundaryType === "ccd",
+      uniqueIdProperty: "cityCouncilDistrictId",
       pickable: true,
       getPointRadius: 5,
       filled: true,
@@ -40,7 +40,7 @@ export function useCityCouncilDistrictsLayer() {
       lineWidthUnits: "pixels",
       onHover: (info) => {
         if (info.picked) {
-          if (info?.object.properties.id === districtId) {
+          if (info?.object.properties.id === boundaryId) {
             setIsHovered(undefined);
           } else {
             setIsHovered(info.object.properties.id);
@@ -49,13 +49,13 @@ export function useCityCouncilDistrictsLayer() {
       },
       onClick: (info) => {
         const newDistrictId = info.object.properties.id;
-        if (districtId === newDistrictId) {
+        if (boundaryId === newDistrictId) {
           updateSearchParams({
-            districtId: null,
+            boundaryId: null,
           });
         } else {
           updateSearchParams({
-            districtId: info.object.properties.id,
+            boundaryId: info.object.properties.id,
           });
         }
       },
@@ -81,8 +81,8 @@ export function useCityCouncilDistrictsLayer() {
   return new MVTLayer<CityCouncilDistrictProperties>({
     id: "CityCouncilDistricts",
     data: [`${zoningApiUrl}/api/city-council-districts/{z}/{x}/{y}.pbf`],
-    visible: districtType === "ccd",
-    uniqueIdProperty: "boroughIdCityCouncilDistrictId",
+    visible: boundaryType === "ccd",
+    uniqueIdProperty: "cityCouncilDistrictId",
     pickable: true,
     getPointRadius: 5,
     filled: false,

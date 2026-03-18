@@ -12,6 +12,7 @@ import type {
   FindCapitalProjectsByBoroughIdCommunityDistrictId500,
 } from "../types/FindCapitalProjectsByBoroughIdCommunityDistrictId";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -35,7 +36,7 @@ export async function findCapitalProjectsByBoroughIdCommunityDistrictId(
   boroughId: FindCapitalProjectsByBoroughIdCommunityDistrictIdPathParams["boroughId"],
   communityDistrictId: FindCapitalProjectsByBoroughIdCommunityDistrictIdPathParams["communityDistrictId"],
   params?: FindCapitalProjectsByBoroughIdCommunityDistrictIdQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

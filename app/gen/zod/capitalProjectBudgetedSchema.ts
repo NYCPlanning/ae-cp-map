@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { capitalProjectSchema } from "./capitalProjectSchema";
-import { z } from "zod";
 
 export const capitalProjectBudgetedSchema = z
   .lazy(() => capitalProjectSchema)

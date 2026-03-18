@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { zoningDistrictClassCategorySchema } from "./zoningDistrictClassCategorySchema";
-import { z } from "zod";
 
 export const zoningDistrictClassSchema = z.object({
   id: z

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { communityDistrictGeoJsonSchema } from "./communityDistrictGeoJsonSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 export const findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParamsSchema =
   z.object({

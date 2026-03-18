@@ -1,6 +1,6 @@
 import { CommunityDistrict } from "~/gen";
 import { DropdownControl, DropdownControlProps } from ".";
-import { AdminQueryParams, BoroughId, DistrictId } from "~/utils/types";
+import { AdminQueryParams, BoroughId, BoundaryId } from "~/utils/types";
 
 export interface CommunityDistrictDropdownProps
   extends Pick<DropdownControlProps, "selectValue"> {
@@ -15,11 +15,11 @@ export function CommunityDistrictDropdown({
   communityDistricts,
   setAdminParams,
 }: CommunityDistrictDropdownProps) {
-  const updateDistrictId = (nextDistrictId: DistrictId) => {
+  const updateDistrictId = (nextDistrictId: BoundaryId) => {
     setAdminParams({
-      districtType: "cd",
+      boundaryType: "cd",
       boroughId: boroughId,
-      districtId: nextDistrictId,
+      boundaryId: nextDistrictId,
     });
   };
 

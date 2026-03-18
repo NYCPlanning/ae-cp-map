@@ -10,6 +10,7 @@ import type {
   FindLandUses500,
 } from "../types/FindLandUses";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -24,7 +25,7 @@ function getFindLandUsesUrl() {
  * {@link /land-uses}
  */
 export async function findLandUses(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

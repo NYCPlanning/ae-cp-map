@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 export const findCommunityBoardBudgetRequestTilesPathParamsSchema = z.object({
   z: z.coerce.number().int().describe("viewport zoom component"),

@@ -11,6 +11,7 @@ import type {
   FindTaxLots500,
 } from "../types/FindTaxLots";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -26,7 +27,7 @@ function getFindTaxLotsUrl() {
  */
 export async function findTaxLots(
   params?: FindTaxLotsQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

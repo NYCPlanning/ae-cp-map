@@ -14,6 +14,9 @@ import {
   useCapitalProjectBudgetedGeoJsonLayer,
   useCommunityBoardBudgetRequestsGeoJsonLayer,
   useBoundaryMVTMask,
+  useBoroughsLayer,
+  useBoroughsOutlinesLayer,
+  useBoroughLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 import { FlyToInterpolator } from "@deck.gl/core";
@@ -87,6 +90,10 @@ export function Atlas({
   const cityCouncilDistrictsOutlinesLayer =
     useCityCouncilDistrictsOutlinesLayer();
 
+  const boroughsLayer = useBoroughsLayer();
+  const boroughsOutlinesLayer = useBoroughsOutlinesLayer();
+  const boroughLayer = useBoroughLayer();
+
   const boundaryMvtMask = useBoundaryMVTMask();
 
   const LAYER_LIST =
@@ -99,6 +106,9 @@ export function Atlas({
           communityDistrictLayer,
           cityCouncilDistrictsLayer,
           cityCouncilDistrictLayer,
+          boroughsLayer,
+          boroughsOutlinesLayer,
+          boroughLayer,
           capitalProjectsLayer,
           capitalProjectBudgetedGeoJsonLayer,
           communityBoardBudgetRequestsLayer,

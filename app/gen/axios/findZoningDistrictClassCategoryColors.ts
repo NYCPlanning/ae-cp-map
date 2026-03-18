@@ -10,6 +10,7 @@ import type {
   FindZoningDistrictClassCategoryColors500,
 } from "../types/FindZoningDistrictClassCategoryColors";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -27,7 +28,7 @@ function getFindZoningDistrictClassCategoryColorsUrl() {
  * {@link /zoning-district-classes/category-colors}
  */
 export async function findZoningDistrictClassCategoryColors(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

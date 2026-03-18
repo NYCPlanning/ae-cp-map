@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { boroughSchema } from "./boroughSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 /**
  * @description An object containing all boroughs.
