@@ -12,6 +12,7 @@ import type {
   FindCapitalProjectByManagingCodeCapitalProjectId500,
 } from "../types/FindCapitalProjectByManagingCodeCapitalProjectId";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -34,7 +35,7 @@ function getFindCapitalProjectByManagingCodeCapitalProjectIdUrl(
 export async function findCapitalProjectByManagingCodeCapitalProjectId(
   managingCode: FindCapitalProjectByManagingCodeCapitalProjectIdPathParams["managingCode"],
   capitalProjectId: FindCapitalProjectByManagingCodeCapitalProjectIdPathParams["capitalProjectId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

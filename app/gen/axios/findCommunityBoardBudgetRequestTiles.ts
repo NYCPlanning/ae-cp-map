@@ -11,6 +11,7 @@ import type {
   FindCommunityBoardBudgetRequestTiles500,
 } from "../types/FindCommunityBoardBudgetRequestTiles";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -35,7 +36,7 @@ export async function findCommunityBoardBudgetRequestTiles(
   z: FindCommunityBoardBudgetRequestTilesPathParams["z"],
   x: FindCommunityBoardBudgetRequestTilesPathParams["x"],
   y: FindCommunityBoardBudgetRequestTilesPathParams["y"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

@@ -1,5 +1,6 @@
 export { agencyBudgetSchema } from "./agencyBudgetSchema";
 export { agencySchema } from "./agencySchema";
+export { boroughGeoJsonSchema } from "./boroughGeoJsonSchema";
 export { boroughSchema } from "./boroughSchema";
 export { capitalCommitmentSchema } from "./capitalCommitmentSchema";
 export { capitalCommitmentTypeSchema } from "./capitalCommitmentTypeSchema";
@@ -33,11 +34,26 @@ export {
   findAgencyBudgetsQueryResponseSchema,
 } from "./findAgencyBudgetsSchema";
 export {
+  findBoroughGeoJsonByBoroughIdPathParamsSchema,
+  findBoroughGeoJsonByBoroughId200Schema,
+  findBoroughGeoJsonByBoroughId400Schema,
+  findBoroughGeoJsonByBoroughId404Schema,
+  findBoroughGeoJsonByBoroughId500Schema,
+  findBoroughGeoJsonByBoroughIdQueryResponseSchema,
+} from "./findBoroughGeoJsonByBoroughIdSchema";
+export {
   findBoroughs200Schema,
   findBoroughs400Schema,
   findBoroughs500Schema,
   findBoroughsQueryResponseSchema,
 } from "./findBoroughsSchema";
+export {
+  findBoroughTilesPathParamsSchema,
+  findBoroughTiles200Schema,
+  findBoroughTiles400Schema,
+  findBoroughTiles500Schema,
+  findBoroughTilesQueryResponseSchema,
+} from "./findBoroughTilesSchema";
 export {
   findCapitalCommitmentsByManagingCodeCapitalProjectIdPathParamsSchema,
   findCapitalCommitmentsByManagingCodeCapitalProjectId200Schema,

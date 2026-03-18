@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { zoningDistrictClassCategoryColorSchema } from "./zoningDistrictClassCategoryColorSchema";
-import { z } from "zod";
 
 /**
  * @description An object containing all zoning district category colors.

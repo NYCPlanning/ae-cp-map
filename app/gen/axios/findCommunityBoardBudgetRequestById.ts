@@ -12,6 +12,7 @@ import type {
   FindCommunityBoardBudgetRequestById500,
 } from "../types/FindCommunityBoardBudgetRequestById";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -32,7 +33,7 @@ function getFindCommunityBoardBudgetRequestByIdUrl(
  */
 export async function findCommunityBoardBudgetRequestById(
   cbbrId: FindCommunityBoardBudgetRequestByIdPathParams["cbbrId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

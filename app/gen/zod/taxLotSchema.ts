@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { boroughSchema } from "./boroughSchema";
 import { landUseSchema } from "./landUseSchema";
-import { z } from "zod";
 
 export const taxLotSchema = z.object({
   bbl: z

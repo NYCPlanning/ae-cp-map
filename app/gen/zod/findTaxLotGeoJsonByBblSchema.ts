@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { taxLotGeoJsonSchema } from "./taxLotGeoJsonSchema";
-import { z } from "zod";
 
 export const findTaxLotGeoJsonByBblPathParamsSchema = z.object({
   bbl: z

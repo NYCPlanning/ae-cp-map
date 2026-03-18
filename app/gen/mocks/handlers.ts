@@ -5,7 +5,9 @@
 
 import { findAgenciesHandler } from "./findAgenciesHandler";
 import { findAgencyBudgetsHandler } from "./findAgencyBudgetsHandler";
+import { findBoroughGeoJsonByBoroughIdHandler } from "./findBoroughGeoJsonByBoroughIdHandler";
 import { findBoroughsHandler } from "./findBoroughsHandler";
+import { findBoroughTilesHandler } from "./findBoroughTilesHandler";
 import { findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler } from "./findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler";
 import { findCapitalCommitmentTypesHandler } from "./findCapitalCommitmentTypesHandler";
 import { findCapitalProjectByManagingCodeCapitalProjectIdHandler } from "./findCapitalProjectByManagingCodeCapitalProjectIdHandler";
@@ -55,6 +57,8 @@ export const handlers = [
   findCapitalProjectsByBoroughIdCommunityDistrictIdHandler(),
   findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler(),
   findCommunityBoardBudgetRequestTilesByBoroughIdCommunityDistrictIdHandler(),
+  findBoroughTilesHandler(),
+  findBoroughGeoJsonByBoroughIdHandler(),
   findCapitalCommitmentTypesHandler(),
   findCapitalProjectsHandler(),
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler(),

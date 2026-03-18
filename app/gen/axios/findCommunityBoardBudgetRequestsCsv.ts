@@ -11,6 +11,7 @@ import type {
   FindCommunityBoardBudgetRequestsCsv500,
 } from "../types/FindCommunityBoardBudgetRequestsCsv";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -29,7 +30,7 @@ function getFindCommunityBoardBudgetRequestsCsvUrl() {
  */
 export async function findCommunityBoardBudgetRequestsCsv(
   params?: FindCommunityBoardBudgetRequestsCsvQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

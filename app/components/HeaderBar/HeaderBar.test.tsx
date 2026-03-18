@@ -15,11 +15,11 @@ describe("Header Bar", () => {
 
   it("removes parameters when clicked when passed a function to clear the selections", async () => {
     const mockSearchParams = new URLSearchParams(
-      "districtType=ccd&districtId=1",
+      "boundaryType=ccd&boundaryId=1",
     );
     const clearSelections = () => {
-      mockSearchParams.delete("districtType");
-      mockSearchParams.delete("districtId");
+      mockSearchParams.delete("boundaryType");
+      mockSearchParams.delete("boundaryId");
     };
     const mockUseSearchParams = vi.fn(() => [mockSearchParams, vi.fn()]);
     vi.mock("next/navigation", () => ({
@@ -33,13 +33,13 @@ describe("Header Bar", () => {
     await act(() =>
       fireEvent.click(screen.getByText("Capital Projects Portal")),
     );
-    expect(mockSearchParams.has("districtType")).toBe(false);
-    expect(mockSearchParams.has("districtId")).toBe(false);
+    expect(mockSearchParams.has("boundaryType")).toBe(false);
+    expect(mockSearchParams.has("boundaryId")).toBe(false);
   });
 
   it("maintains parameters when clicked when not passed a function to clear the selections", async () => {
     const mockSearchParams = new URLSearchParams(
-      "districtType=ccd&districtId=1",
+      "boundaryType=ccd&boundaryId=1",
     );
     const mockUseSearchParams = vi.fn(() => [mockSearchParams, vi.fn()]);
     vi.mock("next/navigation", () => ({
@@ -53,7 +53,7 @@ describe("Header Bar", () => {
     await act(() =>
       fireEvent.click(screen.getByText("Capital Projects Portal")),
     );
-    expect(mockSearchParams.get("districtType")).toBe("ccd");
-    expect(mockSearchParams.get("districtId")).toBe("1");
+    expect(mockSearchParams.get("boundaryType")).toBe("ccd");
+    expect(mockSearchParams.get("boundaryId")).toBe("1");
   });
 });

@@ -1,6 +1,10 @@
 export type { Agency } from "./types/Agency";
 export type { AgencyBudget } from "./types/AgencyBudget";
 export type { Borough } from "./types/Borough";
+export type {
+  BoroughGeoJsonTypeEnumKey,
+  BoroughGeoJson,
+} from "./types/BoroughGeoJson";
 export type { CapitalCommitment } from "./types/CapitalCommitment";
 export type { CapitalCommitmentType } from "./types/CapitalCommitmentType";
 export type { CapitalProject } from "./types/CapitalProject";
@@ -53,12 +57,29 @@ export type {
   FindAgencyBudgetsQuery,
 } from "./types/FindAgencyBudgets";
 export type {
+  FindBoroughGeoJsonByBoroughIdPathParams,
+  FindBoroughGeoJsonByBoroughId200,
+  FindBoroughGeoJsonByBoroughId400,
+  FindBoroughGeoJsonByBoroughId404,
+  FindBoroughGeoJsonByBoroughId500,
+  FindBoroughGeoJsonByBoroughIdQueryResponse,
+  FindBoroughGeoJsonByBoroughIdQuery,
+} from "./types/FindBoroughGeoJsonByBoroughId";
+export type {
   FindBoroughs200,
   FindBoroughs400,
   FindBoroughs500,
   FindBoroughsQueryResponse,
   FindBoroughsQuery,
 } from "./types/FindBoroughs";
+export type {
+  FindBoroughTilesPathParams,
+  FindBoroughTiles200,
+  FindBoroughTiles400,
+  FindBoroughTiles500,
+  FindBoroughTilesQueryResponse,
+  FindBoroughTilesQuery,
+} from "./types/FindBoroughTiles";
 export type {
   FindCapitalCommitmentsByManagingCodeCapitalProjectIdPathParams,
   FindCapitalCommitmentsByManagingCodeCapitalProjectId200,
@@ -101,6 +122,7 @@ export type {
   FindCapitalProjectManagingAgenciesQuery,
 } from "./types/FindCapitalProjectManagingAgencies";
 export type {
+  FindCapitalProjectsQueryParamsGeometryEnumKey,
   FindCapitalProjectsQueryParams,
   FindCapitalProjects200,
   FindCapitalProjects400,
@@ -225,6 +247,7 @@ export type {
 } from "./types/FindCommunityBoardBudgetRequestPolicyAreas";
 export type {
   FindCommunityBoardBudgetRequestsQueryParamsCbbrTypeEnumKey,
+  FindCommunityBoardBudgetRequestsQueryParamsGeometryEnumKey,
   FindCommunityBoardBudgetRequestsQueryParams,
   FindCommunityBoardBudgetRequests200,
   FindCommunityBoardBudgetRequests400,
@@ -234,6 +257,7 @@ export type {
 } from "./types/FindCommunityBoardBudgetRequests";
 export type {
   FindCommunityBoardBudgetRequestsCsvQueryParamsCbbrTypeEnumKey,
+  FindCommunityBoardBudgetRequestsCsvQueryParamsGeometryEnumKey,
   FindCommunityBoardBudgetRequestsCsvQueryParams,
   FindCommunityBoardBudgetRequestsCsv200,
   FindCommunityBoardBudgetRequestsCsv400,
@@ -409,7 +433,9 @@ export type {
 export type { ZoningDistrictClassCategoryColor } from "./types/ZoningDistrictClassCategoryColor";
 export { findAgencies } from "./axios/findAgencies";
 export { findAgencyBudgets } from "./axios/findAgencyBudgets";
+export { findBoroughGeoJsonByBoroughId } from "./axios/findBoroughGeoJsonByBoroughId";
 export { findBoroughs } from "./axios/findBoroughs";
+export { findBoroughTiles } from "./axios/findBoroughTiles";
 export { findCapitalCommitmentsByManagingCodeCapitalProjectId } from "./axios/findCapitalCommitmentsByManagingCodeCapitalProjectId";
 export { findCapitalCommitmentTypes } from "./axios/findCapitalCommitmentTypes";
 export { findCapitalProjectByManagingCodeCapitalProjectId } from "./axios/findCapitalProjectByManagingCodeCapitalProjectId";
@@ -452,6 +478,7 @@ export { findZoningDistrictsByTaxLotBbl } from "./axios/findZoningDistrictsByTax
 export { createAgency } from "./mocks/createAgency";
 export { createAgencyBudget } from "./mocks/createAgencyBudget";
 export { createBorough } from "./mocks/createBorough";
+export { createBoroughGeoJson } from "./mocks/createBoroughGeoJson";
 export { createCapitalCommitment } from "./mocks/createCapitalCommitment";
 export { createCapitalCommitmentType } from "./mocks/createCapitalCommitmentType";
 export { createCapitalProject } from "./mocks/createCapitalProject";
@@ -484,11 +511,26 @@ export {
   createFindAgencyBudgetsQueryResponse,
 } from "./mocks/createFindAgencyBudgets";
 export {
+  createFindBoroughGeoJsonByBoroughIdPathParams,
+  createFindBoroughGeoJsonByBoroughId200,
+  createFindBoroughGeoJsonByBoroughId400,
+  createFindBoroughGeoJsonByBoroughId404,
+  createFindBoroughGeoJsonByBoroughId500,
+  createFindBoroughGeoJsonByBoroughIdQueryResponse,
+} from "./mocks/createFindBoroughGeoJsonByBoroughId";
+export {
   createFindBoroughs200,
   createFindBoroughs400,
   createFindBoroughs500,
   createFindBoroughsQueryResponse,
 } from "./mocks/createFindBoroughs";
+export {
+  createFindBoroughTilesPathParams,
+  createFindBoroughTiles200,
+  createFindBoroughTiles400,
+  createFindBoroughTiles500,
+  createFindBoroughTilesQueryResponse,
+} from "./mocks/createFindBoroughTiles";
 export {
   createFindCapitalCommitmentsByManagingCodeCapitalProjectIdPathParams,
   createFindCapitalCommitmentsByManagingCodeCapitalProjectId200,
@@ -799,11 +841,24 @@ export {
   findAgencyBudgetsHandler,
 } from "./mocks/findAgencyBudgetsHandler";
 export {
+  findBoroughGeoJsonByBoroughIdHandlerResponse200,
+  findBoroughGeoJsonByBoroughIdHandlerResponse400,
+  findBoroughGeoJsonByBoroughIdHandlerResponse404,
+  findBoroughGeoJsonByBoroughIdHandlerResponse500,
+  findBoroughGeoJsonByBoroughIdHandler,
+} from "./mocks/findBoroughGeoJsonByBoroughIdHandler";
+export {
   findBoroughsHandlerResponse200,
   findBoroughsHandlerResponse400,
   findBoroughsHandlerResponse500,
   findBoroughsHandler,
 } from "./mocks/findBoroughsHandler";
+export {
+  findBoroughTilesHandlerResponse200,
+  findBoroughTilesHandlerResponse400,
+  findBoroughTilesHandlerResponse500,
+  findBoroughTilesHandler,
+} from "./mocks/findBoroughTilesHandler";
 export {
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandlerResponse200,
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandlerResponse400,
@@ -1054,14 +1109,18 @@ export {
   findZoningDistrictsByTaxLotBblHandler,
 } from "./mocks/findZoningDistrictsByTaxLotBblHandler";
 export { handlers } from "./mocks/handlers";
+export { boroughGeoJsonTypeEnum } from "./types/BoroughGeoJson";
 export { capitalProjectBudgetedGeoJsonTypeEnum } from "./types/CapitalProjectBudgetedGeoJson";
 export { capitalProjectCategoryEnum } from "./types/CapitalProjectCategory";
 export { cityCouncilDistrictGeoJsonTypeEnum } from "./types/CityCouncilDistrictGeoJson";
 export { communityBoardBudgetRequestGeoJsonTypeEnum } from "./types/CommunityBoardBudgetRequestGeoJson";
 export { communityBoardBudgetRequestTypeEnum } from "./types/CommunityBoardBudgetRequestType";
 export { communityDistrictGeoJsonTypeEnum } from "./types/CommunityDistrictGeoJson";
+export { findCapitalProjectsQueryParamsGeometryEnum } from "./types/FindCapitalProjects";
 export { findCommunityBoardBudgetRequestsQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequests";
+export { findCommunityBoardBudgetRequestsQueryParamsGeometryEnum } from "./types/FindCommunityBoardBudgetRequests";
 export { findCommunityBoardBudgetRequestsCsvQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequestsCsv";
+export { findCommunityBoardBudgetRequestsCsvQueryParamsGeometryEnum } from "./types/FindCommunityBoardBudgetRequestsCsv";
 export { findTaxLotsQueryParamsGeometryEnum } from "./types/FindTaxLots";
 export { multiPointTypeEnum } from "./types/MultiPoint";
 export { multiPolygonTypeEnum } from "./types/MultiPolygon";
@@ -1069,6 +1128,7 @@ export { taxLotGeoJsonTypeEnum } from "./types/TaxLotGeoJson";
 export { zoningDistrictClassCategoryEnum } from "./types/ZoningDistrictClassCategory";
 export { agencyBudgetSchema } from "./zod/agencyBudgetSchema";
 export { agencySchema } from "./zod/agencySchema";
+export { boroughGeoJsonSchema } from "./zod/boroughGeoJsonSchema";
 export { boroughSchema } from "./zod/boroughSchema";
 export { capitalCommitmentSchema } from "./zod/capitalCommitmentSchema";
 export { capitalCommitmentTypeSchema } from "./zod/capitalCommitmentTypeSchema";
@@ -1102,11 +1162,26 @@ export {
   findAgencyBudgetsQueryResponseSchema,
 } from "./zod/findAgencyBudgetsSchema";
 export {
+  findBoroughGeoJsonByBoroughIdPathParamsSchema,
+  findBoroughGeoJsonByBoroughId200Schema,
+  findBoroughGeoJsonByBoroughId400Schema,
+  findBoroughGeoJsonByBoroughId404Schema,
+  findBoroughGeoJsonByBoroughId500Schema,
+  findBoroughGeoJsonByBoroughIdQueryResponseSchema,
+} from "./zod/findBoroughGeoJsonByBoroughIdSchema";
+export {
   findBoroughs200Schema,
   findBoroughs400Schema,
   findBoroughs500Schema,
   findBoroughsQueryResponseSchema,
 } from "./zod/findBoroughsSchema";
+export {
+  findBoroughTilesPathParamsSchema,
+  findBoroughTiles200Schema,
+  findBoroughTiles400Schema,
+  findBoroughTiles500Schema,
+  findBoroughTilesQueryResponseSchema,
+} from "./zod/findBoroughTilesSchema";
 export {
   findCapitalCommitmentsByManagingCodeCapitalProjectIdPathParamsSchema,
   findCapitalCommitmentsByManagingCodeCapitalProjectId200Schema,

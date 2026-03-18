@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { communityBoardBudgetRequestSchema } from "./communityBoardBudgetRequestSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 export const findCommunityBoardBudgetRequestByIdPathParamsSchema = z.object({
   cbbrId: z.string().describe("The id for the community board budget request"),

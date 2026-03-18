@@ -19,7 +19,7 @@ describe("DistrictTypeDropdown", () => {
       userEvent.selectOptions(screen.getByRole("combobox"), "cd"),
     );
     expect(updateSearchParams).toHaveBeenCalledWith({
-      districtType: "cd",
+      boundaryType: "cd",
     });
   });
 });

@@ -12,6 +12,7 @@ import type {
   FindTaxLotByBbl500,
 } from "../types/FindTaxLotByBbl";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -27,7 +28,7 @@ function getFindTaxLotByBblUrl(bbl: FindTaxLotByBblPathParams["bbl"]) {
  */
 export async function findTaxLotByBbl(
   bbl: FindTaxLotByBblPathParams["bbl"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

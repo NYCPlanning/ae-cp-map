@@ -28,7 +28,7 @@ export function createFindTaxLotsQueryParams(
       lats: faker.helpers.multiple(() => faker.number.float(), {
         count: { min: 1, max: 5 },
       }),
-      buffer: faker.number.float(),
+      buffer: faker.number.float({ min: 0 }),
     },
     ...(data || {}),
   };

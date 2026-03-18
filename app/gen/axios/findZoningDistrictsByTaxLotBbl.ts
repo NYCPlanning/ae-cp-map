@@ -12,6 +12,7 @@ import type {
   FindZoningDistrictsByTaxLotBbl500,
 } from "../types/FindZoningDistrictsByTaxLotBbl";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -32,7 +33,7 @@ function getFindZoningDistrictsByTaxLotBblUrl(
  */
 export async function findZoningDistrictsByTaxLotBbl(
   bbl: FindZoningDistrictsByTaxLotBblPathParams["bbl"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

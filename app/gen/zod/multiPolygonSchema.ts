@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { positionSchema } from "./positionSchema";
-import { z } from "zod";
 
 /**
  * @description A geojson implementation of a MultiPolygon Simple Feature

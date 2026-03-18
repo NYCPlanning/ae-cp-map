@@ -78,9 +78,10 @@ const tabs = [
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
 
-  const districtType = url.searchParams.get("districtType");
+  const boundaryType = url.searchParams.get("boundaryType");
   const boroughId = url.searchParams.get("boroughId");
-  const districtId = url.searchParams.get("districtId");
+  const boroughIds = url.searchParams.get("boroughIds");
+  const boundaryId = url.searchParams.get("boundaryId");
   const cbbrAgencyCategoryResponseIds = url.searchParams.get(
     "cbbrAgencyCategoryResponseIds",
   );
@@ -98,11 +99,14 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const cbbrOffset = (cbbrPage - 1) * itemsPerPage;
   const budgetRequestsPromise = findCommunityBoardBudgetRequests(
     {
-      ...(boroughId !== null && districtId !== null && districtType === "cd"
-        ? { communityDistrictId: `${boroughId}${districtId}` }
+      ...(boroughId !== null && boundaryId !== null && boundaryType === "cd"
+        ? { communityDistrictId: `${boroughId}${boundaryId}` }
         : {}),
-      ...(districtId !== null && districtType === "ccd"
-        ? { cityCouncilDistrictId: districtId }
+      ...(boundaryId !== null && boundaryType === "ccd"
+        ? { cityCouncilDistrictId: boundaryId }
+        : {}),
+      ...(boroughIds !== null && boundaryType === "borough"
+        ? { boroughIds: [boroughIds] }
         : {}),
       cbbrType: "C",
       cbbrAgencyCategoryResponseIds:
@@ -137,17 +141,20 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const commitmentsTotalMax = url.searchParams.get("commitmentsTotalMax");
   const capitalProjectsPromise = findCapitalProjects(
     {
-      ...(boroughId !== null && districtId !== null && districtType === "cd"
-        ? { communityDistrictId: `${boroughId}${districtId}` }
+      ...(boroughId !== null && boundaryId !== null && boundaryType === "cd"
+        ? { communityDistrictId: `${boroughId}${boundaryId}` }
         : {}),
-      ...(districtId !== null && districtType === "ccd"
-        ? { cityCouncilDistrictId: districtId }
+      ...(boundaryId !== null && boundaryType === "ccd"
+        ? { cityCouncilDistrictId: boundaryId }
+        : {}),
+      ...(boroughIds !== null && boundaryType === "borough"
+        ? { boroughIds: [boroughIds] }
         : {}),
       ...(managingAgency === null ? {} : { managingAgency }),
       ...(agencyBudget === null ? {} : { agencyBudget }),
       ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
       ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
-      ...(districtId !== null ? {} : { isMapped: true }),
+      ...(boundaryId !== null || boroughIds !== null ? {} : { isMapped: true }),
       limit: itemsPerPage,
       offset: cpOffset,
     },
@@ -220,26 +227,26 @@ export default function ResultsPanel() {
     });
   };
 
-  const districtType = searchParams.get("districtType");
+  const boundaryType = searchParams.get("boundaryType");
   const boroughId = searchParams.get("boroughId");
-  const districtId = searchParams.get("districtId");
+  const boundaryId = searchParams.get("boundaryId");
   let exportDataGeography = "All";
   let exportDataFileName = "projects_in_geographies.zip";
-  if (districtType === "cd" && boroughId !== null && districtId !== null) {
+  if (boundaryType === "cd" && boroughId !== null && boundaryId !== null) {
     const borough = boroughs.find((borough) => borough.id === boroughId);
     exportDataGeography =
       borough !== undefined
-        ? `Community District ${borough.abbr}${districtId}`
+        ? `Community District ${borough.abbr}${boundaryId}`
         : "";
     exportDataFileName =
       borough !== undefined
-        ? `community_district_${borough.title.toLowerCase()}_cd${districtId}.csv`
+        ? `community_district_${borough.title.toLowerCase()}_cd${boundaryId}.csv`
         : "";
   }
 
-  if (districtType === "ccd" && districtId !== null) {
-    exportDataGeography = `City Council District ${districtId}`;
-    exportDataFileName = `city_council_district_${districtId}.csv`;
+  if (boundaryType === "ccd" && boundaryId !== null) {
+    exportDataGeography = `City Council District ${boundaryId}`;
+    exportDataFileName = `city_council_district_${boundaryId}.csv`;
   }
 
   const cbbrAgencyCategoryResponseIds = searchParams.get(
@@ -250,11 +257,11 @@ export default function ResultsPanel() {
   const agencyInitials = searchParams.get("agencyInitials");
   const cbbrDownloadParams = new URLSearchParams({
     cbbrType: "C",
-    ...(boroughId !== null && districtId !== null && districtType === "cd"
-      ? { communityDistrictId: `${boroughId}${districtId}` }
+    ...(boroughId !== null && boundaryId !== null && boundaryType === "cd"
+      ? { communityDistrictId: `${boroughId}${boundaryId}` }
       : {}),
-    ...(districtId !== null && districtType === "ccd"
-      ? { cityCouncilDistrictId: districtId }
+    ...(boundaryId !== null && boundaryType === "ccd"
+      ? { cityCouncilDistrictId: boundaryId }
       : {}),
     ...(cbbrAgencyCategoryResponseIds === null
       ? {}

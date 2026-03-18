@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { communityDistrictSchema } from "./communityDistrictSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 export const findCommunityDistrictsByBoroughIdPathParamsSchema = z.object({
   boroughId: z

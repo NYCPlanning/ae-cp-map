@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { communityBoardBudgetRequestPolicyAreaSchema } from "./communityBoardBudgetRequestPolicyAreaSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 export const findCommunityBoardBudgetRequestPolicyAreasQueryParamsSchema = z
   .object({

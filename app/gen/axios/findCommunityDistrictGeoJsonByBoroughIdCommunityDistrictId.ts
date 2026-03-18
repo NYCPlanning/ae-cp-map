@@ -12,6 +12,7 @@ import type {
   FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId500,
 } from "../types/FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -34,7 +35,7 @@ function getFindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdUrl(
 export async function findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId(
   boroughId: FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParams["boroughId"],
   communityDistrictId: FindCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdPathParams["communityDistrictId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

@@ -10,6 +10,7 @@ import type {
   FindCapitalCommitmentTypes500,
 } from "../types/FindCapitalCommitmentTypes";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -24,7 +25,7 @@ function getFindCapitalCommitmentTypesUrl() {
  * {@link /capital-commitment-types}
  */
 export async function findCapitalCommitmentTypes(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

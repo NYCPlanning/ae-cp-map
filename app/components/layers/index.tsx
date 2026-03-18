@@ -9,4 +9,7 @@ export { useCapitalProjectBudgetedGeoJsonLayer } from "./useCapitalProjectBudget
 export { useCommunityBoardBudgetRequestsLayer } from "./useCommunityBoardBudgetRequestsLayer.client";
 export { useCommunityBoardBudgetRequestsGeoJsonLayer } from "./useCommunityBoardBudgetRequestsGeoJsonLayer.client";
 export { useBoundaryMVTMask } from "./useBoundaryMVTMask.client";
+export { useBoroughsLayer } from "./useBoroughsLayer.client";
+export { useBoroughsOutlinesLayer } from "./useBoroughsOutlinesLayer.client";
+export { useBoroughLayer } from "./useBoroughLayer.client";
 export { IconClusterLayer } from "./icon-cluster-layer";

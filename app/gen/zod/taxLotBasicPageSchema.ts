@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { pageSchema } from "./pageSchema";
 import { taxLotBasicSchema } from "./taxLotBasicSchema";
-import { z } from "zod";
 
 export const taxLotBasicPageSchema = z
   .lazy(() => pageSchema)

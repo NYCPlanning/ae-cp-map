@@ -1,6 +1,8 @@
 export { findAgencies } from "./findAgencies";
 export { findAgencyBudgets } from "./findAgencyBudgets";
+export { findBoroughGeoJsonByBoroughId } from "./findBoroughGeoJsonByBoroughId";
 export { findBoroughs } from "./findBoroughs";
+export { findBoroughTiles } from "./findBoroughTiles";
 export { findCapitalCommitmentsByManagingCodeCapitalProjectId } from "./findCapitalCommitmentsByManagingCodeCapitalProjectId";
 export { findCapitalCommitmentTypes } from "./findCapitalCommitmentTypes";
 export { findCapitalProjectByManagingCodeCapitalProjectId } from "./findCapitalProjectByManagingCodeCapitalProjectId";

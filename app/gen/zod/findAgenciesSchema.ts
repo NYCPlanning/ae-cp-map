@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { agencySchema } from "./agencySchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 /**
  * @description An object containing all agencies sorted alphabetically by the agency initials.\n

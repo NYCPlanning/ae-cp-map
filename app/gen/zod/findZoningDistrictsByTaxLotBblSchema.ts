@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { zoningDistrictSchema } from "./zoningDistrictSchema";
-import { z } from "zod";
 
 export const findZoningDistrictsByTaxLotBblPathParamsSchema = z.object({
   bbl: z

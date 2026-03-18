@@ -3,12 +3,21 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { communityBoardBudgetRequestPageSchema } from "./communityBoardBudgetRequestPageSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 export const findCommunityBoardBudgetRequestsQueryParamsSchema = z
   .object({
+    boroughIds: z.optional(
+      z
+        .array(z.string().regex(/^([0-9]{1})$/))
+        .min(1)
+        .max(5)
+        .describe(
+          "A list of single character numeric strings containing the common number used to refer to the borough.",
+        ),
+    ),
     communityDistrictId: z.optional(
       z
         .string()
@@ -91,6 +100,39 @@ export const findCommunityBoardBudgetRequestsQueryParamsSchema = z
         .min(0)
         .describe(
           "The position in the full list to begin returning results. Default offset is 0. If the offset is beyond the end of the list, no results will be returned.",
+        ),
+    ),
+    geometry: z.optional(
+      z
+        .enum(["Point"])
+        .describe(
+          "The type of geometry used for a spatial filter. It must be provided when applying a spatial filter",
+        ),
+    ),
+    lons: z.optional(
+      z
+        .array(z.coerce.number())
+        .min(1)
+        .max(1)
+        .describe(
+          "The longitude portion of coordinates. It must be provided when applying a spatial filter and have the same length as the latitudes. (If using a tool like axios, serializing the array with brackets is also supported. ex; lons[]=-74.010776&lons[]=-74.010776)",
+        ),
+    ),
+    lats: z.optional(
+      z
+        .array(z.coerce.number())
+        .min(1)
+        .max(1)
+        .describe(
+          "The latitude portion of coordinates. It must be provided when applying a spatial filter and have the same length as the longitudes. (If using a tool like axios, serializing the array with brackets is also supported. ex; lats[]=40.708649&lats[]=40.707800)",
+        ),
+    ),
+    buffer: z.optional(
+      z.coerce
+        .number()
+        .min(0)
+        .describe(
+          "A buffer around the spatial feature. Units are feet. It is optional when applying a spatial filter.",
         ),
     ),
   })

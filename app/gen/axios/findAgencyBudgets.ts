@@ -10,6 +10,7 @@ import type {
   FindAgencyBudgets500,
 } from "../types/FindAgencyBudgets";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -24,7 +25,7 @@ function getFindAgencyBudgetsUrl() {
  * {@link /agency-budgets}
  */
 export async function findAgencyBudgets(
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

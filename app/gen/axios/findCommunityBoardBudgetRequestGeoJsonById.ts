@@ -12,6 +12,7 @@ import type {
   FindCommunityBoardBudgetRequestGeoJsonById500,
 } from "../types/FindCommunityBoardBudgetRequestGeoJsonById";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -32,7 +33,7 @@ function getFindCommunityBoardBudgetRequestGeoJsonByIdUrl(
  */
 export async function findCommunityBoardBudgetRequestGeoJsonById(
   cbbrId: FindCommunityBoardBudgetRequestGeoJsonByIdPathParams["cbbrId"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

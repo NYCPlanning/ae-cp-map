@@ -12,6 +12,7 @@ import type {
   FindZoningDistrictClassByZoningDistrictClassId500,
 } from "../types/FindZoningDistrictClassByZoningDistrictClassId";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -29,7 +30,7 @@ function getFindZoningDistrictClassByZoningDistrictClassIdUrl(
  */
 export async function findZoningDistrictClassByZoningDistrictClassId(
   id: FindZoningDistrictClassByZoningDistrictClassIdPathParams["id"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

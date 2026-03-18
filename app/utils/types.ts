@@ -1,6 +1,6 @@
 export type BoroughId = null | string;
-export type DistrictType = null | "cd" | "ccd";
-export type DistrictId = null | string;
+export type BoundaryType = null | "cd" | "ccd" | "borough";
+export type BoundaryId = null | string;
 export type ManagingAgencyInitials = null | string;
 export type AgencyBudgetType = null | string;
 export type CommitmentsTotalMin = null | string;
@@ -16,9 +16,10 @@ export type CommunityBoardBudgetRequestAgencyInitials = string | null;
 export type CommunityBoardBudgetRequestAgencyCategoryResponseId = string | null;
 
 export type AdminQueryParams = {
-  districtType?: DistrictType;
-  districtId?: DistrictId;
+  boundaryType?: BoundaryType;
+  boundaryId?: BoundaryId;
   boroughId?: BoroughId;
+  boroughIds?: BoroughId;
 };
 
 export type AttributeParams = {

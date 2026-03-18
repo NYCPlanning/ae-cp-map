@@ -7,7 +7,7 @@ import {
 } from "@nycplanning/streetscape";
 import { useLocation, useNavigate } from "react-router";
 import { CityCouncilDistrict, Borough, CommunityDistrict } from "~/gen";
-import { BoroughId, DistrictId, DistrictType } from "../utils/types";
+import { BoroughId, BoundaryId, BoundaryType } from "../utils/types";
 import {
   BoroughDropdown,
   DistrictTypeDropdown,
@@ -25,15 +25,15 @@ export const FilterMenu = ({
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const districtType = searchParams.get("districtType") as DistrictType;
+  const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
-  const districtId = searchParams.get("districtId") as DistrictId;
+  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
 
   // When a new district is selected while user is on welcome page, update the param
   // and navigate to /capital-projects. Otherwise, just update param.
-  const onDistrictChange = ({ districtId }: { districtId?: DistrictId }) => {
+  const onDistrictChange = ({ boundaryId }: { boundaryId?: BoundaryId }) => {
     if (pathname === "/") {
-      const nextSearchParams = setNewSearchParams(searchParams, { districtId });
+      const nextSearchParams = setNewSearchParams(searchParams, { boundaryId });
       navigate(
         {
           pathname: "/capital-projects",
@@ -42,7 +42,7 @@ export const FilterMenu = ({
         { replace: true },
       );
     } else {
-      updateSearchParams({ districtId });
+      updateSearchParams({ boundaryId });
     }
   };
 
@@ -62,12 +62,12 @@ export const FilterMenu = ({
       </AccordionButton>
       <AccordionPanel px={0} display={"flex"} flexDirection={"column"} gap={1}>
         <DistrictTypeDropdown
-          selectValue={districtType}
-          setAdminParams={({ districtType }) => {
+          selectValue={boundaryType}
+          setAdminParams={({ boundaryType }) => {
             updateSearchParams({
-              districtType,
+              boundaryType,
               boroughId: null,
-              districtId: null,
+              boundaryId: null,
             });
           }}
         />
@@ -75,19 +75,19 @@ export const FilterMenu = ({
           selectValue={boroughId}
           boroughs={boroughs}
           setAdminParams={({ boroughId }) => {
-            updateSearchParams({ boroughId, districtId: null });
+            updateSearchParams({ boroughId, boundaryId: null });
           }}
         />
-        {districtType !== "ccd" ? (
+        {boundaryType !== "ccd" ? (
           <CommunityDistrictDropdown
             boroughId={boroughId}
-            selectValue={districtId}
+            selectValue={boundaryId}
             communityDistricts={communityDistricts}
             setAdminParams={onDistrictChange}
           />
         ) : (
           <CityCouncilDistrictDropdown
-            selectValue={districtId}
+            selectValue={boundaryId}
             cityCouncilDistricts={cityCouncilDistricts}
             setAdminParams={onDistrictChange}
           />

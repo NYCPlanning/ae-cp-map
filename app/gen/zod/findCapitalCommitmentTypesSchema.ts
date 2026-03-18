@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { capitalCommitmentTypeSchema } from "./capitalCommitmentTypeSchema";
 import { errorSchema } from "./errorSchema";
-import { z } from "zod";
 
 /**
  * @description An object containing all capital commitment types.

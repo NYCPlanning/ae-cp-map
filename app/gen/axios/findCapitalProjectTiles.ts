@@ -11,6 +11,7 @@ import type {
   FindCapitalProjectTiles500,
 } from "../types/FindCapitalProjectTiles";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -35,7 +36,7 @@ export async function findCapitalProjectTiles(
   z: FindCapitalProjectTilesPathParams["z"],
   x: FindCapitalProjectTilesPathParams["x"],
   y: FindCapitalProjectTilesPathParams["y"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

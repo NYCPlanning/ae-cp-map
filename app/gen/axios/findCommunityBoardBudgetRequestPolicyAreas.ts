@@ -11,6 +11,7 @@ import type {
   FindCommunityBoardBudgetRequestPolicyAreas500,
 } from "../types/FindCommunityBoardBudgetRequestPolicyAreas";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -29,7 +30,7 @@ function getFindCommunityBoardBudgetRequestPolicyAreasUrl() {
  */
 export async function findCommunityBoardBudgetRequestPolicyAreas(
   params?: FindCommunityBoardBudgetRequestPolicyAreasQueryParams,
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 

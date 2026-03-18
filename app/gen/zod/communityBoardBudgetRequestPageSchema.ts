@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
+import z from "zod";
 import { pageSchema } from "./pageSchema";
-import { z } from "zod";
 
 export const communityBoardBudgetRequestPageSchema = z
   .lazy(() => pageSchema)

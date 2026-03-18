@@ -12,8 +12,8 @@ import {
   CommunityBoardBudgetRequestAgencyCategoryResponseId,
   CommunityBoardBudgetRequestNeedGroupId,
   CommunityBoardBudgetRequestPolicyAreaId,
-  DistrictId,
-  DistrictType,
+  BoundaryId,
+  BoundaryType,
 } from "../../utils/types";
 import { env } from "~/utils/env";
 import { CommunityBoardBudgetRequestType } from "~/gen";
@@ -46,9 +46,10 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
   const onClusterClick = opts.onClusterClick;
   const { cbbrId } = useParams();
   const [searchParams] = useSearchParams();
-  const districtType = searchParams.get("districtType") as DistrictType;
+  const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
-  const districtId = searchParams.get("districtId") as DistrictId;
+  const boroughIds = searchParams.get("boroughIds") as BoroughId;
+  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
   const cbbrNeedGroupId = searchParams.get(
     "cbbrNeedGroupId",
   ) as CommunityBoardBudgetRequestNeedGroupId;
@@ -65,16 +66,16 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       : cbbrAgencyCategoryResponseIdsParam.split(",").map((id) => parseInt(id));
 
   const onCapitalProjectsInCityCouncilDistrictPath =
-    districtType === "ccd" && districtId !== null;
+    boundaryType === "ccd" && boundaryId !== null;
   const onCapitalProjectsInCommunityDistrictPath =
-    districtType === "cd" && boroughId !== null && districtId !== null;
+    boundaryType === "cd" && boroughId !== null && boundaryId !== null;
 
   const navigate = useNavigate();
   let endpointPrefix = "";
   if (onCapitalProjectsInCityCouncilDistrictPath) {
-    endpointPrefix = `city-council-districts/${districtId}/`;
+    endpointPrefix = `city-council-districts/${boundaryId}/`;
   } else if (onCapitalProjectsInCommunityDistrictPath) {
-    endpointPrefix = `boroughs/${boroughId}/community-districts/${districtId}/`;
+    endpointPrefix = `boroughs/${boroughId}/community-districts/${boundaryId}/`;
   }
 
   const policyAreaIconsMap: Record<number, string> = {
@@ -248,7 +249,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
           filterSize: 1,
         }),
       ],
-      maskId: `${districtId !== null ? "boundary-mvt" : ""}`,
+      maskId: `${(boundaryId !== null && (boundaryType === "cd" || boundaryType === "ccd")) || (boroughIds !== null && boundaryType === "borough") ? "boundary-mvt" : ""}`,
       maskByInstance: true, //doesn't seem to have an effect
       maskInverted: false,
     });

@@ -12,6 +12,7 @@ import type {
   FindTaxLotGeoJsonByBbl500,
 } from "../types/FindTaxLotGeoJsonByBbl";
 import type {
+  Client,
   RequestConfig,
   ResponseErrorConfig,
 } from "@kubb/plugin-client/clients/axios";
@@ -29,7 +30,7 @@ function getFindTaxLotGeoJsonByBblUrl(
  */
 export async function findTaxLotGeoJsonByBbl(
   bbl: FindTaxLotGeoJsonByBblPathParams["bbl"],
-  config: Partial<RequestConfig> & { client?: typeof fetch } = {},
+  config: Partial<RequestConfig> & { client?: Client } = {},
 ) {
   const { client: request = fetch, ...requestConfig } = config;
 
