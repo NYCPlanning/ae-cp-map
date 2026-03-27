@@ -200,7 +200,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export default function MapPage() {
-  const { viewState, setViewState } = useOutletContext<RootContextType>();
+  const { viewState, setViewState, clearCombobox } =
+    useOutletContext<RootContextType>();
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
   const showCbbr = searchParams.get("cbbr") !== "off";
@@ -289,6 +290,7 @@ export default function MapPage() {
             showCbbr={showCbbr}
             hoveredOverItem={hoveredOverItem}
             setHoveredOverItem={setHoveredOverItem}
+            clearCombobox={clearCombobox}
           />{" "}
         </GridItem>
         <GridItem
@@ -672,6 +674,7 @@ export default function MapPage() {
           showCbbr={showCbbr}
           hoveredOverItem={hoveredOverItem}
           setHoveredOverItem={setHoveredOverItem}
+          clearCombobox={clearCombobox}
         />{" "}
       </GridItem>
       <GridItem

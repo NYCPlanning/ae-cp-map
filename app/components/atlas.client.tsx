@@ -17,6 +17,7 @@ import {
   useBoroughsLayer,
   useBoroughsOutlinesLayer,
   useBoroughLayer,
+  useMapPinLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
 import { FlyToInterpolator } from "@deck.gl/core";
@@ -24,7 +25,7 @@ import { env } from "~/utils/env";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
-const { basemapUrl, facDbPhase1 } = env;
+const { basemapUrl, facDbPhase1, facDbPhase2 } = env;
 
 export const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
@@ -41,6 +42,7 @@ interface AtlasProps {
   showCbbr: boolean;
   hoveredOverItem: string | null;
   setHoveredOverItem: (newHoveredOverItem: string | null) => void;
+  clearCombobox: () => void;
 }
 
 export function Atlas({
@@ -50,6 +52,7 @@ export function Atlas({
   showCbbr,
   hoveredOverItem,
   setHoveredOverItem,
+  clearCombobox,
 }: AtlasProps) {
   const capitalProjectsLayer = useCapitalProjectsLayer({
     visible: showCapitalProjects,
@@ -81,23 +84,27 @@ export function Atlas({
     });
   const communityBoardBudgetRequestGeoJsonLayer =
     useCommunityBoardBudgetRequestsGeoJsonLayer();
-  const communityDistrictsLayer = useCommunityDistrictsLayer();
+  const communityDistrictsLayer = useCommunityDistrictsLayer({ clearCombobox });
   const communityDistrictLayer = useCommunityDistrictLayer();
   const communityDistrictsOutlinesLayer = useCommunityDistrictsOutlinesLayer();
 
-  const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer();
+  const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer({
+    clearCombobox,
+  });
   const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
   const cityCouncilDistrictsOutlinesLayer =
     useCityCouncilDistrictsOutlinesLayer();
 
-  const boroughsLayer = useBoroughsLayer();
+  const boroughsLayer = useBoroughsLayer({ clearCombobox });
   const boroughsOutlinesLayer = useBoroughsOutlinesLayer();
   const boroughLayer = useBoroughLayer();
 
   const boundaryMvtMask = useBoundaryMVTMask();
 
+  const mapPinLayer = useMapPinLayer();
+
   const LAYER_LIST =
-    facDbPhase1 == "ON"
+    facDbPhase2 == "ON"
       ? [
           boundaryMvtMask,
           communityDistrictsOutlinesLayer,
@@ -113,17 +120,35 @@ export function Atlas({
           capitalProjectBudgetedGeoJsonLayer,
           communityBoardBudgetRequestsLayer,
           communityBoardBudgetRequestGeoJsonLayer,
+          mapPinLayer,
         ]
-      : [
-          capitalProjectsLayer,
-          capitalProjectBudgetedGeoJsonLayer,
-          communityDistrictsLayer,
-          communityDistrictLayer,
-          communityBoardBudgetRequestsLayer,
-          communityBoardBudgetRequestGeoJsonLayer,
-          cityCouncilDistrictsLayer,
-          cityCouncilDistrictLayer,
-        ];
+      : facDbPhase1 == "ON"
+        ? [
+            boundaryMvtMask,
+            communityDistrictsOutlinesLayer,
+            cityCouncilDistrictsOutlinesLayer,
+            communityDistrictsLayer,
+            communityDistrictLayer,
+            cityCouncilDistrictsLayer,
+            cityCouncilDistrictLayer,
+            boroughsLayer,
+            boroughsOutlinesLayer,
+            boroughLayer,
+            capitalProjectsLayer,
+            capitalProjectBudgetedGeoJsonLayer,
+            communityBoardBudgetRequestsLayer,
+            communityBoardBudgetRequestGeoJsonLayer,
+          ]
+        : [
+            capitalProjectsLayer,
+            capitalProjectBudgetedGeoJsonLayer,
+            communityDistrictsLayer,
+            communityDistrictLayer,
+            communityBoardBudgetRequestsLayer,
+            communityBoardBudgetRequestGeoJsonLayer,
+            cityCouncilDistrictsLayer,
+            cityCouncilDistrictLayer,
+          ];
 
   return (
     <DeckGL<MapView>

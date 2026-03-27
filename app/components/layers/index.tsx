@@ -13,3 +13,4 @@ export { useBoroughsLayer } from "./useBoroughsLayer.client";
 export { useBoroughsOutlinesLayer } from "./useBoroughsOutlinesLayer.client";
 export { useBoroughLayer } from "./useBoroughLayer.client";
 export { IconClusterLayer } from "./icon-cluster-layer";
+export { useMapPinLayer } from "./useMapPinLayer.client";

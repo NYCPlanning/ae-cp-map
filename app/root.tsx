@@ -3,6 +3,15 @@ import {
   Box,
   Heading,
   Grid,
+  createListCollection,
+  useCombobox,
+} from "@nycplanning/streetscape";
+import type {
+  ComboboxInputValueChangeDetails,
+  ListCollection,
+  ComboboxCollectionItemProps,
+  ComboboxSelectionDetails,
+  UseComboboxReturn,
 } from "@nycplanning/streetscape";
 import {
   Links,
@@ -21,7 +30,18 @@ import { useEffect, useState } from "react";
 import { initializeMatomoTagManager } from "./utils/analytics";
 import { HeaderBar } from "./components/HeaderBar";
 import { INITIAL_VIEW_STATE } from "./components/atlas.client";
+import { useUpdateSearchParams } from "./utils/utils";
+import type { AddressFeature } from "~/address-search";
+import { findAddresses } from "~/address-search";
+import {
+  useQuery,
+  QueryClient,
+  QueryClientProvider,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { env } from "~/utils/env";
+
+const queryClient = new QueryClient(); // eslint-disable-line
 
 export const links: LinksFunction = () => {
   return [
@@ -63,17 +83,96 @@ function Document({
   );
 }
 
-export type RootContextType = {
-  viewState: MapViewState;
-  setViewState: (newViewState: MapViewState) => void;
-};
-
-export default function App() {
-  useEffect(() => {
-    initializeMatomoTagManager("SmoWWpiD");
-  }, []);
+export function Main() {
   const [viewState, setViewState] = useState<MapViewState>(INITIAL_VIEW_STATE);
   const [, setSearchParams] = useSearchParams();
+  const [searchParams, updateSearchParams] = useUpdateSearchParams();
+  const search = searchParams.get("search");
+  const radius = searchParams.get("radius");
+  const pin = searchParams.get("pin");
+  const [addressSearchQuery, setAddressSearchQuery] = useState<string | null>(
+    search,
+  );
+
+  const queryClient = useQueryClient();
+  const queryFunction = () => {
+    return addressSearchQuery !== null && addressSearchQuery.length > 2
+      ? findAddresses(addressSearchQuery)
+      : null;
+  };
+  const { data: addressSearchResults, isLoading } = useQuery({
+    queryKey: ["find-addresses", addressSearchQuery],
+    queryFn: queryFunction,
+  });
+
+  const items: ComboboxCollectionItemProps[] =
+    addressSearchResults !== null && addressSearchResults !== undefined
+      ? addressSearchResults.features.map((feature: AddressFeature) => {
+          return {
+            label: `${feature.properties.name}, ${feature.properties.borough}`,
+            value: feature.properties.id,
+            coordinates: feature.geometry.coordinates,
+          };
+        })
+      : [];
+
+  const collection = createListCollection({
+    items,
+    itemToString: (item) => item.title,
+    itemToValue: (item) => item.id,
+  });
+
+  const handleInputChange = (details: ComboboxInputValueChangeDetails) => {
+    if (details.reason === "input-change") {
+      if (search !== null || radius !== null || pin !== null) {
+        updateSearchParams({
+          search: undefined,
+          radius: undefined,
+          pin: undefined,
+        });
+      }
+      setAddressSearchQuery(details.inputValue);
+    } else if (details.reason === "clear-trigger") {
+      updateSearchParams({
+        search: undefined,
+        radius: undefined,
+        pin: undefined,
+      });
+      setAddressSearchQuery(null);
+    }
+  };
+
+  const handleSelection = (details: ComboboxSelectionDetails) => {
+    const selection = items.find((item) => item.value === details.itemValue);
+
+    if (selection !== undefined) {
+      setAddressSearchQuery(selection.label);
+      updateSearchParams({
+        search: selection.label,
+        radius: 400,
+        pin: selection.coordinates,
+        boundaryType: undefined,
+        boundaryId: undefined,
+        boroughId: undefined,
+      });
+      setViewState({
+        longitude: selection.coordinates[0],
+        latitude: selection.coordinates[1],
+        zoom: 12,
+        transitionDuration: 125,
+        transitionInterpolator: new FlyToInterpolator(),
+      });
+    }
+  };
+
+  const combobox = useCombobox<UseComboboxReturn>({
+    collection: collection as ListCollection,
+    onInputValueChange: handleInputChange,
+    onSelect: handleSelection,
+    inputBehavior: "autohighlight",
+    inputValue: addressSearchQuery !== null ? addressSearchQuery : undefined,
+    defaultValue: addressSearchQuery !== null ? [addressSearchQuery] : [],
+  });
 
   const clearAllFilters = () => {
     setSearchParams({});
@@ -83,6 +182,43 @@ export default function App() {
       transitionInterpolator: new FlyToInterpolator(),
     });
   };
+
+  return (
+    <>
+      <HeaderBar
+        clearSelections={clearAllFilters}
+        combobox={combobox}
+        addressSearchQuery={addressSearchQuery}
+        addressSearchResults={collection}
+        isLoading={isLoading}
+      />
+      <Outlet
+        context={
+          {
+            viewState,
+            setViewState,
+            clearCombobox: () => {
+              combobox.clearValue();
+              combobox.setInputValue("");
+              setAddressSearchQuery("");
+            },
+          } satisfies RootContextType
+        }
+      />
+    </>
+  );
+}
+
+export type RootContextType = {
+  viewState: MapViewState;
+  setViewState: (newViewState: MapViewState) => void;
+  clearCombobox: () => void;
+};
+
+export default function App() {
+  useEffect(() => {
+    initializeMatomoTagManager("SmoWWpiD");
+  }, []);
 
   return (
     <Document>
@@ -118,10 +254,9 @@ export default function App() {
               }
               height="100vh"
             >
-              <HeaderBar clearSelections={clearAllFilters} />
-              <Outlet
-                context={{ viewState, setViewState } satisfies RootContextType}
-              />
+              <QueryClientProvider client={queryClient}>
+                <Main />
+              </QueryClientProvider>
             </Grid>
           )}
         </ClientOnly>
