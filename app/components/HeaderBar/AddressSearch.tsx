@@ -36,6 +36,8 @@ export const AddressSearch = () => {
     if (details.reason === "input-change") {
       updateSearchParams({
         search: details.inputValue.length > 2 ? details.inputValue : undefined,
+        radius: undefined,
+        pin: undefined,
       });
     } else if (details.reason === "item-select") {
       // do nothing, this is handled by handleselection
@@ -43,6 +45,7 @@ export const AddressSearch = () => {
       updateSearchParams({
         search: undefined,
         radius: undefined,
+        pin: undefined,
       });
     }
   };
@@ -52,7 +55,8 @@ export const AddressSearch = () => {
     if (selection !== undefined) {
       updateSearchParams({
         search: selection.label,
-        radius: 500,
+        radius: 400,
+        pin: selection.coordinates,
         districtType: undefined,
         districtId: undefined,
         boroughId: undefined,

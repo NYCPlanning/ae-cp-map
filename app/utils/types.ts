@@ -50,6 +50,7 @@ export type PaginationQueryParams = {
 export type GeosearchQueryParams = {
   search?: string;
   radius?: number;
+  pin?: number[];
 };
 
 export type LayerParamKey = "capitalProjects" | "cbbr";
