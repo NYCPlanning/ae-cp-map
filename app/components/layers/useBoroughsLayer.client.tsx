@@ -12,7 +12,11 @@ export interface BoroughProperties {
   abbr: string;
   title: string;
 }
-export function useBoroughsLayer() {
+export function useBoroughsLayer({
+  clearCombobox,
+}: {
+  clearCombobox: () => void;
+}) {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const [isHovered, setIsHovered] = useState<string | undefined>();
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
@@ -52,8 +56,12 @@ export function useBoroughsLayer() {
             boroughIds: null,
           });
         } else {
+          clearCombobox();
           updateSearchParams({
             boroughIds: info.object.properties.id,
+            search: undefined,
+            radius: undefined,
+            pin: undefined,
           });
         }
       },

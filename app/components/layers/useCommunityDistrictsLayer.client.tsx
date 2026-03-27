@@ -11,7 +11,11 @@ export interface CommunityDistrictProperties {
   abbr: string | null;
 }
 
-export function useCommunityDistrictsLayer() {
+export function useCommunityDistrictsLayer({
+  clearCombobox,
+}: {
+  clearCombobox: () => void;
+}) {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const [isHovered, setIsHovered] = useState<string | undefined>();
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
@@ -79,11 +83,15 @@ export function useCommunityDistrictsLayer() {
               boundaryId: null,
             });
           } else {
+            clearCombobox();
             updateSearchParams({
               boundaryType: "cd",
               boroughId: info.object.properties.boroughIdCommunityDistrictId[0],
               boundaryId:
                 info.object.properties.boroughIdCommunityDistrictId.slice(1),
+              search: undefined,
+              radius: undefined,
+              pin: undefined,
             });
           }
         }

@@ -1,14 +1,30 @@
 import { Heading, Box, Grid, GridItem } from "@nycplanning/streetscape";
-import { Link, useSearchParams } from "react-router";
+import type {
+  UseComboboxReturn,
+  ListCollection,
+} from "@nycplanning/streetscape";
+import { Link, useSearchParams, useMatches } from "react-router";
 import { AddressSearch } from "./AddressSearch";
 import { env } from "~/utils/env";
 
 export function HeaderBar({
   clearSelections,
+  combobox,
+  addressSearchQuery,
+  addressSearchResults,
+  isLoading,
 }: {
   clearSelections?: () => void | undefined;
+  combobox: UseComboboxReturn;
+  addressSearchQuery: string | null;
+  addressSearchResults: ListCollection;
+  isLoading: boolean;
 }) {
   const [searchParams] = useSearchParams();
+  const matches = useMatches();
+  const isMapPage = matches
+    .map((match) => match.id)
+    .includes("layouts/MapPage");
 
   return (
     <Grid
@@ -91,7 +107,14 @@ export function HeaderBar({
           }}
           className="address-search"
         >
-          <AddressSearch />
+          {isMapPage && (
+            <AddressSearch
+              combobox={combobox}
+              addressSearchQuery={addressSearchQuery}
+              addressSearchResults={addressSearchResults}
+              isLoading={isLoading}
+            />
+          )}
         </GridItem>
       ) : (
         ""

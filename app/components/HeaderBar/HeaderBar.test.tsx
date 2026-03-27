@@ -2,12 +2,32 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { HeaderBar } from "./index";
 import { BrowserRouter } from "react-router";
 import { act } from "react";
+import { createListCollection, useCombobox } from "@nycplanning/streetscape";
+import type {
+  ComboboxCollectionItemProps,
+  ListCollection,
+  UseComboboxReturn,
+} from "@nycplanning/streetscape";
+
+const items: ComboboxCollectionItemProps[] = [];
+
+const collection = createListCollection({
+  items,
+});
 
 describe("Header Bar", () => {
   it("renders with site name text", () => {
+    const combobox = useCombobox<UseComboboxReturn>({
+      collection: collection as ListCollection,
+    });
     render(
       <BrowserRouter>
-        <HeaderBar />
+        <HeaderBar
+          addressSearchQuery={null}
+          addressSearchResults={collection}
+          isLoading={false}
+          combobox={combobox}
+        />
       </BrowserRouter>,
     );
     expect(screen.getByText("Capital Projects Portal")).toBeInTheDocument();
@@ -25,9 +45,19 @@ describe("Header Bar", () => {
     vi.mock("next/navigation", () => ({
       useSearchParams: mockUseSearchParams,
     }));
+
+    const combobox = useCombobox<UseComboboxReturn>({
+      collection: collection as ListCollection,
+    });
     render(
       <BrowserRouter>
-        <HeaderBar clearSelections={clearSelections} />
+        <HeaderBar
+          clearSelections={clearSelections}
+          addressSearchQuery={null}
+          addressSearchResults={collection}
+          isLoading={false}
+          combobox={combobox}
+        />
       </BrowserRouter>,
     );
     await act(() =>
@@ -45,9 +75,18 @@ describe("Header Bar", () => {
     vi.mock("next/navigation", () => ({
       useSearchParams: mockUseSearchParams,
     }));
+
+    const combobox = useCombobox<UseComboboxReturn>({
+      collection: collection as ListCollection,
+    });
     render(
       <BrowserRouter>
-        <HeaderBar />
+        <HeaderBar
+          addressSearchQuery={null}
+          addressSearchResults={collection}
+          isLoading={false}
+          combobox={combobox}
+        />
       </BrowserRouter>,
     );
     await act(() =>

@@ -10,7 +10,11 @@ export interface CityCouncilDistrictProperties {
   id: string;
 }
 
-export function useCityCouncilDistrictsLayer() {
+export function useCityCouncilDistrictsLayer({
+  clearCombobox,
+}: {
+  clearCombobox: () => void;
+}) {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const [isHovered, setIsHovered] = useState<string | undefined>();
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
@@ -54,8 +58,12 @@ export function useCityCouncilDistrictsLayer() {
             boundaryId: null,
           });
         } else {
+          clearCombobox();
           updateSearchParams({
             boundaryId: info.object.properties.id,
+            search: undefined,
+            radius: undefined,
+            pin: undefined,
           });
         }
       },
