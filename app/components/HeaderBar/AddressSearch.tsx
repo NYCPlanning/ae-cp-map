@@ -1,263 +1,89 @@
-import {
-  Combobox,
-  useListCollection,
-  MapPinIcon,
-  Text,
-} from "@nycplanning/streetscape";
+import { Combobox, MapPinIcon, Text } from "@nycplanning/streetscape";
 import { SearchIcon, CloseIcon } from "@chakra-ui/icons";
-import { useFilter } from "@ark-ui/react/locale";
 import {
   ComboboxInputValueChangeDetails,
   ListCollection,
+  createListCollection,
 } from "@ark-ui/react/combobox";
 import type { ComboboxCollectionItemProps } from "@nycplanning/streetscape";
+import { useRouteLoaderData } from "react-router";
+import { useUpdateSearchParams } from "../../utils/utils";
+import { GeosearchFeature } from "~/geosearch";
+import type { ComboboxSelectionDetails } from "@ark-ui/react/combobox";
+import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 
-const geoSearchResults = [
-  {
-    type: "Feature",
-    geometry: {
-      type: "Point",
-      coordinates: [-73.958537, 40.809706],
-    },
-    properties: {
-      id: "288546",
-      gid: "nycpad:venue:288546",
-      layer: "venue",
-      source: "nycpad",
-      source_id: "288546",
-      country_code: "US",
-      name: "1231 AMSTERDAM AVENUE",
-      housenumber: "1231",
-      street: "AMSTERDAM AVENUE",
-      postalcode: "10027",
-      accuracy: "point",
-      country: "United States",
-      country_gid: "whosonfirst:country:85633793",
-      country_a: "USA",
-      region: "New York",
-      region_gid: "whosonfirst:region:85688543",
-      region_a: "NY",
-      county: "New York County",
-      county_gid: "whosonfirst:county:102081863",
-      locality: "New York",
-      locality_gid: "whosonfirst:locality:85977539",
-      locality_a: "NYC",
-      borough: "Manhattan",
-      borough_gid: "whosonfirst:borough:421205771",
-      neighbourhood: "Morningside Heights",
-      neighbourhood_gid: "whosonfirst:neighbourhood:85869509",
-      label: "1231 AMSTERDAM AVENUE, New York, NY, USA",
-      addendum: {
-        pad: {
-          bbl: "1019630030",
-          bin: "1059521",
-          version: "25d",
-        },
-      },
-    },
-  },
-  {
-    type: "Feature",
-    geometry: {
-      type: "Point",
-      coordinates: [-73.958537, 40.809706],
-    },
-    properties: {
-      id: "288547",
-      gid: "nycpad:venue:288547",
-      layer: "venue",
-      source: "nycpad",
-      source_id: "288547",
-      country_code: "US",
-      name: "1233 AMSTERDAM AVENUE",
-      housenumber: "1233",
-      street: "AMSTERDAM AVENUE",
-      postalcode: "10027",
-      accuracy: "point",
-      country: "United States",
-      country_gid: "whosonfirst:country:85633793",
-      country_a: "USA",
-      region: "New York",
-      region_gid: "whosonfirst:region:85688543",
-      region_a: "NY",
-      county: "New York County",
-      county_gid: "whosonfirst:county:102081863",
-      locality: "New York",
-      locality_gid: "whosonfirst:locality:85977539",
-      locality_a: "NYC",
-      borough: "Manhattan",
-      borough_gid: "whosonfirst:borough:421205771",
-      neighbourhood: "Morningside Heights",
-      neighbourhood_gid: "whosonfirst:neighbourhood:85869509",
-      label: "1233 AMSTERDAM AVENUE, New York, NY, USA",
-      addendum: {
-        pad: {
-          bbl: "1019630030",
-          bin: "1059521",
-          version: "25d",
-        },
-      },
-    },
-  },
-  {
-    type: "Feature",
-    geometry: {
-      type: "Point",
-      coordinates: [-73.956094, 40.810811],
-    },
-    properties: {
-      id: "288908",
-      gid: "nycpad:venue:288908",
-      layer: "venue",
-      source: "nycpad",
-      source_id: "288908",
-      country_code: "US",
-      name: "413 WEST 123 STREET",
-      housenumber: "413",
-      street: "WEST 123 STREET",
-      postalcode: "10027",
-      accuracy: "point",
-      country: "United States",
-      country_gid: "whosonfirst:country:85633793",
-      country_a: "USA",
-      region: "New York",
-      region_gid: "whosonfirst:region:85688543",
-      region_a: "NY",
-      county: "New York County",
-      county_gid: "whosonfirst:county:102081863",
-      locality: "New York",
-      locality_gid: "whosonfirst:locality:85977539",
-      locality_a: "NYC",
-      borough: "Manhattan",
-      borough_gid: "whosonfirst:borough:421205771",
-      neighbourhood: "Morningside Heights",
-      neighbourhood_gid: "whosonfirst:neighbourhood:85869509",
-      label: "413 WEST 123 STREET, New York, NY, USA",
-      addendum: {
-        pad: {
-          bbl: "1019640012",
-          bin: "1059526",
-          version: "25d",
-        },
-      },
-    },
-  },
-  {
-    type: "Feature",
-    geometry: {
-      type: "Point",
-      coordinates: [-73.956094, 40.810811],
-    },
-    properties: {
-      id: "288912",
-      gid: "nycpad:venue:288912",
-      layer: "venue",
-      source: "nycpad",
-      source_id: "288912",
-      country_code: "US",
-      name: "421 WEST 123 STREET",
-      housenumber: "421",
-      street: "WEST 123 STREET",
-      postalcode: "10027",
-      accuracy: "point",
-      country: "United States",
-      country_gid: "whosonfirst:country:85633793",
-      country_a: "USA",
-      region: "New York",
-      region_gid: "whosonfirst:region:85688543",
-      region_a: "NY",
-      county: "New York County",
-      county_gid: "whosonfirst:county:102081863",
-      locality: "New York",
-      locality_gid: "whosonfirst:locality:85977539",
-      locality_a: "NYC",
-      borough: "Manhattan",
-      borough_gid: "whosonfirst:borough:421205771",
-      neighbourhood: "Morningside Heights",
-      neighbourhood_gid: "whosonfirst:neighbourhood:85869509",
-      label: "421 WEST 123 STREET, New York, NY, USA",
-      addendum: {
-        pad: {
-          bbl: "1019640012",
-          bin: "1059526",
-          version: "25d",
-        },
-      },
-    },
-  },
-  {
-    type: "Feature",
-    geometry: {
-      type: "Point",
-      coordinates: [-73.959272, 40.809759],
-    },
-    properties: {
-      id: "290661",
-      gid: "nycpad:venue:290661",
-      layer: "venue",
-      source: "nycpad",
-      source_id: "290661",
-      country_code: "US",
-      name: "1234 AMSTERDAM AVENUE",
-      housenumber: "1234",
-      street: "AMSTERDAM AVENUE",
-      postalcode: "10027",
-      accuracy: "point",
-      country: "United States",
-      country_gid: "whosonfirst:country:85633793",
-      country_a: "USA",
-      region: "New York",
-      region_gid: "whosonfirst:region:85688543",
-      region_a: "NY",
-      county: "New York County",
-      county_gid: "whosonfirst:county:102081863",
-      locality: "New York",
-      locality_gid: "whosonfirst:locality:85977539",
-      locality_a: "NYC",
-      borough: "Manhattan",
-      borough_gid: "whosonfirst:borough:421205771",
-      neighbourhood: "Morningside Heights",
-      neighbourhood_gid: "whosonfirst:neighbourhood:85869509",
-      label: "1234 AMSTERDAM AVENUE, New York, NY, USA",
-      addendum: {
-        pad: {
-          bbl: "1019750029",
-          bin: "1059647",
-          version: "25d",
-        },
-      },
-    },
-  },
-];
+export const AddressSearch = ({
+  setViewState,
+}: {
+  setViewState: (newViewState: MapViewState) => void;
+}) => {
+  const [searchParams, updateSearchParams] = useUpdateSearchParams();
+  const search = searchParams.get("search");
+  const { addressSearchResults } = useRouteLoaderData("layouts/MapPage");
+  const items: ComboboxCollectionItemProps[] =
+    addressSearchResults !== null
+      ? addressSearchResults.features.map((feature: GeosearchFeature) => {
+          return {
+            label: `${feature.properties.name}, ${feature.properties.borough}`,
+            value: feature.properties.id,
+            coordinates: feature.geometry.coordinates,
+          };
+        })
+      : [];
 
-const items: ComboboxCollectionItemProps[] = geoSearchResults.map((feature) => {
-  return {
-    label: feature.properties.label,
-    value: feature.properties.id,
-    coordinates: feature.geometry.coordinates,
-  };
-});
-
-export const AddressSearch = () => {
-  const { contains } = useFilter({
-    sensitivity: "base",
-  });
-
-  const { collection, filter } = useListCollection({
-    initialItems: items,
-    filter: contains,
+  const collection = createListCollection({
+    items,
+    itemToString: (item) => item.title,
+    itemToValue: (item) => item.id,
   });
 
   const handleInputChange = (details: ComboboxInputValueChangeDetails) => {
-    filter(details.inputValue);
+    if (details.reason === "input-change") {
+      updateSearchParams({
+        search: details.inputValue.length > 2 ? details.inputValue : undefined,
+        radius: undefined,
+        pin: undefined,
+      });
+    } else if (details.reason === "item-select") {
+      // do nothing, this is handled by handleselection
+    } else if (details.reason === "clear-trigger") {
+      updateSearchParams({
+        search: undefined,
+        radius: undefined,
+        pin: undefined,
+      });
+    }
+  };
+
+  const handleSelection = (details: ComboboxSelectionDetails) => {
+    const selection = items.find((item) => item.value === details.itemValue);
+    if (selection !== undefined) {
+      updateSearchParams({
+        search: selection.label,
+        radius: 400,
+        pin: selection.coordinates,
+        districtType: undefined,
+        districtId: undefined,
+        boroughId: undefined,
+      });
+      setViewState({
+        longitude: selection.coordinates[0],
+        latitude: selection.coordinates[1],
+        zoom: 12,
+        transitionDuration: 2000,
+        transitionInterpolator: new FlyToInterpolator(),
+      });
+    }
   };
 
   return (
     <Combobox.Root
       collection={collection as ListCollection<ComboboxCollectionItemProps>}
       onInputValueChange={handleInputChange}
+      onSelect={handleSelection}
       inputBehavior="autohighlight"
-      maxWidth={{ base: "224px", md: "376px" }}
+      defaultInputValue={search !== null ? search : undefined}
+      defaultValue={search !== null ? [search] : []}
     >
       <Combobox.Control>
         <SearchIcon
@@ -276,7 +102,10 @@ export const AddressSearch = () => {
         </Combobox.ClearTrigger>
       </Combobox.Control>
       <Combobox.Positioner>
-        <Combobox.Content backgroundColor={"white"}>
+        <Combobox.Content
+          backgroundColor={"white"}
+          display={search !== null ? "block" : "none"}
+        >
           <Text
             style={{
               paddingTop: 2,
@@ -287,12 +116,14 @@ export const AddressSearch = () => {
           >
             Add Map Pin
           </Text>
-          {collection.items.map((item) => (
-            <Combobox.Item key={item.value} item={item}>
-              <MapPinIcon h={4} w={2.5} mr={2} />
-              <Combobox.ItemText>{item.label}</Combobox.ItemText>
-            </Combobox.Item>
-          ))}
+          {collection.items.length > 0
+            ? collection.items.map((item) => (
+                <Combobox.Item key={item.value} item={item}>
+                  <MapPinIcon h={4} w={2.5} mr={2} />
+                  <Combobox.ItemText>{item.label}</Combobox.ItemText>
+                </Combobox.Item>
+              ))
+            : search !== null && <Text fontSize={"xs"}>Loading...</Text>}
         </Combobox.Content>
       </Combobox.Positioner>
     </Combobox.Root>

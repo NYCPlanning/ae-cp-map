@@ -10,3 +10,4 @@ export { useCommunityBoardBudgetRequestsLayer } from "./useCommunityBoardBudgetR
 export { useCommunityBoardBudgetRequestsGeoJsonLayer } from "./useCommunityBoardBudgetRequestsGeoJsonLayer.client";
 export { useBoundaryMVTMask } from "./useBoundaryMVTMask.client";
 export { IconClusterLayer } from "./icon-cluster-layer";
+export { useMapPinLayer } from "./useMapPinLayer.client";

@@ -56,6 +56,7 @@ import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
 import { useState } from "react";
 import { MapLayersPanel } from "~/components/AdminMapLayersPanel";
+import { findAddresses } from "~/geosearch";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -75,6 +76,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     cbbrAgencyCategoryResponseIdsParam === null
       ? []
       : cbbrAgencyCategoryResponseIdsParam.split(",");
+  const addressSearchQuery = url.searchParams.get("search") as string;
+
+  const addressSearchResults =
+    addressSearchQuery === null || addressSearchQuery.length < 3
+      ? null
+      : await findAddresses(addressSearchQuery);
 
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
@@ -132,6 +139,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
     if (boroughId === null) {
       return {
+        addressSearchResults,
         boroughs,
         communityDistricts: null,
         cityCouncilDistricts: null,
@@ -152,6 +160,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       );
 
       return {
+        addressSearchResults,
         boroughs,
         communityDistricts,
         cityCouncilDistricts: null,
@@ -171,6 +180,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       baseURL: `${env.zoningApiUrl}/api`,
     });
     return {
+      addressSearchResults,
       boroughs: null,
       communityDistricts: null,
       cityCouncilDistricts,
@@ -185,6 +195,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   return {
+    addressSearchResults,
     boroughs: null,
     communityDistricts: null,
     cityCouncilDistricts: null,
@@ -229,6 +240,7 @@ export default function MapPage() {
     cbbrAgencies,
     cbbrAgencyCategoryResponses,
     cbbrAgencyCategoryResponseIds,
+    addressSearchResults,
   } = useLoaderData<typeof loader>();
 
   const clearCapitalProjectFilters = () => {

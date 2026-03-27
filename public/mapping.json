@@ -317,5 +317,13 @@
       "y": 0,
       "width": 1,
       "height": 1
+  },
+  "map-pin": {
+    "x": 0,
+    "y": 0,
+    "width": 21,
+    "height": 34,
+    "anchorY": 34,
+    "mask": true
   }
 }

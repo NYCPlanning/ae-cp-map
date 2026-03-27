@@ -56,6 +56,9 @@ export function useCityCouncilDistrictsLayer() {
         } else {
           updateSearchParams({
             districtId: info.object.properties.id,
+            search: undefined,
+            radius: undefined,
+            pin: undefined,
           });
         }
       },
