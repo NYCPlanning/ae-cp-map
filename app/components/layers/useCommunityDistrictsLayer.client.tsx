@@ -84,6 +84,9 @@ export function useCommunityDistrictsLayer() {
               boroughId: info.object.properties.boroughIdCommunityDistrictId[0],
               districtId:
                 info.object.properties.boroughIdCommunityDistrictId.slice(1),
+              search: undefined,
+              radius: undefined,
+              pin: undefined,
             });
           }
         }
