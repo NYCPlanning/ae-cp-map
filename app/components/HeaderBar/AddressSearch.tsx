@@ -53,6 +53,9 @@ export const AddressSearch = () => {
       updateSearchParams({
         search: selection.label,
         radius: 500,
+        districtType: undefined,
+        districtId: undefined,
+        boroughId: undefined,
       });
     }
   };
@@ -65,7 +68,6 @@ export const AddressSearch = () => {
       inputBehavior="autohighlight"
       defaultInputValue={search !== null ? search : undefined}
       defaultValue={search !== null ? [search] : []}
-      width="275px"
     >
       <Combobox.Control>
         <SearchIcon
