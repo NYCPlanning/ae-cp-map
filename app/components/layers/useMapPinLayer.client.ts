@@ -1,12 +1,8 @@
 import { IconLayer } from "@deck.gl/layers";
 import { useSearchParams } from "react-router";
-import { FlyToGeoJsonExtension } from "../../extensions";
-import { env } from "~/utils/env";
-
-const { zoningApiUrl } = env;
 
 export function useMapPinLayer() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const pin = searchParams.get("pin");
   const coordinates =
     pin === null ? undefined : pin.split(",").map((d) => parseFloat(d));
@@ -19,12 +15,11 @@ export function useMapPinLayer() {
       },
     ],
     visible: coordinates !== undefined,
-    getColor: (d) => [217, 107, 39],
-    getIcon: (d) => "map-pin",
+    getColor: [217, 107, 39],
+    getIcon: () => "map-pin",
     getPosition: (d) => d.coordinates,
     getSize: 34,
     iconAtlas: "/map-pin.png",
     iconMapping: "/mapping.json",
-    extensions: [new FlyToGeoJsonExtension()],
   });
 }

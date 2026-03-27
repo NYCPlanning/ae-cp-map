@@ -7,7 +7,7 @@ describe("Header Bar", () => {
   it("renders with site name text", () => {
     render(
       <BrowserRouter>
-        <HeaderBar />
+        <HeaderBar setViewState={() => null} />
       </BrowserRouter>,
     );
     expect(screen.getByText("Capital Projects Portal")).toBeInTheDocument();
@@ -27,7 +27,10 @@ describe("Header Bar", () => {
     }));
     render(
       <BrowserRouter>
-        <HeaderBar clearSelections={clearSelections} />
+        <HeaderBar
+          clearSelections={clearSelections}
+          setViewState={() => null}
+        />
       </BrowserRouter>,
     );
     await act(() =>
@@ -47,7 +50,7 @@ describe("Header Bar", () => {
     }));
     render(
       <BrowserRouter>
-        <HeaderBar />
+        <HeaderBar setViewState={() => null} />
       </BrowserRouter>,
     );
     await act(() =>
