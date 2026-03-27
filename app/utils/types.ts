@@ -47,6 +47,11 @@ export type PaginationQueryParams = {
   page?: number;
 };
 
+export type GeosearchQueryParams = {
+  search?: string;
+  radius?: number;
+};
+
 export type LayerParamKey = "capitalProjects" | "cbbr";
 
 export type LayerParamValue = "off" | undefined;
@@ -54,7 +59,11 @@ export type LayerParamValue = "off" | undefined;
 export type LayerQueryParams = Partial<Record<LayerParamKey, LayerParamValue>>;
 
 export type QueryParams = Partial<
-  AdminQueryParams & AttributeParams & PaginationQueryParams & LayerQueryParams
+  AdminQueryParams &
+    AttributeParams &
+    PaginationQueryParams &
+    LayerQueryParams &
+    GeosearchQueryParams
 >;
 
 export type ProjectAmountMenuParams = {
