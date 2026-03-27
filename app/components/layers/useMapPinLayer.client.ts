@@ -22,9 +22,9 @@ export function useMapPinLayer() {
     getColor: (d) => [217, 107, 39],
     getIcon: (d) => "map-pin",
     getPosition: (d) => d.coordinates,
-    getSize: 40,
+    getSize: 34,
     iconAtlas: "/map-pin.png",
     iconMapping: "/mapping.json",
-    pickable: true,
+    extensions: [new FlyToGeoJsonExtension()],
   });
 }

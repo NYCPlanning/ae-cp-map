@@ -10,8 +10,13 @@ import { useRouteLoaderData } from "react-router";
 import { useUpdateSearchParams } from "../../utils/utils";
 import { GeosearchFeature } from "~/geosearch";
 import type { ComboboxSelectionDetails } from "@ark-ui/react/combobox";
+import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 
-export const AddressSearch = () => {
+export const AddressSearch = ({
+  setViewState,
+}: {
+  setViewState: (newViewState: MapViewState) => void;
+}) => {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const search = searchParams.get("search");
   const { addressSearchResults } = useRouteLoaderData("layouts/MapPage");
@@ -60,6 +65,13 @@ export const AddressSearch = () => {
         districtType: undefined,
         districtId: undefined,
         boroughId: undefined,
+      });
+      setViewState({
+        longitude: selection.coordinates[0],
+        latitude: selection.coordinates[1],
+        zoom: 12,
+        transitionDuration: 2000,
+        transitionInterpolator: new FlyToInterpolator(),
       });
     }
   };

@@ -118,7 +118,7 @@ export default function App() {
               }
               height="100vh"
             >
-              <HeaderBar clearSelections={clearAllFilters} />
+              <HeaderBar clearSelections={clearAllFilters} setViewState={setViewState} />
               <Outlet
                 context={{ viewState, setViewState } satisfies RootContextType}
               />

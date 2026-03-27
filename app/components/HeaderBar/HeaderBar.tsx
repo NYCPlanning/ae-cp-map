@@ -2,11 +2,14 @@ import { Heading, Box, Grid, GridItem } from "@nycplanning/streetscape";
 import { Link, useSearchParams } from "react-router";
 import { AddressSearch } from "./AddressSearch";
 import { env } from "~/utils/env";
+import { MapViewState } from "@deck.gl/core";
 
 export function HeaderBar({
   clearSelections,
+  setViewState,
 }: {
   clearSelections?: () => void | undefined;
+  setViewState: (newViewState: MapViewState) => void;
 }) {
   const [searchParams] = useSearchParams();
 
@@ -91,7 +94,7 @@ export function HeaderBar({
           }}
           className="address-search"
         >
-          <AddressSearch />
+          <AddressSearch setViewState={setViewState} />
         </GridItem>
       ) : (
         ""
