@@ -12,7 +12,7 @@ import {
   HousingIcon,
   InfrastructureIcon,
   ParksIcon,
-  PeopleIcon,
+  OtherIcon,
   SafetyIcon,
   TransportationIcon,
 } from "@nycplanning/streetscape";
@@ -164,7 +164,7 @@ export const CommunityBoardBudgetRequestLegend = ({
                 gap={1}
                 justifyContent="flex-start"
               >
-                <PeopleIcon dark={true} aria-label="other needs icon" />
+                <OtherIcon dark={true} aria-label="other needs icon" />
                 <Text fontSize="xs" textColor={"gray.600"}>
                   Other Needs
                 </Text>
