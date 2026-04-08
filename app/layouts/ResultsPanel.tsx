@@ -51,6 +51,7 @@ export const urlPaths = ["capital-projects", "community-board-budget-requests"];
 import { ExportDataModal } from "../components/ExportDataModal";
 import { NoResultsWarning } from "~/components/NoResultsWarning";
 import { env } from "~/utils/env";
+import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
 import { LinkBtn } from "~/components/LinkBtn";
 
 export const policyAreaIcons: Record<
@@ -91,6 +92,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const cbbrPageParam = url.searchParams.get("cbbrPage");
   const cbbrPolicyAreaId = url.searchParams.get("cbbrPolicyAreaId");
   const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
+  const bufferParam = url.searchParams.get("radius");
+  const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
+  const pin = url.searchParams.get("pin");
+  const [lon, lat] =
+    pin === null
+      ? [undefined, undefined]
+      : pin.split(",").map((d) => parseFloat(d));
 
   const cbbrPage = cbbrPageParam === null ? 1 : parseInt(cbbrPageParam);
   if (isNaN(cbbrPage)) {
@@ -107,6 +115,12 @@ export async function loader({ request }: LoaderFunctionArgs) {
         : {}),
       ...(boroughIds !== null && boundaryType === "borough"
         ? { boroughIds: [boroughIds] }
+        : {}),
+      ...(buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
+      buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
+      lon !== undefined &&
+      lat !== undefined
+        ? { geometry: "Point", buffer, lats: [lat], lons: [lon] }
         : {}),
       cbbrType: "C",
       cbbrAgencyCategoryResponseIds:
@@ -150,11 +164,24 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(boroughIds !== null && boundaryType === "borough"
         ? { boroughIds: [boroughIds] }
         : {}),
+      ...(buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
+      buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
+      lon !== undefined &&
+      lat !== undefined
+        ? { geometry: "Point", buffer, lats: [lat], lons: [lon] }
+        : {}),
       ...(managingAgency === null ? {} : { managingAgency }),
       ...(agencyBudget === null ? {} : { agencyBudget }),
       ...(commitmentsTotalMin === null ? {} : { commitmentsTotalMin }),
       ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
-      ...(boundaryId !== null || boroughIds !== null ? {} : { isMapped: true }),
+      ...(boundaryId !== null ||
+      boroughIds !== null ||
+      (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
+        buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
+        lon !== undefined &&
+        lat !== undefined)
+        ? {}
+        : { isMapped: true }),
       limit: itemsPerPage,
       offset: cpOffset,
     },

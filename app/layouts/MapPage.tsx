@@ -200,7 +200,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export default function MapPage() {
-  const { viewState, setViewState, clearCombobox } =
+  const { viewState, setViewState, clearCombobox, addressSearchSliderValue } =
     useOutletContext<RootContextType>();
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
@@ -291,6 +291,7 @@ export default function MapPage() {
             hoveredOverItem={hoveredOverItem}
             setHoveredOverItem={setHoveredOverItem}
             clearCombobox={clearCombobox}
+            addressSearchSliderValue={addressSearchSliderValue}
           />{" "}
         </GridItem>
         <GridItem
@@ -675,6 +676,7 @@ export default function MapPage() {
           hoveredOverItem={hoveredOverItem}
           setHoveredOverItem={setHoveredOverItem}
           clearCombobox={clearCombobox}
+          addressSearchSliderValue={addressSearchSliderValue}
         />{" "}
       </GridItem>
       <GridItem

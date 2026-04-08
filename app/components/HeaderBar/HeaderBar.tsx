@@ -6,6 +6,7 @@ import type {
 import { Link, useSearchParams, useMatches } from "react-router";
 import { AddressSearch } from "./AddressSearch";
 import { env } from "~/utils/env";
+import { RadiusDropdown } from "./RadiusDropdown";
 
 export function HeaderBar({
   clearSelections,
@@ -13,12 +14,16 @@ export function HeaderBar({
   addressSearchQuery,
   addressSearchResults,
   isLoading,
+  addressSearchSliderValue,
+  setAddressSearchSliderValue,
 }: {
   clearSelections?: () => void | undefined;
   combobox: UseComboboxReturn;
   addressSearchQuery: string | null;
   addressSearchResults: ListCollection;
   isLoading: boolean;
+  addressSearchSliderValue: number | undefined;
+  setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
 }) {
   const [searchParams] = useSearchParams();
   const matches = useMatches();
@@ -94,28 +99,50 @@ export function HeaderBar({
         </Link>
       </GridItem>
       {env.facDbPhase2 === "ON" ? (
-        <GridItem
-          gridColumn={{
-            base: "2 / span 5",
-            md: "2 / span 5",
-            lg: "5 / span 4",
-            "2xl": "4 / span 3",
-          }}
-          gridRow={{
-            base: "2",
-            lg: "1",
-          }}
-          className="address-search"
-        >
-          {isMapPage && (
-            <AddressSearch
-              combobox={combobox}
-              addressSearchQuery={addressSearchQuery}
-              addressSearchResults={addressSearchResults}
-              isLoading={isLoading}
-            />
-          )}
-        </GridItem>
+        <>
+          <GridItem
+            gridColumn={{
+              base: "2 / span 5",
+              md: "2 / span 5",
+              lg: "5 / span 4",
+              "2xl": "4 / span 3",
+            }}
+            gridRow={{
+              base: "2",
+              lg: "1",
+            }}
+            className="address-search"
+          >
+            {isMapPage && (
+              <AddressSearch
+                combobox={combobox}
+                addressSearchQuery={addressSearchQuery}
+                addressSearchResults={addressSearchResults}
+                isLoading={isLoading}
+              />
+            )}
+          </GridItem>
+          <GridItem
+            gridColumn={{
+              base: "7 / span 4",
+              md: "7 / span 4",
+              lg: "9 / span 3",
+              "2xl": "7 / span 2",
+            }}
+            gridRow={{
+              base: "2",
+              lg: "1",
+            }}
+            // className="address-search"
+          >
+            {isMapPage && (
+              <RadiusDropdown
+                addressSearchSliderValue={addressSearchSliderValue}
+                setAddressSearchSliderValue={setAddressSearchSliderValue}
+              />
+            )}
+          </GridItem>
+        </>
       ) : (
         ""
       )}

@@ -27,6 +27,10 @@ describe("Header Bar", () => {
           addressSearchResults={collection}
           isLoading={false}
           combobox={combobox}
+          addressSearchSliderValue={400}
+          setAddressSearchSliderValue={() => {
+            return;
+          }}
         />
       </BrowserRouter>,
     );
@@ -57,6 +61,10 @@ describe("Header Bar", () => {
           addressSearchResults={collection}
           isLoading={false}
           combobox={combobox}
+          addressSearchSliderValue={400}
+          setAddressSearchSliderValue={() => {
+            return;
+          }}
         />
       </BrowserRouter>,
     );
@@ -86,6 +94,10 @@ describe("Header Bar", () => {
           addressSearchResults={collection}
           isLoading={false}
           combobox={combobox}
+          addressSearchSliderValue={400}
+          setAddressSearchSliderValue={() => {
+            return;
+          }}
         />
       </BrowserRouter>,
     );

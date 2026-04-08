@@ -39,6 +39,7 @@ import {
   QueryClientProvider,
   useQueryClient,
 } from "@tanstack/react-query";
+import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
 import { env } from "~/utils/env";
 
 const queryClient = new QueryClient(); // eslint-disable-line
@@ -92,6 +93,15 @@ export function Main() {
   const pin = searchParams.get("pin");
   const [addressSearchQuery, setAddressSearchQuery] = useState<string | null>(
     search,
+  );
+  const [addressSearchSliderValue, setAddressSearchSliderValue] = useState<
+    number | undefined
+  >(
+    radius !== null &&
+      ADDRESS_SEARCH_RADIUS.MIN <= parseInt(radius) &&
+      parseInt(radius) <= ADDRESS_SEARCH_RADIUS.MAX
+      ? parseInt(radius)
+      : undefined,
   );
 
   const queryClient = useQueryClient();
@@ -147,18 +157,29 @@ export function Main() {
 
     if (selection !== undefined) {
       setAddressSearchQuery(selection.label);
-      updateSearchParams({
-        search: selection.label,
-        radius: 400,
-        pin: selection.coordinates,
-        boundaryType: undefined,
-        boundaryId: undefined,
-        boroughId: undefined,
-      });
+      if (addressSearchSliderValue !== undefined) {
+        updateSearchParams({
+          search: selection.label,
+          pin: selection.coordinates,
+          radius: addressSearchSliderValue,
+          boundaryType: undefined,
+          boundaryId: undefined,
+          boroughId: undefined,
+        });
+      } else {
+        updateSearchParams({
+          search: selection.label,
+          pin: selection.coordinates,
+          boundaryType: undefined,
+          boundaryId: undefined,
+          boroughId: undefined,
+        });
+      }
+
       setViewState({
         longitude: selection.coordinates[0],
         latitude: selection.coordinates[1],
-        zoom: 12,
+        zoom: 14,
         transitionDuration: 125,
         transitionInterpolator: new FlyToInterpolator(),
       });
@@ -191,6 +212,8 @@ export function Main() {
         addressSearchQuery={addressSearchQuery}
         addressSearchResults={collection}
         isLoading={isLoading}
+        addressSearchSliderValue={addressSearchSliderValue}
+        setAddressSearchSliderValue={setAddressSearchSliderValue}
       />
       <Outlet
         context={
@@ -202,6 +225,7 @@ export function Main() {
               combobox.setInputValue("");
               setAddressSearchQuery("");
             },
+            addressSearchSliderValue,
           } satisfies RootContextType
         }
       />
@@ -213,6 +237,7 @@ export type RootContextType = {
   viewState: MapViewState;
   setViewState: (newViewState: MapViewState) => void;
   clearCombobox: () => void;
+  addressSearchSliderValue: number | undefined;
 };
 
 export default function App() {

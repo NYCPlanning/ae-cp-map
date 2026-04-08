@@ -5,6 +5,12 @@ import type {
   UseComboboxReturn,
 } from "@nycplanning/streetscape";
 
+export const ADDRESS_SEARCH_RADIUS = {
+  DEFAULT: 400,
+  MIN: 50,
+  MAX: 7920,
+};
+
 export const AddressSearch = ({
   combobox,
   addressSearchQuery,

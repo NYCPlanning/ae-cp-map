@@ -10,6 +10,13 @@ import {
   QueryParams,
 } from "./types";
 
+export const formatDistance = (distance: number) => {
+  if (distance >= 2640) {
+    return `${new Intl.NumberFormat("en", { maximumFractionDigits: 2 }).format(distance / 5280)} mi`;
+  }
+  return `${distance} ft`;
+};
+
 const getFiscalYearForDate = (date: Date): number => {
   const year = getYear(date);
   const month = getMonth(date);

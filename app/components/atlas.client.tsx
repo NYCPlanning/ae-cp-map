@@ -43,6 +43,7 @@ interface AtlasProps {
   hoveredOverItem: string | null;
   setHoveredOverItem: (newHoveredOverItem: string | null) => void;
   clearCombobox: () => void;
+  addressSearchSliderValue: number | undefined;
 }
 
 export function Atlas({
@@ -53,6 +54,7 @@ export function Atlas({
   hoveredOverItem,
   setHoveredOverItem,
   clearCombobox,
+  addressSearchSliderValue,
 }: AtlasProps) {
   const capitalProjectsLayer = useCapitalProjectsLayer({
     visible: showCapitalProjects,
@@ -99,9 +101,9 @@ export function Atlas({
   const boroughsOutlinesLayer = useBoroughsOutlinesLayer();
   const boroughLayer = useBoroughLayer();
 
-  const boundaryMvtMask = useBoundaryMVTMask();
+  const boundaryMvtMask = useBoundaryMVTMask({ addressSearchSliderValue });
 
-  const mapPinLayer = useMapPinLayer();
+  const mapPinLayer = useMapPinLayer({ addressSearchSliderValue });
 
   const LAYER_LIST =
     facDbPhase2 == "ON"
