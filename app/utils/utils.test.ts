@@ -2,6 +2,7 @@ import {
   handleCommitmentTotalsInputs,
   checkCommitmentTotalInputsAreValid,
   formatResultsTotal,
+  formatDistance,
 } from "./utils";
 
 describe("handleCommitmentTotalsInputs", () => {
@@ -246,5 +247,16 @@ describe("formatResultsTotal", () => {
   it("should return the input unchanged when input is less than 4 digits", async () => {
     const result = formatResultsTotal(123);
     expect(result === 123).toBe(true);
+  });
+});
+
+describe("formatDistance", () => {
+  it("should format results in feet for less than half a mile", async () => {
+    const result = formatDistance(100);
+    expect(result === "100 ft").toBe(true);
+  });
+  it("should format results in miles for greater than or equal to half a mile", async () => {
+    const result = formatDistance(5280);
+    expect(result === "1 mi").toBe(true);
   });
 });

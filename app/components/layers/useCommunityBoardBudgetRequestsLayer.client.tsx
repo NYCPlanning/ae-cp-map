@@ -18,6 +18,7 @@ import {
 import { env } from "~/utils/env";
 import { CommunityBoardBudgetRequestType } from "~/gen";
 import { IconClusterLayer } from "./icon-cluster-layer";
+import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
 
 const { zoningApiUrl, facDbPhase1 } = env;
 
@@ -69,6 +70,13 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     boundaryType === "ccd" && boundaryId !== null;
   const onCapitalProjectsInCommunityDistrictPath =
     boundaryType === "cd" && boroughId !== null && boundaryId !== null;
+  const bufferParam = searchParams.get("radius");
+  const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
+  const pin = searchParams.get("pin");
+  const [lon, lat] =
+    pin === null
+      ? [undefined, undefined]
+      : pin.split(",").map((d) => parseFloat(d));
 
   const navigate = useNavigate();
   let endpointPrefix = "";
@@ -249,7 +257,17 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
           filterSize: 1,
         }),
       ],
-      maskId: `${(boundaryId !== null && (boundaryType === "cd" || boundaryType === "ccd")) || (boroughIds !== null && boundaryType === "borough") ? "boundary-mvt" : ""}`,
+      maskId: `${
+        (boundaryId !== null &&
+          (boundaryType === "cd" || boundaryType === "ccd")) ||
+        (boroughIds !== null && boundaryType === "borough") ||
+        (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
+          buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
+          lon !== undefined &&
+          lat !== undefined)
+          ? "boundary-mvt"
+          : ""
+      }`,
       maskByInstance: true, //doesn't seem to have an effect
       maskInverted: false,
     });

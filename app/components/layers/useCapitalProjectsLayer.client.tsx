@@ -25,6 +25,7 @@ import {
   PolygonFillStyleExtension,
   PointFillStyleExtension,
 } from "~/extensions";
+import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
 
 const { zoningApiUrl, facDbPhase1 } = env;
 export interface CapitalProjectProperties {
@@ -62,6 +63,13 @@ export function useCapitalProjectsLayer(opts: {
   const max = commitmentsTotalMax
     ? parseFloat(commitmentsTotalMax)
     : 1000000000000;
+  const bufferParam = searchParams.get("radius");
+  const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
+  const pin = searchParams.get("pin");
+  const [lon, lat] =
+    pin === null
+      ? [undefined, undefined]
+      : pin.split(",").map((d) => parseFloat(d));
   const navigate = useNavigate();
 
   const onCapitalProjectsInCityCouncilDistrictPath =
@@ -162,7 +170,17 @@ export function useCapitalProjectsLayer(opts: {
           categorySize: 2,
         }),
       ],
-      maskId: `${(boundaryId !== null && (boundaryType === "cd" || boundaryType === "ccd")) || (boroughIds !== null && boundaryType === "borough") ? "boundary-mvt" : ""}`,
+      maskId: `${
+        (boundaryId !== null &&
+          (boundaryType === "cd" || boundaryType === "ccd")) ||
+        (boroughIds !== null && boundaryType === "borough") ||
+        (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
+          buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
+          lon !== undefined &&
+          lat !== undefined)
+          ? "boundary-mvt"
+          : ""
+      }`,
       maskByInstance: true, //doesn't seem to have an effect
       maskInverted: false,
       _subLayerProps: {
