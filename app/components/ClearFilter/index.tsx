@@ -1,13 +1,18 @@
 import { Button } from "@nycplanning/streetscape";
+import type { Property } from "csstype";
 
 export interface ClearFilterBtnProps {
   onClear: () => void;
   buttonLabel?: string;
+  textAlign?: Property.TextAlign;
+  verticalAlign?: string;
 }
 
 export function ClearFilterBtn({
   onClear,
   buttonLabel = "Reset Selections",
+  textAlign = "left",
+  verticalAlign = "initial",
 }: ClearFilterBtnProps) {
   const handleClear = () => {
     try {
@@ -26,11 +31,12 @@ export function ClearFilterBtn({
       variant="tertiarty"
       textDecoration={"underline"}
       color={"primary.600"}
-      textAlign={"left"}
+      textAlign={textAlign}
       role={"button"}
       minHeight={"unset"}
       marginY={3}
       padding={0}
+      verticalAlign={verticalAlign}
     >
       {buttonLabel}
     </Button>

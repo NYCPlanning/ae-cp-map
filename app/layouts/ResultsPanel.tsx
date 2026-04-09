@@ -52,6 +52,7 @@ import { ExportDataModal } from "../components/ExportDataModal";
 import { NoResultsWarning } from "~/components/NoResultsWarning";
 import { env } from "~/utils/env";
 import { LinkBtn } from "~/components/LinkBtn";
+import { SelectedLocations } from "~/components/SelectedLocations";
 
 export const policyAreaIcons: Record<
   number,
@@ -275,6 +276,12 @@ export default function ResultsPanel() {
     hoveredOverItem: string;
     setHoveredOverItem: (newHoveredOverItem: string | null) => void;
   }>();
+
+  const boroughIds = searchParams.get("boroughIds");
+  const showSelections =
+    (boundaryType !== null && boundaryId !== null) ||
+    (boundaryType !== null && boroughIds !== null && boroughIds.length > 0);
+
   return (
     <ContentPanelAccordion
       accordionHeading={
@@ -283,6 +290,7 @@ export default function ResultsPanel() {
           : `${totalProjects + totalBudgetRequests} Results`
       }
     >
+      {showSelections && env.facDbPhase1 === "ON" && <SelectedLocations />}
       <Tabs
         index={tabIndex}
         onChange={handleTabsChange}
