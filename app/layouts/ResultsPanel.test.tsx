@@ -1,12 +1,24 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import ResultsPanelMain from "./ResultsPanel";
-import { createRoutesStub } from "react-router";
+import { createRoutesStub, Outlet } from "react-router";
+import { useState } from "react";
 import {
   createFindAgencies200,
   createFindBoroughs200,
   createFindCapitalProjects200,
   createFindCommunityBoardBudgetRequests200,
 } from "~/gen/mocks";
+
+const ParentWithContext = () => {
+  const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
+  return <Outlet context={{ hoveredOverItem, setHoveredOverItem }} />;
+};
 
 describe("Results Panel", () => {
   const agenciesResponse = createFindAgencies200();
@@ -24,28 +36,30 @@ describe("Results Panel", () => {
 
   const Stub = createRoutesStub([
     {
-      path: "/capital-projects",
-      Component: ResultsPanelMain,
-      loader,
-      HydrateFallback: () => <></>,
-    },
-    {
-      path: "/community-board-budget-requests",
-      Component: ResultsPanelMain,
-      loader,
-      HydrateFallback: () => <></>,
+      path: "/",
+      Component: ParentWithContext,
+      children: [
+        {
+          path: "capital-projects",
+          Component: ResultsPanelMain,
+          loader,
+          HydrateFallback: () => <></>,
+        },
+        {
+          path: "community-board-budget-requests",
+          Component: ResultsPanelMain,
+          loader,
+          HydrateFallback: () => <></>,
+        },
+      ],
     },
   ]);
 
   it("should render capital projects", async () => {
     render(<Stub initialEntries={["/capital-projects"]} />);
-    await waitFor(() =>
-      screen.getByText(
-        `${capitalProjectsResponse.totalProjects + budgetRequestsResponse.totalBudgetRequests} Results`,
-      ),
-    );
-    await waitFor(() => screen.getByText(/Community Board Budget Requests/));
-    await waitFor(() => screen.getByText(/Capital Projects/));
+
+    await waitFor(() => screen.getAllByText(/Budget Requests/));
+    await waitFor(() => screen.getAllByText(/Capital Projects/));
     await waitFor(() => screen.getByText(/Export Data/));
   });
 
@@ -56,9 +70,7 @@ describe("Results Panel", () => {
         new RegExp(capitalProjectsResponse.totalProjects.toString()),
       ),
     );
-    const budgetRequestTab = screen.getByText(
-      /Community Board Budget Requests/,
-    );
+    const budgetRequestTab = screen.getByText(/Budget Requests/);
     await waitFor(() => budgetRequestTab.click());
     await waitFor(() =>
       screen.getByText(
@@ -69,12 +81,127 @@ describe("Results Panel", () => {
 
   it("should render community board budget requests", async () => {
     render(<Stub initialEntries={["/community-board-budget-requests"]} />);
-    await waitFor(() =>
-      screen.getByText(
-        `${budgetRequestsResponse.totalBudgetRequests + capitalProjectsResponse.totalProjects} Results`,
-      ),
+
+    await waitFor(() => screen.getAllByText(/Budget Requests/));
+    await waitFor(() => screen.getAllByText(/Capital Projects/));
+  });
+
+  it("selected location section should not render when no locations are selected", async () => {
+    render(<Stub initialEntries={["/capital-projects"]} />);
+    await waitFor(() => screen.getByText(/Results/));
+    expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument();
+  });
+
+  it("selected location section should render ccd tag when boundaryType and boundaryId params are set", async () => {
+    render(
+      <Stub
+        initialEntries={["/capital-projects?boundaryType=ccd&boundaryId=50"]}
+      />,
     );
-    await waitFor(() => screen.getByText(/Community Board Budget Requests/));
-    await waitFor(() => screen.getByText(/Capital Projects/));
+    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("City Council"));
+    await waitFor(() => screen.getByText(/\| 50/));
+  });
+
+  it("selected location section should render cd tag with borough and district when cd params are set", async () => {
+    const [{ id, title }] = boroughsResponse.boroughs;
+
+    render(
+      <Stub
+        initialEntries={[
+          `/capital-projects?boundaryType=cd&boroughId=${id}&boundaryId=01`,
+        ]}
+      />,
+    );
+    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getAllByText(title));
+    await waitFor(() => screen.getAllByText(/\| CD 01/));
+  });
+
+  it("selected location section should render borough tag when borough params are set", async () => {
+    const [{ id, title }] = boroughsResponse.boroughs;
+
+    render(
+      <Stub
+        initialEntries={[
+          `/capital-projects?boundaryType=borough&boroughIds=${id}`,
+        ]}
+      />,
+    );
+    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText(title));
+  });
+
+  it("clicking the tag X on ccd tag clears ccd params from the url", async () => {
+    render(
+      <Stub
+        initialEntries={[`/capital-projects?boundaryType=ccd&boundaryId=50`]}
+      />,
+    );
+    await waitFor(() => screen.getByText("City Council"));
+    const closeIcon = screen.getByLabelText("closeIcon");
+    await act(() => fireEvent.click(closeIcon));
+    await waitFor(() =>
+      expect(screen.queryByText("City Council")).not.toBeInTheDocument(),
+    );
+    expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument();
+  });
+
+  it("in the selected location section, clicking the tag X on cd tag clears cd params from the url", async () => {
+    const [{ id, title }] = boroughsResponse.boroughs;
+
+    render(
+      <Stub
+        initialEntries={[
+          `/capital-projects?boundaryType=cd&boroughId=${id}&boundaryId=01`,
+        ]}
+      />,
+    );
+
+    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText(title));
+    await waitFor(() => screen.getByText(/\| CD 01/));
+    const closeIcon = screen.getByLabelText("closeIcon");
+    await act(() => fireEvent.click(closeIcon));
+    await waitFor(() =>
+      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+    );
+  });
+
+  it("in the selected location section, clicking the tag X on borough tag clears borough params from the url", async () => {
+    const [{ id, title }] = boroughsResponse.boroughs;
+
+    render(
+      <Stub
+        initialEntries={[
+          `/capital-projects?boundaryType=borough&boroughIds=${id}`,
+        ]}
+      />,
+    );
+
+    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText(title));
+    const closeIcon = screen.getByLabelText("closeIcon");
+    await act(() => fireEvent.click(closeIcon));
+    await waitFor(() =>
+      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+    );
+  });
+
+  it("in the selected location section, clicking Clear removes all boundary params and hides selected location section", async () => {
+    const [{ id, title }] = boroughsResponse.boroughs;
+
+    render(
+      <Stub
+        initialEntries={[
+          `/capital-projects?boundaryType=cd&boroughId=&{id}&boundaryId=10`,
+        ]}
+      />,
+    );
+    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await act(() => fireEvent.click(screen.getByText("Clear")));
+    await waitFor(() =>
+      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+    );
   });
 });
