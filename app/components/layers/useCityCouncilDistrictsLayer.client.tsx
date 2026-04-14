@@ -1,6 +1,9 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { useState } from "react";
-import { useUpdateSearchParams } from "~/utils/utils";
+import {
+  useUpdateSearchParams,
+  useDismissWelcomeAndUpdateSearchParams,
+} from "~/utils/utils";
 import { BoundaryId, BoundaryType } from "~/utils/types";
 import { env } from "~/utils/env";
 
@@ -16,6 +19,8 @@ export function useCityCouncilDistrictsLayer({
   clearCombobox: () => void;
 }) {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
+  const dismissWelcomeAndUpdateSearchParams =
+    useDismissWelcomeAndUpdateSearchParams();
   const [isHovered, setIsHovered] = useState<string | undefined>();
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
@@ -59,7 +64,7 @@ export function useCityCouncilDistrictsLayer({
           });
         } else {
           clearCombobox();
-          updateSearchParams({
+          dismissWelcomeAndUpdateSearchParams("/capital-projects", {
             boundaryId: info.object.properties.id,
             search: undefined,
             radius: undefined,

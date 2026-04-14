@@ -15,7 +15,10 @@ import {
   CommitmentsTotalMin,
   QueryParams,
 } from "../utils/types";
-import { useUpdateSearchParams } from "~/utils/utils";
+import {
+  useUpdateSearchParams,
+  useDismissWelcomeAndUpdateSearchParams,
+} from "~/utils/utils";
 import { Agency, AgencyBudget } from "~/gen";
 import { env } from "~/utils/env";
 
@@ -25,7 +28,7 @@ export const SearchByAttributeMenu = ({
   onClear,
   updateFiltersAccordion,
 }: SearchByAttributeMenuProps) => {
-  const [searchParams, updateSearchParams] = useUpdateSearchParams();
+  const [searchParams] = useUpdateSearchParams();
   const managingAgency = searchParams.get(
     "managingAgency",
   ) as ManagingAgencyInitials;
@@ -36,6 +39,8 @@ export const SearchByAttributeMenu = ({
   const commitmentsTotalMax = searchParams.get(
     "commitmentsTotalMax",
   ) as CommitmentsTotalMax;
+  const dismissWelcomeAndUpdateSearchParams =
+    useDismissWelcomeAndUpdateSearchParams();
 
   const appliedFilters: number[] = [
     managingAgency !== null ? 1 : 0,
@@ -86,21 +91,28 @@ export const SearchByAttributeMenu = ({
               selectValue={managingAgency}
               agencies={agencies}
               onSelectValueChange={(value) => {
-                updateSearchParams({ managingAgency: value });
+                dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+                  managingAgency: value,
+                });
               }}
             />
             <ProjectTypeDropdown
               selectValue={agencyBudget}
               projectTypes={projectTypes}
               onSelectValueChange={(value) => {
-                updateSearchParams({ agencyBudget: value });
+                dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+                  agencyBudget: value,
+                });
               }}
             />
             <ProjectAmountMenu
               commitmentsTotalMin={commitmentsTotalMin}
               commitmentsTotalMax={commitmentsTotalMax}
               onValidChange={(changes: QueryParams) => {
-                updateSearchParams(changes);
+                dismissWelcomeAndUpdateSearchParams(
+                  "/capital-projects",
+                  changes,
+                );
               }}
             />
           </AccordionPanel>
