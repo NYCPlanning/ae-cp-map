@@ -1,5 +1,10 @@
 import { compareAsc, format, getMonth, getYear } from "date-fns";
-import { useSearchParams, SetURLSearchParams } from "react-router";
+import {
+  useLocation,
+  useNavigate,
+  useSearchParams,
+  SetURLSearchParams,
+} from "react-router";
 import {
   CommitmentsTotalMin,
   CommitmentsTotalMax,
@@ -188,4 +193,28 @@ export function useUpdateSearchParams(): [
     setSearchParams(setNewSearchParams(searchParams, changes));
   };
   return [searchParams, updateSearchParams, setSearchParams];
+}
+
+export function useDismissWelcomeAndUpdateSearchParams() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const dismissWelcomeAndUpdateSearchParams = (
+    newPath: string,
+    changes: QueryParams,
+  ) => {
+    if (pathname === "/") {
+      const nextSearchParams = setNewSearchParams(searchParams, changes);
+      navigate(
+        {
+          pathname: newPath,
+          search: nextSearchParams.toString(),
+        },
+        { replace: true },
+      );
+    } else {
+      setSearchParams(setNewSearchParams(searchParams, changes));
+    }
+  };
+  return dismissWelcomeAndUpdateSearchParams;
 }

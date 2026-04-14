@@ -2,7 +2,10 @@ import { MVTLayer } from "@deck.gl/geo-layers";
 import { useState } from "react";
 import { env } from "~/utils/env";
 import { BoroughId, BoundaryType } from "~/utils/types";
-import { useUpdateSearchParams } from "~/utils/utils";
+import {
+  useUpdateSearchParams,
+  useDismissWelcomeAndUpdateSearchParams,
+} from "~/utils/utils";
 
 const { zoningApiUrl, facDbPhase1 } = env;
 
@@ -18,6 +21,8 @@ export function useBoroughsLayer({
   clearCombobox: () => void;
 }) {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
+  const dismissWelcomeAndUpdateSearchParams =
+    useDismissWelcomeAndUpdateSearchParams();
   const [isHovered, setIsHovered] = useState<string | undefined>();
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boroughIds = searchParams.get("boroughIds") as BoroughId;
@@ -57,7 +62,7 @@ export function useBoroughsLayer({
           });
         } else {
           clearCombobox();
-          updateSearchParams({
+          dismissWelcomeAndUpdateSearchParams("/capital-projects", {
             boroughIds: info.object.properties.id,
             search: undefined,
             radius: undefined,

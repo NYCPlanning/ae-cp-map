@@ -5,7 +5,10 @@ import {
   AccordionPanel,
   Heading,
 } from "@nycplanning/streetscape";
-import { useUpdateSearchParams } from "../utils/utils";
+import {
+  useUpdateSearchParams,
+  useDismissWelcomeAndUpdateSearchParams,
+} from "../utils/utils";
 import {
   Agency,
   CommunityBoardBudgetRequestAgencyCategoryResponse,
@@ -45,7 +48,9 @@ export const SearchByCbbrMenu = ({
   onClear,
   updateFiltersAccordion,
 }: SearchByCbbrMenuProps) => {
-  const [searchParams, updateSearchParams] = useUpdateSearchParams();
+  const [searchParams] = useUpdateSearchParams();
+  const dismissWelcomeAndUpdateSearchParams =
+    useDismissWelcomeAndUpdateSearchParams();
   const cbbrPolicyAreaId = searchParams.get(
     "cbbrPolicyAreaId",
   ) as CommunityBoardBudgetRequestPolicyAreaId;
@@ -115,21 +120,30 @@ export const SearchByCbbrMenu = ({
               selectValue={cbbrPolicyAreaId}
               cbbrPolicyAreas={cbbrPolicyAreas}
               onSelectValueChange={(value) => {
-                updateSearchParams({ cbbrPolicyAreaId: value });
+                dismissWelcomeAndUpdateSearchParams(
+                  "/community-board-budget-requests",
+                  { cbbrPolicyAreaId: value },
+                );
               }}
             />
             <CommunityBoardBudgetRequestNeedGroupDropdown
               selectValue={cbbrNeedGroupId}
               cbbrNeedGroups={cbbrNeedGroups}
               onSelectValueChange={(value) => {
-                updateSearchParams({ cbbrNeedGroupId: value });
+                dismissWelcomeAndUpdateSearchParams(
+                  "/community-board-budget-requests",
+                  { cbbrNeedGroupId: value },
+                );
               }}
             />
             <CommunityBoardBudgetRequestAgencyDropdown
               selectValue={cbbrAgencyInitials}
               cbbrAgencies={cbbrAgencies}
               onSelectValueChange={(value) => {
-                updateSearchParams({ cbbrAgencyInitials: value });
+                dismissWelcomeAndUpdateSearchParams(
+                  "/community-board-budget-requests",
+                  { cbbrAgencyInitials: value },
+                );
               }}
             />
             <CbbrAgencyCategoryResponseCheckbox
@@ -151,10 +165,13 @@ export const SearchByCbbrMenu = ({
                 } else {
                   nextValue = cbbrAgencyCategoryResponseIds.concat([value]);
                 }
-                updateSearchParams({
-                  cbbrAgencyCategoryResponseIds:
-                    nextValue === null ? nextValue : String(nextValue),
-                });
+                dismissWelcomeAndUpdateSearchParams(
+                  "/community-board-budget-requests",
+                  {
+                    cbbrAgencyCategoryResponseIds:
+                      nextValue === null ? nextValue : String(nextValue),
+                  },
+                );
               }}
             />
           </AccordionPanel>
