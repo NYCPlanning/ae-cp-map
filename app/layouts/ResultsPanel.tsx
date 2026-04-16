@@ -94,7 +94,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const cbbrPolicyAreaId = url.searchParams.get("cbbrPolicyAreaId");
   const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
   const bufferParam = url.searchParams.get("radius");
-  const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
+  const buffer = bufferParam === null ? -1 : parseInt
+  (bufferParam);
+
   const pin = url.searchParams.get("pin");
   const [lon, lat] =
     pin === null
@@ -219,7 +221,13 @@ export async function loader({ request }: LoaderFunctionArgs) {
   };
 }
 
-export default function ResultsPanel() {
+export default function ResultsPanel({
+  addressSearchSliderValue,
+  setAddressSearchSliderValue,
+}: {
+  addressSearchSliderValue: number | undefined;
+  setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
+}) {
   const {
     budgetRequestsResponse: {
       communityBoardBudgetRequests,
@@ -305,9 +313,13 @@ export default function ResultsPanel() {
   }>();
 
   const boroughIds = searchParams.get("boroughIds");
+  const bufferParam = searchParams.get("radius");
+  const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
+
   const showSelections =
     (boundaryType !== null && boundaryId !== null) ||
-    (boundaryType !== null && boroughIds !== null && boroughIds.length > 0);
+    (boundaryType !== null && boroughIds !== null && boroughIds.length > 0) ||
+    (buffer !== null && buffer > 0);
 
   return (
     <ContentPanelAccordion
@@ -317,7 +329,12 @@ export default function ResultsPanel() {
           : `${totalProjects + totalBudgetRequests} Results`
       }
     >
-      {showSelections && env.facDbPhase1 === "ON" && <SelectedLocations />}
+      {showSelections && env.facDbPhase1 === "ON" && (
+        <SelectedLocations
+          addressSearchSliderValue={addressSearchSliderValue}
+          setAddressSearchSliderValue={setAddressSearchSliderValue}
+        />
+      )}
       <Tabs
         index={tabIndex}
         onChange={handleTabsChange}

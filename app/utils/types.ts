@@ -50,8 +50,8 @@ export type PaginationQueryParams = {
 
 export type AddressQueryParams = {
   search?: string;
-  radius?: number;
-  pin?: number[];
+  radius?: number | null;
+  pin?: number[] | null;
 };
 
 export type LayerParamKey = "capitalProjects" | "cbbr";

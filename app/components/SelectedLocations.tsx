@@ -4,7 +4,13 @@ import { useUpdateSearchParams } from "~/utils/utils";
 import { loader } from "~/layouts/ResultsPanel";
 import { ClearFilterBtn } from "./ClearFilter";
 
-export function SelectedLocations() {
+export function SelectedLocations({
+  addressSearchSliderValue,
+  setAddressSearchSliderValue,
+}: {
+  addressSearchSliderValue: number | undefined;
+  setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
+}) {
   const {
     boroughsResponse: { boroughs },
   } = useLoaderData<typeof loader>();
@@ -13,10 +19,24 @@ export function SelectedLocations() {
   const boundaryType = searchParams.get("boundaryType");
   const boroughId = searchParams.get("boroughId");
   const boundaryId = searchParams.get("boundaryId");
-
   const boroughIds = searchParams.get("boroughIds");
+  const radiusParam = searchParams.get("radius");
+  const radius = radiusParam === null ? -1 : parseInt(radiusParam);
+  const radiusValueInMiles = new Intl.NumberFormat("en", {
+    maximumFractionDigits: 2,
+  }).format(radius / 5280);
 
   const tagLabel = (() => {
+    if (radius !== null && radius > 0) {
+      return (
+        <>
+          <span style={{ fontWeight: "bold" }}>Radius</span>
+          <span
+            style={{ paddingRight: "2px" }}
+          >{` | ${radiusValueInMiles} mi`}</span>
+        </>
+      );
+    }
     if (boundaryType === "ccd" && boundaryId !== null) {
       return (
         <>
@@ -48,31 +68,34 @@ export function SelectedLocations() {
 
   const clearSelections = () => {
     updateSearchParams({
-      boundaryType: null,
-      boroughId: null,
-      boundaryId: null,
-      boroughIds: null,
+      boundaryType: undefined,
+      boroughId: undefined,
+      boundaryId: undefined,
+      boroughIds: undefined,
+      radius: undefined,
     });
+    setAddressSearchSliderValue(undefined);
   };
 
   const clearTag = () => {
-    if (boundaryType === "ccd") {
+    if (radius > 0) {
       updateSearchParams({
-        boundaryType: null,
-        boundaryId: null,
-        boroughId: null,
+        radius: undefined,
       });
-    } else if (boundaryType === "cd") {
+      setAddressSearchSliderValue(undefined);
+    } else if (boundaryType === "ccd" || boundaryType === "cd") {
       updateSearchParams({
-        boundaryType: null,
-        boroughId: null,
-        boundaryId: null,
+        boundaryType: undefined,
+        boundaryId: undefined,
+        boroughId: undefined,
       });
+      setAddressSearchSliderValue(undefined);
     } else if (boundaryType === "borough") {
       updateSearchParams({
-        boundaryType: null,
-        boroughIds: null,
+        boundaryType: undefined,
+        boroughIds: undefined,
       });
+      setAddressSearchSliderValue(undefined);
     }
   };
 
@@ -128,7 +151,7 @@ export function SelectedLocations() {
                 height={"8px"}
                 onClick={clearTag}
                 aria-label={"closeIcon"}
-                verticalAlign={"baseline"}
+                verticalAlign={"middle"}
                 sx={{
                   cursor: "pointer",
                 }}
