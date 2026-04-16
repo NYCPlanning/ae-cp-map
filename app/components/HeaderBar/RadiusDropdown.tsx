@@ -22,11 +22,13 @@ import { useUpdateSearchParams } from "~/utils/utils";
 import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
 
 export const RadiusDropdown = ({
-  addressSearchSliderValue,
   setAddressSearchSliderValue,
+  clearRadiusFilter,
+  addressSearchSliderValue,
 }: {
   addressSearchSliderValue: number | undefined;
   setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
+  clearRadiusFilter: () => void;
 }) => {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const pin = searchParams.get("pin");
@@ -35,6 +37,15 @@ export const RadiusDropdown = ({
     addressSearchSliderValue === undefined
       ? ADDRESS_SEARCH_RADIUS.DEFAULT
       : addressSearchSliderValue;
+
+  const radiusValueInMiles = new Intl.NumberFormat("en", {
+    maximumFractionDigits: 2,
+  }).format(sliderValue / 5280);
+
+  const resetRadiusFilter = () => {
+    setAddressSearchSliderValue(ADDRESS_SEARCH_RADIUS.DEFAULT);
+    updateSearchParams({ radius: ADDRESS_SEARCH_RADIUS.DEFAULT });
+  };
 
   if (pin === null) {
     return (
@@ -69,8 +80,7 @@ export const RadiusDropdown = ({
       placement="bottom-start"
       onOpen={() => {
         if (addressSearchSliderValue === undefined) {
-          setAddressSearchSliderValue(ADDRESS_SEARCH_RADIUS.DEFAULT);
-          updateSearchParams({ radius: ADDRESS_SEARCH_RADIUS.DEFAULT });
+          resetRadiusFilter();
         }
       }}
     >
@@ -115,11 +125,11 @@ export const RadiusDropdown = ({
                 Radius: {`${sliderValue} ft. `}
                 <span
                   style={{ fontSize: "0.75rem" }}
-                >{`(${new Intl.NumberFormat("en", { maximumFractionDigits: 2 }).format(sliderValue / 5280)} mi.)`}</span>
+                >{`(${radiusValueInMiles} mi.)`}</span>
               </Text>
               <Slider
                 aria-label="slider-radius"
-                value={addressSearchSliderValue}
+                value={sliderValue}
                 min={ADDRESS_SEARCH_RADIUS.MIN}
                 max={ADDRESS_SEARCH_RADIUS.MAX}
                 onChange={(v) => setAddressSearchSliderValue(v)}
@@ -144,10 +154,7 @@ export const RadiusDropdown = ({
                   variant={"tertiary"}
                   fontSize={"sm"}
                   onClick={() => {
-                    setAddressSearchSliderValue(ADDRESS_SEARCH_RADIUS.DEFAULT);
-                    updateSearchParams({
-                      radius: ADDRESS_SEARCH_RADIUS.DEFAULT,
-                    });
+                    resetRadiusFilter();
                   }}
                 >
                   Reset
@@ -157,8 +164,7 @@ export const RadiusDropdown = ({
                   variant={"secondary"}
                   borderWidth={"1px"}
                   onClick={() => {
-                    setAddressSearchSliderValue(undefined);
-                    updateSearchParams({ radius: undefined });
+                    clearRadiusFilter();
                     onClose();
                   }}
                 >

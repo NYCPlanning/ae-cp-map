@@ -299,15 +299,21 @@ export default function ResultsPanel() {
     ...(agencyInitials === null ? {} : { agencyInitials }),
   }).toString();
 
-  const { hoveredOverItem, setHoveredOverItem } = useOutletContext<{
-    hoveredOverItem: string;
-    setHoveredOverItem: (newHoveredOverItem: string | null) => void;
-  }>();
+  const { hoveredOverItem, setHoveredOverItem, clearRadiusFilter } =
+    useOutletContext<{
+      hoveredOverItem: string;
+      setHoveredOverItem: (v: string | null) => void;
+      clearRadiusFilter: () => void;
+    }>();
 
   const boroughIds = searchParams.get("boroughIds");
+  const radiusParam = searchParams.get("radius");
+  const radius = radiusParam === null ? -1 : parseInt(radiusParam);
+
   const showSelections =
     (boundaryType !== null && boundaryId !== null) ||
-    (boundaryType !== null && boroughIds !== null && boroughIds.length > 0);
+    (boundaryType !== null && boroughIds !== null && boroughIds.length > 0) ||
+    (radius !== null && radius > 0);
 
   return (
     <ContentPanelAccordion
@@ -317,7 +323,9 @@ export default function ResultsPanel() {
           : `${totalProjects + totalBudgetRequests} Results`
       }
     >
-      {showSelections && env.facDbPhase1 === "ON" && <SelectedLocations />}
+      {showSelections && env.facDbPhase1 === "ON" && (
+        <SelectedLocations clearRadiusFilter={clearRadiusFilter} />
+      )}
       <Tabs
         index={tabIndex}
         onChange={handleTabsChange}

@@ -61,7 +61,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const boundaryType = url.searchParams.get("boundaryType") as BoundaryType;
   const boroughId = url.searchParams.get("boroughId") as BoroughId;
-  const boroughIds = url.searchParams.get("boroughIds") as BoroughId;
   const cbbrNeedGroupId = url.searchParams.get(
     "cbbrNeedGroupId",
   ) as CommunityBoardBudgetRequestNeedGroupId;
@@ -200,8 +199,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export default function MapPage() {
-  const { viewState, setViewState, clearCombobox, addressSearchSliderValue } =
-    useOutletContext<RootContextType>();
+  const {
+    viewState,
+    setViewState,
+    clearCombobox,
+    addressSearchSliderValue,
+    clearRadiusFilter,
+  } = useOutletContext<RootContextType>();
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
   const showCbbr = searchParams.get("cbbr") !== "off";
@@ -653,7 +657,13 @@ export default function MapPage() {
             padding={4}
             boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
           >
-            <Outlet context={{ hoveredOverItem, setHoveredOverItem }} />
+            <Outlet
+              context={{
+                hoveredOverItem,
+                setHoveredOverItem,
+                clearRadiusFilter,
+              }}
+            />
           </Flex>
         </GridItem>
       </>
@@ -927,7 +937,13 @@ export default function MapPage() {
           padding={4}
           boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
         >
-          <Outlet context={{ hoveredOverItem, setHoveredOverItem }} />
+          <Outlet
+            context={{
+              hoveredOverItem,
+              setHoveredOverItem,
+              clearRadiusFilter,
+            }}
+          />
         </Flex>
       </GridItem>
     </>

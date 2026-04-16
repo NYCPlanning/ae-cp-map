@@ -6,7 +6,7 @@ import {
   waitFor,
 } from "@testing-library/react";
 import ResultsPanelMain from "./ResultsPanel";
-import { createRoutesStub, Outlet } from "react-router";
+import { createRoutesStub, Outlet, useSearchParams } from "react-router";
 import { useState } from "react";
 import {
   createFindAgencies200,
@@ -17,7 +17,21 @@ import {
 
 const ParentWithContext = () => {
   const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
-  return <Outlet context={{ hoveredOverItem, setHoveredOverItem }} />;
+  const [, setSearchParams] = useSearchParams();
+
+  const clearRadiusFilter = () => {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete("radius");
+      return next;
+    });
+  };
+
+  return (
+    <Outlet
+      context={{ hoveredOverItem, setHoveredOverItem, clearRadiusFilter }}
+    />
+  );
 };
 
 describe("Results Panel", () => {
@@ -194,7 +208,54 @@ describe("Results Panel", () => {
     render(
       <Stub
         initialEntries={[
-          `/capital-projects?boundaryType=cd&boroughId=&{id}&boundaryId=10`,
+          `/capital-projects?boundaryType=cd&boroughId=${id}&boundaryId=10`,
+        ]}
+      />,
+    );
+    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText(title));
+    await act(() => fireEvent.click(screen.getByText("Clear")));
+    await waitFor(() =>
+      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+    );
+  });
+
+  it("selected location section should render the radius tag when radius param is set", async () => {
+    render(
+      <Stub
+        initialEntries={[
+          "/capital-projects?boroughIds=4&search=2547+MILL+AVENUE%2C+Brooklyn&pin=-73.911116%2C40.609715&radius=400",
+        ]}
+      />,
+    );
+    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("Radius"));
+    await waitFor(() => screen.getByText(/0\.08 mi/));
+  });
+
+  it("clicking the X icon on the radius tag clears radius param and hides selected location section", async () => {
+    render(
+      <Stub
+        initialEntries={[
+          "/capital-projects?boroughIds=4&search=2547+MILL+AVENUE%2C+Brooklyn&pin=-73.911116%2C40.609715&radius=400",
+        ]}
+      />,
+    );
+
+    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("Radius"));
+    const closeIcon = screen.getByLabelText("closeIcon");
+    await act(() => fireEvent.click(closeIcon));
+    await waitFor(() =>
+      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+    );
+  });
+
+  it("clicking the clear button when radius is set, clears the radius param and hides selected location section", async () => {
+    render(
+      <Stub
+        initialEntries={[
+          "/capital-projects?boroughIds=4&search=2547+MILL+AVENUE%2C+Brooklyn&pin=-73.911116%2C40.609715&radius=400",
         ]}
       />,
     );

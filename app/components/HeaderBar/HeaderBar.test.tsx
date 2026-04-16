@@ -15,6 +15,13 @@ const collection = createListCollection({
   items,
 });
 
+const defaultRadiusProps = {
+  clearRadiusFilter: vi.fn(),
+  setAddressSearchSliderValue: vi.fn(),
+  addressSearchSliderValue: 400,
+  sliderValue: 400,
+};
+
 describe("Header Bar", () => {
   it("renders with site name text", () => {
     const combobox = useCombobox<UseComboboxReturn>({
@@ -23,14 +30,11 @@ describe("Header Bar", () => {
     render(
       <BrowserRouter>
         <HeaderBar
+          {...defaultRadiusProps}
           addressSearchQuery={null}
           addressSearchResults={collection}
           isLoading={false}
           combobox={combobox}
-          addressSearchSliderValue={400}
-          setAddressSearchSliderValue={() => {
-            return;
-          }}
         />
       </BrowserRouter>,
     );
@@ -56,15 +60,12 @@ describe("Header Bar", () => {
     render(
       <BrowserRouter>
         <HeaderBar
+          {...defaultRadiusProps}
           clearSelections={clearSelections}
           addressSearchQuery={null}
           addressSearchResults={collection}
           isLoading={false}
           combobox={combobox}
-          addressSearchSliderValue={400}
-          setAddressSearchSliderValue={() => {
-            return;
-          }}
         />
       </BrowserRouter>,
     );
@@ -90,14 +91,11 @@ describe("Header Bar", () => {
     render(
       <BrowserRouter>
         <HeaderBar
+          {...defaultRadiusProps}
           addressSearchQuery={null}
           addressSearchResults={collection}
           isLoading={false}
           combobox={combobox}
-          addressSearchSliderValue={400}
-          setAddressSearchSliderValue={() => {
-            return;
-          }}
         />
       </BrowserRouter>,
     );
