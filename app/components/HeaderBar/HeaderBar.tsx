@@ -16,6 +16,7 @@ export function HeaderBar({
   isLoading,
   addressSearchSliderValue,
   setAddressSearchSliderValue,
+  clearRadiusFilter,
 }: {
   clearSelections?: () => void | undefined;
   combobox: UseComboboxReturn;
@@ -24,6 +25,7 @@ export function HeaderBar({
   isLoading: boolean;
   addressSearchSliderValue: number | undefined;
   setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
+  clearRadiusFilter: () => void;
 }) {
   const [searchParams] = useSearchParams();
   const matches = useMatches();
@@ -51,7 +53,6 @@ export function HeaderBar({
       boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.16)"}
       position={"sticky"}
       top={0}
-      className="header-wrapper"
     >
       <GridItem
         gridColumn={{
@@ -59,7 +60,6 @@ export function HeaderBar({
           xl: "2 / span 3",
           "2xl": "2 / span 2",
         }}
-        className="header-title"
       >
         <Link
           to={{
@@ -111,7 +111,6 @@ export function HeaderBar({
               base: "2",
               lg: "1",
             }}
-            className="address-search"
           >
             {isMapPage && (
               <AddressSearch
@@ -119,6 +118,7 @@ export function HeaderBar({
                 addressSearchQuery={addressSearchQuery}
                 addressSearchResults={addressSearchResults}
                 isLoading={isLoading}
+                aria-label="address search dropdown"
               />
             )}
           </GridItem>
@@ -133,12 +133,13 @@ export function HeaderBar({
               base: "2",
               lg: "1",
             }}
-            // className="address-search"
           >
             {isMapPage && (
               <RadiusDropdown
                 addressSearchSliderValue={addressSearchSliderValue}
                 setAddressSearchSliderValue={setAddressSearchSliderValue}
+                clearRadiusFilter={clearRadiusFilter}
+                aria-label="radius selection dropdown menu"
               />
             )}
           </GridItem>
@@ -159,7 +160,7 @@ export function HeaderBar({
         }}
         px={4}
         color={"gray.700"}
-        className="about-button"
+        aria-label="about button"
       >
         <Link to={{ pathname: "/about", search: searchParams.toString() }}>
           About

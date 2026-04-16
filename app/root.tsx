@@ -104,7 +104,6 @@ export function Main() {
       : undefined,
   );
 
-  const queryClient = useQueryClient();
   const queryFunction = () => {
     return addressSearchQuery !== null && addressSearchQuery.length > 2
       ? findAddresses(addressSearchQuery)
@@ -204,6 +203,11 @@ export function Main() {
     });
   };
 
+  const clearRadiusFilter = () => {
+    setAddressSearchSliderValue(undefined);
+    updateSearchParams({ radius: undefined });
+  };
+
   return (
     <>
       <HeaderBar
@@ -214,6 +218,7 @@ export function Main() {
         isLoading={isLoading}
         addressSearchSliderValue={addressSearchSliderValue}
         setAddressSearchSliderValue={setAddressSearchSliderValue}
+        clearRadiusFilter={clearRadiusFilter}
       />
       <Outlet
         context={
@@ -226,6 +231,7 @@ export function Main() {
               setAddressSearchQuery("");
             },
             addressSearchSliderValue,
+            clearRadiusFilter,
           } satisfies RootContextType
         }
       />
@@ -238,6 +244,7 @@ export type RootContextType = {
   setViewState: (newViewState: MapViewState) => void;
   clearCombobox: () => void;
   addressSearchSliderValue: number | undefined;
+  clearRadiusFilter: () => void;
 };
 
 export default function App() {
