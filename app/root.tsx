@@ -226,7 +226,6 @@ export function Main() {
               setAddressSearchQuery("");
             },
             addressSearchSliderValue,
-            setAddressSearchSliderValue,
           } satisfies RootContextType
         }
       />
@@ -239,7 +238,6 @@ export type RootContextType = {
   setViewState: (newViewState: MapViewState) => void;
   clearCombobox: () => void;
   addressSearchSliderValue: number | undefined;
-  setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
 };
 
 export default function App() {

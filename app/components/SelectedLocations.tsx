@@ -4,13 +4,7 @@ import { useUpdateSearchParams } from "~/utils/utils";
 import { loader } from "~/layouts/ResultsPanel";
 import { ClearFilterBtn } from "./ClearFilter";
 
-export function SelectedLocations({
-  addressSearchSliderValue,
-  setAddressSearchSliderValue,
-}: {
-  addressSearchSliderValue: number | undefined;
-  setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
-}) {
+export function SelectedLocations() {
   const {
     boroughsResponse: { boroughs },
   } = useLoaderData<typeof loader>();
@@ -74,7 +68,6 @@ export function SelectedLocations({
       boroughIds: undefined,
       radius: undefined,
     });
-    setAddressSearchSliderValue(undefined);
   };
 
   const clearTag = () => {
@@ -82,20 +75,17 @@ export function SelectedLocations({
       updateSearchParams({
         radius: undefined,
       });
-      setAddressSearchSliderValue(undefined);
     } else if (boundaryType === "ccd" || boundaryType === "cd") {
       updateSearchParams({
         boundaryType: undefined,
         boundaryId: undefined,
         boroughId: undefined,
       });
-      setAddressSearchSliderValue(undefined);
     } else if (boundaryType === "borough") {
       updateSearchParams({
         boundaryType: undefined,
         boroughIds: undefined,
       });
-      setAddressSearchSliderValue(undefined);
     }
   };
 

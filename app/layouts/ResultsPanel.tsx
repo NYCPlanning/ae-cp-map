@@ -94,8 +94,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const cbbrPolicyAreaId = url.searchParams.get("cbbrPolicyAreaId");
   const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
   const bufferParam = url.searchParams.get("radius");
-  const buffer = bufferParam === null ? -1 : parseInt
-  (bufferParam);
+  const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
 
   const pin = url.searchParams.get("pin");
   const [lon, lat] =
@@ -301,16 +300,9 @@ export default function ResultsPanel() {
     ...(agencyInitials === null ? {} : { agencyInitials }),
   }).toString();
 
-  const {
-    hoveredOverItem,
-    setHoveredOverItem,
-    addressSearchSliderValue,
-    setAddressSearchSliderValue,
-  } = useOutletContext<{
+  const { hoveredOverItem, setHoveredOverItem } = useOutletContext<{
     hoveredOverItem: string;
     setHoveredOverItem: (v: string | null) => void;
-    addressSearchSliderValue: number | undefined;
-    setAddressSearchSliderValue: (v: number | undefined) => void;
   }>();
 
   const boroughIds = searchParams.get("boroughIds");
@@ -330,12 +322,7 @@ export default function ResultsPanel() {
           : `${totalProjects + totalBudgetRequests} Results`
       }
     >
-      {showSelections && env.facDbPhase1 === "ON" && (
-        <SelectedLocations
-          addressSearchSliderValue={addressSearchSliderValue}
-          setAddressSearchSliderValue={setAddressSearchSliderValue}
-        />
-      )}
+      {showSelections && env.facDbPhase1 === "ON" && <SelectedLocations />}
       <Tabs
         index={tabIndex}
         onChange={handleTabsChange}
