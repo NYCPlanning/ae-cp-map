@@ -221,13 +221,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   };
 }
 
-export default function ResultsPanel({
-  addressSearchSliderValue,
-  setAddressSearchSliderValue,
-}: {
-  addressSearchSliderValue: number | undefined;
-  setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
-}) {
+export default function ResultsPanel() {
   const {
     budgetRequestsResponse: {
       communityBoardBudgetRequests,
@@ -307,9 +301,16 @@ export default function ResultsPanel({
     ...(agencyInitials === null ? {} : { agencyInitials }),
   }).toString();
 
-  const { hoveredOverItem, setHoveredOverItem } = useOutletContext<{
+  const {
+    hoveredOverItem,
+    setHoveredOverItem,
+    addressSearchSliderValue,
+    setAddressSearchSliderValue,
+  } = useOutletContext<{
     hoveredOverItem: string;
-    setHoveredOverItem: (newHoveredOverItem: string | null) => void;
+    setHoveredOverItem: (v: string | null) => void;
+    addressSearchSliderValue: number | undefined;
+    setAddressSearchSliderValue: (v: number | undefined) => void;
   }>();
 
   const boroughIds = searchParams.get("boroughIds");
