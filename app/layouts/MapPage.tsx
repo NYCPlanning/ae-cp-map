@@ -653,7 +653,9 @@ export default function MapPage() {
             padding={4}
             boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
           >
-            <Outlet context={{ hoveredOverItem, setHoveredOverItem }} />
+            <Outlet
+              context={{ hoveredOverItem, setHoveredOverItem, clearCombobox }}
+            />
           </Flex>
         </GridItem>
       </>
@@ -927,7 +929,9 @@ export default function MapPage() {
           padding={4}
           boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
         >
-          <Outlet context={{ hoveredOverItem, setHoveredOverItem }} />
+          <Outlet
+            context={{ hoveredOverItem, setHoveredOverItem, clearCombobox }}
+          />
         </Flex>
       </GridItem>
     </>

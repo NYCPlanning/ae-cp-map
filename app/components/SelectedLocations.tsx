@@ -7,9 +7,11 @@ import { ClearFilterBtn } from "./ClearFilter";
 export function SelectedLocations({
   addressSearchSliderValue,
   setAddressSearchSliderValue,
+  clearCombobox,
 }: {
   addressSearchSliderValue: number | undefined;
   setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
+  clearCombobox: () => void;
 }) {
   const {
     boroughsResponse: { boroughs },
@@ -72,17 +74,21 @@ export function SelectedLocations({
       boroughId: undefined,
       boundaryId: undefined,
       boroughIds: undefined,
+      search: undefined,
       radius: undefined,
+      pin: undefined,
     });
-    setAddressSearchSliderValue(undefined);
+    clearCombobox();
   };
 
   const clearTag = () => {
     if (radius > 0) {
+      clearCombobox();
       updateSearchParams({
+        search: undefined,
         radius: undefined,
+        pin: undefined,
       });
-      setAddressSearchSliderValue(undefined);
     } else if (boundaryType === "ccd" || boundaryType === "cd") {
       updateSearchParams({
         boundaryType: undefined,

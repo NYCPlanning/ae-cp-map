@@ -94,8 +94,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const cbbrPolicyAreaId = url.searchParams.get("cbbrPolicyAreaId");
   const cbbrAgencyInitials = url.searchParams.get("cbbrAgencyInitials");
   const bufferParam = url.searchParams.get("radius");
-  const buffer = bufferParam === null ? -1 : parseInt
-  (bufferParam);
+  const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
 
   const pin = url.searchParams.get("pin");
   const [lon, lat] =
@@ -306,11 +305,13 @@ export default function ResultsPanel() {
     setHoveredOverItem,
     addressSearchSliderValue,
     setAddressSearchSliderValue,
+    clearCombobox,
   } = useOutletContext<{
     hoveredOverItem: string;
     setHoveredOverItem: (v: string | null) => void;
     addressSearchSliderValue: number | undefined;
     setAddressSearchSliderValue: (v: number | undefined) => void;
+    clearCombobox: () => void;
   }>();
 
   const boroughIds = searchParams.get("boroughIds");
@@ -334,6 +335,7 @@ export default function ResultsPanel() {
         <SelectedLocations
           addressSearchSliderValue={addressSearchSliderValue}
           setAddressSearchSliderValue={setAddressSearchSliderValue}
+          clearCombobox={clearCombobox}
         />
       )}
       <Tabs
