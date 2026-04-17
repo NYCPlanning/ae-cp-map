@@ -215,6 +215,54 @@
     "width": 256,
     "height": 256
   },
+  "health-click": {
+    "x": 0,
+    "y": 2048,
+    "width": 256,
+    "height": 256
+  },
+  "infrastructure-click": {
+    "x": 256,
+    "y": 2048,
+    "width": 256,
+    "height": 256
+  },
+  "parks-click": {
+    "x": 512,
+    "y": 2048,
+    "width": 256,
+    "height": 256
+  },
+  "education-click": {
+    "x": 768,
+    "y": 2048,
+    "width": 256,
+    "height": 256
+  },
+  "housing-click": {
+    "x": 0,
+    "y": 2304,
+    "width": 256,
+    "height": 256
+  },
+  "other-click": {
+    "x": 256,
+    "y": 2304,
+    "width": 256,
+    "height": 256
+  },
+  "transportation-click": {
+    "x": 512,
+    "y": 2304,
+    "width": 256,
+    "height": 256
+  },
+  "safety-click": {
+    "x": 768,
+    "y": 2304,
+    "width": 256,
+    "height": 256
+  },
   "1x1": {
       "x": 0,
       "y": 0,
