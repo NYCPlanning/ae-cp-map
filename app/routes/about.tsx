@@ -400,19 +400,28 @@ export default function About() {
             <AccordionIcon />
           </AccordionButton>
           <AccordionPanel>
-            The data points captured within CBBR comes from the Community
-            District Needs statement, which is prepared by each community board
-            identifying their major concerns and funding priorities. These
-            statements are then compiled into the{" "}
-            <Link
-              href="https://www.nyc.gov/assets/planning/downloads/pdf/planning/capital-planning/FY2026-summary-deck.pdf"
-              isExternal
-              color={"primary.600"}
-              textDecorationLine={"underline"}
-            >
-              Community District Needs Summary deck (PDF)
-            </Link>{" "}
-            which is published by the DCP.
+            <Text>
+              The data points captured within CBBR comes from the Community
+              District Needs statement, which is prepared by each community
+              board identifying their major concerns and funding priorities.
+              These statements are then compiled into the{" "}
+              <Link
+                href="https://www.nyc.gov/assets/planning/downloads/pdf/planning/capital-planning/FY2027-summary-deck.pdf"
+                isExternal
+                color={"primary.600"}
+                textDecorationLine={"underline"}
+              >
+                Community District Needs Summary deck (PDF)
+              </Link>{" "}
+              which is published by the DCP.
+            </Text>
+            <Text pt={4}>
+              All Community Board Budget Request content is created and
+              submitted by community boards. Geographic locations are assigned
+              by City Planning to match the location information provided by the
+              community board for each budget request; City Planning does not
+              amend or correct any location information submitted by the boards.
+            </Text>
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
@@ -502,9 +511,9 @@ export default function About() {
       >
         <VStack alignItems={"flex-start"}>
           <Text fontWeight={"bold"}>Version</Text>
-          <Text>FY26 Preliminary</Text>
+          <Text>FY27 Preliminary</Text>
           <Text fontSize={"xs"} textTransform={"uppercase"}>
-            JAN, 2025
+            FEB, 2026
           </Text>
         </VStack>
         <VStack alignItems={"flex-start"}>
