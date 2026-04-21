@@ -1,4 +1,13 @@
-import { Combobox, MapPinIcon, Text } from "@nycplanning/streetscape";
+import {
+  Combobox,
+  MapPinIcon,
+  Text,
+  VStack,
+  UnorderedList,
+  ListItem,
+  Link,
+  Box,
+} from "@nycplanning/streetscape";
 import { SearchIcon, CloseIcon } from "@chakra-ui/icons";
 import type {
   ListCollection,
@@ -50,7 +59,7 @@ export const AddressSearch = ({
           }
         >
           <Text
-            paddingTop={2}
+            paddingY={2}
             fontSize={"sm"}
             fontWeight={"700"}
             color={"gray.700"}
@@ -65,9 +74,29 @@ export const AddressSearch = ({
               </Combobox.Item>
             ))
           ) : isLoading && addressSearchQuery !== null ? (
-            <Text fontSize={"xs"}>Loading...</Text>
+            <Text fontSize={"sm"}>Loading...</Text>
           ) : (
-            <Text fontSize={"xs"}>No results found.</Text>
+            <VStack padding={4} gap={3} align={"flex-start"}>
+              <Text fontSize={"sm"}>Sorry, no results found.</Text>
+              <Box>
+                <Text fontSize={"sm"}>Suggestions:</Text>
+                <UnorderedList>
+                  <ListItem fontSize={"sm"}>
+                    Check your search for typos.
+                  </ListItem>
+                  <ListItem fontSize={"sm"}>
+                    Need help?{" "}
+                    <Link
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                      href="mailto:CAPS@planning.nyc.gov"
+                    >
+                      E-mail us.
+                    </Link>
+                  </ListItem>
+                </UnorderedList>
+              </Box>
+            </VStack>
           )}
         </Combobox.Content>
       </Combobox.Positioner>
