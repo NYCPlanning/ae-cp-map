@@ -109,7 +109,11 @@ export function Main() {
       ? findAddresses(addressSearchQuery)
       : null;
   };
-  const { data: addressSearchResults, isLoading } = useQuery({
+  const {
+    data: addressSearchResults,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["find-addresses", addressSearchQuery],
     queryFn: queryFunction,
   });
@@ -215,6 +219,7 @@ export function Main() {
         combobox={combobox}
         addressSearchQuery={addressSearchQuery}
         addressSearchResults={collection}
+        addressSearchError={error}
         isLoading={isLoading}
         addressSearchSliderValue={addressSearchSliderValue}
         setAddressSearchSliderValue={setAddressSearchSliderValue}

@@ -33,6 +33,7 @@ describe("Header Bar", () => {
           {...defaultRadiusProps}
           addressSearchQuery={null}
           addressSearchResults={collection}
+          addressSearchError={null}
           isLoading={false}
           combobox={combobox}
         />
@@ -64,6 +65,7 @@ describe("Header Bar", () => {
           clearSelections={clearSelections}
           addressSearchQuery={null}
           addressSearchResults={collection}
+          addressSearchError={null}
           isLoading={false}
           combobox={combobox}
         />
@@ -94,6 +96,7 @@ describe("Header Bar", () => {
           {...defaultRadiusProps}
           addressSearchQuery={null}
           addressSearchResults={collection}
+          addressSearchError={null}
           isLoading={false}
           combobox={combobox}
         />

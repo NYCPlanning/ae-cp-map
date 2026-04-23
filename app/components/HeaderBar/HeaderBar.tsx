@@ -13,6 +13,7 @@ export function HeaderBar({
   combobox,
   addressSearchQuery,
   addressSearchResults,
+  addressSearchError,
   isLoading,
   addressSearchSliderValue,
   setAddressSearchSliderValue,
@@ -22,6 +23,7 @@ export function HeaderBar({
   combobox: UseComboboxReturn;
   addressSearchQuery: string | null;
   addressSearchResults: ListCollection;
+  addressSearchError: Error | null;
   isLoading: boolean;
   addressSearchSliderValue: number | undefined;
   setAddressSearchSliderValue: (v: number | undefined) => void | undefined;
@@ -117,6 +119,7 @@ export function HeaderBar({
                 combobox={combobox}
                 addressSearchQuery={addressSearchQuery}
                 addressSearchResults={addressSearchResults}
+                addressSearchError={addressSearchError}
                 isLoading={isLoading}
                 aria-label="address search dropdown"
               />
