@@ -24,11 +24,13 @@ export const AddressSearch = ({
   combobox,
   addressSearchQuery,
   addressSearchResults,
+  addressSearchError,
   isLoading,
 }: {
   combobox: UseComboboxReturn;
   addressSearchQuery: string | null;
   addressSearchResults: ListCollection;
+  addressSearchError: Error | null;
   isLoading: boolean;
 }) => {
   return (
@@ -77,14 +79,10 @@ export const AddressSearch = ({
             <Text fontSize={"sm"}>Loading...</Text>
           ) : (
             <VStack padding={4} gap={3} align={"flex-start"}>
-              <Text fontSize={"sm"}>Sorry, no results found.</Text>
-              <Box>
-                <Text fontSize={"sm"}>Suggestions:</Text>
-                <UnorderedList>
-                  <ListItem fontSize={"sm"}>
-                    Check your search for typos.
-                  </ListItem>
-                  <ListItem fontSize={"sm"}>
+              {addressSearchError ? (
+                <>
+                  <Text fontSize={"sm"}>Sorry, something went wrong.</Text>
+                  <Text fontSize={"sm"}>
                     Need help?{" "}
                     <Link
                       color={"primary.600"}
@@ -93,9 +91,31 @@ export const AddressSearch = ({
                     >
                       E-mail us.
                     </Link>
-                  </ListItem>
-                </UnorderedList>
-              </Box>
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Text fontSize={"sm"}>Sorry, no results found.</Text>
+                  <Box>
+                    <Text fontSize={"sm"}>Suggestions:</Text>
+                    <UnorderedList>
+                      <ListItem fontSize={"sm"}>
+                        Check your search for typos.
+                      </ListItem>
+                      <ListItem fontSize={"sm"}>
+                        Need help?{" "}
+                        <Link
+                          color={"primary.600"}
+                          textDecorationLine={"underline"}
+                          href="mailto:CAPS@planning.nyc.gov"
+                        >
+                          E-mail us.
+                        </Link>
+                      </ListItem>
+                    </UnorderedList>
+                  </Box>
+                </>
+              )}
             </VStack>
           )}
         </Combobox.Content>
