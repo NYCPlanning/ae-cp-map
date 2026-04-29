@@ -10,7 +10,7 @@ import { formatDistance } from "~/utils/utils";
 
 export type MapPinIconLayerProps = {
   coordinates: number[];
-  radius: number;
+  radius: number | undefined;
   getRadiusCircleFillColor: ScatterplotLayerProps["getFillColor"];
   getRadiusCircleLineColor: ScatterplotLayerProps["getLineColor"];
   getSmallCircleFillColor: ScatterplotLayerProps["getFillColor"];
@@ -38,8 +38,7 @@ export function useMapPinLayer({
     pin === null ? undefined : pin.split(",").map((d) => parseFloat(d));
   return new MapPinLayer({
     coordinates,
-    radius:
-      addressSearchSliderValue === undefined ? 0 : addressSearchSliderValue,
+    radius: addressSearchSliderValue,
     getRadiusCircleFillColor: [79, 209, 197, 76],
     getRadiusCircleLineColor: [49, 151, 149, 255],
     getSmallCircleFillColor: [79, 209, 197, 255],
@@ -71,10 +70,11 @@ export class MapPinLayer extends CompositeLayer<
         ],
         visible:
           this.props.coordinates !== undefined &&
-          this.props.radius !== undefined,
+          this.props.radius !== undefined &&
+          this.props.radius > 0,
         getFillColor: this.props.getRadiusCircleFillColor,
         getPosition: (d) => d.coordinates,
-        getRadius: () => this.props.radius / 3.28084,
+        getRadius: () => (this.props.radius ?? 0) / 3.28084,
         getLineColor: this.props.getRadiusCircleLineColor,
         getLineWidth: 1,
         lineWidthUnits: "pixels",
@@ -106,9 +106,10 @@ export class MapPinLayer extends CompositeLayer<
         ],
         visible:
           this.props.coordinates !== undefined &&
-          this.props.radius !== undefined,
+          this.props.radius !== undefined &&
+          this.props.radius > 0,
         getPosition: (d) => d.coordinates,
-        getText: () => formatDistance(this.props.radius),
+        getText: () => formatDistance(this.props.radius ?? 0),
         getSize: this.props.getTextSize,
         getAlignmentBaseline: "top",
         getPixelOffset: [0, 20],
