@@ -25,7 +25,7 @@ import { env } from "~/utils/env";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
-const { basemapUrl, facDbPhase1, facDbPhase2 } = env;
+const { basemapUrl, facDbPhase2 } = env;
 
 export const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
@@ -124,33 +124,22 @@ export function Atlas({
           communityBoardBudgetRequestGeoJsonLayer,
           mapPinLayer,
         ]
-      : facDbPhase1 == "ON"
-        ? [
-            boundaryMvtMask,
-            communityDistrictsOutlinesLayer,
-            cityCouncilDistrictsOutlinesLayer,
-            communityDistrictsLayer,
-            communityDistrictLayer,
-            cityCouncilDistrictsLayer,
-            cityCouncilDistrictLayer,
-            boroughsLayer,
-            boroughsOutlinesLayer,
-            boroughLayer,
-            capitalProjectsLayer,
-            capitalProjectBudgetedGeoJsonLayer,
-            communityBoardBudgetRequestsLayer,
-            communityBoardBudgetRequestGeoJsonLayer,
-          ]
-        : [
-            capitalProjectsLayer,
-            capitalProjectBudgetedGeoJsonLayer,
-            communityDistrictsLayer,
-            communityDistrictLayer,
-            communityBoardBudgetRequestsLayer,
-            communityBoardBudgetRequestGeoJsonLayer,
-            cityCouncilDistrictsLayer,
-            cityCouncilDistrictLayer,
-          ];
+      : [
+          boundaryMvtMask,
+          communityDistrictsOutlinesLayer,
+          cityCouncilDistrictsOutlinesLayer,
+          communityDistrictsLayer,
+          communityDistrictLayer,
+          cityCouncilDistrictsLayer,
+          cityCouncilDistrictLayer,
+          boroughsLayer,
+          boroughsOutlinesLayer,
+          boroughLayer,
+          capitalProjectsLayer,
+          capitalProjectBudgetedGeoJsonLayer,
+          communityBoardBudgetRequestsLayer,
+          communityBoardBudgetRequestGeoJsonLayer,
+        ];
 
   return (
     <DeckGL<MapView>

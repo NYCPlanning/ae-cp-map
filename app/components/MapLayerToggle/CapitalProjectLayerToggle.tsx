@@ -20,7 +20,6 @@ export function CapitalProjectLayerToggle() {
       isChecked={capitalProjectsOn}
       onChange={(e) => setCapitalProjects(e.target.checked)}
       tooltipLabel={capitalProjectsTooltipCopy}
-      iconColor="brand.800"
       legendIcon="capital-projects"
     />
   );

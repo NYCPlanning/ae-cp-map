@@ -11,7 +11,6 @@ import {
   Tooltip,
   useBreakpointValue,
 } from "@nycplanning/streetscape";
-import { env } from "~/utils/env";
 
 export function MapLayerToggle({
   id,
@@ -20,7 +19,6 @@ export function MapLayerToggle({
   onChange,
   tooltipLabel,
   legendIcon,
-  iconColor,
 }: {
   id: string;
   label: string;
@@ -28,7 +26,6 @@ export function MapLayerToggle({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   tooltipLabel: string;
   legendIcon: string;
-  iconColor: string;
 }) {
   const tooltipPlacement =
     useBreakpointValue<PlacementWithLogical>({
@@ -84,21 +81,12 @@ export function MapLayerToggle({
             _focus={{ borderColor: "white" }}
           />
         </Tooltip>
-        {env.facDbPhase1 === "ON" ? (
-          <Box
-            height={"1.25rem"}
-            width={"1.25rem"}
-            backgroundImage={`/layers/${legendIcon}.svg`}
-            backgroundSize={"100% 100%"}
-          ></Box>
-        ) : (
-          <Box
-            height={"1.25rem"}
-            width={"1.25rem"}
-            background={iconColor}
-            borderRadius={"5px"}
-          ></Box>
-        )}
+        <Box
+          height={"1.25rem"}
+          width={"1.25rem"}
+          backgroundImage={`/layers/${legendIcon}.svg`}
+          backgroundSize={"100% 100%"}
+        ></Box>
       </HStack>
     </FormControl>
   );

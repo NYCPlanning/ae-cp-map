@@ -12,7 +12,6 @@ import { setNewSearchParams } from "~/utils/utils";
 import { analytics } from "~/utils/analytics";
 import { PageParamKey } from "~/utils/types";
 import { useEffect, useState } from "react";
-import { env } from "~/utils/env";
 
 export interface PaginationProps {
   total: number;
@@ -78,7 +77,7 @@ export const Pagination = ({ total, pageParamKey, label }: PaginationProps) => {
             fontWeight={700}
             paddingTop={1}
           >
-            {env.facDbPhase1 === "ON" ? "Page " : ""}
+            {"Page "}
             {totalPages === 0
               ? 0
               : isNavigating
@@ -116,7 +115,7 @@ export const Pagination = ({ total, pageParamKey, label }: PaginationProps) => {
       </HStack>
       <Skeleton isLoaded={!(isNavigating && pageLoaderIncrement === 0)}>
         <Text color={"gray.600"} fontSize={"xs"}>
-          {env.facDbPhase1 === "ON" ? "" : "Results: "}
+          {""}
           {isNavigating
             ? firstItem + pageLoaderIncrement * itemsPerPage
             : firstItem}
@@ -127,7 +126,7 @@ export const Pagination = ({ total, pageParamKey, label }: PaginationProps) => {
               : Math.min(lastItem + pageLoaderIncrement * itemsPerPage, total)
             : lastItem}{" "}
           of {total}
-          {env.facDbPhase1 === "ON" ? ` ${label}` : ""}
+          {` ${label}`}
         </Text>
       </Skeleton>
     </VStack>

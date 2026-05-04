@@ -16,7 +16,6 @@ import {
   SafetyIcon,
   TransportationIcon,
 } from "@nycplanning/streetscape";
-import { env } from "~/utils/env";
 
 export const CommunityBoardBudgetRequestLegend = ({
   updateFiltersAccordion,
@@ -30,7 +29,7 @@ export const CommunityBoardBudgetRequestLegend = ({
       borderRadius={"sm"}
       borderWidth={"1px"}
       marginTop={2}
-      marginX={env.facDbPhase1 == "ON" ? "" : "2"}
+      marginX={""}
     >
       {({ isExpanded }) => (
         <>

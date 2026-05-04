@@ -33,7 +33,6 @@ import {
   findCommunityBoardBudgetRequestAgencies,
   findCommunityBoardBudgetRequestAgencyCategoryResponses,
 } from "../gen";
-import { FilterMenu } from "../components/FilterMenu";
 import { SearchByAttributeMenu } from "../components/SearchByAttributeMenu";
 import { env } from "../utils/env";
 import {
@@ -55,7 +54,6 @@ import type { RootContextType } from "../root";
 import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
 import { useState } from "react";
-import { MapLayersPanel } from "~/components/AdminMapLayersPanel";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -225,9 +223,6 @@ export default function MapPage() {
   };
 
   const {
-    boroughs,
-    communityDistricts,
-    cityCouncilDistricts,
     managingAgencies,
     agencyBudgets,
     cbbrPolicyAreas,
@@ -277,404 +272,12 @@ export default function MapPage() {
     borough: { boroughIds: BoroughId } | undefined;
   }>({ cd: undefined, ccd: undefined, borough: undefined });
 
-  if (env.facDbPhase1 == "ON")
-    return (
-      <>
-        <GridItem
-          gridColumn={"1 / -1"}
-          gridRow={{
-            base: "2 / 7",
-            md: "2 / -1",
-          }}
-        >
-          <Atlas
-            viewState={viewState}
-            setViewState={(MapViewState) => setViewState(MapViewState)}
-            showCapitalProjects={showCapitalProjects}
-            showCbbr={showCbbr}
-            hoveredOverItem={hoveredOverItem}
-            setHoveredOverItem={setHoveredOverItem}
-            clearCombobox={clearCombobox}
-            addressSearchSliderValue={addressSearchSliderValue}
-          />{" "}
-        </GridItem>
-        <GridItem
-          bgColor="white"
-          borderRadius="lg"
-          gridRowStart={3}
-          gridColumn={{
-            base: "col-start / span 8",
-            md: "col-start / span 7",
-            xl: "5 / span 5",
-            "2xl": "4 / span 7",
-          }}
-          height={"fit-content"}
-        >
-          <Tabs
-            variant={"mapControl"}
-            style={{
-              boxShadow:
-                "0 4px 6px -1px rgba(0, 0, 0, 0.10), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-              borderRadius: "lg",
-            }}
-            whiteSpace={"nowrap"}
-            width={{ base: "100%", md: "fit-content" }}
-            defaultIndex={getDefaultIndex(boundaryType)}
-          >
-            <TabList
-              key={"TabList"}
-              display={{ base: "grid", md: "inline-grid" }}
-              gridAutoColumns={"1fr"}
-            >
-              <Tab
-                key={"Community Districts"}
-                fontSize={{
-                  base: "xs",
-                  md: "sm",
-                }}
-                gridRow={1}
-                onClick={() => {
-                  if (boundaryType === "borough" && boroughIds !== null)
-                    setSavedGeoSelection({
-                      ...savedGeoSelection,
-                      borough: { boroughIds },
-                    });
-                  if (boundaryType === "ccd" && boundaryId !== null)
-                    setSavedGeoSelection({
-                      ...savedGeoSelection,
-                      ccd: { boundaryId },
-                    });
-                  if (savedGeoSelection.cd === undefined) {
-                    updateSearchParams({
-                      boundaryType: "cd",
-                      boroughId: null,
-                      boundaryId: null,
-                      boroughIds: null,
-                    });
-                  } else {
-                    updateSearchParams({
-                      boundaryType: "cd",
-                      boroughId: savedGeoSelection.cd.boroughId,
-                      boundaryId: savedGeoSelection.cd.boundaryId,
-                      boroughIds: null,
-                    });
-                  }
-                }}
-              >
-                Community Districts
-              </Tab>
-              <Tab
-                key={"City Council"}
-                fontSize={{
-                  base: "xs",
-                  md: "sm",
-                }}
-                gridRow={1}
-                onClick={() => {
-                  if (boundaryType === "borough" && boroughIds !== null)
-                    setSavedGeoSelection({
-                      ...savedGeoSelection,
-                      borough: { boroughIds },
-                    });
-                  if (
-                    boundaryType === "cd" &&
-                    boundaryId !== null &&
-                    boroughId !== null
-                  )
-                    setSavedGeoSelection({
-                      ...savedGeoSelection,
-                      cd: { boroughId, boundaryId },
-                    });
-                  if (savedGeoSelection.ccd === undefined) {
-                    updateSearchParams({
-                      boundaryType: "ccd",
-                      boroughId: null,
-                      boundaryId: null,
-                      boroughIds: null,
-                    });
-                  } else {
-                    updateSearchParams({
-                      boundaryType: "ccd",
-                      boroughId: null,
-                      boroughIds: null,
-                      boundaryId: savedGeoSelection.ccd.boundaryId,
-                    });
-                  }
-                }}
-              >
-                City Council
-              </Tab>
-              <Tab
-                key={"Boroughs"}
-                fontSize={{
-                  base: "xs",
-                  md: "sm",
-                }}
-                gridRow={1}
-                onClick={() => {
-                  if (
-                    boundaryType === "cd" &&
-                    boundaryId !== null &&
-                    boroughId !== null
-                  )
-                    setSavedGeoSelection({
-                      ...savedGeoSelection,
-                      cd: { boroughId, boundaryId },
-                    });
-                  if (boundaryType === "ccd" && boundaryId !== null)
-                    setSavedGeoSelection({
-                      ...savedGeoSelection,
-                      ccd: { boundaryId },
-                    });
-                  if (savedGeoSelection.borough === undefined) {
-                    updateSearchParams({
-                      boundaryType: "borough",
-                      boroughIds: null,
-                      boroughId: null,
-                      boundaryId: null,
-                    });
-                  } else {
-                    updateSearchParams({
-                      boundaryType: "borough",
-                      boroughIds: savedGeoSelection.borough.boroughIds,
-                      boroughId: null,
-                      boundaryId: null,
-                    });
-                  }
-                }}
-              >
-                Boroughs
-              </Tab>
-            </TabList>
-          </Tabs>
-        </GridItem>
-        <GridItem
-          gridColumn={{
-            base: "col-start / span 7",
-            md: "col-start / span 5",
-            lg: "col-start / span 4",
-            xl: "col-start / span 3",
-            "2xl": "col-start / span 2",
-          }}
-          gridRow={{
-            base: "5 / row-end",
-            md: "5 / row-end",
-            xl: "3 / span 3",
-          }}
-          height={"fit-content"}
-          maxHeight={"100%"}
-          zIndex={"1"}
-          sx={{
-            scrollbarWidth: "none",
-          }}
-        >
-          <Flex
-            direction={"column"}
-            width={{ base: "100%", lg: "auto" }}
-            alignItems={"center"}
-            flexShrink={{ lg: 0 }}
-            maxHeight={{
-              base: "82vh",
-              lg: "84vh",
-              xl: "89vh",
-            }}
-            backgroundColor={"white"}
-            borderRadius={10}
-            overflowY={"scroll"}
-            padding={4}
-            sx={{
-              scrollbarWidth: "none",
-            }}
-            boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
-          >
-            <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
-              <AccordionItem borderTop={"none"} borderBottom={"none"}>
-                <AccordionButton p={0} aria-label="Toggle layers panel">
-                  <Heading
-                    flex="1"
-                    textAlign="left"
-                    fontSize="md"
-                    fontWeight="bold"
-                    lineHeight="32px"
-                    pb={0}
-                  >
-                    Capital Planning Data
-                  </Heading>
-                  <AccordionIcon />
-                </AccordionButton>
-                <AccordionPanel px={0} pt={2} pb={0}>
-                  <Box>
-                    <Accordion
-                      allowMultiple
-                      index={filtersAccordionIndex}
-                      width={"100%"}
-                    >
-                      <Box
-                        display={"flex"}
-                        flexDirection={"column"}
-                        paddingBottom={2}
-                      >
-                        <Text fontSize={"xs"}>Layer Filters</Text>
-                        <HStack
-                          fontSize={"sm"}
-                          paddingBottom={2}
-                          width={"100%"}
-                          justifyContent={"space-between"}
-                          whiteSpace={"nowrap"}
-                          flexWrap={"wrap"}
-                          rowGap={0}
-                        >
-                          <HStack>
-                            <Link
-                              color={"primary.600"}
-                              textDecor={"underline"}
-                              cursor={"pointer"}
-                              onClick={() =>
-                                setFiltersAccordionIndex([0, 1, 2])
-                              }
-                            >
-                              Expand All
-                            </Link>
-                            <Text>|</Text>
-                            <Link
-                              color={"primary.600"}
-                              textDecor={"underline"}
-                              cursor={"pointer"}
-                              onClick={() => setFiltersAccordionIndex([])}
-                            >
-                              Collapse All
-                            </Link>
-                          </HStack>
-                          <Link
-                            color={"primary.600"}
-                            textDecor={"underline"}
-                            cursor={"pointer"}
-                            onClick={() =>
-                              updateSearchParams({
-                                managingAgency: null,
-                                agencyBudget: null,
-                                commitmentsTotalMin: null,
-                                commitmentsTotalMax: null,
-                                cbbrPolicyAreaId: null,
-                                cbbrNeedGroupId: null,
-                                cbbrAgencyInitials: null,
-                                cbbrAgencyCategoryResponseIds: null,
-                              })
-                            }
-                          >
-                            Clear All
-                          </Link>
-                        </HStack>
-                        <Box display={"flex"} flexDirection={"column"} gap={2}>
-                          <CapitalProjectLayerToggle />
-                          <SearchByAttributeMenu
-                            agencies={managingAgencies}
-                            projectTypes={agencyBudgets}
-                            onClear={clearCapitalProjectFilters}
-                            updateFiltersAccordion={updateFiltersAccordion(0)}
-                          />
-                          <CommunityBoardBudgetRequestLayerToggle />
-                          <SearchByCbbrMenu
-                            cbbrPolicyAreas={cbbrPolicyAreas}
-                            cbbrNeedGroups={cbbrNeedGroups}
-                            cbbrAgencies={cbbrAgencies}
-                            cbbrAgencyCategoryResponses={
-                              cbbrAgencyCategoryResponses
-                            }
-                            cbbrAgencyCategoryResponseIds={
-                              cbbrAgencyCategoryResponseIds
-                            }
-                            onClear={clearCbbrProjectFilters}
-                            updateFiltersAccordion={updateFiltersAccordion(1)}
-                          />
-                          <CommunityBoardBudgetRequestLegend
-                            updateFiltersAccordion={updateFiltersAccordion(2)}
-                          />
-                        </Box>
-                      </Box>
-                    </Accordion>
-                    <HowToUseThisTool />
-                  </Box>
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
-          </Flex>
-        </GridItem>
-        <GridItem
-          gridColumnStart={{ base: 9, md: 7, lg: 6, xl: 5, "2xl": 4 }}
-          gridRow={{
-            base: "5 / span 1",
-          }}
-          width={"fit-content"}
-          height={"fit-content"}
-        >
-          <MapViewControls
-            viewState={viewState}
-            setViewState={setViewState}
-            minZoom={MIN_ZOOM}
-            maxZoom={MAX_ZOOM}
-          />
-        </GridItem>
-        <GridItem
-          gridColumn={{
-            base: "1 / -1",
-            lg: "9 / span 5",
-            xl: "10 / col-end",
-            "2xl": "11 / col-end",
-          }}
-          gridRow={{
-            base: "3 / -1",
-            lg: "row-start / span 3",
-          }}
-          height={"100%"}
-          pointerEvents={"none"}
-          zIndex={"2"}
-          sx={{
-            scrollbarWidth: "none",
-          }}
-          overflowY={"scroll"}
-          display={"flex"}
-          flexDirection={"column"}
-          justifyContent={{ base: "end", lg: "start" }}
-        >
-          <Flex
-            width={"full"}
-            gap={3}
-            pointerEvents={"none"}
-            sx={{
-              "> *": {
-                pointerEvents: "auto",
-              },
-              scrollbarWidth: "none",
-            }}
-            direction={"column"}
-            flexShrink={{ lg: 0 }}
-            maxHeight={"full"}
-            justify={"end"}
-            backgroundColor={"white"}
-            borderRadius={10}
-            overflowY={"scroll"}
-            padding={4}
-            boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
-          >
-            <Outlet
-              context={{
-                hoveredOverItem,
-                setHoveredOverItem,
-                clearRadiusFilter,
-              }}
-            />
-          </Flex>
-        </GridItem>
-      </>
-    );
-
   return (
     <>
       <GridItem
         gridColumn={"1 / -1"}
         gridRow={{
-          base: "2 / 5",
+          base: "2 / 7",
           md: "2 / -1",
         }}
       >
@@ -690,21 +293,170 @@ export default function MapPage() {
         />{" "}
       </GridItem>
       <GridItem
+        bgColor="white"
+        borderRadius="lg"
+        gridRowStart={3}
+        gridColumn={{
+          base: "col-start / span 8",
+          md: "col-start / span 7",
+          xl: "5 / span 5",
+          "2xl": "4 / span 7",
+        }}
+        height={"fit-content"}
+      >
+        <Tabs
+          variant={"mapControl"}
+          style={{
+            boxShadow:
+              "0 4px 6px -1px rgba(0, 0, 0, 0.10), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+            borderRadius: "lg",
+          }}
+          whiteSpace={"nowrap"}
+          width={{ base: "100%", md: "fit-content" }}
+          defaultIndex={getDefaultIndex(boundaryType)}
+        >
+          <TabList
+            key={"TabList"}
+            display={{ base: "grid", md: "inline-grid" }}
+            gridAutoColumns={"1fr"}
+          >
+            <Tab
+              key={"Community Districts"}
+              fontSize={{
+                base: "xs",
+                md: "sm",
+              }}
+              gridRow={1}
+              onClick={() => {
+                if (boundaryType === "borough" && boroughIds !== null)
+                  setSavedGeoSelection({
+                    ...savedGeoSelection,
+                    borough: { boroughIds },
+                  });
+                if (boundaryType === "ccd" && boundaryId !== null)
+                  setSavedGeoSelection({
+                    ...savedGeoSelection,
+                    ccd: { boundaryId },
+                  });
+                if (savedGeoSelection.cd === undefined) {
+                  updateSearchParams({
+                    boundaryType: "cd",
+                    boroughId: null,
+                    boundaryId: null,
+                    boroughIds: null,
+                  });
+                } else {
+                  updateSearchParams({
+                    boundaryType: "cd",
+                    boroughId: savedGeoSelection.cd.boroughId,
+                    boundaryId: savedGeoSelection.cd.boundaryId,
+                    boroughIds: null,
+                  });
+                }
+              }}
+            >
+              Community Districts
+            </Tab>
+            <Tab
+              key={"City Council"}
+              fontSize={{
+                base: "xs",
+                md: "sm",
+              }}
+              gridRow={1}
+              onClick={() => {
+                if (boundaryType === "borough" && boroughIds !== null)
+                  setSavedGeoSelection({
+                    ...savedGeoSelection,
+                    borough: { boroughIds },
+                  });
+                if (
+                  boundaryType === "cd" &&
+                  boundaryId !== null &&
+                  boroughId !== null
+                )
+                  setSavedGeoSelection({
+                    ...savedGeoSelection,
+                    cd: { boroughId, boundaryId },
+                  });
+                if (savedGeoSelection.ccd === undefined) {
+                  updateSearchParams({
+                    boundaryType: "ccd",
+                    boroughId: null,
+                    boundaryId: null,
+                    boroughIds: null,
+                  });
+                } else {
+                  updateSearchParams({
+                    boundaryType: "ccd",
+                    boroughId: null,
+                    boroughIds: null,
+                    boundaryId: savedGeoSelection.ccd.boundaryId,
+                  });
+                }
+              }}
+            >
+              City Council
+            </Tab>
+            <Tab
+              key={"Boroughs"}
+              fontSize={{
+                base: "xs",
+                md: "sm",
+              }}
+              gridRow={1}
+              onClick={() => {
+                if (
+                  boundaryType === "cd" &&
+                  boundaryId !== null &&
+                  boroughId !== null
+                )
+                  setSavedGeoSelection({
+                    ...savedGeoSelection,
+                    cd: { boroughId, boundaryId },
+                  });
+                if (boundaryType === "ccd" && boundaryId !== null)
+                  setSavedGeoSelection({
+                    ...savedGeoSelection,
+                    ccd: { boundaryId },
+                  });
+                if (savedGeoSelection.borough === undefined) {
+                  updateSearchParams({
+                    boundaryType: "borough",
+                    boroughIds: null,
+                    boroughId: null,
+                    boundaryId: null,
+                  });
+                } else {
+                  updateSearchParams({
+                    boundaryType: "borough",
+                    boroughIds: savedGeoSelection.borough.boroughIds,
+                    boroughId: null,
+                    boundaryId: null,
+                  });
+                }
+              }}
+            >
+              Boroughs
+            </Tab>
+          </TabList>
+        </Tabs>
+      </GridItem>
+      <GridItem
         gridColumn={{
           base: "col-start / span 7",
-          md: "col-start / span 4",
+          md: "col-start / span 5",
+          lg: "col-start / span 4",
           xl: "col-start / span 3",
           "2xl": "col-start / span 2",
         }}
         gridRow={{
-          base: "row-start / row-end",
-          md: "row-start / row-end",
-          lg: "row-start / span 1",
-          xl: "3 / span 2",
+          base: "5 / row-end",
+          md: "5 / row-end",
+          xl: "3 / span 3",
         }}
         height={"fit-content"}
         maxHeight={"100%"}
-        overflowY={{ lg: "scroll" }}
         zIndex={"1"}
         sx={{
           scrollbarWidth: "none",
@@ -717,8 +469,8 @@ export default function MapPage() {
           flexShrink={{ lg: 0 }}
           maxHeight={{
             base: "82vh",
-            md: "89vh",
-            lg: "full",
+            lg: "84vh",
+            xl: "89vh",
           }}
           backgroundColor={"white"}
           borderRadius={10}
@@ -729,161 +481,122 @@ export default function MapPage() {
           }}
           boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
         >
-          {env.facDbPhase1 == "ON" ? (
-            <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
-              <AccordionItem borderTop={"none"} borderBottom={"none"}>
-                <AccordionButton p={0} aria-label="Toggle layers panel">
-                  <Heading
-                    flex="1"
-                    textAlign="left"
-                    fontSize="md"
-                    fontWeight="bold"
-                    lineHeight="32px"
-                    pb={0}
+          <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
+            <AccordionItem borderTop={"none"} borderBottom={"none"}>
+              <AccordionButton p={0} aria-label="Toggle layers panel">
+                <Heading
+                  flex="1"
+                  textAlign="left"
+                  fontSize="md"
+                  fontWeight="bold"
+                  lineHeight="32px"
+                  pb={0}
+                >
+                  Capital Planning Data
+                </Heading>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel px={0} pt={2} pb={0}>
+                <Box>
+                  <Accordion
+                    allowMultiple
+                    index={filtersAccordionIndex}
+                    width={"100%"}
                   >
-                    Capital Planning Data
-                  </Heading>
-                  <AccordionIcon />
-                </AccordionButton>
-                <AccordionPanel px={0} pt={2} pb={0}>
-                  <Box>
-                    <Accordion
-                      allowMultiple
-                      index={filtersAccordionIndex}
-                      width={"100%"}
+                    <Box
+                      display={"flex"}
+                      flexDirection={"column"}
+                      paddingBottom={2}
                     >
-                      <Box
-                        display={"flex"}
-                        flexDirection={"column"}
+                      <Text fontSize={"xs"}>Layer Filters</Text>
+                      <HStack
+                        fontSize={"sm"}
                         paddingBottom={2}
+                        width={"100%"}
+                        justifyContent={"space-between"}
+                        whiteSpace={"nowrap"}
+                        flexWrap={"wrap"}
+                        rowGap={0}
                       >
-                        <Text fontSize={"xs"}>Layer Filters</Text>
-                        <HStack
-                          fontSize={"sm"}
-                          paddingBottom={2}
-                          width={"100%"}
-                          justifyContent={"space-between"}
-                          whiteSpace={"nowrap"}
-                          flexWrap={"wrap"}
-                          rowGap={0}
-                        >
-                          <HStack>
-                            <Link
-                              color={"primary.600"}
-                              textDecor={"underline"}
-                              cursor={"pointer"}
-                              onClick={() =>
-                                setFiltersAccordionIndex([0, 1, 2])
-                              }
-                            >
-                              Expand All
-                            </Link>
-                            <Text>|</Text>
-                            <Link
-                              color={"primary.600"}
-                              textDecor={"underline"}
-                              cursor={"pointer"}
-                              onClick={() => setFiltersAccordionIndex([])}
-                            >
-                              Collapse All
-                            </Link>
-                          </HStack>
+                        <HStack>
                           <Link
                             color={"primary.600"}
                             textDecor={"underline"}
                             cursor={"pointer"}
-                            onClick={() =>
-                              updateSearchParams({
-                                managingAgency: null,
-                                agencyBudget: null,
-                                commitmentsTotalMin: null,
-                                commitmentsTotalMax: null,
-                                cbbrPolicyAreaId: null,
-                                cbbrNeedGroupId: null,
-                                cbbrAgencyInitials: null,
-                                cbbrAgencyCategoryResponseIds: null,
-                              })
-                            }
+                            onClick={() => setFiltersAccordionIndex([0, 1, 2])}
                           >
-                            Clear All
+                            Expand All
+                          </Link>
+                          <Text>|</Text>
+                          <Link
+                            color={"primary.600"}
+                            textDecor={"underline"}
+                            cursor={"pointer"}
+                            onClick={() => setFiltersAccordionIndex([])}
+                          >
+                            Collapse All
                           </Link>
                         </HStack>
-                        <Box display={"flex"} flexDirection={"column"} gap={2}>
-                          <CapitalProjectLayerToggle />
-                          <SearchByAttributeMenu
-                            agencies={managingAgencies}
-                            projectTypes={agencyBudgets}
-                            onClear={clearCapitalProjectFilters}
-                            updateFiltersAccordion={updateFiltersAccordion(0)}
-                          />
-                          <CommunityBoardBudgetRequestLayerToggle />
-                          <SearchByCbbrMenu
-                            cbbrPolicyAreas={cbbrPolicyAreas}
-                            cbbrNeedGroups={cbbrNeedGroups}
-                            cbbrAgencies={cbbrAgencies}
-                            cbbrAgencyCategoryResponses={
-                              cbbrAgencyCategoryResponses
-                            }
-                            cbbrAgencyCategoryResponseIds={
-                              cbbrAgencyCategoryResponseIds
-                            }
-                            onClear={clearCbbrProjectFilters}
-                            updateFiltersAccordion={updateFiltersAccordion(1)}
-                          />
-                          <CommunityBoardBudgetRequestLegend
-                            updateFiltersAccordion={updateFiltersAccordion(2)}
-                          />
-                        </Box>
+                        <Link
+                          color={"primary.600"}
+                          textDecor={"underline"}
+                          cursor={"pointer"}
+                          onClick={() =>
+                            updateSearchParams({
+                              managingAgency: null,
+                              agencyBudget: null,
+                              commitmentsTotalMin: null,
+                              commitmentsTotalMax: null,
+                              cbbrPolicyAreaId: null,
+                              cbbrNeedGroupId: null,
+                              cbbrAgencyInitials: null,
+                              cbbrAgencyCategoryResponseIds: null,
+                            })
+                          }
+                        >
+                          Clear All
+                        </Link>
+                      </HStack>
+                      <Box display={"flex"} flexDirection={"column"} gap={2}>
+                        <CapitalProjectLayerToggle />
+                        <SearchByAttributeMenu
+                          agencies={managingAgencies}
+                          projectTypes={agencyBudgets}
+                          onClear={clearCapitalProjectFilters}
+                          updateFiltersAccordion={updateFiltersAccordion(0)}
+                        />
+                        <CommunityBoardBudgetRequestLayerToggle />
+                        <SearchByCbbrMenu
+                          cbbrPolicyAreas={cbbrPolicyAreas}
+                          cbbrNeedGroups={cbbrNeedGroups}
+                          cbbrAgencies={cbbrAgencies}
+                          cbbrAgencyCategoryResponses={
+                            cbbrAgencyCategoryResponses
+                          }
+                          cbbrAgencyCategoryResponseIds={
+                            cbbrAgencyCategoryResponseIds
+                          }
+                          onClear={clearCbbrProjectFilters}
+                          updateFiltersAccordion={updateFiltersAccordion(1)}
+                        />
+                        <CommunityBoardBudgetRequestLegend
+                          updateFiltersAccordion={updateFiltersAccordion(2)}
+                        />
                       </Box>
-                    </Accordion>
-                    <HowToUseThisTool />
-                  </Box>
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
-          ) : (
-            <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
-              <MapLayersPanel>
-                <Box display={"flex"} flexDirection={"column"} gap={2}>
-                  <CapitalProjectLayerToggle />
-                  <SearchByAttributeMenu
-                    agencies={managingAgencies}
-                    projectTypes={agencyBudgets}
-                    onClear={clearCapitalProjectFilters}
-                    updateFiltersAccordion={updateFiltersAccordion(0)}
-                  />
-                  <CommunityBoardBudgetRequestLayerToggle />
-                  <SearchByCbbrMenu
-                    cbbrPolicyAreas={cbbrPolicyAreas}
-                    cbbrNeedGroups={cbbrNeedGroups}
-                    cbbrAgencies={cbbrAgencies}
-                    cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
-                    cbbrAgencyCategoryResponseIds={
-                      cbbrAgencyCategoryResponseIds
-                    }
-                    onClear={clearCbbrProjectFilters}
-                    updateFiltersAccordion={updateFiltersAccordion(1)}
-                  />
-                  <CommunityBoardBudgetRequestLegend
-                    updateFiltersAccordion={updateFiltersAccordion(2)}
-                  />
+                    </Box>
+                  </Accordion>
+                  <HowToUseThisTool />
                 </Box>
-              </MapLayersPanel>
-              {env.facDbPhase1 !== "ON" && (
-                <FilterMenu
-                  boroughs={boroughs}
-                  communityDistricts={communityDistricts}
-                  cityCouncilDistricts={cityCouncilDistricts}
-                />
-              )}
-              <HowToUseThisTool />
-            </Accordion>
-          )}
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
         </Flex>
       </GridItem>
       <GridItem
-        gridColumnStart={{ base: 9, md: 6, lg: 6, xl: 5, "2xl": 4 }}
-        gridRowStart={{ base: 3, md: 3, lg: 3 }}
+        gridColumnStart={{ base: 9, md: 7, lg: 6, xl: 5, "2xl": 4 }}
+        gridRow={{
+          base: "5 / span 1",
+        }}
         width={"fit-content"}
         height={"fit-content"}
       >
@@ -897,14 +610,13 @@ export default function MapPage() {
       <GridItem
         gridColumn={{
           base: "1 / -1",
-          md: "9 / span 5",
+          lg: "9 / span 5",
           xl: "10 / col-end",
           "2xl": "11 / col-end",
         }}
         gridRow={{
           base: "3 / -1",
-          md: "row-start / row-end",
-          lg: "row-start / span 1",
+          lg: "row-start / span 3",
         }}
         height={"100%"}
         pointerEvents={"none"}
@@ -915,7 +627,7 @@ export default function MapPage() {
         overflowY={"scroll"}
         display={"flex"}
         flexDirection={"column"}
-        justifyContent={{ base: "end", md: "start" }}
+        justifyContent={{ base: "end", lg: "start" }}
       >
         <Flex
           width={"full"}
