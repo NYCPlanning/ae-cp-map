@@ -27,7 +27,7 @@ import {
 } from "~/extensions";
 import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
 
-const { zoningApiUrl, facDbPhase1 } = env;
+const { zoningApiUrl } = env;
 export interface CapitalProjectProperties {
   managingCodeCapitalProjectId: string;
   managingAgency: string;
@@ -96,173 +96,17 @@ export function useCapitalProjectsLayer(opts: {
     categorySize: 2,
   });
 
-  if (facDbPhase1 == "ON")
-    return new MVTLayer<
-      CapitalProjectProperties,
-      DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>> &
-        MaskExtensionProps
-    >({
-      id: "capitalProjects",
-      data: [`${zoningApiUrl}/api/capital-projects/{z}/{x}/{y}.pbf`],
-      uniqueIdProperty: "managingCodeCapitalProjectId",
-      autoHighlight: true,
-      visible,
-      highlightColor: [217, 107, 39, 166],
-      highlightedFeatureId: hoveredCapitalProject,
-      pickable: true,
-      getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
-        f.properties.commitmentsTotal,
-      filterRange: [min, max],
-      getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => {
-        const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
-        return [
-          f.properties.managingAgency,
-          agencyBudget === null || agencyBudgets.includes(agencyBudget) ? 1 : 0,
-        ];
-      },
-      filterCategories: [
-        managingAgency === null ? fullAgencyAcronymList : [managingAgency],
-        [1],
-      ],
-      getFillColor: [0, 0, 0, 0],
-      getPointRadius: 5,
-      getLineColor: [217, 107, 39, 255],
-      getLineWidth: 1,
-      lineWidthUnits: "meters",
-      onHover: (data) => {
-        const managingCodeCapitalProjectId =
-          data.object?.properties?.managingCodeCapitalProjectId;
-        if (data.index === -1) {
-          setHoveredOverProject(null);
-        } else if (managingCodeCapitalProjectId !== undefined) {
-          setHoveredOverProject(managingCodeCapitalProjectId);
-        }
-      },
-      onClick: (data) => {
-        const managingCodeCapitalProjectId =
-          data.object?.properties?.managingCodeCapitalProjectId;
-
-        if (managingCodeCapitalProjectId === undefined) return;
-        // Avoid adding the same capital project to the history stack
-        if (
-          managingCodeCapitalProjectId === `${managingCode}${capitalProjectId}`
-        )
-          return;
-        const [nextManagingCode, nextCapitalProjectId] = [
-          managingCodeCapitalProjectId.slice(0, 3),
-          managingCodeCapitalProjectId.slice(3),
-        ];
-        const capitalProjectRouteSuffix = `capital-projects/${nextManagingCode}/${nextCapitalProjectId}`;
-        navigate({
-          pathname: `${endpointPrefix}${capitalProjectRouteSuffix}`,
-          search: `?${searchParams.toString()}`,
-        });
-      },
-      updateTriggers: {
-        getFillColor: [managingCode, capitalProjectId],
-        getPointColor: [managingCode, capitalProjectId],
-        getFilterCategory: [agencyBudget],
-      },
-      extensions: [
-        new MaskExtension(),
-        new DataFilterExtension({
-          filterSize: 1,
-          categorySize: 2,
-        }),
-      ],
-      maskId: `${
-        (boundaryId !== null &&
-          (boundaryType === "cd" || boundaryType === "ccd")) ||
-        (boroughIds !== null && boundaryType === "borough") ||
-        (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
-          buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
-          lon !== undefined &&
-          lat !== undefined)
-          ? "boundary-mvt"
-          : ""
-      }`,
-      maskByInstance: true, //doesn't seem to have an effect
-      maskInverted: false,
-      _subLayerProps: {
-        "polygons-fill": {
-          extensions: [
-            new PolygonFillStyleExtension({ pattern: true }),
-            maskExtension,
-            dataFilterExtension,
-          ],
-          fillPatternEnabled: env.facDbPhase1 === "ON",
-          fillPatternMapping: "/mapping.json",
-          getFillPattern: "1x1",
-          fillPatternAtlas: "/1x1.svg",
-          maskId: `${boundaryId !== null ? "boundary-mvt" : ""}`,
-          maskByInstance: true, //doesn't seem to have an effect
-          maskInverted: false,
-          getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
-            f.properties.commitmentsTotal,
-          filterRange: [min, max],
-          getFilterCategory: (
-            f: Feature<Geometry, CapitalProjectProperties>,
-          ) => {
-            const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
-            return [
-              f.properties.managingAgency,
-              agencyBudget === null || agencyBudgets.includes(agencyBudget)
-                ? 1
-                : 0,
-            ];
-          },
-          filterCategories: [
-            managingAgency === null ? fullAgencyAcronymList : [managingAgency],
-            [1],
-          ],
-        },
-        "points-circle": {
-          extensions: [
-            new PointFillStyleExtension({ pattern: true }),
-            maskExtension,
-            dataFilterExtension,
-          ],
-          fillPatternEnabled: env.facDbPhase1 === "ON",
-          fillPatternMapping: "/mapping.json",
-          getFillPattern: "1x1",
-          fillPatternAtlas: "/1x1.svg",
-          maskId: `${boundaryId !== null ? "boundary-mvt" : ""}`,
-          maskByInstance: true, //doesn't seem to have an effect
-          maskInverted: false,
-          getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
-            f.properties.commitmentsTotal,
-          filterRange: [min, max],
-          getFilterCategory: (
-            f: Feature<Geometry, CapitalProjectProperties>,
-          ) => {
-            const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
-            return [
-              f.properties.managingAgency,
-              agencyBudget === null || agencyBudgets.includes(agencyBudget)
-                ? 1
-                : 0,
-            ];
-          },
-          filterCategories: [
-            managingAgency === null ? fullAgencyAcronymList : [managingAgency],
-            [1],
-          ],
-        },
-      },
-    });
-
   return new MVTLayer<
     CapitalProjectProperties,
-    DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>>
+    DataFilterExtensionProps<Feature<Geometry, CapitalProjectProperties>> &
+      MaskExtensionProps
   >({
     id: "capitalProjects",
-    data: [
-      `${zoningApiUrl}/api/${endpointPrefix}capital-projects/{z}/{x}/{y}.pbf`,
-    ],
+    data: [`${zoningApiUrl}/api/capital-projects/{z}/{x}/{y}.pbf`],
     uniqueIdProperty: "managingCodeCapitalProjectId",
     autoHighlight: true,
     visible,
-    highlightColor: [129, 230, 217, 218],
+    highlightColor: [217, 107, 39, 166],
     highlightedFeatureId: hoveredCapitalProject,
     pickable: true,
     getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
@@ -279,18 +123,11 @@ export function useCapitalProjectsLayer(opts: {
       managingAgency === null ? fullAgencyAcronymList : [managingAgency],
       [1],
     ],
-    getFillColor: ({ properties }) => {
-      const { managingCodeCapitalProjectId } = properties;
-      switch (managingCodeCapitalProjectId) {
-        case `${managingCode}${capitalProjectId}`:
-          return [56, 178, 172, 166];
-        default:
-          return [217, 107, 39, 166];
-      }
-    },
+    getFillColor: [0, 0, 0, 0],
     getPointRadius: 5,
-    getLineColor: [255, 255, 255, 255],
+    getLineColor: [217, 107, 39, 255],
     getLineWidth: 1,
+    lineWidthUnits: "meters",
     onHover: (data) => {
       const managingCodeCapitalProjectId =
         data.object?.properties?.managingCodeCapitalProjectId;
@@ -312,7 +149,6 @@ export function useCapitalProjectsLayer(opts: {
         managingCodeCapitalProjectId.slice(0, 3),
         managingCodeCapitalProjectId.slice(3),
       ];
-
       const capitalProjectRouteSuffix = `capital-projects/${nextManagingCode}/${nextCapitalProjectId}`;
       navigate({
         pathname: `${endpointPrefix}${capitalProjectRouteSuffix}`,
@@ -325,10 +161,86 @@ export function useCapitalProjectsLayer(opts: {
       getFilterCategory: [agencyBudget],
     },
     extensions: [
+      new MaskExtension(),
       new DataFilterExtension({
         filterSize: 1,
         categorySize: 2,
       }),
     ],
+    maskId: `${
+      (boundaryId !== null &&
+        (boundaryType === "cd" || boundaryType === "ccd")) ||
+      (boroughIds !== null && boundaryType === "borough") ||
+      (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
+        buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
+        lon !== undefined &&
+        lat !== undefined)
+        ? "boundary-mvt"
+        : ""
+    }`,
+    maskByInstance: true, //doesn't seem to have an effect
+    maskInverted: false,
+    _subLayerProps: {
+      "polygons-fill": {
+        extensions: [
+          new PolygonFillStyleExtension({ pattern: true }),
+          maskExtension,
+          dataFilterExtension,
+        ],
+        fillPatternEnabled: true,
+        fillPatternMapping: "/mapping.json",
+        getFillPattern: "1x1",
+        fillPatternAtlas: "/1x1.svg",
+        maskId: `${boundaryId !== null ? "boundary-mvt" : ""}`,
+        maskByInstance: true, //doesn't seem to have an effect
+        maskInverted: false,
+        getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
+          f.properties.commitmentsTotal,
+        filterRange: [min, max],
+        getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => {
+          const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
+          return [
+            f.properties.managingAgency,
+            agencyBudget === null || agencyBudgets.includes(agencyBudget)
+              ? 1
+              : 0,
+          ];
+        },
+        filterCategories: [
+          managingAgency === null ? fullAgencyAcronymList : [managingAgency],
+          [1],
+        ],
+      },
+      "points-circle": {
+        extensions: [
+          new PointFillStyleExtension({ pattern: true }),
+          maskExtension,
+          dataFilterExtension,
+        ],
+        fillPatternEnabled: true,
+        fillPatternMapping: "/mapping.json",
+        getFillPattern: "1x1",
+        fillPatternAtlas: "/1x1.svg",
+        maskId: `${boundaryId !== null ? "boundary-mvt" : ""}`,
+        maskByInstance: true, //doesn't seem to have an effect
+        maskInverted: false,
+        getFilterValue: (f: Feature<Geometry, CapitalProjectProperties>) =>
+          f.properties.commitmentsTotal,
+        filterRange: [min, max],
+        getFilterCategory: (f: Feature<Geometry, CapitalProjectProperties>) => {
+          const agencyBudgets = JSON.parse(f.properties.agencyBudgets);
+          return [
+            f.properties.managingAgency,
+            agencyBudget === null || agencyBudgets.includes(agencyBudget)
+              ? 1
+              : 0,
+          ];
+        },
+        filterCategories: [
+          managingAgency === null ? fullAgencyAcronymList : [managingAgency],
+          [1],
+        ],
+      },
+    },
   });
 }

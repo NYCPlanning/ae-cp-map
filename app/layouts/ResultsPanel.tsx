@@ -234,23 +234,18 @@ export default function ResultsPanel() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [tabIndex, setTabIndex] = useState(() =>
-    env.facDbPhase1 === "ON"
-      ? tabs.findIndex((tab) => `/${tab.urlPath}` === pathname)
-      : urlPaths.findIndex((path) => `/${path}` === pathname),
+    tabs.findIndex((tab) => `/${tab.urlPath}` === pathname),
   );
   const navigation = useNavigation();
   const isNavigating = Boolean(navigation.location);
 
   useEffect(() => {
-    env.facDbPhase1 === "ON"
-      ? setTabIndex(tabs.findIndex((tab) => `/${tab.urlPath}` === pathname))
-      : setTabIndex(urlPaths.findIndex((path) => `/${path}` === pathname));
+    setTabIndex(tabs.findIndex((tab) => `/${tab.urlPath}` === pathname));
   }, [pathname]);
 
   const handleTabsChange = (index: number) => {
     navigate({
-      pathname:
-        env.facDbPhase1 === "ON" ? tabs[index].urlPath : urlPaths[index],
+      pathname: tabs[index].urlPath,
       search: `?${searchParams.toString()}`,
     });
   };
@@ -316,57 +311,31 @@ export default function ResultsPanel() {
     (radius !== null && radius > 0);
 
   return (
-    <ContentPanelAccordion
-      accordionHeading={
-        env.facDbPhase1 === "ON"
-          ? `Results`
-          : `${totalProjects + totalBudgetRequests} Results`
-      }
-    >
-      {showSelections && env.facDbPhase1 === "ON" && (
+    <ContentPanelAccordion accordionHeading={`Results`}>
+      {showSelections && (
         <SelectedLocations clearRadiusFilter={clearRadiusFilter} />
       )}
-      <Tabs
-        index={tabIndex}
-        onChange={handleTabsChange}
-        isFitted={env.facDbPhase1 === "ON"}
-      >
-        {env.facDbPhase1 === "ON" ? (
-          <TabList
-            maxWidth={"100%"}
-            borderBottomWidth="1px"
-            borderColor="gray.200"
-            marginY={2}
-          >
-            <Tab fontSize={"xs"} flexWrap={"wrap"}>
-              <Text>Capital&nbsp;Projects&nbsp;</Text>
-              <Text fontSize={"0.625rem"}>
-                ({formatResultsTotal(totalProjects)})
-              </Text>
-            </Tab>
-            <Tab fontSize={"xs"} flexWrap={"wrap"}>
-              <Text>Budget&nbsp;Requests&nbsp;</Text>
-              <Text fontSize={"0.625rem"}>
-                ({formatResultsTotal(totalBudgetRequests)})
-              </Text>
-            </Tab>
-          </TabList>
-        ) : (
-          <TabList
-            overflow={"auto"}
-            sx={{ scrollbarWidth: "none" }}
-            borderBottomWidth="1px"
-            borderColor="gray.200"
-            marginY={2}
-          >
-            <Tab fontFamily={"body"} whiteSpace={"nowrap"}>
-              Capital Projects
-            </Tab>
-            <Tab fontFamily={"body"} whiteSpace={"nowrap"}>
-              Community Board Budget Requests
-            </Tab>
-          </TabList>
-        )}
+      <Tabs index={tabIndex} onChange={handleTabsChange} isFitted={true}>
+        <TabList
+          maxWidth={"100%"}
+          borderBottomWidth="1px"
+          borderColor="gray.200"
+          marginY={2}
+        >
+          <Tab fontSize={"xs"} flexWrap={"wrap"}>
+            <Text>Capital&nbsp;Projects&nbsp;</Text>
+            <Text fontSize={"0.625rem"}>
+              ({formatResultsTotal(totalProjects)})
+            </Text>
+          </Tab>
+          <Tab fontSize={"xs"} flexWrap={"wrap"}>
+            <Text>Budget&nbsp;Requests&nbsp;</Text>
+            <Text fontSize={"0.625rem"}>
+              ({formatResultsTotal(totalBudgetRequests)})
+            </Text>
+          </Tab>
+        </TabList>
+
         <TabPanels>
           <TabPanel padding={0}>
             <VStack align={"start"}>

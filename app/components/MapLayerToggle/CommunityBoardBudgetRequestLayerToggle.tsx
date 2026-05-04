@@ -20,7 +20,6 @@ export function CommunityBoardBudgetRequestLayerToggle() {
       isChecked={cbbrOn}
       onChange={(e) => setCbbr(e.target.checked)}
       tooltipLabel={capitalProjectsBudgetTooltipCopy}
-      iconColor="#2B6CB0;"
       legendIcon="cbbrs"
     />
   );
