@@ -5,4 +5,5 @@ export const envSchema = z.object({
   basemapUrl: z.string().min(1, "VITE_BASEMAP_URL is required"),
   cpdbDataUrl: z.string().min(1, "VITE_CPDB_DATA_URL is required"),
   facDbPhase2: z.string().min(1, "VITE_FACDB_PHASE_2 is required"),
+  facDbPhase3: z.string().min(1, "VITE_FACDB_PHASE_3 is required"),
 });

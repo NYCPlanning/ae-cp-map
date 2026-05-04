@@ -269,7 +269,7 @@ export default function MapPage() {
   const [savedGeoSelection, setSavedGeoSelection] = useState<{
     cd: { boroughId: BoroughId; boundaryId: BoundaryId } | undefined;
     ccd: { boundaryId: BoundaryId } | undefined;
-    borough: { boroughIds: BoroughId } | undefined;
+    borough: { boroughIds: string } | undefined;
   }>({ cd: undefined, ccd: undefined, borough: undefined });
 
   return (

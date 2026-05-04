@@ -1,13 +1,13 @@
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { useState } from "react";
 import { env } from "~/utils/env";
-import { BoroughId, BoundaryType } from "~/utils/types";
+import { BoundaryType } from "~/utils/types";
 import {
   useUpdateSearchParams,
   useDismissWelcomeAndUpdateSearchParams,
 } from "~/utils/utils";
 
-const { zoningApiUrl } = env;
+const { zoningApiUrl, facDbPhase3 } = env;
 
 export interface BoroughProperties {
   layerName: string;
@@ -25,7 +25,11 @@ export function useBoroughsLayer({
     useDismissWelcomeAndUpdateSearchParams();
   const [isHovered, setIsHovered] = useState<string | undefined>();
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
-  const boroughIds = searchParams.get("boroughIds") as BoroughId;
+  const boroughIdsString = searchParams.get("boroughIds");
+  const boroughIds =
+    boroughIdsString !== null && boroughIdsString.length > 0
+      ? boroughIdsString.split(",")
+      : undefined;
 
   return new MVTLayer<BoroughProperties>({
     id: "Boroughs",
@@ -54,19 +58,41 @@ export function useBoroughsLayer({
       }
     },
     onClick: (info) => {
-      const newBoroughId = info.object.properties.id;
-      if (boroughIds === newBoroughId) {
-        updateSearchParams({
-          boroughIds: null,
-        });
+      if (facDbPhase3 == "ON") {
+        const newBoroughId = info.object.properties.id;
+        if (boroughIds?.includes(newBoroughId)) {
+          updateSearchParams({
+            boroughIds:
+              boroughIds.length === 1
+                ? null
+                : boroughIds.filter((id) => id !== newBoroughId).join(","),
+          });
+        } else {
+          clearCombobox();
+          dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+            boroughIds: boroughIds
+              ? boroughIds.concat(newBoroughId).join(",")
+              : newBoroughId,
+            search: undefined,
+            radius: undefined,
+            pin: undefined,
+          });
+        }
       } else {
-        clearCombobox();
-        dismissWelcomeAndUpdateSearchParams("/capital-projects", {
-          boroughIds: info.object.properties.id,
-          search: undefined,
-          radius: undefined,
-          pin: undefined,
-        });
+        const newBoroughId = info.object.properties.id;
+        if (boroughIds === newBoroughId) {
+          updateSearchParams({
+            boroughIds: null,
+          });
+        } else {
+          clearCombobox();
+          dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+            boroughIds: info.object.properties.id,
+            search: undefined,
+            radius: undefined,
+            pin: undefined,
+          });
+        }
       }
     },
     pointType: "text",

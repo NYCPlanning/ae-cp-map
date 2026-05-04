@@ -1,4 +1,5 @@
 export type BoroughId = null | string;
+export type BoroughIds = null | string[];
 export type BoundaryType = null | "cd" | "ccd" | "borough";
 export type BoundaryId = null | string;
 export type ManagingAgencyInitials = null | string;
@@ -19,7 +20,7 @@ export type AdminQueryParams = {
   boundaryType?: BoundaryType;
   boundaryId?: BoundaryId;
   boroughId?: BoroughId;
-  boroughIds?: BoroughId;
+  boroughIds?: string | null;
 };
 
 export type AttributeParams = {
