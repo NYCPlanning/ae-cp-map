@@ -82,13 +82,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const boundaryType = url.searchParams.get("boundaryType");
   const boroughId = url.searchParams.get("boroughId");
-  const boroughIds = url.searchParams.get("boroughIds");
+  const boroughIdsString = url.searchParams.get("boroughIds");
+  const boroughIds =
+    boroughIdsString !== null ? boroughIdsString.split(",") : null;
   const boundaryId = url.searchParams.get("boundaryId");
   const cbbrAgencyCategoryResponseIds = url.searchParams.get(
     "cbbrAgencyCategoryResponseIds",
   );
-  const cbbrNeedGroupId = url.searchParams.get("cbbrNeedGroupId");
 
+  const cbbrNeedGroupId = url.searchParams.get("cbbrNeedGroupId");
   const itemsPerPage = 7;
   const cbbrPageParam = url.searchParams.get("cbbrPage");
   const cbbrPolicyAreaId = url.searchParams.get("cbbrPolicyAreaId");
@@ -115,7 +117,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         ? { cityCouncilDistrictId: boundaryId }
         : {}),
       ...(boroughIds !== null && boundaryType === "borough"
-        ? { boroughIds: [boroughIds] }
+        ? { boroughIds: boroughIds }
         : {}),
       ...(buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
       buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
@@ -163,7 +165,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
         ? { cityCouncilDistrictId: boundaryId }
         : {}),
       ...(boroughIds !== null && boundaryType === "borough"
-        ? { boroughIds: [boroughIds] }
+        ? { boroughIds: boroughIds }
         : {}),
       ...(buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
       buffer <= ADDRESS_SEARCH_RADIUS.MAX &&

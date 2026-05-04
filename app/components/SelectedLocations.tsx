@@ -1,8 +1,10 @@
-import { Box, CloseIcon, Flex, Heading, Tag } from "@nycplanning/streetscape";
+import { Box, Link, Flex, Heading, Tag } from "@nycplanning/streetscape";
 import { useLoaderData } from "react-router";
 import { useUpdateSearchParams } from "~/utils/utils";
 import { loader } from "~/layouts/ResultsPanel";
 import { ClearFilterBtn } from "./ClearFilter";
+import { ReactElement, useState } from "react";
+import { SelectedLocationTag } from "./SelectedLocationTag";
 
 export function SelectedLocations({
   clearRadiusFilter,
@@ -14,52 +16,79 @@ export function SelectedLocations({
   } = useLoaderData<typeof loader>();
 
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
+  const [tagsAreExpanded, setTagsAreExpanded] = useState<boolean>(false);
   const boundaryType = searchParams.get("boundaryType");
   const boroughId = searchParams.get("boroughId");
   const boundaryId = searchParams.get("boundaryId");
-  const boroughIds = searchParams.get("boroughIds");
+  const boroughIdsString = searchParams.get("boroughIds");
+  const boroughIds =
+    boroughIdsString === null ? [] : boroughIdsString.split(",");
   const radiusParam = searchParams.get("radius");
   const radius = radiusParam === null ? -1 : parseInt(radiusParam);
   const radiusValueInMiles = new Intl.NumberFormat("en", {
     maximumFractionDigits: 2,
   }).format(radius / 5280);
 
-  const tagLabel = (() => {
+  const tags = ((): { id: string; label: ReactElement }[] | null => {
     if (radiusParam !== null) {
-      return (
-        <>
-          <span style={{ fontWeight: "bold" }}>Radius</span>
-          <span
-            style={{ paddingRight: "2px" }}
-          >{` | ${radiusValueInMiles} mi`}</span>
-        </>
-      );
+      return [
+        {
+          id: "radius",
+          label: (
+            <>
+              <span style={{ fontWeight: "bold" }}>Radius</span>
+              <span
+                style={{ paddingRight: "2px" }}
+              >{` | ${radiusValueInMiles} mi`}</span>
+            </>
+          ),
+        },
+      ];
     }
 
     if (boundaryType === "ccd" && boundaryId !== null) {
-      return (
-        <>
-          <span style={{ fontWeight: "bold" }}>City Council</span>
-          <span style={{ paddingRight: "2px" }}>{` | ${boundaryId}`}</span>
-        </>
-      );
+      return [
+        {
+          id: boundaryId,
+          label: (
+            <>
+              <span style={{ fontWeight: "bold" }}>City Council</span>
+              <span style={{ paddingRight: "2px" }}>{` | ${boundaryId}`}</span>
+            </>
+          ),
+        },
+      ];
     }
-
-    const borough = boroughs.find((b) => b.id === (boroughId ?? boroughIds));
-
-    if (!borough) return null;
 
     if (boundaryType === "cd" && boundaryId !== null) {
-      return (
-        <>
-          <span style={{ fontWeight: "bold" }}>{borough.title}</span>
-          <span style={{ paddingRight: "2px" }}>{` | CD ${boundaryId}`}</span>
-        </>
-      );
+      const borough = boroughs.find((b) => b.id === boroughId);
+
+      if (!borough) return null;
+      return [
+        {
+          id: `${boroughId}${boundaryId}`,
+          label: (
+            <>
+              <span style={{ fontWeight: "bold" }}>{borough.title}</span>
+              <span
+                style={{ paddingRight: "2px" }}
+              >{` | CD ${boundaryId}`}</span>
+            </>
+          ),
+        },
+      ];
     }
 
-    if (boundaryType === "borough") {
-      return <span style={{ fontWeight: "bold" }}>{borough.title}</span>;
+    if (boundaryType === "borough" && boroughIds !== null) {
+      const selectedBoroughs = boroughs.filter((b) =>
+        boroughIds.includes(b.id),
+      );
+      return selectedBoroughs.map((borough) => {
+        return {
+          id: borough.id,
+          label: <span style={{ fontWeight: "bold" }}>{borough.title}</span>,
+        };
+      });
     }
 
     return null;
@@ -77,7 +106,7 @@ export function SelectedLocations({
     }
   };
 
-  const clearTag = () => {
+  const clearTag = (id?: string) => {
     if (radius > 0) {
       clearRadiusFilter();
     }
@@ -94,12 +123,19 @@ export function SelectedLocations({
         boundaryId: undefined,
       });
     } else if (boundaryType === "borough") {
-      updateSearchParams({
-        boundaryType: undefined,
-        boroughIds: undefined,
-      });
+      if (boroughIds.length > 1) {
+        updateSearchParams({
+          boroughIds: boroughIds.filter((bid) => bid !== id).join(","),
+        });
+      } else {
+        updateSearchParams({
+          boroughIds: undefined,
+        });
+      }
     }
   };
+
+  if (tags === null) return <></>;
 
   return (
     <Flex
@@ -110,12 +146,16 @@ export function SelectedLocations({
       borderRadius={"12px"}
       background={"gray.50"}
       padding={4}
-      height={"82px"}
     >
       <Flex alignItems={"flex-start"} justify={"space-between"} height={"20px"}>
         <Box alignSelf={"center"}>
           <Heading fontSize={"xs"} fontWeight={"bold"}>
-            SELECTED LOCATION
+            SELECTED LOCATIONS{" "}
+            {tags !== null && tags.length >= 8 ? (
+              <span style={{ fontWeight: 400 }}>(maximum 10)</span>
+            ) : (
+              ""
+            )}
           </Heading>
         </Box>
         <Box alignSelf={"center"}>
@@ -131,37 +171,72 @@ export function SelectedLocations({
       <Flex
         justifyContent={"flex-start"}
         alignItems={"center"}
-        height={"20px"}
+        flexWrap={"wrap"}
         padding={"2px 4px"}
+        gap={1}
       >
-        {tagLabel !== null && (
-          <Tag
-            display={"flex"}
-            justifyContent={"space-between"}
-            alignItems={"center"}
-            gap={"4px"}
-            fontSize={"11px"}
-            borderRadius={"4px"}
-            background={"primary.100"}
-            color={"teal.700"}
-          >
-            <Box>{tagLabel}</Box>
-            <Box>
-              <CloseIcon
-                color={"teal.700"}
-                width={"8px"}
-                height={"8px"}
-                onClick={clearTag}
-                aria-label={"closeIcon"}
-                verticalAlign={"middle"}
-                sx={{
-                  cursor: "pointer",
-                }}
+        {tags.length <= 5 || tagsAreExpanded
+          ? tags.map((tag) => (
+              <SelectedLocationTag
+                key={tag.id}
+                id={tag.id}
+                label={tag.label}
+                clearTag={clearTag}
               />
-            </Box>
-          </Tag>
+            ))
+          : tags.length > 5 &&
+            !tagsAreExpanded && (
+              <>
+                {tags.slice(0, 5).map((tag) => (
+                  <SelectedLocationTag
+                    key={tag.id}
+                    id={tag.id}
+                    label={tag.label}
+                    clearTag={clearTag}
+                  />
+                ))}
+                <Tag
+                  key={"plus-more"}
+                  display={"flex"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                  gap={"4px"}
+                  fontSize={"11px"}
+                  borderRadius={"4px"}
+                  border={"1px solid"}
+                  borderColor={"primary.600"}
+                  background={"primary.50"}
+                  color={"primary.600"}
+                  cursor={"pointer"}
+                >
+                  <Box onClick={() => setTagsAreExpanded(true)}>
+                    + {tags.length - 5} more
+                  </Box>
+                </Tag>
+              </>
+            )}
+        {tagsAreExpanded && (
+          <Link
+            px={2}
+            color={"primary.600"}
+            textDecoration={"underline"}
+            fontSize={"11px"}
+            cursor={"pointer"}
+            onClick={() => setTagsAreExpanded(false)}
+          >
+            see less
+          </Link>
         )}
       </Flex>
+      {tags.length === 10 && (
+        <Flex fontSize={"xs"}>
+          You&apos;ve reached the maximum number of selections. Remove a{" "}
+          {boundaryType === "ccd"
+            ? "City Council District"
+            : "Community District"}{" "}
+          on the map or clear it from the list above.
+        </Flex>
+      )}
     </Flex>
   );
 }

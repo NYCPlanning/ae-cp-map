@@ -11,6 +11,8 @@ export { useCommunityBoardBudgetRequestsGeoJsonLayer } from "./useCommunityBoard
 export { useBoundaryMVTMask } from "./useBoundaryMVTMask.client";
 export { useBoroughsLayer } from "./useBoroughsLayer.client";
 export { useBoroughsOutlinesLayer } from "./useBoroughsOutlinesLayer.client";
-export { useBoroughLayer } from "./useBoroughLayer.client";
+export { useSelectedBoroughsLayer } from "./useSelectedBoroughsLayer.client";
 export { IconClusterLayer } from "./icon-cluster-layer";
 export { useMapPinLayer } from "./useMapPinLayer.client";
+export { SelectedGeosLayer } from "./SelectedGeosLayer";
+export type { SelectedGeosLayerProps } from "./SelectedGeosLayer";

@@ -16,7 +16,7 @@ import {
   useBoundaryMVTMask,
   useBoroughsLayer,
   useBoroughsOutlinesLayer,
-  useBoroughLayer,
+  useSelectedBoroughsLayer,
   useMapPinLayer,
 } from "./layers";
 import type { MapView, MapViewState } from "@deck.gl/core";
@@ -99,7 +99,7 @@ export function Atlas({
 
   const boroughsLayer = useBoroughsLayer({ clearCombobox });
   const boroughsOutlinesLayer = useBoroughsOutlinesLayer();
-  const boroughLayer = useBoroughLayer();
+  const boroughLayer = useSelectedBoroughsLayer();
 
   const boundaryMvtMask = useBoundaryMVTMask({ addressSearchSliderValue });
 

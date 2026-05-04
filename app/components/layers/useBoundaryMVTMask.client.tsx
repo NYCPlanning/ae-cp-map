@@ -5,7 +5,12 @@ import {
 import { MVTLayer } from "@deck.gl/geo-layers";
 import { env } from "~/utils/env";
 import { useSearchParams } from "react-router";
-import { BoroughId, BoundaryId, BoundaryType } from "../../utils/types";
+import {
+  BoroughId,
+  BoroughIds,
+  BoundaryId,
+  BoundaryType,
+} from "../../utils/types";
 import { CommunityDistrictProperties } from "./useCommunityDistrictsLayer.client";
 import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
 import { GeoJsonLayer } from "@deck.gl/layers";
@@ -21,7 +26,11 @@ export function useBoundaryMVTMask({
   const [searchParams] = useSearchParams();
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
-  const boroughIds = searchParams.get("boroughIds") as BoroughId;
+  const boroughIdsString = searchParams.get("boroughIds");
+  const boroughIds =
+    boroughIdsString !== null
+      ? (boroughIdsString.split(",") as BoroughIds)
+      : (null as BoroughIds);
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
   const bufferParam = searchParams.get("radius");
   const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
@@ -78,7 +87,7 @@ export function useBoundaryMVTMask({
         data: [`${zoningApiUrl}/api/boroughs/{z}/{x}/{y}.pbf`],
         binary: false,
         getFilterCategory: ({ properties }) => properties.id,
-        filterCategories: [boroughIds ? boroughIds : ""],
+        filterCategories: boroughIds ? boroughIds : [""],
         extensions: [
           new DataFilterExtension({
             categorySize: 1,
