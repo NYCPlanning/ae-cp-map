@@ -3,15 +3,17 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { agencyBudgetSchema } from "./agencyBudgetSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 /**
  * @description An object containing all agency budgets.
  */
 export const findAgencyBudgets200Schema = z.object({
-  agencyBudgets: z.array(z.lazy(() => agencyBudgetSchema)),
+  get agencyBudgets() {
+    return z.array(agencyBudgetSchema);
+  },
   order: z
     .string()
     .describe("Agency Budgets are sorted alphabetically by their codes"),

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { communityBoardBudgetRequestPolicyAreaSchema } from "./communityBoardBudgetRequestPolicyAreaSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 export const findCommunityBoardBudgetRequestPolicyAreasQueryParamsSchema = z
   .object({
@@ -29,9 +29,9 @@ export const findCommunityBoardBudgetRequestPolicyAreasQueryParamsSchema = z
  * @description An object containing a list of policy areas
  */
 export const findCommunityBoardBudgetRequestPolicyAreas200Schema = z.object({
-  cbbrPolicyAreas: z.array(
-    z.lazy(() => communityBoardBudgetRequestPolicyAreaSchema),
-  ),
+  get cbbrPolicyAreas() {
+    return z.array(communityBoardBudgetRequestPolicyAreaSchema);
+  },
 });
 
 /**

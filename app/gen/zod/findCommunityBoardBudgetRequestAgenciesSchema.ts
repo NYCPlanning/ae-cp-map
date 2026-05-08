@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { agencySchema } from "./agencySchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 export const findCommunityBoardBudgetRequestAgenciesQueryParamsSchema = z
   .object({
@@ -28,7 +28,9 @@ export const findCommunityBoardBudgetRequestAgenciesQueryParamsSchema = z
  * @description An object containing a list of agencies
  */
 export const findCommunityBoardBudgetRequestAgencies200Schema = z.object({
-  cbbrAgencies: z.array(z.lazy(() => agencySchema)),
+  get cbbrAgencies() {
+    return z.array(agencySchema);
+  },
 });
 
 /**

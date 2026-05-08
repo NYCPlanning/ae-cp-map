@@ -3,10 +3,10 @@
  * Do not edit manually.
  */
 
-import z from "zod";
+import { z } from "zod/v4";
 
 export const zoningDistrictSchema = z.object({
-  id: z.string().uuid().describe("An automatically generated uuid."),
+  id: z.uuid().describe("An automatically generated uuid."),
   label: z
     .string()
     .describe(

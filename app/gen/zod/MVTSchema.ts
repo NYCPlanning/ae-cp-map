@@ -3,6 +3,6 @@
  * Do not edit manually.
  */
 
-import z from "zod";
+import { z } from "zod/v4";
 
 export const MVTSchema = z.string();

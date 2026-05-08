@@ -3,15 +3,17 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { boroughSchema } from "./boroughSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 /**
  * @description An object containing all boroughs.
  */
 export const findBoroughs200Schema = z.object({
-  boroughs: z.array(z.lazy(() => boroughSchema)),
+  get boroughs() {
+    return z.array(boroughSchema);
+  },
 });
 
 /**

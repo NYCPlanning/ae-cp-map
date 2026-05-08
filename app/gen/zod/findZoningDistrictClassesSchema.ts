@@ -3,15 +3,17 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { zoningDistrictClassSchema } from "./zoningDistrictClassSchema";
+import { z } from "zod/v4";
 
 /**
  * @description An object containing all zoning district class schemas.
  */
 export const findZoningDistrictClasses200Schema = z.object({
-  zoningDistrictClasses: z.array(z.lazy(() => zoningDistrictClassSchema)),
+  get zoningDistrictClasses() {
+    return z.array(zoningDistrictClassSchema);
+  },
 });
 
 /**

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
+import { z } from "zod/v4";
 
 export const communityBoardBudgetRequestPolicyAreaSchema = z.object({
-  id: z.number().int().describe("The id for the policy area"),
+  id: z.int().describe("The id for the policy area"),
   description: z.string().describe("The name of the policy area."),
 });

@@ -3,17 +3,17 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { zoningDistrictClassCategoryColorSchema } from "./zoningDistrictClassCategoryColorSchema";
+import { z } from "zod/v4";
 
 /**
  * @description An object containing all zoning district category colors.
  */
 export const findZoningDistrictClassCategoryColors200Schema = z.object({
-  zoningDistrictClassCategoryColors: z.array(
-    z.lazy(() => zoningDistrictClassCategoryColorSchema),
-  ),
+  get zoningDistrictClassCategoryColors() {
+    return z.array(zoningDistrictClassCategoryColorSchema);
+  },
 });
 
 /**

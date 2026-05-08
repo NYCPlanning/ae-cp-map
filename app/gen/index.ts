@@ -415,6 +415,10 @@ export type {
   MultiPolygon,
 } from "./types/MultiPolygon";
 export type { MVT } from "./types/MVT";
+export type {
+  OversightLevelCategoryEnumKey,
+  OversightLevelCategory,
+} from "./types/OversightLevelCategory";
 export type { Page } from "./types/Page";
 export type { Position } from "./types/Position";
 export type { TaxLot } from "./types/TaxLot";
@@ -818,6 +822,7 @@ export { createLandUse } from "./mocks/createLandUse";
 export { createMultiPoint } from "./mocks/createMultiPoint";
 export { createMultiPolygon } from "./mocks/createMultiPolygon";
 export { createMVT } from "./mocks/createMVT";
+export { createOversightLevelCategory } from "./mocks/createOversightLevelCategory";
 export { createPage } from "./mocks/createPage";
 export { createPosition } from "./mocks/createPosition";
 export { createTaxLot } from "./mocks/createTaxLot";
@@ -1124,6 +1129,7 @@ export { findCommunityBoardBudgetRequestsCsvQueryParamsGeometryEnum } from "./ty
 export { findTaxLotsQueryParamsGeometryEnum } from "./types/FindTaxLots";
 export { multiPointTypeEnum } from "./types/MultiPoint";
 export { multiPolygonTypeEnum } from "./types/MultiPolygon";
+export { oversightLevelCategoryEnum } from "./types/OversightLevelCategory";
 export { taxLotGeoJsonTypeEnum } from "./types/TaxLotGeoJson";
 export { zoningDistrictClassCategoryEnum } from "./types/ZoningDistrictClassCategory";
 export { agencyBudgetSchema } from "./zod/agencyBudgetSchema";
@@ -1469,6 +1475,7 @@ export { landUseSchema } from "./zod/landUseSchema";
 export { multiPointSchema } from "./zod/multiPointSchema";
 export { multiPolygonSchema } from "./zod/multiPolygonSchema";
 export { MVTSchema } from "./zod/MVTSchema";
+export { oversightLevelCategorySchema } from "./zod/oversightLevelCategorySchema";
 export { pageSchema } from "./zod/pageSchema";
 export { positionSchema } from "./zod/positionSchema";
 export { taxLotBasicPageSchema } from "./zod/taxLotBasicPageSchema";

@@ -5,11 +5,16 @@
 
 import RandExp from "randexp";
 import type { Agency } from "../types/Agency";
+import { createOversightLevelCategory } from "./createOversightLevelCategory";
 import { faker } from "@faker-js/faker";
 
 export function createAgency(data?: Partial<Agency>): Agency {
   return {
-    ...{ initials: faker.string.alpha(), name: faker.string.alpha() },
+    ...{
+      initials: faker.string.alpha(),
+      name: faker.string.alpha(),
+      oversightLevel: createOversightLevelCategory(),
+    },
     ...(data || {}),
   };
 }

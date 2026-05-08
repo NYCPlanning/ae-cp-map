@@ -3,15 +3,17 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { cityCouncilDistrictSchema } from "./cityCouncilDistrictSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 /**
  * @description an object of city council districts
  */
 export const findCityCouncilDistricts200Schema = z.object({
-  cityCouncilDistricts: z.array(z.lazy(() => cityCouncilDistrictSchema)),
+  get cityCouncilDistricts() {
+    return z.array(cityCouncilDistrictSchema);
+  },
   order: z
     .string()
     .describe(

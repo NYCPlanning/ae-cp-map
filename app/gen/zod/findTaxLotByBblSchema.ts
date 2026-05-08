@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { taxLotSchema } from "./taxLotSchema";
+import { z } from "zod/v4";
 
 export const findTaxLotByBblPathParamsSchema = z.object({
   bbl: z

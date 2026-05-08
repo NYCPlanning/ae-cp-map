@@ -3,17 +3,18 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { capitalProjectSchema } from "./capitalProjectSchema";
 import { pageSchema } from "./pageSchema";
+import { z } from "zod/v4";
 
 export const capitalProjectPageSchema = z
   .lazy(() => pageSchema)
   .and(
     z.object({
-      capitalProjects: z.array(z.lazy(() => capitalProjectSchema)),
+      get capitalProjects() {
+        return z.array(capitalProjectSchema);
+      },
       totalProjects: z
-        .number()
         .int()
         .min(0)
         .describe("The total number of results matching the query parameters."),
