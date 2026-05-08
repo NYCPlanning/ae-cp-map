@@ -3,14 +3,16 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { pageSchema } from "./pageSchema";
 import { taxLotBasicSchema } from "./taxLotBasicSchema";
+import { z } from "zod/v4";
 
 export const taxLotBasicPageSchema = z
   .lazy(() => pageSchema)
   .and(
     z.object({
-      taxLots: z.array(z.lazy(() => taxLotBasicSchema)),
+      get taxLots() {
+        return z.array(taxLotBasicSchema);
+      },
     }),
   );

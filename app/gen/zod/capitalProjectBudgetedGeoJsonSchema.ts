@@ -3,19 +3,20 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { capitalProjectBudgetedSchema } from "./capitalProjectBudgetedSchema";
 import { multiPointSchema } from "./multiPointSchema";
 import { multiPolygonSchema } from "./multiPolygonSchema";
+import { z } from "zod/v4";
 
 export const capitalProjectBudgetedGeoJsonSchema = z.object({
   id: z
     .string()
     .describe("The concatenation of the managing code and capital project id."),
   type: z.enum(["Feature"]),
-  geometry: z.union([
-    z.lazy(() => multiPointSchema),
-    z.lazy(() => multiPolygonSchema),
-  ]),
-  properties: z.lazy(() => capitalProjectBudgetedSchema),
+  get geometry() {
+    return z.union([multiPointSchema, multiPolygonSchema]);
+  },
+  get properties() {
+    return capitalProjectBudgetedSchema;
+  },
 });

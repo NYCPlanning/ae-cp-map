@@ -3,12 +3,12 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { zoningDistrictSchema } from "./zoningDistrictSchema";
+import { z } from "zod/v4";
 
 export const findZoningDistrictByZoningDistrictIdPathParamsSchema = z.object({
-  id: z.string().uuid(),
+  id: z.uuid(),
 });
 
 /**

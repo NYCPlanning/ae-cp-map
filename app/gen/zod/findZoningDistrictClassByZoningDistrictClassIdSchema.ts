@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { zoningDistrictClassSchema } from "./zoningDistrictClassSchema";
+import { z } from "zod/v4";
 
 export const findZoningDistrictClassByZoningDistrictClassIdPathParamsSchema =
   z.object({

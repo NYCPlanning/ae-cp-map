@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { capitalCommitmentSchema } from "./capitalCommitmentSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 export const findCapitalCommitmentsByManagingCodeCapitalProjectIdPathParamsSchema =
   z.object({
@@ -27,7 +27,9 @@ export const findCapitalCommitmentsByManagingCodeCapitalProjectIdPathParamsSchem
  */
 export const findCapitalCommitmentsByManagingCodeCapitalProjectId200Schema =
   z.object({
-    capitalCommitments: z.array(z.lazy(() => capitalCommitmentSchema)),
+    get capitalCommitments() {
+      return z.array(capitalCommitmentSchema);
+    },
     order: z
       .string()
       .describe("Capital commitment dates are sorted in ascending order"),

@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { pageSchema } from "./pageSchema";
+import { z } from "zod/v4";
 
 export const communityBoardBudgetRequestPageSchema = z
   .lazy(() => pageSchema)
@@ -16,7 +16,6 @@ export const communityBoardBudgetRequestPageSchema = z
             .string()
             .describe("The id for the community board budget request."),
           cbbrPolicyAreaId: z
-            .number()
             .int()
             .describe("The id for the policy area of the request."),
           title: z.string().describe("The title of the budget request."),
@@ -34,7 +33,6 @@ export const communityBoardBudgetRequestPageSchema = z
         }),
       ),
       totalBudgetRequests: z
-        .number()
         .int()
         .min(0)
         .describe("The total number of results matching the query parameters."),

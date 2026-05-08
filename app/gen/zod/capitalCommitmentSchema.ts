@@ -3,19 +3,15 @@
  * Do not edit manually.
  */
 
-import z from "zod";
+import { z } from "zod/v4";
 
 export const capitalCommitmentSchema = z.object({
-  id: z
-    .string()
-    .uuid()
-    .describe("A uuid used to refer to the capital commitment."),
+  id: z.uuid().describe("A uuid used to refer to the capital commitment."),
   type: z
     .string()
     .regex(/^([A-z]{4})$/)
     .describe("A four character string used to refer to the commitment type."),
-  plannedDate: z
-    .string()
+  plannedDate: z.iso
     .date()
     .describe(
       "A string used to refer to the date when the commitment is projected to be committed.",

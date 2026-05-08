@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
+import { z } from "zod/v4";
 
 export const communityBoardBudgetRequestNeedGroupSchema = z.object({
-  id: z.number().int().describe("The id for the need group"),
+  id: z.int().describe("The id for the need group"),
   description: z.string().describe("The name of the need group."),
 });

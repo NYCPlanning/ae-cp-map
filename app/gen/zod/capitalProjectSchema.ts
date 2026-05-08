@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { capitalProjectCategorySchema } from "./capitalProjectCategorySchema";
+import { z } from "zod/v4";
 
 export const capitalProjectSchema = z.object({
   id: z
@@ -20,14 +20,11 @@ export const capitalProjectSchema = z.object({
   managingAgency: z
     .string()
     .describe("The managing agency name abbreviation or acronym"),
-  minDate: z
-    .string()
-    .date()
-    .describe("The starting date of the capital project"),
-  maxDate: z.string().date().describe("The ending date of the capital project"),
-  category: z.nullable(
-    z
-      .lazy(() => capitalProjectCategorySchema)
-      .describe("The type of Capital Project."),
-  ),
+  minDate: z.iso.date().describe("The starting date of the capital project"),
+  maxDate: z.iso.date().describe("The ending date of the capital project"),
+  get category() {
+    return capitalProjectCategorySchema
+      .describe("The type of Capital Project.")
+      .nullable();
+  },
 });

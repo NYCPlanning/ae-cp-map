@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { communityDistrictSchema } from "./communityDistrictSchema";
 import { multiPolygonSchema } from "./multiPolygonSchema";
+import { z } from "zod/v4";
 
 export const communityDistrictGeoJsonSchema = z.object({
   id: z
@@ -15,8 +15,12 @@ export const communityDistrictGeoJsonSchema = z.object({
       "Three character code to represent a borough and community district.",
     ),
   type: z.enum(["Feature"]),
-  properties: z.lazy(() => communityDistrictSchema),
-  geometry: z
-    .lazy(() => multiPolygonSchema)
-    .describe("A geojson implementation of a MultiPolygon Simple Feature"),
+  get properties() {
+    return communityDistrictSchema;
+  },
+  get geometry() {
+    return multiPolygonSchema.describe(
+      "A geojson implementation of a MultiPolygon Simple Feature",
+    );
+  },
 });

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { communityBoardBudgetRequestPageSchema } from "./communityBoardBudgetRequestPageSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 export const findCommunityBoardBudgetRequestsQueryParamsSchema = z
   .object({
@@ -26,12 +26,30 @@ export const findCommunityBoardBudgetRequestsQueryParamsSchema = z
           "The three character numeric string containing the concatenation of the borough and community district ids.",
         ),
     ),
+    communityDistrictIds: z.optional(
+      z
+        .array(z.string().regex(/^([0-9]{3})$/))
+        .min(1)
+        .max(10)
+        .describe(
+          "A list of three character numeric strings containing the concatenation of the borough and community district ids.",
+        ),
+    ),
     cityCouncilDistrictId: z.optional(
       z
         .string()
         .regex(/^([0-9]{1,2})$/)
         .describe(
           "One or two character code to represent city council districts.",
+        ),
+    ),
+    cityCouncilDistrictIds: z.optional(
+      z
+        .array(z.string().regex(/^([0-9]{1,2})$/))
+        .min(1)
+        .max(10)
+        .describe(
+          "A list of one or two character codes representing city council districts.",
         ),
     ),
     cbbrPolicyAreaId: z.optional(

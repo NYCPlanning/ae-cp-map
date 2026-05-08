@@ -3,19 +3,21 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { agencySchema } from "./agencySchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 /**
  * @description An object containing all agencies sorted alphabetically by the agency initials.\n
  */
 export const findAgencies200Schema = z.object({
-  agencies: z
-    .array(z.lazy(() => agencySchema))
-    .describe(
-      "An list of agencies sorted alphabetically by the agency initials.\n",
-    ),
+  get agencies() {
+    return z
+      .array(agencySchema)
+      .describe(
+        "An list of agencies sorted alphabetically by the agency initials.\n",
+      );
+  },
   order: z
     .string()
     .describe(

@@ -3,17 +3,18 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { communityBoardBudgetRequestSchema } from "./communityBoardBudgetRequestSchema";
 import { multiPointSchema } from "./multiPointSchema";
 import { multiPolygonSchema } from "./multiPolygonSchema";
+import { z } from "zod/v4";
 
 export const communityBoardBudgetRequestGeoJsonSchema = z.object({
   id: z.string().describe("The id for the community board budget request."),
   type: z.enum(["Feature"]),
-  geometry: z.union([
-    z.lazy(() => multiPointSchema),
-    z.lazy(() => multiPolygonSchema),
-  ]),
-  properties: z.lazy(() => communityBoardBudgetRequestSchema),
+  get geometry() {
+    return z.union([multiPointSchema, multiPolygonSchema]);
+  },
+  get properties() {
+    return communityBoardBudgetRequestSchema;
+  },
 });

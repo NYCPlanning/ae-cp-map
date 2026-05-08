@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { communityDistrictSchema } from "./communityDistrictSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 export const findCommunityDistrictsByBoroughIdPathParamsSchema = z.object({
   boroughId: z
@@ -20,7 +20,9 @@ export const findCommunityDistrictsByBoroughIdPathParamsSchema = z.object({
  * @description An object of community district schemas for the borough
  */
 export const findCommunityDistrictsByBoroughId200Schema = z.object({
-  communityDistricts: z.array(z.lazy(() => communityDistrictSchema)),
+  get communityDistricts() {
+    return z.array(communityDistrictSchema);
+  },
   order: z
     .string()
     .describe("Community district numbers are sorted in ascending order"),

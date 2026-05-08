@@ -22,7 +22,15 @@ export function createFindCommunityBoardBudgetRequestsQueryParams(
         { count: { min: 1, max: 5 } },
       ),
       communityDistrictId: new RandExp("^([0-9]{3})$").gen(),
+      communityDistrictIds: faker.helpers.multiple(
+        () => new RandExp("^([0-9]{3})$").gen(),
+        { count: { min: 1, max: 10 } },
+      ),
       cityCouncilDistrictId: new RandExp("^([0-9]{1,2})$").gen(),
+      cityCouncilDistrictIds: faker.helpers.multiple(
+        () => new RandExp("^([0-9]{1,2})$").gen(),
+        { count: { min: 1, max: 10 } },
+      ),
       cbbrPolicyAreaId: faker.number.int(),
       cbbrNeedGroupId: faker.number.int(),
       agencyInitials: faker.string.alpha(),

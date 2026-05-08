@@ -3,17 +3,19 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { zoningDistrictClassCategorySchema } from "./zoningDistrictClassCategorySchema";
+import { z } from "zod/v4";
 
 export const zoningDistrictClassSchema = z.object({
   id: z
     .string()
     .regex(/^[A-Z][0-9]+$/)
     .describe("The code associated with the Zoning class."),
-  category: z
-    .lazy(() => zoningDistrictClassCategorySchema)
-    .describe("The type of zoning district."),
+  get category() {
+    return zoningDistrictClassCategorySchema.describe(
+      "The type of zoning district.",
+    );
+  },
   description: z.string().describe("Zoning class descriptions."),
   url: z
     .string()

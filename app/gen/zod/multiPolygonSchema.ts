@@ -3,8 +3,8 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { positionSchema } from "./positionSchema";
+import { z } from "zod/v4";
 
 /**
  * @description A geojson implementation of a MultiPolygon Simple Feature
@@ -12,16 +12,16 @@ import { positionSchema } from "./positionSchema";
 export const multiPolygonSchema = z
   .object({
     type: z.enum(["MultiPolygon"]),
-    coordinates: z
-      .array(
-        z.array(
+    get coordinates() {
+      return z
+        .array(
           z.array(
-            z
-              .lazy(() => positionSchema)
-              .describe("The fundamental spatial construct"),
+            z.array(
+              positionSchema.describe("The fundamental spatial construct"),
+            ),
           ),
-        ),
-      )
-      .describe("Array of polygon coordinate arrays."),
+        )
+        .describe("Array of polygon coordinate arrays.");
+    },
   })
   .describe("A geojson implementation of a MultiPolygon Simple Feature");
