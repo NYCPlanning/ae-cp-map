@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { boroughSchema } from "./boroughSchema";
 import { multiPolygonSchema } from "./multiPolygonSchema";
+import { z } from "zod/v4";
 
 export const boroughGeoJsonSchema = z.object({
   id: z
@@ -15,8 +15,12 @@ export const boroughGeoJsonSchema = z.object({
       "A single character numeric string containing the common number used to refer to the borough. Possible values are 1-5.",
     ),
   type: z.enum(["Feature"]),
-  properties: z.lazy(() => boroughSchema),
-  geometry: z
-    .lazy(() => multiPolygonSchema)
-    .describe("A geojson implementation of a MultiPolygon Simple Feature"),
+  get properties() {
+    return boroughSchema;
+  },
+  get geometry() {
+    return multiPolygonSchema.describe(
+      "A geojson implementation of a MultiPolygon Simple Feature",
+    );
+  },
 });

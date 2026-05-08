@@ -3,13 +3,15 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { zoningDistrictClassCategorySchema } from "./zoningDistrictClassCategorySchema";
+import { z } from "zod/v4";
 
 export const zoningDistrictClassCategoryColorSchema = z.object({
-  category: z
-    .lazy(() => zoningDistrictClassCategorySchema)
-    .describe("The type of zoning district."),
+  get category() {
+    return zoningDistrictClassCategorySchema.describe(
+      "The type of zoning district.",
+    );
+  },
   color: z
     .string()
     .regex(/^#([A-Fa-f0-9]{8})$/)

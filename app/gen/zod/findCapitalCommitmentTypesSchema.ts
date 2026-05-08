@@ -3,15 +3,17 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { capitalCommitmentTypeSchema } from "./capitalCommitmentTypeSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 /**
  * @description An object containing all capital commitment types.
  */
 export const findCapitalCommitmentTypes200Schema = z.object({
-  capitalCommitmentTypes: z.array(z.lazy(() => capitalCommitmentTypeSchema)),
+  get capitalCommitmentTypes() {
+    return z.array(capitalCommitmentTypeSchema);
+  },
 });
 
 /**

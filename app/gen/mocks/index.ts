@@ -341,6 +341,7 @@ export { createLandUse } from "./createLandUse";
 export { createMultiPoint } from "./createMultiPoint";
 export { createMultiPolygon } from "./createMultiPolygon";
 export { createMVT } from "./createMVT";
+export { createOversightLevelCategory } from "./createOversightLevelCategory";
 export { createPage } from "./createPage";
 export { createPosition } from "./createPosition";
 export { createTaxLot } from "./createTaxLot";

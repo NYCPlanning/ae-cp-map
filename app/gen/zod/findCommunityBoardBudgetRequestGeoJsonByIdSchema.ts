@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { communityBoardBudgetRequestGeoJsonSchema } from "./communityBoardBudgetRequestGeoJsonSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 export const findCommunityBoardBudgetRequestGeoJsonByIdPathParamsSchema =
   z.object({

@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
-import z from "zod";
+import { z } from "zod/v4";
 
 export const communityBoardBudgetRequestAgencyCategoryResponseSchema = z.object(
   {
-    id: z.number().int().describe("The id for the agency request category."),
+    id: z.int().describe("The id for the agency request category."),
     description: z
       .string()
       .describe("The name of the agency request category."),

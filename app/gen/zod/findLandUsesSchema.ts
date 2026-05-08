@@ -3,15 +3,17 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { landUseSchema } from "./landUseSchema";
+import { z } from "zod/v4";
 
 /**
  * @description An object containing all land uses.
  */
 export const findLandUses200Schema = z.object({
-  landUses: z.array(z.lazy(() => landUseSchema)),
+  get landUses() {
+    return z.array(landUseSchema);
+  },
 });
 
 /**

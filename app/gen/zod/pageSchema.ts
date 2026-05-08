@@ -3,11 +3,10 @@
  * Do not edit manually.
  */
 
-import z from "zod";
+import { z } from "zod/v4";
 
 export const pageSchema = z.object({
   limit: z
-    .number()
     .int()
     .min(1)
     .max(100)
@@ -15,14 +14,12 @@ export const pageSchema = z.object({
       "The limit used for the response. Defaults to 20 when the request does not specify one.",
     ),
   offset: z
-    .number()
     .int()
     .min(0)
     .describe(
       "The offset used for the response. Defaults to 0 when the request does not specify one.",
     ),
   total: z
-    .number()
     .int()
     .min(0)
     .describe(

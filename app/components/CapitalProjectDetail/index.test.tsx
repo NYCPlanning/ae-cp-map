@@ -12,8 +12,16 @@ describe("CapitalProjectDetail", () => {
   let onNavigationClick: () => void;
   beforeAll(() => {
     managingAgencies = [
-      { initials: "DDC", name: "Department of Design and Construction" },
-      { initials: "DEP", name: "Department of Environmental Protection" },
+      {
+        initials: "DDC",
+        name: "Department of Design and Construction",
+        oversightLevel: "City",
+      },
+      {
+        initials: "DEP",
+        name: "Department of Environmental Protection",
+        oversightLevel: "City",
+      },
     ];
     capitalProject = {
       ...createCapitalProjectBudgeted(),

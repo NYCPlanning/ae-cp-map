@@ -3,13 +3,12 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { communityBoardBudgetRequestTypeSchema } from "./communityBoardBudgetRequestTypeSchema";
+import { z } from "zod/v4";
 
 export const communityBoardBudgetRequestSchema = z.object({
   id: z.string().describe("The id for the community board budget request."),
   cbbrPolicyAreaId: z
-    .number()
     .int()
     .describe("The id for the policy area of the request."),
   title: z.string().describe("The title of the budget request."),
@@ -23,9 +22,11 @@ export const communityBoardBudgetRequestSchema = z.object({
   priority: z
     .number()
     .describe("The board's ranking of the request's priority"),
-  cbbrType: z
-    .lazy(() => communityBoardBudgetRequestTypeSchema)
-    .describe("The type of budget request (Capital or Expense)."),
+  get cbbrType() {
+    return communityBoardBudgetRequestTypeSchema.describe(
+      "The type of budget request (Capital or Expense).",
+    );
+  },
   isMapped: z
     .boolean()
     .describe("Whether the budget request has associated mappable data"),

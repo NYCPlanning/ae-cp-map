@@ -3,15 +3,19 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { multiPolygonSchema } from "./multiPolygonSchema";
 import { taxLotSchema } from "./taxLotSchema";
+import { z } from "zod/v4";
 
 export const taxLotGeoJsonSchema = z.object({
   id: z.string().min(10).max(10).describe("The bbl of the tax lot."),
   type: z.enum(["Feature"]),
-  geometry: z
-    .lazy(() => multiPolygonSchema)
-    .describe("A geojson implementation of a MultiPolygon Simple Feature"),
-  properties: z.lazy(() => taxLotSchema),
+  get geometry() {
+    return multiPolygonSchema.describe(
+      "A geojson implementation of a MultiPolygon Simple Feature",
+    );
+  },
+  get properties() {
+    return taxLotSchema;
+  },
 });

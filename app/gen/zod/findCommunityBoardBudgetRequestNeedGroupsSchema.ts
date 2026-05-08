@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { communityBoardBudgetRequestNeedGroupSchema } from "./communityBoardBudgetRequestNeedGroupSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 export const findCommunityBoardBudgetRequestNeedGroupsQueryParamsSchema = z
   .object({
@@ -29,9 +29,9 @@ export const findCommunityBoardBudgetRequestNeedGroupsQueryParamsSchema = z
  * @description An object containing a list of need groups
  */
 export const findCommunityBoardBudgetRequestNeedGroups200Schema = z.object({
-  cbbrNeedGroups: z.array(
-    z.lazy(() => communityBoardBudgetRequestNeedGroupSchema),
-  ),
+  get cbbrNeedGroups() {
+    return z.array(communityBoardBudgetRequestNeedGroupSchema);
+  },
 });
 
 /**

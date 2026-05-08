@@ -3,18 +3,18 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { communityBoardBudgetRequestAgencyCategoryResponseSchema } from "./communityBoardBudgetRequestAgencyCategoryResponseSchema";
 import { errorSchema } from "./errorSchema";
+import { z } from "zod/v4";
 
 /**
  * @description An object containing a list of agency reponse categories
  */
 export const findCommunityBoardBudgetRequestAgencyCategoryResponses200Schema =
   z.object({
-    cbbrAgencyCategoryResponses: z.array(
-      z.lazy(() => communityBoardBudgetRequestAgencyCategoryResponseSchema),
-    ),
+    get cbbrAgencyCategoryResponses() {
+      return z.array(communityBoardBudgetRequestAgencyCategoryResponseSchema);
+    },
   });
 
 /**

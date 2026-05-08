@@ -3,7 +3,8 @@
  * Do not edit manually.
  */
 
-import z from "zod";
+import { oversightLevelCategorySchema } from "./oversightLevelCategorySchema";
+import { z } from "zod/v4";
 
 export const agencySchema = z.object({
   initials: z
@@ -12,4 +13,9 @@ export const agencySchema = z.object({
       "A string of variable length containing the initials of the agency.",
     ),
   name: z.string().describe("The full name of the agency."),
+  get oversightLevel() {
+    return oversightLevelCategorySchema
+      .describe("The type of Oversight Level.")
+      .nullable();
+  },
 });

@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { boroughSchema } from "./boroughSchema";
 import { landUseSchema } from "./landUseSchema";
+import { z } from "zod/v4";
 
 export const taxLotSchema = z.object({
   bbl: z
@@ -14,7 +14,9 @@ export const taxLotSchema = z.object({
     .describe(
       "The ten character code compromised of a one character borough, five character block, and four character lot codes.",
     ),
-  borough: z.lazy(() => boroughSchema),
+  get borough() {
+    return boroughSchema;
+  },
   block: z
     .string()
     .min(1)
@@ -26,5 +28,7 @@ export const taxLotSchema = z.object({
     .max(4)
     .describe("The lot code, without its padding zeros."),
   address: z.string().describe("The street address."),
-  landUse: z.lazy(() => landUseSchema),
+  get landUse() {
+    return landUseSchema;
+  },
 });

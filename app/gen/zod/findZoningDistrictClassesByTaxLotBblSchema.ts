@@ -3,9 +3,9 @@
  * Do not edit manually.
  */
 
-import z from "zod";
 import { errorSchema } from "./errorSchema";
 import { zoningDistrictClassSchema } from "./zoningDistrictClassSchema";
+import { z } from "zod/v4";
 
 export const findZoningDistrictClassesByTaxLotBblPathParamsSchema = z.object({
   bbl: z
@@ -20,7 +20,9 @@ export const findZoningDistrictClassesByTaxLotBblPathParamsSchema = z.object({
  * @description An object containing zoning district class schemas.
  */
 export const findZoningDistrictClassesByTaxLotBbl200Schema = z.object({
-  zoningDistrictClasses: z.array(z.lazy(() => zoningDistrictClassSchema)),
+  get zoningDistrictClasses() {
+    return z.array(zoningDistrictClassSchema);
+  },
 });
 
 /**
