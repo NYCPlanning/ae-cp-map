@@ -32,6 +32,16 @@ export function useBoundaryMVTMask({
       ? (boroughIdsString.split(",") as BoroughIds)
       : (null as BoroughIds);
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
+  const cityCouncilDistrictIdsString = searchParams.get(
+    "cityCouncilDistrictIds",
+  );
+  const cityCouncilDistrictIds =
+    cityCouncilDistrictIdsString !== null
+      ? cityCouncilDistrictIdsString.split(",")
+      : boundaryId === null
+        ? []
+        : [boundaryId];
+
   const bufferParam = searchParams.get("radius");
   const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
   const pin = searchParams.get("pin");
@@ -102,7 +112,7 @@ export function useBoundaryMVTMask({
         // https://github.com/visgl/deck.gl/issues/8919#issuecomment-2134505299
         binary: false,
         getFilterCategory: ({ properties }) => properties.id,
-        filterCategories: [boundaryId ? boundaryId : ""],
+        filterCategories: cityCouncilDistrictIds,
         extensions: [
           new DataFilterExtension({
             categorySize: 1,

@@ -51,6 +51,15 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const boroughIds = searchParams.get("boroughIds") as BoroughId;
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
+  const cityCouncilDistrictIdsString = searchParams.get(
+    "cityCouncilDistrictIds",
+  );
+  const cityCouncilDistrictIds =
+    cityCouncilDistrictIdsString !== null
+      ? cityCouncilDistrictIdsString.split(",")
+      : boundaryId === null
+        ? []
+        : [boundaryId];
   const cbbrNeedGroupId = searchParams.get(
     "cbbrNeedGroupId",
   ) as CommunityBoardBudgetRequestNeedGroupId;
@@ -258,6 +267,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       (boundaryId !== null &&
         (boundaryType === "cd" || boundaryType === "ccd")) ||
       (boroughIds !== null && boundaryType === "borough") ||
+      (cityCouncilDistrictIds !== null && boundaryType === "ccd") ||
       (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
         buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
         lon !== undefined &&
