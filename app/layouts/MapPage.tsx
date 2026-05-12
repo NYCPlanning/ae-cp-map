@@ -254,6 +254,9 @@ export default function MapPage() {
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const boroughIds = searchParams.get("boroughIds") as BoroughId;
+  const cityCouncilDistrictIds = searchParams.get(
+    "cityCouncilDistrictIds",
+  ) as string;
 
   const getDefaultIndex = (type: BoundaryType | null) => {
     switch (type) {
@@ -268,7 +271,7 @@ export default function MapPage() {
 
   const [savedGeoSelection, setSavedGeoSelection] = useState<{
     cd: { boroughId: BoroughId; boundaryId: BoundaryId } | undefined;
-    ccd: { boundaryId: BoundaryId } | undefined;
+    ccd: { cityCouncilDistrictIds: string } | undefined;
     borough: { boroughIds: string } | undefined;
   }>({ cd: undefined, ccd: undefined, borough: undefined });
 
@@ -333,10 +336,18 @@ export default function MapPage() {
                     ...savedGeoSelection,
                     borough: { boroughIds },
                   });
-                if (boundaryType === "ccd" && boundaryId !== null)
+                if (
+                  boundaryType === "ccd" &&
+                  (boundaryId !== null || cityCouncilDistrictIds !== null)
+                )
                   setSavedGeoSelection({
                     ...savedGeoSelection,
-                    ccd: { boundaryId },
+                    ccd: {
+                      cityCouncilDistrictIds:
+                        boundaryId === null
+                          ? cityCouncilDistrictIds
+                          : boundaryId,
+                    },
                   });
                 if (savedGeoSelection.cd === undefined) {
                   updateSearchParams({
@@ -344,6 +355,7 @@ export default function MapPage() {
                     boroughId: null,
                     boundaryId: null,
                     boroughIds: null,
+                    cityCouncilDistrictIds: null,
                   });
                 } else {
                   updateSearchParams({
@@ -351,6 +363,7 @@ export default function MapPage() {
                     boroughId: savedGeoSelection.cd.boroughId,
                     boundaryId: savedGeoSelection.cd.boundaryId,
                     boroughIds: null,
+                    cityCouncilDistrictIds: null,
                   });
                 }
               }}
@@ -391,7 +404,8 @@ export default function MapPage() {
                     boundaryType: "ccd",
                     boroughId: null,
                     boroughIds: null,
-                    boundaryId: savedGeoSelection.ccd.boundaryId,
+                    cityCouncilDistrictIds:
+                      savedGeoSelection.ccd.cityCouncilDistrictIds,
                   });
                 }
               }}
@@ -418,7 +432,12 @@ export default function MapPage() {
                 if (boundaryType === "ccd" && boundaryId !== null)
                   setSavedGeoSelection({
                     ...savedGeoSelection,
-                    ccd: { boundaryId },
+                    ccd: {
+                      cityCouncilDistrictIds:
+                        boundaryId === null
+                          ? cityCouncilDistrictIds
+                          : boundaryId,
+                    },
                   });
                 if (savedGeoSelection.borough === undefined) {
                   updateSearchParams({
@@ -426,6 +445,7 @@ export default function MapPage() {
                     boroughIds: null,
                     boroughId: null,
                     boundaryId: null,
+                    cityCouncilDistrictIds: null,
                   });
                 } else {
                   updateSearchParams({
@@ -433,6 +453,7 @@ export default function MapPage() {
                     boroughIds: savedGeoSelection.borough.boroughIds,
                     boroughId: null,
                     boundaryId: null,
+                    cityCouncilDistrictIds: null,
                   });
                 }
               }}
