@@ -7,7 +7,7 @@ import {
 import { BoundaryId, BoundaryType } from "~/utils/types";
 import { env } from "~/utils/env";
 
-const { zoningApiUrl } = env;
+const { zoningApiUrl, facDbPhase3 } = env;
 export interface CityCouncilDistrictProperties {
   layerName: string;
   id: string;
@@ -24,6 +24,15 @@ export function useCityCouncilDistrictsLayer({
   const [isHovered, setIsHovered] = useState<string | undefined>();
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
+  const cityCouncilDistrictIdsString = searchParams.get(
+    "cityCouncilDistrictIds",
+  ) as string;
+  const cityCouncilDistrictIds =
+    cityCouncilDistrictIdsString !== null
+      ? cityCouncilDistrictIdsString?.split(",")
+      : boundaryId === null
+        ? null
+        : [boundaryId];
 
   return new MVTLayer<CityCouncilDistrictProperties>({
     id: "CityCouncilDistricts",
@@ -56,19 +65,43 @@ export function useCityCouncilDistrictsLayer({
       }
     },
     onClick: (info) => {
-      const newDistrictId = info.object.properties.id;
-      if (boundaryId === newDistrictId) {
-        updateSearchParams({
-          boundaryId: null,
-        });
+      if (facDbPhase3 === "ON") {
+        const newDistrictId = info.object.properties.id;
+        if (cityCouncilDistrictIds?.includes(newDistrictId)) {
+          updateSearchParams({
+            cityCouncilDistrictIds:
+              cityCouncilDistrictIds.length === 1
+                ? null
+                : cityCouncilDistrictIds
+                    .filter((id) => id !== newDistrictId)
+                    .join(","),
+          });
+        } else {
+          clearCombobox();
+          dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+            cityCouncilDistrictIds: cityCouncilDistrictIds
+              ? cityCouncilDistrictIds.concat(newDistrictId).join(",")
+              : newDistrictId,
+            search: undefined,
+            radius: undefined,
+            pin: undefined,
+          });
+        }
       } else {
-        clearCombobox();
-        dismissWelcomeAndUpdateSearchParams("/capital-projects", {
-          boundaryId: info.object.properties.id,
-          search: undefined,
-          radius: undefined,
-          pin: undefined,
-        });
+        const newDistrictId = info.object.properties.id;
+        if (boundaryId === newDistrictId) {
+          updateSearchParams({
+            boundaryId: null,
+          });
+        } else {
+          clearCombobox();
+          dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+            boundaryId: info.object.properties.id,
+            search: undefined,
+            radius: undefined,
+            pin: undefined,
+          });
+        }
       }
     },
     pointType: "text",

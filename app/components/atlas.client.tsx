@@ -10,7 +10,7 @@ import {
   useCityCouncilDistrictsOutlinesLayer,
   useCommunityDistrictLayer,
   useCommunityBoardBudgetRequestsLayer,
-  useCityCouncilDistrictLayer,
+  useSelectedCityCouncilDistrictsLayer,
   useCapitalProjectBudgetedGeoJsonLayer,
   useCommunityBoardBudgetRequestsGeoJsonLayer,
   useBoundaryMVTMask,
@@ -93,7 +93,7 @@ export function Atlas({
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer({
     clearCombobox,
   });
-  const cityCouncilDistrictLayer = useCityCouncilDistrictLayer();
+  const cityCouncilDistrictLayer = useSelectedCityCouncilDistrictsLayer();
   const cityCouncilDistrictsOutlinesLayer =
     useCityCouncilDistrictsOutlinesLayer();
 

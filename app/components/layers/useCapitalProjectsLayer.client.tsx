@@ -57,6 +57,16 @@ export function useCapitalProjectsLayer(opts: {
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const boroughIds = searchParams.get("boroughIds") as BoroughId;
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
+  const cityCouncilDistrictIdsString = searchParams.get(
+    "cityCouncilDistrictIds",
+  ) as string;
+  const cityCouncilDistrictIds =
+    cityCouncilDistrictIdsString !== null
+      ? cityCouncilDistrictIdsString?.split(",")
+      : boundaryId === null
+        ? null
+        : [boundaryId];
+
   const min = commitmentsTotalMin
     ? parseFloat(commitmentsTotalMin)
     : -1000000000000;
@@ -171,6 +181,7 @@ export function useCapitalProjectsLayer(opts: {
       (boundaryId !== null &&
         (boundaryType === "cd" || boundaryType === "ccd")) ||
       (boroughIds !== null && boundaryType === "borough") ||
+      (cityCouncilDistrictIds !== null && boundaryType === "ccd") ||
       (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
         buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
         lon !== undefined &&

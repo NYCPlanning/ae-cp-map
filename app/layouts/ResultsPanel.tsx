@@ -86,6 +86,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const boroughIds =
     boroughIdsString !== null ? boroughIdsString.split(",") : null;
   const boundaryId = url.searchParams.get("boundaryId");
+  const cityCouncilDistrictIdsString = url.searchParams.get(
+    "cityCouncilDistrictIds",
+  );
+  const cityCouncilDistrictIds =
+    cityCouncilDistrictIdsString !== null
+      ? cityCouncilDistrictIdsString.split(",")
+      : boundaryId !== null
+        ? [boundaryId]
+        : null;
   const cbbrAgencyCategoryResponseIds = url.searchParams.get(
     "cbbrAgencyCategoryResponseIds",
   );
@@ -113,8 +122,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(boroughId !== null && boundaryId !== null && boundaryType === "cd"
         ? { communityDistrictId: `${boroughId}${boundaryId}` }
         : {}),
-      ...(boundaryId !== null && boundaryType === "ccd"
-        ? { cityCouncilDistrictId: boundaryId }
+      ...(cityCouncilDistrictIds !== null && boundaryType === "ccd"
+        ? { cityCouncilDistrictIds }
         : {}),
       ...(boroughIds !== null && boundaryType === "borough"
         ? { boroughIds: boroughIds }
@@ -161,8 +170,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(boroughId !== null && boundaryId !== null && boundaryType === "cd"
         ? { communityDistrictId: `${boroughId}${boundaryId}` }
         : {}),
-      ...(boundaryId !== null && boundaryType === "ccd"
-        ? { cityCouncilDistrictId: boundaryId }
+      ...(cityCouncilDistrictIds !== null && boundaryType === "ccd"
+        ? { cityCouncilDistrictIds }
         : {}),
       ...(boroughIds !== null && boundaryType === "borough"
         ? { boroughIds: boroughIds }
@@ -179,6 +188,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(commitmentsTotalMax === null ? {} : { commitmentsTotalMax }),
       ...(boundaryId !== null ||
       boroughIds !== null ||
+      cityCouncilDistrictIds !== null ||
       (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
         buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
         lon !== undefined &&
@@ -255,6 +265,16 @@ export default function ResultsPanel() {
   const boundaryType = searchParams.get("boundaryType");
   const boroughId = searchParams.get("boroughId");
   const boundaryId = searchParams.get("boundaryId");
+  const cityCouncilDistrictIdsString = searchParams.get(
+    "cityCouncilDistrictIds",
+  );
+  const cityCouncilDistrictIds =
+    cityCouncilDistrictIdsString !== null
+      ? cityCouncilDistrictIdsString.split(",")
+      : boundaryId !== null
+        ? [boundaryId]
+        : null;
+
   let exportDataGeography = "All";
   let exportDataFileName = "projects_in_geographies.zip";
   if (boundaryType === "cd" && boroughId !== null && boundaryId !== null) {
@@ -285,8 +305,8 @@ export default function ResultsPanel() {
     ...(boroughId !== null && boundaryId !== null && boundaryType === "cd"
       ? { communityDistrictId: `${boroughId}${boundaryId}` }
       : {}),
-    ...(boundaryId !== null && boundaryType === "ccd"
-      ? { cityCouncilDistrictId: boundaryId }
+    ...(cityCouncilDistrictIds !== null && boundaryType === "ccd"
+      ? { cityCouncilDistrictIds: cityCouncilDistrictIds.join(",") }
       : {}),
     ...(cbbrAgencyCategoryResponseIds === null
       ? {}
@@ -310,6 +330,9 @@ export default function ResultsPanel() {
   const showSelections =
     (boundaryType !== null && boundaryId !== null) ||
     (boundaryType !== null && boroughIds !== null && boroughIds.length > 0) ||
+    (boundaryType !== null &&
+      cityCouncilDistrictIds !== null &&
+      cityCouncilDistrictIds.length > 0) ||
     (radius !== null && radius > 0);
 
   return (
