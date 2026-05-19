@@ -108,10 +108,14 @@ export const SearchByAttributeMenu = ({
               commitmentsTotalMin={commitmentsTotalMin}
               commitmentsTotalMax={commitmentsTotalMax}
               onValidChange={(changes: QueryParams) => {
-                dismissWelcomeAndUpdateSearchParams(
-                  "/capital-projects",
-                  changes,
-                );
+                if (
+                  changes.commitmentsTotalMin !== null ||
+                  changes.commitmentsTotalMax !== null
+                )
+                  dismissWelcomeAndUpdateSearchParams(
+                    "/capital-projects",
+                    changes,
+                  );
               }}
             />
           </AccordionPanel>
