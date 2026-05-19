@@ -98,6 +98,15 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const cbbrAgencyCategoryResponseIds = url.searchParams.get(
     "cbbrAgencyCategoryResponseIds",
   );
+  const communityDistrictIdsString = url.searchParams.get(
+    "communityDistrictIds",
+  ) as string;
+  const communityDistrictIds =
+    communityDistrictIdsString !== null
+      ? communityDistrictIdsString?.split(",")
+      : boroughId === null || boundaryId === null
+        ? null
+        : [`${boroughId}${boundaryId}`];
 
   const cbbrNeedGroupId = url.searchParams.get("cbbrNeedGroupId");
   const itemsPerPage = 7;
@@ -119,8 +128,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const cbbrOffset = (cbbrPage - 1) * itemsPerPage;
   const budgetRequestsPromise = findCommunityBoardBudgetRequests(
     {
-      ...(boroughId !== null && boundaryId !== null && boundaryType === "cd"
-        ? { communityDistrictId: `${boroughId}${boundaryId}` }
+      ...(communityDistrictIds !== null && boundaryType === "cd"
+        ? { communityDistrictIds }
         : {}),
       ...(cityCouncilDistrictIds !== null && boundaryType === "ccd"
         ? { cityCouncilDistrictIds }
@@ -167,8 +176,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const commitmentsTotalMax = url.searchParams.get("commitmentsTotalMax");
   const capitalProjectsPromise = findCapitalProjects(
     {
-      ...(boroughId !== null && boundaryId !== null && boundaryType === "cd"
-        ? { communityDistrictId: `${boroughId}${boundaryId}` }
+      ...(communityDistrictIds !== null && boundaryType === "cd"
+        ? { communityDistrictIds }
         : {}),
       ...(cityCouncilDistrictIds !== null && boundaryType === "ccd"
         ? { cityCouncilDistrictIds }
@@ -189,6 +198,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       ...(boundaryId !== null ||
       boroughIds !== null ||
       cityCouncilDistrictIds !== null ||
+      communityDistrictIds !== null ||
       (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
         buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
         lon !== undefined &&
@@ -274,6 +284,15 @@ export default function ResultsPanel() {
       : boundaryId !== null
         ? [boundaryId]
         : null;
+  const communityDistrictIdsString = searchParams.get(
+    "communityDistrictIds",
+  ) as string;
+  const communityDistrictIds =
+    communityDistrictIdsString !== null
+      ? communityDistrictIdsString?.split(",")
+      : boroughId === null || boundaryId === null
+        ? null
+        : [`${boroughId}${boundaryId}`];
 
   let exportDataGeography = "All";
   let exportDataFileName = "projects_in_geographies.zip";
@@ -302,8 +321,8 @@ export default function ResultsPanel() {
   const agencyInitials = searchParams.get("agencyInitials");
   const cbbrDownloadParams = new URLSearchParams({
     cbbrType: "C",
-    ...(boroughId !== null && boundaryId !== null && boundaryType === "cd"
-      ? { communityDistrictId: `${boroughId}${boundaryId}` }
+    ...(communityDistrictIds !== null && boundaryType === "cd"
+      ? { communityDistrictIds: communityDistrictIds.join(",") }
       : {}),
     ...(cityCouncilDistrictIds !== null && boundaryType === "ccd"
       ? { cityCouncilDistrictIds: cityCouncilDistrictIds.join(",") }
@@ -333,6 +352,9 @@ export default function ResultsPanel() {
     (boundaryType !== null &&
       cityCouncilDistrictIds !== null &&
       cityCouncilDistrictIds.length > 0) ||
+    (boundaryType !== null &&
+      communityDistrictIds !== null &&
+      communityDistrictIds.length > 0) ||
     (radius !== null && radius > 0);
 
   return (

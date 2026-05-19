@@ -7,7 +7,7 @@ import {
 import { BoroughId, BoundaryId, BoundaryType } from "~/utils/types";
 import { env } from "~/utils/env";
 
-const { zoningApiUrl } = env;
+const { zoningApiUrl, facDbPhase3 } = env;
 export interface CommunityDistrictProperties {
   boroughIdCommunityDistrictId: string;
   layerName: string;
@@ -26,6 +26,15 @@ export function useCommunityDistrictsLayer({
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boroughId = searchParams.get("boroughId") as BoroughId;
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
+  const communityDistrictIdsString = searchParams.get(
+    "communityDistrictIds",
+  ) as string;
+  const communityDistrictIds =
+    communityDistrictIdsString !== null
+      ? communityDistrictIdsString?.split(",")
+      : boroughId === null || boundaryId === null
+        ? null
+        : [`${boroughId}${boundaryId}`];
 
   return new MVTLayer<CommunityDistrictProperties>({
     id: "CommunityDistricts",
@@ -71,28 +80,56 @@ export function useCommunityDistrictsLayer({
       }
     },
     onClick: (info) => {
-      const newBoroughId =
-        info.object.properties.boroughIdCommunityDistrictId[0];
-      const newDistrictId =
-        info.object.properties.boroughIdCommunityDistrictId.slice(1);
-      if (newDistrictId <= 18) {
-        if (boroughId === newBoroughId && boundaryId === newDistrictId) {
-          updateSearchParams({
-            boundaryType: "cd",
-            boroughId: null,
-            boundaryId: null,
-          });
-        } else {
-          clearCombobox();
-          dismissWelcomeAndUpdateSearchParams("/capital-projects", {
-            boundaryType: "cd",
-            boroughId: info.object.properties.boroughIdCommunityDistrictId[0],
-            boundaryId:
-              info.object.properties.boroughIdCommunityDistrictId.slice(1),
-            search: undefined,
-            radius: undefined,
-            pin: undefined,
-          });
+      if (facDbPhase3 === "ON") {
+        const newDistrictId =
+          info.object.properties.boroughIdCommunityDistrictId;
+        if (newDistrictId.slice(1) <= 18) {
+          if (communityDistrictIds?.includes(newDistrictId)) {
+            updateSearchParams({
+              communityDistrictIds:
+                communityDistrictIds.length === 1
+                  ? null
+                  : communityDistrictIds
+                      .filter((id) => id !== newDistrictId)
+                      .join(","),
+            });
+          } else {
+            clearCombobox();
+            dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+              boundaryType: "cd",
+              communityDistrictIds: communityDistrictIds
+                ? communityDistrictIds.concat(newDistrictId).join(",")
+                : newDistrictId,
+              search: undefined,
+              radius: undefined,
+              pin: undefined,
+            });
+          }
+        }
+      } else {
+        const newBoroughId =
+          info.object.properties.boroughIdCommunityDistrictId[0];
+        const newDistrictId =
+          info.object.properties.boroughIdCommunityDistrictId.slice(1);
+        if (newDistrictId <= 18) {
+          if (boroughId === newBoroughId && boundaryId === newDistrictId) {
+            updateSearchParams({
+              boundaryType: "cd",
+              boroughId: null,
+              boundaryId: null,
+            });
+          } else {
+            clearCombobox();
+            dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+              boundaryType: "cd",
+              boroughId: info.object.properties.boroughIdCommunityDistrictId[0],
+              boundaryId:
+                info.object.properties.boroughIdCommunityDistrictId.slice(1),
+              search: undefined,
+              radius: undefined,
+              pin: undefined,
+            });
+          }
         }
       }
     },

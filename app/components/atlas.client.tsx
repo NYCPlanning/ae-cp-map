@@ -8,7 +8,7 @@ import {
   useCommunityDistrictsOutlinesLayer,
   useCityCouncilDistrictsLayer,
   useCityCouncilDistrictsOutlinesLayer,
-  useCommunityDistrictLayer,
+  useSelectedCommunityDistrictsLayer,
   useCommunityBoardBudgetRequestsLayer,
   useSelectedCityCouncilDistrictsLayer,
   useCapitalProjectBudgetedGeoJsonLayer,
@@ -87,7 +87,7 @@ export function Atlas({
   const communityBoardBudgetRequestGeoJsonLayer =
     useCommunityBoardBudgetRequestsGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer({ clearCombobox });
-  const communityDistrictLayer = useCommunityDistrictLayer();
+  const communityDistrictLayer = useSelectedCommunityDistrictsLayer();
   const communityDistrictsOutlinesLayer = useCommunityDistrictsOutlinesLayer();
 
   const cityCouncilDistrictsLayer = useCityCouncilDistrictsLayer({
