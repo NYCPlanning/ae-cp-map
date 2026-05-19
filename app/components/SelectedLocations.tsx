@@ -32,6 +32,15 @@ export function SelectedLocations({
       : boundaryId === null
         ? []
         : [boundaryId];
+  const communityDistrictIdsString = searchParams.get(
+    "communityDistrictIds",
+  ) as string;
+  const communityDistrictIds =
+    communityDistrictIdsString !== null
+      ? communityDistrictIdsString?.split(",")
+      : boroughId === null || boundaryId === null
+        ? []
+        : [`${boroughId}${boundaryId}`];
 
   const radiusParam = searchParams.get("radius");
   const radius = radiusParam === null ? -1 : parseInt(radiusParam);
@@ -72,23 +81,22 @@ export function SelectedLocations({
       });
     }
 
-    if (boundaryType === "cd" && boundaryId !== null) {
-      const borough = boroughs.find((b) => b.id === boroughId);
-
-      if (!borough) return null;
-      return [
-        {
-          id: `${boroughId}${boundaryId}`,
+    if (boundaryType === "cd" && communityDistrictIds !== null) {
+      return communityDistrictIds.map((communityDistrictId) => {
+        const borough = boroughs.find((b) => b.id === communityDistrictId[0]);
+        if (!borough) return { id: communityDistrictId, label: <></> };
+        return {
+          id: communityDistrictId,
           label: (
             <>
               <span style={{ fontWeight: "bold" }}>{borough.title}</span>
               <span
                 style={{ paddingRight: "2px" }}
-              >{` | CD ${boundaryId}`}</span>
+              >{` | CD ${communityDistrictId.slice(1)}`}</span>
             </>
           ),
-        },
-      ];
+        };
+      });
     }
 
     if (boundaryType === "borough" && boroughIds !== null) {
@@ -112,6 +120,7 @@ export function SelectedLocations({
       boundaryId: undefined,
       boroughIds: undefined,
       cityCouncilDistrictIds: undefined,
+      communityDistrictIds: undefined,
     });
     if (radius > 0) {
       clearRadiusFilter();
@@ -136,10 +145,17 @@ export function SelectedLocations({
         });
       }
     } else if (boundaryType === "cd") {
-      updateSearchParams({
-        boundaryType: undefined,
-        boundaryId: undefined,
-      });
+      if (communityDistrictIds.length > 1) {
+        updateSearchParams({
+          communityDistrictIds: communityDistrictIds
+            .filter((cdid) => cdid !== id)
+            .join(","),
+        });
+      } else {
+        updateSearchParams({
+          communityDistrictIds: undefined,
+        });
+      }
     } else if (boundaryType === "borough") {
       if (boroughIds.length > 1) {
         updateSearchParams({

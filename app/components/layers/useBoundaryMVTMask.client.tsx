@@ -41,6 +41,15 @@ export function useBoundaryMVTMask({
       : boundaryId === null
         ? []
         : [boundaryId];
+  const communityDistrictIdsString = searchParams.get(
+    "communityDistrictIds",
+  ) as string;
+  const communityDistrictIds =
+    communityDistrictIdsString !== null
+      ? communityDistrictIdsString?.split(",")
+      : boroughId === null || boundaryId === null
+        ? []
+        : [`${boroughId}${boundaryId}`];
 
   const bufferParam = searchParams.get("radius");
   const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
@@ -81,9 +90,7 @@ export function useBoundaryMVTMask({
         }) => {
           return properties.boroughIdCommunityDistrictId;
         },
-        filterCategories: [
-          boroughId && boundaryId ? `${boroughId}${boundaryId}` : "",
-        ],
+        filterCategories: communityDistrictIds,
         extensions: [
           new DataFilterExtension({
             categorySize: 1,

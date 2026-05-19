@@ -1,7 +1,7 @@
 export { useCapitalProjectsLayer } from "./useCapitalProjectsLayer.client";
 export { useCommunityDistrictsLayer } from "./useCommunityDistrictsLayer.client";
 export { useCommunityDistrictsOutlinesLayer } from "./useCommunityDistrictsOutlinesLayer.client";
-export { useCommunityDistrictLayer } from "./useCommunityDistrictLayer.client";
+export { useSelectedCommunityDistrictsLayer } from "./useSelectedCommunityDistrictsLayer.client";
 export { useCityCouncilDistrictsLayer } from "./useCityCouncilDistrictsLayer.client";
 export { useCityCouncilDistrictsOutlinesLayer } from "./useCityCouncilDistrictsOutlinesLayer.client";
 export { useSelectedCityCouncilDistrictsLayer } from "./useSelectedCityCouncilDistrictsLayer.client";

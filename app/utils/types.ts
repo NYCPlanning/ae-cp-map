@@ -22,6 +22,7 @@ export type AdminQueryParams = {
   boroughId?: BoroughId;
   boroughIds?: string | null;
   cityCouncilDistrictIds?: string | null;
+  communityDistrictIds?: string | null;
 };
 
 export type AttributeParams = {
