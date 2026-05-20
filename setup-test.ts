@@ -8,6 +8,13 @@ import { setupServer } from "msw/node";
 window.URL.createObjectURL = vi.fn();
 // @ts-ignore set test-specific property for vite
 window.__vite_plugin_react_preamble_installed__ = true;
+
+// @ts-expect-error React Refresh test shim
+globalThis.$RefreshReg$ = vi.fn();
+
+// @ts-expect-error React Refresh test shim
+globalThis.$RefreshSig$ = () => (type: unknown) => type;
+
 Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query) => ({

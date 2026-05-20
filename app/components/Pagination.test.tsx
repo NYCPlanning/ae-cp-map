@@ -1,19 +1,24 @@
 import { render, screen } from "@testing-library/react";
 import { Pagination } from "./Pagination";
-import { BrowserRouter } from "react-router";
+import { createRoutesStub } from "react-router";
 
 describe("Pagination", () => {
   it("should render stack with chevron icons", () => {
-    render(
-      // need to wrap in browser component to avoid https://github.com/remix-run/react-router/issues/9187
-      <BrowserRouter>
-        <Pagination
-          label={"Capital Projects"}
-          total={7}
-          pageParamKey="cpPage"
-        />
-      </BrowserRouter>,
-    );
+    // create data router context,
+    const Stub = createRoutesStub([
+      {
+        path: "/",
+        Component: () => (
+          <Pagination
+            label={"Capital Projects"}
+            total={7}
+            pageParamKey="cpPage"
+          />
+        ),
+      },
+    ]);
+
+    render(<Stub initialEntries={["/"]} />);
     expect(screen.getByLabelText("left")).toBeInTheDocument();
     expect(screen.getByLabelText("right")).toBeInTheDocument();
   });

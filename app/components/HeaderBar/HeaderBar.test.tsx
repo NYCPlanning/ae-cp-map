@@ -1,13 +1,38 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, renderHook, screen } from "@testing-library/react";
 import { HeaderBar } from "./index";
-import { BrowserRouter } from "react-router";
+import { createMemoryRouter, RouterProvider } from "react-router";
 import { act } from "react";
-import { createListCollection, useCombobox } from "@nycplanning/streetscape";
+import {
+  createListCollection,
+  StreetscapeProvider,
+  useCombobox,
+} from "@nycplanning/streetscape";
 import type {
   ComboboxCollectionItemProps,
   ListCollection,
   UseComboboxReturn,
 } from "@nycplanning/streetscape";
+
+function renderWithRouter(ui: React.ReactElement, initialEntry = "/") {
+  const router = createMemoryRouter(
+    [
+      {
+        id: "layouts/MapPage",
+        path: "/",
+        element: ui,
+      },
+    ],
+    {
+      initialEntries: [initialEntry],
+    },
+  );
+
+  return render(
+    <StreetscapeProvider>
+      <RouterProvider router={router} />
+    </StreetscapeProvider>,
+  );
+}
 
 const items: ComboboxCollectionItemProps[] = [];
 
@@ -19,25 +44,26 @@ const defaultRadiusProps = {
   clearRadiusFilter: vi.fn(),
   setAddressSearchSliderValue: vi.fn(),
   addressSearchSliderValue: 400,
+  addressSearchError: null,
   sliderValue: 400,
 };
 
 describe("Header Bar", () => {
   it("renders with site name text", () => {
-    const combobox = useCombobox<UseComboboxReturn>({
-      collection: collection as ListCollection,
-    });
-    render(
-      <BrowserRouter>
-        <HeaderBar
-          {...defaultRadiusProps}
-          addressSearchQuery={null}
-          addressSearchResults={collection}
-          addressSearchError={null}
-          isLoading={false}
-          combobox={combobox}
-        />
-      </BrowserRouter>,
+    const { result } = renderHook(() =>
+      useCombobox<UseComboboxReturn>({
+        collection: collection as ListCollection,
+      }),
+    );
+    renderWithRouter(
+      <HeaderBar
+        {...defaultRadiusProps}
+        addressSearchQuery={null}
+        addressSearchResults={collection}
+        addressSearchError={null}
+        isLoading={false}
+        combobox={result.current}
+      />,
     );
     expect(screen.getByText("Capital Projects Portal")).toBeInTheDocument();
   });
@@ -50,26 +76,22 @@ describe("Header Bar", () => {
       mockSearchParams.delete("boundaryType");
       mockSearchParams.delete("boundaryId");
     };
-    const mockUseSearchParams = vi.fn(() => [mockSearchParams, vi.fn()]);
-    vi.mock("next/navigation", () => ({
-      useSearchParams: mockUseSearchParams,
-    }));
 
-    const combobox = useCombobox<UseComboboxReturn>({
-      collection: collection as ListCollection,
-    });
-    render(
-      <BrowserRouter>
-        <HeaderBar
-          {...defaultRadiusProps}
-          clearSelections={clearSelections}
-          addressSearchQuery={null}
-          addressSearchResults={collection}
-          addressSearchError={null}
-          isLoading={false}
-          combobox={combobox}
-        />
-      </BrowserRouter>,
+    const { result } = renderHook(() =>
+      useCombobox<UseComboboxReturn>({
+        collection: collection as ListCollection,
+      }),
+    );
+    renderWithRouter(
+      <HeaderBar
+        {...defaultRadiusProps}
+        clearSelections={clearSelections}
+        addressSearchQuery={null}
+        addressSearchResults={collection}
+        addressSearchError={null}
+        isLoading={false}
+        combobox={result.current}
+      />,
     );
     await act(() =>
       fireEvent.click(screen.getByText("Capital Projects Portal")),
@@ -82,25 +104,21 @@ describe("Header Bar", () => {
     const mockSearchParams = new URLSearchParams(
       "boundaryType=ccd&boundaryId=1",
     );
-    const mockUseSearchParams = vi.fn(() => [mockSearchParams, vi.fn()]);
-    vi.mock("next/navigation", () => ({
-      useSearchParams: mockUseSearchParams,
-    }));
 
-    const combobox = useCombobox<UseComboboxReturn>({
-      collection: collection as ListCollection,
-    });
-    render(
-      <BrowserRouter>
-        <HeaderBar
-          {...defaultRadiusProps}
-          addressSearchQuery={null}
-          addressSearchResults={collection}
-          addressSearchError={null}
-          isLoading={false}
-          combobox={combobox}
-        />
-      </BrowserRouter>,
+    const { result } = renderHook(() =>
+      useCombobox<UseComboboxReturn>({
+        collection: collection as ListCollection,
+      }),
+    );
+    renderWithRouter(
+      <HeaderBar
+        {...defaultRadiusProps}
+        addressSearchQuery={null}
+        addressSearchResults={collection}
+        addressSearchError={null}
+        isLoading={false}
+        combobox={result.current}
+      />,
     );
     await act(() =>
       fireEvent.click(screen.getByText("Capital Projects Portal")),

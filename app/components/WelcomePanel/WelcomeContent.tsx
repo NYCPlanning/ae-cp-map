@@ -27,6 +27,7 @@ export function WelcomeContent() {
         <Text fontSize={"md"} my={3}>
           To learn more about the capital planning and budget request processes,{" "}
           <Link
+            aria-label="capital planning overview"
             textDecoration="underline"
             href="https://www.nyc.gov/content/planning/pages/planning/capital-planning#overview"
             isExternal

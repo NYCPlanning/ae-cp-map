@@ -103,7 +103,7 @@ describe("Results Panel", () => {
   it("selected location section should not render when no locations are selected", async () => {
     render(<Stub initialEntries={["/capital-projects"]} />);
     await waitFor(() => screen.getByText(/Results/));
-    expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument();
+    expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument();
   });
 
   it("selected location section should render ccd tag when boundaryType and boundaryId params are set", async () => {
@@ -112,7 +112,7 @@ describe("Results Panel", () => {
         initialEntries={["/capital-projects?boundaryType=ccd&boundaryId=50"]}
       />,
     );
-    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText("City Council"));
     await waitFor(() => screen.getByText(/\| 50/));
   });
@@ -127,7 +127,7 @@ describe("Results Panel", () => {
         ]}
       />,
     );
-    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getAllByText(title));
     await waitFor(() => screen.getAllByText(/\| CD 01/));
   });
@@ -142,7 +142,7 @@ describe("Results Panel", () => {
         ]}
       />,
     );
-    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText(title));
   });
 
@@ -158,7 +158,7 @@ describe("Results Panel", () => {
     await waitFor(() =>
       expect(screen.queryByText("City Council")).not.toBeInTheDocument(),
     );
-    expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument();
+    expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument();
   });
 
   it("in the selected location section, clicking the tag X on cd tag clears cd params from the url", async () => {
@@ -172,13 +172,13 @@ describe("Results Panel", () => {
       />,
     );
 
-    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText(title));
     await waitFor(() => screen.getByText(/\| CD 01/));
     const closeIcon = screen.getByLabelText("closeIcon");
     await act(() => fireEvent.click(closeIcon));
     await waitFor(() =>
-      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+      expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
   });
 
@@ -193,12 +193,12 @@ describe("Results Panel", () => {
       />,
     );
 
-    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText(title));
     const closeIcon = screen.getByLabelText("closeIcon");
     await act(() => fireEvent.click(closeIcon));
     await waitFor(() =>
-      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+      expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
   });
 
@@ -212,11 +212,11 @@ describe("Results Panel", () => {
         ]}
       />,
     );
-    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText(title));
     await act(() => fireEvent.click(screen.getByText("Clear")));
     await waitFor(() =>
-      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+      expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
   });
 
@@ -228,7 +228,7 @@ describe("Results Panel", () => {
         ]}
       />,
     );
-    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText("Radius"));
     await waitFor(() => screen.getByText(/0\.08 mi/));
   });
@@ -242,12 +242,12 @@ describe("Results Panel", () => {
       />,
     );
 
-    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText("Radius"));
     const closeIcon = screen.getByLabelText("closeIcon");
     await act(() => fireEvent.click(closeIcon));
     await waitFor(() =>
-      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+      expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
   });
 
@@ -259,10 +259,10 @@ describe("Results Panel", () => {
         ]}
       />,
     );
-    await waitFor(() => screen.getByText("SELECTED LOCATION"));
+    await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await act(() => fireEvent.click(screen.getByText("Clear")));
     await waitFor(() =>
-      expect(screen.queryByText("SELECTED LOCATION")).not.toBeInTheDocument(),
+      expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
   });
 });
