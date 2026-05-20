@@ -25,10 +25,10 @@ describe("WelcomePanel", () => {
     render(<WelcomePanel />);
 
     expect(
-      screen.getAllByText(/Capital Projects Database/)[0],
+      screen.getAllByText(/Capital Projects Portal/)[0],
     ).toBeInTheDocument();
     expect(
-      screen.getAllByText(/ongoing capital projects/)[0],
+      screen.getAllByText(/learn more about the capital planning/)[0],
     ).toBeInTheDocument();
   });
 });
