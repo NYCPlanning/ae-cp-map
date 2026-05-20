@@ -28,7 +28,7 @@ export function SelectedLocations({
   ) as string;
   const cityCouncilDistrictIds =
     cityCouncilDistrictIdsString !== null
-      ? cityCouncilDistrictIdsString?.split(",")
+      ? cityCouncilDistrictIdsString.split(",")
       : boundaryId === null
         ? []
         : [boundaryId];
@@ -37,7 +37,7 @@ export function SelectedLocations({
   ) as string;
   const communityDistrictIds =
     communityDistrictIdsString !== null
-      ? communityDistrictIdsString?.split(",")
+      ? communityDistrictIdsString.split(",")
       : boroughId === null || boundaryId === null
         ? []
         : [`${boroughId}${boundaryId}`];

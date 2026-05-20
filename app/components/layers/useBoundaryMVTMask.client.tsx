@@ -46,7 +46,7 @@ export function useBoundaryMVTMask({
   ) as string;
   const communityDistrictIds =
     communityDistrictIdsString !== null
-      ? communityDistrictIdsString?.split(",")
+      ? communityDistrictIdsString.split(",")
       : boroughId === null || boundaryId === null
         ? []
         : [`${boroughId}${boundaryId}`];

@@ -62,7 +62,7 @@ export function useCapitalProjectsLayer(opts: {
   ) as string;
   const cityCouncilDistrictIds =
     cityCouncilDistrictIdsString !== null
-      ? cityCouncilDistrictIdsString?.split(",")
+      ? cityCouncilDistrictIdsString.split(",")
       : boundaryId === null
         ? null
         : [boundaryId];
@@ -71,7 +71,7 @@ export function useCapitalProjectsLayer(opts: {
   ) as string;
   const communityDistrictIds =
     communityDistrictIdsString !== null
-      ? communityDistrictIdsString?.split(",")
+      ? communityDistrictIdsString.split(",")
       : boroughId === null || boundaryId === null
         ? null
         : [`${boroughId}${boundaryId}`];

@@ -103,7 +103,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   ) as string;
   const communityDistrictIds =
     communityDistrictIdsString !== null
-      ? communityDistrictIdsString?.split(",")
+      ? communityDistrictIdsString.split(",")
       : boroughId === null || boundaryId === null
         ? null
         : [`${boroughId}${boundaryId}`];
@@ -289,7 +289,7 @@ export default function ResultsPanel() {
   ) as string;
   const communityDistrictIds =
     communityDistrictIdsString !== null
-      ? communityDistrictIdsString?.split(",")
+      ? communityDistrictIdsString.split(",")
       : boroughId === null || boundaryId === null
         ? null
         : [`${boroughId}${boundaryId}`];

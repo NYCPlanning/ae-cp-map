@@ -29,7 +29,7 @@ export function useCityCouncilDistrictsLayer({
   ) as string;
   const cityCouncilDistrictIds =
     cityCouncilDistrictIdsString !== null
-      ? cityCouncilDistrictIdsString?.split(",")
+      ? cityCouncilDistrictIdsString.split(",")
       : boundaryId === null
         ? null
         : [boundaryId];
