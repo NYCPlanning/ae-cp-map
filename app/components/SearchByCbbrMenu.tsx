@@ -28,6 +28,7 @@ import {
   CommunityBoardBudgetRequestAgencyDropdown,
 } from "./DropdownControl";
 import { CbbrAgencyCategoryResponseCheckbox } from "./CheckboxControl";
+import { useState } from "react";
 
 export interface SearchByCbbrMenuProps {
   cbbrPolicyAreas: Array<CommunityBoardBudgetRequestPolicyArea> | null;
@@ -48,6 +49,10 @@ export const SearchByCbbrMenu = ({
   updateFiltersAccordion,
 }: SearchByCbbrMenuProps) => {
   const [searchParams] = useUpdateSearchParams();
+  const [
+    noAgencyCategoryResponseTypesSelected,
+    setNoAgencyCategoryResponseTypesSelected,
+  ] = useState<boolean>(false);
   const dismissWelcomeAndUpdateSearchParams =
     useDismissWelcomeAndUpdateSearchParams();
   const cbbrPolicyAreaId = searchParams.get(
@@ -64,14 +69,20 @@ export const SearchByCbbrMenu = ({
   ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
   const cbbrAgencyCategoryResponseIds =
     cbbrAgencyCategoryResponseIdsParam === null
-      ? []
+      ? cbbrAgencyCategoryResponses === null
+        ? []
+        : noAgencyCategoryResponseTypesSelected
+          ? []
+          : cbbrAgencyCategoryResponses.map((r) => r.id.toString())
       : cbbrAgencyCategoryResponseIdsParam.split(",");
 
   const appliedFilters: number[] = [
     cbbrPolicyAreaId !== null ? 1 : 0,
     cbbrNeedGroupId !== null ? 1 : 0,
     cbbrAgencyInitials !== null ? 1 : 0,
-    cbbrAgencyCategoryResponseIds !== null
+    cbbrAgencyCategoryResponseIds !== null &&
+    cbbrAgencyCategoryResponses !== null &&
+    cbbrAgencyCategoryResponseIds.length < cbbrAgencyCategoryResponses.length
       ? cbbrAgencyCategoryResponseIds.length
       : 0,
   ];
@@ -161,17 +172,29 @@ export const SearchByCbbrMenu = ({
                     (item) => item !== value,
                   );
                   nextValue = removedValue.length === 0 ? null : removedValue;
+                  if (removedValue.length === 0)
+                    setNoAgencyCategoryResponseTypesSelected(true);
                 } else {
                   nextValue = cbbrAgencyCategoryResponseIds.concat([value]);
+                  setNoAgencyCategoryResponseTypesSelected(false);
                 }
                 dismissWelcomeAndUpdateSearchParams(
                   "/community-board-budget-requests",
                   {
                     cbbrAgencyCategoryResponseIds:
-                      nextValue === null ? nextValue : String(nextValue),
+                      nextValue === null ||
+                      nextValue.length === cbbrAgencyCategoryResponses?.length
+                        ? null
+                        : String(nextValue),
                   },
                 );
               }}
+              dismissWelcomeAndUpdateSearchParams={
+                dismissWelcomeAndUpdateSearchParams
+              }
+              setNoAgencyCategoryResponseTypesSelected={
+                setNoAgencyCategoryResponseTypesSelected
+              }
             />
           </AccordionPanel>
         </>
