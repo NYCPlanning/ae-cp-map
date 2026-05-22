@@ -30,6 +30,8 @@ describe("CbbrAgencyCategoryResponseCheckbox", () => {
         onCheckedChange={updateSearchParams}
         cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
         selectedIds={[String(id)]}
+        dismissWelcomeAndUpdateSearchParams={() => null}
+        setNoAgencyCategoryResponseTypesSelected={() => null}
       />,
     );
 
@@ -52,10 +54,12 @@ describe("CbbrAgencyCategoryResponseCheckbox", () => {
         isChecked={isChecked}
         key={firstCommunityBoardBudgetRequestAgencyCategoryResponseId}
         cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
+        dismissWelcomeAndUpdateSearchParams={() => null}
+        setNoAgencyCategoryResponseTypesSelected={() => null}
       />,
     );
 
-    await act(() => userEvent.click(screen.getByRole("checkbox")));
+    await act(() => userEvent.click(screen.getAllByRole("checkbox")[1]));
     expect(updateSearchParams).toHaveBeenCalledWith("0");
   });
 });
