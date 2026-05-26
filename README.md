@@ -62,4 +62,15 @@ To deploy to this environment:
 3. Click "Run workflow"
 4. Select the branch you want to deploy and click "Run workflow"
 
-Once the workflow runs successfully, your branch should be deployed at https://qa-capitalplanning.nycplanningdigital.com/. 
+Once the workflow runs successfully, your branch should be deployed at https://qa-capitalplanning.nycplanningdigital.com/.
+
+## Deploying to Production
+This repo has a [Github Action workflow](.github/workflows/production.yml) that allows DCP engineers to request deployments to production. Once a deployment is kicked off, members of the `application-engineering-production-approvers` Github team will receive a notification to approve or deny the deployment. 
+
+To request a deployment to production:
+1. Click the "Actions" tab at the top of the page for this repo
+2. Select the "Deploy to production" workflow from the list on the left side of the page
+3. Click "Run workflow"
+4. Make sure the `main` branch is selected and click "Run workflow"
+
+> Note that all productions deployments are subject to the ITD Change Management process in addition the approval described above.
