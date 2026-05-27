@@ -53,7 +53,8 @@ import { useUpdateSearchParams } from "../utils/utils";
 import type { RootContextType } from "../root";
 import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useStore } from "~/store";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -231,6 +232,28 @@ export default function MapPage() {
     cbbrAgencyCategoryResponses,
     cbbrAgencyCategoryResponseIds,
   } = useLoaderData<typeof loader>();
+
+  const initializeCbbrAgencyCategoryResponseCheckboxes = useStore(
+    (state) => state.initializeCbbrAgencyCategoryResponseCheckboxes,
+  );
+  useEffect(() => {
+    if (cbbrAgencyCategoryResponseIds.length === 0) {
+      initializeCbbrAgencyCategoryResponseCheckboxes({
+        checkboxes: cbbrAgencyCategoryResponses,
+        cbbrAgencyCategoryResponseIds: cbbrAgencyCategoryResponses.map(
+          (resp) => resp.id,
+        ),
+      });
+    } else {
+      initializeCbbrAgencyCategoryResponseCheckboxes({
+        checkboxes: cbbrAgencyCategoryResponses,
+        cbbrAgencyCategoryResponseIds: cbbrAgencyCategoryResponseIds.map((id) =>
+          parseInt(id),
+        ),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const clearCapitalProjectFilters = () => {
     updateSearchParams({
@@ -590,9 +613,9 @@ export default function MapPage() {
                           cbbrAgencyCategoryResponses={
                             cbbrAgencyCategoryResponses
                           }
-                          cbbrAgencyCategoryResponseIds={
-                            cbbrAgencyCategoryResponseIds
-                          }
+                          // cbbrAgencyCategoryResponseIds={
+                          //   cbbrAgencyCategoryResponseIds
+                          // }
                           onClear={clearCbbrProjectFilters}
                           updateFiltersAccordion={updateFiltersAccordion(1)}
                         />
