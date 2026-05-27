@@ -16,7 +16,6 @@ import {
   CommunityBoardBudgetRequestPolicyArea,
 } from "../gen";
 import {
-  CommunityBoardBudgetRequestAgencyCategoryResponseId,
   CommunityBoardBudgetRequestAgencyInitials,
   CommunityBoardBudgetRequestNeedGroupId,
   CommunityBoardBudgetRequestPolicyAreaId,
@@ -28,14 +27,13 @@ import {
   CommunityBoardBudgetRequestAgencyDropdown,
 } from "./DropdownControl";
 import { CbbrAgencyCategoryResponseCheckbox } from "./CheckboxControl";
-import { useState } from "react";
+import { useStore } from "~/store";
 
 export interface SearchByCbbrMenuProps {
   cbbrPolicyAreas: Array<CommunityBoardBudgetRequestPolicyArea> | null;
   cbbrNeedGroups: Array<CommunityBoardBudgetRequestNeedGroup> | null;
   cbbrAgencies: Array<Agency> | null;
   cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
-  cbbrAgencyCategoryResponseIds: Array<CommunityBoardBudgetRequestAgencyCategoryResponseId> | null;
   onClear: () => void;
   updateFiltersAccordion: () => void;
 }
@@ -49,10 +47,6 @@ export const SearchByCbbrMenu = ({
   updateFiltersAccordion,
 }: SearchByCbbrMenuProps) => {
   const [searchParams] = useUpdateSearchParams();
-  const [
-    noAgencyCategoryResponseTypesSelected,
-    setNoAgencyCategoryResponseTypesSelected,
-  ] = useState<boolean>(false);
   const dismissWelcomeAndUpdateSearchParams =
     useDismissWelcomeAndUpdateSearchParams();
   const cbbrPolicyAreaId = searchParams.get(
@@ -64,17 +58,14 @@ export const SearchByCbbrMenu = ({
   const cbbrAgencyInitials = searchParams.get(
     "cbbrAgencyInitials",
   ) as CommunityBoardBudgetRequestAgencyInitials;
-  const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
-    "cbbrAgencyCategoryResponseIds",
-  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
-  const cbbrAgencyCategoryResponseIds =
-    cbbrAgencyCategoryResponseIdsParam === null
-      ? cbbrAgencyCategoryResponses === null
-        ? []
-        : noAgencyCategoryResponseTypesSelected
-          ? []
-          : cbbrAgencyCategoryResponses.map((r) => r.id.toString())
-      : cbbrAgencyCategoryResponseIdsParam.split(",");
+  const cbbrAgencyCategoryResponseIds = useStore(
+    (state) => state.cbbrAgencyCategoryResponseCheckboxes,
+  )
+    .filter((cb) => cb.checked === true)
+    .map((cb) => cb.id);
+  const updateCbbrAgencyCategoryResponseCheckboxById = useStore(
+    (state) => state.updateCbbrAgencyCategoryResponseCheckboxById,
+  );
 
   const appliedFilters: number[] = [
     cbbrPolicyAreaId !== null ? 1 : 0,
@@ -157,27 +148,27 @@ export const SearchByCbbrMenu = ({
               }}
             />
             <CbbrAgencyCategoryResponseCheckbox
-              cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
-              selectedIds={cbbrAgencyCategoryResponseIds}
               onCheckedChange={(value) => {
                 if (value === null)
                   throw new Error(
                     "Unexpected null for agency category response id",
                   );
-                let nextValue: Array<string> | null;
+                let nextValue: Array<number> | null;
                 if (cbbrAgencyCategoryResponseIds === null) {
-                  nextValue = [value];
-                } else if (cbbrAgencyCategoryResponseIds.includes(value)) {
+                  nextValue = [parseInt(value)];
+                } else if (
+                  cbbrAgencyCategoryResponseIds.includes(parseInt(value))
+                ) {
                   const removedValue = cbbrAgencyCategoryResponseIds.filter(
-                    (item) => item !== value,
+                    (item) => item !== parseInt(value),
                   );
                   nextValue = removedValue.length === 0 ? null : removedValue;
-                  if (removedValue.length === 0)
-                    setNoAgencyCategoryResponseTypesSelected(true);
                 } else {
-                  nextValue = cbbrAgencyCategoryResponseIds.concat([value]);
-                  setNoAgencyCategoryResponseTypesSelected(false);
+                  nextValue = cbbrAgencyCategoryResponseIds.concat([
+                    parseInt(value),
+                  ]);
                 }
+                updateCbbrAgencyCategoryResponseCheckboxById(parseInt(value));
                 dismissWelcomeAndUpdateSearchParams(
                   "/community-board-budget-requests",
                   {
@@ -191,9 +182,6 @@ export const SearchByCbbrMenu = ({
               }}
               dismissWelcomeAndUpdateSearchParams={
                 dismissWelcomeAndUpdateSearchParams
-              }
-              setNoAgencyCategoryResponseTypesSelected={
-                setNoAgencyCategoryResponseTypesSelected
               }
             />
           </AccordionPanel>

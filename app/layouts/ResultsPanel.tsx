@@ -54,6 +54,7 @@ import { env } from "~/utils/env";
 import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
 import { LinkBtn } from "~/components/LinkBtn";
 import { SelectedLocations } from "~/components/SelectedLocations";
+import { useStore } from "~/store";
 
 export const policyAreaIcons: Record<
   number,
@@ -242,15 +243,24 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function ResultsPanel() {
+  const cbbrAgencyCategoryResponseCheckboxes = useStore(
+    (state) => state.cbbrAgencyCategoryResponseCheckboxes,
+  );
+  const zeroCBBRs =
+    cbbrAgencyCategoryResponseCheckboxes.find((c) => c.checked === true) ===
+    undefined;
   const {
-    budgetRequestsResponse: {
-      communityBoardBudgetRequests,
-      totalBudgetRequests,
-    },
+    budgetRequestsResponse,
     capitalProjectsResponse: { capitalProjects, totalProjects },
     agenciesResponse: { agencies },
     boroughsResponse: { boroughs },
   } = useLoaderData<typeof loader>();
+  const { communityBoardBudgetRequests } = zeroCBBRs
+    ? { communityBoardBudgetRequests: [] }
+    : budgetRequestsResponse;
+  const { totalBudgetRequests } = zeroCBBRs
+    ? { totalBudgetRequests: 0 }
+    : budgetRequestsResponse;
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
