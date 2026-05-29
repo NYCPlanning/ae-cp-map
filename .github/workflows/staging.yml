@@ -4,6 +4,7 @@ on:
     push:
         branches:
             - main
+    workflow_dispatch:
 
 jobs:
     deploy:
@@ -30,4 +31,4 @@ jobs:
                 HD_VITE_BASEMAP_URL: ${{vars.VITE_BASEMAP_URL}}
                 HD_VITE_FACDB_PHASE_1: ${{secrets.VITE_FACDB_PHASE_1}}
                 HD_VITE_FACDB_PHASE_2: ${{secrets.VITE_FACDB_PHASE_2}}
-                HD_VITE_FACDB_PHASE_3: ${{secrets.VITE_FACDB_PHASE_3}}
+                HD_VITE_FACDB_PHASE_3: ON
