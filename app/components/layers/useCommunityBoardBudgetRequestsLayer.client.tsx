@@ -82,13 +82,6 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
   const cbbrAgencyCategoryResponseIds = cbbrAgencyCategoryResponseCheckboxes
     .filter((acr) => acr.checked === true)
     .map((acr) => acr.id);
-  // const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
-  //   "cbbrAgencyCategoryResponseIds",
-  // ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
-  // const cbbrAgencyCategoryResponseIds =
-  //   cbbrAgencyCategoryResponseIdsParam === null
-  //     ? []
-  //     : cbbrAgencyCategoryResponseIdsParam.split(",").map((id) => parseInt(id));
 
   const onCapitalProjectsInCityCouncilDistrictPath =
     boundaryType === "ccd" && boundaryId !== null;
