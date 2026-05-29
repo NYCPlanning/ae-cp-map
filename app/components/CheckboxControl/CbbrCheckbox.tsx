@@ -30,6 +30,7 @@ export function CbbrCheckbox({
       fontSize={fontSize}
       marginBottom={1.8}
       alignItems={"flex-start"}
+      paddingLeft={checkboxLabel === "Select All" ? 0 : 2}
       sx={{
         "& > span.chakra-checkbox__control": {
           width: 4,

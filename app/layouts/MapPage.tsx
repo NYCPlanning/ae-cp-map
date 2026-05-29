@@ -613,9 +613,6 @@ export default function MapPage() {
                           cbbrAgencyCategoryResponses={
                             cbbrAgencyCategoryResponses
                           }
-                          // cbbrAgencyCategoryResponseIds={
-                          //   cbbrAgencyCategoryResponseIds
-                          // }
                           onClear={clearCbbrProjectFilters}
                           updateFiltersAccordion={updateFiltersAccordion(1)}
                         />
