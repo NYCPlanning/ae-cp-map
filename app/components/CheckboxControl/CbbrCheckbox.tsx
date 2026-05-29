@@ -5,6 +5,7 @@ export interface CbbrCheckboxProps {
   checkboxLabel: string;
   checkboxValue: string | number;
   isChecked: boolean;
+  isIndeterminate?: boolean;
   onCheckedChange?: (value: string | number, checked: boolean) => void;
   fontWeight?: TypographyProps["fontWeight"];
   fontSize?: TypographyProps["fontSize"];
@@ -14,6 +15,7 @@ export function CbbrCheckbox({
   checkboxLabel,
   checkboxValue,
   isChecked,
+  isIndeterminate = false,
   onCheckedChange = () => null,
   fontWeight = "normal",
   fontSize = "xs",
@@ -21,12 +23,14 @@ export function CbbrCheckbox({
   return (
     <Checkbox
       isChecked={isChecked}
+      isIndeterminate={isIndeterminate}
       onChange={(e) => onCheckedChange?.(checkboxValue, e.target.checked)}
       colorScheme="gray"
       fontWeight={fontWeight}
       fontSize={fontSize}
       marginBottom={1.8}
       alignItems={"flex-start"}
+      paddingLeft={checkboxLabel === "Select All" ? 0 : 2}
       sx={{
         "& > span.chakra-checkbox__control": {
           width: 4,

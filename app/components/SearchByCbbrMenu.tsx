@@ -16,7 +16,6 @@ import {
   CommunityBoardBudgetRequestPolicyArea,
 } from "../gen";
 import {
-  CommunityBoardBudgetRequestAgencyCategoryResponseId,
   CommunityBoardBudgetRequestAgencyInitials,
   CommunityBoardBudgetRequestNeedGroupId,
   CommunityBoardBudgetRequestPolicyAreaId,
@@ -28,13 +27,13 @@ import {
   CommunityBoardBudgetRequestAgencyDropdown,
 } from "./DropdownControl";
 import { CbbrAgencyCategoryResponseCheckbox } from "./CheckboxControl";
+import { useStore } from "~/store";
 
 export interface SearchByCbbrMenuProps {
   cbbrPolicyAreas: Array<CommunityBoardBudgetRequestPolicyArea> | null;
   cbbrNeedGroups: Array<CommunityBoardBudgetRequestNeedGroup> | null;
   cbbrAgencies: Array<Agency> | null;
   cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
-  cbbrAgencyCategoryResponseIds: Array<CommunityBoardBudgetRequestAgencyCategoryResponseId> | null;
   onClear: () => void;
   updateFiltersAccordion: () => void;
 }
@@ -59,19 +58,22 @@ export const SearchByCbbrMenu = ({
   const cbbrAgencyInitials = searchParams.get(
     "cbbrAgencyInitials",
   ) as CommunityBoardBudgetRequestAgencyInitials;
-  const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
-    "cbbrAgencyCategoryResponseIds",
-  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
-  const cbbrAgencyCategoryResponseIds =
-    cbbrAgencyCategoryResponseIdsParam === null
-      ? []
-      : cbbrAgencyCategoryResponseIdsParam.split(",");
+  const cbbrAgencyCategoryResponseIds = useStore(
+    (state) => state.cbbrAgencyCategoryResponseCheckboxes,
+  )
+    .filter((cb) => cb.checked === true)
+    .map((cb) => cb.id);
+  const updateCbbrAgencyCategoryResponseCheckboxById = useStore(
+    (state) => state.updateCbbrAgencyCategoryResponseCheckboxById,
+  );
 
   const appliedFilters: number[] = [
     cbbrPolicyAreaId !== null ? 1 : 0,
     cbbrNeedGroupId !== null ? 1 : 0,
     cbbrAgencyInitials !== null ? 1 : 0,
-    cbbrAgencyCategoryResponseIds !== null
+    cbbrAgencyCategoryResponseIds !== null &&
+    cbbrAgencyCategoryResponses !== null &&
+    cbbrAgencyCategoryResponseIds.length < cbbrAgencyCategoryResponses.length
       ? cbbrAgencyCategoryResponseIds.length
       : 0,
   ];
@@ -146,32 +148,41 @@ export const SearchByCbbrMenu = ({
               }}
             />
             <CbbrAgencyCategoryResponseCheckbox
-              cbbrAgencyCategoryResponses={cbbrAgencyCategoryResponses}
-              selectedIds={cbbrAgencyCategoryResponseIds}
               onCheckedChange={(value) => {
                 if (value === null)
                   throw new Error(
                     "Unexpected null for agency category response id",
                   );
-                let nextValue: Array<string> | null;
+                let nextValue: Array<number> | null;
                 if (cbbrAgencyCategoryResponseIds === null) {
-                  nextValue = [value];
-                } else if (cbbrAgencyCategoryResponseIds.includes(value)) {
+                  nextValue = [parseInt(value)];
+                } else if (
+                  cbbrAgencyCategoryResponseIds.includes(parseInt(value))
+                ) {
                   const removedValue = cbbrAgencyCategoryResponseIds.filter(
-                    (item) => item !== value,
+                    (item) => item !== parseInt(value),
                   );
                   nextValue = removedValue.length === 0 ? null : removedValue;
                 } else {
-                  nextValue = cbbrAgencyCategoryResponseIds.concat([value]);
+                  nextValue = cbbrAgencyCategoryResponseIds.concat([
+                    parseInt(value),
+                  ]);
                 }
+                updateCbbrAgencyCategoryResponseCheckboxById(parseInt(value));
                 dismissWelcomeAndUpdateSearchParams(
                   "/community-board-budget-requests",
                   {
                     cbbrAgencyCategoryResponseIds:
-                      nextValue === null ? nextValue : String(nextValue),
+                      nextValue === null ||
+                      nextValue.length === cbbrAgencyCategoryResponses?.length
+                        ? null
+                        : String(nextValue),
                   },
                 );
               }}
+              dismissWelcomeAndUpdateSearchParams={
+                dismissWelcomeAndUpdateSearchParams
+              }
             />
           </AccordionPanel>
         </>

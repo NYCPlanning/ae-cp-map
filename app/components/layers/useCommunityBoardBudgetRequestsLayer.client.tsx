@@ -9,7 +9,6 @@ import {
 import type { Feature, Geometry } from "geojson";
 import {
   BoroughId,
-  CommunityBoardBudgetRequestAgencyCategoryResponseId,
   CommunityBoardBudgetRequestNeedGroupId,
   CommunityBoardBudgetRequestPolicyAreaId,
   BoundaryId,
@@ -19,6 +18,7 @@ import { env } from "~/utils/env";
 import { CommunityBoardBudgetRequestType } from "~/gen";
 import { IconClusterLayer } from "./icon-cluster-layer";
 import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
+import { useStore } from "~/store";
 
 const { zoningApiUrl } = env;
 
@@ -76,13 +76,12 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     "cbbrPolicyAreaId",
   ) as CommunityBoardBudgetRequestPolicyAreaId;
   const cbbrAgencyInitials = searchParams.get("cbbrAgencyInitials");
-  const cbbrAgencyCategoryResponseIdsParam = searchParams.get(
-    "cbbrAgencyCategoryResponseIds",
-  ) as CommunityBoardBudgetRequestAgencyCategoryResponseId;
-  const cbbrAgencyCategoryResponseIds =
-    cbbrAgencyCategoryResponseIdsParam === null
-      ? []
-      : cbbrAgencyCategoryResponseIdsParam.split(",").map((id) => parseInt(id));
+  const cbbrAgencyCategoryResponseCheckboxes = useStore(
+    (state) => state.cbbrAgencyCategoryResponseCheckboxes,
+  );
+  const cbbrAgencyCategoryResponseIds = cbbrAgencyCategoryResponseCheckboxes
+    .filter((acr) => acr.checked === true)
+    .map((acr) => acr.id);
 
   const onCapitalProjectsInCityCouncilDistrictPath =
     boundaryType === "ccd" && boundaryId !== null;
@@ -123,9 +122,12 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       MaskExtensionProps
   >({
     id: "communityBoardBudgetRequests",
-    data: [
-      `${zoningApiUrl}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
-    ],
+    data:
+      cbbrAgencyCategoryResponseIds.length > 0
+        ? [
+            `${zoningApiUrl}/api/${endpointPrefix}community-board-budget-requests/{z}/{x}/{y}.pbf`,
+          ]
+        : null,
     visible,
     uniqueIdProperty: "id",
     getFillColor: ({ properties }) => {

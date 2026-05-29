@@ -1,22 +1,35 @@
-import { CommunityBoardBudgetRequestAgencyCategoryResponse } from "../../gen";
 import { CbbrCheckboxGroup } from "./CbbrCheckboxGroup";
-import { CommunityBoardBudgetRequestAgencyCategoryResponseId } from "../../utils/types";
+import {
+  CommunityBoardBudgetRequestAgencyCategoryResponseId,
+  QueryParams,
+} from "../../utils/types";
 import { CbbrCheckbox } from ".";
+import { useStore } from "~/store";
 
 export interface CommunityBoardBudgetRequestAgencyCategoryResponseProps {
-  cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
-  selectedIds: Array<CommunityBoardBudgetRequestAgencyCategoryResponseId>;
-  isChecked?: boolean;
   onCheckedChange: (
     value: CommunityBoardBudgetRequestAgencyCategoryResponseId,
+  ) => void;
+  dismissWelcomeAndUpdateSearchParams: (
+    newPath: string,
+    changes: QueryParams,
   ) => void;
 }
 
 export function CbbrAgencyCategoryResponseCheckbox({
-  cbbrAgencyCategoryResponses,
-  selectedIds,
   onCheckedChange = () => null,
+  dismissWelcomeAndUpdateSearchParams,
 }: CommunityBoardBudgetRequestAgencyCategoryResponseProps) {
+  const cbbrAgencyCategoryResponseCheckboxes = useStore(
+    (state) => state.cbbrAgencyCategoryResponseCheckboxes,
+  );
+  const selectedCount = cbbrAgencyCategoryResponseCheckboxes.filter(
+    (c) => c.checked === true,
+  ).length;
+  const updateAllCbbrAgencyCategoryResponseCheckboxesByValue = useStore(
+    (state) => state.updateAllCbbrAgencyCategoryResponseCheckboxesByValue,
+  );
+
   return (
     <CbbrCheckboxGroup
       formId="agencyCatergoryResponse"
@@ -25,16 +38,36 @@ export function CbbrAgencyCategoryResponseCheckbox({
       marginBottom={2}
       fontSize={"xs"}
     >
-      {cbbrAgencyCategoryResponses?.map((cbbrACR) => {
-        const id = String(cbbrACR.id);
-        const isChecked = selectedIds.includes(id);
-
+      <CbbrCheckbox
+        key={"all"}
+        checkboxValue={"all"}
+        checkboxLabel={"Select All"}
+        isChecked={selectedCount > 0}
+        isIndeterminate={
+          selectedCount > 0 &&
+          selectedCount !== cbbrAgencyCategoryResponseCheckboxes.length
+        }
+        onCheckedChange={() => {
+          if (selectedCount !== cbbrAgencyCategoryResponseCheckboxes.length) {
+            updateAllCbbrAgencyCategoryResponseCheckboxesByValue(true);
+          } else {
+            updateAllCbbrAgencyCategoryResponseCheckboxesByValue(false);
+          }
+          dismissWelcomeAndUpdateSearchParams(
+            "/community-board-budget-requests",
+            {
+              cbbrAgencyCategoryResponseIds: null,
+            },
+          );
+        }}
+      />
+      {cbbrAgencyCategoryResponseCheckboxes.map((cbbrACR) => {
         return (
           <CbbrCheckbox
-            key={id}
-            checkboxValue={id}
+            key={cbbrACR.id}
+            checkboxValue={cbbrACR.id}
             checkboxLabel={cbbrACR.description}
-            isChecked={isChecked}
+            isChecked={cbbrACR.checked}
             onCheckedChange={(value) => {
               onCheckedChange(String(value));
             }}

@@ -53,7 +53,8 @@ import { useUpdateSearchParams } from "../utils/utils";
 import type { RootContextType } from "../root";
 import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useStore } from "~/store";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -232,6 +233,31 @@ export default function MapPage() {
     cbbrAgencyCategoryResponseIds,
   } = useLoaderData<typeof loader>();
 
+  const initializeCbbrAgencyCategoryResponseCheckboxes = useStore(
+    (state) => state.initializeCbbrAgencyCategoryResponseCheckboxes,
+  );
+  const updateAllCbbrAgencyCategoryResponseCheckboxesByValue = useStore(
+    (state) => state.updateAllCbbrAgencyCategoryResponseCheckboxesByValue,
+  );
+  useEffect(() => {
+    if (cbbrAgencyCategoryResponseIds.length === 0) {
+      initializeCbbrAgencyCategoryResponseCheckboxes({
+        checkboxes: cbbrAgencyCategoryResponses,
+        cbbrAgencyCategoryResponseIds: cbbrAgencyCategoryResponses.map(
+          (resp) => resp.id,
+        ),
+      });
+    } else {
+      initializeCbbrAgencyCategoryResponseCheckboxes({
+        checkboxes: cbbrAgencyCategoryResponses,
+        cbbrAgencyCategoryResponseIds: cbbrAgencyCategoryResponseIds.map((id) =>
+          parseInt(id),
+        ),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const clearCapitalProjectFilters = () => {
     updateSearchParams({
       managingAgency: null,
@@ -242,6 +268,7 @@ export default function MapPage() {
   };
 
   const clearCbbrProjectFilters = () => {
+    updateAllCbbrAgencyCategoryResponseCheckboxesByValue(true);
     updateSearchParams({
       cbbrPolicyAreaId: null,
       cbbrNeedGroupId: null,
@@ -558,7 +585,7 @@ export default function MapPage() {
                           color={"primary.600"}
                           textDecor={"underline"}
                           cursor={"pointer"}
-                          onClick={() =>
+                          onClick={() => {
                             updateSearchParams({
                               managingAgency: null,
                               agencyBudget: null,
@@ -568,8 +595,11 @@ export default function MapPage() {
                               cbbrNeedGroupId: null,
                               cbbrAgencyInitials: null,
                               cbbrAgencyCategoryResponseIds: null,
-                            })
-                          }
+                            });
+                            updateAllCbbrAgencyCategoryResponseCheckboxesByValue(
+                              true,
+                            );
+                          }}
                         >
                           Clear All
                         </Link>
@@ -589,9 +619,6 @@ export default function MapPage() {
                           cbbrAgencies={cbbrAgencies}
                           cbbrAgencyCategoryResponses={
                             cbbrAgencyCategoryResponses
-                          }
-                          cbbrAgencyCategoryResponseIds={
-                            cbbrAgencyCategoryResponseIds
                           }
                           onClear={clearCbbrProjectFilters}
                           updateFiltersAccordion={updateFiltersAccordion(1)}
