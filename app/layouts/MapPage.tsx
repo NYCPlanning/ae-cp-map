@@ -236,6 +236,9 @@ export default function MapPage() {
   const initializeCbbrAgencyCategoryResponseCheckboxes = useStore(
     (state) => state.initializeCbbrAgencyCategoryResponseCheckboxes,
   );
+  const updateAllCbbrAgencyCategoryResponseCheckboxesByValue = useStore(
+    (state) => state.updateAllCbbrAgencyCategoryResponseCheckboxesByValue,
+  );
   useEffect(() => {
     if (cbbrAgencyCategoryResponseIds.length === 0) {
       initializeCbbrAgencyCategoryResponseCheckboxes({
@@ -265,6 +268,7 @@ export default function MapPage() {
   };
 
   const clearCbbrProjectFilters = () => {
+    updateAllCbbrAgencyCategoryResponseCheckboxesByValue(true);
     updateSearchParams({
       cbbrPolicyAreaId: null,
       cbbrNeedGroupId: null,
@@ -581,7 +585,7 @@ export default function MapPage() {
                           color={"primary.600"}
                           textDecor={"underline"}
                           cursor={"pointer"}
-                          onClick={() =>
+                          onClick={() => {
                             updateSearchParams({
                               managingAgency: null,
                               agencyBudget: null,
@@ -591,8 +595,11 @@ export default function MapPage() {
                               cbbrNeedGroupId: null,
                               cbbrAgencyInitials: null,
                               cbbrAgencyCategoryResponseIds: null,
-                            })
-                          }
+                            });
+                            updateAllCbbrAgencyCategoryResponseCheckboxesByValue(
+                              true,
+                            );
+                          }}
                         >
                           Clear All
                         </Link>

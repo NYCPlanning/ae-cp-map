@@ -39,6 +39,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
+import { useStore } from "~/store";
 
 const queryClient = new QueryClient(); // eslint-disable-line
 
@@ -196,8 +197,13 @@ export function Main() {
     defaultValue: addressSearchQuery !== null ? [addressSearchQuery] : [],
   });
 
+  const updateAllCbbrAgencyCategoryResponseCheckboxesByValue = useStore(
+    (state) => state.updateAllCbbrAgencyCategoryResponseCheckboxesByValue,
+  );
+
   const clearAllFilters = () => {
     setSearchParams({});
+    updateAllCbbrAgencyCategoryResponseCheckboxesByValue(true);
     setViewState({
       ...INITIAL_VIEW_STATE,
       transitionDuration: 2000,
