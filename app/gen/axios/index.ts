@@ -31,6 +31,12 @@ export { findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId } from "./f
 export { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId } from "./findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId";
 export { findCommunityDistrictsByBoroughId } from "./findCommunityDistrictsByBoroughId";
 export { findCommunityDistrictTiles } from "./findCommunityDistrictTiles";
+export { findFacilities } from "./findFacilities";
+export { findFacilityAgencies } from "./findFacilityAgencies";
+export { findFacilityById } from "./findFacilityById";
+export { findFacilityCategories } from "./findFacilityCategories";
+export { findFacilityGeoJsonById } from "./findFacilityGeoJsonById";
+export { findFacilityTiles } from "./findFacilityTiles";
 export { findLandUses } from "./findLandUses";
 export { findTaxLotByBbl } from "./findTaxLotByBbl";
 export { findTaxLotGeoJsonByBbl } from "./findTaxLotGeoJsonByBbl";

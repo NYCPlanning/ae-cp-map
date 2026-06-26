@@ -36,6 +36,12 @@ import { findCommunityBoardBudgetRequestTilesHandler } from "./findCommunityBoar
 import { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler } from "./findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler";
 import { findCommunityDistrictsByBoroughIdHandler } from "./findCommunityDistrictsByBoroughIdHandler";
 import { findCommunityDistrictTilesHandler } from "./findCommunityDistrictTilesHandler";
+import { findFacilitiesHandler } from "./findFacilitiesHandler";
+import { findFacilityAgenciesHandler } from "./findFacilityAgenciesHandler";
+import { findFacilityByIdHandler } from "./findFacilityByIdHandler";
+import { findFacilityCategoriesHandler } from "./findFacilityCategoriesHandler";
+import { findFacilityGeoJsonByIdHandler } from "./findFacilityGeoJsonByIdHandler";
+import { findFacilityTilesHandler } from "./findFacilityTilesHandler";
 import { findLandUsesHandler } from "./findLandUsesHandler";
 import { findTaxLotByBblHandler } from "./findTaxLotByBblHandler";
 import { findTaxLotGeoJsonByBblHandler } from "./findTaxLotGeoJsonByBblHandler";
@@ -82,6 +88,12 @@ export const handlers = [
   findCommunityBoardBudgetRequestPolicyAreasHandler(),
   findCommunityBoardBudgetRequestTilesHandler(),
   findCommunityDistrictTilesHandler(),
+  findFacilitiesHandler(),
+  findFacilityByIdHandler(),
+  findFacilityGeoJsonByIdHandler(),
+  findFacilityAgenciesHandler(),
+  findFacilityCategoriesHandler(),
+  findFacilityTilesHandler(),
   findLandUsesHandler(),
   findTaxLotsHandler(),
   findTaxLotByBblHandler(),
