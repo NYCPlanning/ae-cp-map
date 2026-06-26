@@ -38,7 +38,6 @@ export class IconClusterLayer<
 
   updateState({ props, oldProps, changeFlags }: UpdateParameters<this>) {
     const z = Math.floor(this.context.viewport.zoom);
-    // console.log(changeFlags)
 
     const rebuildIndex =
       changeFlags.dataChanged ||

@@ -18,6 +18,7 @@ export function createFacilityPage(data?: Partial<FacilityPage>): FacilityPage {
           name: faker.string.alpha(),
           oversightAgencyInitials: faker.string.alpha(),
           categoryId: faker.number.int(),
+          hasSogrData: faker.datatype.boolean(),
         })),
         totalFacilities: faker.number.int({ min: 0 }),
       },

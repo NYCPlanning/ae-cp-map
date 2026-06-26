@@ -79,4 +79,4 @@ export type ProjectAmountMenuParams = {
   commitmentTotalInputsAreValid: CommitmentTotalInputsAreValid;
 };
 
-export type PageParamKey = "cbbrPage" | "cpPage";
+export type PageParamKey = "cbbrPage" | "cpPage" | "facilitiesPage";
