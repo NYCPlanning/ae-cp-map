@@ -14,6 +14,7 @@ export default [
         "routes/community-board-budget-requests.tsx",
       ),
       route("capital-projects", "routes/capital-projects.tsx"),
+      route("facilities", "routes/facilities.tsx"),
     ]),
     route(
       "capital-projects/:managingCode/:capitalProjectId",
