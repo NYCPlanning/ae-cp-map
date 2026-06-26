@@ -57,7 +57,7 @@ export type AddressQueryParams = {
   pin?: number[];
 };
 
-export type LayerParamKey = "capitalProjects" | "cbbr";
+export type LayerParamKey = "capitalProjects" | "cbbr" | "facilities";
 
 export type LayerParamValue = "off" | undefined;
 

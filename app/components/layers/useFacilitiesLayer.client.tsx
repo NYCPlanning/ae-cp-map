@@ -1,0 +1,132 @@
+import { MVTLayer } from "@deck.gl/geo-layers";
+import { useState } from "react";
+import { env } from "~/utils/env";
+import { useNavigate, useParams, useSearchParams } from "react-router";
+// import { FlyToInterpolator } from "@deck.gl/core";
+import { MaskExtension } from "@deck.gl/extensions";
+import type { MaskExtensionProps } from "@deck.gl/extensions";
+import type { MapViewState } from "@deck.gl/core";
+import { useMediaQuery } from "@nycplanning/streetscape";
+import { FACILITY_PNG_BY_CATEGORY } from "~/utils/facilities-icons";
+import { BoroughId, BoundaryId, BoundaryType } from "../../utils/types";
+import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
+
+const { zoningApiUrl } = env;
+export interface FacilityProperties {
+  layerName: string;
+  id: string;
+  categoryGroupId: number;
+  categoryId: number;
+  categorySubgroupId: number;
+  facilityJurisdiction: string;
+  facilityOperatorType: string;
+  overseeingAgencyInitials: string;
+}
+
+export function useFacilitiesLayer({
+  viewState,
+  setViewState,
+  visible,
+}: {
+  viewState: MapViewState;
+  setViewState: (newViewState: MapViewState) => void;
+  visible: boolean;
+}) {
+  const { facilityId } = useParams();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [hoveredFacility, setHoveredFacility] = useState<string | null>();
+  const isMobile = useMediaQuery("(max-width: 767px)")[0];
+
+  const boundaryType = searchParams.get("boundaryType") as BoundaryType;
+  const boroughId = searchParams.get("boroughId") as BoroughId;
+  const boroughIds = searchParams.get("boroughIds") as BoroughId;
+  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
+  const cityCouncilDistrictIdsString = searchParams.get(
+    "cityCouncilDistrictIds",
+  );
+  const cityCouncilDistrictIds =
+    cityCouncilDistrictIdsString !== null
+      ? cityCouncilDistrictIdsString.split(",")
+      : boundaryId === null
+        ? null
+        : [boundaryId];
+  const communityDistrictIdsString = searchParams.get(
+    "communityDistrictIds",
+  ) as string;
+  const communityDistrictIds =
+    communityDistrictIdsString !== null
+      ? communityDistrictIdsString.split(",")
+      : boroughId === null || boundaryId === null
+        ? null
+        : [`${boroughId}${boundaryId}`];
+  const bufferParam = searchParams.get("radius");
+  const buffer = bufferParam === null ? -1 : parseInt(bufferParam);
+  const pin = searchParams.get("pin");
+  const [lon, lat] =
+    pin === null
+      ? [undefined, undefined]
+      : pin.split(",").map((d) => parseFloat(d));
+
+  return new MVTLayer<FacilityProperties, MaskExtensionProps>({
+    id: "facilities",
+    data: [`${zoningApiUrl}/api/facilities/{z}/{x}/{y}.pbf`],
+    visible,
+    uniqueIdProperty: "facilityId",
+    pickable: true,
+    pointType: "icon",
+    onHover: (data) => {
+      if (data.index === -1) {
+        setHoveredFacility(null);
+      } else if (data.object?.properties?.id !== undefined) {
+        setHoveredFacility(data.object.properties.id);
+      }
+    },
+    getIconSize: 256,
+    iconSizeUnits: "meters",
+    iconSizeMaxPixels: isMobile ? 59 : 29,
+    getIcon: ({ properties }: { properties: FacilityProperties }) => ({
+      url: `data:image/png;base64,${FACILITY_PNG_BY_CATEGORY[properties.id === hoveredFacility ? "HOVER" : properties.id === facilityId ? "SELECTED" : "DEFAULT"].get(properties.categoryId)}`,
+      id: `facility-${properties.categoryId}${properties.id === facilityId && "-selected"}${properties.id === hoveredFacility && "-hovered"}`,
+      width: 132,
+      height: 132,
+      mask: false,
+    }),
+    onClick: (info) => {
+      // const newFacilityId = info.object.properties.id;
+      // if (newFacilityId === undefined || newFacilityId === facilityId) return;
+      // const [longitude, latitude] = info.object.geometry.coordinates;
+      // navigate({
+      //   pathname: `/facilities/${newFacilityId}`,
+      //   search: `?${searchParams.toString()}`,
+      // });
+      // setViewState({
+      //   longitude,
+      //   latitude,
+      //   zoom: viewState.zoom < 15 ? 15 : viewState.zoom,
+      //   transitionDuration: 750,
+      //   transitionInterpolator: new FlyToInterpolator(),
+      // });
+    },
+    updateTriggers: {
+      getIcon: [facilityId, hoveredFacility],
+      onHover: hoveredFacility,
+    },
+    extensions: [new MaskExtension()],
+    maskId: `${
+      (boundaryId !== null &&
+        (boundaryType === "cd" || boundaryType === "ccd")) ||
+      (boroughIds !== null && boundaryType === "borough") ||
+      (cityCouncilDistrictIds !== null && boundaryType === "ccd") ||
+      (communityDistrictIds !== null && boundaryType === "cd") ||
+      (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
+        buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
+        lon !== undefined &&
+        lat !== undefined)
+        ? "boundary-mvt"
+        : ""
+    }`,
+    maskByInstance: true, //doesn't seem to have an effect
+    maskInverted: false,
+  });
+}

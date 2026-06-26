@@ -16,3 +16,4 @@ export { IconClusterLayer } from "./icon-cluster-layer";
 export { useMapPinLayer } from "./useMapPinLayer.client";
 export { SelectedGeosLayer } from "./SelectedGeosLayer";
 export type { SelectedGeosLayerProps } from "./SelectedGeosLayer";
+export { useFacilitiesLayer } from "./useFacilitiesLayer.client";

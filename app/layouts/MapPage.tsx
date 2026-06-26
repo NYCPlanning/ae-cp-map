@@ -55,6 +55,7 @@ import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
 import { useState, useEffect } from "react";
 import { useStore } from "~/store";
+import { FacilitiesLayerToggle } from "~/components/MapLayerToggle/FacilitiesLayerToggle";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -208,6 +209,7 @@ export default function MapPage() {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
   const showCbbr = searchParams.get("cbbr") !== "off";
+  const showFacilities = searchParams.get("facilities") !== "off";
   const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
   const [filtersAccordionIndex, setFiltersAccordionIndex] = useState<number[]>(
     [],
@@ -319,6 +321,7 @@ export default function MapPage() {
           setViewState={(MapViewState) => setViewState(MapViewState)}
           showCapitalProjects={showCapitalProjects}
           showCbbr={showCbbr}
+          showFacilities={showFacilities}
           hoveredOverItem={hoveredOverItem}
           setHoveredOverItem={setHoveredOverItem}
           clearCombobox={clearCombobox}
@@ -626,6 +629,7 @@ export default function MapPage() {
                         <CommunityBoardBudgetRequestLegend
                           updateFiltersAccordion={updateFiltersAccordion(2)}
                         />
+                        <FacilitiesLayerToggle />
                       </Box>
                     </Box>
                   </Accordion>
