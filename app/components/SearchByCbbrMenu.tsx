@@ -89,104 +89,100 @@ export const SearchByCbbrMenu = ({
       marginTop={2}
       marginX={0}
     >
-      {({ isExpanded }) => (
-        <>
-          <AccordionButton
-            aria-label="Close search by attribute menu"
-            paddingY={0}
-            paddingX={3}
-            onClick={updateFiltersAccordion}
-          >
-            <Heading
-              flex="1"
-              textAlign="left"
-              fontSize="xs"
-              fontWeight="bold"
-              lineHeight="32px"
-              paddingBottom={0}
-            >
-              {`${isExpanded ? "Hide" : "Show"} Filters (${appliedFilters.reduce((acc, curr) => acc + curr, 0)})`}
-            </Heading>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel
-            paddingTop={0}
-            paddingX={3}
-            paddingBottom={6}
-            display={"flex"}
-            flexDirection={"column"}
-          >
-            <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
-            <CommunityBoardBudgetRequestPolicyAreaDropdown
-              selectValue={cbbrPolicyAreaId}
-              cbbrPolicyAreas={cbbrPolicyAreas}
-              onSelectValueChange={(value) => {
-                dismissWelcomeAndUpdateSearchParams(
-                  "/community-board-budget-requests",
-                  { cbbrPolicyAreaId: value },
-                );
-              }}
-            />
-            <CommunityBoardBudgetRequestNeedGroupDropdown
-              selectValue={cbbrNeedGroupId}
-              cbbrNeedGroups={cbbrNeedGroups}
-              onSelectValueChange={(value) => {
-                dismissWelcomeAndUpdateSearchParams(
-                  "/community-board-budget-requests",
-                  { cbbrNeedGroupId: value },
-                );
-              }}
-            />
-            <CommunityBoardBudgetRequestAgencyDropdown
-              selectValue={cbbrAgencyInitials}
-              cbbrAgencies={cbbrAgencies}
-              onSelectValueChange={(value) => {
-                dismissWelcomeAndUpdateSearchParams(
-                  "/community-board-budget-requests",
-                  { cbbrAgencyInitials: value },
-                );
-              }}
-            />
-            <CbbrAgencyCategoryResponseCheckbox
-              onCheckedChange={(value) => {
-                if (value === null)
-                  throw new Error(
-                    "Unexpected null for agency category response id",
-                  );
-                let nextValue: Array<number> | null;
-                if (cbbrAgencyCategoryResponseIds === null) {
-                  nextValue = [parseInt(value)];
-                } else if (
-                  cbbrAgencyCategoryResponseIds.includes(parseInt(value))
-                ) {
-                  const removedValue = cbbrAgencyCategoryResponseIds.filter(
-                    (item) => item !== parseInt(value),
-                  );
-                  nextValue = removedValue.length === 0 ? null : removedValue;
-                } else {
-                  nextValue = cbbrAgencyCategoryResponseIds.concat([
-                    parseInt(value),
-                  ]);
-                }
-                updateCbbrAgencyCategoryResponseCheckboxById(parseInt(value));
-                dismissWelcomeAndUpdateSearchParams(
-                  "/community-board-budget-requests",
-                  {
-                    cbbrAgencyCategoryResponseIds:
-                      nextValue === null ||
-                      nextValue.length === cbbrAgencyCategoryResponses?.length
-                        ? null
-                        : String(nextValue),
-                  },
-                );
-              }}
-              dismissWelcomeAndUpdateSearchParams={
-                dismissWelcomeAndUpdateSearchParams
-              }
-            />
-          </AccordionPanel>
-        </>
-      )}
+      <AccordionButton
+        aria-label="Close search by attribute menu"
+        paddingY={0}
+        paddingX={3}
+        onClick={updateFiltersAccordion}
+      >
+        <Heading
+          flex="1"
+          textAlign="left"
+          fontSize="xs"
+          fontWeight="bold"
+          lineHeight="32px"
+          paddingBottom={0}
+        >
+          {`Filters (${appliedFilters.reduce((acc, curr) => acc + curr, 0)})`}
+        </Heading>
+        <AccordionIcon />
+      </AccordionButton>
+      <AccordionPanel
+        paddingTop={0}
+        paddingX={3}
+        paddingBottom={6}
+        display={"flex"}
+        flexDirection={"column"}
+      >
+        <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
+        <CommunityBoardBudgetRequestPolicyAreaDropdown
+          selectValue={cbbrPolicyAreaId}
+          cbbrPolicyAreas={cbbrPolicyAreas}
+          onSelectValueChange={(value) => {
+            dismissWelcomeAndUpdateSearchParams(
+              "/community-board-budget-requests",
+              { cbbrPolicyAreaId: value },
+            );
+          }}
+        />
+        <CommunityBoardBudgetRequestNeedGroupDropdown
+          selectValue={cbbrNeedGroupId}
+          cbbrNeedGroups={cbbrNeedGroups}
+          onSelectValueChange={(value) => {
+            dismissWelcomeAndUpdateSearchParams(
+              "/community-board-budget-requests",
+              { cbbrNeedGroupId: value },
+            );
+          }}
+        />
+        <CommunityBoardBudgetRequestAgencyDropdown
+          selectValue={cbbrAgencyInitials}
+          cbbrAgencies={cbbrAgencies}
+          onSelectValueChange={(value) => {
+            dismissWelcomeAndUpdateSearchParams(
+              "/community-board-budget-requests",
+              { cbbrAgencyInitials: value },
+            );
+          }}
+        />
+        <CbbrAgencyCategoryResponseCheckbox
+          onCheckedChange={(value) => {
+            if (value === null)
+              throw new Error(
+                "Unexpected null for agency category response id",
+              );
+            let nextValue: Array<number> | null;
+            if (cbbrAgencyCategoryResponseIds === null) {
+              nextValue = [parseInt(value)];
+            } else if (
+              cbbrAgencyCategoryResponseIds.includes(parseInt(value))
+            ) {
+              const removedValue = cbbrAgencyCategoryResponseIds.filter(
+                (item) => item !== parseInt(value),
+              );
+              nextValue = removedValue.length === 0 ? null : removedValue;
+            } else {
+              nextValue = cbbrAgencyCategoryResponseIds.concat([
+                parseInt(value),
+              ]);
+            }
+            updateCbbrAgencyCategoryResponseCheckboxById(parseInt(value));
+            dismissWelcomeAndUpdateSearchParams(
+              "/community-board-budget-requests",
+              {
+                cbbrAgencyCategoryResponseIds:
+                  nextValue === null ||
+                  nextValue.length === cbbrAgencyCategoryResponses?.length
+                    ? null
+                    : String(nextValue),
+              },
+            );
+          }}
+          dismissWelcomeAndUpdateSearchParams={
+            dismissWelcomeAndUpdateSearchParams
+          }
+        />
+      </AccordionPanel>
     </AccordionItem>
   );
 };

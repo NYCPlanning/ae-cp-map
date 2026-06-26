@@ -58,69 +58,62 @@ export const SearchByAttributeMenu = ({
       marginTop={2}
       marginX={0}
     >
-      {({ isExpanded }) => (
-        <>
-          <AccordionButton
-            aria-label="Close search by attribute menu"
-            paddingY={0}
-            paddingX={3}
-            onClick={updateFiltersAccordion}
-          >
-            <Heading
-              flex="1"
-              textAlign="left"
-              fontSize="xs"
-              fontWeight="bold"
-              lineHeight="32px"
-              paddingBottom={0}
-            >
-              {`${isExpanded ? "Hide" : "Show"} Filters (${appliedFilters.reduce((acc, curr) => acc + curr, 0)})`}
-            </Heading>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel
-            paddingTop={0}
-            paddingX={3}
-            paddingBottom={6}
-            display={"flex"}
-            flexDirection={"column"}
-          >
-            <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
-            <AgencyDropdown
-              selectValue={managingAgency}
-              agencies={agencies}
-              onSelectValueChange={(value) => {
-                dismissWelcomeAndUpdateSearchParams("/capital-projects", {
-                  managingAgency: value,
-                });
-              }}
-            />
-            <ProjectTypeDropdown
-              selectValue={agencyBudget}
-              projectTypes={projectTypes}
-              onSelectValueChange={(value) => {
-                dismissWelcomeAndUpdateSearchParams("/capital-projects", {
-                  agencyBudget: value,
-                });
-              }}
-            />
-            <ProjectAmountMenu
-              commitmentsTotalMin={commitmentsTotalMin}
-              commitmentsTotalMax={commitmentsTotalMax}
-              onValidChange={(changes: QueryParams) => {
-                if (
-                  changes.commitmentsTotalMin !== null ||
-                  changes.commitmentsTotalMax !== null
-                )
-                  dismissWelcomeAndUpdateSearchParams(
-                    "/capital-projects",
-                    changes,
-                  );
-              }}
-            />
-          </AccordionPanel>
-        </>
-      )}
+      <AccordionButton
+        aria-label="Close search by attribute menu"
+        paddingY={0}
+        paddingX={3}
+        onClick={updateFiltersAccordion}
+      >
+        <Heading
+          flex="1"
+          textAlign="left"
+          fontSize="xs"
+          fontWeight="bold"
+          lineHeight="32px"
+          paddingBottom={0}
+        >
+          {`Filters (${appliedFilters.reduce((acc, curr) => acc + curr, 0)})`}
+        </Heading>
+        <AccordionIcon />
+      </AccordionButton>
+      <AccordionPanel
+        paddingTop={0}
+        paddingX={3}
+        paddingBottom={6}
+        display={"flex"}
+        flexDirection={"column"}
+      >
+        <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
+        <AgencyDropdown
+          selectValue={managingAgency}
+          agencies={agencies}
+          onSelectValueChange={(value) => {
+            dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+              managingAgency: value,
+            });
+          }}
+        />
+        <ProjectTypeDropdown
+          selectValue={agencyBudget}
+          projectTypes={projectTypes}
+          onSelectValueChange={(value) => {
+            dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+              agencyBudget: value,
+            });
+          }}
+        />
+        <ProjectAmountMenu
+          commitmentsTotalMin={commitmentsTotalMin}
+          commitmentsTotalMax={commitmentsTotalMax}
+          onValidChange={(changes: QueryParams) => {
+            if (
+              changes.commitmentsTotalMin !== null ||
+              changes.commitmentsTotalMax !== null
+            )
+              dismissWelcomeAndUpdateSearchParams("/capital-projects", changes);
+          }}
+        />
+      </AccordionPanel>
     </AccordionItem>
   );
 };

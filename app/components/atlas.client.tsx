@@ -18,8 +18,9 @@ import {
   useBoroughsOutlinesLayer,
   useSelectedBoroughsLayer,
   useMapPinLayer,
+  useFacilitiesLayer,
 } from "./layers";
-import type { MapView, MapViewState } from "@deck.gl/core";
+import type { MapView, MapViewState, PickingInfo } from "@deck.gl/core";
 import { FlyToInterpolator } from "@deck.gl/core";
 import { env } from "~/utils/env";
 
@@ -40,6 +41,7 @@ interface AtlasProps {
   setViewState: (newViewState: MapViewState) => void;
   showCapitalProjects: boolean;
   showCbbr: boolean;
+  showFacilities: boolean;
   hoveredOverItem: string | null;
   setHoveredOverItem: (newHoveredOverItem: string | null) => void;
   clearCombobox: () => void;
@@ -51,6 +53,7 @@ export function Atlas({
   setViewState,
   showCapitalProjects,
   showCbbr,
+  showFacilities,
   hoveredOverItem,
   setHoveredOverItem,
   clearCombobox,
@@ -86,6 +89,12 @@ export function Atlas({
     });
   const communityBoardBudgetRequestGeoJsonLayer =
     useCommunityBoardBudgetRequestsGeoJsonLayer();
+
+  const facilitiesLayer = useFacilitiesLayer({
+    viewState,
+    setViewState,
+    visible: showFacilities,
+  });
   const communityDistrictsLayer = useCommunityDistrictsLayer({ clearCombobox });
   const communityDistrictLayer = useSelectedCommunityDistrictsLayer();
   const communityDistrictsOutlinesLayer = useCommunityDistrictsOutlinesLayer();
@@ -120,6 +129,7 @@ export function Atlas({
           boroughLayer,
           capitalProjectsLayer,
           capitalProjectBudgetedGeoJsonLayer,
+          facilitiesLayer,
           communityBoardBudgetRequestsLayer,
           communityBoardBudgetRequestGeoJsonLayer,
           mapPinLayer,
@@ -201,6 +211,38 @@ export function Atlas({
           return "grabbing";
         }
         return isHovering ? "pointer" : "grab";
+      }}
+      getTooltip={(data: PickingInfo) => {
+        if (!data.object) return null;
+
+        if (data.object.properties?.layerName === "facility") {
+          return {
+            html: `
+              <div style="
+                transform: translate(-50%, 8px);
+                background-color: #FFFFFF;
+                color: #4A5568;
+                padding: 8px;
+                max-width: 320px;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                text-align: center;
+                border-radius: 4px;
+                box-shadow: 0 8px 4px 0 rgba(0, 0, 0, 0.08);
+                white-space: wrap;
+              ">
+                ${data.object.properties.name}
+              </div>
+            `,
+            style: {
+              background: "transparent",
+              padding: "0px",
+              border: "none",
+              boxShadow: "none",
+            },
+          };
+        }
+        return null;
       }}
     >
       <Map mapStyle={`${basemapUrl}/styles/positron/style.json`}></Map>
