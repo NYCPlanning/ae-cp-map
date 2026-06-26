@@ -2,7 +2,7 @@ import { MVTLayer } from "@deck.gl/geo-layers";
 import { useState } from "react";
 import { env } from "~/utils/env";
 import { useNavigate, useParams, useSearchParams } from "react-router";
-// import { FlyToInterpolator } from "@deck.gl/core";
+import { FlyToInterpolator } from "@deck.gl/core";
 import { MaskExtension } from "@deck.gl/extensions";
 import type { MaskExtensionProps } from "@deck.gl/extensions";
 import type { MapViewState } from "@deck.gl/core";
@@ -93,29 +93,28 @@ export function useFacilitiesLayer({
       mask: false,
     }),
     onClick: (info) => {
-      // const newFacilityId = info.object.properties.id;
-      // if (newFacilityId === undefined || newFacilityId === facilityId) return;
-      // const [longitude, latitude] = info.object.geometry.coordinates;
-      // navigate({
-      //   pathname: `/facilities/${newFacilityId}`,
-      //   search: `?${searchParams.toString()}`,
-      // });
-      // setViewState({
-      //   longitude,
-      //   latitude,
-      //   zoom: viewState.zoom < 15 ? 15 : viewState.zoom,
-      //   transitionDuration: 750,
-      //   transitionInterpolator: new FlyToInterpolator(),
-      // });
+      const newFacilityId = info.object.properties.id;
+      if (newFacilityId === undefined || newFacilityId === facilityId) return;
+      const [longitude, latitude] = info.object.geometry.coordinates;
+      navigate({
+        pathname: `/facilities/${newFacilityId}`,
+        search: `?${searchParams.toString()}`,
+      });
+      setViewState({
+        longitude,
+        latitude,
+        zoom: viewState.zoom < 15 ? 15 : viewState.zoom,
+        transitionDuration: 750,
+        transitionInterpolator: new FlyToInterpolator(),
+      });
     },
     updateTriggers: {
       getIcon: [facilityId, hoveredFacility],
       onHover: hoveredFacility,
     },
     extensions: [new MaskExtension()],
-    maskId: `${
-      (boundaryId !== null &&
-        (boundaryType === "cd" || boundaryType === "ccd")) ||
+    maskId: `${(boundaryId !== null &&
+      (boundaryType === "cd" || boundaryType === "ccd")) ||
       (boroughIds !== null && boundaryType === "borough") ||
       (cityCouncilDistrictIds !== null && boundaryType === "ccd") ||
       (communityDistrictIds !== null && boundaryType === "cd") ||
@@ -123,9 +122,9 @@ export function useFacilitiesLayer({
         buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
         lon !== undefined &&
         lat !== undefined)
-        ? "boundary-mvt"
-        : ""
-    }`,
+      ? "boundary-mvt"
+      : ""
+      }`,
     maskByInstance: true, //doesn't seem to have an effect
     maskInverted: false,
   });

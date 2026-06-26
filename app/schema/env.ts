@@ -6,4 +6,5 @@ export const envSchema = z.object({
   cpdbDataUrl: z.string().min(1, "VITE_CPDB_DATA_URL is required"),
   facDbPhase2: z.string().min(1, "VITE_FACDB_PHASE_2 is required"),
   facDbPhase3: z.string().min(1, "VITE_FACDB_PHASE_3 is required"),
+  stateOfGoodRepair: z.string().min(1, "VITE_STATE_OF_GOOD_REPAIR is required"),
 });

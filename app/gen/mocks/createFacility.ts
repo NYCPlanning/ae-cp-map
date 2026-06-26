@@ -25,6 +25,20 @@ export function createFacility(data?: Partial<Facility>): Facility {
       categoryGroupId: faker.number.int(),
       categorySubgroupId: faker.number.int(),
       operatorName: faker.string.alpha(),
+      sgrLtr: faker.helpers.arrayElement<NonNullable<Facility>["sgrLtr"]>([
+        "A",
+        "B",
+        "C",
+        "D",
+        "F",
+      ]),
+      sgrArcLtr: faker.helpers.arrayElement<NonNullable<Facility>["sgrArcLtr"]>(
+        ["A", "B", "C", "D", "F"],
+      ),
+      sgrSysLtr: faker.helpers.arrayElement<NonNullable<Facility>["sgrSysLtr"]>(
+        ["A", "B", "C", "D", "F"],
+      ),
+      sgrYear: faker.number.int(),
       dataSource: createDataSource(),
       alsoAtLocation: faker.helpers.multiple(() => ({
         id: faker.string.alpha(),
