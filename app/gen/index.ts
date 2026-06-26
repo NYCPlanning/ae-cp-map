@@ -41,7 +41,21 @@ export type {
   CommunityDistrictGeoJsonTypeEnumKey,
   CommunityDistrictGeoJson,
 } from "./types/CommunityDistrictGeoJson";
+export type { DataSource } from "./types/DataSource";
 export type { Error } from "./types/Error";
+export type { Facility } from "./types/Facility";
+export type { FacilityCategory } from "./types/FacilityCategory";
+export type { FacilityCategoryGroup } from "./types/FacilityCategoryGroup";
+export type { FacilityCategorySubgroup } from "./types/FacilityCategorySubgroup";
+export type {
+  FacilityGeoJsonTypeEnumKey,
+  FacilityGeoJson,
+} from "./types/FacilityGeoJson";
+export type {
+  FacilityOperatorTypeEnumKey,
+  FacilityOperatorType,
+} from "./types/FacilityOperatorType";
+export type { FacilityPage } from "./types/FacilityPage";
 export type {
   FindAgencies200,
   FindAgencies400,
@@ -316,6 +330,57 @@ export type {
   FindCommunityDistrictTilesQuery,
 } from "./types/FindCommunityDistrictTiles";
 export type {
+  FindFacilitiesQueryParamsFacilityJurisdictionsEnumKey,
+  FindFacilitiesQueryParamsFacilityOperatorTypesEnumKey,
+  FindFacilitiesQueryParamsGeometryEnumKey,
+  FindFacilitiesQueryParams,
+  FindFacilities200,
+  FindFacilities400,
+  FindFacilities500,
+  FindFacilitiesQueryResponse,
+  FindFacilitiesQuery,
+} from "./types/FindFacilities";
+export type {
+  FindFacilityAgencies200,
+  FindFacilityAgencies400,
+  FindFacilityAgencies500,
+  FindFacilityAgenciesQueryResponse,
+  FindFacilityAgenciesQuery,
+} from "./types/FindFacilityAgencies";
+export type {
+  FindFacilityByIdPathParams,
+  FindFacilityById200,
+  FindFacilityById400,
+  FindFacilityById404,
+  FindFacilityById500,
+  FindFacilityByIdQueryResponse,
+  FindFacilityByIdQuery,
+} from "./types/FindFacilityById";
+export type {
+  FindFacilityCategories200,
+  FindFacilityCategories400,
+  FindFacilityCategories500,
+  FindFacilityCategoriesQueryResponse,
+  FindFacilityCategoriesQuery,
+} from "./types/FindFacilityCategories";
+export type {
+  FindFacilityGeoJsonByIdPathParams,
+  FindFacilityGeoJsonById200,
+  FindFacilityGeoJsonById400,
+  FindFacilityGeoJsonById404,
+  FindFacilityGeoJsonById500,
+  FindFacilityGeoJsonByIdQueryResponse,
+  FindFacilityGeoJsonByIdQuery,
+} from "./types/FindFacilityGeoJsonById";
+export type {
+  FindFacilityTilesPathParams,
+  FindFacilityTiles200,
+  FindFacilityTiles400,
+  FindFacilityTiles500,
+  FindFacilityTilesQueryResponse,
+  FindFacilityTilesQuery,
+} from "./types/FindFacilityTiles";
+export type {
   FindLandUses200,
   FindLandUses400,
   FindLandUses500,
@@ -468,6 +533,12 @@ export { findCommunityBoardBudgetRequestTilesByCityCouncilDistrictId } from "./a
 export { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId } from "./axios/findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId";
 export { findCommunityDistrictsByBoroughId } from "./axios/findCommunityDistrictsByBoroughId";
 export { findCommunityDistrictTiles } from "./axios/findCommunityDistrictTiles";
+export { findFacilities } from "./axios/findFacilities";
+export { findFacilityAgencies } from "./axios/findFacilityAgencies";
+export { findFacilityById } from "./axios/findFacilityById";
+export { findFacilityCategories } from "./axios/findFacilityCategories";
+export { findFacilityGeoJsonById } from "./axios/findFacilityGeoJsonById";
+export { findFacilityTiles } from "./axios/findFacilityTiles";
 export { findLandUses } from "./axios/findLandUses";
 export { findTaxLotByBbl } from "./axios/findTaxLotByBbl";
 export { findTaxLotGeoJsonByBbl } from "./axios/findTaxLotGeoJsonByBbl";
@@ -501,7 +572,15 @@ export { createCommunityBoardBudgetRequestPolicyArea } from "./mocks/createCommu
 export { createCommunityBoardBudgetRequestType } from "./mocks/createCommunityBoardBudgetRequestType";
 export { createCommunityDistrict } from "./mocks/createCommunityDistrict";
 export { createCommunityDistrictGeoJson } from "./mocks/createCommunityDistrictGeoJson";
+export { createDataSource } from "./mocks/createDataSource";
 export { createError } from "./mocks/createError";
+export { createFacility } from "./mocks/createFacility";
+export { createFacilityCategory } from "./mocks/createFacilityCategory";
+export { createFacilityCategoryGroup } from "./mocks/createFacilityCategoryGroup";
+export { createFacilityCategorySubgroup } from "./mocks/createFacilityCategorySubgroup";
+export { createFacilityGeoJson } from "./mocks/createFacilityGeoJson";
+export { createFacilityOperatorType } from "./mocks/createFacilityOperatorType";
+export { createFacilityPage } from "./mocks/createFacilityPage";
 export {
   createFindAgencies200,
   createFindAgencies400,
@@ -737,6 +816,48 @@ export {
   createFindCommunityDistrictTiles500,
   createFindCommunityDistrictTilesQueryResponse,
 } from "./mocks/createFindCommunityDistrictTiles";
+export {
+  createFindFacilitiesQueryParams,
+  createFindFacilities200,
+  createFindFacilities400,
+  createFindFacilities500,
+  createFindFacilitiesQueryResponse,
+} from "./mocks/createFindFacilities";
+export {
+  createFindFacilityAgencies200,
+  createFindFacilityAgencies400,
+  createFindFacilityAgencies500,
+  createFindFacilityAgenciesQueryResponse,
+} from "./mocks/createFindFacilityAgencies";
+export {
+  createFindFacilityByIdPathParams,
+  createFindFacilityById200,
+  createFindFacilityById400,
+  createFindFacilityById404,
+  createFindFacilityById500,
+  createFindFacilityByIdQueryResponse,
+} from "./mocks/createFindFacilityById";
+export {
+  createFindFacilityCategories200,
+  createFindFacilityCategories400,
+  createFindFacilityCategories500,
+  createFindFacilityCategoriesQueryResponse,
+} from "./mocks/createFindFacilityCategories";
+export {
+  createFindFacilityGeoJsonByIdPathParams,
+  createFindFacilityGeoJsonById200,
+  createFindFacilityGeoJsonById400,
+  createFindFacilityGeoJsonById404,
+  createFindFacilityGeoJsonById500,
+  createFindFacilityGeoJsonByIdQueryResponse,
+} from "./mocks/createFindFacilityGeoJsonById";
+export {
+  createFindFacilityTilesPathParams,
+  createFindFacilityTiles200,
+  createFindFacilityTiles400,
+  createFindFacilityTiles500,
+  createFindFacilityTilesQueryResponse,
+} from "./mocks/createFindFacilityTiles";
 export {
   createFindLandUses200,
   createFindLandUses400,
@@ -1041,6 +1162,44 @@ export {
   findCommunityDistrictTilesHandler,
 } from "./mocks/findCommunityDistrictTilesHandler";
 export {
+  findFacilitiesHandlerResponse200,
+  findFacilitiesHandlerResponse400,
+  findFacilitiesHandlerResponse500,
+  findFacilitiesHandler,
+} from "./mocks/findFacilitiesHandler";
+export {
+  findFacilityAgenciesHandlerResponse200,
+  findFacilityAgenciesHandlerResponse400,
+  findFacilityAgenciesHandlerResponse500,
+  findFacilityAgenciesHandler,
+} from "./mocks/findFacilityAgenciesHandler";
+export {
+  findFacilityByIdHandlerResponse200,
+  findFacilityByIdHandlerResponse400,
+  findFacilityByIdHandlerResponse404,
+  findFacilityByIdHandlerResponse500,
+  findFacilityByIdHandler,
+} from "./mocks/findFacilityByIdHandler";
+export {
+  findFacilityCategoriesHandlerResponse200,
+  findFacilityCategoriesHandlerResponse400,
+  findFacilityCategoriesHandlerResponse500,
+  findFacilityCategoriesHandler,
+} from "./mocks/findFacilityCategoriesHandler";
+export {
+  findFacilityGeoJsonByIdHandlerResponse200,
+  findFacilityGeoJsonByIdHandlerResponse400,
+  findFacilityGeoJsonByIdHandlerResponse404,
+  findFacilityGeoJsonByIdHandlerResponse500,
+  findFacilityGeoJsonByIdHandler,
+} from "./mocks/findFacilityGeoJsonByIdHandler";
+export {
+  findFacilityTilesHandlerResponse200,
+  findFacilityTilesHandlerResponse400,
+  findFacilityTilesHandlerResponse500,
+  findFacilityTilesHandler,
+} from "./mocks/findFacilityTilesHandler";
+export {
   findLandUsesHandlerResponse200,
   findLandUsesHandlerResponse400,
   findLandUsesHandlerResponse500,
@@ -1121,11 +1280,16 @@ export { cityCouncilDistrictGeoJsonTypeEnum } from "./types/CityCouncilDistrictG
 export { communityBoardBudgetRequestGeoJsonTypeEnum } from "./types/CommunityBoardBudgetRequestGeoJson";
 export { communityBoardBudgetRequestTypeEnum } from "./types/CommunityBoardBudgetRequestType";
 export { communityDistrictGeoJsonTypeEnum } from "./types/CommunityDistrictGeoJson";
+export { facilityGeoJsonTypeEnum } from "./types/FacilityGeoJson";
+export { facilityOperatorTypeEnum } from "./types/FacilityOperatorType";
 export { findCapitalProjectsQueryParamsGeometryEnum } from "./types/FindCapitalProjects";
 export { findCommunityBoardBudgetRequestsQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequests";
 export { findCommunityBoardBudgetRequestsQueryParamsGeometryEnum } from "./types/FindCommunityBoardBudgetRequests";
 export { findCommunityBoardBudgetRequestsCsvQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequestsCsv";
 export { findCommunityBoardBudgetRequestsCsvQueryParamsGeometryEnum } from "./types/FindCommunityBoardBudgetRequestsCsv";
+export { findFacilitiesQueryParamsFacilityJurisdictionsEnum } from "./types/FindFacilities";
+export { findFacilitiesQueryParamsFacilityOperatorTypesEnum } from "./types/FindFacilities";
+export { findFacilitiesQueryParamsGeometryEnum } from "./types/FindFacilities";
 export { findTaxLotsQueryParamsGeometryEnum } from "./types/FindTaxLots";
 export { multiPointTypeEnum } from "./types/MultiPoint";
 export { multiPolygonTypeEnum } from "./types/MultiPolygon";
@@ -1154,7 +1318,15 @@ export { communityBoardBudgetRequestSchema } from "./zod/communityBoardBudgetReq
 export { communityBoardBudgetRequestTypeSchema } from "./zod/communityBoardBudgetRequestTypeSchema";
 export { communityDistrictGeoJsonSchema } from "./zod/communityDistrictGeoJsonSchema";
 export { communityDistrictSchema } from "./zod/communityDistrictSchema";
+export { dataSourceSchema } from "./zod/dataSourceSchema";
 export { errorSchema } from "./zod/errorSchema";
+export { facilityCategoryGroupSchema } from "./zod/facilityCategoryGroupSchema";
+export { facilityCategorySchema } from "./zod/facilityCategorySchema";
+export { facilityCategorySubgroupSchema } from "./zod/facilityCategorySubgroupSchema";
+export { facilityGeoJsonSchema } from "./zod/facilityGeoJsonSchema";
+export { facilityOperatorTypeSchema } from "./zod/facilityOperatorTypeSchema";
+export { facilityPageSchema } from "./zod/facilityPageSchema";
+export { facilitySchema } from "./zod/facilitySchema";
 export {
   findAgencies200Schema,
   findAgencies400Schema,
@@ -1390,6 +1562,48 @@ export {
   findCommunityDistrictTiles500Schema,
   findCommunityDistrictTilesQueryResponseSchema,
 } from "./zod/findCommunityDistrictTilesSchema";
+export {
+  findFacilitiesQueryParamsSchema,
+  findFacilities200Schema,
+  findFacilities400Schema,
+  findFacilities500Schema,
+  findFacilitiesQueryResponseSchema,
+} from "./zod/findFacilitiesSchema";
+export {
+  findFacilityAgencies200Schema,
+  findFacilityAgencies400Schema,
+  findFacilityAgencies500Schema,
+  findFacilityAgenciesQueryResponseSchema,
+} from "./zod/findFacilityAgenciesSchema";
+export {
+  findFacilityByIdPathParamsSchema,
+  findFacilityById200Schema,
+  findFacilityById400Schema,
+  findFacilityById404Schema,
+  findFacilityById500Schema,
+  findFacilityByIdQueryResponseSchema,
+} from "./zod/findFacilityByIdSchema";
+export {
+  findFacilityCategories200Schema,
+  findFacilityCategories400Schema,
+  findFacilityCategories500Schema,
+  findFacilityCategoriesQueryResponseSchema,
+} from "./zod/findFacilityCategoriesSchema";
+export {
+  findFacilityGeoJsonByIdPathParamsSchema,
+  findFacilityGeoJsonById200Schema,
+  findFacilityGeoJsonById400Schema,
+  findFacilityGeoJsonById404Schema,
+  findFacilityGeoJsonById500Schema,
+  findFacilityGeoJsonByIdQueryResponseSchema,
+} from "./zod/findFacilityGeoJsonByIdSchema";
+export {
+  findFacilityTilesPathParamsSchema,
+  findFacilityTiles200Schema,
+  findFacilityTiles400Schema,
+  findFacilityTiles500Schema,
+  findFacilityTilesQueryResponseSchema,
+} from "./zod/findFacilityTilesSchema";
 export {
   findLandUses200Schema,
   findLandUses400Schema,
