@@ -6,6 +6,7 @@ const {
   VITE_CPDB_DATA_URL,
   VITE_FACDB_PHASE_2,
   VITE_FACDB_PHASE_3,
+  VITE_STATE_OF_GOOD_REPAIR,
 } = import.meta.env;
 
 export const env = envSchema.parse({
@@ -14,4 +15,5 @@ export const env = envSchema.parse({
   cpdbDataUrl: VITE_CPDB_DATA_URL,
   facDbPhase2: VITE_FACDB_PHASE_2,
   facDbPhase3: VITE_FACDB_PHASE_3,
+  stateOfGoodRepair: VITE_STATE_OF_GOOD_REPAIR,
 });

@@ -14,6 +14,7 @@ export function createDataSource(data?: Partial<DataSource>): DataSource {
       datasetName: faker.string.alpha(),
       version: faker.string.alpha(),
       retrieveDate: faker.string.alpha(),
+      url: faker.string.alpha(),
     },
     ...(data || {}),
   };

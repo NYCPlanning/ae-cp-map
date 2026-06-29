@@ -48,6 +48,22 @@ export const facilitySchema = z.object({
     .string()
     .describe("The name of the entity operating the facility or program.")
     .nullish(),
+  sgrLtr: z
+    .enum(["A", "B", "C", "D", "F"])
+    .describe("The Overall Facility Grade.")
+    .nullish(),
+  sgrArcLtr: z
+    .enum(["A", "B", "C", "D", "F"])
+    .describe("The facility's Architecture grade.")
+    .nullish(),
+  sgrSysLtr: z
+    .enum(["A", "B", "C", "D", "F"])
+    .describe("The facility's Mechanical and Electrical Systems grade.")
+    .nullish(),
+  sgrYear: z
+    .int()
+    .describe("The year of the facility's State of Good Repair assessment.")
+    .nullish(),
   get dataSource() {
     return dataSourceSchema;
   },
