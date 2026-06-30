@@ -1,6 +1,7 @@
-export { CbbrCheckbox } from "./CbbrCheckbox";
+export { FilterCheckbox } from "./FilterCheckbox";
 export {
-  CbbrCheckboxGroup,
-  type CbbrCheckboxControlProps,
-} from "./CbbrCheckboxGroup";
+  FilterCheckboxGroup,
+  type FilterCheckboxControlProps,
+} from "./FilterCheckboxGroup";
 export { CbbrAgencyCategoryResponseCheckbox } from "./CbbrAgencyCategoryResponseCheckbox";
+// export { FacilityTypeCheckbox } from "./FacilityTypeCheckbox";

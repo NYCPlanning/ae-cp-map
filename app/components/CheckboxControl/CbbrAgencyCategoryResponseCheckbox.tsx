@@ -1,9 +1,9 @@
-import { CbbrCheckboxGroup } from "./CbbrCheckboxGroup";
+import { FilterCheckboxGroup } from "./FilterCheckboxGroup";
 import {
   CommunityBoardBudgetRequestAgencyCategoryResponseId,
   QueryParams,
 } from "../../utils/types";
-import { CbbrCheckbox } from ".";
+import { FilterCheckbox } from ".";
 import { useStore } from "~/store";
 
 export interface CommunityBoardBudgetRequestAgencyCategoryResponseProps {
@@ -31,14 +31,14 @@ export function CbbrAgencyCategoryResponseCheckbox({
   );
 
   return (
-    <CbbrCheckboxGroup
+    <FilterCheckboxGroup
       formId="agencyCatergoryResponse"
       formLabel="Agency Response"
       fontWeight="700"
       marginBottom={2}
       fontSize={"xs"}
     >
-      <CbbrCheckbox
+      <FilterCheckbox
         key={"all"}
         checkboxValue={"all"}
         checkboxLabel={"Select All"}
@@ -63,7 +63,7 @@ export function CbbrAgencyCategoryResponseCheckbox({
       />
       {cbbrAgencyCategoryResponseCheckboxes.map((cbbrACR) => {
         return (
-          <CbbrCheckbox
+          <FilterCheckbox
             key={cbbrACR.id}
             checkboxValue={cbbrACR.id}
             checkboxLabel={cbbrACR.description}
@@ -71,9 +71,10 @@ export function CbbrAgencyCategoryResponseCheckbox({
             onCheckedChange={(value) => {
               onCheckedChange(String(value));
             }}
+            indentLevel={1}
           />
         );
       })}
-    </CbbrCheckboxGroup>
+    </FilterCheckboxGroup>
   );
 }

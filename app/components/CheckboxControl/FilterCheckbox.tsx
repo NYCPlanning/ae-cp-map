@@ -1,7 +1,7 @@
 import { Checkbox, Text } from "@nycplanning/streetscape";
 import type { TypographyProps } from "@chakra-ui/react";
 
-export interface CbbrCheckboxProps {
+export interface FilterCheckboxProps {
   checkboxLabel: string;
   checkboxValue: string | number;
   isChecked: boolean;
@@ -9,9 +9,10 @@ export interface CbbrCheckboxProps {
   onCheckedChange?: (value: string | number, checked: boolean) => void;
   fontWeight?: TypographyProps["fontWeight"];
   fontSize?: TypographyProps["fontSize"];
+  indentLevel?: number;
 }
 
-export function CbbrCheckbox({
+export function FilterCheckbox({
   checkboxLabel,
   checkboxValue,
   isChecked,
@@ -19,7 +20,8 @@ export function CbbrCheckbox({
   onCheckedChange = () => null,
   fontWeight = "normal",
   fontSize = "xs",
-}: CbbrCheckboxProps) {
+  indentLevel = 0,
+}: FilterCheckboxProps) {
   return (
     <Checkbox
       isChecked={isChecked}
@@ -30,7 +32,7 @@ export function CbbrCheckbox({
       fontSize={fontSize}
       marginBottom={1.8}
       alignItems={"flex-start"}
-      paddingLeft={checkboxLabel === "Select All" ? 0 : 2}
+      paddingLeft={indentLevel * 2}
       sx={{
         "& > span.chakra-checkbox__control": {
           width: 4,
