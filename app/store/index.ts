@@ -1,60 +1,13 @@
 import { create } from "zustand";
-import { CommunityBoardBudgetRequestAgencyCategoryResponse } from "~/gen";
+import type { CommunityBoardBudgetRequestAgencyCategoryResponseStore } from "./community-board-budget-request-agency-category-response";
+import { createCommunityBoardBudgetRequestAgencyCategoryResponseStore } from "./community-board-budget-request-agency-category-response";
+// import type { FacilityTypeStore } from "./facility-type";
+// import { createFacilityTypeStore } from "./facility-type";
 
-interface CommunityBoardBudgetRequestAgencyCategoryResponseCheckboxProps
-  extends CommunityBoardBudgetRequestAgencyCategoryResponse {
-  checked: boolean;
-}
+export type Store = CommunityBoardBudgetRequestAgencyCategoryResponseStore;
+// export type Store = CommunityBoardBudgetRequestAgencyCategoryResponseStore & FacilityTypeStore;
 
-export type Store = {
-  cbbrAgencyCategoryResponseCheckboxes: CommunityBoardBudgetRequestAgencyCategoryResponseCheckboxProps[];
-  initializeCbbrAgencyCategoryResponseCheckboxes: ({
-    checkboxes,
-    cbbrAgencyCategoryResponseIds,
-  }: {
-    checkboxes: CommunityBoardBudgetRequestAgencyCategoryResponse[];
-    cbbrAgencyCategoryResponseIds: number[];
-  }) => void;
-  updateCbbrAgencyCategoryResponseCheckboxById: (checkboxId: number) => void;
-  updateAllCbbrAgencyCategoryResponseCheckboxesByValue: (
-    checked: boolean,
-  ) => void;
-};
-
-export const useStore = create<Store>()((set) => ({
-  cbbrAgencyCategoryResponseCheckboxes: [],
-  initializeCbbrAgencyCategoryResponseCheckboxes: ({
-    checkboxes,
-    cbbrAgencyCategoryResponseIds,
-  }: {
-    checkboxes: CommunityBoardBudgetRequestAgencyCategoryResponse[];
-    cbbrAgencyCategoryResponseIds: number[];
-  }) =>
-    set(() => ({
-      cbbrAgencyCategoryResponseCheckboxes: checkboxes.map((checkbox) => {
-        return {
-          ...checkbox,
-          checked: cbbrAgencyCategoryResponseIds.includes(checkbox.id),
-        };
-      }),
-    })),
-  updateCbbrAgencyCategoryResponseCheckboxById: (checkboxId: number) =>
-    set((state) => ({
-      cbbrAgencyCategoryResponseCheckboxes:
-        state.cbbrAgencyCategoryResponseCheckboxes.map((acr) => {
-          return {
-            ...acr,
-            checked: acr.id === checkboxId ? !acr.checked : acr.checked,
-          };
-        }),
-    })),
-  updateAllCbbrAgencyCategoryResponseCheckboxesByValue: (checked: boolean) =>
-    set((state) => ({
-      cbbrAgencyCategoryResponseCheckboxes:
-        state.cbbrAgencyCategoryResponseCheckboxes
-          .map((checkbox) => {
-            return { ...checkbox, checked };
-          })
-          .sort((a, b) => a.id - b.id),
-    })),
+export const useStore = create<Store>((...a) => ({
+  ...createCommunityBoardBudgetRequestAgencyCategoryResponseStore(...a),
+  // ...createFacilityTypeStore(...a),
 }));
