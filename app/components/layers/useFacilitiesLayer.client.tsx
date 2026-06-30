@@ -8,8 +8,14 @@ import type { MaskExtensionProps } from "@deck.gl/extensions";
 import type { MapViewState } from "@deck.gl/core";
 import { useMediaQuery } from "@nycplanning/streetscape";
 import { FACILITY_PNG_BY_CATEGORY } from "~/utils/facilities-icons";
-import { BoroughId, BoundaryId, BoundaryType } from "../../utils/types";
+import {
+  BoroughId,
+  BoundaryId,
+  BoundaryType,
+  FacilityType,
+} from "../../utils/types";
 import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
+import { useStore } from "~/store";
 
 const { zoningApiUrl } = env;
 export interface FacilityProperties {
@@ -68,6 +74,13 @@ export function useFacilitiesLayer({
       ? [undefined, undefined]
       : pin.split(",").map((d) => parseFloat(d));
 
+  const facilityTypeCheckboxes = useStore(
+    (state) => state.facilityTypeCheckboxes,
+  );
+  const facilityTypeIds = facilityTypeCheckboxes
+    .filter((ft) => ft.checked === true)
+    .map((ft) => ft.id);
+
   return new MVTLayer<FacilityProperties, MaskExtensionProps>({
     id: "facilities",
     data: [`${zoningApiUrl}/api/facilities/{z}/{x}/{y}.pbf`],
@@ -82,7 +95,21 @@ export function useFacilitiesLayer({
         setHoveredFacility(data.object.properties.id);
       }
     },
-    getIconSize: 256,
+    getIconSize: ({ properties }: { properties: FacilityProperties }) => {
+      if (
+        properties.facilityOperatorType === undefined &&
+        !facilityTypeIds.includes("Not specified")
+      )
+        return 0;
+      if (
+        properties.facilityOperatorType !== undefined &&
+        !facilityTypeIds.includes(
+          properties.facilityOperatorType as FacilityType,
+        )
+      )
+        return 0;
+      return 256;
+    },
     iconSizeUnits: "meters",
     iconSizeMaxPixels: isMobile ? 59 : 29,
     getIcon: ({ properties }: { properties: FacilityProperties }) => ({
@@ -111,6 +138,7 @@ export function useFacilitiesLayer({
     updateTriggers: {
       getIcon: [facilityId, hoveredFacility],
       onHover: hoveredFacility,
+      getIconSize: [facilityTypeIds],
     },
     extensions: [new MaskExtension()],
     maskId: `${
