@@ -4,4 +4,4 @@ export {
   type FilterCheckboxControlProps,
 } from "./FilterCheckboxGroup";
 export { CbbrAgencyCategoryResponseCheckbox } from "./CbbrAgencyCategoryResponseCheckbox";
-// export { FacilityTypeCheckbox } from "./FacilityTypeCheckbox";
+export { FacilityTypeCheckbox } from "./FacilityTypeCheckbox";

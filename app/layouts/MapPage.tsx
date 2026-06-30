@@ -42,6 +42,8 @@ import {
   CommunityBoardBudgetRequestPolicyAreaId,
   BoundaryId,
   BoundaryType,
+  FacilityType,
+  FacilityTypes,
 } from "../utils/types";
 import { HowToUseThisTool } from "../components/AdminDropdownContent/HowToUseThisTool";
 import {
@@ -56,6 +58,7 @@ import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
 import { useState, useEffect } from "react";
 import { useStore } from "~/store";
 import { FacilitiesLayerToggle } from "~/components/MapLayerToggle/FacilitiesLayerToggle";
+import { SearchByFacilityMenu } from "~/components/SearchByFacilityMenu";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -75,6 +78,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     cbbrAgencyCategoryResponseIdsParam === null
       ? []
       : cbbrAgencyCategoryResponseIdsParam.split(",");
+  const facilityTypesParam = url.searchParams.get("facilityTypes");
+  const facilityTypes =
+    facilityTypesParam === null
+      ? []
+      : (facilityTypesParam.split(",") as FacilityType[]);
 
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
@@ -142,6 +150,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrAgencies,
         cbbrAgencyCategoryResponses,
         cbbrAgencyCategoryResponseIds,
+        facilityTypes,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -162,6 +171,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrAgencies,
         cbbrAgencyCategoryResponses,
         cbbrAgencyCategoryResponseIds,
+        facilityTypes,
       };
     }
   }
@@ -181,6 +191,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       cbbrAgencies,
       cbbrAgencyCategoryResponses,
       cbbrAgencyCategoryResponseIds,
+      facilityTypes,
     };
   }
 
@@ -195,6 +206,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     cbbrAgencies,
     cbbrAgencyCategoryResponses,
     cbbrAgencyCategoryResponseIds,
+    facilityTypes,
   };
 };
 
@@ -233,10 +245,14 @@ export default function MapPage() {
     cbbrAgencies,
     cbbrAgencyCategoryResponses,
     cbbrAgencyCategoryResponseIds,
+    facilityTypes,
   } = useLoaderData<typeof loader>();
 
   const initializeCbbrAgencyCategoryResponseCheckboxes = useStore(
     (state) => state.initializeCbbrAgencyCategoryResponseCheckboxes,
+  );
+  const initializeFacilityTypeCheckboxes = useStore(
+    (state) => state.initializeFacilityTypeCheckboxes,
   );
   const updateAllCbbrAgencyCategoryResponseCheckboxesByValue = useStore(
     (state) => state.updateAllCbbrAgencyCategoryResponseCheckboxesByValue,
@@ -257,6 +273,13 @@ export default function MapPage() {
         ),
       });
     }
+    initializeFacilityTypeCheckboxes({
+      checkboxes: ["Public", "Non-public", "Not specified"],
+      facilityTypes:
+        facilityTypes.length === 0
+          ? ["Public", "Non-public", "Not specified"]
+          : facilityTypes,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -278,6 +301,16 @@ export default function MapPage() {
       cbbrAgencyCategoryResponseIds: null,
     });
   };
+
+  const clearFacilityFilters = () => {
+    initializeFacilityTypeCheckboxes({
+      checkboxes: ["Public", "Non-public", "Not specified"],
+      facilityTypes: ["Public", "Non-public", "Not specified"],
+    });
+    updateSearchParams({
+      facilityTypes: null,
+    });
+  }; // This isn't resetting the checkboxes
 
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
@@ -598,10 +631,23 @@ export default function MapPage() {
                               cbbrNeedGroupId: null,
                               cbbrAgencyInitials: null,
                               cbbrAgencyCategoryResponseIds: null,
+                              facilityTypes: null,
                             });
                             updateAllCbbrAgencyCategoryResponseCheckboxesByValue(
                               true,
                             );
+                            initializeFacilityTypeCheckboxes({
+                              checkboxes: [
+                                "Public",
+                                "Non-public",
+                                "Not specified",
+                              ],
+                              facilityTypes: [
+                                "Public",
+                                "Non-public",
+                                "Not specified",
+                              ],
+                            });
                           }}
                         >
                           Clear All
@@ -630,6 +676,10 @@ export default function MapPage() {
                           updateFiltersAccordion={updateFiltersAccordion(2)}
                         />
                         <FacilitiesLayerToggle />
+                        <SearchByFacilityMenu
+                          onClear={clearFacilityFilters}
+                          updateFiltersAccordion={updateFiltersAccordion(3)}
+                        />
                       </Box>
                     </Box>
                   </Accordion>
