@@ -12,6 +12,7 @@ import {
   BoroughId,
   BoundaryId,
   BoundaryType,
+  FacilityJurisdiction,
   FacilityType,
 } from "../../utils/types";
 import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
@@ -76,12 +77,15 @@ export function useFacilitiesLayer({
 
   const facilityOversightAgency = searchParams.get("facilityOversightAgency");
 
-  const facilityTypeCheckboxes = useStore(
-    (state) => state.facilityTypeCheckboxes,
+  const { facilityJurisdictionCheckboxes, facilityTypeCheckboxes } = useStore(
+    (state) => state,
   );
+  const facilityJurisdictionIds = facilityJurisdictionCheckboxes
+    .filter((fj) => fj.checked === true)
+    .map((fj) => fj.name);
   const facilityTypeIds = facilityTypeCheckboxes
     .filter((ft) => ft.checked === true)
-    .map((ft) => ft.id);
+    .map((ft) => ft.name);
 
   return new MVTLayer<FacilityProperties, MaskExtensionProps>({
     id: "facilities",
@@ -112,6 +116,18 @@ export function useFacilitiesLayer({
         properties.facilityOperatorType !== undefined &&
         !facilityTypeIds.includes(
           properties.facilityOperatorType as FacilityType,
+        )
+      )
+        return 0;
+      if (
+        properties.facilityJurisdiction === undefined &&
+        !facilityJurisdictionIds.includes("Not specified")
+      )
+        return 0;
+      if (
+        properties.facilityJurisdiction !== undefined &&
+        !facilityJurisdictionIds.includes(
+          properties.facilityJurisdiction as FacilityJurisdiction,
         )
       )
         return 0;

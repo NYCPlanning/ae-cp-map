@@ -3,7 +3,7 @@ import { FacilityOperatorType } from "~/gen";
 import { FacilityType } from "~/utils/types";
 
 interface FacilityTypeCheckboxProps {
-  id: "Public" | "Non-public" | "Not specified";
+  name: "Public" | "Non-public" | "Not specified";
   checked: boolean;
 }
 
@@ -33,7 +33,7 @@ export const createFacilityTypeStore: StateCreator<FacilityTypeStore> = (
     set(() => ({
       facilityTypeCheckboxes: checkboxes.map((checkbox) => {
         return {
-          id: checkbox,
+          name: checkbox,
           checked: facilityTypes.includes(checkbox),
         };
       }),
@@ -43,7 +43,7 @@ export const createFacilityTypeStore: StateCreator<FacilityTypeStore> = (
       facilityTypeCheckboxes: state.facilityTypeCheckboxes.map((ft) => {
         return {
           ...ft,
-          checked: ft.id === checkboxId ? !ft.checked : ft.checked,
+          checked: ft.name === checkboxId ? !ft.checked : ft.checked,
         };
       }),
     })),

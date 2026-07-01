@@ -4,6 +4,8 @@ import {
   findCapitalProjects,
   findFacilities,
   findCommunityBoardBudgetRequests,
+  FindFacilitiesQueryParamsFacilityJurisdictionsEnumKey,
+  FindFacilitiesQueryParamsFacilityOperatorTypesEnumKey,
 } from "~/gen";
 import {
   data,
@@ -44,7 +46,7 @@ import {
 import { Pagination } from "../components/Pagination";
 import { useState, useEffect } from "react";
 import { analytics } from "~/utils/analytics";
-import { formatFiscalYearRange, formatResultsTotal } from "~/utils/utils";
+import { formatFiscalYearRange } from "~/utils/utils";
 import { ContentPanelAccordion } from "../components/ContentPanelAccordion";
 import {
   CapitalProjectListItemSkeleton,
@@ -249,6 +251,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
     throw data("Bad Request", { status: 400 });
   }
   const facilityOffset = (facilitiesPage - 1) * itemsPerPage;
+  const facilityJurisdictions = url.searchParams.get("facilityJurisdictions");
+  const facilityTypes = url.searchParams.get("facilityTypes");
   const facilityOversightAgency = url.searchParams.get(
     "facilityOversightAgency",
   );
@@ -274,7 +278,18 @@ export async function loader({ request }: LoaderFunctionArgs) {
       lat !== undefined
         ? { geometry: "Point", buffer, lats: [lat], lons: [lon] }
         : {}),
-
+      facilityJurisdictions:
+        facilityJurisdictions === null
+          ? undefined
+          : (facilityJurisdictions.split(
+              ",",
+            ) as FindFacilitiesQueryParamsFacilityJurisdictionsEnumKey[]),
+      facilityOperatorTypes:
+        facilityTypes === null
+          ? undefined
+          : (facilityTypes.split(
+              ",",
+            ) as FindFacilitiesQueryParamsFacilityOperatorTypesEnumKey[]),
       facilityOversightAgency:
         facilityOversightAgency === null ? undefined : facilityOversightAgency,
       facilityCategoryIds:
