@@ -19,6 +19,7 @@ import {
   useSelectedBoroughsLayer,
   useMapPinLayer,
   useFacilitiesLayer,
+  useFacilitiesGeoJsonLayer,
 } from "./layers";
 import type { MapView, MapViewState, PickingInfo } from "@deck.gl/core";
 import { FlyToInterpolator } from "@deck.gl/core";
@@ -90,11 +91,8 @@ export function Atlas({
   const communityBoardBudgetRequestGeoJsonLayer =
     useCommunityBoardBudgetRequestsGeoJsonLayer();
 
-  const facilitiesLayer = useFacilitiesLayer({
-    viewState,
-    setViewState,
-    visible: showFacilities,
-  });
+  const facilitiesLayer = useFacilitiesLayer({ visible: showFacilities });
+  const facilitiesGeoJsonLayer = useFacilitiesGeoJsonLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer({ clearCombobox });
   const communityDistrictLayer = useSelectedCommunityDistrictsLayer();
   const communityDistrictsOutlinesLayer = useCommunityDistrictsOutlinesLayer();
@@ -130,6 +128,7 @@ export function Atlas({
           capitalProjectsLayer,
           capitalProjectBudgetedGeoJsonLayer,
           facilitiesLayer,
+          facilitiesGeoJsonLayer,
           communityBoardBudgetRequestsLayer,
           communityBoardBudgetRequestGeoJsonLayer,
           mapPinLayer,
