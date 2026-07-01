@@ -8,12 +8,17 @@ import {
 import { useDismissWelcomeAndUpdateSearchParams } from "../utils/utils";
 import {
   FacilityOversightAgency,
+  FacilityJurisdiction,
+  FacilityJurisdictions,
   FacilityType,
   FacilityTypes,
 } from "../utils/types";
 import { ClearFilterBtn } from "./ClearFilter";
-import { FacilityTypeCheckbox } from "./CheckboxControl";
 import { OversightAgencyDropdown } from "./DropdownControl";
+import {
+  FacilityJurisdictionCheckbox,
+  FacilityTypeCheckbox,
+} from "./CheckboxControl";
 import { useStore } from "~/store";
 import { Agency } from "~/gen";
 
@@ -35,16 +40,25 @@ export const SearchByFacilityMenu = ({
 
   const facilityTypeIds = useStore((state) => state.facilityTypeCheckboxes)
     .filter((ft) => ft.checked === true)
-    .map((ft) => ft.id);
-  const updateFacilityTypeCheckboxById = useStore(
-    (state) => state.updateFacilityTypeCheckboxById,
-  );
+    .map((ft) => ft.name);
+  const facilityJurisdictionIds = useStore(
+    (state) => state.facilityJurisdictionCheckboxes,
+  )
+    .filter((fj) => fj.checked === true)
+    .map((fj) => fj.name);
+  const {
+    updateFacilityTypeCheckboxById,
+    updateFacilityJurisdictionCheckboxById,
+  } = useStore((state) => state);
 
   const appliedFilters: number[] = [
     facilityTypeIds !== null && facilityTypeIds.length < 3
       ? facilityTypeIds.length
       : 0,
     facilityOversightAgency !== null ? 1 : 0,
+    facilityJurisdictionIds !== null && facilityJurisdictionIds.length < 5
+      ? facilityJurisdictionIds.length
+      : 0,
   ];
 
   return (
@@ -84,6 +98,28 @@ export const SearchByFacilityMenu = ({
         flexDirection={"column"}
       >
         <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
+        <FacilityJurisdictionCheckbox
+          onCheckedChange={(value: FacilityJurisdiction | null) => {
+            if (value === null)
+              throw new Error("Unexpected null for facility type id");
+            let nextValue: FacilityJurisdictions;
+            if (facilityJurisdictionIds === null) {
+              nextValue = [value];
+            } else if (facilityJurisdictionIds.includes(value)) {
+              const removedValue = facilityJurisdictionIds.filter(
+                (item) => item !== value,
+              );
+              nextValue = removedValue.length === 0 ? null : removedValue;
+            } else {
+              nextValue = facilityJurisdictionIds.concat([value]);
+            }
+            updateFacilityJurisdictionCheckboxById(value);
+            dismissWelcomeAndUpdateSearchParams("/facilities", {
+              facilityJurisdictions:
+                nextValue === null || nextValue.length === 5 ? null : nextValue,
+            });
+          }}
+        />
         <FacilityTypeCheckbox
           onCheckedChange={(value: FacilityType | null) => {
             if (value === null)
@@ -105,9 +141,6 @@ export const SearchByFacilityMenu = ({
                 nextValue === null || nextValue.length === 3 ? null : nextValue,
             });
           }}
-          dismissWelcomeAndUpdateSearchParams={
-            dismissWelcomeAndUpdateSearchParams
-          }
         />
         <OversightAgencyDropdown
           agencies={facilityAgencies}

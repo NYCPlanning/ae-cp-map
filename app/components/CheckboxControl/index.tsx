@@ -5,3 +5,4 @@ export {
 } from "./FilterCheckboxGroup";
 export { CbbrAgencyCategoryResponseCheckbox } from "./CbbrAgencyCategoryResponseCheckbox";
 export { FacilityTypeCheckbox } from "./FacilityTypeCheckbox";
+export { FacilityJurisdictionCheckbox } from "./FacilityJurisdictionCheckbox";
