@@ -1,19 +1,14 @@
 import { FilterCheckboxGroup } from "./FilterCheckboxGroup";
-import { FacilityType, QueryParams } from "../../utils/types";
+import { FacilityType } from "../../utils/types";
 import { FilterCheckbox } from ".";
 import { useStore } from "~/store";
 
 export interface FacilityTypeProps {
   onCheckedChange: (value: FacilityType | null) => void;
-  dismissWelcomeAndUpdateSearchParams: (
-    newPath: string,
-    changes: QueryParams,
-  ) => void;
 }
 
 export function FacilityTypeCheckbox({
   onCheckedChange = () => null,
-  dismissWelcomeAndUpdateSearchParams,
 }: FacilityTypeProps) {
   const facilityTypeCheckboxes = useStore(
     (state) => state.facilityTypeCheckboxes,

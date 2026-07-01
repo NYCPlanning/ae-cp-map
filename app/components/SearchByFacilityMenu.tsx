@@ -6,9 +6,17 @@ import {
   Heading,
 } from "@nycplanning/streetscape";
 import { useDismissWelcomeAndUpdateSearchParams } from "../utils/utils";
-import { FacilityType, FacilityTypes } from "../utils/types";
+import {
+  FacilityJurisdiction,
+  FacilityJurisdictions,
+  FacilityType,
+  FacilityTypes,
+} from "../utils/types";
 import { ClearFilterBtn } from "./ClearFilter";
-import { FacilityTypeCheckbox } from "./CheckboxControl";
+import {
+  FacilityJurisdictionCheckbox,
+  FacilityTypeCheckbox,
+} from "./CheckboxControl";
 import { useStore } from "~/store";
 
 export interface SearchByFacilityMenuProps {
@@ -26,13 +34,22 @@ export const SearchByFacilityMenu = ({
   const facilityTypeIds = useStore((state) => state.facilityTypeCheckboxes)
     .filter((ft) => ft.checked === true)
     .map((ft) => ft.id);
-  const updateFacilityTypeCheckboxById = useStore(
-    (state) => state.updateFacilityTypeCheckboxById,
-  );
+  const facilityJurisdictionIds = useStore(
+    (state) => state.facilityJurisdictionCheckboxes,
+  )
+    .filter((fJ) => fJ.checked === true)
+    .map((fJ) => fJ.id);
+  const {
+    updateFacilityTypeCheckboxById,
+    updateFacilityJurisdictionCheckboxById,
+  } = useStore((state) => state);
 
   const appliedFilters: number[] = [
     facilityTypeIds !== null && facilityTypeIds.length < 3
       ? facilityTypeIds.length
+      : 0,
+    facilityJurisdictionIds !== null && facilityJurisdictionIds.length < 5
+      ? facilityJurisdictionIds.length
       : 0,
   ];
 
@@ -73,6 +90,28 @@ export const SearchByFacilityMenu = ({
         flexDirection={"column"}
       >
         <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
+        <FacilityJurisdictionCheckbox
+          onCheckedChange={(value: FacilityJurisdiction | null) => {
+            if (value === null)
+              throw new Error("Unexpected null for facility type id");
+            let nextValue: FacilityJurisdictions;
+            if (facilityJurisdictionIds === null) {
+              nextValue = [value];
+            } else if (facilityJurisdictionIds.includes(value)) {
+              const removedValue = facilityJurisdictionIds.filter(
+                (item) => item !== value,
+              );
+              nextValue = removedValue.length === 0 ? null : removedValue;
+            } else {
+              nextValue = facilityJurisdictionIds.concat([value]);
+            }
+            updateFacilityJurisdictionCheckboxById(value);
+            dismissWelcomeAndUpdateSearchParams("/facilities", {
+              facilityJurisdictions:
+                nextValue === null || nextValue.length === 5 ? null : nextValue,
+            });
+          }}
+        />
         <FacilityTypeCheckbox
           onCheckedChange={(value: FacilityType | null) => {
             if (value === null)
@@ -94,9 +133,6 @@ export const SearchByFacilityMenu = ({
                 nextValue === null || nextValue.length === 3 ? null : nextValue,
             });
           }}
-          dismissWelcomeAndUpdateSearchParams={
-            dismissWelcomeAndUpdateSearchParams
-          }
         />
       </AccordionPanel>
     </AccordionItem>
