@@ -2,10 +2,8 @@ import { MVTLayer } from "@deck.gl/geo-layers";
 import { useState } from "react";
 import { env } from "~/utils/env";
 import { useNavigate, useParams, useSearchParams } from "react-router";
-import { FlyToInterpolator } from "@deck.gl/core";
 import { MaskExtension } from "@deck.gl/extensions";
 import type { MaskExtensionProps } from "@deck.gl/extensions";
-import type { MapViewState } from "@deck.gl/core";
 import { useMediaQuery } from "@nycplanning/streetscape";
 import { FACILITY_PNG_BY_CATEGORY } from "~/utils/facilities-icons";
 import {
@@ -29,15 +27,7 @@ export interface FacilityProperties {
   overseeingAgencyInitials: string;
 }
 
-export function useFacilitiesLayer({
-  viewState,
-  setViewState,
-  visible,
-}: {
-  viewState: MapViewState;
-  setViewState: (newViewState: MapViewState) => void;
-  visible: boolean;
-}) {
+export function useFacilitiesLayer({ visible }: { visible: boolean }) {
   const { facilityId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -122,17 +112,9 @@ export function useFacilitiesLayer({
     onClick: (info) => {
       const newFacilityId = info.object.properties.id;
       if (newFacilityId === undefined || newFacilityId === facilityId) return;
-      const [longitude, latitude] = info.object.geometry.coordinates;
       navigate({
         pathname: `/facilities/${newFacilityId}`,
         search: `?${searchParams.toString()}`,
-      });
-      setViewState({
-        longitude,
-        latitude,
-        zoom: viewState.zoom < 15 ? 15 : viewState.zoom,
-        transitionDuration: 750,
-        transitionInterpolator: new FlyToInterpolator(),
       });
     },
     updateTriggers: {
