@@ -8,10 +8,19 @@ import {
 import { bbox } from "@turf/bbox";
 import { Geometry } from "geojson";
 
-export class FlyToGeoJsonExtension extends LayerExtension {
+export type FlyToGeoJsonExtensionProps = {
+  minZoomOnSelection?: number;
+};
+export class FlyToGeoJsonExtension extends LayerExtension<FlyToGeoJsonExtensionProps> {
+  static defaultProps = { minZoomOnSelection: undefined };
+
   updateState(
-    this: Layer,
-    { props, oldProps, changeFlags }: UpdateParameters<Layer>,
+    this: Layer<FlyToGeoJsonExtensionProps>,
+    {
+      props,
+      oldProps,
+      changeFlags,
+    }: UpdateParameters<Layer<FlyToGeoJsonExtensionProps>>,
   ): void {
     const { deck: deckInstance } = this.context;
     if (deckInstance === undefined) {
@@ -39,7 +48,10 @@ export class FlyToGeoJsonExtension extends LayerExtension {
       const newViewState = {
         longitude,
         latitude,
-        zoom: zoom,
+        zoom:
+          this.props.minZoomOnSelection === undefined
+            ? zoom // if we dont pass in a min zoom, use bounding box calc
+            : Math.max(viewport.zoom, this.props.minZoomOnSelection), // if we do, use the max of the current zoom and the passed variable
         transitionDuration: 750,
         transitionInterpolator: new FlyToInterpolator(),
       };
