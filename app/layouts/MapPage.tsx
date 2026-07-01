@@ -43,7 +43,7 @@ import {
   BoundaryId,
   BoundaryType,
   FacilityType,
-  FacilityTypes,
+  FacilityJurisdiction,
 } from "../utils/types";
 import { HowToUseThisTool } from "../components/AdminDropdownContent/HowToUseThisTool";
 import {
@@ -83,6 +83,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     facilityTypesParam === null
       ? []
       : (facilityTypesParam.split(",") as FacilityType[]);
+  const facilityJurisdictionsParam = url.searchParams.get(
+    "facilityJurisdictions",
+  );
+  const facilityJurisdictions =
+    facilityJurisdictionsParam === null
+      ? []
+      : (facilityJurisdictionsParam.split(",") as FacilityJurisdiction[]);
 
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
@@ -151,6 +158,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrAgencyCategoryResponses,
         cbbrAgencyCategoryResponseIds,
         facilityTypes,
+        facilityJurisdictions,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -172,6 +180,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrAgencyCategoryResponses,
         cbbrAgencyCategoryResponseIds,
         facilityTypes,
+        facilityJurisdictions,
       };
     }
   }
@@ -192,6 +201,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       cbbrAgencyCategoryResponses,
       cbbrAgencyCategoryResponseIds,
       facilityTypes,
+      facilityJurisdictions,
     };
   }
 
@@ -207,6 +217,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     cbbrAgencyCategoryResponses,
     cbbrAgencyCategoryResponseIds,
     facilityTypes,
+    facilityJurisdictions,
   };
 };
 
@@ -246,17 +257,16 @@ export default function MapPage() {
     cbbrAgencyCategoryResponses,
     cbbrAgencyCategoryResponseIds,
     facilityTypes,
+    facilityJurisdictions,
   } = useLoaderData<typeof loader>();
 
-  const initializeCbbrAgencyCategoryResponseCheckboxes = useStore(
-    (state) => state.initializeCbbrAgencyCategoryResponseCheckboxes,
-  );
-  const initializeFacilityTypeCheckboxes = useStore(
-    (state) => state.initializeFacilityTypeCheckboxes,
-  );
-  const updateAllCbbrAgencyCategoryResponseCheckboxesByValue = useStore(
-    (state) => state.updateAllCbbrAgencyCategoryResponseCheckboxesByValue,
-  );
+  const {
+    initializeCbbrAgencyCategoryResponseCheckboxes,
+    initializeFacilityTypeCheckboxes,
+    initializeFacilityJurisdictionCheckboxes,
+    updateAllCbbrAgencyCategoryResponseCheckboxesByValue,
+  } = useStore((state) => state);
+
   useEffect(() => {
     if (cbbrAgencyCategoryResponseIds.length === 0) {
       initializeCbbrAgencyCategoryResponseCheckboxes({
@@ -279,6 +289,13 @@ export default function MapPage() {
         facilityTypes.length === 0
           ? ["Public", "Non-public", "Not specified"]
           : facilityTypes,
+    });
+    initializeFacilityJurisdictionCheckboxes({
+      checkboxes: ["City", "State", "Federal", "County", "Not specified"],
+      facilityJurisdictions:
+        facilityJurisdictions.length === 0
+          ? ["City", "State", "Federal", "County", "Not specified"]
+          : facilityJurisdictions,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -307,10 +324,21 @@ export default function MapPage() {
       checkboxes: ["Public", "Non-public", "Not specified"],
       facilityTypes: ["Public", "Non-public", "Not specified"],
     });
+    initializeFacilityJurisdictionCheckboxes({
+      checkboxes: ["City", "State", "Federal", "County", "Not specified"],
+      facilityJurisdictions: [
+        "City",
+        "State",
+        "Federal",
+        "County",
+        "Not specified",
+      ],
+    });
     updateSearchParams({
       facilityTypes: null,
+      facilityJurisdictions: null,
     });
-  }; // This isn't resetting the checkboxes
+  };
 
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;
@@ -632,6 +660,7 @@ export default function MapPage() {
                               cbbrAgencyInitials: null,
                               cbbrAgencyCategoryResponseIds: null,
                               facilityTypes: null,
+                              facilityJurisdictions: null,
                             });
                             updateAllCbbrAgencyCategoryResponseCheckboxesByValue(
                               true,
@@ -645,6 +674,22 @@ export default function MapPage() {
                               facilityTypes: [
                                 "Public",
                                 "Non-public",
+                                "Not specified",
+                              ],
+                            });
+                            initializeFacilityJurisdictionCheckboxes({
+                              checkboxes: [
+                                "City",
+                                "State",
+                                "Federal",
+                                "County",
+                                "Not specified",
+                              ],
+                              facilityJurisdictions: [
+                                "City",
+                                "State",
+                                "Federal",
+                                "County",
                                 "Not specified",
                               ],
                             });

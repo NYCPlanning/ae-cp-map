@@ -17,6 +17,13 @@ export type CommunityBoardBudgetRequestAgencyInitials = string | null;
 export type CommunityBoardBudgetRequestAgencyCategoryResponseId = string | null;
 export type FacilityType = "Public" | "Non-public" | "Not specified";
 export type FacilityTypes = FacilityType[] | null;
+export type FacilityJurisdiction =
+  | "City"
+  | "State"
+  | "Federal"
+  | "County"
+  | "Not specified";
+export type FacilityJurisdictions = FacilityJurisdiction[] | null;
 
 export type AdminQueryParams = {
   boundaryType?: BoundaryType;
@@ -37,6 +44,7 @@ export type AttributeParams = {
   cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
   cbbrAgencyCategoryResponseIds?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
   facilityTypes?: FacilityTypes;
+  facilityJurisdictions?: FacilityJurisdictions;
 };
 
 export type AttributeQueryParams = {
