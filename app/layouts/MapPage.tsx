@@ -32,6 +32,7 @@ import {
   findCommunityBoardBudgetRequestNeedGroups,
   findCommunityBoardBudgetRequestAgencies,
   findCommunityBoardBudgetRequestAgencyCategoryResponses,
+  findFacilityCategories,
 } from "../gen";
 import { SearchByAttributeMenu } from "../components/SearchByAttributeMenu";
 import { env } from "../utils/env";
@@ -90,6 +91,21 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     facilityJurisdictionsParam === null
       ? []
       : (facilityJurisdictionsParam.split(",") as FacilityJurisdiction[]);
+  const facilityCategoryIdsParam = url.searchParams.get("facilityCategoryIds");
+  const facilityCategoryIds =
+    facilityCategoryIdsParam === null
+      ? []
+      : (facilityCategoryIdsParam.split(",").map((id) => parseInt(id)));
+  const facilityGroupIdsParam = url.searchParams.get("facilityGroupIds");
+  const facilityGroupIds =
+    facilityGroupIdsParam === null
+      ? []
+      : (facilityGroupIdsParam.split(",").map((id) => parseInt(id)));
+  const facilitySubgroupIdsParam = url.searchParams.get("facilitySubgroupIds");
+  const facilitySubgroupIds =
+    facilitySubgroupIdsParam === null
+      ? []
+      : (facilitySubgroupIdsParam.split(",").map((id) => parseInt(id)));
 
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
@@ -135,6 +151,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     },
   );
 
+  const facilityCategoriesList =
+    await findFacilityCategories({
+      baseURL: `${env.zoningApiUrl}/api`,
+    });
+
   const { cbbrAgencyCategoryResponses } =
     await findCommunityBoardBudgetRequestAgencyCategoryResponses({
       baseURL: `${env.zoningApiUrl}/api`,
@@ -159,6 +180,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrAgencyCategoryResponseIds,
         facilityTypes,
         facilityJurisdictions,
+        facilityCategoriesList,
+        facilityCategoryIds,
+        facilityGroupIds,
+        facilitySubgroupIds,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -181,6 +206,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrAgencyCategoryResponseIds,
         facilityTypes,
         facilityJurisdictions,
+        facilityCategoriesList,
+        facilityCategoryIds,
+        facilityGroupIds,
+        facilitySubgroupIds,
       };
     }
   }
@@ -202,6 +231,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       cbbrAgencyCategoryResponseIds,
       facilityTypes,
       facilityJurisdictions,
+      facilityCategoriesList,
+      facilityCategoryIds,
+      facilityGroupIds,
+      facilitySubgroupIds,
     };
   }
 
@@ -218,6 +251,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     cbbrAgencyCategoryResponseIds,
     facilityTypes,
     facilityJurisdictions,
+    facilityCategoriesList,
+    facilityCategoryIds,
+    facilityGroupIds,
+    facilitySubgroupIds,
   };
 };
 
@@ -241,8 +278,8 @@ export default function MapPage() {
     const updateFunction = () => {
       filtersAccordionIndex.includes(index)
         ? setFiltersAccordionIndex(
-            filtersAccordionIndex.filter((i) => i !== index),
-          )
+          filtersAccordionIndex.filter((i) => i !== index),
+        )
         : setFiltersAccordionIndex([...filtersAccordionIndex, index]);
     };
     return updateFunction;
@@ -258,6 +295,10 @@ export default function MapPage() {
     cbbrAgencyCategoryResponseIds,
     facilityTypes,
     facilityJurisdictions,
+    facilityCategoriesList,
+    facilityCategoryIds,
+    facilityGroupIds,
+    facilitySubgroupIds,
   } = useLoaderData<typeof loader>();
 
   const {
@@ -265,6 +306,7 @@ export default function MapPage() {
     initializeFacilityTypeCheckboxes,
     initializeFacilityJurisdictionCheckboxes,
     updateAllCbbrAgencyCategoryResponseCheckboxesByValue,
+    initializeAllFacilityCategoryCheckboxes,
   } = useStore((state) => state);
 
   useEffect(() => {
@@ -297,6 +339,12 @@ export default function MapPage() {
           ? ["City", "State", "Federal", "County", "Not specified"]
           : facilityJurisdictions,
     });
+    initializeAllFacilityCategoryCheckboxes({
+      facilityCategoriesList,
+      facilityCategoryIds,
+      facilityGroupIds,
+      facilitySubgroupIds,
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -6,3 +6,5 @@ export {
 export { CbbrAgencyCategoryResponseCheckbox } from "./CbbrAgencyCategoryResponseCheckbox";
 export { FacilityTypeCheckbox } from "./FacilityTypeCheckbox";
 export { FacilityJurisdictionCheckbox } from "./FacilityJurisdictionCheckbox";
+export { FacilityCategoryCheckboxMenu } from "./FacilityCategoryCheckboxMenu";
+export { FacilityCategoryCheckbox } from "./FacilityCategoryCheckbox";

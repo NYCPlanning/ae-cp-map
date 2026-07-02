@@ -16,6 +16,7 @@ import { ClearFilterBtn } from "./ClearFilter";
 import {
   FacilityJurisdictionCheckbox,
   FacilityTypeCheckbox,
+  FacilityCategoryCheckboxMenu,
 } from "./CheckboxControl";
 import { useStore } from "~/store";
 
@@ -134,6 +135,7 @@ export const SearchByFacilityMenu = ({
             });
           }}
         />
+        <FacilityCategoryCheckboxMenu />
       </AccordionPanel>
     </AccordionItem>
   );
