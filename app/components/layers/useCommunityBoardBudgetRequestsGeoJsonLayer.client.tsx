@@ -3,6 +3,7 @@ import { CommunityBoardBudgetRequestGeoJson } from "~/gen";
 import { useParams } from "react-router";
 import { FlyToGeoJsonExtension } from "../../extensions";
 import { env } from "~/utils/env";
+import { POLICY_AREA_ICONS_MAP } from "~/utils/constants";
 
 const { zoningApiUrl } = env;
 
@@ -23,16 +24,6 @@ export interface CommunityBoardBudgetRequestProperties {
 
 export function useCommunityBoardBudgetRequestsGeoJsonLayer() {
   const { cbbrId } = useParams();
-  const policyAreaIconsMap: Record<number, string> = {
-    1: "health",
-    2: "education",
-    3: "safety",
-    4: "infrastructure",
-    5: "housing",
-    6: "transportation",
-    7: "parks",
-    8: "other",
-  };
 
   return new GeoJsonLayer<CommunityBoardBudgetRequestGeoJson>({
     id: "communityBoardBudgetRequestsGeoJson",
@@ -44,7 +35,7 @@ export function useCommunityBoardBudgetRequestsGeoJsonLayer() {
     getFillColor: [43, 108, 176, 255],
     pointType: "icon",
     getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
-      const icon = policyAreaIconsMap[d.properties.cbbrPolicyAreaId];
+      const icon = POLICY_AREA_ICONS_MAP[d.properties.cbbrPolicyAreaId];
       return `${icon}-click`;
     },
     iconAtlas: `/policy-area-icons/all-icons.png`,

@@ -66,6 +66,7 @@ import { SelectedLocations } from "~/components/SelectedLocations";
 import { useStore } from "~/store";
 import { FacilityListItemSkeleton } from "~/components/Skeletons/FacilityListItemSkeleton";
 import { Tag } from "@chakra-ui/react";
+import { FACILITY_CATEGORY_ID_COLORS } from "~/utils/constants";
 
 const { stateOfGoodRepair } = env;
 
@@ -82,15 +83,6 @@ export const policyAreaIcons: Record<
   7: ParksIcon,
   8: PeopleIcon,
 };
-const FACILITY_CATEGORY_ID_COLORS = new Map<number, string>([
-  [1, "#F0CB32"],
-  [2, "#58AE57"],
-  [3, "#EB9028"],
-  [4, "#86E3F3"],
-  [5, "#4977FA"],
-  [6, "#B66AC5"],
-  [7, "#8E8EA9"],
-]);
 
 const { zoningApiUrl } = env;
 
@@ -338,25 +330,36 @@ export async function loader({ request }: LoaderFunctionArgs) {
 }
 
 export default function ResultsPanel() {
-  const cbbrAgencyCategoryResponseCheckboxes = useStore(
-    (state) => state.cbbrAgencyCategoryResponseCheckboxes,
+  const {
+    cbbrAgencyCategoryResponseCheckboxes,
+    facilityJurisdictionCheckboxes,
+    facilityTypeCheckboxes,
+    facilitySubgroupCheckboxes,
+  } = useStore((state) => state);
+
+  const zeroCBBRs = !cbbrAgencyCategoryResponseCheckboxes.some(
+    (c) => c.checked === true,
   );
-  const zeroCBBRs =
-    cbbrAgencyCategoryResponseCheckboxes.find((c) => c.checked === true) ===
-    undefined;
+
+  const zeroFacilities =
+    !facilityJurisdictionCheckboxes.some((c) => c.checked === true) ||
+    !facilityTypeCheckboxes.some((c) => c.checked === true) ||
+    !facilitySubgroupCheckboxes.some((c) => c.checked === true);
+
   const {
     budgetRequestsResponse,
     capitalProjectsResponse: { capitalProjects, totalProjects },
-    facilitiesResponse: { facilities, totalFacilities },
+    facilitiesResponse,
     agenciesResponse: { agencies },
     boroughsResponse: { boroughs },
   } = useLoaderData<typeof loader>();
-  const { communityBoardBudgetRequests } = zeroCBBRs
-    ? { communityBoardBudgetRequests: [] }
+  const { communityBoardBudgetRequests, totalBudgetRequests } = zeroCBBRs
+    ? { communityBoardBudgetRequests: [], totalBudgetRequests: 0 }
     : budgetRequestsResponse;
-  const { totalBudgetRequests } = zeroCBBRs
-    ? { totalBudgetRequests: 0 }
-    : budgetRequestsResponse;
+
+  const { facilities, totalFacilities } = zeroFacilities
+    ? { facilities: [], totalFacilities: 0 }
+    : facilitiesResponse;
 
   const { pathname } = useLocation();
   const navigate = useNavigate();

@@ -19,7 +19,7 @@ export function FilterCheckbox({
   isIndeterminate = false,
   onCheckedChange = () => null,
   fontWeight = "normal",
-  fontSize = "xs",
+  fontSize = "sm",
   indentLevel = 0,
 }: FilterCheckboxProps) {
   return (
@@ -38,11 +38,20 @@ export function FilterCheckbox({
           width: 4,
           height: 4,
           marginTop: "3px",
-          borderColor: "gray.600",
+          borderColor: isChecked ? "primary.500" : "gray.600",
+        },
+        "& > span.chakra-checkbox__control > div": {
+          width: 3,
+          height: 3,
         },
       }}
     >
-      <Text fontSize={"sm"} fontWeight={fontWeight} color={"gray.600"}>
+      <Text
+        fontSize={fontSize}
+        fontWeight={fontWeight}
+        color={"gray.600"}
+        textAlign={"left"}
+      >
         {checkboxLabel}
       </Text>
     </Checkbox>

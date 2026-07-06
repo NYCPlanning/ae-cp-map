@@ -158,6 +158,13 @@ export function setNewSearchParams(
     "cbbrAgencyInitials",
     "cbbrAgencyCategoryResponseIds",
   ];
+  const FACILITY_SEARCH_PARAMS = [
+    "facilityJurisdictions",
+    "facilityTypes",
+    "facilityCategoryIds",
+    "facilityGroupIds",
+    "facilitySubgroupIds",
+  ];
   const GEO_SEARCH_PARAMS = ["boundaryType", "boroughId", "boundaryId"];
 
   const newSearchParams = new URLSearchParams(searchParams);
@@ -174,9 +181,13 @@ export function setNewSearchParams(
     if (CBBR_SEARCH_PARAMS.includes(key)) {
       newSearchParams.delete("cbbrPage");
     }
+    if (FACILITY_SEARCH_PARAMS.includes(key)) {
+      newSearchParams.delete("facilitiesPage");
+    }
     if (GEO_SEARCH_PARAMS.includes(key)) {
       newSearchParams.delete("cpPage");
       newSearchParams.delete("cbbrPage");
+      newSearchParams.delete("facilitiesPage");
     }
   }
 
