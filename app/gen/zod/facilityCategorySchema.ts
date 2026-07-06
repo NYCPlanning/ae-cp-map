@@ -7,11 +7,9 @@ import { facilityCategoryGroupSchema } from "./facilityCategoryGroupSchema";
 import { z } from "zod/v4";
 
 export const facilityCategorySchema = z.object({
-  id: z
-    .string()
-    .regex(/^([0-9]{1,3})$/)
-    .describe("The id for the category."),
+  id: z.int().describe("The id for the category."),
   name: z.string().describe("The name of the category."),
+  shortName: z.string().describe("The shortened name of the category."),
   description: z.string().describe("The description of the category."),
   get groups() {
     return z.array(facilityCategoryGroupSchema);

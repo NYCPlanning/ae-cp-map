@@ -13,7 +13,7 @@ export function createFacilityCategoryGroup(
 ): FacilityCategoryGroup {
   return {
     ...{
-      id: new RandExp("^([0-9]{1,3})$").gen(),
+      id: faker.number.int(),
       name: faker.string.alpha(),
       description: faker.string.alpha(),
       subgroups: faker.helpers.multiple(() => createFacilityCategorySubgroup()),

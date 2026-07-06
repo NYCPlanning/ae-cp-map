@@ -25,6 +25,9 @@ export type FacilityJurisdiction =
   | "County"
   | "Not specified";
 export type FacilityJurisdictions = FacilityJurisdiction[] | null;
+export type FacilityCategoryIds = number[] | null;
+export type FacilityGroupIds = number[] | null;
+export type FacilitySubgroupIds = number[] | null;
 
 export type AdminQueryParams = {
   boundaryType?: BoundaryType;
@@ -47,6 +50,9 @@ export type AttributeParams = {
   facilityTypes?: FacilityTypes;
   facilityOversightAgency?: FacilityOversightAgency;
   facilityJurisdictions?: FacilityJurisdictions;
+  facilityCategoryIds?: FacilityCategoryIds;
+  facilityGroupIds?: FacilityGroupIds;
+  facilitySubgroupIds?: FacilitySubgroupIds;
 };
 
 export type AttributeQueryParams = {
@@ -78,10 +84,10 @@ export type LayerQueryParams = Partial<Record<LayerParamKey, LayerParamValue>>;
 
 export type QueryParams = Partial<
   AdminQueryParams &
-  AttributeParams &
-  PaginationQueryParams &
-  LayerQueryParams &
-  AddressQueryParams
+    AttributeParams &
+    PaginationQueryParams &
+    LayerQueryParams &
+    AddressQueryParams
 >;
 
 export type ProjectAmountMenuParams = {

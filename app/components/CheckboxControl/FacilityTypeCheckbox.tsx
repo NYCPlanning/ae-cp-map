@@ -19,7 +19,7 @@ export function FacilityTypeCheckbox({
       formId="facilityType"
       formLabel="Facility Type"
       fontWeight="700"
-      marginBottom={2}
+      marginBottom={4}
       fontSize={"xs"}
       tooltip={"The type of entity operating the facility."}
     >

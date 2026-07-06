@@ -5,13 +5,17 @@ import type { FacilityTypeStore } from "./facility-type";
 import { createFacilityTypeStore } from "./facility-type";
 import type { FacilityJurisdictionStore } from "./facility-jurisdiction";
 import { createFacilityJurisdictionStore } from "./facility-jurisdiction";
+import type { FacilityCategoryStore } from "./facility-category";
+import { createFacilityCategoryStore } from "./facility-category";
 
 export type Store = CommunityBoardBudgetRequestAgencyCategoryResponseStore &
   FacilityTypeStore &
-  FacilityJurisdictionStore;
+  FacilityJurisdictionStore &
+  FacilityCategoryStore;
 
 export const useStore = create<Store>((...a) => ({
   ...createCommunityBoardBudgetRequestAgencyCategoryResponseStore(...a),
   ...createFacilityTypeStore(...a),
   ...createFacilityJurisdictionStore(...a),
+  ...createFacilityCategoryStore(...a),
 }));

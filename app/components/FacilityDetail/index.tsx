@@ -21,6 +21,7 @@ import {
 import { useNavigate, useSearchParams } from "react-router";
 import { format } from "date-fns";
 import { env } from "~/utils/env";
+import { FACILITY_CATEGORY_ID_COLORS } from "~/utils/constants";
 
 const { stateOfGoodRepair } = env;
 
@@ -30,16 +31,6 @@ export type FacilityDetailProps = {
   categoryPath: string;
   onNavigationClick: () => void;
 };
-
-const FACILITY_CATEGORY_ID_COLORS = new Map<number, string>([
-  [1, "#F0CB32"],
-  [2, "#58AE57"],
-  [3, "#EB9028"],
-  [4, "#86E3F3"],
-  [5, "#4977FA"],
-  [6, "#B66AC5"],
-  [7, "#8E8EA9"],
-]);
 
 export function FacilityDetail({
   facility,

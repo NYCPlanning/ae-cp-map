@@ -18,6 +18,7 @@ import { OversightAgencyDropdown } from "./DropdownControl";
 import {
   FacilityJurisdictionCheckbox,
   FacilityTypeCheckbox,
+  FacilityCategoryCheckboxMenu,
 } from "./CheckboxControl";
 import { useStore } from "~/store";
 import { Agency } from "~/gen";
@@ -49,6 +50,7 @@ export const SearchByFacilityMenu = ({
   const {
     updateFacilityTypeCheckboxById,
     updateFacilityJurisdictionCheckboxById,
+    facilitySubgroupCheckboxes,
   } = useStore((state) => state);
 
   const appliedFilters: number[] = [
@@ -58,6 +60,10 @@ export const SearchByFacilityMenu = ({
     facilityOversightAgency !== null ? 1 : 0,
     facilityJurisdictionIds !== null && facilityJurisdictionIds.length < 5
       ? facilityJurisdictionIds.length
+      : 0,
+    facilitySubgroupCheckboxes.some((c) => c.checked) &&
+    facilitySubgroupCheckboxes.some((c) => !c.checked)
+      ? 1
       : 0,
   ];
 
@@ -151,6 +157,7 @@ export const SearchByFacilityMenu = ({
             });
           }}
         />
+        <FacilityCategoryCheckboxMenu />
       </AccordionPanel>
     </AccordionItem>
   );

@@ -19,6 +19,7 @@ import { CommunityBoardBudgetRequestType } from "~/gen";
 import { IconClusterLayer } from "./icon-cluster-layer";
 import { ADDRESS_SEARCH_RADIUS } from "~/components/HeaderBar/AddressSearch";
 import { useStore } from "~/store";
+import { POLICY_AREA_ICONS_MAP } from "~/utils/constants";
 
 const { zoningApiUrl } = env;
 
@@ -103,17 +104,6 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     endpointPrefix = `boroughs/${boroughId}/community-districts/${boundaryId}/`;
   }
 
-  const policyAreaIconsMap: Record<number, string> = {
-    1: "health",
-    2: "education",
-    3: "safety",
-    4: "infrastructure",
-    5: "housing",
-    6: "transportation",
-    7: "parks",
-    8: "other",
-  };
-
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
     DataFilterExtensionProps<
@@ -184,7 +174,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     binary: false,
     getIcon: (d: { properties: CommunityBoardBudgetRequestProperties }) => {
       if (d.properties.cluster !== true) {
-        const icon = policyAreaIconsMap[d.properties.policyAreaId];
+        const icon = POLICY_AREA_ICONS_MAP[d.properties.policyAreaId];
         if (cbbrId === d.properties.id) {
           return null;
         } else {

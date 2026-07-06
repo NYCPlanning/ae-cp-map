@@ -67,15 +67,20 @@ export function useFacilitiesLayer({ visible }: { visible: boolean }) {
 
   const facilityOversightAgency = searchParams.get("facilityOversightAgency");
 
-  const { facilityJurisdictionCheckboxes, facilityTypeCheckboxes } = useStore(
-    (state) => state,
-  );
+  const {
+    facilityJurisdictionCheckboxes,
+    facilityTypeCheckboxes,
+    facilitySubgroupCheckboxes,
+  } = useStore((state) => state);
   const facilityJurisdictionIds = facilityJurisdictionCheckboxes
     .filter((fj) => fj.checked === true)
     .map((fj) => fj.name);
   const facilityTypeIds = facilityTypeCheckboxes
     .filter((ft) => ft.checked === true)
     .map((ft) => ft.name);
+  const facilitySubgroupIds = facilitySubgroupCheckboxes
+    .filter((fs) => fs.checked === true)
+    .map((fs) => fs.id);
 
   return new MVTLayer<FacilityProperties, MaskExtensionProps>({
     id: "facilities",
@@ -120,6 +125,8 @@ export function useFacilitiesLayer({ visible }: { visible: boolean }) {
           properties.facilityJurisdiction as FacilityJurisdiction,
         )
       )
+        return 0;
+      if (!facilitySubgroupIds.includes(properties.categorySubgroupId))
         return 0;
       return 256;
     },
