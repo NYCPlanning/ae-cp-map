@@ -454,11 +454,13 @@ export function FacilityDetail({
                   )}
                   borderRadius={"2px"}
                 />
-                <Text
+                <Link
                   color={"primary.600"}
                   textDecorationLine={"underline"}
                   cursor={"pointer"}
-                  onClick={() => {
+                  href={`/facilities/${otherFacility.id}?${searchParams.toString()}`}
+                  onClick={(e) => {
+                    e.preventDefault();
                     navigate({
                       pathname: `/facilities/${otherFacility.id}`,
                       search: `?${searchParams.toString()}`,
@@ -466,7 +468,7 @@ export function FacilityDetail({
                   }}
                 >
                   {otherFacility.name}
-                </Text>
+                </Link>
               </HStack>
             ))}
           </VStack>
