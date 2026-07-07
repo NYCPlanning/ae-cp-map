@@ -6,19 +6,29 @@ import {
   Heading,
 } from "@nycplanning/streetscape";
 import { useDismissWelcomeAndUpdateSearchParams } from "../utils/utils";
-import { FacilityType, FacilityTypes } from "../utils/types";
+import {
+  FacilityOversightAgency,
+  FacilityType,
+  FacilityTypes,
+} from "../utils/types";
 import { ClearFilterBtn } from "./ClearFilter";
 import { FacilityTypeCheckbox } from "./CheckboxControl";
+import { OversightAgencyDropdown } from "./DropdownControl";
 import { useStore } from "~/store";
+import { Agency } from "~/gen";
 
 export interface SearchByFacilityMenuProps {
   onClear: () => void;
   updateFiltersAccordion: () => void;
+  facilityAgencies: Array<Agency> | null;
+  facilityOversightAgency: FacilityOversightAgency;
 }
 
 export const SearchByFacilityMenu = ({
   onClear,
   updateFiltersAccordion,
+  facilityAgencies,
+  facilityOversightAgency,
 }: SearchByFacilityMenuProps) => {
   const dismissWelcomeAndUpdateSearchParams =
     useDismissWelcomeAndUpdateSearchParams();
@@ -34,6 +44,7 @@ export const SearchByFacilityMenu = ({
     facilityTypeIds !== null && facilityTypeIds.length < 3
       ? facilityTypeIds.length
       : 0,
+    facilityOversightAgency !== null ? 1 : 0,
   ];
 
   return (
@@ -97,6 +108,15 @@ export const SearchByFacilityMenu = ({
           dismissWelcomeAndUpdateSearchParams={
             dismissWelcomeAndUpdateSearchParams
           }
+        />
+        <OversightAgencyDropdown
+          agencies={facilityAgencies}
+          selectValue={facilityOversightAgency}
+          onSelectValueChange={(value) => {
+            dismissWelcomeAndUpdateSearchParams("/facilities", {
+              facilityOversightAgency: value,
+            });
+          }}
         />
       </AccordionPanel>
     </AccordionItem>

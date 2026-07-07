@@ -25,6 +25,7 @@ import { Atlas, MAX_ZOOM, MIN_ZOOM } from "../components/atlas.client";
 import {
   findBoroughs,
   findCityCouncilDistricts,
+  findFacilityAgencies,
   findCommunityDistrictsByBoroughId,
   findAgencyBudgets,
   findCapitalProjectManagingAgencies,
@@ -49,16 +50,16 @@ import { HowToUseThisTool } from "../components/AdminDropdownContent/HowToUseThi
 import {
   CapitalProjectLayerToggle,
   CommunityBoardBudgetRequestLayerToggle,
+  FacilitiesLayerToggle,
 } from "~/components/MapLayerToggle";
 import { CommunityBoardBudgetRequestLegend } from "../components/CommunityBoardBudgetRequestLegend";
 import { useUpdateSearchParams } from "../utils/utils";
 import type { RootContextType } from "../root";
 import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
+import { SearchByFacilityMenu } from "~/components/SearchByFacilityMenu";
 import { useState, useEffect } from "react";
 import { useStore } from "~/store";
-import { FacilitiesLayerToggle } from "~/components/MapLayerToggle/FacilitiesLayerToggle";
-import { SearchByFacilityMenu } from "~/components/SearchByFacilityMenu";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -84,11 +85,19 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       ? []
       : (facilityTypesParam.split(",") as FacilityType[]);
 
+  const facilityOversightAgency = url.searchParams.get(
+    "facilityOversightAgency",
+  );
+
   const { managingAgencies } = await findCapitalProjectManagingAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
   });
 
   const { agencyBudgets } = await findAgencyBudgets({
+    baseURL: `${env.zoningApiUrl}/api`,
+  });
+
+  const facilityAgencies = await findFacilityAgencies({
     baseURL: `${env.zoningApiUrl}/api`,
   });
 
@@ -151,6 +160,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrAgencyCategoryResponses,
         cbbrAgencyCategoryResponseIds,
         facilityTypes,
+        facilityOversightAgency,
+        facilityAgencies,
       };
     } else {
       const { communityDistricts } = await findCommunityDistrictsByBoroughId(
@@ -172,6 +183,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
         cbbrAgencyCategoryResponses,
         cbbrAgencyCategoryResponseIds,
         facilityTypes,
+        facilityOversightAgency,
+        facilityAgencies,
       };
     }
   }
@@ -192,6 +205,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       cbbrAgencyCategoryResponses,
       cbbrAgencyCategoryResponseIds,
       facilityTypes,
+      facilityOversightAgency,
+      facilityAgencies,
     };
   }
 
@@ -207,6 +222,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     cbbrAgencyCategoryResponses,
     cbbrAgencyCategoryResponseIds,
     facilityTypes,
+    facilityOversightAgency,
+    facilityAgencies,
   };
 };
 
@@ -246,6 +263,8 @@ export default function MapPage() {
     cbbrAgencyCategoryResponses,
     cbbrAgencyCategoryResponseIds,
     facilityTypes,
+    facilityOversightAgency,
+    facilityAgencies,
   } = useLoaderData<typeof loader>();
 
   const initializeCbbrAgencyCategoryResponseCheckboxes = useStore(
@@ -309,6 +328,7 @@ export default function MapPage() {
     });
     updateSearchParams({
       facilityTypes: null,
+      facilityOversightAgency: null,
     });
   }; // This isn't resetting the checkboxes
 
@@ -603,7 +623,9 @@ export default function MapPage() {
                             color={"primary.600"}
                             textDecor={"underline"}
                             cursor={"pointer"}
-                            onClick={() => setFiltersAccordionIndex([0, 1, 2])}
+                            onClick={() =>
+                              setFiltersAccordionIndex([0, 1, 2, 3])
+                            }
                           >
                             Expand All
                           </Link>
@@ -632,6 +654,7 @@ export default function MapPage() {
                               cbbrAgencyInitials: null,
                               cbbrAgencyCategoryResponseIds: null,
                               facilityTypes: null,
+                              facilityOversightAgency: null,
                             });
                             updateAllCbbrAgencyCategoryResponseCheckboxesByValue(
                               true,
@@ -679,6 +702,8 @@ export default function MapPage() {
                         <SearchByFacilityMenu
                           onClear={clearFacilityFilters}
                           updateFiltersAccordion={updateFiltersAccordion(3)}
+                          facilityAgencies={facilityAgencies}
+                          facilityOversightAgency={facilityOversightAgency}
                         />
                       </Box>
                     </Box>

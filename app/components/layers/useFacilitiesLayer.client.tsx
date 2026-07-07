@@ -74,6 +74,8 @@ export function useFacilitiesLayer({
       ? [undefined, undefined]
       : pin.split(",").map((d) => parseFloat(d));
 
+  const facilityOversightAgency = searchParams.get("facilityOversightAgency");
+
   const facilityTypeCheckboxes = useStore(
     (state) => state.facilityTypeCheckboxes,
   );
@@ -96,6 +98,11 @@ export function useFacilitiesLayer({
       }
     },
     getIconSize: ({ properties }: { properties: FacilityProperties }) => {
+      if (
+        facilityOversightAgency !== null &&
+        properties.overseeingAgencyInitials !== facilityOversightAgency
+      )
+        return 0;
       if (
         properties.facilityOperatorType === undefined &&
         !facilityTypeIds.includes("Not specified")
@@ -138,7 +145,7 @@ export function useFacilitiesLayer({
     updateTriggers: {
       getIcon: [facilityId, hoveredFacility],
       onHover: hoveredFacility,
-      getIconSize: [facilityTypeIds],
+      getIconSize: [facilityTypeIds, facilityOversightAgency],
     },
     extensions: [new MaskExtension()],
     maskId: `${
