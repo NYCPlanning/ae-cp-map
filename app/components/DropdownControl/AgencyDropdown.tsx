@@ -1,5 +1,4 @@
-// import { Agency } from "/gen";
-import { Agency } from "../../gen"; // remove this and uncomment line 1 before merging
+import { Agency } from "../../gen";
 import { DropdownControlProps, DropdownControl } from ".";
 import { ManagingAgencyInitials } from "../../utils/types";
 
