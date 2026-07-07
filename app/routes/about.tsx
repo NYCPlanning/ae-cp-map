@@ -15,6 +15,9 @@ import {
   UnorderedList,
   VStack,
 } from "@nycplanning/streetscape";
+import { env } from "~/utils/env";
+
+const { stateOfGoodRepair } = env;
 
 export default function About() {
   return (
@@ -233,8 +236,8 @@ export default function About() {
               </ListItem>
               <ListItem>
                 Not all Capital Projects in the Capital Commitment plan have a
-                spatial location – on average less than 40% of Capital Projects
-                in the plan are mapped in the web map on display. To review, all
+                spatial location - on average less than 40% of Capital Projects
+                in the plan are mapped in the web map on display. To review all
                 Capital Projects in CPDB, please refer to the tabular version
                 available at{" "}
                 <Link
@@ -556,6 +559,330 @@ export default function About() {
           </Text>
         </VStack>
       </Flex>
+      <Heading
+        as="h1"
+        fontSize={"3xl"}
+        pt={9}
+        pb={4}
+        fontWeight={"bold"}
+        borderTop={"1px solid"}
+        borderColor={"gray.200"}
+        alignSelf={"stretch"}
+      >
+        Facilities Database (FacDB)
+      </Heading>
+      <Text pb={6}>
+        The New York City Department of City Planning (DCP) aggregates
+        information about facilities and program sites that are owned, operated,
+        funded, licensed or certified by a City, State, or Federal agency in the
+        City of New York into a central database called the Facilities Database
+        (FacDB). These facilities generally help to shape quality of life in the
+        city&apos;s neighborhoods, and this dataset is the basis for a series of
+        planning activities. This database is a successor to City
+        Planning&apos;s decades-old work on the Selected Facilities and Program
+        Sites Database.
+      </Text>
+      {stateOfGoodRepair === "ON" && (
+        <>
+          <Heading
+            as="h2"
+            fontSize={"2xl"}
+            pt={9}
+            pb={4}
+            fontWeight={"bold"}
+            alignSelf={"stretch"}
+          >
+            New in FacDB: State of Good Repair Data
+          </Heading>
+          <Text pb={6}>
+            As of 2026, and in accordance with the 2024 Charter Revision to{" "}
+            <Link
+              href="https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCcharter/0-0-0-899"
+              isExternal
+              textDecorationLine={"underline"}
+              color={"primary.600"}
+            >
+              Section 204
+              <ExternalLinkIcon marginLeft={0.5} />
+            </Link>{" "}
+            of the NYC Charter, the Facilities Database now includes additional
+            column information related to State of Good Repair (SGR) data for a
+            select number of New York City&apos;s owned and leased facilities.
+            SGR scores are gathered and scored using a standardized methodology
+            developed by the Office of Management and Budget (OMB), Department
+            of Design and Construction (DDC) and DCP and sourced from OMB&apos;s{" "}
+            <Link
+              href="https://www.nyc.gov/content/omb/pages/publications"
+              isExternal
+              textDecorationLine={"underline"}
+              color={"primary.600"}
+            >
+              Asset Information Management System
+              <ExternalLinkIcon marginLeft={0.5} />
+            </Link>
+            . Each score reflects the physical condition of a facility at the
+            time of its most recent assessment. Scores convey a general sense of
+            asset condition and should not be interpreted as an estimate of
+            capital investment needs or a prioritization of repairs.
+          </Text>
+          <Text pb={6}>
+            Not all facilities in FacDB have an associated SGR score; coverage
+            varies depending on whether a facility has been assessed and meets
+            the associated criteria under OMB&apos;s AIMS mandate. Users should
+            account for both the point-in-time nature of the scores and gaps in
+            coverage when drawing conclusions from this data.
+          </Text>
+        </>
+      )}
+      <Accordion allowMultiple allowToggle width={"100%"}>
+        <AccordionItem borderTop={"unset"}>
+          <AccordionButton paddingInline={0}>
+            <Heading
+              as="h2"
+              fontSize="md"
+              flex="1"
+              textAlign="left"
+              fontWeight={"bold"}
+            >
+              What facilities are included on the map and where does the data
+              come from?
+            </Heading>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel>
+            <Text>
+              The City Planning Facilities Database aggregates approximately
+              30,000+ records from 43 different public data sources provided by
+              City, State, and Federal agencies. While each source agency
+              classifies its facilities according to their own naming systems,
+              we have grouped all facilities and program sites into the
+              following seven categories to help planners navigate the data more
+              easily:
+            </Text>
+            <UnorderedList py={3}>
+              <ListItem>Health and Human Services</ListItem>
+              <ListItem>Education, Child Welfare, and Youth</ListItem>
+              <ListItem>Parks, Gardens, and Historical Sites</ListItem>
+              <ListItem>Libraries and Cultural Programs</ListItem>
+              <ListItem>
+                Public Safety, Emergency Services, and Administration of Justice
+              </ListItem>
+              <ListItem>Core Infrastructure and Transportation</ListItem>
+              <ListItem>Administration of Government</ListItem>
+            </UnorderedList>
+            <Text>
+              Within each of these domains, each record is further categorized
+              into a set of facility groups, subgroups, and types that are
+              intended to make the data easy to navigate and more useful for
+              specific planning purposes. Facility types and names appear as
+              they do in source datasets, wherever possible. A full listing of
+              the facility categories is provided in the{" "}
+              <Link
+                href="https://nycplanning.github.io/db-facilities/#/"
+                isExternal
+                color={"primary.600"}
+                textDecorationLine={"underline"}
+              >
+                Contents and Classification
+                <ExternalLinkIcon marginLeft={0.5} />
+              </Link>{" "}
+              section of the metadata.
+            </Text>
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton paddingInline={0}>
+            <Heading
+              as="h2"
+              fontSize="md"
+              flex="1"
+              textAlign="left"
+              fontWeight={"bold"}
+            >
+              How can you use it?
+            </Heading>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel>
+            <Text pb={6}>
+              The Capital Projects Portal is designed to make this expansive
+              dataset more accessible to planners and city-builders across the
+              five boroughs, and to help all New Yorkers understand the breadth
+              of government resources in their neighborhoods. Specifically, this
+              portal and dataset can be used to inform the siting or realignment
+              of certain government and community facilities and programs,
+              certain environmental impact assessments, community planning and
+              engagement, infrastructure planning, and a range of other planning
+              and community-building activities.
+            </Text>
+            {stateOfGoodRepair === "ON" && (
+              <>
+                <Text>
+                  With the addition of SGR data to the Facilities Database in
+                  2026, users can access a high-level, directional indicator of
+                  a facility&apos;s overall physical condition. These scores are
+                  a useful starting point for advocacy, funding conversations,
+                  or comparative analysis, but should not be treated as a
+                  substitute for formal assessment or capital planning. Any
+                  formal analysis or decision-making requires additional data
+                  and investigation beyond what the SGR score alone can provide.
+                </Text>
+              </>
+            )}
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton paddingInline={0}>
+            <Heading
+              as="h2"
+              fontSize="md"
+              flex="1"
+              textAlign="left"
+              fontWeight={"bold"}
+            >
+              Limitations
+            </Heading>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel>
+            <Text>
+              The City Planning Facilities Database (FacDB) is only as good as
+              the source data it aggregates, and the Department of City Planning
+              cannot verify the accuracy of all records. We strongly encourage
+              users to{" "}
+              <Link
+                href="https://nycplanning.github.io/db-facilities/#/"
+                isExternal
+                color={"primary.600"}
+                textDecorationLine={"underline"}
+              >
+                read the metadata
+                <ExternalLinkIcon marginLeft={0.5} />
+              </Link>{" "}
+              before using this product for planning purposes.
+            </Text>
+            <UnorderedList pt={3}>
+              <ListItem>
+                <span style={{ fontWeight: "bold" }}>
+                  Analysis Limitations -{" "}
+                </span>
+                Largely as a result of the limitations and inconsistencies
+                described below, users should be careful in their use of this
+                database not to develop analyses that may be suspect. For
+                example, a comparison of the density or accessibility of
+                facilities across neighborhoods should recognize that due to the
+                structure of the database and the prevalence of duplicate
+                records, a &apos;count&apos; of facilities and program sites may
+                not be an accurate reflection of facility concentration; that
+                some of the facilities included are organizational headquarters
+                or mailing addresses rather than service sites; and that this
+                database is not authoritatively comprehensive. In addition, we
+                rely on source data from other agencies to populate the
+                explorer, and some of these sources may fall out-of-date - users
+                can find the date of each source dataset&apos;s latest update
+                within each facility detail page.
+              </ListItem>
+              <ListItem>
+                <span style={{ fontWeight: "bold" }}>Missing Records - </span>
+                Currently, FacDB is the most comprehensive, spatial data
+                resource available of facilities run by public and non-public
+                entities in NYC, but it does not claim to capture every facility
+                within the specified domains. Some facilities are deliberately
+                excluded in the data that source agencies provide in order to
+                protect the safety and privacy of their clients. Many records
+                also could not be geocoded.
+              </ListItem>
+              <ListItem>
+                <span style={{ fontWeight: "bold" }}>Duplicates - </span>Please
+                be aware that this version of the database may include cases of
+                duplicate records for the same facility. This is because several
+                of the source datasets have content that overlaps with other
+                datasets.
+              </ListItem>
+              <ListItem>
+                <span style={{ fontWeight: "bold" }}>
+                  Administrative Addresses -{" "}
+                </span>
+                There are known to be cases when the address provided in the
+                source data is for a headquarters or central office rather than
+                the facility site location. Unfortunately, these cannot be
+                systematically verified. We hope to resolve as many of these
+                limitations as possible over time and seek feedback from the
+                user community on potential approaches to improving the data.
+                For more detailed information on a specific facility please
+                reach out to the respective oversight agency.
+              </ListItem>
+              <ListItem>
+                <span style={{ fontWeight: "bold" }}>
+                  Public Accessibility of Sites -{" "}
+                </span>
+                DCP is unable to verify the public accessibility of all sites.
+              </ListItem>
+            </UnorderedList>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+      <Flex
+        width={"100%"}
+        flexDirection={{
+          base: "column",
+          lg: "row",
+        }}
+        padding={6}
+        mt={6}
+        mb={9}
+        gap={6}
+        justifyContent={{ lg: "space-between" }}
+        backgroundColor={"brand.50"}
+      >
+        <VStack alignItems={"flex-start"}>
+          <Text fontWeight={"bold"}>Version</Text>
+          <Text>25v2</Text>
+          <Text fontSize={"xs"} textTransform={"uppercase"}>
+            OCT, 2025
+          </Text>
+        </VStack>
+        <VStack alignItems={"flex-start"}>
+          <Text fontWeight={"bold"}>Data Dictionary</Text>
+          <Text color={"primary.600"}>
+            <Link
+              href="https://data.cityofnewyork.us/api/views/ji82-xba5/files/924bbe94-9a71-46f1-a04d-001b340b6cf8?download=true&filename=facilities_data_dictionary.xlsx"
+              isExternal
+              textDecorationLine={"underline"}
+            >
+              FacDB Data Dictionary
+            </Link>{" "}
+            <DownloadIcon mx="2px" />
+          </Text>
+          <Text fontSize={"xs"} textTransform={"uppercase"}>
+            EXCEL, 110 KB
+          </Text>
+        </VStack>
+        <VStack alignItems={"flex-start"}>
+          <Text fontWeight={"bold"}>Related Links</Text>
+          <Text color={"primary.600"}>
+            <Link
+              href="https://data.cityofnewyork.us/City-Government/Facilities-Database/ji82-xba5/about_data"
+              isExternal
+              textDecorationLine={"underline"}
+            >
+              OpenData
+            </Link>{" "}
+            <ExternalLinkIcon mx="2px" />
+          </Text>
+          <Text color={"primary.600"}>
+            <Link
+              href="https://www.nyc.gov/content/planning/pages/resources/datasets/facilities"
+              isExternal
+              textDecorationLine={"underline"}
+            >
+              City Planning
+            </Link>{" "}
+            <ExternalLinkIcon mx="2px" />
+          </Text>
+        </VStack>
+      </Flex>
+
       <Box
         mb={9}
         borderBottom={"1px solid"}
@@ -584,8 +911,8 @@ export default function About() {
         <Text>
           We would also like to thank the many users who have shared their
           feedback throughout the development process. Your insights have been
-          invaluable in shaping the portal’s features, functionality, and user
-          experience.
+          invaluable in shaping the portal&apos;s features, functionality, and
+          user experience.
         </Text>
       </VStack>
     </Flex>
