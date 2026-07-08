@@ -17,11 +17,11 @@ export function WelcomeContent() {
       <Box>
         <Text fontSize={"md"}>
           The Capital Projects Portal has been designed to help users explore
-          where and how the city is investing its capital money across NYC and
-          highlight community board priorities across these unique
-          neighborhoods. The application currently includes data from multiple
-          sources to improve transparency, guide engagement, and support
-          planning decisions.
+          where city facilities are located, how the city is investing its
+          capital money across NYC, and highlight community board priorities
+          across these unique neighborhoods. The application currently includes
+          data from multiple sources to improve transparency, guide engagement,
+          and support planning decisions.
         </Text>
 
         <Text fontSize={"md"} my={3}>
