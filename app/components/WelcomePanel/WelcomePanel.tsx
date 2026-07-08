@@ -5,6 +5,7 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
+  useBreakpointValue,
 } from "@nycplanning/streetscape";
 import { WelcomeContent, WelcomeHeader } from ".";
 import { isWelcomeHidden, WelcomeGetStarted } from "./WelcomeGetStarted";
@@ -14,10 +15,17 @@ export function WelcomePanel() {
     typeof window !== "undefined" ? isWelcomeHidden() : false,
   );
 
+  const defaultLayersIndex = useBreakpointValue({ base: [], md: [0] });
+
   if (isDismissed) return null;
 
   return (
-    <Accordion defaultIndex={[0]} allowToggle width={"100%"} maxHeight={"100%"}>
+    <Accordion
+      defaultIndex={defaultLayersIndex}
+      allowToggle
+      width={"100%"}
+      maxHeight={"100%"}
+    >
       <AccordionItem border="none">
         <AccordionButton padding="0px" aria-label="Toggle project list panel">
           <WelcomeHeader />

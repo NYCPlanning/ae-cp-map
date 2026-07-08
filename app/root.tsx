@@ -286,7 +286,8 @@ export default function App() {
                 base: "7dvh 2dvh [row-start] min-content 2dvh 1fr [row-end] 2dvh 7dvh",
                 md: "7dvh 2dvh [row-start] min-content 2dvh 1fr [row-end] 2dvh",
               }}
-              height="100vh"
+              height="100dvh"
+              minHeight="-webkit-fill-available"
             >
               <QueryClientProvider client={queryClient}>
                 <Main />
