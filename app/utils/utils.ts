@@ -200,14 +200,19 @@ export function useUpdateSearchParams(): [
   SetURLSearchParams,
 ] {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
   const updateSearchParams = (changes: QueryParams) => {
-    setSearchParams(setNewSearchParams(searchParams, changes));
+    navigate({
+      search: setNewSearchParams(searchParams, changes)
+        .toString()
+        .replace(/%2C/g, ","),
+    });
   };
   return [searchParams, updateSearchParams, setSearchParams];
 }
 
 export function useDismissWelcomeAndUpdateSearchParams() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dismissWelcomeAndUpdateSearchParams = (
@@ -219,12 +224,16 @@ export function useDismissWelcomeAndUpdateSearchParams() {
       navigate(
         {
           pathname: newPath,
-          search: nextSearchParams.toString(),
+          search: nextSearchParams.toString().replace(/%2C/g, ","),
         },
         { replace: true },
       );
     } else {
-      setSearchParams(setNewSearchParams(searchParams, changes));
+      navigate({
+        search: setNewSearchParams(searchParams, changes)
+          .toString()
+          .replace(/%2C/g, ","),
+      });
     }
   };
   return dismissWelcomeAndUpdateSearchParams;
