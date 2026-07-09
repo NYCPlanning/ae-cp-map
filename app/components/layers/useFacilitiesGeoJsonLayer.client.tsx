@@ -25,7 +25,7 @@ export function useFacilitiesGeoJsonLayer() {
     pointType: "icon",
     getIcon: ({ properties }: { properties: FacilityProperties }) => ({
       url: `data:image/png;base64,${FACILITY_PNG_BY_CATEGORY.SELECTED.get(properties.categoryId)}`,
-      id: `selected-facility-geojson`,
+      id: `selected-facility-geojson-${properties.categoryId}`,
       width: 132,
       height: 132,
       mask: false,
