@@ -13,6 +13,7 @@ import {
   CommitmentsTotalMinSelectValue,
   CommitmentsTotalMaxSelectValue,
   QueryParams,
+  LayerParamKey,
 } from "./types";
 
 export const formatDistance = (distance: number) => {
@@ -228,4 +229,27 @@ export function useDismissWelcomeAndUpdateSearchParams() {
     }
   };
   return dismissWelcomeAndUpdateSearchParams;
+}
+
+export function getMapLayers(layerParams: string | null) {
+  if (layerParams === null) return ["capitalProjects"] as LayerParamKey[];
+  if (layerParams === "") return [] as LayerParamKey[];
+  return layerParams.split(",") as LayerParamKey[];
+}
+
+export function getNewMapLayerQueryParams({
+  toggledLayer,
+  currentLayersParam,
+}: {
+  toggledLayer: LayerParamKey;
+  currentLayersParam: string | null;
+}) {
+  const oldLayers: LayerParamKey[] = getMapLayers(currentLayersParam);
+  let newLayers: LayerParamKey[];
+  if (oldLayers.includes(toggledLayer)) {
+    newLayers = oldLayers.filter((layer) => layer !== toggledLayer);
+  } else {
+    newLayers = [...oldLayers, toggledLayer];
+  }
+  return newLayers.join(",") === "capitalProjects" ? null : newLayers;
 }

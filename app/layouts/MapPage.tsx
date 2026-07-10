@@ -54,7 +54,7 @@ import {
   FacilitiesLayerToggle,
 } from "~/components/MapLayerToggle";
 import { CommunityBoardBudgetRequestLegend } from "../components/CommunityBoardBudgetRequestLegend";
-import { useUpdateSearchParams } from "../utils/utils";
+import { getMapLayers, useUpdateSearchParams } from "../utils/utils";
 import type { RootContextType } from "../root";
 import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
@@ -283,9 +283,7 @@ export default function MapPage() {
     clearRadiusFilter,
   } = useOutletContext<RootContextType>();
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
-  const showCapitalProjects = searchParams.get("capitalProjects") !== "off";
-  const showCbbr = searchParams.get("cbbr") !== "off";
-  const showFacilities = searchParams.get("facilities") !== "off";
+
   const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
   const [filtersAccordionIndex, setFiltersAccordionIndex] = useState<number[]>(
     [],
@@ -411,6 +409,11 @@ export default function MapPage() {
       facilitySubgroupIds: null,
     });
   };
+
+  const layers = getMapLayers(searchParams.get("layers"));
+  const showCapitalProjects = layers.includes("capitalProjects");
+  const showCbbr = layers.includes("cbbr");
+  const showFacilities = layers.includes("facilities");
 
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
   const boundaryId = searchParams.get("boundaryId") as BoundaryId;

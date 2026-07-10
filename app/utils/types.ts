@@ -78,6 +78,12 @@ export type AddressQueryParams = {
 
 export type LayerParamKey = "capitalProjects" | "cbbr" | "facilities";
 
+export type LayersParam = LayerParamKey[] | [""] | null;
+
+export type LayersQueryParams = {
+  layers?: LayersParam;
+};
+
 export type LayerParamValue = "off" | undefined;
 
 export type LayerQueryParams = Partial<Record<LayerParamKey, LayerParamValue>>;
@@ -87,6 +93,7 @@ export type QueryParams = Partial<
     AttributeParams &
     PaginationQueryParams &
     LayerQueryParams &
+    LayersQueryParams &
     AddressQueryParams
 >;
 

@@ -1,13 +1,24 @@
-import { useUpdateSearchParams } from "~/utils/utils";
+import {
+  getMapLayers,
+  getNewMapLayerQueryParams,
+  useUpdateSearchParams,
+} from "~/utils/utils";
 import { MapLayerToggle } from ".";
 
 export function FacilitiesLayerToggle() {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
 
-  const facilitiesOn = searchParams.get("facilities") !== "off";
+  const layersParam = searchParams.get("layers");
+  const layers = getMapLayers(layersParam);
+  const facilitiesOn = layers.includes("facilities");
 
-  const setFacilities = (next: boolean) =>
-    updateSearchParams({ facilities: next ? undefined : "off" });
+  const toggleFacilities = () => {
+    const newLayers = getNewMapLayerQueryParams({
+      toggledLayer: "facilities",
+      currentLayersParam: layersParam,
+    });
+    updateSearchParams({ layers: newLayers });
+  };
 
   const tooltipCopy = `Facilities and programs owned, operated, funded, licensed, or certified by a City, State, or Federal agency.`;
 
@@ -16,7 +27,7 @@ export function FacilitiesLayerToggle() {
       id="facilities"
       label="Facilities"
       isChecked={facilitiesOn}
-      onChange={(e) => setFacilities(e.target.checked)}
+      onChange={toggleFacilities}
       tooltipLabel={tooltipCopy}
       legendIcon="facilities"
     />
