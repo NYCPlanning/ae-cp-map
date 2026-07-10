@@ -1,13 +1,24 @@
-import { useUpdateSearchParams } from "~/utils/utils";
+import {
+  getMapLayers,
+  getNewMapLayerQueryParams,
+  useUpdateSearchParams,
+} from "~/utils/utils";
 import { MapLayerToggle } from ".";
 
 export function CapitalProjectLayerToggle() {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
 
-  const capitalProjectsOn = searchParams.get("capitalProjects") !== "off";
+  const layersParam = searchParams.get("layers");
+  const layers = getMapLayers(layersParam);
+  const capitalProjectsOn = layers.includes("capitalProjects");
 
-  const setCapitalProjects = (next: boolean) =>
-    updateSearchParams({ capitalProjects: next ? undefined : "off" });
+  const toggleCapitalProjects = () => {
+    const newLayers = getNewMapLayerQueryParams({
+      toggledLayer: "capitalProjects",
+      currentLayersParam: layersParam,
+    });
+    updateSearchParams({ layers: newLayers });
+  };
 
   const capitalProjectsTooltipCopy = `New York City’s potential, planned, and ongoing capital projects.
   Unmapped projects, such as the purchase of vehicles or digital infrastructure, are not included in this tool.
@@ -18,7 +29,7 @@ export function CapitalProjectLayerToggle() {
       id="capital-projects-toggle"
       label="Capital Projects"
       isChecked={capitalProjectsOn}
-      onChange={(e) => setCapitalProjects(e.target.checked)}
+      onChange={toggleCapitalProjects}
       tooltipLabel={capitalProjectsTooltipCopy}
       legendIcon="capital-projects"
     />
