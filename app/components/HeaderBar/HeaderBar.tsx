@@ -55,6 +55,7 @@ export function HeaderBar({
       boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.16)"}
       position={"sticky"}
       top={0}
+      className="header"
     >
       <GridItem
         gridColumn={{

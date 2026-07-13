@@ -14,6 +14,7 @@ import {
   Tab,
   TabList,
   Tabs,
+  useBreakpointValue,
 } from "@nycplanning/streetscape";
 import {
   Outlet,
@@ -440,14 +441,21 @@ export default function MapPage() {
     borough: { boroughIds: string } | undefined;
   }>({ cd: undefined, ccd: undefined, borough: undefined });
 
+  const index =
+    useBreakpointValue({
+      base: -1,
+      md: 0,
+    }) ?? -1;
+
   return (
     <>
       <GridItem
         gridColumn={"1 / -1"}
         gridRow={{
-          base: "2 / 7",
+          base: "4 / 7",
           md: "2 / -1",
         }}
+        className="atlasContent"
       >
         <Atlas
           viewState={viewState}
@@ -472,6 +480,7 @@ export default function MapPage() {
           "2xl": "4 / span 7",
         }}
         height={"fit-content"}
+        className="tabContent"
       >
         <Tabs
           variant={"mapControl"}
@@ -641,6 +650,7 @@ export default function MapPage() {
         sx={{
           scrollbarWidth: "none",
         }}
+        className="leftContent"
       >
         <Flex
           direction={"column"}
@@ -648,9 +658,9 @@ export default function MapPage() {
           alignItems={"center"}
           flexShrink={{ lg: 0 }}
           maxHeight={{
-            base: "82vh",
-            lg: "84vh",
-            xl: "89vh",
+            base: "82dvh",
+            lg: "84dvh",
+            xl: "89dvh",
           }}
           backgroundColor={"white"}
           borderRadius={10}
@@ -661,7 +671,7 @@ export default function MapPage() {
           }}
           boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
         >
-          <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
+          <Accordion width={"100%"} allowMultiple index={index}>
             <AccordionItem borderTop={"none"} borderBottom={"none"}>
               <AccordionButton p={0} aria-label="Toggle layers panel">
                 <Heading
@@ -819,6 +829,7 @@ export default function MapPage() {
         }}
         width={"fit-content"}
         height={"fit-content"}
+        className="mapControls"
       >
         <MapViewControls
           viewState={viewState}
@@ -848,6 +859,7 @@ export default function MapPage() {
         display={"flex"}
         flexDirection={"column"}
         justifyContent={{ base: "end", lg: "start" }}
+        className="rightPanel"
       >
         <Flex
           width={"full"}
