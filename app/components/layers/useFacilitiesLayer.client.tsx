@@ -2,8 +2,12 @@ import { MVTLayer } from "@deck.gl/geo-layers";
 import { useState } from "react";
 import { env } from "~/utils/env";
 import { useNavigate, useParams, useSearchParams } from "react-router";
-import { MaskExtension } from "@deck.gl/extensions";
-import type { MaskExtensionProps } from "@deck.gl/extensions";
+import { DataFilterExtension, MaskExtension } from "@deck.gl/extensions";
+import type {
+  MaskExtensionProps,
+  DataFilterExtensionProps,
+} from "@deck.gl/extensions";
+import type { Feature, Geometry } from "geojson";
 import { useMediaQuery } from "@nycplanning/streetscape";
 import { FACILITY_PNG_BY_CATEGORY } from "~/utils/facilities-icons";
 import {
@@ -82,7 +86,11 @@ export function useFacilitiesLayer({ visible }: { visible: boolean }) {
     .filter((fs) => fs.checked === true)
     .map((fs) => fs.id);
 
-  return new MVTLayer<FacilityProperties, MaskExtensionProps>({
+  return new MVTLayer<
+    FacilityProperties,
+    DataFilterExtensionProps<Feature<Geometry, FacilityProperties>> &
+      MaskExtensionProps
+  >({
     id: "facilities",
     data: [`${zoningApiUrl}/api/facilities/{z}/{x}/{y}.pbf`],
     visible,
@@ -96,7 +104,25 @@ export function useFacilitiesLayer({ visible }: { visible: boolean }) {
         setHoveredFacility(data.object.properties.id);
       }
     },
-    getIconSize: ({ properties }: { properties: FacilityProperties }) => {
+    getIconSize: 256,
+    iconSizeUnits: "meters",
+    iconSizeMaxPixels: isMobile ? 59 : 29,
+    getIcon: ({ properties }: { properties: FacilityProperties }) => ({
+      url: `data:image/png;base64,${FACILITY_PNG_BY_CATEGORY[properties.id === hoveredFacility ? "HOVER" : properties.id === facilityId ? "SELECTED" : "DEFAULT"].get(properties.categoryId)}`,
+      id: `facility-${properties.categoryId}${properties.id === facilityId && "-selected"}${properties.id === hoveredFacility && "-hovered"}`,
+      width: 132,
+      height: 132,
+      mask: false,
+    }),
+    onClick: (info) => {
+      const newFacilityId = info.object.properties.id;
+      if (newFacilityId === undefined || newFacilityId === facilityId) return;
+      navigate({
+        pathname: `/facilities/${newFacilityId}`,
+        search: `?${searchParams.toString()}`,
+      });
+    },
+    getFilterValue: ({ properties }: { properties: FacilityProperties }) => {
       if (
         facilityOversightAgency !== null &&
         properties.overseeingAgencyInitials !== facilityOversightAgency
@@ -128,31 +154,25 @@ export function useFacilitiesLayer({ visible }: { visible: boolean }) {
         return 0;
       if (!facilitySubgroupIds.includes(properties.categorySubgroupId))
         return 0;
-      return 256;
+      return 1;
     },
-    iconSizeUnits: "meters",
-    iconSizeMaxPixels: isMobile ? 59 : 29,
-    getIcon: ({ properties }: { properties: FacilityProperties }) => ({
-      url: `data:image/png;base64,${FACILITY_PNG_BY_CATEGORY[properties.id === hoveredFacility ? "HOVER" : properties.id === facilityId ? "SELECTED" : "DEFAULT"].get(properties.categoryId)}`,
-      id: `facility-${properties.categoryId}${properties.id === facilityId && "-selected"}${properties.id === hoveredFacility && "-hovered"}`,
-      width: 132,
-      height: 132,
-      mask: false,
-    }),
-    onClick: (info) => {
-      const newFacilityId = info.object.properties.id;
-      if (newFacilityId === undefined || newFacilityId === facilityId) return;
-      navigate({
-        pathname: `/facilities/${newFacilityId}`,
-        search: `?${searchParams.toString()}`,
-      });
-    },
+    filterRange: [1, 1],
     updateTriggers: {
       getIcon: [facilityId, hoveredFacility],
       onHover: hoveredFacility,
-      getIconSize: [facilityTypeIds, facilityOversightAgency],
+      getFilterValue: [
+        facilityTypeIds,
+        facilityOversightAgency,
+        facilityJurisdictionIds,
+        facilitySubgroupIds,
+      ],
     },
-    extensions: [new MaskExtension()],
+    extensions: [
+      new MaskExtension(),
+      new DataFilterExtension({
+        filterSize: 1,
+      }),
+    ],
     maskId: `${
       (boundaryId !== null &&
         (boundaryType === "cd" || boundaryType === "ccd")) ||
