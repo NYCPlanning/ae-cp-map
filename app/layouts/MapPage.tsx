@@ -846,10 +846,12 @@ export default function MapPage() {
           "2xl": "11 / col-end",
         }}
         gridRow={{
-          base: "3 / -1",
+          base: "5 / -1",
           lg: "row-start / span 3",
         }}
         height={"100%"}
+        minHeight={0}
+        overflow="hidden"
         pointerEvents={"none"}
         zIndex={"2"}
         sx={{
@@ -873,11 +875,13 @@ export default function MapPage() {
           }}
           flexDirection={"column"}
           flexShrink={{ lg: 0 }}
-          maxHeight={"full"}
+          maxHeight={"100%"}
+          minHeight={0}
+          overflowY="auto"
           justify={"end"}
           backgroundColor={"white"}
           borderRadius={10}
-          overflowY={"scroll"}
+          // overflowY={"scroll"}
           padding={4}
           boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
         >
