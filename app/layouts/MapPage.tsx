@@ -472,7 +472,7 @@ export default function MapPage() {
       <GridItem
         bgColor="white"
         borderRadius="lg"
-        gridRowStart={3}
+        gridRowStart={5}
         gridColumn={{
           base: "col-start / span 8",
           md: "col-start / span 7",
@@ -640,8 +640,8 @@ export default function MapPage() {
           "2xl": "col-start / span 2",
         }}
         gridRow={{
-          base: "5 / row-end",
-          md: "5 / row-end",
+          base: "6 / row-end",
+          md: "6 / row-end",
           xl: "3 / span 3",
         }}
         height={"fit-content"}
@@ -825,7 +825,7 @@ export default function MapPage() {
       <GridItem
         gridColumnStart={{ base: 9, md: 7, lg: 6, xl: 5, "2xl": 4 }}
         gridRow={{
-          base: "5 / span 1",
+          base: "6 / span 1",
         }}
         width={"fit-content"}
         height={"fit-content"}
@@ -871,7 +871,7 @@ export default function MapPage() {
             },
             scrollbarWidth: "none",
           }}
-          direction={"column"}
+          flexDirection={"column"}
           flexShrink={{ lg: 0 }}
           maxHeight={"full"}
           justify={"end"}
