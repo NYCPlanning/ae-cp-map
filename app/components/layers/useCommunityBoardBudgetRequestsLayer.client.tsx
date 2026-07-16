@@ -104,6 +104,21 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     endpointPrefix = `boroughs/${boroughId}/community-districts/${boundaryId}/`;
   }
 
+  const unclustered: boolean =
+    (boundaryId !== null &&
+      (boundaryType === "cd" || boundaryType === "ccd")) ||
+    (boroughIds !== null && boundaryType === "borough") ||
+    (cityCouncilDistrictIds !== null && boundaryType === "ccd") ||
+    (communityDistrictIds !== null && boundaryType === "cd") ||
+    (buffer >= ADDRESS_SEARCH_RADIUS.MIN &&
+      buffer <= ADDRESS_SEARCH_RADIUS.MAX &&
+      lon !== undefined &&
+      lat !== undefined) ||
+    cbbrPolicyAreaId !== null ||
+    cbbrNeedGroupId !== null ||
+    cbbrAgencyInitials !== null ||
+    cbbrAgencyCategoryResponseIds.length < 6;
+
   return new MVTLayer<
     CommunityBoardBudgetRequestProperties,
     DataFilterExtensionProps<
@@ -215,9 +230,6 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       }
     },
     getFilterValue: (d) => {
-      // Do not filter points, they are filtered in Icon sublayer
-      if (d.geometry.type === "Point") return 1;
-
       // Filter out if it does not match one of the user selected filters
       if (
         cbbrPolicyAreaId !== null &&
@@ -252,10 +264,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
     _subLayerProps: {
       "points-icon": {
         type: IconClusterLayer<CommunityBoardBudgetRequestProperties>,
-        policyAreaId: cbbrPolicyAreaId ? parseInt(cbbrPolicyAreaId) : null,
-        needGroupId: cbbrNeedGroupId ? parseInt(cbbrNeedGroupId) : null,
-        agencyInitials: cbbrAgencyInitials,
-        agencyCategoryResponseIds: cbbrAgencyCategoryResponseIds,
+        unclustered,
       },
     },
     extensions: [
