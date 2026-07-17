@@ -14,6 +14,7 @@ import {
   Tab,
   TabList,
   Tabs,
+  useBreakpointValue,
 } from "@nycplanning/streetscape";
 import {
   Outlet,
@@ -59,7 +60,7 @@ import type { RootContextType } from "../root";
 import { MapViewControls } from "~/components/MapViewControls";
 import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
 import { SearchByFacilityMenu } from "~/components/SearchByFacilityMenu";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useStore } from "~/store";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -434,6 +435,37 @@ export default function MapPage() {
     }
   };
 
+  const isLargeScreen =
+    useBreakpointValue({
+      base: false,
+      md: true,
+      lg: true,
+    }) ?? false;
+
+  const [layersAccordionIndex, setLayersAccordionIndex] = useState<number[]>(
+    [],
+  );
+
+  // accordian panel mobile collapse
+  const previousIsLargeScreen = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    if (previousIsLargeScreen.current === isLargeScreen) {
+      return;
+    }
+
+    previousIsLargeScreen.current = isLargeScreen;
+
+    setLayersAccordionIndex(isLargeScreen ? [0] : []);
+  }, [isLargeScreen]);
+
+  // results panel mobile collapse
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+
+  useEffect(() => {
+    setIsPanelOpen(isLargeScreen);
+  }, [isLargeScreen]);
+
   const [savedGeoSelection, setSavedGeoSelection] = useState<{
     cd: { communityDistrictIds: string } | undefined;
     ccd: { cityCouncilDistrictIds: string } | undefined;
@@ -445,9 +477,10 @@ export default function MapPage() {
       <GridItem
         gridColumn={"1 / -1"}
         gridRow={{
-          base: "2 / 7",
-          md: "2 / -1",
+          base: "header-end / atlas-end",
+          md: "header-end / -1",
         }}
+        className={"atlasContainer"}
       >
         <Atlas
           viewState={viewState}
@@ -464,7 +497,11 @@ export default function MapPage() {
       <GridItem
         bgColor="white"
         borderRadius="lg"
-        gridRowStart={3}
+        gridRowStart={{
+          base: "base-start",
+          md: "base-start",
+          lg: "row-start",
+        }}
         gridColumn={{
           base: "col-start / span 8",
           md: "col-start / span 7",
@@ -472,6 +509,7 @@ export default function MapPage() {
           "2xl": "4 / span 7",
         }}
         height={"fit-content"}
+        className={"tabsContainer"}
       >
         <Tabs
           variant={"mapControl"}
@@ -631,9 +669,9 @@ export default function MapPage() {
           "2xl": "col-start / span 2",
         }}
         gridRow={{
-          base: "5 / row-end",
-          md: "5 / row-end",
-          xl: "3 / span 3",
+          base: "base-end / row-end",
+          lg: "base-start / row-end",
+          xl: "row-start / span 3",
         }}
         height={"fit-content"}
         maxHeight={"100%"}
@@ -641,6 +679,7 @@ export default function MapPage() {
         sx={{
           scrollbarWidth: "none",
         }}
+        className={"filtersContainer"}
       >
         <Flex
           direction={"column"}
@@ -648,9 +687,9 @@ export default function MapPage() {
           alignItems={"center"}
           flexShrink={{ lg: 0 }}
           maxHeight={{
-            base: "82vh",
-            lg: "84vh",
-            xl: "89vh",
+            base: "82dvh",
+            lg: "84dvh",
+            xl: "89dvh",
           }}
           backgroundColor={"white"}
           borderRadius={10}
@@ -661,7 +700,14 @@ export default function MapPage() {
           }}
           boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
         >
-          <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
+          <Accordion
+            allowMultiple
+            width={"100%"}
+            index={layersAccordionIndex}
+            onChange={(nextIndex) => {
+              setLayersAccordionIndex(nextIndex as number[]);
+            }}
+          >
             <AccordionItem borderTop={"none"} borderBottom={"none"}>
               <AccordionButton p={0} aria-label="Toggle layers panel">
                 <Heading
@@ -815,10 +861,12 @@ export default function MapPage() {
       <GridItem
         gridColumnStart={{ base: 9, md: 7, lg: 6, xl: 5, "2xl": 4 }}
         gridRow={{
-          base: "5 / span 1",
+          base: "base-end / span 1",
+          lg: "base-start / span 1",
         }}
         width={"fit-content"}
         height={"fit-content"}
+        className={"mapControlsContainer"}
       >
         <MapViewControls
           viewState={viewState}
@@ -848,32 +896,40 @@ export default function MapPage() {
         display={"flex"}
         flexDirection={"column"}
         justifyContent={{ base: "end", lg: "start" }}
+        className={"resultsContainer"}
       >
         <Flex
           width={"full"}
           gap={3}
-          pointerEvents={"none"}
+          pointerEvents={"auto"}
           sx={{
-            "> *": {
-              pointerEvents: "auto",
-            },
             scrollbarWidth: "none",
           }}
           direction={"column"}
           flexShrink={{ lg: 0 }}
-          maxHeight={"full"}
+          maxHeight={{
+            base: isPanelOpen ? "70dvh" : "64px",
+            lg: "full",
+          }}
+          opacity={1}
+          overflowY={isPanelOpen ? "scroll" : "hidden"}
           justify={"end"}
           backgroundColor={"white"}
-          borderRadius={10}
-          overflowY={"scroll"}
+          borderRadius={{
+            base: "10px 10px 0 0",
+            lg: "10px",
+          }}
           padding={4}
           boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
+          transition={"max-height 0.1s ease"}
         >
           <Outlet
             context={{
               hoveredOverItem,
               setHoveredOverItem,
               clearRadiusFilter,
+              isPanelOpen,
+              setIsPanelOpen,
             }}
           />
         </Flex>

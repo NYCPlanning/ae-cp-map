@@ -283,10 +283,12 @@ export default function App() {
                 "2xl": "0 0.78dw",
               }}
               templateRows={{
-                base: "7dvh 2dvh [row-start] min-content 2dvh 1fr [row-end] 2dvh 7dvh",
-                md: "7dvh 2dvh [row-start] min-content 2dvh 1fr [row-end] 2dvh",
+                base: "7dvh [header-end] 2dvh [row-start] min-content [line] 2dvh [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh [atlas-end] 7dvh",
+                md: "7dvh [header-end] 2dvh [row-start] min-content 2dvh [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh",
+                lg: "7dvh [header-end] 2dvh [row-start] min-content 2dvh [base-start] 1fr [row-end] 2dvh",
               }}
-              height="100vh"
+              height="100dvh"
+              className={"rootContainer"}
             >
               <QueryClientProvider client={queryClient}>
                 <Main />
