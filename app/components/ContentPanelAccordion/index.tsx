@@ -7,6 +7,7 @@ import {
   AccordionIcon,
   useMediaQuery,
 } from "@nycplanning/streetscape";
+import { useOutletContext } from "react-router";
 
 export function ContentPanelAccordion({
   children,
@@ -17,16 +18,25 @@ export function ContentPanelAccordion({
 }) {
   const iconShouldFlip = useMediaQuery("(max-width: 767px)")[0];
 
+  const { isPanelOpen, setIsPanelOpen } = useOutletContext<{
+    isPanelOpen: boolean;
+    setIsPanelOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  }>();
+
   return (
     <Accordion
       width={"100%"}
       maxHeight={"100%"}
-      defaultIndex={[0]}
+      index={isPanelOpen ? 0 : -1}
       allowToggle
       overflowY={"scroll"}
       sx={{ scrollbarWidth: "none" }}
+      onChange={(nextIndex) => {
+        setIsPanelOpen(nextIndex === 0);
+      }}
+      className={"resultsContainer"}
     >
-      <AccordionItem border={"none"}>
+      <AccordionItem border="none">
         {({ isExpanded }) => (
           <>
             <AccordionButton aria-label="Toggle project list panel" p={0}>
@@ -39,6 +49,7 @@ export function ContentPanelAccordion({
               >
                 {accordionHeading}
               </Heading>
+
               {iconShouldFlip ? (
                 <AccordionIcon
                   transform={isExpanded ? "rotate(0deg)" : "rotate(180deg)"}
@@ -47,6 +58,7 @@ export function ContentPanelAccordion({
                 <AccordionIcon />
               )}
             </AccordionButton>
+
             <AccordionPanel
               padding={"0px"}
               overflowY={"hidden"}

@@ -5,47 +5,47 @@ export default function NonMapHeaderPage() {
   return (
     <Grid
       templateColumns={"subgrid"}
-      templateRows={"subgrid"}
-      gridColumn={"1 / -1"}
-      gridRow={"2 / -1"}
+      gridColumn="1 / -1"
+      gridRow="header-end / -1"
+      overflowY="auto"
+      sx={{
+        scrollbarWidth: "none",
+      }}
+      className={"nonMapPage"}
     >
       <GridItem
-        gridColumnStart={{
-          base: "2",
-          lg: "3",
-          xl: "4",
+        gridColumn={{
+          base: "2 / -2",
+          lg: "3 / 10",
+          xl: "4 / 9",
         }}
-        gridColumnEnd={{
-          base: "-2",
-          lg: "10",
-          xl: "9",
+        gridRow={{
+          base: "row-start",
+          lg: "row-start / row-end",
         }}
-        gridRowStart={"2"}
-        gridRowEnd={"3"}
         pt={8}
+        minHeight={0}
+        className={"aboutContentContainer"}
       >
         <Outlet />
       </GridItem>
+
       <GridItem
-        gridColumnStart={{
-          base: "2",
-          lg: "10",
-          xl: "9",
+        gridColumn={{
+          base: "2 / -2",
+          lg: "10 / 12",
+          xl: "9 / 12",
         }}
-        gridColumnEnd={{
-          base: "-2",
-          lg: "12",
-          xl: "12",
+        gridRow={{
+          base: "auto",
+          lg: "row-start / row-end",
         }}
-        gridRowStart={{
-          base: "3",
-          lg: "2",
+        pt={{
+          base: 0,
+          lg: 8,
         }}
-        gridRowEnd={{
-          base: "4",
-          lg: "3",
-        }}
-        pt={8}
+        minHeight={0}
+        className={"feedbackContainer"}
       >
         <VStack
           alignItems={"flex-start"}
