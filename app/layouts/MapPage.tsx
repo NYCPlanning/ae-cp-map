@@ -14,6 +14,7 @@ import {
   Tab,
   TabList,
   Tabs,
+  useBreakpointValue,
 } from "@nycplanning/streetscape";
 import {
   Outlet,
@@ -443,14 +444,21 @@ export default function MapPage() {
     borough: { boroughIds: string } | undefined;
   }>({ cd: undefined, ccd: undefined, borough: undefined });
 
+  const index =
+    useBreakpointValue({
+      base: -1,
+      md: 0,
+    }) ?? -1;
+
   return (
     <>
       <GridItem
         gridColumn={"1 / -1"}
         gridRow={{
-          base: "2 / 7",
+          base: "4 / 7",
           md: "2 / -1",
         }}
+        className="atlasContent"
       >
         <Atlas
           viewState={viewState}
@@ -467,7 +475,7 @@ export default function MapPage() {
       <GridItem
         bgColor="white"
         borderRadius="lg"
-        gridRowStart={3}
+        gridRowStart={5}
         gridColumn={{
           base: "col-start / span 8",
           md: "col-start / span 7",
@@ -475,6 +483,7 @@ export default function MapPage() {
           "2xl": "4 / span 7",
         }}
         height={"fit-content"}
+        className="tabContent"
       >
         <Tabs
           variant={"mapControl"}
@@ -634,8 +643,8 @@ export default function MapPage() {
           "2xl": "col-start / span 2",
         }}
         gridRow={{
-          base: "5 / row-end",
-          md: "5 / row-end",
+          base: "6 / row-end",
+          md: "6 / row-end",
           xl: "3 / span 3",
         }}
         height={"fit-content"}
@@ -644,6 +653,7 @@ export default function MapPage() {
         sx={{
           scrollbarWidth: "none",
         }}
+        className="leftContent"
       >
         <Flex
           direction={"column"}
@@ -651,9 +661,9 @@ export default function MapPage() {
           alignItems={"center"}
           flexShrink={{ lg: 0 }}
           maxHeight={{
-            base: "82vh",
-            lg: "84vh",
-            xl: "89vh",
+            base: "82dvh",
+            lg: "84dvh",
+            xl: "89dvh",
           }}
           backgroundColor={"white"}
           borderRadius={10}
@@ -664,7 +674,7 @@ export default function MapPage() {
           }}
           boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
         >
-          <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
+          <Accordion width={"100%"} allowMultiple index={index}>
             <AccordionItem borderTop={"none"} borderBottom={"none"}>
               <AccordionButton p={0} aria-label="Toggle layers panel">
                 <Heading
@@ -818,10 +828,11 @@ export default function MapPage() {
       <GridItem
         gridColumnStart={{ base: 9, md: 7, lg: 6, xl: 5, "2xl": 4 }}
         gridRow={{
-          base: "5 / span 1",
+          base: "6 / span 1",
         }}
         width={"fit-content"}
         height={"fit-content"}
+        className="mapControls"
       >
         <MapViewControls
           viewState={viewState}
@@ -838,10 +849,12 @@ export default function MapPage() {
           "2xl": "11 / col-end",
         }}
         gridRow={{
-          base: "3 / -1",
+          base: "5 / -1",
           lg: "row-start / span 3",
         }}
         height={"100%"}
+        minHeight={0}
+        overflow="hidden"
         pointerEvents={"none"}
         zIndex={"2"}
         sx={{
@@ -851,6 +864,7 @@ export default function MapPage() {
         display={"flex"}
         flexDirection={"column"}
         justifyContent={{ base: "end", lg: "start" }}
+        className="rightPanel"
       >
         <Flex
           width={"full"}
@@ -862,13 +876,15 @@ export default function MapPage() {
             },
             scrollbarWidth: "none",
           }}
-          direction={"column"}
+          flexDirection={"column"}
           flexShrink={{ lg: 0 }}
-          maxHeight={"full"}
+          maxHeight={"100%"}
+          minHeight={0}
+          overflowY="auto"
           justify={"end"}
           backgroundColor={"white"}
           borderRadius={10}
-          overflowY={"scroll"}
+          // overflowY={"scroll"}
           padding={4}
           boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
         >
