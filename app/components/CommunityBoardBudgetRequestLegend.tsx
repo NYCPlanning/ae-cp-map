@@ -66,7 +66,7 @@ export const CommunityBoardBudgetRequestLegend = ({
                 justifyContent="flex-start"
               >
                 <HealthIcon
-                  dark={true}
+                  dark={"true"}
                   aria-label="health care and human services icon"
                 />
                 <Text fontSize="xs" textColor={"gray.600"}>
@@ -80,7 +80,7 @@ export const CommunityBoardBudgetRequestLegend = ({
                 justifyContent="flex-start"
               >
                 <EducationIcon
-                  dark={true}
+                  dark={"true"}
                   aria-label="youth, education, and child welfare icon"
                 />
                 <Text fontSize="xs" textColor={"gray.600"}>
@@ -94,7 +94,7 @@ export const CommunityBoardBudgetRequestLegend = ({
                 justifyContent="flex-start"
               >
                 <SafetyIcon
-                  dark={true}
+                  dark={"true"}
                   aria-label="public safety and emergency services icon"
                 />
                 <Text fontSize="xs" textColor={"gray.600"}>
@@ -108,7 +108,7 @@ export const CommunityBoardBudgetRequestLegend = ({
                 justifyContent="flex-start"
               >
                 <InfrastructureIcon
-                  dark={true}
+                  dark={"true"}
                   aria-label="core infrastructure, city services, and resiliency icon"
                 />
                 <Text fontSize="xs" textColor={"gray.600"}>
@@ -122,7 +122,7 @@ export const CommunityBoardBudgetRequestLegend = ({
                 justifyContent="flex-start"
               >
                 <HousingIcon
-                  dark={true}
+                  dark={"true"}
                   aria-label="housing, economic development, and land use icon"
                 />
                 <Text fontSize="xs" textColor={"gray.600"}>
@@ -136,7 +136,7 @@ export const CommunityBoardBudgetRequestLegend = ({
                 justifyContent="flex-start"
               >
                 <TransportationIcon
-                  dark={true}
+                  dark={"true"}
                   aria-label="transportation and mobility icon"
                 />
                 <Text fontSize="xs" textColor={"gray.600"}>
@@ -150,7 +150,7 @@ export const CommunityBoardBudgetRequestLegend = ({
                 justifyContent="flex-start"
               >
                 <ParksIcon
-                  dark={true}
+                  dark={"true"}
                   aria-label="parks, cultural, and other community facilities icon"
                 />
                 <Text fontSize="xs" textColor={"gray.600"}>
@@ -163,7 +163,7 @@ export const CommunityBoardBudgetRequestLegend = ({
                 gap={1}
                 justifyContent="flex-start"
               >
-                <OtherIcon dark={true} aria-label="other needs icon" />
+                <OtherIcon dark={"true"} aria-label="other needs icon" />
                 <Text fontSize="xs" textColor={"gray.600"}>
                   Other Needs
                 </Text>
