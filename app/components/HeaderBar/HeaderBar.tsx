@@ -40,7 +40,7 @@ export function HeaderBar({
       gridTemplateColumns={"subgrid"}
       alignItems={"center"}
       gridTemplateRows={{
-        base: env.facDbPhase2 === "ON" ? "1fr 1fr" : "1fr",
+        base: env.facDbPhase2 === "ON" ? "1fr 1fr 1dvh" : "1fr",
         lg: "1fr",
       }}
       zIndex={"1000"}
@@ -55,6 +55,7 @@ export function HeaderBar({
       boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.16)"}
       position={"sticky"}
       top={0}
+      className={"headerContainer"}
     >
       <GridItem
         gridColumn={{
