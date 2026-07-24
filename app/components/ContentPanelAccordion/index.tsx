@@ -6,6 +6,7 @@ import {
   AccordionPanel,
   AccordionIcon,
   useMediaQuery,
+  useBreakpointValue,
 } from "@nycplanning/streetscape";
 
 export function ContentPanelAccordion({
@@ -17,11 +18,13 @@ export function ContentPanelAccordion({
 }) {
   const iconShouldFlip = useMediaQuery("(max-width: 767px)")[0];
 
+  const defaultLayersIndex = useBreakpointValue({ base: [], md: [0] });
+
   return (
     <Accordion
       width={"100%"}
       maxHeight={"100%"}
-      defaultIndex={[0]}
+      defaultIndex={defaultLayersIndex}
       allowToggle
       overflowY={"scroll"}
       sx={{ scrollbarWidth: "none" }}

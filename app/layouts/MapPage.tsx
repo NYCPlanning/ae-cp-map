@@ -14,6 +14,7 @@ import {
   Tab,
   TabList,
   Tabs,
+  useBreakpointValue,
 } from "@nycplanning/streetscape";
 import {
   Outlet,
@@ -443,6 +444,8 @@ export default function MapPage() {
     borough: { boroughIds: string } | undefined;
   }>({ cd: undefined, ccd: undefined, borough: undefined });
 
+  const defaultLayersIndex = useBreakpointValue({ base: [], md: [0] });
+
   return (
     <>
       <GridItem
@@ -651,9 +654,9 @@ export default function MapPage() {
           alignItems={"center"}
           flexShrink={{ lg: 0 }}
           maxHeight={{
-            base: "82vh",
-            lg: "84vh",
-            xl: "89vh",
+            base: "82dvh",
+            lg: "84dvh",
+            xl: "89dvh",
           }}
           backgroundColor={"white"}
           borderRadius={10}
@@ -664,7 +667,11 @@ export default function MapPage() {
           }}
           boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.20)"}
         >
-          <Accordion allowMultiple defaultIndex={[0]} width={"100%"}>
+          <Accordion
+            allowMultiple
+            defaultIndex={defaultLayersIndex}
+            width={"100%"}
+          >
             <AccordionItem borderTop={"none"} borderBottom={"none"}>
               <AccordionButton p={0} aria-label="Toggle layers panel">
                 <Heading
