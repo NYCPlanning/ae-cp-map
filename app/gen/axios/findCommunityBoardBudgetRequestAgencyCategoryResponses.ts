@@ -24,7 +24,7 @@ function getFindCommunityBoardBudgetRequestAgencyCategoryResponsesUrl() {
 }
 
 /**
- * @summary Find community board budget request agency reponse categories
+ * @summary Find community board budget request agency response categories
  * {@link /community-board-budget-requests/agency-category-responses}
  */
 export async function findCommunityBoardBudgetRequestAgencyCategoryResponses(

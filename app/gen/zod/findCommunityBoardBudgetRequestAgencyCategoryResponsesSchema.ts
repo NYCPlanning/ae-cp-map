@@ -8,7 +8,7 @@ import { errorSchema } from "./errorSchema";
 import { z } from "zod/v4";
 
 /**
- * @description An object containing a list of agency reponse categories
+ * @description An object containing a list of agency response categories
  */
 export const findCommunityBoardBudgetRequestAgencyCategoryResponses200Schema =
   z.object({

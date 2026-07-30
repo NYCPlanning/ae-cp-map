@@ -29,7 +29,7 @@ export type CommunityBoardBudgetRequestProperties = {
   layerName: string;
   policyAreaId: number;
   needGroupId: number;
-  agencyCategoryReponseId: string;
+  agencyCategoryResponseId: string;
   cbbrAgencyCategoryResponseId: string;
   requestType: CommunityBoardBudgetRequestType;
   cluster: boolean;
@@ -252,7 +252,7 @@ export function useCommunityBoardBudgetRequestsLayer(opts: {
       if (
         cbbrAgencyCategoryResponseIds.length > 0 &&
         !cbbrAgencyCategoryResponseIds.includes(
-          parseInt(d.properties.agencyCategoryReponseId),
+          parseInt(d.properties.agencyCategoryResponseId),
         )
       )
         return 0;

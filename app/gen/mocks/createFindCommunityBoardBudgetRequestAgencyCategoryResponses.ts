@@ -13,7 +13,7 @@ import { createError } from "./createError";
 import { faker } from "@faker-js/faker";
 
 /**
- * @description An object containing a list of agency reponse categories
+ * @description An object containing a list of agency response categories
  */
 export function createFindCommunityBoardBudgetRequestAgencyCategoryResponses200(
   data?: Partial<FindCommunityBoardBudgetRequestAgencyCategoryResponses200>,
