@@ -167,6 +167,9 @@ export function Main() {
           boundaryType: undefined,
           boundaryId: undefined,
           boroughId: undefined,
+          boroughIds: undefined,
+          communityDistrictIds: undefined,
+          cityCouncilDistrictIds: undefined,
         });
       } else {
         updateSearchParams({
@@ -175,6 +178,9 @@ export function Main() {
           boundaryType: undefined,
           boundaryId: undefined,
           boroughId: undefined,
+          boroughIds: undefined,
+          communityDistrictIds: undefined,
+          cityCouncilDistrictIds: undefined,
         });
       }
 

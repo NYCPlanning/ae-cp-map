@@ -15,6 +15,7 @@ import { findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler } from "
 import { findCapitalProjectManagingAgenciesHandler } from "./findCapitalProjectManagingAgenciesHandler";
 import { findCapitalProjectsByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectsByBoroughIdCommunityDistrictIdHandler";
 import { findCapitalProjectsByCityCouncilIdHandler } from "./findCapitalProjectsByCityCouncilIdHandler";
+import { findCapitalProjectsCsvHandler } from "./findCapitalProjectsCsvHandler";
 import { findCapitalProjectsHandler } from "./findCapitalProjectsHandler";
 import { findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler } from "./findCapitalProjectTilesByBoroughIdCommunityDistrictIdHandler";
 import { findCapitalProjectTilesByCityCouncilDistrictIdHandler } from "./findCapitalProjectTilesByCityCouncilDistrictIdHandler";
@@ -36,6 +37,7 @@ import { findCommunityBoardBudgetRequestTilesHandler } from "./findCommunityBoar
 import { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler } from "./findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictIdHandler";
 import { findCommunityDistrictsByBoroughIdHandler } from "./findCommunityDistrictsByBoroughIdHandler";
 import { findCommunityDistrictTilesHandler } from "./findCommunityDistrictTilesHandler";
+import { findFacilitiesCsvHandler } from "./findFacilitiesCsvHandler";
 import { findFacilitiesHandler } from "./findFacilitiesHandler";
 import { findFacilityAgenciesHandler } from "./findFacilityAgenciesHandler";
 import { findFacilityByIdHandler } from "./findFacilityByIdHandler";
@@ -67,6 +69,7 @@ export const handlers = [
   findBoroughGeoJsonByBoroughIdHandler(),
   findCapitalCommitmentTypesHandler(),
   findCapitalProjectsHandler(),
+  findCapitalProjectsCsvHandler(),
   findCapitalCommitmentsByManagingCodeCapitalProjectIdHandler(),
   findCapitalProjectGeoJsonByManagingCodeCapitalProjectIdHandler(),
   findCapitalProjectByManagingCodeCapitalProjectIdHandler(),
@@ -93,6 +96,7 @@ export const handlers = [
   findFacilityGeoJsonByIdHandler(),
   findFacilityAgenciesHandler(),
   findFacilityCategoriesHandler(),
+  findFacilitiesCsvHandler(),
   findFacilityTilesHandler(),
   findLandUsesHandler(),
   findTaxLotsHandler(),
