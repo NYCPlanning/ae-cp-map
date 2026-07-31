@@ -168,6 +168,15 @@ export type {
   FindCapitalProjectsByCityCouncilIdQuery,
 } from "./FindCapitalProjectsByCityCouncilId";
 export type {
+  FindCapitalProjectsCsvQueryParamsGeometryEnumKey,
+  FindCapitalProjectsCsvQueryParams,
+  FindCapitalProjectsCsv200,
+  FindCapitalProjectsCsv400,
+  FindCapitalProjectsCsv500,
+  FindCapitalProjectsCsvQueryResponse,
+  FindCapitalProjectsCsvQuery,
+} from "./FindCapitalProjectsCsv";
+export type {
   FindCapitalProjectTilesPathParams,
   FindCapitalProjectTiles200,
   FindCapitalProjectTiles400,
@@ -346,6 +355,17 @@ export type {
   FindFacilitiesQuery,
 } from "./FindFacilities";
 export type {
+  FindFacilitiesCsvQueryParamsFacilityJurisdictionsEnumKey,
+  FindFacilitiesCsvQueryParamsFacilityOperatorTypesEnumKey,
+  FindFacilitiesCsvQueryParamsGeometryEnumKey,
+  FindFacilitiesCsvQueryParams,
+  FindFacilitiesCsv200,
+  FindFacilitiesCsv400,
+  FindFacilitiesCsv500,
+  FindFacilitiesCsvQueryResponse,
+  FindFacilitiesCsvQuery,
+} from "./FindFacilitiesCsv";
+export type {
   FindFacilityAgencies200,
   FindFacilityAgencies400,
   FindFacilityAgencies500,
@@ -512,6 +532,7 @@ export { facilitySgrSysLtrEnum } from "./Facility";
 export { facilityGeoJsonTypeEnum } from "./FacilityGeoJson";
 export { facilityOperatorTypeEnum } from "./FacilityOperatorType";
 export { findCapitalProjectsQueryParamsGeometryEnum } from "./FindCapitalProjects";
+export { findCapitalProjectsCsvQueryParamsGeometryEnum } from "./FindCapitalProjectsCsv";
 export { findCommunityBoardBudgetRequestsQueryParamsCbbrTypeEnum } from "./FindCommunityBoardBudgetRequests";
 export { findCommunityBoardBudgetRequestsQueryParamsGeometryEnum } from "./FindCommunityBoardBudgetRequests";
 export { findCommunityBoardBudgetRequestsCsvQueryParamsCbbrTypeEnum } from "./FindCommunityBoardBudgetRequestsCsv";
@@ -519,6 +540,9 @@ export { findCommunityBoardBudgetRequestsCsvQueryParamsGeometryEnum } from "./Fi
 export { findFacilitiesQueryParamsFacilityJurisdictionsEnum } from "./FindFacilities";
 export { findFacilitiesQueryParamsFacilityOperatorTypesEnum } from "./FindFacilities";
 export { findFacilitiesQueryParamsGeometryEnum } from "./FindFacilities";
+export { findFacilitiesCsvQueryParamsFacilityJurisdictionsEnum } from "./FindFacilitiesCsv";
+export { findFacilitiesCsvQueryParamsFacilityOperatorTypesEnum } from "./FindFacilitiesCsv";
+export { findFacilitiesCsvQueryParamsGeometryEnum } from "./FindFacilitiesCsv";
 export { findTaxLotsQueryParamsGeometryEnum } from "./FindTaxLots";
 export { multiPointTypeEnum } from "./MultiPoint";
 export { multiPolygonTypeEnum } from "./MultiPolygon";

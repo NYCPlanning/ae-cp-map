@@ -168,6 +168,15 @@ export type {
   FindCapitalProjectsByCityCouncilIdQuery,
 } from "./types/FindCapitalProjectsByCityCouncilId";
 export type {
+  FindCapitalProjectsCsvQueryParamsGeometryEnumKey,
+  FindCapitalProjectsCsvQueryParams,
+  FindCapitalProjectsCsv200,
+  FindCapitalProjectsCsv400,
+  FindCapitalProjectsCsv500,
+  FindCapitalProjectsCsvQueryResponse,
+  FindCapitalProjectsCsvQuery,
+} from "./types/FindCapitalProjectsCsv";
+export type {
   FindCapitalProjectTilesPathParams,
   FindCapitalProjectTiles200,
   FindCapitalProjectTiles400,
@@ -346,6 +355,17 @@ export type {
   FindFacilitiesQuery,
 } from "./types/FindFacilities";
 export type {
+  FindFacilitiesCsvQueryParamsFacilityJurisdictionsEnumKey,
+  FindFacilitiesCsvQueryParamsFacilityOperatorTypesEnumKey,
+  FindFacilitiesCsvQueryParamsGeometryEnumKey,
+  FindFacilitiesCsvQueryParams,
+  FindFacilitiesCsv200,
+  FindFacilitiesCsv400,
+  FindFacilitiesCsv500,
+  FindFacilitiesCsvQueryResponse,
+  FindFacilitiesCsvQuery,
+} from "./types/FindFacilitiesCsv";
+export type {
   FindFacilityAgencies200,
   FindFacilityAgencies400,
   FindFacilityAgencies500,
@@ -518,6 +538,7 @@ export { findCapitalProjectManagingAgencies } from "./axios/findCapitalProjectMa
 export { findCapitalProjects } from "./axios/findCapitalProjects";
 export { findCapitalProjectsByBoroughIdCommunityDistrictId } from "./axios/findCapitalProjectsByBoroughIdCommunityDistrictId";
 export { findCapitalProjectsByCityCouncilId } from "./axios/findCapitalProjectsByCityCouncilId";
+export { findCapitalProjectsCsv } from "./axios/findCapitalProjectsCsv";
 export { findCapitalProjectTiles } from "./axios/findCapitalProjectTiles";
 export { findCapitalProjectTilesByBoroughIdCommunityDistrictId } from "./axios/findCapitalProjectTilesByBoroughIdCommunityDistrictId";
 export { findCapitalProjectTilesByCityCouncilDistrictId } from "./axios/findCapitalProjectTilesByCityCouncilDistrictId";
@@ -539,6 +560,7 @@ export { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId } from "./ax
 export { findCommunityDistrictsByBoroughId } from "./axios/findCommunityDistrictsByBoroughId";
 export { findCommunityDistrictTiles } from "./axios/findCommunityDistrictTiles";
 export { findFacilities } from "./axios/findFacilities";
+export { findFacilitiesCsv } from "./axios/findFacilitiesCsv";
 export { findFacilityAgencies } from "./axios/findFacilityAgencies";
 export { findFacilityById } from "./axios/findFacilityById";
 export { findFacilityCategories } from "./axios/findFacilityCategories";
@@ -678,6 +700,13 @@ export {
   createFindCapitalProjectsByCityCouncilId500,
   createFindCapitalProjectsByCityCouncilIdQueryResponse,
 } from "./mocks/createFindCapitalProjectsByCityCouncilId";
+export {
+  createFindCapitalProjectsCsvQueryParams,
+  createFindCapitalProjectsCsv200,
+  createFindCapitalProjectsCsv400,
+  createFindCapitalProjectsCsv500,
+  createFindCapitalProjectsCsvQueryResponse,
+} from "./mocks/createFindCapitalProjectsCsv";
 export {
   createFindCapitalProjectTilesPathParams,
   createFindCapitalProjectTiles200,
@@ -828,6 +857,13 @@ export {
   createFindFacilities500,
   createFindFacilitiesQueryResponse,
 } from "./mocks/createFindFacilities";
+export {
+  createFindFacilitiesCsvQueryParams,
+  createFindFacilitiesCsv200,
+  createFindFacilitiesCsv400,
+  createFindFacilitiesCsv500,
+  createFindFacilitiesCsvQueryResponse,
+} from "./mocks/createFindFacilitiesCsv";
 export {
   createFindFacilityAgencies200,
   createFindFacilityAgencies400,
@@ -1036,6 +1072,12 @@ export {
   findCapitalProjectsByCityCouncilIdHandler,
 } from "./mocks/findCapitalProjectsByCityCouncilIdHandler";
 export {
+  findCapitalProjectsCsvHandlerResponse200,
+  findCapitalProjectsCsvHandlerResponse400,
+  findCapitalProjectsCsvHandlerResponse500,
+  findCapitalProjectsCsvHandler,
+} from "./mocks/findCapitalProjectsCsvHandler";
+export {
   findCapitalProjectsHandlerResponse200,
   findCapitalProjectsHandlerResponse400,
   findCapitalProjectsHandlerResponse500,
@@ -1167,6 +1209,12 @@ export {
   findCommunityDistrictTilesHandler,
 } from "./mocks/findCommunityDistrictTilesHandler";
 export {
+  findFacilitiesCsvHandlerResponse200,
+  findFacilitiesCsvHandlerResponse400,
+  findFacilitiesCsvHandlerResponse500,
+  findFacilitiesCsvHandler,
+} from "./mocks/findFacilitiesCsvHandler";
+export {
   findFacilitiesHandlerResponse200,
   findFacilitiesHandlerResponse400,
   findFacilitiesHandlerResponse500,
@@ -1291,6 +1339,7 @@ export { facilitySgrSysLtrEnum } from "./types/Facility";
 export { facilityGeoJsonTypeEnum } from "./types/FacilityGeoJson";
 export { facilityOperatorTypeEnum } from "./types/FacilityOperatorType";
 export { findCapitalProjectsQueryParamsGeometryEnum } from "./types/FindCapitalProjects";
+export { findCapitalProjectsCsvQueryParamsGeometryEnum } from "./types/FindCapitalProjectsCsv";
 export { findCommunityBoardBudgetRequestsQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequests";
 export { findCommunityBoardBudgetRequestsQueryParamsGeometryEnum } from "./types/FindCommunityBoardBudgetRequests";
 export { findCommunityBoardBudgetRequestsCsvQueryParamsCbbrTypeEnum } from "./types/FindCommunityBoardBudgetRequestsCsv";
@@ -1298,6 +1347,9 @@ export { findCommunityBoardBudgetRequestsCsvQueryParamsGeometryEnum } from "./ty
 export { findFacilitiesQueryParamsFacilityJurisdictionsEnum } from "./types/FindFacilities";
 export { findFacilitiesQueryParamsFacilityOperatorTypesEnum } from "./types/FindFacilities";
 export { findFacilitiesQueryParamsGeometryEnum } from "./types/FindFacilities";
+export { findFacilitiesCsvQueryParamsFacilityJurisdictionsEnum } from "./types/FindFacilitiesCsv";
+export { findFacilitiesCsvQueryParamsFacilityOperatorTypesEnum } from "./types/FindFacilitiesCsv";
+export { findFacilitiesCsvQueryParamsGeometryEnum } from "./types/FindFacilitiesCsv";
 export { findTaxLotsQueryParamsGeometryEnum } from "./types/FindTaxLots";
 export { multiPointTypeEnum } from "./types/MultiPoint";
 export { multiPolygonTypeEnum } from "./types/MultiPolygon";
@@ -1420,6 +1472,13 @@ export {
   findCapitalProjectsByCityCouncilId500Schema,
   findCapitalProjectsByCityCouncilIdQueryResponseSchema,
 } from "./zod/findCapitalProjectsByCityCouncilIdSchema";
+export {
+  findCapitalProjectsCsvQueryParamsSchema,
+  findCapitalProjectsCsv200Schema,
+  findCapitalProjectsCsv400Schema,
+  findCapitalProjectsCsv500Schema,
+  findCapitalProjectsCsvQueryResponseSchema,
+} from "./zod/findCapitalProjectsCsvSchema";
 export {
   findCapitalProjectsQueryParamsSchema,
   findCapitalProjects200Schema,
@@ -1570,6 +1629,13 @@ export {
   findCommunityDistrictTiles500Schema,
   findCommunityDistrictTilesQueryResponseSchema,
 } from "./zod/findCommunityDistrictTilesSchema";
+export {
+  findFacilitiesCsvQueryParamsSchema,
+  findFacilitiesCsv200Schema,
+  findFacilitiesCsv400Schema,
+  findFacilitiesCsv500Schema,
+  findFacilitiesCsvQueryResponseSchema,
+} from "./zod/findFacilitiesCsvSchema";
 export {
   findFacilitiesQueryParamsSchema,
   findFacilities200Schema,

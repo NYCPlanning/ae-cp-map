@@ -11,6 +11,7 @@ export { findCapitalProjectManagingAgencies } from "./findCapitalProjectManaging
 export { findCapitalProjects } from "./findCapitalProjects";
 export { findCapitalProjectsByBoroughIdCommunityDistrictId } from "./findCapitalProjectsByBoroughIdCommunityDistrictId";
 export { findCapitalProjectsByCityCouncilId } from "./findCapitalProjectsByCityCouncilId";
+export { findCapitalProjectsCsv } from "./findCapitalProjectsCsv";
 export { findCapitalProjectTiles } from "./findCapitalProjectTiles";
 export { findCapitalProjectTilesByBoroughIdCommunityDistrictId } from "./findCapitalProjectTilesByBoroughIdCommunityDistrictId";
 export { findCapitalProjectTilesByCityCouncilDistrictId } from "./findCapitalProjectTilesByCityCouncilDistrictId";
@@ -32,6 +33,7 @@ export { findCommunityDistrictGeoJsonByBoroughIdCommunityDistrictId } from "./fi
 export { findCommunityDistrictsByBoroughId } from "./findCommunityDistrictsByBoroughId";
 export { findCommunityDistrictTiles } from "./findCommunityDistrictTiles";
 export { findFacilities } from "./findFacilities";
+export { findFacilitiesCsv } from "./findFacilitiesCsv";
 export { findFacilityAgencies } from "./findFacilityAgencies";
 export { findFacilityById } from "./findFacilityById";
 export { findFacilityCategories } from "./findFacilityCategories";

@@ -38,15 +38,21 @@ export type AdminQueryParams = {
   communityDistrictIds?: string | null;
 };
 
-export type AttributeParams = {
+export type CapitalProjectAttributeParams = {
   managingAgency: ManagingAgencyInitials;
   agencyBudget: AgencyBudgetType;
   commitmentsTotalMin: CommitmentsTotalMin;
   commitmentsTotalMax: CommitmentsTotalMax;
+};
+
+export type CommunityBoardBudgetRequestAttributeParams = {
   cbbrPolicyAreaId?: CommunityBoardBudgetRequestPolicyAreaId;
   cbbrNeedGroupId?: CommunityBoardBudgetRequestNeedGroupId;
   cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
   cbbrAgencyCategoryResponseIds?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
+};
+
+export type FacilityAttributeParams = {
   facilityTypes?: FacilityTypes;
   facilityOversightAgency?: FacilityOversightAgency;
   facilityJurisdictions?: FacilityJurisdictions;
@@ -55,16 +61,15 @@ export type AttributeParams = {
   facilitySubgroupIds?: FacilitySubgroupIds;
 };
 
-export type AttributeQueryParams = {
-  managingAgency?: ManagingAgencyInitials;
-  agencyBudget?: AgencyBudgetType;
-  commitmentsTotalMin?: CommitmentsTotalMin;
-  commitmentsTotalMax?: CommitmentsTotalMax;
-  cbbrPolicyAreaId?: CommunityBoardBudgetRequestPolicyAreaId;
-  cbbrNeedGroupId?: CommunityBoardBudgetRequestNeedGroupId;
-  cbbrAgencyInitials?: CommunityBoardBudgetRequestAgencyInitials;
-  cbbrAgencyCategoryResponseId?: CommunityBoardBudgetRequestAgencyCategoryResponseId;
-};
+export type AttributeParams = CapitalProjectAttributeParams &
+  CommunityBoardBudgetRequestAttributeParams &
+  FacilityAttributeParams;
+
+export type AttributeQueryParams = Partial<
+  CapitalProjectAttributeParams &
+    CommunityBoardBudgetRequestAttributeParams &
+    FacilityAttributeParams
+>;
 
 export type PaginationQueryParams = {
   page?: number;
