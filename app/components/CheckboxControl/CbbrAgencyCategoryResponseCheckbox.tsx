@@ -66,7 +66,7 @@ export function CbbrAgencyCategoryResponseCheckbox({
           <FilterCheckbox
             key={cbbrACR.id}
             checkboxValue={cbbrACR.id}
-            checkboxLabel={cbbrACR.description}
+            checkboxLabel={cbbrACR.description.replace(".", "")}
             isChecked={cbbrACR.checked}
             onCheckedChange={(value) => {
               onCheckedChange(String(value));
