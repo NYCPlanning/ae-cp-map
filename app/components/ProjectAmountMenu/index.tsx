@@ -9,6 +9,7 @@ import {
   handleCommitmentTotalsInputs,
   checkCommitmentTotalInputsAreValid,
   getMultiplier,
+  useUpdateSearchParams,
 } from "~/utils/utils";
 import { ProjectAmountMenuInput } from "./ProjectAmountMenuInput";
 
@@ -39,6 +40,8 @@ export function ProjectAmountMenu({
       handleCommitmentTotalsInputs(commitmentsTotalMin, commitmentsTotalMax),
     );
   }, [commitmentsTotalMin, commitmentsTotalMax]);
+
+  const [, updateSearchParams] = useUpdateSearchParams();
 
   const {
     commitmentsTotalMinInputValue,
@@ -136,6 +139,10 @@ export function ProjectAmountMenu({
                 commitmentsTotalMaxInputValue: "",
                 commitmentsTotalMinSelectValue: "K",
                 commitmentsTotalMaxSelectValue: "K",
+              });
+              updateSearchParams({
+                commitmentsTotalMin: undefined,
+                commitmentsTotalMax: undefined,
               });
             }}
             icon={
