@@ -10,7 +10,6 @@ import {
   Radio,
   RadioGroup,
   Text,
-  Switch,
   Heading,
   FormControl,
   FormLabel,
@@ -24,14 +23,13 @@ import { LinkBtn } from "../LinkBtn";
 import { useSearchParams, useLocation, useRouteLoaderData } from "react-router";
 import { env } from "~/utils/env";
 import { useStore } from "~/store";
-import { findFacilities } from "~/gen";
 import {
   ExportDataModalProps,
   ExportDataModalSelectedDownloadOptionsProps,
   UpdateExportDataModalProps,
 } from "~/store/export-data-modal";
 
-const { cpdbDataUrl } = env;
+const { zoningApiUrl } = env;
 
 interface SelectedDownloadOptions {
   selectedLocationText: string;
@@ -299,7 +297,7 @@ export function ExportDataModal() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
-  const downloadLink = `${cpdbDataUrl}/${getExportDataModalDownloadQuery()}`;
+  const downloadLink = `${zoningApiUrl}/${getExportDataModalDownloadQuery()}`;
 
   const selectedDownloadOptions: SelectedDownloadOptions =
     getSelectedDownloadOptions({
