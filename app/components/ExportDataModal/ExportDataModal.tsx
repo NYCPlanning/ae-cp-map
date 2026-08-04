@@ -57,7 +57,7 @@ function getSelectedDownloadOptions({
   cbbrNeedGroupId,
   cbbrPolicyAreaId,
   agencyInitials,
-  facilityTypes,
+  facilityOperatorTypes,
   facilityOversightAgency,
   facilityJurisdictions,
   facilityCategoryIds,
@@ -139,7 +139,7 @@ function getSelectedDownloadOptions({
       agencyInitials,
     ]),
     facilitiesAppliedFilters: getAppliedFilterCount([
-      facilityTypes,
+      facilityOperatorTypes,
       facilityOversightAgency,
       facilityJurisdictions,
       facilityCategoryIds,
@@ -177,7 +177,7 @@ export function ExportDataModal() {
     cbbrNeedGroupId,
     cbbrPolicyAreaId,
     agencyInitials,
-    facilityTypes,
+    facilityOperatorTypes,
     facilityOversightAgency,
     facilityJurisdictions,
     facilityCategoryIds,
@@ -244,7 +244,8 @@ export function ExportDataModal() {
       searchParams.get("cbbrAgencyInitials");
 
     // Get Facility URL page parameters
-    const facilityTypesFromQueryParams = searchParams.get("facilityTypes");
+    const facilityOperatorTypesFromQueryParams =
+      searchParams.get("facilityTypes");
     const facilityOversightAgencyFromQueryParams = searchParams.get(
       "facilityOversightAgency",
     );
@@ -287,7 +288,7 @@ export function ExportDataModal() {
       cbbrNeedGroupId: cbbrNeedGroupIdFromQueryParams,
       cbbrPolicyAreaId: cbbrPolicyAreaIdFromQueryParams,
       agencyInitials: agencyInitialsFromQueryParams,
-      facilityTypes: facilityTypesFromQueryParams,
+      facilityOperatorTypes: facilityOperatorTypesFromQueryParams,
       facilityOversightAgency: facilityOversightAgencyFromQueryParams,
       facilityJurisdictions: facilityJurisdictionsFromQueryParams,
       facilityCategoryIds: facilityCategoryIdsFromQueryParams,
@@ -317,7 +318,7 @@ export function ExportDataModal() {
       cbbrNeedGroupId,
       cbbrPolicyAreaId,
       agencyInitials,
-      facilityTypes,
+      facilityOperatorTypes,
       facilityOversightAgency,
       facilityJurisdictions,
       facilityCategoryIds,

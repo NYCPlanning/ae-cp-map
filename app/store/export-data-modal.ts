@@ -26,7 +26,7 @@ export interface ExportDataModalBaseProps {
   cbbrNeedGroupId: null | string;
   cbbrPolicyAreaId: null | string;
   agencyInitials: null | string;
-  facilityTypes: null | string;
+  facilityOperatorTypes: null | string;
   facilityOversightAgency: null | string;
   facilityJurisdictions: null | string;
   facilityCategoryIds: null | string;
@@ -81,7 +81,7 @@ export interface ExportDataModalStore extends ExportDataModalProps {
     cbbrNeedGroupId,
     cbbrPolicyAreaId,
     agencyInitials,
-    facilityTypes,
+    facilityOperatorTypes,
     facilityOversightAgency,
     facilityJurisdictions,
     facilityCategoryIds,
@@ -128,7 +128,7 @@ export const createExportDataModalStore: StateCreator<ExportDataModalStore> = (
   cbbrNeedGroupId: null,
   cbbrPolicyAreaId: null,
   agencyInitials: null,
-  facilityTypes: null,
+  facilityOperatorTypes: null,
   facilityOversightAgency: null,
   facilityJurisdictions: null,
   facilityCategoryIds: null,
@@ -152,7 +152,7 @@ export const createExportDataModalStore: StateCreator<ExportDataModalStore> = (
     cbbrNeedGroupId,
     cbbrPolicyAreaId,
     agencyInitials,
-    facilityTypes,
+    facilityOperatorTypes,
     facilityOversightAgency,
     facilityJurisdictions,
     facilityCategoryIds,
@@ -177,7 +177,7 @@ export const createExportDataModalStore: StateCreator<ExportDataModalStore> = (
       cbbrNeedGroupId,
       cbbrPolicyAreaId,
       agencyInitials,
-      facilityTypes,
+      facilityOperatorTypes,
       facilityOversightAgency,
       facilityJurisdictions,
       facilityCategoryIds,
@@ -205,7 +205,7 @@ export const createExportDataModalStore: StateCreator<ExportDataModalStore> = (
       cbbrNeedGroupId,
       cbbrPolicyAreaId,
       agencyInitials,
-      facilityTypes,
+      facilityOperatorTypes,
       facilityOversightAgency,
       facilityJurisdictions,
       facilityCategoryIds,
@@ -249,7 +249,9 @@ export const createExportDataModalStore: StateCreator<ExportDataModalStore> = (
 
       ...(dataSetForExport === "facilities"
         ? {
-            ...(facilityTypes !== null ? { facilityTypes } : {}),
+            ...(facilityOperatorTypes !== null
+              ? { facilityOperatorTypes }
+              : {}),
             ...(facilityOversightAgency !== null
               ? { facilityOversightAgency }
               : {}),
@@ -301,7 +303,7 @@ export const createExportDataModalStore: StateCreator<ExportDataModalStore> = (
   },
   clearFacilityFilters: () => {
     set(() => ({
-      facilityTypes: null,
+      facilityOperatorTypes: null,
       facilityOversightAgency: null,
       facilityJurisdictions: null,
       facilityCategoryIds: null,
@@ -397,7 +399,7 @@ export const createExportDataModalStore: StateCreator<ExportDataModalStore> = (
       cbbrPolicyAreaId,
       agencyInitials,
       facilityJurisdictions,
-      facilityTypes,
+      facilityOperatorTypes,
       facilityOversightAgency,
       facilityCategoryIds,
       facilityGroupIds,
@@ -449,9 +451,9 @@ export const createExportDataModalStore: StateCreator<ExportDataModalStore> = (
                 ",",
               ) as FindFacilitiesQueryParamsFacilityJurisdictionsEnumKey[]),
         facilityOperatorTypes:
-          facilityTypes === null
+          facilityOperatorTypes === null
             ? undefined
-            : (facilityTypes.split(
+            : (facilityOperatorTypes.split(
                 ",",
               ) as FindFacilitiesQueryParamsFacilityOperatorTypesEnumKey[]),
         facilityOversightAgency:
