@@ -8,7 +8,7 @@ import {
 export default [
   layout("layouts/MapPage.tsx", [
     index("routes/home.tsx"),
-    layout("layouts/ResultsPanel.tsx", [
+    layout("layouts/ResultsPanel.tsx", { id: "layouts/ResultsPanel" }, [
       route(
         "community-board-budget-requests",
         "routes/community-board-budget-requests.tsx",
