@@ -32,3 +32,4 @@ jobs:
                 HD_VITE_FACDB_PHASE_1: ${{secrets.VITE_FACDB_PHASE_1}}
                 HD_VITE_FACDB_PHASE_2: ${{secrets.VITE_FACDB_PHASE_2}}
                 HD_VITE_FACDB_PHASE_3: ON
+                HD_VITE_STATE_OF_GOOD_REPAIR: OFF
