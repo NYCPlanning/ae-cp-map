@@ -62,6 +62,7 @@ import { SearchByCbbrMenu } from "~/components/SearchByCbbrMenu";
 import { SearchByFacilityMenu } from "~/components/SearchByFacilityMenu";
 import { useState, useEffect, useRef } from "react";
 import { useStore } from "~/store";
+import { SupportingLayersPanel } from "~/components/SupportingLayersPanel";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -854,6 +855,7 @@ export default function MapPage() {
                       </Box>
                     </Box>
                   </Accordion>
+                  <SupportingLayersPanel />
                   <HowToUseThisTool />
                 </Box>
               </AccordionPanel>

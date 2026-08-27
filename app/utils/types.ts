@@ -93,13 +93,28 @@ export type LayerParamValue = "off" | undefined;
 
 export type LayerQueryParams = Partial<Record<LayerParamKey, LayerParamValue>>;
 
+export type SupportingLayerParamKey = "housing";
+
+export type SupportingLayersParam = SupportingLayerParamKey[] | [""] | null;
+
+export type HousingLayerQueryParams = {
+  housingData: "cd" | "nta" | "boro";
+  housingRange: "past" | "current" | "projected";
+};
+
+export type SupportingLayersQueryParams = HousingLayerQueryParams & {
+  supportingLayers?: SupportingLayersParam;
+};
+
 export type QueryParams = Partial<
   AdminQueryParams &
     AttributeParams &
     PaginationQueryParams &
     LayerQueryParams &
     LayersQueryParams &
-    AddressQueryParams
+    AddressQueryParams &
+    SupportingLayersQueryParams &
+    HousingLayerQueryParams
 >;
 
 export type ProjectAmountMenuParams = {
@@ -111,3 +126,11 @@ export type ProjectAmountMenuParams = {
 };
 
 export type PageParamKey = "cbbrPage" | "cpPage" | "facilitiesPage";
+
+export type SupportingLayerSliceProps = {
+  rangeMin: number;
+  rangeMax: number;
+  rangeLabel: string;
+  colorHex: string;
+  colorRgba: Array<number>;
+};
