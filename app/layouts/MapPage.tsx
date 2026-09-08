@@ -171,11 +171,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       baseURL: `${env.zoningApiUrl}/api`,
     });
 
-  if (boundaryType === "cd") {
-    const { boroughs } = await findBoroughs({
-      baseURL: `${env.zoningApiUrl}/api`,
-    });
+  const { boroughs } = await findBoroughs({
+    baseURL: `${env.zoningApiUrl}/api`,
+  });
 
+  if (boundaryType === "cd") {
     if (boroughId === null) {
       return {
         boroughs,
@@ -233,7 +233,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       baseURL: `${env.zoningApiUrl}/api`,
     });
     return {
-      boroughs: null,
+      boroughs,
       communityDistricts: null,
       cityCouncilDistricts,
       managingAgencies,
@@ -255,7 +255,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   return {
-    boroughs: null,
+    boroughs,
     communityDistricts: null,
     cityCouncilDistricts: null,
     managingAgencies,

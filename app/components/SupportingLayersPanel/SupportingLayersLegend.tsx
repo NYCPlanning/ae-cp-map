@@ -11,8 +11,8 @@ export function SupportingLayersLegend({
   return (
     <Stack width={"100%"} paddingLeft={6} display={display}>
       {slices.map((slice) => (
-        // <HStack gap={2} key={slice.rangeLabel}>
-        <HStack gap={2}>
+        <HStack gap={2} key={slice.rangeLabel}>
+          {/* <HStack gap={2}> */}
           <Box
             w={5}
             h={5}

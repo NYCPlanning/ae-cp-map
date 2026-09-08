@@ -20,10 +20,13 @@ import {
   useMapPinLayer,
   useFacilitiesLayer,
   useFacilitiesGeoJsonLayer,
+  useHousingGrowthLayer,
 } from "./layers";
 import type { MapView, MapViewState, PickingInfo } from "@deck.gl/core";
 import { FlyToInterpolator } from "@deck.gl/core";
+import { useStore } from "~/store";
 import { env } from "~/utils/env";
+import { useSearchParams } from "react-router";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
@@ -93,6 +96,7 @@ export function Atlas({
 
   const facilitiesLayer = useFacilitiesLayer({ visible: showFacilities });
   const facilitiesGeoJsonLayer = useFacilitiesGeoJsonLayer();
+  const housingGrowthLayer = useHousingGrowthLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer({ clearCombobox });
   const communityDistrictLayer = useSelectedCommunityDistrictsLayer();
   const communityDistrictsOutlinesLayer = useCommunityDistrictsOutlinesLayer();
@@ -112,19 +116,31 @@ export function Atlas({
 
   const mapPinLayer = useMapPinLayer({ addressSearchSliderValue });
 
+  const housingLayerMapTooltip = useStore(
+    (state) => state.housingLayerMapTooltip,
+  );
+
+  const [searchParams] = useSearchParams();
+  const supportingLayers = searchParams.get("supportingLayers");
+
   const LAYER_LIST =
     facDbPhase2 == "ON"
       ? [
           boundaryMvtMask,
-          communityDistrictsOutlinesLayer,
-          cityCouncilDistrictsOutlinesLayer,
-          communityDistrictsLayer,
-          communityDistrictLayer,
-          cityCouncilDistrictsLayer,
-          cityCouncilDistrictLayer,
-          boroughsLayer,
-          boroughsOutlinesLayer,
-          boroughLayer,
+          ...(supportingLayers === null
+            ? [
+                communityDistrictsOutlinesLayer,
+                cityCouncilDistrictsOutlinesLayer,
+                communityDistrictsLayer,
+                communityDistrictLayer,
+                cityCouncilDistrictsLayer,
+                cityCouncilDistrictLayer,
+                boroughsLayer,
+                boroughsOutlinesLayer,
+                boroughLayer,
+              ]
+            : []),
+          housingGrowthLayer,
           capitalProjectsLayer,
           capitalProjectBudgetedGeoJsonLayer,
           facilitiesLayer,
@@ -241,6 +257,14 @@ export function Atlas({
             },
           };
         }
+
+        if (
+          data.object.properties?.layerName === "housing-growth-fill" ||
+          data.object.properties?.layerName === "housing-growth-label"
+        ) {
+          return housingLayerMapTooltip;
+        }
+        // console.log(data.object.properties)
         return null;
       }}
     >

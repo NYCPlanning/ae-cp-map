@@ -18,3 +18,4 @@ export { SelectedGeosLayer } from "./SelectedGeosLayer";
 export type { SelectedGeosLayerProps } from "./SelectedGeosLayer";
 export { useFacilitiesLayer } from "./useFacilitiesLayer.client";
 export { useFacilitiesGeoJsonLayer } from "./useFacilitiesGeoJsonLayer.client";
+export { useHousingGrowthLayer } from "./useHousingGrowthLayer.client";

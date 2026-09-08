@@ -1,3 +1,5 @@
+import type { Color } from "@deck.gl/core";
+
 export type BoroughId = null | string;
 export type BoroughIds = null | string[];
 export type BoundaryType = null | "cd" | "ccd" | "borough";
@@ -128,9 +130,9 @@ export type ProjectAmountMenuParams = {
 export type PageParamKey = "cbbrPage" | "cpPage" | "facilitiesPage";
 
 export type SupportingLayerSliceProps = {
-  rangeMin: number;
+  rangeMin?: number;
   rangeMax: number;
   rangeLabel: string;
   colorHex: string;
-  colorRgba: Array<number>;
+  colorRgba: Color;
 };

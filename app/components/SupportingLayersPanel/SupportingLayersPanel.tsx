@@ -68,7 +68,11 @@ export function SupportingLayersPanel() {
                 onChange={() => {
                   updateSearchParams({
                     supportingLayers: supportingLayers.includes("housing")
-                      ? supportingLayers.filter((layer) => layer !== "housing")
+                      ? supportingLayers.length === 1
+                        ? undefined
+                        : supportingLayers.filter(
+                            (layer) => layer !== "housing",
+                          )
                       : [...supportingLayers, "housing"],
                   });
                 }}
@@ -129,7 +133,7 @@ export function SupportingLayersPanel() {
                 </Text>
               </Radio>
               <SupportingLayersLegend
-                slices={HOUSING_GROWTH_LAYERS[housingData].PAST}
+                slices={HOUSING_GROWTH_LAYERS[housingData]["past"]}
                 display={housingRange === "past" ? "flex" : "none"}
               />
               <Radio name={"current"} size={"xs"} value={"current"}>
@@ -138,7 +142,7 @@ export function SupportingLayersPanel() {
                 </Text>
               </Radio>
               <SupportingLayersLegend
-                slices={HOUSING_GROWTH_LAYERS[housingData].CURRENT}
+                slices={HOUSING_GROWTH_LAYERS[housingData]["current"]}
                 display={housingRange === "current" ? "flex" : "none"}
               />
               <Radio name={"projected"} size={"xs"} value={"projected"}>
@@ -147,7 +151,7 @@ export function SupportingLayersPanel() {
                 </Text>
               </Radio>
               <SupportingLayersLegend
-                slices={HOUSING_GROWTH_LAYERS[housingData].PROJECTED}
+                slices={HOUSING_GROWTH_LAYERS[housingData]["projected"]}
                 display={housingRange === "projected" ? "flex" : "none"}
               />
             </Stack>
