@@ -34,14 +34,14 @@ export function SupportingLayersPanel() {
     searchParams.get("housingData") === null
       ? "cd"
       : (searchParams.get(
-          "housingData",
-        ) as HousingLayerQueryParams["housingData"]);
+        "housingData",
+      ) as HousingLayerQueryParams["housingData"]);
   const housingRange =
     searchParams.get("housingRange") === null
       ? "projected"
       : (searchParams.get(
-          "housingRange",
-        ) as HousingLayerQueryParams["housingRange"]);
+        "housingRange",
+      ) as HousingLayerQueryParams["housingRange"]);
 
   return (
     <VStack
@@ -71,8 +71,8 @@ export function SupportingLayersPanel() {
                       ? supportingLayers.length === 1
                         ? undefined
                         : supportingLayers.filter(
-                            (layer) => layer !== "housing",
-                          )
+                          (layer) => layer !== "housing",
+                        )
                       : [...supportingLayers, "housing"],
                   });
                 }}
@@ -98,7 +98,7 @@ export function SupportingLayersPanel() {
                   e.currentTarget.value === "cd"
                     ? undefined
                     : (e.currentTarget
-                        .value as HousingLayerQueryParams["housingData"]),
+                      .value as HousingLayerQueryParams["housingData"]),
               })
             }
             isCancellable={false}
@@ -133,6 +133,7 @@ export function SupportingLayersPanel() {
                 </Text>
               </Radio>
               <SupportingLayersLegend
+                housingData={housingData}
                 slices={HOUSING_GROWTH_LAYERS[housingData]["past"]}
                 display={housingRange === "past" ? "flex" : "none"}
               />
@@ -142,6 +143,7 @@ export function SupportingLayersPanel() {
                 </Text>
               </Radio>
               <SupportingLayersLegend
+                housingData={housingData}
                 slices={HOUSING_GROWTH_LAYERS[housingData]["current"]}
                 display={housingRange === "current" ? "flex" : "none"}
               />
@@ -151,6 +153,7 @@ export function SupportingLayersPanel() {
                 </Text>
               </Radio>
               <SupportingLayersLegend
+                housingData={housingData}
                 slices={HOUSING_GROWTH_LAYERS[housingData]["projected"]}
                 display={housingRange === "projected" ? "flex" : "none"}
               />
