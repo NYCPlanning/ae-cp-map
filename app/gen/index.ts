@@ -406,6 +406,30 @@ export type {
   FindFacilityTilesQuery,
 } from "./types/FindFacilityTiles";
 export type {
+  FindHousingGrowthByBoroughTilesPathParams,
+  FindHousingGrowthByBoroughTiles200,
+  FindHousingGrowthByBoroughTiles400,
+  FindHousingGrowthByBoroughTiles500,
+  FindHousingGrowthByBoroughTilesQueryResponse,
+  FindHousingGrowthByBoroughTilesQuery,
+} from "./types/FindHousingGrowthByBoroughTiles";
+export type {
+  FindHousingGrowthByCommunityDistrictTilesPathParams,
+  FindHousingGrowthByCommunityDistrictTiles200,
+  FindHousingGrowthByCommunityDistrictTiles400,
+  FindHousingGrowthByCommunityDistrictTiles500,
+  FindHousingGrowthByCommunityDistrictTilesQueryResponse,
+  FindHousingGrowthByCommunityDistrictTilesQuery,
+} from "./types/FindHousingGrowthByCommunityDistrictTiles";
+export type {
+  FindHousingGrowthByNeighborhoodTabulationAreaTilesPathParams,
+  FindHousingGrowthByNeighborhoodTabulationAreaTiles200,
+  FindHousingGrowthByNeighborhoodTabulationAreaTiles400,
+  FindHousingGrowthByNeighborhoodTabulationAreaTiles500,
+  FindHousingGrowthByNeighborhoodTabulationAreaTilesQueryResponse,
+  FindHousingGrowthByNeighborhoodTabulationAreaTilesQuery,
+} from "./types/FindHousingGrowthByNeighborhoodTabulationAreaTiles";
+export type {
   FindLandUses200,
   FindLandUses400,
   FindLandUses500,
@@ -566,6 +590,9 @@ export { findFacilityById } from "./axios/findFacilityById";
 export { findFacilityCategories } from "./axios/findFacilityCategories";
 export { findFacilityGeoJsonById } from "./axios/findFacilityGeoJsonById";
 export { findFacilityTiles } from "./axios/findFacilityTiles";
+export { findHousingGrowthByBoroughTiles } from "./axios/findHousingGrowthByBoroughTiles";
+export { findHousingGrowthByCommunityDistrictTiles } from "./axios/findHousingGrowthByCommunityDistrictTiles";
+export { findHousingGrowthByNeighborhoodTabulationAreaTiles } from "./axios/findHousingGrowthByNeighborhoodTabulationAreaTiles";
 export { findLandUses } from "./axios/findLandUses";
 export { findTaxLotByBbl } from "./axios/findTaxLotByBbl";
 export { findTaxLotGeoJsonByBbl } from "./axios/findTaxLotGeoJsonByBbl";
@@ -899,6 +926,27 @@ export {
   createFindFacilityTiles500,
   createFindFacilityTilesQueryResponse,
 } from "./mocks/createFindFacilityTiles";
+export {
+  createFindHousingGrowthByBoroughTilesPathParams,
+  createFindHousingGrowthByBoroughTiles200,
+  createFindHousingGrowthByBoroughTiles400,
+  createFindHousingGrowthByBoroughTiles500,
+  createFindHousingGrowthByBoroughTilesQueryResponse,
+} from "./mocks/createFindHousingGrowthByBoroughTiles";
+export {
+  createFindHousingGrowthByCommunityDistrictTilesPathParams,
+  createFindHousingGrowthByCommunityDistrictTiles200,
+  createFindHousingGrowthByCommunityDistrictTiles400,
+  createFindHousingGrowthByCommunityDistrictTiles500,
+  createFindHousingGrowthByCommunityDistrictTilesQueryResponse,
+} from "./mocks/createFindHousingGrowthByCommunityDistrictTiles";
+export {
+  createFindHousingGrowthByNeighborhoodTabulationAreaTilesPathParams,
+  createFindHousingGrowthByNeighborhoodTabulationAreaTiles200,
+  createFindHousingGrowthByNeighborhoodTabulationAreaTiles400,
+  createFindHousingGrowthByNeighborhoodTabulationAreaTiles500,
+  createFindHousingGrowthByNeighborhoodTabulationAreaTilesQueryResponse,
+} from "./mocks/createFindHousingGrowthByNeighborhoodTabulationAreaTiles";
 export {
   createFindLandUses200,
   createFindLandUses400,
@@ -1252,6 +1300,24 @@ export {
   findFacilityTilesHandlerResponse500,
   findFacilityTilesHandler,
 } from "./mocks/findFacilityTilesHandler";
+export {
+  findHousingGrowthByBoroughTilesHandlerResponse200,
+  findHousingGrowthByBoroughTilesHandlerResponse400,
+  findHousingGrowthByBoroughTilesHandlerResponse500,
+  findHousingGrowthByBoroughTilesHandler,
+} from "./mocks/findHousingGrowthByBoroughTilesHandler";
+export {
+  findHousingGrowthByCommunityDistrictTilesHandlerResponse200,
+  findHousingGrowthByCommunityDistrictTilesHandlerResponse400,
+  findHousingGrowthByCommunityDistrictTilesHandlerResponse500,
+  findHousingGrowthByCommunityDistrictTilesHandler,
+} from "./mocks/findHousingGrowthByCommunityDistrictTilesHandler";
+export {
+  findHousingGrowthByNeighborhoodTabulationAreaTilesHandlerResponse200,
+  findHousingGrowthByNeighborhoodTabulationAreaTilesHandlerResponse400,
+  findHousingGrowthByNeighborhoodTabulationAreaTilesHandlerResponse500,
+  findHousingGrowthByNeighborhoodTabulationAreaTilesHandler,
+} from "./mocks/findHousingGrowthByNeighborhoodTabulationAreaTilesHandler";
 export {
   findLandUsesHandlerResponse200,
   findLandUsesHandlerResponse400,
@@ -1678,6 +1744,27 @@ export {
   findFacilityTiles500Schema,
   findFacilityTilesQueryResponseSchema,
 } from "./zod/findFacilityTilesSchema";
+export {
+  findHousingGrowthByBoroughTilesPathParamsSchema,
+  findHousingGrowthByBoroughTiles200Schema,
+  findHousingGrowthByBoroughTiles400Schema,
+  findHousingGrowthByBoroughTiles500Schema,
+  findHousingGrowthByBoroughTilesQueryResponseSchema,
+} from "./zod/findHousingGrowthByBoroughTilesSchema";
+export {
+  findHousingGrowthByCommunityDistrictTilesPathParamsSchema,
+  findHousingGrowthByCommunityDistrictTiles200Schema,
+  findHousingGrowthByCommunityDistrictTiles400Schema,
+  findHousingGrowthByCommunityDistrictTiles500Schema,
+  findHousingGrowthByCommunityDistrictTilesQueryResponseSchema,
+} from "./zod/findHousingGrowthByCommunityDistrictTilesSchema";
+export {
+  findHousingGrowthByNeighborhoodTabulationAreaTilesPathParamsSchema,
+  findHousingGrowthByNeighborhoodTabulationAreaTiles200Schema,
+  findHousingGrowthByNeighborhoodTabulationAreaTiles400Schema,
+  findHousingGrowthByNeighborhoodTabulationAreaTiles500Schema,
+  findHousingGrowthByNeighborhoodTabulationAreaTilesQueryResponseSchema,
+} from "./zod/findHousingGrowthByNeighborhoodTabulationAreaTilesSchema";
 export {
   findLandUses200Schema,
   findLandUses400Schema,
