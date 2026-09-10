@@ -96,7 +96,6 @@ export function Atlas({
 
   const facilitiesLayer = useFacilitiesLayer({ visible: showFacilities });
   const facilitiesGeoJsonLayer = useFacilitiesGeoJsonLayer();
-  // const housingGrowthLayer = useHousingGrowthLayer({ zoom: viewState.zoom });
   const housingGrowthLayer = useHousingGrowthLayer();
   const communityDistrictsLayer = useCommunityDistrictsLayer({ clearCombobox });
   const communityDistrictLayer = useSelectedCommunityDistrictsLayer();
@@ -127,45 +126,45 @@ export function Atlas({
   const LAYER_LIST =
     facDbPhase2 == "ON"
       ? [
-        boundaryMvtMask,
-        ...(supportingLayers === null
-          ? [
-            communityDistrictsOutlinesLayer,
-            cityCouncilDistrictsOutlinesLayer,
-            communityDistrictsLayer,
-            communityDistrictLayer,
-            cityCouncilDistrictsLayer,
-            cityCouncilDistrictLayer,
-            boroughsLayer,
-            boroughsOutlinesLayer,
-            boroughLayer,
-          ]
-          : []),
-        housingGrowthLayer,
-        capitalProjectsLayer,
-        capitalProjectBudgetedGeoJsonLayer,
-        facilitiesLayer,
-        facilitiesGeoJsonLayer,
-        communityBoardBudgetRequestsLayer,
-        communityBoardBudgetRequestGeoJsonLayer,
-        mapPinLayer,
-      ]
+          boundaryMvtMask,
+          ...(supportingLayers === null
+            ? [
+                communityDistrictsOutlinesLayer,
+                cityCouncilDistrictsOutlinesLayer,
+                communityDistrictsLayer,
+                communityDistrictLayer,
+                cityCouncilDistrictsLayer,
+                cityCouncilDistrictLayer,
+                boroughsLayer,
+                boroughsOutlinesLayer,
+                boroughLayer,
+              ]
+            : []),
+          housingGrowthLayer,
+          capitalProjectsLayer,
+          capitalProjectBudgetedGeoJsonLayer,
+          facilitiesLayer,
+          facilitiesGeoJsonLayer,
+          communityBoardBudgetRequestsLayer,
+          communityBoardBudgetRequestGeoJsonLayer,
+          mapPinLayer,
+        ]
       : [
-        boundaryMvtMask,
-        communityDistrictsOutlinesLayer,
-        cityCouncilDistrictsOutlinesLayer,
-        communityDistrictsLayer,
-        communityDistrictLayer,
-        cityCouncilDistrictsLayer,
-        cityCouncilDistrictLayer,
-        boroughsLayer,
-        boroughsOutlinesLayer,
-        boroughLayer,
-        capitalProjectsLayer,
-        capitalProjectBudgetedGeoJsonLayer,
-        communityBoardBudgetRequestsLayer,
-        communityBoardBudgetRequestGeoJsonLayer,
-      ];
+          boundaryMvtMask,
+          communityDistrictsOutlinesLayer,
+          cityCouncilDistrictsOutlinesLayer,
+          communityDistrictsLayer,
+          communityDistrictLayer,
+          cityCouncilDistrictsLayer,
+          cityCouncilDistrictLayer,
+          boroughsLayer,
+          boroughsOutlinesLayer,
+          boroughLayer,
+          capitalProjectsLayer,
+          capitalProjectBudgetedGeoJsonLayer,
+          communityBoardBudgetRequestsLayer,
+          communityBoardBudgetRequestGeoJsonLayer,
+        ];
 
   return (
     <DeckGL<MapView>
@@ -185,9 +184,9 @@ export function Atlas({
               newViewState.zoom < MIN_ZOOM
                 ? viewState.longitude
                 : Math.min(
-                  -73.6311,
-                  Math.max(-74.3308, newViewState.longitude),
-                ),
+                    -73.6311,
+                    Math.max(-74.3308, newViewState.longitude),
+                  ),
             latitude:
               newViewState.zoom < MIN_ZOOM
                 ? viewState.latitude
@@ -203,9 +202,9 @@ export function Atlas({
               newViewState.zoom < MIN_ZOOM
                 ? viewState.longitude
                 : Math.min(
-                  -73.6311,
-                  Math.max(-74.3308, newViewState.longitude),
-                ),
+                    -73.6311,
+                    Math.max(-74.3308, newViewState.longitude),
+                  ),
             latitude:
               newViewState.zoom < MIN_ZOOM
                 ? viewState.latitude

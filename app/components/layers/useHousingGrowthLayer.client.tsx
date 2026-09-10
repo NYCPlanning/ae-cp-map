@@ -1,7 +1,6 @@
-import { MVTLayer } from "@deck.gl/geo-layers";
-import { useState } from "react";
-import { useRouteLoaderData } from "react-router";
-import { useUpdateSearchParams } from "~/utils/utils";
+import { MVTLayer, MVTLayerProps } from "@deck.gl/geo-layers";
+import { GeoJsonLayer } from "@deck.gl/layers";
+import { useRouteLoaderData, useSearchParams } from "react-router";
 import {
   SupportingLayerSliceProps,
   HousingLayerQueryParams,
@@ -10,6 +9,9 @@ import { env } from "~/utils/env";
 import { HOUSING_GROWTH_LAYERS } from "~/utils/constants";
 import { useStore } from "~/store";
 import type { Borough } from "~/gen";
+import { CollisionFilterExtension } from "@deck.gl/extensions";
+import type { CollisionFilterExtensionProps } from "@deck.gl/extensions";
+import { Feature } from "geojson";
 
 const { zoningApiUrl } = env;
 
@@ -41,23 +43,11 @@ const rangeVariableMap = new Map<
   ["projected", "projectedCompletedUnitsNext10Years"],
 ]);
 
-// type HousingLayerQueryParams["housingData"] = "cd" | "nta" | "boro";
-// type HousingLayerQueryParams["housingRange"] = "past" | "current" | "projected";
-
 export function useHousingGrowthLayer() {
-  const [searchParams, updateSearchParams] = useUpdateSearchParams();
-  // const [hoveredItemId, setHoveredItemId] = useState<string | undefined>();
+  const [searchParams] = useSearchParams();
 
-  const {
-    hoveredItemId,
-    setHoveredItemId,
-    setHousingLayerMapTooltip,
-    // housingLayerMapTooltip
-  } = useStore((state) => state);
-
-  // const setHousingLayerMapTooltip = useStore(
-  //   (state) => state.setHousingLayerMapTooltip,
-  // );
+  const { hoveredItemId, setHoveredItemId, setHousingLayerMapTooltip } =
+    useStore((state) => state);
 
   const supportingLayersString = searchParams.get("supportingLayers") as string;
   const visible =
@@ -75,7 +65,10 @@ export function useHousingGrowthLayer() {
 
   const { boroughs } = useRouteLoaderData("layouts/MapPage");
 
-  return new MVTLayer<HousingGrowthProperties>({
+  return new MVTLayer<
+    HousingGrowthProperties & MVTLayerProps,
+    CollisionFilterExtensionProps
+  >({
     id: "HousingGrowth",
     data: [
       `${zoningApiUrl}/api/housing-growth/${geoUrlMap.get(geographicAggregates)}/{z}/{x}/{y}.pbf`,
@@ -86,45 +79,13 @@ export function useHousingGrowthLayer() {
     getPointRadius: 5,
     filled: true,
     getLineColor: [113, 128, 150, 255],
-    // getLineColor: ({
-    //   properties,
-    // }: {
-    //   properties: HousingGrowthProperties;
-    // }) => {
-    //   // console.log(properties.label, properties.unitsCurrent, properties)
-    //   if (properties.id === hoveredItemId) {
-    //     return [250, 255, 0];
-    //   }
-    //   return [113, 128, 150, 255];
-    // },
     getLineWidth: 1,
-    // getLineWidth: ({
-    //   properties,
-    // }: {
-    //   properties: HousingGrowthProperties;
-    // }) => {
-    //   if (properties.id === hoveredItemId) {
-    //     return 3;
-    //   }
-    //   return 1;
-    // },
     lineWidthUnits: "pixels",
     pointType: "text",
-    getText: ({ properties }: { properties: HousingGrowthProperties }) => {
-      // console.log(properties.label, properties.unitsCurrent, properties)
-      // console.log(properties.label, properties)
-      if (geographicAggregates === "nta") return;
-      return properties.label;
-      // If CommunityDistrictId > 18, the area represents a Park, not a Community District
-      if (parseInt(properties.id.slice(-2)) > 18) {
-        return null;
-      }
-      return `${properties.abbr} ${parseInt(properties.id.slice(-2))}`;
-    },
+    getText: ({ properties }: { properties: HousingGrowthProperties }) =>
+      properties.label,
     onHover: (info) => {
-      // console.log("picked", info.picked, "props", info.object.properties)
       if (info.picked) {
-        // console.log(info.object.properties)
         if (info?.object.properties.id === undefined) {
           if (hoveredItemId !== undefined) setHoveredItemId(undefined);
         } else if (info?.object.properties.id !== hoveredItemId) {
@@ -143,74 +104,11 @@ export function useHousingGrowthLayer() {
           tooltipBody += ` ${housingRange === "past" ? "Completed" : housingRange === "current" ? "Current" : "Projected"} Units`;
 
           setHousingLayerMapTooltip(tooltipBody);
-          // setHousingLayerMapTooltip(info.object.properties)
-          // console.log("setting hoveredItemId to", info.object.properties.id)
         }
-        // console.log("tooltip", housingLayerMapTooltip)
       } else {
         setHoveredItemId(undefined);
       }
     },
-    // onClick: (info) => {
-    //   if (facDbPhase3 === "ON") {
-    //     const newDistrictId =
-    //       info.object.properties.id;
-    //     if (newDistrictId.slice(1) <= 18) {
-    //       if (communityDistrictIds?.includes(newDistrictId)) {
-    //         updateSearchParams({
-    //           communityDistrictIds:
-    //             communityDistrictIds.length === 1
-    //               ? null
-    //               : communityDistrictIds
-    //                 .filter((id) => id !== newDistrictId)
-    //                 .join(","),
-    //         });
-    //       } else {
-    //         // clearCombobox();
-    //         dismissWelcomeAndUpdateSearchParams("/capital-projects", {
-    //           boundaryType: "cd",
-    //           communityDistrictIds: communityDistrictIds
-    //             ? communityDistrictIds.concat(newDistrictId).join(",")
-    //             : newDistrictId,
-    //           search: undefined,
-    //           radius: undefined,
-    //           pin: undefined,
-    //         });
-    //       }
-    //     }
-    //   } else {
-    //     const newBoroughId =
-    //       info.object.properties.id[0];
-    //     const newDistrictId =
-    //       info.object.properties.id.slice(1);
-    //     if (newDistrictId <= 18) {
-    //       if (boroughId === newBoroughId && boundaryId === newDistrictId) {
-    //         updateSearchParams({
-    //           boundaryType: "cd",
-    //           boroughId: null,
-    //           boundaryId: null,
-    //         });
-    //       } else {
-    //         // clearCombobox();
-    //         dismissWelcomeAndUpdateSearchParams("/capital-projects", {
-    //           boundaryType: "cd",
-    //           boroughId: info.object.properties.id[0],
-    //           boundaryId:
-    //             info.object.properties.id.slice(1),
-    //           search: undefined,
-    //           radius: undefined,
-    //           pin: undefined,
-    //         });
-    //       }
-    //     }
-    //   }
-    // },
-    // getFillColor: [0, 0, 0, 0],
-    // getFillColor: [255, 0, 0, 255],
-    // getFillColor: (f) => {
-    //   console.log(f.properties)
-    //   return [255, 0, 0, 255]
-    // },
     getFillColor: ({ properties }: { properties: HousingGrowthProperties }) => {
       const data =
         properties[rangeVariableMap.get(housingRange) || "unitsCurrent"];
@@ -231,10 +129,58 @@ export function useHousingGrowthLayer() {
     },
     textOutlineColor: [255, 255, 255, 255],
     textOutlineWidth: 2,
+
+    binary: false,
+
+    // Only for NTAs, we are using the CollisionFilterExtension
+    // This is to increase the number of labels shown as zoom increases
+    ...(geographicAggregates === "nta"
+      ? {
+          renderSubLayers: (props) => {
+            const data = props.data as Feature[];
+
+            const geoLayerData = data.filter(
+              (f) => f.properties?.layerName === "housing-growth-fill",
+            );
+            const labelsLayerData = data.filter(
+              (f) => f.properties?.layerName === "housing-growth-label",
+            );
+
+            const subLayers = [];
+
+            if (geoLayerData.length > 0) {
+              subLayers.push(
+                new GeoJsonLayer({
+                  ...props,
+                  id: `${props.id}-geo`,
+                  data: geoLayerData,
+                }),
+              );
+            }
+
+            if (labelsLayerData.length > 0) {
+              subLayers.push(
+                new GeoJsonLayer({
+                  ...props,
+                  id: `${props.id}-label`,
+                  data: labelsLayerData,
+                  pointType: "text",
+                  getTextSize: 15,
+                  extensions: [new CollisionFilterExtension()],
+                  collisionGroup: "housing-growth-label",
+                  collisionTestProps: {
+                    sizeScale: 3,
+                  },
+                }),
+              );
+            }
+            return subLayers;
+          },
+        }
+      : {}),
+
     updateTriggers: {
-      getLineColor: hoveredItemId,
       getFillColor: housingGrowthLayer,
-      // onHover: [geographicAggregates, housingRange],
     },
   });
 }
