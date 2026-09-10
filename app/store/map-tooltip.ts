@@ -1,7 +1,4 @@
 import { StateCreator } from "zustand";
-import { FacilityOperatorType } from "~/gen";
-import { FacilityType } from "~/utils/types";
-import type { HousingGrowthProperties } from "~/components/layers/useHousingGrowthLayer.client";
 
 interface HousingLayerMapTooltipProps {
   html: string;
@@ -13,11 +10,9 @@ export type MapTooltipStore = {
   setHoveredItemId: (id: string | undefined) => void;
   housingLayerMapTooltip: HousingLayerMapTooltipProps;
   setHousingLayerMapTooltip: (tooltipBody: string) => void;
-  // setHousingLayerMapTooltip: (props: HousingGrowthProperties) => void;
 };
 
 export const createMapTooltipStore: StateCreator<MapTooltipStore> = (set) => ({
-  // hoveredItemId: undefined,
   setHoveredItemId: (id: string | undefined) =>
     set(() => ({
       hoveredItemId: id,
@@ -28,22 +23,6 @@ export const createMapTooltipStore: StateCreator<MapTooltipStore> = (set) => ({
       display: "none",
     },
   },
-  // setHousingLayerMapTooltipProps: ({
-  //   checkboxes,
-  //   facilityTypes,
-  // }: {
-  //   checkboxes: ["Public", "Non-public", "Not specified"];
-  //   facilityTypes: Array<FacilityOperatorType | "Not specified">;
-  // }) =>
-  //   set(() => ({
-  //     facilityTypeCheckboxes: checkboxes.map((checkbox) => {
-  //       return {
-  //         name: checkbox,
-  //         checked: facilityTypes.includes(checkbox),
-  //       };
-  //     }),
-  //   })),
-  // setHousingLayerMapTooltip: (props: HousingGrowthProperties) =>
   setHousingLayerMapTooltip: (tooltipBody: string) =>
     set(() => ({
       housingLayerMapTooltip: {
