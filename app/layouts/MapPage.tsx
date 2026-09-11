@@ -855,7 +855,13 @@ export default function MapPage() {
                       </Box>
                     </Box>
                   </Accordion>
-                  <SupportingLayersPanel />
+                  <SupportingLayersPanel
+                    openAccordion={() =>
+                      setLayersAccordionIndex([
+                        ...new Set([...layersAccordionIndex, 1]),
+                      ])
+                    }
+                  />
                   <HowToUseThisTool />
                 </Box>
               </AccordionPanel>

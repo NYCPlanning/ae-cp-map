@@ -24,7 +24,11 @@ import {
   SupportingLayerParamKey,
 } from "~/utils/types";
 
-export function SupportingLayersPanel() {
+export function SupportingLayersPanel({
+  openAccordion,
+}: {
+  openAccordion: () => void;
+}) {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
 
   const supportingLayersParam = searchParams.get("supportingLayers");
@@ -68,6 +72,7 @@ export function SupportingLayersPanel() {
                 size={"sm"}
                 isChecked={supportingLayers.includes("housing")}
                 onChange={() => {
+                  !supportingLayers.includes("housing") && openAccordion();
                   updateSearchParams({
                     supportingLayers: supportingLayers.includes("housing")
                       ? supportingLayers.length === 1
