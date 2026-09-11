@@ -4,6 +4,7 @@ import {
   AccordionIcon,
   AccordionPanel,
   Heading,
+  InfoIcon,
   Stack,
   Text,
   VStack,
@@ -12,6 +13,7 @@ import {
   Select,
   RadioGroup,
   Radio,
+  Tooltip,
 } from "@nycplanning/streetscape";
 import { SupportingLayersLegend } from "./SupportingLayersLegend";
 import { HOUSING_GROWTH_LAYERS } from "~/utils/constants";
@@ -128,9 +130,19 @@ export function SupportingLayersPanel() {
           >
             <Stack gap={2}>
               <Radio name={"past"} size={"xs"} value={"past"}>
-                <Text fontSize={"xs"} fontWeight={"500"}>
-                  Past (Completed 2016-2025)
-                </Text>
+                <HStack>
+                  <Text fontSize={"xs"} fontWeight={"500"}>
+                    Past (Completed 2016-2025)
+                  </Text>
+                  <Tooltip
+                    label={
+                      "Net Units Added (Past 10 Years) - Net change in Class A residential units over the past 10 years: new completions minus demolitions and conversions."
+                    }
+                    maxW={"240px"}
+                  >
+                    <InfoIcon />
+                  </Tooltip>
+                </HStack>
               </Radio>
               <SupportingLayersLegend
                 housingData={housingData}
@@ -138,9 +150,19 @@ export function SupportingLayersPanel() {
                 display={housingRange === "past" ? "flex" : "none"}
               />
               <Radio name={"current"} size={"xs"} value={"current"}>
-                <Text fontSize={"xs"} fontWeight={"500"}>
-                  Current (Estimated 2025)
-                </Text>
+                <HStack>
+                  <Text fontSize={"xs"} fontWeight={"500"}>
+                    Current (Estimated 2025)
+                  </Text>
+                  <Tooltip
+                    label={
+                      "Latest Estimated Units (2025) - Estimated Class A residential units as of the latest HDB vintage: 2020 Census counts plus net units added since."
+                    }
+                    maxW={"240px"}
+                  >
+                    <InfoIcon />
+                  </Tooltip>
+                </HStack>
               </Radio>
               <SupportingLayersLegend
                 housingData={housingData}
@@ -148,9 +170,19 @@ export function SupportingLayersPanel() {
                 display={housingRange === "current" ? "flex" : "none"}
               />
               <Radio name={"projected"} size={"xs"} value={"projected"}>
-                <Text fontSize={"xs"} fontWeight={"500"}>
-                  Projected (Potential 2035)
-                </Text>
+                <HStack>
+                  <Text fontSize={"xs"} fontWeight={"500"}>
+                    Projected (Potential 2035)
+                  </Text>
+                  <Tooltip
+                    label={
+                      "Projected Units Added (Next 10 Years) - Projected Class A units added over the next ten years, based on projected completions from the Known Projects Database (KPDB)."
+                    }
+                    maxW={"240px"}
+                  >
+                    <InfoIcon />
+                  </Tooltip>
+                </HStack>
               </Radio>
               <SupportingLayersLegend
                 housingData={housingData}
