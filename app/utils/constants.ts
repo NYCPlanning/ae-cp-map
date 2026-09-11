@@ -25,6 +25,12 @@ export const HOUSING_GROWTH_LAYERS = {
   cd: {
     past: <Array<SupportingLayerSliceProps>>[
       {
+        rangeMax: 0,
+        rangeLabel: "Net loss",
+        colorHex: "#CCCCCC",
+        colorRgba: [204, 204, 204, 153],
+      },
+      {
         rangeMin: 0,
         rangeMax: 1380,
         rangeLabel: "0 - 1,380",
@@ -58,12 +64,6 @@ export const HOUSING_GROWTH_LAYERS = {
         rangeLabel: "12,987 - 22,111",
         colorHex: "#2A5674",
         colorRgba: [42, 86, 116, 153],
-      },
-      {
-        rangeMax: 0,
-        rangeLabel: "Net loss",
-        colorHex: "#CCCCCC",
-        colorRgba: [204, 204, 204, 153],
       },
     ],
     current: <Array<SupportingLayerSliceProps>>[
@@ -105,6 +105,12 @@ export const HOUSING_GROWTH_LAYERS = {
     ],
     projected: <Array<SupportingLayerSliceProps>>[
       {
+        rangeMax: 0,
+        rangeLabel: "Net loss",
+        colorHex: "#CCCCCC",
+        colorRgba: [204, 204, 204, 153],
+      },
+      {
         rangeMin: 0,
         rangeMax: 2073,
         rangeLabel: "0 - 2,073",
@@ -139,16 +145,16 @@ export const HOUSING_GROWTH_LAYERS = {
         colorHex: "#764792",
         colorRgba: [118, 71, 146, 153],
       },
+    ],
+  },
+  nta: {
+    past: <Array<SupportingLayerSliceProps>>[
       {
         rangeMax: 0,
         rangeLabel: "Net loss",
         colorHex: "#CCCCCC",
         colorRgba: [204, 204, 204, 153],
       },
-    ],
-  },
-  nta: {
-    past: <Array<SupportingLayerSliceProps>>[
       {
         rangeMin: 0,
         rangeMax: 962,
@@ -183,12 +189,6 @@ export const HOUSING_GROWTH_LAYERS = {
         rangeLabel: "10,137 - 17,955",
         colorHex: "#2A5674",
         colorRgba: [42, 86, 116, 153],
-      },
-      {
-        rangeMax: 0,
-        rangeLabel: "Net loss",
-        colorHex: "#CCCCCC",
-        colorRgba: [204, 204, 204, 153],
       },
     ],
     current: <Array<SupportingLayerSliceProps>>[
@@ -230,6 +230,12 @@ export const HOUSING_GROWTH_LAYERS = {
     ],
     projected: <Array<SupportingLayerSliceProps>>[
       {
+        rangeMax: 0,
+        rangeLabel: "Net loss",
+        colorHex: "#CCCCCC",
+        colorRgba: [204, 204, 204, 153],
+      },
+      {
         rangeMin: 0,
         rangeMax: 991,
         rangeLabel: "0 - 991",
@@ -263,12 +269,6 @@ export const HOUSING_GROWTH_LAYERS = {
         rangeLabel: "12,785 - 20,091",
         colorHex: "#764792",
         colorRgba: [118, 71, 146, 153],
-      },
-      {
-        rangeMax: 0,
-        rangeLabel: "Net loss",
-        colorHex: "#CCCCCC",
-        colorRgba: [204, 204, 204, 153],
       },
     ],
   },
