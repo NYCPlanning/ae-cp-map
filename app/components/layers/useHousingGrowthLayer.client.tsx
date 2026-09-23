@@ -117,7 +117,7 @@ export function useHousingGrowthLayer() {
           (slice) =>
             slice.rangeMin !== undefined &&
             slice.rangeMin <= data &&
-            data < slice.rangeMax,
+            data <= slice.rangeMax,
         )?.colorRgba || [204, 204, 204]
       );
     },
