@@ -44,6 +44,9 @@ import { findFacilityByIdHandler } from "./findFacilityByIdHandler";
 import { findFacilityCategoriesHandler } from "./findFacilityCategoriesHandler";
 import { findFacilityGeoJsonByIdHandler } from "./findFacilityGeoJsonByIdHandler";
 import { findFacilityTilesHandler } from "./findFacilityTilesHandler";
+import { findHousingGrowthByBoroughTilesHandler } from "./findHousingGrowthByBoroughTilesHandler";
+import { findHousingGrowthByCommunityDistrictTilesHandler } from "./findHousingGrowthByCommunityDistrictTilesHandler";
+import { findHousingGrowthByNeighborhoodTabulationAreaTilesHandler } from "./findHousingGrowthByNeighborhoodTabulationAreaTilesHandler";
 import { findLandUsesHandler } from "./findLandUsesHandler";
 import { findTaxLotByBblHandler } from "./findTaxLotByBblHandler";
 import { findTaxLotGeoJsonByBblHandler } from "./findTaxLotGeoJsonByBblHandler";
@@ -98,6 +101,9 @@ export const handlers = [
   findFacilityCategoriesHandler(),
   findFacilitiesCsvHandler(),
   findFacilityTilesHandler(),
+  findHousingGrowthByBoroughTilesHandler(),
+  findHousingGrowthByCommunityDistrictTilesHandler(),
+  findHousingGrowthByNeighborhoodTabulationAreaTilesHandler(),
   findLandUsesHandler(),
   findTaxLotsHandler(),
   findTaxLotByBblHandler(),

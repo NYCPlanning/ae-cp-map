@@ -321,6 +321,27 @@ export {
   createFindFacilityTilesQueryResponse,
 } from "./createFindFacilityTiles";
 export {
+  createFindHousingGrowthByBoroughTilesPathParams,
+  createFindHousingGrowthByBoroughTiles200,
+  createFindHousingGrowthByBoroughTiles400,
+  createFindHousingGrowthByBoroughTiles500,
+  createFindHousingGrowthByBoroughTilesQueryResponse,
+} from "./createFindHousingGrowthByBoroughTiles";
+export {
+  createFindHousingGrowthByCommunityDistrictTilesPathParams,
+  createFindHousingGrowthByCommunityDistrictTiles200,
+  createFindHousingGrowthByCommunityDistrictTiles400,
+  createFindHousingGrowthByCommunityDistrictTiles500,
+  createFindHousingGrowthByCommunityDistrictTilesQueryResponse,
+} from "./createFindHousingGrowthByCommunityDistrictTiles";
+export {
+  createFindHousingGrowthByNeighborhoodTabulationAreaTilesPathParams,
+  createFindHousingGrowthByNeighborhoodTabulationAreaTiles200,
+  createFindHousingGrowthByNeighborhoodTabulationAreaTiles400,
+  createFindHousingGrowthByNeighborhoodTabulationAreaTiles500,
+  createFindHousingGrowthByNeighborhoodTabulationAreaTilesQueryResponse,
+} from "./createFindHousingGrowthByNeighborhoodTabulationAreaTiles";
+export {
   createFindLandUses200,
   createFindLandUses400,
   createFindLandUses500,
@@ -673,6 +694,24 @@ export {
   findFacilityTilesHandlerResponse500,
   findFacilityTilesHandler,
 } from "./findFacilityTilesHandler";
+export {
+  findHousingGrowthByBoroughTilesHandlerResponse200,
+  findHousingGrowthByBoroughTilesHandlerResponse400,
+  findHousingGrowthByBoroughTilesHandlerResponse500,
+  findHousingGrowthByBoroughTilesHandler,
+} from "./findHousingGrowthByBoroughTilesHandler";
+export {
+  findHousingGrowthByCommunityDistrictTilesHandlerResponse200,
+  findHousingGrowthByCommunityDistrictTilesHandlerResponse400,
+  findHousingGrowthByCommunityDistrictTilesHandlerResponse500,
+  findHousingGrowthByCommunityDistrictTilesHandler,
+} from "./findHousingGrowthByCommunityDistrictTilesHandler";
+export {
+  findHousingGrowthByNeighborhoodTabulationAreaTilesHandlerResponse200,
+  findHousingGrowthByNeighborhoodTabulationAreaTilesHandlerResponse400,
+  findHousingGrowthByNeighborhoodTabulationAreaTilesHandlerResponse500,
+  findHousingGrowthByNeighborhoodTabulationAreaTilesHandler,
+} from "./findHousingGrowthByNeighborhoodTabulationAreaTilesHandler";
 export {
   findLandUsesHandlerResponse200,
   findLandUsesHandlerResponse400,
