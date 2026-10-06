@@ -9,12 +9,15 @@ import type { FacilityCategoryStore } from "./facility-category";
 import { createFacilityCategoryStore } from "./facility-category";
 import type { ExportDataModalStore } from "./export-data-modal";
 import { createExportDataModalStore } from "./export-data-modal";
+import type { MapTooltipStore } from "./map-tooltip";
+import { createMapTooltipStore } from "./map-tooltip";
 
 export type Store = CommunityBoardBudgetRequestAgencyCategoryResponseStore &
   FacilityTypeStore &
   FacilityJurisdictionStore &
   FacilityCategoryStore &
-  ExportDataModalStore;
+  ExportDataModalStore &
+  MapTooltipStore;
 
 export const useStore = create<Store>((...a) => ({
   ...createCommunityBoardBudgetRequestAgencyCategoryResponseStore(...a),
@@ -22,4 +25,5 @@ export const useStore = create<Store>((...a) => ({
   ...createFacilityJurisdictionStore(...a),
   ...createFacilityCategoryStore(...a),
   ...createExportDataModalStore(...a),
+  ...createMapTooltipStore(...a),
 }));
