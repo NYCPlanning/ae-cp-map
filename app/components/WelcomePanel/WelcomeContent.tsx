@@ -17,23 +17,18 @@ export function WelcomeContent() {
       <Box>
         <Text fontSize={"md"}>
           The Capital Projects Portal has been designed to help users explore
-          where city facilities are located, how the city is investing its
-          capital money across NYC, and highlight community board priorities
-          across these unique neighborhoods. The application currently includes
-          data from multiple sources to improve transparency, guide engagement,
-          and support planning decisions.
+          where and how the city is investing its capital money across NYC and
+          highlight community board priorities across these unique
+          neighborhoods. The application currently includes data from multiple
+          sources to improve transparency, guide engagement, and support
+          planning decisions.
         </Text>
 
         <Text fontSize={"md"} my={3}>
-          To learn more about the capital planning and budget request processes,{" "}
-          <Link
-            aria-label="capital planning overview"
-            textDecoration="underline"
-            href="https://www.nyc.gov/content/planning/pages/planning/capital-planning#overview"
-            isExternal
-          >
-            visit the City Planning website.
-          </Link>
+          In addition to the core datasets available in the Portal, we&apos;ve
+          also provided additional supporting layers related to housing growth
+          data summaries of the past, latest, and projected Class A residential
+          units for key NYC geographies.
         </Text>
       </Box>
     </Box>
