@@ -27,10 +27,12 @@ export function HowToUseThisTool() {
         <Text fontSize={"small"}>
           Select a project on the map to learn more about the relevant agencies
           and capital commitments, or select a Community Board capital budget
-          request to learn more about the request and response from relevant
+          request to learn more about the request and response from the relevant
           agency. Filter by specific geographies to see all projects and
-          requests in that area. You can also export your selection as a CSV
-          table.
+          requests in that area, and export your selection as a CSV table. The
+          tool also includes a database of city, state and federal facilities
+          and housing growth data (past, latest, and projected Class A
+          residential units) aggregated at the NTA, CDTA, and borough levels.
         </Text>
       </AccordionPanel>
     </AccordionItem>
