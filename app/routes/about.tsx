@@ -92,10 +92,10 @@ export default function About() {
           <AccordionPanel>
             Capital projects involve construction, reconstruction, acquisition,
             or installation of a physical public improvement with a value of
-            $50,000 or more and a “useful” life of at least 5 years. CPP maps
-            this dataset based on projects with geographical information, thus
-            capital projects such as the purchase of firetrucks or spending on
-            programs are not included.
+            $50,000 or more and a &quot;useful&quot; life of at least 5 years.
+            CPP maps this dataset based on projects with geographical
+            information, thus capital projects such as the purchase of
+            firetrucks or spending on programs are not included.
           </AccordionPanel>
         </AccordionItem>
         <AccordionItem>
@@ -877,6 +877,365 @@ export default function About() {
               textDecorationLine={"underline"}
             >
               City Planning
+            </Link>{" "}
+            <ExternalLinkIcon mx="2px" />
+          </Text>
+        </VStack>
+      </Flex>
+
+      <Heading
+        as="h1"
+        fontSize={"3xl"}
+        pt={9}
+        pb={4}
+        fontWeight={"bold"}
+        borderTop={"1px solid"}
+        borderColor={"gray.200"}
+        alignSelf={"stretch"}
+      >
+        Housing Growth Data
+      </Heading>
+      <Text pb={6}>
+        This map shows summaries of the past, latest, and projected Class A
+        residential units in New York City using datasets produced by NYC
+        Department of City Planning (DCP) and the United States Census Bureau.
+        It helps users see where housing growth has occurred over the past 10
+        years, the latest estimates of total housing units, and a projection of
+        potential housing unit growth over the next 10 years, aggregated at the
+        Neighborhood Tabulation Area (NTA), Community District Tabulation Area
+        (CDTA), and borough levels.
+      </Text>
+      <Heading
+        as="h2"
+        fontSize={"2xl"}
+        pb={4}
+        fontWeight={"bold"}
+        alignSelf={"stretch"}
+      >
+        About the Unit Estimates
+      </Heading>
+      <Heading
+        as="h3"
+        fontSize={"xl"}
+        pb={4}
+        fontWeight={"bold"}
+        alignSelf={"stretch"}
+      >
+        Net Units Added (Past 10 Years)
+      </Heading>
+      <Text pb={4}>
+        This layer shows the net change in &quot;Class A&quot; residential units
+        in the Housing Database (HDB) over a full 10-year period which equates
+        to newly completed units minus demolitions and alterations/conversions.
+        Where housing losses outpace new construction, the value can be negative
+        or zero. An example of the temporal component of the data point, the
+        2016–2025 value represents the net Class A units added between January
+        1, 2016 and December 31, 2025.
+      </Text>
+      <Text w={"100%"}>Example Formula:</Text>
+      <Text
+        w={"100%"}
+        fontStyle={"italic"}
+        borderLeft={"2px solid"}
+        borderColor={"planning.500"}
+        paddingLeft={"8"}
+        paddingRight={"6"}
+        paddingY={"6"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        marginY={"4"}
+      >
+        new Class A completions - demolitions and alterations/conversions = net
+        units added
+      </Text>
+
+      <Heading
+        as="h3"
+        fontSize={"xl"}
+        pb={4}
+        fontWeight={"bold"}
+        alignSelf={"stretch"}
+      >
+        Latest Estimated Units (through 2025)
+      </Heading>
+      <Text pb={4}>
+        The total estimated number of Class A residential units as of the latest
+        Housing Database vintage (currently through the end of 2025). It is
+        calculated by taking the Class A unit counts from the 2020 Census and
+        adding the net Class A units added since the Census (April 1, 2020), as
+        recorded in the HDB summary change files.
+      </Text>
+      <Text w={"100%"}>Example Formula:</Text>
+      <Text
+        w={"100%"}
+        fontStyle={"italic"}
+        borderLeft={"2px solid"}
+        borderColor={"planning.500"}
+        paddingLeft={"8"}
+        paddingRight={"6"}
+        paddingY={"6"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        marginY={"4"}
+      >
+        2020 Census base + net change since = latest estimated units total
+      </Text>
+
+      <Heading
+        as="h3"
+        fontSize={"xl"}
+        pb={4}
+        fontWeight={"bold"}
+        alignSelf={"stretch"}
+      >
+        Projected Units Added (Next 10 Years)
+      </Heading>
+      <Text pb={4}>
+        The projected number of Class A residential units added over the ten
+        years from the current vintage. It reflects projected Class A
+        completions drawn from the Known Projects Database (KPDB). This figure
+        does not model all potential or predicted future growth, nor does it
+        account for demolitions or removals, but rather reflects only the known
+        housing pipeline as tracked by DCP.
+      </Text>
+      <Text w={"100%"}>Example Formula:</Text>
+      <Text
+        w={"100%"}
+        fontStyle={"italic"}
+        borderLeft={"2px solid"}
+        borderColor={"planning.500"}
+        paddingLeft={"8"}
+        paddingRight={"6"}
+        paddingY={"6"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        marginY={"4"}
+      >
+        projected completions (next 10 yrs) = projected units added
+      </Text>
+
+      <Accordion allowMultiple allowToggle width={"100%"}>
+        <AccordionItem borderTop={"unset"}>
+          <AccordionButton paddingInline={0}>
+            <Heading
+              as="h2"
+              fontSize="md"
+              flex="1"
+              textAlign="left"
+              fontWeight={"bold"}
+            >
+              What is a Class A Housing Unit?
+            </Heading>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel>
+            <Text>
+              A &quot;Class A&quot; Housing unit is a legal, permanent
+              residential dwelling unit that is occupied or intended to be
+              occupied for permanent living. These units are tracked to measure
+              net changes in the city&apos;s permanent housing stock and is what
+              is reported in the housing growth data shown here. DCP also tracks
+              the net changes in Class B units which include transient dwelling
+              units for single-room occupancies, hotels or dormitories but these
+              are not included in our housing growth data aggregates but are
+              summarized in DCP&apos;s Housing Database.
+            </Text>
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton paddingInline={0}>
+            <Heading
+              as="h2"
+              fontSize="md"
+              flex="1"
+              textAlign="left"
+              fontWeight={"bold"}
+            >
+              Where does the data come from?
+            </Heading>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel>
+            <Text fontWeight={"bold"} py={"4"}>
+              Housing Database
+            </Text>
+            <Text pb={"4"}>
+              <Link
+                href="https://www.nyc.gov/content/planning/pages/resources/datasets/housing-project-level"
+                isExternal
+                color={"primary.600"}
+                textDecorationLine={"underline"}
+              >
+                Housing Database (HDB)
+                <ExternalLinkIcon marginLeft={0.5} />
+              </Link>{" "}
+              contains all NYC Department of Buildings (DOB)-approved housing
+              construction and demolition jobs filed or completed in NYC since
+              January 1, 2010. It includes the three primary construction job
+              types that add or remove residential units: new buildings, major
+              alterations, and demolitions, and can be used to determine the
+              change in legal housing units across time and space.
+            </Text>
+            <Text>
+              HDB is used to show past housing production (Net Units Added) in
+              the past 10 years, to estimate the City&apos;s current housing
+              stock (Latest Estimated Units) as of the latest calendar year, and
+              to use as a baseline for projecting units added (Projected Units
+              Added) over the next 10 years.
+            </Text>
+            <Text fontWeight={"bold"} py={"4"}>
+              2020 Decennial Census
+            </Text>
+            <Text>
+              The 2020 Census variable Total housing units (H1_001N) serves as
+              the baseline for the Latest Estimated Units count. The layer then
+              adds the net change recorded since April 2020, drawn from the
+              summary change files in the DCP Housing Database.
+            </Text>
+            <Text fontWeight={"bold"} py={"4"}>
+              Known Projects Database
+            </Text>
+            <Text pb={"4"}>
+              The Known Projects Database (KPDB) is a compilation of potential
+              future residential projects that are seeking actions or permit
+              approvals with certain City agencies (DOB, DCP, and the NYC
+              Economic Development Corporation [EDC], and Housing Preservation
+              and Development [HPD]). This can be used for estimates of
+              medium-term housing construction for planning purposes.
+            </Text>
+            <Text>
+              The Projected Units Added layer reflects expected completions from
+              KPDB. DCP expects to publish KPDB in the near future.
+            </Text>
+            <Text fontWeight={"bold"} py={"4"}>
+              What is the difference between the KPDB and the HDB?
+            </Text>
+            <Text>
+              The HDB is the largest, most comprehensive, source of location
+              information on past residential unit completions and short-term
+              future growth. It feeds into KPDB, which also uses additional
+              sources to estimate units further into the future, but not at the
+              same geographic specificity.
+            </Text>
+            <Text fontWeight={"bold"} py={"4"}>
+              How can you use this data?
+            </Text>
+            <Text>
+              To explore the data, start by choosing which time period you want
+              to see: past growth over the last 10 years (Net Units Added), the
+              latest estimate of total units (Latest Estimated Units), or
+              projected additions over the next 10 years (Projected Units
+              Added). Each area on the map is shaded by how much growth it falls
+              into, with darker colors indicating more units; use the legend to
+              read the ranges for the selected metric. Switch between the
+              Neighborhood Tabulation Area (NTA), Community District Tabulation
+              Area (CDTA), and borough levels to see where growth concentrates
+              at different scales.
+            </Text>
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton paddingInline={0}>
+            <Heading
+              as="h2"
+              fontSize="md"
+              flex="1"
+              textAlign="left"
+              fontWeight={"bold"}
+            >
+              Limitations/Disclaimer
+            </Heading>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel>
+            <Text pb={4}>
+              The housing growth data DCP provided on this web map are for
+              informational purposes only. DCP makes no representations or
+              warranties, express or implied, as to the data&apos;s
+              completeness, accuracy, reliability, or fitness for any particular
+              purpose.
+            </Text>
+            <Text pb={4}>
+              You may use this information for general reference and planning
+              but verify it independently before relying on it for any decision
+              or official use. The data may contain errors or omissions and may
+              change without notice.
+            </Text>
+            <Text pb={4}>
+              DCP and the City of New York are not liable for any damages or
+              losses arising from use of or reliance on the data, including
+              direct, indirect, incidental, or consequential damages.
+            </Text>
+            <Text>
+              Data from third parties is provided &quot;as is.&quot; DCP and the
+              City of New York disclaim any responsibility for its completeness,
+              accuracy, content, or fitness for any particular purpose.
+            </Text>
+          </AccordionPanel>
+        </AccordionItem>
+        <AccordionItem>
+          <AccordionButton paddingInline={0}>
+            <Heading
+              as="h2"
+              fontSize="md"
+              flex="1"
+              textAlign="left"
+              fontWeight={"bold"}
+            >
+              Contact
+            </Heading>
+            <AccordionIcon />
+          </AccordionButton>
+          <AccordionPanel>
+            <Text>
+              For questions and comments, please reach out to{" "}
+              <Link
+                href="mailto:PopulationProjections_DL@planning.nyc.gov"
+                color={"primary.600"}
+                textDecorationLine={"underline"}
+              >
+                PopulationProjections_DL@planning.nyc.gov
+              </Link>
+            </Text>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+      <Flex
+        width={"100%"}
+        flexDirection={{
+          base: "column",
+          lg: "row",
+        }}
+        padding={6}
+        mt={6}
+        mb={9}
+        gap={6}
+        justifyContent={{ lg: "space-between" }}
+        backgroundColor={"brand.50"}
+      >
+        <VStack alignItems={"flex-start"}>
+          <Text fontWeight={"bold"}>Version</Text>
+          <Text>Housing_Growth_2025</Text>
+        </VStack>
+        <VStack alignItems={"flex-start"}>
+          <Text fontWeight={"bold"}>Related Links</Text>
+          <Text color={"primary.600"}>
+            <Link
+              href="https://www.nyc.gov/content/planning/pages/resources/datasets/housing-project-level"
+              isExternal
+              textDecorationLine={"underline"}
+            >
+              Housing Database
+            </Link>{" "}
+            <ExternalLinkIcon mx="2px" />
+          </Text>
+          <Text color={"primary.600"}>
+            <Link
+              href="https://popfactfinder.planning.nyc.gov/"
+              isExternal
+              textDecorationLine={"underline"}
+            >
+              Population FactFinder
             </Link>{" "}
             <ExternalLinkIcon mx="2px" />
           </Text>
