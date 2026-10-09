@@ -28,7 +28,7 @@ import { FlyToInterpolator, MapViewState } from "@deck.gl/core";
 import { ClientOnly } from "remix-utils/client-only";
 import { useEffect, useState } from "react";
 import { initializeMatomoTagManager } from "./utils/analytics";
-import { HeaderBar } from "./components/HeaderBar";
+import { AnnouncementBanner, HeaderBar } from "./components/HeaderBar";
 import { INITIAL_VIEW_STATE } from "./components/atlas.client";
 import { useUpdateSearchParams } from "./utils/utils";
 import type { AddressFeature } from "~/address-search";
@@ -235,6 +235,7 @@ export function Main() {
         setAddressSearchSliderValue={setAddressSearchSliderValue}
         clearRadiusFilter={clearRadiusFilter}
       />
+      <AnnouncementBanner />
       <Outlet
         context={
           {
@@ -289,9 +290,9 @@ export default function App() {
                 "2xl": "0 0.78dw",
               }}
               templateRows={{
-                base: "7dvh [header-end] 2dvh [row-start] min-content [line] 2dvh [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh [atlas-end] 7dvh",
-                md: "7dvh [header-end] 2dvh [row-start] min-content 2dvh [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh",
-                lg: "7dvh [header-end] 2dvh [row-start] min-content 2dvh [base-start] 1fr [row-end] 2dvh",
+                base: "7dvh [header-end] 2dvh [row-start] min-content [line] min-content [banner-end] 2dvh [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh [atlas-end] 7dvh",
+                md: "7dvh [header-end] 2dvh [row-start] min-content 2dvh min-content [banner-end] [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh",
+                lg: "7dvh [header-end] min-content [banner-end] 2dvh [row-start] min-content 2dvh [base-start] 1fr [row-end] 2dvh",
               }}
               height="100dvh"
               className={"rootContainer"}
