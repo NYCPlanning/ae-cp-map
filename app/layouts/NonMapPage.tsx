@@ -1,4 +1,11 @@
-import { Grid, GridItem, Text, VStack, Link } from "@nycplanning/streetscape";
+import {
+  Grid,
+  GridItem,
+  Heading,
+  Text,
+  VStack,
+  Link,
+} from "@nycplanning/streetscape";
 import { Outlet } from "react-router";
 
 export default function NonMapHeaderPage() {
@@ -54,9 +61,9 @@ export default function NonMapHeaderPage() {
             lg: 0,
           }}
         >
-          <Text color={"gray.700"} fontWeight={"bold"}>
+          <Heading as="h2" color={"gray.700"} fontWeight={"bold"}>
             Feedback
-          </Text>
+          </Heading>
           <Text>
             This tool is in active development and DCP is open to any and all
             feedback. For questions, inquires or feedback on CPP or its content,

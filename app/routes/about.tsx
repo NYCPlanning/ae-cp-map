@@ -30,7 +30,7 @@ export default function About() {
       }}
     >
       <Heading
-        as="h1"
+        as="p"
         fontSize={"xl"}
         pb={9}
         borderBottom={"1px solid"}
@@ -52,7 +52,7 @@ export default function About() {
         Capital Projects Portal Data
       </Heading>
       <Heading
-        as="h1"
+        as="h2"
         fontSize={"3xl"}
         pt={9}
         pb={4}
@@ -79,7 +79,7 @@ export default function About() {
         <AccordionItem borderTop={"unset"}>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -101,7 +101,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -167,7 +167,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -204,7 +204,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -324,7 +324,7 @@ export default function About() {
       </Flex>
 
       <Heading
-        as="h1"
+        as="h2"
         fontSize={"3xl"}
         pt={9}
         pb={4}
@@ -348,7 +348,7 @@ export default function About() {
         <AccordionItem borderTop={"unset"}>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -392,7 +392,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -430,7 +430,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -466,7 +466,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -560,7 +560,7 @@ export default function About() {
         </VStack>
       </Flex>
       <Heading
-        as="h1"
+        as="h2"
         fontSize={"3xl"}
         pt={9}
         pb={4}
@@ -585,7 +585,7 @@ export default function About() {
       {stateOfGoodRepair === "ON" && (
         <>
           <Heading
-            as="h2"
+            as="h3"
             fontSize={"2xl"}
             pt={9}
             pb={4}
@@ -638,7 +638,7 @@ export default function About() {
         <AccordionItem borderTop={"unset"}>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -693,7 +693,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -734,7 +734,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -884,7 +884,7 @@ export default function About() {
       </Flex>
 
       <Heading
-        as="h1"
+        as="h2"
         fontSize={"3xl"}
         pt={9}
         pb={4}
@@ -906,7 +906,7 @@ export default function About() {
         (CDTA), and borough levels.
       </Text>
       <Heading
-        as="h2"
+        as="h3"
         fontSize={"2xl"}
         pb={4}
         fontWeight={"bold"}
@@ -915,7 +915,7 @@ export default function About() {
         About the Unit Estimates
       </Heading>
       <Heading
-        as="h3"
+        as="h4"
         fontSize={"xl"}
         pb={4}
         fontWeight={"bold"}
@@ -950,7 +950,7 @@ export default function About() {
       </Text>
 
       <Heading
-        as="h3"
+        as="h4"
         fontSize={"xl"}
         pb={4}
         fontWeight={"bold"}
@@ -982,7 +982,7 @@ export default function About() {
       </Text>
 
       <Heading
-        as="h3"
+        as="h4"
         fontSize={"xl"}
         pb={4}
         fontWeight={"bold"}
@@ -1018,7 +1018,7 @@ export default function About() {
         <AccordionItem borderTop={"unset"}>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -1045,7 +1045,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -1137,7 +1137,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -1176,7 +1176,7 @@ export default function About() {
         <AccordionItem>
           <AccordionButton paddingInline={0}>
             <Heading
-              as="h2"
+              as="h3"
               fontSize="md"
               flex="1"
               textAlign="left"
@@ -1249,14 +1249,15 @@ export default function About() {
         width={"100%"}
       ></Box>
       <VStack p={6} alignSelf={"stretch"} backgroundColor={"gray.50"} gap={3}>
-        <Text
+        <Heading
+          as="h2"
           fontSize={"lg"}
           color={"gray.700"}
           alignSelf={"stretch"}
           fontWeight={"bold"}
         >
           Acknowledgements
-        </Text>
+        </Heading>
         <Text>
           The Capital Planning and Support (CAPS) team extends our sincere
           gratitude to our partners in Geographic Data and Engineering, the
