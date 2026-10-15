@@ -137,7 +137,7 @@ export function SupportingLayersPanel({
               <Radio name={"past"} size={"xs"} value={"past"}>
                 <HStack>
                   <Text fontSize={"xs"} fontWeight={"500"}>
-                    Past (Completed 2016-2025)
+                    Past (Completed 2015-2024)
                   </Text>
                   <Tooltip
                     label={
@@ -157,11 +157,11 @@ export function SupportingLayersPanel({
               <Radio name={"current"} size={"xs"} value={"current"}>
                 <HStack>
                   <Text fontSize={"xs"} fontWeight={"500"}>
-                    Current (Estimated 2025)
+                    Current (Estimated 2024)
                   </Text>
                   <Tooltip
                     label={
-                      "Latest Estimated Units (2025) - Estimated Class A residential units as of the latest HDB vintage: 2020 Census counts plus net units added since."
+                      "Latest Estimated Units (2024) - Estimated Class A residential units as of the latest HDB vintage: 2020 Census counts plus net units added since."
                     }
                     maxW={"240px"}
                   >
@@ -177,7 +177,7 @@ export function SupportingLayersPanel({
               <Radio name={"projected"} size={"xs"} value={"projected"}>
                 <HStack>
                   <Text fontSize={"xs"} fontWeight={"500"}>
-                    Projected (Potential 2035)
+                    Projected (Potential 2034)
                   </Text>
                   <Tooltip
                     label={

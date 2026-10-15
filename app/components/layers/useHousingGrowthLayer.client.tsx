@@ -85,29 +85,48 @@ export function useHousingGrowthLayer() {
     getText: ({ properties }: { properties: HousingGrowthProperties }) =>
       properties.label,
     onHover: (info) => {
-      if (info.picked) {
-        if (info?.object.properties.id === undefined) {
-          if (hoveredItemId !== undefined) setHoveredItemId(undefined);
-        } else if (info?.object.properties.id !== hoveredItemId) {
-          setHoveredItemId(info.object.properties.id);
-          let tooltipBody = "";
-
-          if (geographicAggregates === "cd")
-            tooltipBody = `${boroughs.find((boro: Borough) => boro.id === info.object.properties.id[0]).title} Community District ${parseInt(info.object.properties.id.slice(1))}<br />`;
-          else if (geographicAggregates === "nta")
-            tooltipBody = `${info.object.properties.label} (${info.object.properties.id})<br />`;
-          else if (geographicAggregates === "boro")
-            tooltipBody = `${boroughs.find((boro: Borough) => boro.id === info.object.properties.id).title}<br />`;
-
-          tooltipBody += `<b>${info.object.properties[rangeVariableMap.get(housingRange) || "unitsCurrent"].toLocaleString("en-US")}</b>`;
-
-          tooltipBody += ` ${housingRange === "past" ? "Completed" : housingRange === "current" ? "Current" : "Projected"} Units`;
-
-          setHousingLayerMapTooltip(tooltipBody);
-        }
-      } else {
+      if (!info.picked) {
         setHoveredItemId(undefined);
+        return;
       }
+      const properties = info.object.properties;
+      const { id, layerName } = properties;
+      if (id === undefined) {
+        if (hoveredItemId !== undefined) setHoveredItemId(undefined);
+        return;
+      }
+      // Exclude labels, which do not have the data needed to render the tooltip
+      if (id === hoveredItemId || layerName === "housing-growth-label") return;
+      setHoveredItemId(id);
+      const getGeographicAggregateLabel = () => {
+        if (geographicAggregates === "cd") {
+          const boroughTitle = boroughs.find(
+            (boro: Borough) => boro.id === id[0],
+          ).title;
+          return `${boroughTitle} Community District ${parseInt(id.slice(1))}<br />`;
+        }
+        if (geographicAggregates === "nta") {
+          return `${properties.label} (${id})<br />`;
+        }
+        if (geographicAggregates === "boro") {
+          const boroughTitle = boroughs.find(
+            (boro: Borough) => boro.id === id,
+          ).title;
+          return `${boroughTitle}<br />`;
+        }
+        return "";
+      };
+      const getHousingRangeLabel = () => {
+        if (housingRange === "past") return "Completed";
+        if (housingRange === "current") return "Current";
+        return "Projected";
+      };
+      let tooltipBody = getGeographicAggregateLabel();
+      tooltipBody += `<b>${properties[
+        rangeVariableMap.get(housingRange) || "unitsCurrent"
+      ].toLocaleString("en-US")}</b>`;
+      tooltipBody += ` ${getHousingRangeLabel()} Units`;
+      setHousingLayerMapTooltip(tooltipBody);
     },
     getFillColor: ({ properties }: { properties: HousingGrowthProperties }) => {
       const data =
