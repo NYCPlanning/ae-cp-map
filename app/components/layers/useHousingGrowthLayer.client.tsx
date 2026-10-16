@@ -100,18 +100,20 @@ export function useHousingGrowthLayer() {
       setHoveredItemId(id);
       const getGeographicAggregateLabel = () => {
         if (geographicAggregates === "cd") {
-          const boroughTitle = boroughs.find(
-            (boro: Borough) => boro.id === id[0],
-          ).title;
+          const boroughTitle =
+            id[0] <= 5
+              ? boroughs.find((boro: Borough) => boro.id === id[0]).title
+              : "";
           return `${boroughTitle} Community District ${parseInt(id.slice(1))}<br />`;
         }
         if (geographicAggregates === "nta") {
           return `${properties.label} (${id})<br />`;
         }
         if (geographicAggregates === "boro") {
-          const boroughTitle = boroughs.find(
-            (boro: Borough) => boro.id === id,
-          ).title;
+          const boroughTitle =
+            id[0] <= 5
+              ? boroughs.find((boro: Borough) => boro.id === id[0]).title
+              : "";
           return `${boroughTitle}<br />`;
         }
         return "";
