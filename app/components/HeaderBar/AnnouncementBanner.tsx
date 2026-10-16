@@ -47,19 +47,16 @@ export function AnnouncementBanner() {
     >
       <HStack
         width={"100%"}
-        paddingX={"3"}
-        paddingY={"4"}
+        paddingX={["4", "4", "8"]}
+        paddingY={"2"}
         justifyContent={"space-between"}
         fontSize={"sm"}
       >
-        <HStack>
-          <InfoIcon w={"6"} h={"6"} />
-          <Text>
-            <strong>New: Explore Housing Growth!</strong> Turn on the Housing
-            Growth layer to explore housing activity and projected growth across
-            NYC by geography and timeframe.
-          </Text>
-        </HStack>
+        <Text flex={"1"} textAlign={"center"}>
+          <strong>Housing growth data is now available:</strong> Turn on the
+          Housing Growth layer to explore housing activity and projected growth
+          across NYC by geography and timeframe.
+        </Text>
         <CloseButton onClick={() => setShowAnnouncementBanner(false)} />
       </HStack>
     </GridItem>
