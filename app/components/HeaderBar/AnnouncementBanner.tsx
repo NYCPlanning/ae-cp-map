@@ -18,7 +18,7 @@ export function AnnouncementBanner() {
     (state) => state,
   );
 
-  if (!isMapPage || !showAnnouncementBanner) return <></>;
+  // if (!isMapPage || !showAnnouncementBanner) return <></>;
 
   return (
     <GridItem
@@ -47,19 +47,19 @@ export function AnnouncementBanner() {
     >
       <HStack
         width={"100%"}
-        paddingX={"3"}
-        paddingY={"4"}
+        paddingX={{
+          base: "4",
+          md: "8",
+        }}
+        paddingY={"2"}
         justifyContent={"space-between"}
         fontSize={"sm"}
       >
-        <HStack>
-          <InfoIcon w={"6"} h={"6"} />
-          <Text>
-            <strong>New: Explore Housing Growth!</strong> Turn on the Housing
-            Growth layer to explore housing activity and projected growth across
-            NYC by geography and timeframe.
-          </Text>
-        </HStack>
+        <Text flex={"1"}>
+          <strong>New: Explore Housing Growth!</strong> Turn on the Housing
+          Growth layer to explore housing activity and projected growth across
+          NYC by geography and timeframe.
+        </Text>
         <CloseButton onClick={() => setShowAnnouncementBanner(false)} />
       </HStack>
     </GridItem>
