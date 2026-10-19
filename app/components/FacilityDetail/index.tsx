@@ -126,227 +126,233 @@ export function FacilityDetail({
           </Text>
         </HStack>
 
-        {stateOfGoodRepair === "ON" && facility.sgrLtr !== null && (
-          <>
-            <Text fontWeight={"bold"} pt={5}>
-              State of Good Repair
-            </Text>
-            <VStack
-              fontFamily="body"
-              backgroundColor="gray.50"
-              borderColor={"gray.200"}
-              borderStyle="solid"
-              borderRadius={"sm"}
-              borderWidth={"1px"}
-              marginTop={2}
-              marginX={0}
-              width={"100%"}
-              p={4}
-              alignItems={"flex-start"}
-            >
-              <HStack gap={2} alignItems={"flex-start"}>
-                <Tag variant={`grade${facility.sgrLtr}`} size={"gradesLg"}>
-                  {facility.sgrLtr}
-                </Tag>
-                <VStack alignItems={"flex-start"} gap={0}>
-                  <Text fontWeight={"bold"}>Overall Facility Grade</Text>
-                  <Text>
-                    State of architecture, mechanical, and electrical systems
-                  </Text>
-                </VStack>
-              </HStack>
-              <Accordion allowToggle width={"100%"} fontSize="xs">
-                <AccordionItem border={0} p={0}>
-                  {({ isExpanded }) => (
-                    <>
-                      <AccordionButton
-                        aria-label={`${isExpanded ? "Close" : "Open"} state of good repair menu`}
-                        p={0}
-                        _hover={{ backgroundColor: "gray.100" }}
-                      >
-                        <Heading
-                          flex="1"
-                          textAlign="left"
-                          color={"primary.600"}
-                          lineHeight="32px"
-                          fontSize="xs"
-                          paddingBottom={0}
-                          paddingX={1}
+        {stateOfGoodRepair === "ON" &&
+          facility.fcsLetterGradeTotal !== null && (
+            <>
+              <Text fontWeight={"bold"} pt={5}>
+                State of Good Repair
+              </Text>
+              <VStack
+                fontFamily="body"
+                backgroundColor="gray.50"
+                borderColor={"gray.200"}
+                borderStyle="solid"
+                borderRadius={"sm"}
+                borderWidth={"1px"}
+                marginTop={2}
+                marginX={0}
+                width={"100%"}
+                p={4}
+                alignItems={"flex-start"}
+              >
+                <HStack gap={2} alignItems={"flex-start"}>
+                  <Tag
+                    variant={`grade${facility.fcsLetterGradeTotal}`}
+                    size={"gradesLg"}
+                  >
+                    {facility.fcsLetterGradeTotal}
+                  </Tag>
+                  <VStack alignItems={"flex-start"} gap={0}>
+                    <Text fontWeight={"bold"}>Overall Facility Grade</Text>
+                    <Text>
+                      State of architecture, mechanical, and electrical systems
+                    </Text>
+                  </VStack>
+                </HStack>
+                <Accordion allowToggle width={"100%"} fontSize="xs">
+                  <AccordionItem border={0} p={0}>
+                    {({ isExpanded }) => (
+                      <>
+                        <AccordionButton
+                          aria-label={`${isExpanded ? "Close" : "Open"} state of good repair menu`}
+                          p={0}
+                          _hover={{ backgroundColor: "gray.100" }}
                         >
-                          See{isExpanded ? " Less" : " More"}
-                        </Heading>
-                        <AccordionIcon />
-                      </AccordionButton>
-                      <AccordionPanel padding={0}>
-                        <VStack
-                          alignItems={"flex-start"}
-                          paddingY={2.5}
-                          borderBottom={"1px solid"}
-                          borderColor={"gray.400"}
-                        >
-                          <Text fontWeight={"bold"} fontSize={"sm"}>
-                            Breakdown
-                          </Text>
-                          <HStack>
-                            <Tag
-                              variant={`grade${facility.sgrArcLtr}`}
-                              size={"gradesSm"}
-                            >
-                              {facility.sgrArcLtr}
-                            </Tag>
-                            <Text fontWeight={"bold"}>ARCHITECTURE</Text>
-                          </HStack>
-                          <HStack>
-                            <Tag
-                              variant={`grade${facility.sgrSysLtr}`}
-                              size={"gradesSm"}
-                            >
-                              {facility.sgrSysLtr}
-                            </Tag>
-                            <Text fontWeight={"bold"}>
-                              MECHANICAL AND ELECTRICAL SYSTEMS
-                            </Text>
-                          </HStack>
-                          {facility.sgrYear !== null && (
-                            <Text>Assessment year: {facility.sgrYear}</Text>
-                          )}
-                        </VStack>
-                        <VStack alignItems={"flex-start"} paddingY={2.5}>
-                          <Text fontWeight={"bold"} fontSize={"sm"}>
-                            About the Grades
-                          </Text>
-                          <Text>
-                            State of Good Repair (SGR) grades provide a
-                            high-level assessment of a facility&apos;s overall
-                            condition, ranging from <b>A (best)</b> to{" "}
-                            <b>F (poorest)</b>. Scores are intended as a general
-                            indicator only and may not reflect current
-                            conditions due to the timing of assessments.
-                          </Text>
-                          <VStack
-                            bg={"white"}
-                            width={"100%"}
-                            p={4}
-                            borderRadius={"8px"}
+                          <Heading
+                            flex="1"
+                            textAlign="left"
+                            color={"primary.600"}
+                            lineHeight="32px"
+                            fontSize="xs"
+                            paddingBottom={0}
+                            paddingX={1}
                           >
-                            <VStack
-                              paddingX={2.5}
-                              paddingY={"22px"}
-                              borderBottom={"1px solid"}
-                              borderColor={"gray.300"}
-                              width={"100%"}
-                              alignItems={"flex-start"}
-                            >
-                              <HStack gap={1.5}>
-                                <Text fontWeight={"bold"}>GRADE A</Text>
-                                <Tag
-                                  variant={"gradeA"}
-                                  size={"gradesDescription"}
-                                >
-                                  Excellent
-                                </Tag>
-                              </HStack>
-                              <Text fontSize={"sm"}>
-                                Facility assets are in excellent condition with
-                                minimal repair needs.
+                            See{isExpanded ? " Less" : " More"}
+                          </Heading>
+                          <AccordionIcon />
+                        </AccordionButton>
+                        <AccordionPanel padding={0}>
+                          <VStack
+                            alignItems={"flex-start"}
+                            paddingY={2.5}
+                            borderBottom={"1px solid"}
+                            borderColor={"gray.400"}
+                          >
+                            <Text fontWeight={"bold"} fontSize={"sm"}>
+                              Breakdown
+                            </Text>
+                            <HStack>
+                              <Tag
+                                variant={`grade${facility.fcsLetterGradeArchitectural}`}
+                                size={"gradesSm"}
+                              >
+                                {facility.fcsLetterGradeArchitectural}
+                              </Tag>
+                              <Text fontWeight={"bold"}>ARCHITECTURE</Text>
+                            </HStack>
+                            <HStack>
+                              <Tag
+                                variant={`grade${facility.fcsLetterGradeSystems}`}
+                                size={"gradesSm"}
+                              >
+                                {facility.fcsLetterGradeSystems}
+                              </Tag>
+                              <Text fontWeight={"bold"}>
+                                MECHANICAL AND ELECTRICAL SYSTEMS
                               </Text>
-                            </VStack>
-                            <VStack
-                              paddingX={2.5}
-                              paddingY={"22px"}
-                              borderBottom={"1px solid"}
-                              borderColor={"gray.300"}
-                              width={"100%"}
-                              alignItems={"flex-start"}
-                            >
-                              <HStack gap={1.5}>
-                                <Text fontWeight={"bold"}>GRADE B</Text>
-                                <Tag
-                                  variant={"gradeB"}
-                                  size={"gradesDescription"}
-                                >
-                                  Good
-                                </Tag>
-                              </HStack>
-                              <Text fontSize={"sm"}>
-                                Facility assets are in good condition with
-                                limited repair needs.
+                            </HStack>
+                            {facility.fcsAssessmentYear !== null && (
+                              <Text>
+                                Assessment year: {facility.fcsAssessmentYear}
                               </Text>
-                            </VStack>
+                            )}
+                          </VStack>
+                          <VStack alignItems={"flex-start"} paddingY={2.5}>
+                            <Text fontWeight={"bold"} fontSize={"sm"}>
+                              About the Grades
+                            </Text>
+                            <Text>
+                              State of Good Repair (SGR) grades provide a
+                              high-level assessment of a facility&apos;s overall
+                              condition, ranging from <b>A (best)</b> to{" "}
+                              <b>F (poorest)</b>. Scores are intended as a
+                              general indicator only and may not reflect current
+                              conditions due to the timing of assessments.
+                            </Text>
                             <VStack
-                              paddingX={2.5}
-                              paddingY={"22px"}
-                              borderBottom={"1px solid"}
-                              borderColor={"gray.300"}
+                              bg={"white"}
                               width={"100%"}
-                              alignItems={"flex-start"}
+                              p={4}
+                              borderRadius={"8px"}
                             >
-                              <HStack gap={1.5}>
-                                <Text fontWeight={"bold"}>GRADE C</Text>
-                                <Tag
-                                  variant={"gradeC"}
-                                  size={"gradesDescription"}
-                                >
-                                  Fair
-                                </Tag>
-                              </HStack>
-                              <Text fontSize={"sm"}>
-                                Facility assets are in fair condition with
-                                moderate repair needs.
-                              </Text>
-                            </VStack>
-                            <VStack
-                              paddingX={2.5}
-                              paddingY={"22px"}
-                              borderBottom={"1px solid"}
-                              borderColor={"gray.300"}
-                              width={"100%"}
-                              alignItems={"flex-start"}
-                            >
-                              <HStack gap={1.5}>
-                                <Text fontWeight={"bold"}>GRADE D</Text>
-                                <Tag
-                                  variant={"gradeD"}
-                                  size={"gradesDescription"}
-                                >
-                                  Poor
-                                </Tag>
-                              </HStack>
-                              <Text fontSize={"sm"}>
-                                Facility assets are in poor condition with
-                                significant repair needs.
-                              </Text>
-                            </VStack>
-                            <VStack
-                              paddingX={2.5}
-                              paddingY={"22px"}
-                              width={"100%"}
-                              alignItems={"flex-start"}
-                            >
-                              <HStack gap={1.5}>
-                                <Text fontWeight={"bold"}>GRADE F</Text>
-                                <Tag
-                                  variant={"gradeF"}
-                                  size={"gradesDescription"}
-                                >
-                                  Critical
-                                </Tag>
-                              </HStack>
-                              <Text fontSize={"sm"}>
-                                Facility assets are in critical condition with
-                                extensive repair needs.
-                              </Text>
+                              <VStack
+                                paddingX={2.5}
+                                paddingY={"22px"}
+                                borderBottom={"1px solid"}
+                                borderColor={"gray.300"}
+                                width={"100%"}
+                                alignItems={"flex-start"}
+                              >
+                                <HStack gap={1.5}>
+                                  <Text fontWeight={"bold"}>GRADE A</Text>
+                                  <Tag
+                                    variant={"gradeA"}
+                                    size={"gradesDescription"}
+                                  >
+                                    Excellent
+                                  </Tag>
+                                </HStack>
+                                <Text fontSize={"sm"}>
+                                  Facility assets are in excellent condition
+                                  with minimal repair needs.
+                                </Text>
+                              </VStack>
+                              <VStack
+                                paddingX={2.5}
+                                paddingY={"22px"}
+                                borderBottom={"1px solid"}
+                                borderColor={"gray.300"}
+                                width={"100%"}
+                                alignItems={"flex-start"}
+                              >
+                                <HStack gap={1.5}>
+                                  <Text fontWeight={"bold"}>GRADE B</Text>
+                                  <Tag
+                                    variant={"gradeB"}
+                                    size={"gradesDescription"}
+                                  >
+                                    Good
+                                  </Tag>
+                                </HStack>
+                                <Text fontSize={"sm"}>
+                                  Facility assets are in good condition with
+                                  limited repair needs.
+                                </Text>
+                              </VStack>
+                              <VStack
+                                paddingX={2.5}
+                                paddingY={"22px"}
+                                borderBottom={"1px solid"}
+                                borderColor={"gray.300"}
+                                width={"100%"}
+                                alignItems={"flex-start"}
+                              >
+                                <HStack gap={1.5}>
+                                  <Text fontWeight={"bold"}>GRADE C</Text>
+                                  <Tag
+                                    variant={"gradeC"}
+                                    size={"gradesDescription"}
+                                  >
+                                    Fair
+                                  </Tag>
+                                </HStack>
+                                <Text fontSize={"sm"}>
+                                  Facility assets are in fair condition with
+                                  moderate repair needs.
+                                </Text>
+                              </VStack>
+                              <VStack
+                                paddingX={2.5}
+                                paddingY={"22px"}
+                                borderBottom={"1px solid"}
+                                borderColor={"gray.300"}
+                                width={"100%"}
+                                alignItems={"flex-start"}
+                              >
+                                <HStack gap={1.5}>
+                                  <Text fontWeight={"bold"}>GRADE D</Text>
+                                  <Tag
+                                    variant={"gradeD"}
+                                    size={"gradesDescription"}
+                                  >
+                                    Poor
+                                  </Tag>
+                                </HStack>
+                                <Text fontSize={"sm"}>
+                                  Facility assets are in poor condition with
+                                  significant repair needs.
+                                </Text>
+                              </VStack>
+                              <VStack
+                                paddingX={2.5}
+                                paddingY={"22px"}
+                                width={"100%"}
+                                alignItems={"flex-start"}
+                              >
+                                <HStack gap={1.5}>
+                                  <Text fontWeight={"bold"}>GRADE F</Text>
+                                  <Tag
+                                    variant={"gradeF"}
+                                    size={"gradesDescription"}
+                                  >
+                                    Critical
+                                  </Tag>
+                                </HStack>
+                                <Text fontSize={"sm"}>
+                                  Facility assets are in critical condition with
+                                  extensive repair needs.
+                                </Text>
+                              </VStack>
                             </VStack>
                           </VStack>
-                        </VStack>
-                      </AccordionPanel>
-                    </>
-                  )}
-                </AccordionItem>
-              </Accordion>
-            </VStack>
-          </>
-        )}
+                        </AccordionPanel>
+                      </>
+                    )}
+                  </AccordionItem>
+                </Accordion>
+              </VStack>
+            </>
+          )}
 
         <Accordion allowToggle width={"100%"}>
           <AccordionItem

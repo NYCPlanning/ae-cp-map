@@ -671,7 +671,7 @@ export default function ResultsPanel() {
                           </Text>
                         </CardBody>
                       </Flex>
-                      {stateOfGoodRepair === "ON" && facility.hasSogrData ? (
+                      {stateOfGoodRepair === "ON" && facility.hasFcsData ? (
                         <Tooltip
                           offset={[-40, 10]}
                           hasArrow
