@@ -24,9 +24,11 @@ export const facilityPageSchema = z
             )
             .nullish(),
           categoryId: z.int().describe("The category id of the facility"),
-          hasSogrData: z
+          hasFcsData: z
             .boolean()
-            .describe("If the facility has a State of Good Repair rating"),
+            .describe(
+              "If the facility has a FCS (Facility Condition Score) rating",
+            ),
         }),
       ),
       totalFacilities: z
