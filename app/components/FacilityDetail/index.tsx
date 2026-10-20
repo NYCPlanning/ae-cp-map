@@ -18,7 +18,11 @@ import {
   VStack,
   Button,
 } from "@nycplanning/streetscape";
-import { useNavigate, useSearchParams } from "react-router";
+import {
+  Link as ReactRouterLink,
+  useNavigate,
+  useSearchParams,
+} from "react-router";
 import { format } from "date-fns";
 import { env } from "~/utils/env";
 import { FACILITY_CATEGORY_ID_COLORS } from "~/utils/constants";
@@ -130,7 +134,11 @@ export function FacilityDetail({
           facility.fcsLetterGradeTotal !== null && (
             <>
               <Text fontWeight={"bold"} pt={5}>
-                State of Good Repair
+                Facility Condition Score
+              </Text>
+              <Text fontSize={"xs"}>
+                Scores are intended as a general indicator only and may not
+                reflect current conditions due to the timing of assessments.
               </Text>
               <VStack
                 fontFamily="body"
@@ -164,7 +172,7 @@ export function FacilityDetail({
                     {({ isExpanded }) => (
                       <>
                         <AccordionButton
-                          aria-label={`${isExpanded ? "Close" : "Open"} state of good repair menu`}
+                          aria-label={`${isExpanded ? "Close" : "Open"} facility condition score menu`}
                           p={0}
                           _hover={{ backgroundColor: "gray.100" }}
                         >
@@ -216,17 +224,30 @@ export function FacilityDetail({
                                 Assessment year: {facility.fcsAssessmentYear}
                               </Text>
                             )}
+                            <Text>
+                              Learn more about what makes up a{" "}
+                              <ReactRouterLink
+                                to={"/about#fcsgrade"}
+                                style={{
+                                  color: "var(--dcp-colors-primary-500)",
+                                  textDecoration: "underline",
+                                }}
+                              >
+                                facility condition grade
+                              </ReactRouterLink>
+                              .
+                            </Text>
                           </VStack>
                           <VStack alignItems={"flex-start"} paddingY={2.5}>
                             <Text fontWeight={"bold"} fontSize={"sm"}>
                               About the Grades
                             </Text>
                             <Text>
-                              State of Good Repair (SGR) grades provide a
+                              Facility Condition Scores (FCS) provide a
                               high-level assessment of a facility&apos;s overall
-                              condition, ranging from <b>A (best)</b> to{" "}
-                              <b>F (poorest)</b>. Scores are intended as a
-                              general indicator only and may not reflect current
+                              condition, ranging from <b>A (Excellent)</b> to{" "}
+                              <b>D (Poor)</b>. Scores are intended as a general
+                              indicator only and may not reflect current
                               conditions due to the timing of assessments.
                             </Text>
                             <VStack
@@ -254,7 +275,7 @@ export function FacilityDetail({
                                 </HStack>
                                 <Text fontSize={"sm"}>
                                   Facility assets are in excellent condition
-                                  with minimal repair needs.
+                                  with minimal or no repair needs.
                                 </Text>
                               </VStack>
                               <VStack
@@ -304,8 +325,6 @@ export function FacilityDetail({
                               <VStack
                                 paddingX={2.5}
                                 paddingY={"22px"}
-                                borderBottom={"1px solid"}
-                                borderColor={"gray.300"}
                                 width={"100%"}
                                 alignItems={"flex-start"}
                               >
@@ -321,26 +340,6 @@ export function FacilityDetail({
                                 <Text fontSize={"sm"}>
                                   Facility assets are in poor condition with
                                   significant repair needs.
-                                </Text>
-                              </VStack>
-                              <VStack
-                                paddingX={2.5}
-                                paddingY={"22px"}
-                                width={"100%"}
-                                alignItems={"flex-start"}
-                              >
-                                <HStack gap={1.5}>
-                                  <Text fontWeight={"bold"}>GRADE F</Text>
-                                  <Tag
-                                    variant={"gradeF"}
-                                    size={"gradesDescription"}
-                                  >
-                                    Critical
-                                  </Tag>
-                                </HStack>
-                                <Text fontSize={"sm"}>
-                                  Facility assets are in critical condition with
-                                  extensive repair needs.
                                 </Text>
                               </VStack>
                             </VStack>
