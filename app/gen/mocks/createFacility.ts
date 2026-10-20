@@ -25,20 +25,16 @@ export function createFacility(data?: Partial<Facility>): Facility {
       categoryGroupId: faker.number.int(),
       categorySubgroupId: faker.number.int(),
       operatorName: faker.string.alpha(),
-      sgrLtr: faker.helpers.arrayElement<NonNullable<Facility>["sgrLtr"]>([
-        "A",
-        "B",
-        "C",
-        "D",
-        "F",
-      ]),
-      sgrArcLtr: faker.helpers.arrayElement<NonNullable<Facility>["sgrArcLtr"]>(
-        ["A", "B", "C", "D", "F"],
-      ),
-      sgrSysLtr: faker.helpers.arrayElement<NonNullable<Facility>["sgrSysLtr"]>(
-        ["A", "B", "C", "D", "F"],
-      ),
-      sgrYear: faker.number.int(),
+      fcsLetterGradeTotal: faker.helpers.arrayElement<
+        NonNullable<Facility>["fcsLetterGradeTotal"]
+      >(["A", "B", "C", "D"]),
+      fcsLetterGradeArchitectural: faker.helpers.arrayElement<
+        NonNullable<Facility>["fcsLetterGradeArchitectural"]
+      >(["A", "B", "C", "D"]),
+      fcsLetterGradeSystems: faker.helpers.arrayElement<
+        NonNullable<Facility>["fcsLetterGradeSystems"]
+      >(["A", "B", "C", "D", "F"]),
+      fcsAssessmentYear: faker.number.int(),
       dataSource: createDataSource(),
       alsoAtLocation: faker.helpers.multiple(() => ({
         id: faker.string.alpha(),

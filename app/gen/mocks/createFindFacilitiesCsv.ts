@@ -76,7 +76,7 @@ export function createFindFacilitiesCsvQueryParams(
 }
 
 /**
- * @description A CSV download of community board budget requests
+ * @description A CSV download of facilities
  */
 export function createFindFacilitiesCsv200() {
   return faker.string.alpha();

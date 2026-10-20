@@ -574,66 +574,12 @@ export default function About() {
       <Text pb={6}>
         The New York City Department of City Planning (DCP) aggregates
         information about facilities and program sites that are owned, operated,
-        funded, licensed or certified by a City, State, or Federal agency in the
-        City of New York into a central database called the Facilities Database
-        (FacDB). These facilities generally help to shape quality of life in the
-        city&apos;s neighborhoods, and this dataset is the basis for a series of
-        planning activities. This database is a successor to City
-        Planning&apos;s decades-old work on the Selected Facilities and Program
-        Sites Database.
+        funded, licensed, or certified by a city, state, or federal agency in
+        the City of New York into a central database called the Facilities
+        Database (FacDB). These facilities generally provide public services and
+        other quality of life amenities, and this dataset is intended to be
+        informative for a public audience and helpful for planning purposes.
       </Text>
-      {stateOfGoodRepair === "ON" && (
-        <>
-          <Heading
-            as="h3"
-            fontSize={"2xl"}
-            pt={9}
-            pb={4}
-            fontWeight={"bold"}
-            alignSelf={"stretch"}
-          >
-            New in FacDB: State of Good Repair Data
-          </Heading>
-          <Text pb={6}>
-            As of 2026, and in accordance with the 2024 Charter Revision to{" "}
-            <Link
-              href="https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCcharter/0-0-0-899"
-              isExternal
-              textDecorationLine={"underline"}
-              color={"primary.600"}
-            >
-              Section 204
-              <ExternalLinkIcon marginLeft={0.5} />
-            </Link>{" "}
-            of the NYC Charter, the Facilities Database now includes additional
-            column information related to State of Good Repair (SGR) data for a
-            select number of New York City&apos;s owned and leased facilities.
-            SGR scores are gathered and scored using a standardized methodology
-            developed by the Office of Management and Budget (OMB), Department
-            of Design and Construction (DDC) and DCP and sourced from OMB&apos;s{" "}
-            <Link
-              href="https://www.nyc.gov/content/omb/pages/publications"
-              isExternal
-              textDecorationLine={"underline"}
-              color={"primary.600"}
-            >
-              Asset Information Management System
-              <ExternalLinkIcon marginLeft={0.5} />
-            </Link>
-            . Each score reflects the physical condition of a facility at the
-            time of its most recent assessment. Scores convey a general sense of
-            asset condition and should not be interpreted as an estimate of
-            capital investment needs or a prioritization of repairs.
-          </Text>
-          <Text pb={6}>
-            Not all facilities in FacDB have an associated SGR score; coverage
-            varies depending on whether a facility has been assessed and meets
-            the associated criteria under OMB&apos;s AIMS mandate. Users should
-            account for both the point-in-time nature of the scores and gaps in
-            coverage when drawing conclusions from this data.
-          </Text>
-        </>
-      )}
       <Accordion allowMultiple allowToggle width={"100%"}>
         <AccordionItem borderTop={"unset"}>
           <AccordionButton paddingInline={0}>
@@ -651,13 +597,12 @@ export default function About() {
           </AccordionButton>
           <AccordionPanel>
             <Text>
-              The City Planning Facilities Database aggregates approximately
-              30,000+ records from 43 different public data sources provided by
-              City, State, and Federal agencies. While each source agency
-              classifies its facilities according to their own naming systems,
-              we have grouped all facilities and program sites into the
-              following seven categories to help planners navigate the data more
-              easily:
+              FacDB aggregates approximately 30,000+ records from 43 different
+              public data sources provided by city, state, and federal agencies.
+              While each source agency classifies its facilities according to
+              their own naming systems, DCP groups all facilities and program
+              sites into the following seven categories to facilitate navigating
+              the data more easily:
             </Text>
             <UnorderedList py={3}>
               <ListItem>Health and Human Services</ListItem>
@@ -672,11 +617,10 @@ export default function About() {
             </UnorderedList>
             <Text>
               Within each of these domains, each record is further categorized
-              into a set of facility groups, subgroups, and types that are
-              intended to make the data easy to navigate and more useful for
-              specific planning purposes. Facility types and names appear as
-              they do in source datasets, wherever possible. A full listing of
-              the facility categories is provided in the{" "}
+              into a set of facility groups, subgroups, and types. Facility
+              types and names appear as they do in source datasets, wherever
+              possible. A full listing of the facility categories is provided in
+              the{" "}
               <Link
                 href="https://nycplanning.github.io/db-facilities/#/"
                 isExternal
@@ -706,26 +650,26 @@ export default function About() {
           <AccordionPanel>
             <Text pb={6}>
               The Capital Projects Portal is designed to make this expansive
-              dataset more accessible to planners and city-builders across the
-              five boroughs, and to help all New Yorkers understand the breadth
-              of government resources in their neighborhoods. Specifically, this
-              portal and dataset can be used to inform the siting or realignment
-              of certain government and community facilities and programs,
-              certain environmental impact assessments, community planning and
-              engagement, infrastructure planning, and a range of other planning
-              and community-building activities.
+              dataset accessible and showcase the breadth of facility and
+              program resources across the city. Specifically, this information
+              may be used to inform the location of government and community
+              facilities and programs, assist in the preparation of land use or
+              environmental review documents, facilitate community planning and
+              engagement, and assist with other planning and community-building
+              activities.
             </Text>
             {stateOfGoodRepair === "ON" && (
               <>
                 <Text>
-                  With the addition of SGR data to the Facilities Database in
-                  2026, users can access a high-level, directional indicator of
-                  a facility&apos;s overall physical condition. These scores are
-                  a useful starting point for advocacy, funding conversations,
-                  or comparative analysis, but should not be treated as a
-                  substitute for formal assessment or capital planning. Any
-                  formal analysis or decision-making requires additional data
-                  and investigation beyond what the SGR score alone can provide.
+                  With the addition of facility condition data to FacDB, users
+                  can access a high-level, snapshot indicator of a
+                  facility&apos;s overall physical condition. These scores may
+                  be a useful starting point for advocacy, prioritization, or
+                  comparative analysis, but should not be treated as a
+                  substitute for complete facility condition assessments or
+                  capital planning. Any formal analysis or decision-making
+                  requires additional investigation beyond what this facility
+                  condition summary information alone can provide.
                 </Text>
               </>
             )}
@@ -746,9 +690,8 @@ export default function About() {
           </AccordionButton>
           <AccordionPanel>
             <Text>
-              The City Planning Facilities Database (FacDB) is only as good as
-              the source data it aggregates, and the Department of City Planning
-              cannot verify the accuracy of all records. We strongly encourage
+              FacDB is entirely comprised of aggregated data from other sources,
+              and DCP cannot verify the accuracy of all records. DCP encourages
               users to{" "}
               <Link
                 href="https://nycplanning.github.io/db-facilities/#/"
@@ -766,31 +709,30 @@ export default function About() {
                 <span style={{ fontWeight: "bold" }}>
                   Analysis Limitations -{" "}
                 </span>
-                Largely as a result of the limitations and inconsistencies
-                described below, users should be careful in their use of this
-                database not to develop analyses that may be suspect. For
-                example, a comparison of the density or accessibility of
-                facilities across neighborhoods should recognize that due to the
-                structure of the database and the prevalence of duplicate
-                records, a &apos;count&apos; of facilities and program sites may
-                not be an accurate reflection of facility concentration; that
-                some of the facilities included are organizational headquarters
-                or mailing addresses rather than service sites; and that this
-                database is not authoritatively comprehensive. In addition, we
-                rely on source data from other agencies to populate the
-                explorer, and some of these sources may fall out-of-date - users
-                can find the date of each source dataset&apos;s latest update
-                within each facility detail page.
+                Because of the limitations and potential for inconsistencies
+                described below, users should exercise caution in their use of
+                this information. For example, a comparison of the density or
+                accessibility of facilities across neighborhoods should
+                recognize that due to the structure of the database and the
+                potential for duplicate records, a count of facilities and
+                program sites may not be an accurate reflection of facility
+                concentration; that some of the facilities included may be
+                organizational headquarters or mailing addresses rather than
+                service sites; and that this database is not authoritatively
+                comprehensive. In addition, DCP aggregates data from other
+                sources, and some of those sources may fall out-of-date; users
+                can find the latest update source data within each facility
+                detail page.
               </ListItem>
               <ListItem>
                 <span style={{ fontWeight: "bold" }}>Missing Records - </span>
                 Currently, FacDB is the most comprehensive, spatial data
                 resource available of facilities run by public and non-public
                 entities in NYC, but it does not claim to capture every facility
-                within the specified domains. Some facilities are deliberately
-                excluded in the data that source agencies provide in order to
-                protect the safety and privacy of their clients. Many records
-                also could not be geocoded.
+                within the specified domains. Some facilities are excluded in
+                the data that source agencies provide to protect the safety and
+                privacy of their clients; other records can&apos;t be geocoded
+                and are similarly excluded.
               </ListItem>
               <ListItem>
                 <span style={{ fontWeight: "bold" }}>Duplicates - </span>Please
@@ -803,14 +745,14 @@ export default function About() {
                 <span style={{ fontWeight: "bold" }}>
                   Administrative Addresses -{" "}
                 </span>
-                There are known to be cases when the address provided in the
+                There may be instances in which an address provided in the
                 source data is for a headquarters or central office rather than
-                the facility site location. Unfortunately, these cannot be
-                systematically verified. We hope to resolve as many of these
-                limitations as possible over time and seek feedback from the
-                user community on potential approaches to improving the data.
-                For more detailed information on a specific facility please
-                reach out to the respective oversight agency.
+                a service location. Unfortunately, these cannot be
+                systematically verified, though DCP intends to resolve as many
+                of these instances as possible over time and seeks feedback from
+                the user community on potential approaches to improving the
+                data. For more detailed information about a specific facility or
+                program site, please contact the appropriate oversight agency.
               </ListItem>
               <ListItem>
                 <span style={{ fontWeight: "bold" }}>
@@ -822,6 +764,430 @@ export default function About() {
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
+      {stateOfGoodRepair === "ON" && (
+        <>
+          <Heading
+            as="h3"
+            fontSize={"2xl"}
+            pt={9}
+            pb={4}
+            fontWeight={"bold"}
+            alignSelf={"stretch"}
+          >
+            Facility Condition Information
+          </Heading>
+          <Text pb={6}>
+            As of 2026, in accordance with the 2024 revision to the NYC Charter{" "}
+            <Link
+              href="https://codelibrary.amlegal.com/codes/newyorkcity/latest/NYCcharter/0-0-0-899"
+              isExternal
+              textDecorationLine={"underline"}
+              color={"primary.600"}
+            >
+              Section 204
+              <ExternalLinkIcon marginLeft={0.5} />
+            </Link>
+            , the Facilities Database now includes information related to
+            facility condition for certain facilities owned or leased by the
+            city. This data is gathered and scored using a standardized
+            methodology developed by the Office of Management and Budget (OMB),
+            Department of Design and Construction (DDC), and DCP, and is sourced
+            from OMB&apos;s{" "}
+            <Link
+              href="https://www.nyc.gov/content/omb/pages/publications"
+              isExternal
+              textDecorationLine={"underline"}
+              color={"primary.600"}
+            >
+              Asset Information Management System
+              <ExternalLinkIcon marginLeft={0.5} />
+            </Link>{" "}
+            (AIMS). Each score, known as the Facility Condition Score (FCS),
+            reflects a summation of the physical condition of a facility at the
+            time of its most recent AIMS assessment. These scores are expressed
+            as a letter grade, ranging from A (Excellent) to D (Poor), to convey
+            general asset condition. They should not be interpreted as an
+            estimate of capital investment needs; any formal analysis or
+            decision-making requires additional investigation beyond what this
+            summary information alone can provide.
+          </Text>
+          <Accordion
+            allowMultiple
+            allowToggle
+            width={"100%"}
+            defaultIndex={window.location.hash === "#fcsgrade" ? 2 : []}
+            id={"fcsgrade"}
+          >
+            <AccordionItem borderTop={"unset"}>
+              <AccordionButton paddingInline={0}>
+                <Heading
+                  as="h3"
+                  fontSize="md"
+                  flex="1"
+                  textAlign="left"
+                  fontWeight={"bold"}
+                >
+                  What are the limitations of AIMS?
+                </Heading>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel>
+                <Text pb={6}>
+                  The Asset Information Management System (AIMS) is an annual
+                  report of the City&apos;s inventory of assets or asset systems
+                  that have a replacement cost of ten million dollars or greater
+                  and a useful life in excess of ten years.
+                </Text>
+                <Text>
+                  Due to the complexity of surveying the large inventory of City
+                  assets across different facility types, there are inherent
+                  limitations:
+                </Text>
+                <UnorderedList py={3}>
+                  <ListItem>
+                    The entire portfolio of AIMS assets is typically surveyed on
+                    a rolling basis over 4 years; therefore, there may be a
+                    difference between survey conditions at the time of the
+                    survey and current conditions.{" "}
+                  </ListItem>
+                  <ListItem>
+                    Capital improvements made at a facility since its last
+                    survey are not reflected in AIMS until the facility is
+                    surveyed again; therefore, facility condition information
+                    may not yet reflect recent improvements.{" "}
+                  </ListItem>
+                  <ListItem>
+                    City assets require AIMS surveys only if they meet the
+                    required survey criteria. Therefore, not every facility in
+                    FacDB has a condition score. Users should consider both the
+                    point-in-time nature of the scores and gaps in coverage when
+                    reviewing this information.{" "}
+                  </ListItem>
+                </UnorderedList>
+                <Text>
+                  Many agencies assess their own assets for current condition
+                  and capital investment needs separately from AIMS and have a
+                  more intimate understanding of their facilities and
+                  infrastructure. Users can find more up-to-date and accurate
+                  condition information as well as recent capital projects and
+                  improvements at respective agency websites:
+                </Text>
+                <UnorderedList py={3}>
+                  <ListItem>
+                    Brooklyn Public Library:{" "}
+                    <Link
+                      href="https://www.bklynlibrary.org/about/capital-projects"
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://www.bklynlibrary.org/about/capital-projects
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    Department of Parks & Recreation:{" "}
+                    <Link
+                      href="https://www.nycgovparks.org/planning-and-building/capital-project-tracker"
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://www.nycgovparks.org/planning-and-building/capital-project-tracker
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    Department of Transportation:{" "}
+                    <Link
+                      href="https://www.nyc.gov/html/dot/html/about/current-projects.shtml"
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://www.nyc.gov/html/dot/html/about/current-projects.shtml
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    Metropolitan Transit Authority:{" "}
+                    <Link
+                      href="https://capitaldashboard.mta.info/"
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://capitaldashboard.mta.info/
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    New York City Housing Authority:{" "}
+                    <Link
+                      href="https://capitaltracker.nycha.info/"
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://capitaltracker.nycha.info/
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    New York Public Library:{" "}
+                    <Link
+                      href="https://www.nypl.org/about/capital-projects"
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://www.nypl.org/about/capital-projects
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    Queens Public Library:{" "}
+                    <Link
+                      href="https://www.queenslibrary.org/about-us/capital-projects"
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://www.queenslibrary.org/about-us/capital-projects
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    School Construction Authority:{" "}
+                    <Link
+                      href="https://survey.nycsca.org/bcas/"
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://survey.nycsca.org/bcas/
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                </UnorderedList>
+                <Text>
+                  Additional resources about capital projects in NYC can also be
+                  found at:
+                </Text>
+                <UnorderedList py={3}>
+                  <ListItem>
+                    Capital Projects Dashboard:{" "}
+                    <Link
+                      href="https://app.powerbigov.us/view?r=eyJrIjoiMTkwYWMyNGEtMDNiZC00OTY4LTk4YjEtYzI0MzhlOTA3MzllIiwidCI6IjM1YzgyODE2LTZjNTYtNDQzYi1iYWY2LTgzMTIxNjNjYWRjMSJ9 "
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://app.powerbigov.us/view?r=eyJrIjoiMTkwYWMyNGEtMDNiZC00OTY4LTk4YjEtYzI0MzhlOTA3MzllIiwidCI6IjM1YzgyODE2LTZjNTYtNDQzYi1iYWY2LTgzMTIxNjNjYWRjMSJ9{" "}
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    Databook:{" "}
+                    <Link
+                      href="https://databook.nyc/projects"
+                      isExternal
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                    >
+                      https://databook.nyc/projects
+                      <ExternalLinkIcon marginLeft={0.5} />
+                    </Link>
+                  </ListItem>
+                </UnorderedList>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionButton paddingInline={0}>
+                <Heading
+                  as="h3"
+                  fontSize="md"
+                  flex="1"
+                  textAlign="left"
+                  fontWeight={"bold"}
+                >
+                  Special Cases by Agency
+                </Heading>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel>
+                <Text pb={6} textDecoration={"underline"}>
+                  School Construction Authority and Department of Education
+                </Text>
+                <Text pb={6}>
+                  The NYC School Construction Authority (SCA) is responsible for
+                  the design and construction of New York City public schools,
+                  which are operated by the NYC Department of Education (DOE).
+                  SCA conducts its own annual Building Condition Assessment
+                  Survey (BCAS), in which teams of inspectors conduct annual
+                  surveys of each of the city&apos;s public school buildings.
+                </Text>
+                <Text pb={6}>
+                  Unlike AIMS, which produces a condition score for each
+                  building, BCAS evaluates conditions room by room and does not
+                  produce an aggregate score for each building. The FCS shown
+                  for DOE school buildings does not use this data and instead
+                  uses the same AIMS data and scoring method as other facilities
+                  in this dataset in order to provide a building level score.
+                  However, BCAS is updated every year and used in SCA capital
+                  planning efforts and is the most current and detailed source
+                  of condition information for public schools. You can find the
+                  BCAS assessments for each individual school by searching here:{" "}
+                  <Link
+                    href="https://survey.nycsca.org/bcas/"
+                    isExternal
+                    color={"primary.600"}
+                    textDecorationLine={"underline"}
+                  >
+                    https://survey.nycsca.org/bcas/
+                    <ExternalLinkIcon marginLeft={0.5} />
+                  </Link>
+                </Text>
+                <Text pb={6} textDecoration={"underline"}>
+                  New York City Department of Cultural Affairs
+                </Text>
+                <Text pb={6}>
+                  The New York City Department of Cultural Affairs (DCLA) is
+                  unique among city agencies. While its facility assets are
+                  city-owned, DCLA does not directly manage or operate them.
+                  Instead, day-to-day operations are handled independently by
+                  the cultural institutions themselves.
+                </Text>
+                <Text pb={6}>
+                  Although DCLA does not manage the day-to-day operations, they
+                  do facilitate capital design and construction and provide
+                  operational support. To learn more about DCLA and their
+                  institutional facilities, please see their{" "}
+                  <Link
+                    href="https://www.nyc.gov/site/dcla/about/about-cultural-affairs.page"
+                    isExternal
+                    color={"primary.600"}
+                    textDecorationLine={"underline"}
+                  >
+                    website
+                    <ExternalLinkIcon marginLeft={0.5} />
+                  </Link>
+                  .
+                </Text>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionButton paddingInline={0}>
+                <Heading
+                  as="h3"
+                  fontSize="md"
+                  flex="1"
+                  textAlign="left"
+                  fontWeight={"bold"}
+                >
+                  What makes up a facility condition grade?
+                </Heading>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel>
+                <Text fontWeight={"bold"} py={"4"}>
+                  Disciplines
+                </Text>
+                <Text pb={"4"}>
+                  Disciplines refer to technical categorization of a
+                  facility&apos;s assets components such as <i>Architecture</i>,{" "}
+                  <i>Structural</i>, <i>Plumbing</i>, <i>Mechanical</i> and{" "}
+                  <i>Electrical</i>. Each discipline requires a specialized
+                  engineer, architect or inspector to properly evaluate the
+                  condition and estimate the useful life of a buildings complex
+                  systems and underlying physical assets to better understand
+                  maintenance, repair and capital investment.
+                </Text>
+                <Text pb={"4"}>
+                  The Office of Management and Budget&apos;s Asset Information
+                  Management System is the underlying facility and asset
+                  condition assessment data that makes up the Facility Condition
+                  Score (FCS). There are three disciplines in the FCS hierarchy
+                  - <i>Architecture</i>, <i>Electrical</i>, and{" "}
+                  <i>Mechanical</i>. The <i>Architecture</i> discipline includes
+                  some <i>Structural</i> components, so that is how it is titled
+                  in this application. To provide comparative,
+                  easy-to-understand grades, discipline-level scores have been
+                  aggregated into a single score. However, each underlying
+                  discipline score is still calculated independently based on
+                  its own distinct components.
+                </Text>
+                <Text pb={"4"} fontStyle={"italic"}>
+                  Architecture & Structural
+                </Text>
+                <Text pb={"4"}>
+                  The Architecture & Structural discipline covers the parts of a
+                  building that form its shell and shape its interior, including
+                  the exterior envelope, interior spaces, and finishes. It also
+                  includes components critical to the building&apos;s stability.
+                  Together, these elements protect the building from the
+                  weather, organize how the space is used, and keep the
+                  structure sound. During AIMS inspections, each component is
+                  rated based on its condition, and those ratings are combined
+                  into a single Architecture & Structural score that contributes
+                  to the facility&apos;s overall FCS.
+                </Text>
+                <Text pb={"4"} fontStyle={"italic"}>
+                  Electrical & Mechanical
+                </Text>
+                <Text pb={"4"}>
+                  The Electrical & Mechanical discipline covers the systems that
+                  keep a building running, including power distribution,
+                  heating, ventilation and cooling, plumbing, and safety
+                  systems. These systems keep a facility functional, safe, and
+                  habitable, and problems with them can disrupt how a building
+                  operates even when the structure itself is in good shape. As
+                  with Architecture & Structural, each component is rated during
+                  AIMS inspections, and those ratings are combined into a single
+                  Electrical & Mechanical score that contributes to the
+                  facility&apos;s overall FCS.
+                </Text>
+              </AccordionPanel>
+            </AccordionItem>
+            <AccordionItem>
+              <AccordionButton paddingInline={0}>
+                <Heading
+                  as="h3"
+                  fontSize="md"
+                  flex="1"
+                  textAlign="left"
+                  fontWeight={"bold"}
+                >
+                  Facility Condition Score Methodology
+                </Heading>
+                <AccordionIcon />
+              </AccordionButton>
+              <AccordionPanel>
+                <Text pb={6}>
+                  Facility Condition Scores (FCS) summarize the physical
+                  condition of City-owned facilities using data from the Asset
+                  Information Management System (AIMS).
+                </Text>
+                <Text pb={6}>
+                  Scores are calculated from component level condition ratings
+                  making up the Architecture & Structure and Electrical &
+                  Mechanical Disciplines, which are then rolled up to a single
+                  score and letter grade for each facility. The methodology
+                  places greater weight in the Architecture & Structural
+                  discipline and components determined to be in critical
+                  condition when calculating a facility&apos;s state of repair.
+                </Text>
+                <Text>
+                  To learn more about the detailed methodology, please visit the
+                  Facilities Database About page on the Department of City
+                  Planning&apos;s Resources page.
+                </Text>
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
+        </>
+      )}
+
       <Flex
         width={"100%"}
         flexDirection={{
@@ -929,7 +1295,7 @@ export default function About() {
         to newly completed units minus demolitions and alterations/conversions.
         Where housing losses outpace new construction, the value can be negative
         or zero. An example of the temporal component of the data point, the
-        2016–2025 value represents the net Class A units added between January
+        2016-2025 value represents the net Class A units added between January
         1, 2016 and December 31, 2025.
       </Text>
       <Text w={"100%"}>Example Formula:</Text>
