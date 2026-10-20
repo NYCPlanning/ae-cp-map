@@ -1,10 +1,4 @@
-import {
-  CloseButton,
-  GridItem,
-  HStack,
-  InfoIcon,
-  Text,
-} from "@nycplanning/streetscape";
+import { CloseButton, GridItem, HStack, Text } from "@nycplanning/streetscape";
 import { useMatches } from "react-router";
 import { useStore } from "~/store";
 
@@ -18,7 +12,7 @@ export function AnnouncementBanner() {
     (state) => state,
   );
 
-  // if (!isMapPage || !showAnnouncementBanner) return <></>;
+  if (!isMapPage || !showAnnouncementBanner) return <></>;
 
   return (
     <GridItem
