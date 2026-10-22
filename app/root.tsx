@@ -303,11 +303,12 @@ export default function App() {
                 "2xl": "0 0.78dw",
               }}
               templateRows={{
-                base: "7dvh [header-end] 2dvh [row-start] min-content [line] min-content [banner-end] 2dvh [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh [atlas-end] 7dvh",
-                md: "7dvh [header-end] 2dvh [row-start] min-content 2dvh min-content [banner-end] [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh",
-                lg: "7dvh [header-end] min-content [banner-end] 2dvh [row-start] min-content 2dvh [base-start] 1fr [row-end] 2dvh",
+                base: "auto [header-end] auto [announcement-banner-end] minmax(0, 1fr) [content-end]",
+                md: "auto [header-end] auto [announcement-banner-end] minmax(0, 1fr) [content-end]",
+                lg: "auto [header-end] auto [announcement-banner-end] minmax(0, 1fr) [content-end]",
               }}
               height="100dvh"
+              overflow={"hidden"}
               className={"rootContainer"}
             >
               <QueryClientProvider client={queryClient}>
