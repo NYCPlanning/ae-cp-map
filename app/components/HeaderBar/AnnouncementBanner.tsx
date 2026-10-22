@@ -20,14 +20,7 @@ export function AnnouncementBanner() {
       role={"status"}
       gridColumnStart={"1"}
       gridColumnEnd={"-1"}
-      gridRowStart={{
-        base: "4",
-        lg: "2",
-      }}
-      gridRowEnd={{
-        base: "5",
-        lg: "3",
-      }}
+      gridRow={"header-end / announcement-banner-end"}
       zIndex={900}
       borderRadius={"1"}
       border={"1px solid"}
