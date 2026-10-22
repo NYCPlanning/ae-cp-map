@@ -3,6 +3,7 @@ import {
   Box,
   Heading,
   Grid,
+  GridItem,
   createListCollection,
   useCombobox,
 } from "@nycplanning/streetscape";
@@ -21,6 +22,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useRouteError,
+  useMatches,
   LinksFunction,
   useSearchParams,
 } from "react-router";
@@ -235,6 +237,23 @@ export function Main() {
     updateSearchParams({ radius: undefined });
   };
 
+  const matches = useMatches();
+  const isMapPage = matches
+    .map((match) => match.id)
+    .includes("layouts/MapPage");
+
+  const outletContext = {
+    viewState,
+    setViewState,
+    clearCombobox: () => {
+      combobox.clearValue();
+      combobox.setInputValue("");
+      setAddressSearchQuery("");
+    },
+    addressSearchSliderValue,
+    clearRadiusFilter,
+  } satisfies RootContextType;
+
   return (
     <>
       <HeaderBar
@@ -249,21 +268,20 @@ export function Main() {
         clearRadiusFilter={clearRadiusFilter}
       />
       <AnnouncementBanner />
-      <Outlet
-        context={
-          {
-            viewState,
-            setViewState,
-            clearCombobox: () => {
-              combobox.clearValue();
-              combobox.setInputValue("");
-              setAddressSearchQuery("");
-            },
-            addressSearchSliderValue,
-            clearRadiusFilter,
-          } satisfies RootContextType
-        }
-      />
+      {isMapPage ? (
+        <GridItem
+          gridColumn={"1 / -1"}
+          gridRow={"announcement-banner-end / content-end"}
+          minHeight={0}
+          minWidth={0}
+          overflow={"hidden"}
+          className={"mapArea"}
+        >
+          <Outlet context={outletContext} />
+        </GridItem>
+      ) : (
+        <Outlet context={outletContext} />
+      )}
     </>
   );
 }
