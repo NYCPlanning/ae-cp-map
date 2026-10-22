@@ -40,21 +40,19 @@ export function HeaderBar({
       gridTemplateColumns={"subgrid"}
       alignItems={"center"}
       gridTemplateRows={{
-        base: env.facDbPhase2 === "ON" ? "1fr 1fr 1dvh" : "1fr",
-        lg: "1fr",
+        base: env.facDbPhase2 === "ON" ? "auto auto 1dvh" : "auto",
+        lg: "auto",
       }}
       zIndex={"1000"}
       backgroundColor={"white"}
       gridColumnStart={"1"}
       gridColumnEnd={"-1"}
-      gridRowStart={"1"}
-      gridRowEnd={{
-        base: env.facDbPhase2 === "ON" ? "4" : "2",
-        lg: "2",
-      }}
+      gridRow={"1 / header-end"}
       boxShadow={"0 2px 8px 0 rgba(0, 0, 0, 0.16)"}
       position={"sticky"}
       top={0}
+      paddingTop={2}
+      paddingBottom={{ lg: 2 }}
       className={"headerContainer"}
     >
       <GridItem
