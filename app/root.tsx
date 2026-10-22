@@ -61,7 +61,14 @@ function Document({
   title?: string;
 }) {
   return (
-    <html lang="en" style={{ scrollbarWidth: "none" }}>
+    <html
+      lang="en"
+      style={{
+        height: "100%",
+        overflow: "clip",
+        scrollbarWidth: "none",
+      }}
+    >
       <head>
         <Meta />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -74,7 +81,13 @@ function Document({
         />
         <Links />
       </head>
-      <body>
+      <body
+        style={{
+          height: "100%",
+          margin: 0,
+          overflow: "clip",
+        }}
+      >
         {children}
         <ScrollRestoration />
         <Scripts />
