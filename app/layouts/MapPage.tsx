@@ -838,35 +838,45 @@ export default function MapPage() {
                           Clear All
                         </Link>
                       </HStack>
-                      <Box display={"flex"} flexDirection={"column"} gap={2}>
-                        <CapitalProjectLayerToggle />
-                        <SearchByAttributeMenu
-                          agencies={managingAgencies}
-                          projectTypes={agencyBudgets}
-                          onClear={clearCapitalProjectFilters}
-                          updateFiltersAccordion={updateFiltersAccordion(0)}
-                        />
-                        <CommunityBoardBudgetRequestLayerToggle />
-                        <SearchByCbbrMenu
-                          cbbrPolicyAreas={cbbrPolicyAreas}
-                          cbbrNeedGroups={cbbrNeedGroups}
-                          cbbrAgencies={cbbrAgencies}
-                          cbbrAgencyCategoryResponses={
-                            cbbrAgencyCategoryResponses
-                          }
-                          onClear={clearCbbrProjectFilters}
-                          updateFiltersAccordion={updateFiltersAccordion(1)}
-                        />
-                        <CommunityBoardBudgetRequestLegend
-                          updateFiltersAccordion={updateFiltersAccordion(2)}
-                        />
-                        <FacilitiesLayerToggle />
-                        <SearchByFacilityMenu
-                          onClear={clearFacilityFilters}
-                          updateFiltersAccordion={updateFiltersAccordion(3)}
-                          facilityAgencies={facilityAgencies}
-                          facilityOversightAgency={facilityOversightAgency}
-                        />
+                      <Box display={"flex"} flexDirection={"column"} gap={4}>
+                        <Box>
+                          <CapitalProjectLayerToggle />
+                          <SearchByAttributeMenu
+                            agencies={managingAgencies}
+                            projectTypes={agencyBudgets}
+                            onClear={clearCapitalProjectFilters}
+                            updateFiltersAccordion={updateFiltersAccordion(0)}
+                            isLayerVisible={showCapitalProjects}
+                          />
+                        </Box>
+                        <Box>
+                          <CommunityBoardBudgetRequestLayerToggle />
+                          <SearchByCbbrMenu
+                            cbbrPolicyAreas={cbbrPolicyAreas}
+                            cbbrNeedGroups={cbbrNeedGroups}
+                            cbbrAgencies={cbbrAgencies}
+                            cbbrAgencyCategoryResponses={
+                              cbbrAgencyCategoryResponses
+                            }
+                            onClear={clearCbbrProjectFilters}
+                            updateFiltersAccordion={updateFiltersAccordion(1)}
+                            isLayerVisible={showCbbr}
+                          />
+                          <CommunityBoardBudgetRequestLegend
+                            updateFiltersAccordion={updateFiltersAccordion(2)}
+                            isLayerVisible={showCbbr}
+                          />
+                        </Box>
+                        <Box>
+                          <FacilitiesLayerToggle />
+                          <SearchByFacilityMenu
+                            onClear={clearFacilityFilters}
+                            updateFiltersAccordion={updateFiltersAccordion(3)}
+                            facilityAgencies={facilityAgencies}
+                            facilityOversightAgency={facilityOversightAgency}
+                            isLayerVisible={showFacilities}
+                          />
+                        </Box>
                       </Box>
                     </Box>
                   </Accordion>

@@ -52,7 +52,7 @@ export function SupportingLayersPanel({
 
   return (
     <VStack
-      padding={4}
+      paddingTop={4}
       borderTop={"1px solid"}
       borderColor={"gray.200"}
       marginTop={3}
