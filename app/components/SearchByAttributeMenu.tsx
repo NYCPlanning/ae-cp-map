@@ -26,6 +26,7 @@ export const SearchByAttributeMenu = ({
   projectTypes,
   onClear,
   updateFiltersAccordion,
+  isLayerVisible,
 }: SearchByAttributeMenuProps) => {
   const [searchParams] = useUpdateSearchParams();
   const managingAgency = searchParams.get(
@@ -49,6 +50,7 @@ export const SearchByAttributeMenu = ({
 
   return (
     <AccordionItem
+      hidden={!isLayerVisible}
       fontFamily="body"
       color="primary.600"
       backgroundColor="gray.50"
@@ -123,4 +125,5 @@ export interface SearchByAttributeMenuProps {
   projectTypes: Array<AgencyBudget> | null;
   onClear: () => void;
   updateFiltersAccordion: () => void;
+  isLayerVisible: boolean;
 }
