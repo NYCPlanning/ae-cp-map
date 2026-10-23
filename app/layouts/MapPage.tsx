@@ -49,7 +49,6 @@ import {
   FacilityType,
   FacilityJurisdiction,
 } from "../utils/types";
-import { HowToUseThisTool } from "../components/AdminDropdownContent/HowToUseThisTool";
 import {
   CapitalProjectLayerToggle,
   CommunityBoardBudgetRequestLayerToggle,
@@ -878,7 +877,6 @@ export default function MapPage() {
                       ])
                     }
                   />
-                  <HowToUseThisTool />
                 </Box>
               </AccordionPanel>
             </AccordionItem>
