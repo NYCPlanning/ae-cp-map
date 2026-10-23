@@ -892,7 +892,7 @@ export default function MapPage() {
         width={"fit-content"}
         height={"fit-content"}
         alignSelf={"start"}
-        zIndex={"3"}
+        zIndex={"2"}
         className={"mapControlsContainer"}
       >
         <MapViewControls
@@ -911,13 +911,13 @@ export default function MapPage() {
           "2xl": "11 / col-end",
         }}
         gridRow={{
-          base: "results-start / -1",
+          base: "1 / -1",
           md: "panels-start / panels-end",
           lg: "tabs-start / -1",
         }}
         height={"100%"}
         pointerEvents={"none"}
-        zIndex={"2"}
+        zIndex={"3"}
         sx={{
           scrollbarWidth: "none",
         }}
@@ -935,13 +935,16 @@ export default function MapPage() {
           }}
           direction={"column"}
           flexShrink={{ lg: 0 }}
+          height={{
+            base: isPanelOpen ? "100%" : "64px",
+            md: "auto",
+          }}
           maxHeight={{
-            base: isPanelOpen ? "70%" : "64px",
+            base: isPanelOpen ? "100%" : "64px",
             md: "full",
           }}
           opacity={1}
           overflowY={isPanelOpen ? "scroll" : "hidden"}
-          justify={"end"}
           backgroundColor={"white"}
           borderRadius={{
             base: "10px 10px 0 0",
