@@ -47,6 +47,10 @@ export const SearchByAttributeMenu = ({
     agencyBudget !== null ? 1 : 0,
     commitmentsTotalMin !== null || commitmentsTotalMax !== null ? 1 : 0,
   ];
+  const appliedFilterCount = appliedFilters.reduce(
+    (acc, curr) => acc + curr,
+    0,
+  );
 
   return (
     <AccordionItem
@@ -61,7 +65,7 @@ export const SearchByAttributeMenu = ({
       marginX={0}
     >
       <AccordionButton
-        aria-label="Close search by attribute menu"
+        aria-label={`Capital Projects filters (${appliedFilterCount} applied)`}
         paddingY={0}
         paddingX={3}
         onClick={updateFiltersAccordion}
@@ -74,7 +78,7 @@ export const SearchByAttributeMenu = ({
           lineHeight="32px"
           paddingBottom={0}
         >
-          {`Filters (${appliedFilters.reduce((acc, curr) => acc + curr, 0)})`}
+          {`Filters (${appliedFilterCount})`}
         </Heading>
         <AccordionIcon />
       </AccordionButton>
