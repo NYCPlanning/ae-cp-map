@@ -699,6 +699,7 @@ export default function MapPage() {
           xl: "tabs-start / panels-end",
         }}
         maxHeight={"100%"}
+        pointerEvents={"none"}
         zIndex={"1"}
         sx={{
           scrollbarWidth: "none",
@@ -711,6 +712,7 @@ export default function MapPage() {
           alignItems={"center"}
           flexShrink={{ lg: 0 }}
           maxHeight={"100%"}
+          pointerEvents={"auto"}
           backgroundColor={"white"}
           borderRadius={10}
           overflowY={"scroll"}
