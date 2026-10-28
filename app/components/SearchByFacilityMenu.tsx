@@ -68,6 +68,10 @@ export const SearchByFacilityMenu = ({
       ? 1
       : 0,
   ];
+  const appliedFilterCount = appliedFilters.reduce(
+    (acc, curr) => acc + curr,
+    0,
+  );
 
   return (
     <AccordionItem
@@ -82,7 +86,7 @@ export const SearchByFacilityMenu = ({
       marginX={0}
     >
       <AccordionButton
-        aria-label="Close search by facility menu"
+        aria-label={`Facilities filters (${appliedFilterCount} applied)`}
         paddingY={0}
         paddingX={3}
         onClick={updateFiltersAccordion}
@@ -95,7 +99,7 @@ export const SearchByFacilityMenu = ({
           lineHeight="32px"
           paddingBottom={0}
         >
-          {`Filters (${appliedFilters.reduce((acc, curr) => acc + curr, 0)})`}
+          {`Filters (${appliedFilterCount})`}
         </Heading>
         <AccordionIcon />
       </AccordionButton>

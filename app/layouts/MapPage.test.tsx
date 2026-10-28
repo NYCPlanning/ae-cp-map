@@ -1,5 +1,5 @@
 import { StreetscapeProvider } from "@nycplanning/streetscape";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { createRoutesStub, Outlet } from "react-router";
 import MapPage, { loader } from "./MapPage";
@@ -61,7 +61,7 @@ const MapPageOutlet = () => (
   />
 );
 
-const renderMapPage = (layers: string) => {
+const renderMapPage = (queryString: string) => {
   const Stub = createRoutesStub([
     {
       path: "/",
@@ -79,7 +79,7 @@ const renderMapPage = (layers: string) => {
 
   return render(
     <StreetscapeProvider>
-      <Stub initialEntries={[`/map?layers=${layers}`]} />
+      <Stub initialEntries={[`/map?${queryString}`]} />
     </StreetscapeProvider>,
   );
 };
@@ -95,35 +95,193 @@ const openLayersPanel = async () => {
 };
 
 describe("MapPage layer filter visibility", () => {
-  it("shows each layer's filters and the CBBR legend when the layers are on", async () => {
-    renderMapPage("capitalProjects,cbbr,facilities");
+  it("shows each layer's filters when the layers are on", async () => {
+    renderMapPage("layers=");
     await openLayersPanel();
 
-    const filters = screen.getAllByText("Filters (0)");
-    expect(filters).toHaveLength(3);
-    filters.forEach((filter) =>
-      expect(filter.closest(".chakra-accordion__item")).not.toHaveAttribute(
-        "hidden",
-      ),
-    );
     expect(
-      screen.getByText("Show Legend").closest(".chakra-accordion__item"),
-    ).not.toHaveAttribute("hidden");
+      screen.queryByRole("button", { name: /^Capital Projects filters/ }),
+    ).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByLabelText("Capital Projects"));
+
+    await waitFor(() => {
+      expect(
+        screen.getByRole("button", { name: /^Capital Projects filters/ }),
+      ).toBeVisible();
+    });
   });
 
-  it("hides each layer's filters and the CBBR legend when the layers are off", async () => {
-    renderMapPage("");
+  it("only shows filters for layers that are toggled on", async () => {
+    renderMapPage("layers=");
     await openLayersPanel();
 
-    const filters = screen.getAllByText("Filters (0)");
-    expect(filters).toHaveLength(3);
-    filters.forEach((filter) =>
-      expect(filter.closest(".chakra-accordion__item")).toHaveAttribute(
-        "hidden",
-      ),
-    );
+    await userEvent.click(screen.getByText("Expand All"));
+
+    expect(screen.getByText("Managing Agency")).not.toBeVisible();
+    expect(screen.getByText("Policy Area")).not.toBeVisible();
+    expect(screen.getByText("Facility Jurisdiction")).not.toBeVisible();
     expect(
-      screen.getByText("Show Legend").closest(".chakra-accordion__item"),
-    ).toHaveAttribute("hidden");
+      screen.getByText("Health Care and Human Services"),
+    ).not.toBeVisible();
+
+    await userEvent.click(screen.getByLabelText("Capital Projects"));
+    await waitFor(() => {
+      expect(screen.getByText("Managing Agency")).toBeVisible();
+      expect(screen.getByText("Policy Area")).not.toBeVisible();
+      expect(screen.getByText("Facility Jurisdiction")).not.toBeVisible();
+      expect(
+        screen.getByText("Health Care and Human Services"),
+      ).not.toBeVisible();
+    });
+
+    await userEvent.click(
+      screen.getByLabelText("Community Board Capital Budget Requests"),
+    );
+    await waitFor(() => {
+      expect(screen.getByText("Managing Agency")).toBeVisible();
+      expect(screen.getByText("Policy Area")).toBeVisible();
+      expect(screen.getByText("Facility Jurisdiction")).not.toBeVisible();
+      expect(screen.getByText("Health Care and Human Services")).toBeVisible();
+    });
+
+    await userEvent.click(screen.getByLabelText("Facilities"));
+    await waitFor(() => {
+      expect(screen.getByText("Managing Agency")).toBeVisible();
+      expect(screen.getByText("Policy Area")).toBeVisible();
+      expect(screen.getByText("Facility Jurisdiction")).toBeVisible();
+      expect(screen.getByText("Health Care and Human Services")).toBeVisible();
+    });
+  });
+
+  it("does not open How to Use This Tool when Housing Growth is turned on", async () => {
+    renderMapPage("layers=");
+    await openLayersPanel();
+
+    await userEvent.click(screen.getByLabelText("Toggle Housing Growth layer"));
+
+    expect(
+      screen.getByRole("button", {
+        name: "Close Housing Growth Supporting Layer options panel",
+      }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(
+      screen.getByRole("button", {
+        name: "Open how to use this tool panel",
+      }),
+    ).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("expands all layer accordions except How to Use This Tool", async () => {
+    renderMapPage("layers=capitalProjects,cbbr,facilities");
+    await openLayersPanel();
+
+    await userEvent.click(screen.getByText("Expand All"));
+
+    expect(
+      screen.getByRole("button", {
+        name: "Capital Projects filters (0 applied)",
+      }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(
+      screen.getByRole("button", {
+        name: "Community Board Capital Budget Requests filters (0 applied)",
+      }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(
+      screen.getByRole("button", { name: "Facilities filters (0 applied)" }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(
+      screen.getByRole("button", { name: "Toggle legend panel" }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(
+      screen.getByRole("button", {
+        name: "Close Housing Growth Supporting Layer options panel",
+      }),
+    ).toHaveAttribute("aria-expanded", "true");
+    expect(
+      screen.getByRole("button", {
+        name: "Open how to use this tool panel",
+      }),
+    ).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("collapses all layer accordions without changing How to Use This Tool", async () => {
+    renderMapPage("layers=capitalProjects,cbbr,facilities");
+    await openLayersPanel();
+
+    const howToButton = screen.getByRole("button", {
+      name: "Open how to use this tool panel",
+    });
+    await userEvent.click(howToButton);
+    await userEvent.click(screen.getByText("Collapse All"));
+
+    expect(
+      screen.getByRole("button", {
+        name: "Capital Projects filters (0 applied)",
+      }),
+    ).toHaveAttribute("aria-expanded", "false");
+    expect(
+      screen.getByRole("button", {
+        name: "Community Board Capital Budget Requests filters (0 applied)",
+      }),
+    ).toHaveAttribute("aria-expanded", "false");
+    expect(
+      screen.getByRole("button", { name: "Facilities filters (0 applied)" }),
+    ).toHaveAttribute("aria-expanded", "false");
+    expect(
+      screen.getByRole("button", { name: "Toggle legend panel" }),
+    ).toHaveAttribute("aria-expanded", "false");
+    expect(
+      screen.getByRole("button", {
+        name: "Open Housing Growth Supporting Layer options panel",
+      }),
+    ).toHaveAttribute("aria-expanded", "false");
+    expect(
+      screen.getByRole("button", { name: "Close how to use this tool panel" }),
+    ).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("clears applied filters without turning off any layers", async () => {
+    renderMapPage(
+      "layers=capitalProjects,cbbr,facilities&supportingLayers=housing&commitmentsTotalMin=100&commitmentsTotalMax=500&cbbrPolicyAreaId=1&cbbrNeedGroupId=1&cbbrAgencyInitials=DOT",
+    );
+    await openLayersPanel();
+
+    expect(screen.getByText("Filters (1)")).toBeInTheDocument();
+    expect(screen.getByText("Filters (3)")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", {
+        name: "Capital Projects filters (1 applied)",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", {
+        name: "Community Board Capital Budget Requests filters (3 applied)",
+      }),
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText("Expand All"));
+    await userEvent.click(
+      screen.getByRole("checkbox", { name: "Facility Type Public" }),
+    );
+    expect(screen.getByText("Filters (2)")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Facilities filters (2 applied)" }),
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByText("Clear All"));
+
+    await waitFor(() =>
+      expect(
+        screen.getAllByText(/^Filters/).map((filter) => filter.textContent),
+      ).toEqual(["Filters (0)", "Filters (0)", "Filters (0)"]),
+    );
+    expect(screen.getByLabelText("Capital Projects")).toBeChecked();
+    expect(
+      screen.getByLabelText("Community Board Capital Budget Requests"),
+    ).toBeChecked();
+    expect(screen.getByLabelText("Facilities")).toBeChecked();
+    expect(screen.getByLabelText("Toggle Housing Growth layer")).toBeChecked();
   });
 });

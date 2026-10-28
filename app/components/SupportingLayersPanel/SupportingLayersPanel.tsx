@@ -77,6 +77,7 @@ export function SupportingLayersPanel({
           <HStack width={"100%"}>
             <Switch
               size={"sm"}
+              aria-label="Toggle Housing Growth layer"
               isChecked={supportingLayers.includes("housing")}
               onChange={() => {
                 !supportingLayers.includes("housing") && onExpandedChange(true);
@@ -92,7 +93,7 @@ export function SupportingLayersPanel({
             <AccordionButton
               p={0}
               width={"100%"}
-              aria-label="Toggle Housing Growth Supporting Layer options panel"
+              aria-label={`${isExpanded ? "Close" : "Open"} Housing Growth Supporting Layer options panel`}
             >
               <HStack justifyContent={"space-between"} width={"100%"}>
                 <Heading fontSize={"xs"} pb={0}>
