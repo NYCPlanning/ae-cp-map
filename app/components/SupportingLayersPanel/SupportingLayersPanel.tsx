@@ -77,6 +77,7 @@ export function SupportingLayersPanel({
           <HStack width={"100%"}>
             <Switch
               size={"sm"}
+              aria-label="Toggle Housing Growth layer"
               isChecked={supportingLayers.includes("housing")}
               onChange={() => {
                 !supportingLayers.includes("housing") && onExpandedChange(true);
