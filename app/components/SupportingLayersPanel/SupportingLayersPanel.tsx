@@ -26,9 +26,11 @@ import {
 } from "~/utils/types";
 
 export function SupportingLayersPanel({
-  openAccordion,
+  isExpanded,
+  onExpandedChange,
 }: {
-  openAccordion: () => void;
+  isExpanded: boolean;
+  onExpandedChange: (isExpanded: boolean) => void;
 }) {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
 
@@ -52,7 +54,7 @@ export function SupportingLayersPanel({
 
   return (
     <VStack
-      paddingTop={4}
+      py={2}
       borderTop={"1px solid"}
       borderColor={"gray.200"}
       marginTop={3}
@@ -61,14 +63,23 @@ export function SupportingLayersPanel({
       <Heading fontSize={"xs"} fontWeight={700}>
         Supporting Layers
       </Heading>
-      <Accordion allowToggle width={"100%"}>
+      <Accordion
+        allowToggle
+        width={"100%"}
+        index={isExpanded ? 0 : -1}
+        onChange={(index) =>
+          onExpandedChange(
+            Array.isArray(index) ? index.length > 0 : index !== -1,
+          )
+        }
+      >
         <AccordionItem border={"none"} width={"100%"}>
           <HStack width={"100%"}>
             <Switch
               size={"sm"}
               isChecked={supportingLayers.includes("housing")}
               onChange={() => {
-                !supportingLayers.includes("housing") && openAccordion();
+                !supportingLayers.includes("housing") && onExpandedChange(true);
                 updateSearchParams({
                   supportingLayers: supportingLayers.includes("housing")
                     ? supportingLayers.length === 1

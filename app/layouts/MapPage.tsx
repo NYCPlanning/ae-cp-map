@@ -291,6 +291,7 @@ export default function MapPage() {
   const [filtersAccordionIndex, setFiltersAccordionIndex] = useState<number[]>(
     [],
   );
+  const [isHousingGrowthExpanded, setIsHousingGrowthExpanded] = useState(false);
   const updateFiltersAccordion = (index: number) => {
     const updateFunction = () => {
       filtersAccordionIndex.includes(index)
@@ -771,9 +772,10 @@ export default function MapPage() {
                             color={"primary.600"}
                             textDecor={"underline"}
                             cursor={"pointer"}
-                            onClick={() =>
-                              setFiltersAccordionIndex([0, 1, 2, 3])
-                            }
+                            onClick={() => {
+                              setFiltersAccordionIndex([0, 1, 2, 3]);
+                              setIsHousingGrowthExpanded(true);
+                            }}
                           >
                             Expand All
                           </Link>
@@ -782,7 +784,10 @@ export default function MapPage() {
                             color={"primary.600"}
                             textDecor={"underline"}
                             cursor={"pointer"}
-                            onClick={() => setFiltersAccordionIndex([])}
+                            onClick={() => {
+                              setFiltersAccordionIndex([]);
+                              setIsHousingGrowthExpanded(false);
+                            }}
                           >
                             Collapse All
                           </Link>
@@ -884,11 +889,8 @@ export default function MapPage() {
                     </Box>
                   </Accordion>
                   <SupportingLayersPanel
-                    openAccordion={() =>
-                      setLayersAccordionIndex([
-                        ...new Set([...layersAccordionIndex, 1]),
-                      ])
-                    }
+                    isExpanded={isHousingGrowthExpanded}
+                    onExpandedChange={setIsHousingGrowthExpanded}
                   />
                   <HowToUseThisTool />
                 </Box>
