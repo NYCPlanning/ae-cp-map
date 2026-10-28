@@ -19,9 +19,11 @@ import {
 
 export const CommunityBoardBudgetRequestLegend = ({
   updateFiltersAccordion,
+  isLayerVisible,
 }: CommunityBoardBudgetRequestLegendProps) => {
   return (
     <AccordionItem
+      hidden={!isLayerVisible}
       fontFamily="body"
       color="primary.600"
       backgroundColor="gray.50"
@@ -177,4 +179,5 @@ export const CommunityBoardBudgetRequestLegend = ({
 };
 export interface CommunityBoardBudgetRequestLegendProps {
   updateFiltersAccordion: () => void;
+  isLayerVisible: boolean;
 }

@@ -28,6 +28,7 @@ export interface SearchByFacilityMenuProps {
   updateFiltersAccordion: () => void;
   facilityAgencies: Array<Agency> | null;
   facilityOversightAgency: FacilityOversightAgency;
+  isLayerVisible: boolean;
 }
 
 export const SearchByFacilityMenu = ({
@@ -35,6 +36,7 @@ export const SearchByFacilityMenu = ({
   updateFiltersAccordion,
   facilityAgencies,
   facilityOversightAgency,
+  isLayerVisible,
 }: SearchByFacilityMenuProps) => {
   const dismissWelcomeAndUpdateSearchParams =
     useDismissWelcomeAndUpdateSearchParams();
@@ -69,6 +71,7 @@ export const SearchByFacilityMenu = ({
 
   return (
     <AccordionItem
+      hidden={!isLayerVisible}
       fontFamily="body"
       color="primary.600"
       backgroundColor="gray.50"

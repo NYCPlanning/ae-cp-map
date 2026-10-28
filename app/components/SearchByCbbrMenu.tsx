@@ -36,6 +36,7 @@ export interface SearchByCbbrMenuProps {
   cbbrAgencyCategoryResponses: Array<CommunityBoardBudgetRequestAgencyCategoryResponse> | null;
   onClear: () => void;
   updateFiltersAccordion: () => void;
+  isLayerVisible: boolean;
 }
 
 export const SearchByCbbrMenu = ({
@@ -45,6 +46,7 @@ export const SearchByCbbrMenu = ({
   cbbrAgencyCategoryResponses,
   onClear,
   updateFiltersAccordion,
+  isLayerVisible,
 }: SearchByCbbrMenuProps) => {
   const [searchParams] = useUpdateSearchParams();
   const dismissWelcomeAndUpdateSearchParams =
@@ -80,6 +82,7 @@ export const SearchByCbbrMenu = ({
 
   return (
     <AccordionItem
+      hidden={!isLayerVisible}
       fontFamily="body"
       color="primary.600"
       backgroundColor="gray.50"

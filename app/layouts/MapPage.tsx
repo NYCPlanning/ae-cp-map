@@ -841,35 +841,45 @@ export default function MapPage() {
                           Clear All
                         </Link>
                       </HStack>
-                      <Box display={"flex"} flexDirection={"column"} gap={2}>
-                        <CapitalProjectLayerToggle />
-                        <SearchByAttributeMenu
-                          agencies={managingAgencies}
-                          projectTypes={agencyBudgets}
-                          onClear={clearCapitalProjectFilters}
-                          updateFiltersAccordion={updateFiltersAccordion(0)}
-                        />
-                        <CommunityBoardBudgetRequestLayerToggle />
-                        <SearchByCbbrMenu
-                          cbbrPolicyAreas={cbbrPolicyAreas}
-                          cbbrNeedGroups={cbbrNeedGroups}
-                          cbbrAgencies={cbbrAgencies}
-                          cbbrAgencyCategoryResponses={
-                            cbbrAgencyCategoryResponses
-                          }
-                          onClear={clearCbbrProjectFilters}
-                          updateFiltersAccordion={updateFiltersAccordion(1)}
-                        />
-                        <CommunityBoardBudgetRequestLegend
-                          updateFiltersAccordion={updateFiltersAccordion(2)}
-                        />
-                        <FacilitiesLayerToggle />
-                        <SearchByFacilityMenu
-                          onClear={clearFacilityFilters}
-                          updateFiltersAccordion={updateFiltersAccordion(3)}
-                          facilityAgencies={facilityAgencies}
-                          facilityOversightAgency={facilityOversightAgency}
-                        />
+                      <Box display={"flex"} flexDirection={"column"} gap={4}>
+                        <Box>
+                          <CapitalProjectLayerToggle />
+                          <SearchByAttributeMenu
+                            agencies={managingAgencies}
+                            projectTypes={agencyBudgets}
+                            onClear={clearCapitalProjectFilters}
+                            updateFiltersAccordion={updateFiltersAccordion(0)}
+                            isLayerVisible={showCapitalProjects}
+                          />
+                        </Box>
+                        <Box>
+                          <CommunityBoardBudgetRequestLayerToggle />
+                          <SearchByCbbrMenu
+                            cbbrPolicyAreas={cbbrPolicyAreas}
+                            cbbrNeedGroups={cbbrNeedGroups}
+                            cbbrAgencies={cbbrAgencies}
+                            cbbrAgencyCategoryResponses={
+                              cbbrAgencyCategoryResponses
+                            }
+                            onClear={clearCbbrProjectFilters}
+                            updateFiltersAccordion={updateFiltersAccordion(1)}
+                            isLayerVisible={showCbbr}
+                          />
+                          <CommunityBoardBudgetRequestLegend
+                            updateFiltersAccordion={updateFiltersAccordion(2)}
+                            isLayerVisible={showCbbr}
+                          />
+                        </Box>
+                        <Box>
+                          <FacilitiesLayerToggle />
+                          <SearchByFacilityMenu
+                            onClear={clearFacilityFilters}
+                            updateFiltersAccordion={updateFiltersAccordion(3)}
+                            facilityAgencies={facilityAgencies}
+                            facilityOversightAgency={facilityOversightAgency}
+                            isLayerVisible={showFacilities}
+                          />
+                        </Box>
                       </Box>
                     </Box>
                   </Accordion>
@@ -896,7 +906,7 @@ export default function MapPage() {
         width={"fit-content"}
         height={"fit-content"}
         alignSelf={"start"}
-        zIndex={"3"}
+        zIndex={"2"}
         className={"mapControlsContainer"}
       >
         <MapViewControls
@@ -915,13 +925,13 @@ export default function MapPage() {
           "2xl": "11 / col-end",
         }}
         gridRow={{
-          base: "results-start / -1",
+          base: "1 / -1",
           md: "panels-start / panels-end",
           lg: "tabs-start / -1",
         }}
         height={"100%"}
         pointerEvents={"none"}
-        zIndex={"2"}
+        zIndex={"3"}
         sx={{
           scrollbarWidth: "none",
         }}
@@ -939,13 +949,16 @@ export default function MapPage() {
           }}
           direction={"column"}
           flexShrink={{ lg: 0 }}
+          height={{
+            base: isPanelOpen ? "100%" : "64px",
+            md: "auto",
+          }}
           maxHeight={{
-            base: isPanelOpen ? "70%" : "64px",
+            base: isPanelOpen ? "100%" : "64px",
             md: "full",
           }}
           opacity={1}
           overflowY={isPanelOpen ? "scroll" : "hidden"}
-          justify={"end"}
           backgroundColor={"white"}
           borderRadius={{
             base: "10px 10px 0 0",
