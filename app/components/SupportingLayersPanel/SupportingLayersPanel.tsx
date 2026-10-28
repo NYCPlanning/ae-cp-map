@@ -92,7 +92,7 @@ export function SupportingLayersPanel({
             <AccordionButton
               p={0}
               width={"100%"}
-              aria-label="Toggle Housing Growth Supporting Layer options panel"
+              aria-label={`${isExpanded ? "Close" : "Open"} Housing Growth Supporting Layer options panel`}
             >
               <HStack justifyContent={"space-between"} width={"100%"}>
                 <Heading fontSize={"xs"} pb={0}>
