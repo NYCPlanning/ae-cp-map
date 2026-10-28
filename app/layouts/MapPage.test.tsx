@@ -61,7 +61,7 @@ const MapPageOutlet = () => (
   />
 );
 
-const renderMapPage = (layers: string) => {
+const renderMapPage = (queryString: string) => {
   const Stub = createRoutesStub([
     {
       path: "/",
@@ -79,7 +79,7 @@ const renderMapPage = (layers: string) => {
 
   return render(
     <StreetscapeProvider>
-      <Stub initialEntries={[`/map?layers=${layers}`]} />
+      <Stub initialEntries={[`/map?${queryString}`]} />
     </StreetscapeProvider>,
   );
 };
@@ -96,7 +96,7 @@ const openLayersPanel = async () => {
 
 describe("MapPage layer filter visibility", () => {
   it("shows each layer's filters and the CBBR legend when the layers are on", async () => {
-    renderMapPage("capitalProjects,cbbr,facilities");
+    renderMapPage("layers=capitalProjects,cbbr,facilities");
     await openLayersPanel();
 
     const filters = screen.getAllByText("Filters (0)");
@@ -112,7 +112,7 @@ describe("MapPage layer filter visibility", () => {
   });
 
   it("hides each layer's filters and the CBBR legend when the layers are off", async () => {
-    renderMapPage("");
+    renderMapPage("layers=");
     await openLayersPanel();
 
     const filters = screen.getAllByText("Filters (0)");
