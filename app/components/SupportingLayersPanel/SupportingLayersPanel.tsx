@@ -1,7 +1,8 @@
 import {
-  AccordionItem,
+  Accordion,
   AccordionButton,
   AccordionIcon,
+  AccordionItem,
   AccordionPanel,
   Heading,
   InfoIcon,
@@ -60,144 +61,144 @@ export function SupportingLayersPanel({
       <Heading fontSize={"xs"} fontWeight={700}>
         Supporting Layers
       </Heading>
-      <AccordionItem border={"none"} width={"100%"}>
-        <AccordionButton
-          p={0}
-          width={"100%"}
-          aria-label="Toggle Housing Growth Supporting Layer options panel"
-        >
-          <HStack justifyContent={"space-between"} width={"100%"}>
-            <HStack gap={2}>
-              <Switch
-                size={"sm"}
-                isChecked={supportingLayers.includes("housing")}
-                onChange={() => {
-                  !supportingLayers.includes("housing") && openAccordion();
-                  updateSearchParams({
-                    supportingLayers: supportingLayers.includes("housing")
-                      ? supportingLayers.length === 1
-                        ? undefined
-                        : supportingLayers.filter(
-                            (layer) => layer !== "housing",
-                          )
-                      : [...supportingLayers, "housing"],
-                  });
-                }}
-              />
-              <Heading fontSize={"xs"} pb={0}>
-                Housing Growth
-              </Heading>
-            </HStack>
-            <AccordionIcon />
+      <Accordion allowToggle width={"100%"}>
+        <AccordionItem border={"none"} width={"100%"}>
+          <HStack width={"100%"}>
+            <Switch
+              size={"sm"}
+              isChecked={supportingLayers.includes("housing")}
+              onChange={() => {
+                !supportingLayers.includes("housing") && openAccordion();
+                updateSearchParams({
+                  supportingLayers: supportingLayers.includes("housing")
+                    ? supportingLayers.length === 1
+                      ? undefined
+                      : supportingLayers.filter((layer) => layer !== "housing")
+                    : [...supportingLayers, "housing"],
+                });
+              }}
+            />
+            <AccordionButton
+              p={0}
+              width={"100%"}
+              aria-label="Toggle Housing Growth Supporting Layer options panel"
+            >
+              <HStack justifyContent={"space-between"} width={"100%"}>
+                <Heading fontSize={"xs"} pb={0}>
+                  Housing Growth
+                </Heading>
+                <AccordionIcon />
+              </HStack>
+            </AccordionButton>
           </HStack>
-        </AccordionButton>
-        <AccordionPanel px={0} py={3} width={"100%"}>
-          <Heading fontSize={"10px"} fontWeight={"700"} py={2}>
-            Geographic Aggregates
-          </Heading>
-          <Select
-            fontSize={"xs"}
-            value={housingData}
-            onChange={(e: FormEvent<HTMLSelectElement> | undefined) =>
-              e &&
-              updateSearchParams({
-                housingData:
-                  e.currentTarget.value === "cd"
-                    ? undefined
-                    : (e.currentTarget
-                        .value as HousingLayerQueryParams["housingData"]),
-              })
-            }
-            isCancellable={false}
-            textOverflow={"ellipsis"}
-          >
-            <option value="cd">Community (CD)</option>
-            <option value="nta">Neighborhood (NTA)</option>
-            <option value="boro">Borough</option>
-          </Select>
-          <Text py={2} fontSize={"10px"}>
-            See data aggregated at different geographic levels such as community
-            district.
-          </Text>
-          <RadioGroup
-            name={"chronological-options"}
-            mx={2}
-            value={housingRange}
-            onChange={(e) =>
-              e &&
-              updateSearchParams({
-                housingRange:
-                  e === "projected"
-                    ? undefined
-                    : (e as HousingLayerQueryParams["housingRange"]),
-              })
-            }
-          >
-            <Stack gap={2}>
-              <Radio name={"past"} size={"xs"} value={"past"}>
-                <HStack>
-                  <Text fontSize={"xs"} fontWeight={"500"}>
-                    Past (Completed 2015-2024)
-                  </Text>
-                  <Tooltip
-                    label={
-                      "Net Units Added (Past 10 Years) - Net change in Class A residential units over the past 10 years: new completions minus demolitions and conversions."
-                    }
-                    maxW={"240px"}
-                  >
-                    <InfoIcon />
-                  </Tooltip>
-                </HStack>
-              </Radio>
-              <SupportingLayersLegend
-                housingData={housingData}
-                slices={HOUSING_GROWTH_LAYERS[housingData]["past"]}
-                display={housingRange === "past" ? "flex" : "none"}
-              />
-              <Radio name={"current"} size={"xs"} value={"current"}>
-                <HStack>
-                  <Text fontSize={"xs"} fontWeight={"500"}>
-                    Current (Estimated 2024)
-                  </Text>
-                  <Tooltip
-                    label={
-                      "Latest Estimated Units (2024) - Estimated Class A residential units as of the latest HDB vintage: 2020 Census counts plus net units added since."
-                    }
-                    maxW={"240px"}
-                  >
-                    <InfoIcon />
-                  </Tooltip>
-                </HStack>
-              </Radio>
-              <SupportingLayersLegend
-                housingData={housingData}
-                slices={HOUSING_GROWTH_LAYERS[housingData]["current"]}
-                display={housingRange === "current" ? "flex" : "none"}
-              />
-              <Radio name={"projected"} size={"xs"} value={"projected"}>
-                <HStack>
-                  <Text fontSize={"xs"} fontWeight={"500"}>
-                    Projected (Potential 2034)
-                  </Text>
-                  <Tooltip
-                    label={
-                      "Projected Units Added (Next 10 Years) - Projected Class A units added over the next ten years, based on projected completions from the Known Projects Database (KPDB)."
-                    }
-                    maxW={"240px"}
-                  >
-                    <InfoIcon />
-                  </Tooltip>
-                </HStack>
-              </Radio>
-              <SupportingLayersLegend
-                housingData={housingData}
-                slices={HOUSING_GROWTH_LAYERS[housingData]["projected"]}
-                display={housingRange === "projected" ? "flex" : "none"}
-              />
-            </Stack>
-          </RadioGroup>
-        </AccordionPanel>
-      </AccordionItem>
+          <AccordionPanel px={0} py={3} width={"100%"}>
+            <Heading fontSize={"10px"} fontWeight={"700"} py={2}>
+              Geographic Aggregates
+            </Heading>
+            <Select
+              fontSize={"xs"}
+              value={housingData}
+              onChange={(e: FormEvent<HTMLSelectElement> | undefined) =>
+                e &&
+                updateSearchParams({
+                  housingData:
+                    e.currentTarget.value === "cd"
+                      ? undefined
+                      : (e.currentTarget
+                          .value as HousingLayerQueryParams["housingData"]),
+                })
+              }
+              isCancellable={false}
+              textOverflow={"ellipsis"}
+            >
+              <option value="cd">Community (CD)</option>
+              <option value="nta">Neighborhood (NTA)</option>
+              <option value="boro">Borough</option>
+            </Select>
+            <Text py={2} fontSize={"10px"}>
+              See data aggregated at different geographic levels such as
+              community district.
+            </Text>
+            <RadioGroup
+              name={"chronological-options"}
+              mx={2}
+              value={housingRange}
+              onChange={(e) =>
+                e &&
+                updateSearchParams({
+                  housingRange:
+                    e === "projected"
+                      ? undefined
+                      : (e as HousingLayerQueryParams["housingRange"]),
+                })
+              }
+            >
+              <Stack gap={2}>
+                <Radio name={"past"} size={"xs"} value={"past"}>
+                  <HStack>
+                    <Text fontSize={"xs"} fontWeight={"500"}>
+                      Past (Completed 2015-2024)
+                    </Text>
+                    <Tooltip
+                      label={
+                        "Net Units Added (Past 10 Years) - Net change in Class A residential units over the past 10 years: new completions minus demolitions and conversions."
+                      }
+                      maxW={"240px"}
+                    >
+                      <InfoIcon />
+                    </Tooltip>
+                  </HStack>
+                </Radio>
+                <SupportingLayersLegend
+                  housingData={housingData}
+                  slices={HOUSING_GROWTH_LAYERS[housingData]["past"]}
+                  display={housingRange === "past" ? "flex" : "none"}
+                />
+                <Radio name={"current"} size={"xs"} value={"current"}>
+                  <HStack>
+                    <Text fontSize={"xs"} fontWeight={"500"}>
+                      Current (Estimated 2024)
+                    </Text>
+                    <Tooltip
+                      label={
+                        "Latest Estimated Units (2024) - Estimated Class A residential units as of the latest HDB vintage: 2020 Census counts plus net units added since."
+                      }
+                      maxW={"240px"}
+                    >
+                      <InfoIcon />
+                    </Tooltip>
+                  </HStack>
+                </Radio>
+                <SupportingLayersLegend
+                  housingData={housingData}
+                  slices={HOUSING_GROWTH_LAYERS[housingData]["current"]}
+                  display={housingRange === "current" ? "flex" : "none"}
+                />
+                <Radio name={"projected"} size={"xs"} value={"projected"}>
+                  <HStack>
+                    <Text fontSize={"xs"} fontWeight={"500"}>
+                      Projected (Potential 2034)
+                    </Text>
+                    <Tooltip
+                      label={
+                        "Projected Units Added (Next 10 Years) - Projected Class A units added over the next ten years, based on projected completions from the Known Projects Database (KPDB)."
+                      }
+                      maxW={"240px"}
+                    >
+                      <InfoIcon />
+                    </Tooltip>
+                  </HStack>
+                </Radio>
+                <SupportingLayersLegend
+                  housingData={housingData}
+                  slices={HOUSING_GROWTH_LAYERS[housingData]["projected"]}
+                  display={housingRange === "projected" ? "flex" : "none"}
+                />
+              </Stack>
+            </RadioGroup>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
     </VStack>
   );
 }

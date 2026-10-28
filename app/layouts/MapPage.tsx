@@ -1,5 +1,6 @@
 import {
   Flex,
+  Grid,
   GridItem,
   Accordion,
   Box,
@@ -477,13 +478,36 @@ export default function MapPage() {
   }>({ cd: undefined, ccd: undefined, borough: undefined });
 
   return (
-    <>
+    <Grid
+      templateColumns={{
+        base: "0 [col-start] 1fr repeat(6, 1fr) 1fr [col-end] 0",
+        md: "1.5dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.5dvw",
+        lg: "1.18dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.18dvw",
+        xl: "0.86dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.86dvw",
+        "2xl": "0.8dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 0.82dvw",
+      }}
+      gap={{
+        base: "0 3dvw",
+        md: "0 1.6dvw",
+        lg: "0 1.22dvw",
+        xl: "0 0.94dvw",
+        "2xl": "0 0.78dvw",
+      }}
+      templateRows={{
+        base: "2dvh [tabs-start] 7dvh [panels-start] 2dvh [results-start] minmax(0, 1fr) [panels-end] 2dvh 7dvh",
+        md: "2dvh [tabs-start] 7dvh [panels-start] 2dvh [results-start] minmax(0, 1fr) [panels-end] 2dvh",
+        lg: "2dvh [tabs-start] min-content [tabs-end] [panels-start] minmax(0, 1fr) [panels-end] 2dvh",
+      }}
+      width={"100%"}
+      height={"100%"}
+      minHeight={0}
+      minWidth={0}
+      overflow={"hidden"}
+      className={"mapLayout"}
+    >
       <GridItem
         gridColumn={"1 / -1"}
-        gridRow={{
-          base: "header-end / atlas-end",
-          md: "header-end / -1",
-        }}
+        gridRow={"1 / -1"}
         className={"atlasContainer"}
       >
         <Atlas
@@ -501,11 +525,7 @@ export default function MapPage() {
       <GridItem
         bgColor="white"
         borderRadius="lg"
-        gridRowStart={{
-          base: "base-start",
-          md: "base-start",
-          lg: "row-start",
-        }}
+        gridRow={"tabs-start / panels-start"}
         gridColumn={{
           base: "col-start / span 8",
           md: "col-start / span 7",
@@ -513,6 +533,7 @@ export default function MapPage() {
           "2xl": "4 / span 7",
         }}
         height={"fit-content"}
+        alignSelf={"start"}
         className={"tabsContainer"}
       >
         <Tabs
@@ -673,12 +694,12 @@ export default function MapPage() {
           "2xl": "col-start / span 2",
         }}
         gridRow={{
-          base: "base-end / row-end",
-          lg: "base-start / row-end",
-          xl: "row-start / span 3",
+          base: "panels-start / panels-end",
+          lg: "panels-start / panels-end",
+          xl: "tabs-start / panels-end",
         }}
-        height={"fit-content"}
         maxHeight={"100%"}
+        pointerEvents={"none"}
         zIndex={"1"}
         sx={{
           scrollbarWidth: "none",
@@ -690,11 +711,8 @@ export default function MapPage() {
           width={{ base: "100%", lg: "auto" }}
           alignItems={"center"}
           flexShrink={{ lg: 0 }}
-          maxHeight={{
-            base: "82dvh",
-            lg: "84dvh",
-            xl: "89dvh",
-          }}
+          maxHeight={"100%"}
+          pointerEvents={"auto"}
           backgroundColor={"white"}
           borderRadius={10}
           overflowY={"scroll"}
@@ -872,11 +890,13 @@ export default function MapPage() {
       <GridItem
         gridColumnStart={{ base: 9, md: 7, lg: 6, xl: 5, "2xl": 4 }}
         gridRow={{
-          base: "base-end / span 1",
-          lg: "base-start / span 1",
+          base: "panels-start / span 1",
+          lg: "panels-start / panels-end",
         }}
         width={"fit-content"}
         height={"fit-content"}
+        alignSelf={"start"}
+        zIndex={"3"}
         className={"mapControlsContainer"}
       >
         <MapViewControls
@@ -889,13 +909,15 @@ export default function MapPage() {
       <GridItem
         gridColumn={{
           base: "1 / -1",
+          md: "8 / col-end",
           lg: "9 / span 5",
           xl: "10 / col-end",
           "2xl": "11 / col-end",
         }}
         gridRow={{
-          base: "3 / -1",
-          lg: "row-start / span 3",
+          base: "results-start / -1",
+          md: "panels-start / panels-end",
+          lg: "tabs-start / -1",
         }}
         height={"100%"}
         pointerEvents={"none"}
@@ -903,10 +925,9 @@ export default function MapPage() {
         sx={{
           scrollbarWidth: "none",
         }}
-        overflowY={"scroll"}
         display={"flex"}
         flexDirection={"column"}
-        justifyContent={{ base: "end", lg: "start" }}
+        justifyContent={{ base: "end", md: "start" }}
         className={"resultsContainer"}
       >
         <Flex
@@ -919,8 +940,8 @@ export default function MapPage() {
           direction={"column"}
           flexShrink={{ lg: 0 }}
           maxHeight={{
-            base: isPanelOpen ? "70dvh" : "64px",
-            lg: "full",
+            base: isPanelOpen ? "70%" : "64px",
+            md: "full",
           }}
           opacity={1}
           overflowY={isPanelOpen ? "scroll" : "hidden"}
@@ -928,7 +949,7 @@ export default function MapPage() {
           backgroundColor={"white"}
           borderRadius={{
             base: "10px 10px 0 0",
-            lg: "10px",
+            md: "10px",
           }}
           padding={4}
           boxShadow={"0 8px 4px 0 rgba(0, 0, 0, 0.08)"}
@@ -945,6 +966,6 @@ export default function MapPage() {
           />
         </Flex>
       </GridItem>
-    </>
+    </Grid>
   );
 }

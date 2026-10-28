@@ -3,6 +3,7 @@ import {
   Box,
   Heading,
   Grid,
+  GridItem,
   createListCollection,
   useCombobox,
 } from "@nycplanning/streetscape";
@@ -21,6 +22,7 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useRouteError,
+  useMatches,
   LinksFunction,
   useSearchParams,
 } from "react-router";
@@ -61,7 +63,14 @@ function Document({
   title?: string;
 }) {
   return (
-    <html lang="en" style={{ scrollbarWidth: "none" }}>
+    <html
+      lang="en"
+      style={{
+        height: "100%",
+        overflow: "clip",
+        scrollbarWidth: "none",
+      }}
+    >
       <head>
         <Meta />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -74,7 +83,13 @@ function Document({
         />
         <Links />
       </head>
-      <body>
+      <body
+        style={{
+          height: "100%",
+          margin: 0,
+          overflow: "clip",
+        }}
+      >
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -222,6 +237,23 @@ export function Main() {
     updateSearchParams({ radius: undefined });
   };
 
+  const matches = useMatches();
+  const isMapPage = matches
+    .map((match) => match.id)
+    .includes("layouts/MapPage");
+
+  const outletContext = {
+    viewState,
+    setViewState,
+    clearCombobox: () => {
+      combobox.clearValue();
+      combobox.setInputValue("");
+      setAddressSearchQuery("");
+    },
+    addressSearchSliderValue,
+    clearRadiusFilter,
+  } satisfies RootContextType;
+
   return (
     <>
       <HeaderBar
@@ -236,21 +268,20 @@ export function Main() {
         clearRadiusFilter={clearRadiusFilter}
       />
       <AnnouncementBanner />
-      <Outlet
-        context={
-          {
-            viewState,
-            setViewState,
-            clearCombobox: () => {
-              combobox.clearValue();
-              combobox.setInputValue("");
-              setAddressSearchQuery("");
-            },
-            addressSearchSliderValue,
-            clearRadiusFilter,
-          } satisfies RootContextType
-        }
-      />
+      {isMapPage ? (
+        <GridItem
+          gridColumn={"1 / -1"}
+          gridRow={"announcement-banner-end / content-end"}
+          minHeight={0}
+          minWidth={0}
+          overflow={"hidden"}
+          className={"mapArea"}
+        >
+          <Outlet context={outletContext} />
+        </GridItem>
+      ) : (
+        <Outlet context={outletContext} />
+      )}
     </>
   );
 }
@@ -290,11 +321,12 @@ export default function App() {
                 "2xl": "0 0.78dw",
               }}
               templateRows={{
-                base: "7dvh [header-end] 2dvh [row-start] min-content [line] min-content [banner-end] 2dvh [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh [atlas-end] 7dvh",
-                md: "7dvh [header-end] 2dvh [row-start] min-content 2dvh min-content [banner-end] [base-start] 7dvh [base-end] 2dvh 1fr [row-end] 2dvh",
-                lg: "7dvh [header-end] min-content [banner-end] 2dvh [row-start] min-content 2dvh [base-start] 1fr [row-end] 2dvh",
+                base: "auto [header-end] auto [announcement-banner-end] minmax(0, 1fr) [content-end]",
+                md: "auto [header-end] auto [announcement-banner-end] minmax(0, 1fr) [content-end]",
+                lg: "auto [header-end] auto [announcement-banner-end] minmax(0, 1fr) [content-end]",
               }}
               height="100dvh"
+              overflow={"hidden"}
               className={"rootContainer"}
             >
               <QueryClientProvider client={queryClient}>
