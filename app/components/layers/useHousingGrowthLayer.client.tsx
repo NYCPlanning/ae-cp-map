@@ -78,7 +78,7 @@ export function useHousingGrowthLayer() {
     pickable: true,
     getPointRadius: 5,
     filled: true,
-    getLineColor: [113, 128, 150, 255],
+    getLineColor: [61, 70, 86, 255],
     getLineWidth: 1,
     lineWidthUnits: "pixels",
     pointType: "text",
