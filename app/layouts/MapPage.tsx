@@ -12,6 +12,7 @@ import {
   Text,
   HStack,
   Link,
+  Button,
   Tab,
   TabList,
   Tabs,
@@ -64,6 +65,7 @@ import { SearchByFacilityMenu } from "~/components/SearchByFacilityMenu";
 import { useState, useEffect, useRef } from "react";
 import { useStore } from "~/store";
 import { SupportingLayersPanel } from "~/components/SupportingLayersPanel";
+import { registerMapControlsShortcut } from "./MapPage.utils";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -472,6 +474,12 @@ export default function MapPage() {
     setIsPanelOpen(isLargeScreen);
   }, [isLargeScreen]);
 
+  const [areControlsVisible, setAreControlsVisible] = useState(true);
+
+  useEffect(() => {
+    return registerMapControlsShortcut(setAreControlsVisible);
+  }, []);
+
   const [savedGeoSelection, setSavedGeoSelection] = useState<{
     cd: { communityDistrictIds: string } | undefined;
     ccd: { cityCouncilDistrictIds: string } | undefined;
@@ -533,6 +541,7 @@ export default function MapPage() {
           xl: "5 / span 5",
           "2xl": "4 / span 7",
         }}
+        display={areControlsVisible ? undefined : "none"}
         height={"fit-content"}
         alignSelf={"start"}
         className={"tabsContainer"}
@@ -699,6 +708,7 @@ export default function MapPage() {
           lg: "panels-start / panels-end",
           xl: "tabs-start / panels-end",
         }}
+        display={areControlsVisible ? undefined : "none"}
         maxHeight={"100%"}
         pointerEvents={"none"}
         zIndex={"1"}
@@ -905,6 +915,7 @@ export default function MapPage() {
           base: "panels-start / span 1",
           lg: "panels-start / panels-end",
         }}
+        display={areControlsVisible ? undefined : "none"}
         width={"fit-content"}
         height={"fit-content"}
         alignSelf={"start"}
@@ -937,7 +948,7 @@ export default function MapPage() {
         sx={{
           scrollbarWidth: "none",
         }}
-        display={"flex"}
+        display={areControlsVisible ? "flex" : "none"}
         flexDirection={"column"}
         justifyContent={{ base: "end", md: "start" }}
         className={"resultsContainer"}
@@ -981,6 +992,27 @@ export default function MapPage() {
           />
         </Flex>
       </GridItem>
+      {!areControlsVisible && (
+        <GridItem
+          gridColumn={"1 / -1"}
+          gridRow={"1 / -1"}
+          zIndex={"10"}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"start"}
+          paddingTop={"2dvh"}
+          pointerEvents={"none"}
+        >
+          <Button
+            type="button"
+            variant="primary"
+            onClick={() => setAreControlsVisible(true)}
+            pointerEvents={"auto"}
+          >
+            Show controls (H)
+          </Button>
+        </GridItem>
+      )}
     </Grid>
   );
 }

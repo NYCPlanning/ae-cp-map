@@ -44,21 +44,24 @@ const loaderData: Awaited<ReturnType<typeof loader>> = {
 };
 
 const MapPageOutlet = () => (
-  <Outlet
-    context={{
-      viewState: {
-        longitude: -74,
-        latitude: 40.7,
-        zoom: 10,
-        bearing: 0,
-        pitch: 0,
-      },
-      setViewState: vi.fn(),
-      clearCombobox: vi.fn(),
-      addressSearchSliderValue: undefined,
-      clearRadiusFilter: vi.fn(),
-    }}
-  />
+  <>
+    <input aria-label="Test text field" />
+    <Outlet
+      context={{
+        viewState: {
+          longitude: -74,
+          latitude: 40.7,
+          zoom: 10,
+          bearing: 0,
+          pitch: 0,
+        },
+        setViewState: vi.fn(),
+        clearCombobox: vi.fn(),
+        addressSearchSliderValue: undefined,
+        clearRadiusFilter: vi.fn(),
+      }}
+    />
+  </>
 );
 
 const renderMapPage = (queryString: string) => {
@@ -283,5 +286,58 @@ describe("MapPage layer filter visibility", () => {
     ).toBeChecked();
     expect(screen.getByLabelText("Facilities")).toBeChecked();
     expect(screen.getByLabelText("Toggle Housing Growth layer")).toBeChecked();
+  });
+});
+
+describe("MapPage controls visibility", () => {
+  it("hides and restores all map controls with the H shortcut and restore button", async () => {
+    const { container } = renderMapPage("");
+    await screen.findByTestId("atlas");
+
+    await userEvent.keyboard("h");
+
+    const restoreButton = screen.getByRole("button", {
+      name: "Show controls (H)",
+    });
+    [
+      ".tabsContainer",
+      ".filtersContainer",
+      ".mapControlsContainer",
+      ".mapLayout > .resultsContainer",
+    ].forEach((selector) => {
+      expect(container.querySelector(selector)).toHaveStyle({
+        display: "none",
+      });
+    });
+
+    await userEvent.click(restoreButton);
+
+    expect(
+      screen.queryByRole("button", { name: "Show controls (H)" }),
+    ).not.toBeInTheDocument();
+    [
+      ".tabsContainer",
+      ".filtersContainer",
+      ".mapControlsContainer",
+      ".mapLayout > .resultsContainer",
+    ].forEach((selector) => {
+      expect(container.querySelector(selector)).not.toHaveStyle({
+        display: "none",
+      });
+    });
+  });
+
+  it("does not toggle controls while typing in a text field", async () => {
+    renderMapPage("");
+    await screen.findByTestId("atlas");
+
+    await userEvent.click(
+      screen.getByRole("textbox", { name: "Test text field" }),
+    );
+    await userEvent.keyboard("h");
+
+    expect(
+      screen.queryByRole("button", { name: "Show controls (H)" }),
+    ).not.toBeInTheDocument();
   });
 });
