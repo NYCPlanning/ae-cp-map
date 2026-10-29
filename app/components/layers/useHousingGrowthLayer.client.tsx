@@ -79,7 +79,11 @@ export function useHousingGrowthLayer() {
     getPointRadius: 5,
     filled: true,
     getLineColor: [61, 70, 86, 255],
-    getLineWidth: 1,
+    getLineWidth: ({ properties }: { properties: HousingGrowthProperties }) => {
+      const data =
+        properties[rangeVariableMap.get(housingRange) || "unitsCurrent"];
+      return data < 0 ? 2 : 1;
+    },
     lineWidthUnits: "pixels",
     pointType: "text",
     getText: ({ properties }: { properties: HousingGrowthProperties }) =>
