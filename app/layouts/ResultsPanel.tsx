@@ -671,13 +671,14 @@ export default function ResultsPanel() {
                           </Text>
                         </CardBody>
                       </Flex>
-                      {stateOfGoodRepair === "ON" && facility.hasSogrData ? (
+                      {stateOfGoodRepair === "ON" && facility.hasFcsData ? (
                         <Tooltip
                           offset={[-40, 10]}
                           hasArrow
                           placement="top"
-                          maxWidth={"15rem"}
-                          label="State of Good Repair (SGR) score is available. This facility has been assessed and graded to reflect physical condition."
+                          maxWidth={"320px"}
+                          textAlign={"center"}
+                          label="Facility Condition Score is available. This facility has been assessed and graded to reflect physical condition."
                         >
                           <Tag
                             backgroundColor={"cherrybl.50"}
