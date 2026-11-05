@@ -190,7 +190,7 @@ export const HOUSING_GROWTH_LAYERS = {
         rangeMin: 0,
         rangeMax: 280,
         rangeLabel: "0 - 280",
-        colorHex: "#FFFFCCC",
+        colorHex: "#FFFFCC",
         colorRgba: [255, 255, 204, 242],
       },
       {
