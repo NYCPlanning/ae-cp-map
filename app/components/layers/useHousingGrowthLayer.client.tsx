@@ -78,8 +78,12 @@ export function useHousingGrowthLayer() {
     pickable: true,
     getPointRadius: 5,
     filled: true,
-    getLineColor: [113, 128, 150, 255],
-    getLineWidth: 1,
+    getLineColor: [61, 70, 86, 255],
+    getLineWidth: ({ properties }: { properties: HousingGrowthProperties }) => {
+      const data =
+        properties[rangeVariableMap.get(housingRange) || "unitsCurrent"];
+      return data < 0 ? 2 : 1;
+    },
     lineWidthUnits: "pixels",
     pointType: "text",
     getText: ({ properties }: { properties: HousingGrowthProperties }) =>
@@ -142,14 +146,15 @@ export function useHousingGrowthLayer() {
         )?.colorRgba || [204, 204, 204]
       );
     },
-    getTextColor: [98, 98, 98, 255],
+    getTextColor: [24, 28, 34, 255],
     textFontFamily: "Helvetica Neue, Arial, sans-serif",
-    getTextSize: 15,
+    textFontWeight: 700,
+    getTextSize: 13,
     textFontSettings: {
       sdf: true,
     },
     textOutlineColor: [255, 255, 255, 255],
-    textOutlineWidth: 2,
+    textOutlineWidth: 10,
 
     binary: false,
 
@@ -186,7 +191,7 @@ export function useHousingGrowthLayer() {
                   id: `${props.id}-label`,
                   data: labelsLayerData,
                   pointType: "text",
-                  getTextSize: 15,
+                  getTextSize: 13,
                   extensions: [new CollisionFilterExtension()],
                   collisionGroup: "housing-growth-label",
                   collisionTestProps: {

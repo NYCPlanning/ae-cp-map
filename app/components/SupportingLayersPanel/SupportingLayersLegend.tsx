@@ -31,6 +31,7 @@ export function SupportingLayersLegend({
                 h={5}
                 p={0.5}
                 borderRadius={"4px"}
+                border={slice.rangeMax === 0 ? "2px solid" : "none"}
                 backgroundColor={slice.colorHex}
               />
               <Text fontSize={"xs"}>{slice.rangeLabel}</Text>
