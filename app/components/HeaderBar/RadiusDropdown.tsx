@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import { FocusLock } from "@chakra-ui/react";
 import {
   Slider,
   SliderTrack,
@@ -32,6 +34,8 @@ export const RadiusDropdown = ({
 }) => {
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
   const pin = searchParams.get("pin");
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const sliderValue =
     addressSearchSliderValue === undefined
@@ -78,16 +82,19 @@ export const RadiusDropdown = ({
   return (
     <Popover
       placement="bottom-start"
+      initialFocusRef={closeButtonRef}
+      returnFocusOnClose={true}
       onOpen={() => {
         if (addressSearchSliderValue === undefined) {
           resetRadiusFilter();
         }
       }}
     >
-      {({ onClose }) => (
+      {({ isOpen, onClose }) => (
         <>
           <PopoverTrigger>
             <Button
+              ref={triggerRef}
               variant={"secondary"}
               maxH={10}
               display={"flex"}
@@ -111,67 +118,79 @@ export const RadiusDropdown = ({
               <Hide below="sm">Filter by </Hide>Radius <ChevronDownIcon />
             </Button>
           </PopoverTrigger>
-          <PopoverContent width={"300px"}>
-            <Box
-              borderBottom={"1px solid #CBD5E0"}
-              width={"100%"}
-              fontSize={"0.875rem"}
-            >
-              <PopoverCloseButton />
-              <PopoverHeader>Filter Results</PopoverHeader>
-            </Box>
-            <PopoverBody fontSize={"sm"} width={"100%"}>
-              <Text pb={3}>
-                Radius: {`${sliderValue} ft. `}
-                <span
-                  style={{ fontSize: "0.75rem" }}
-                >{`(${radiusValueInMiles} mi.)`}</span>
-              </Text>
-              <Slider
-                aria-label="slider-radius"
-                value={sliderValue}
-                min={ADDRESS_SEARCH_RADIUS.MIN}
-                max={ADDRESS_SEARCH_RADIUS.MAX}
-                onChange={(v) => setAddressSearchSliderValue(v)}
-                onChangeEnd={(v) => {
-                  updateSearchParams({ radius: v });
-                }}
+          <PopoverContent width={"300px"} aria-label="Filter Results">
+            {isOpen && (
+              <FocusLock
+                restoreFocus={true}
+                persistentFocus={false}
+                initialFocusRef={closeButtonRef}
+                finalFocusRef={triggerRef}
               >
-                <SliderTrack>
-                  <SliderFilledTrack />
-                </SliderTrack>
-                <SliderMark value={sliderValue}>
-                  <SliderThumb />
-                </SliderMark>
-              </Slider>
-              <HStack
-                justifyContent={"space-between"}
-                width={"100%"}
-                pt={3}
-                fontWeight={400}
-              >
-                <Button
-                  variant={"tertiary"}
-                  fontSize={"sm"}
-                  onClick={() => {
-                    resetRadiusFilter();
-                  }}
+                <Box
+                  borderBottom={"1px solid #CBD5E0"}
+                  width={"100%"}
+                  fontSize={"0.875rem"}
                 >
-                  Reset
-                </Button>
-                <Button
-                  size={"sm"}
-                  variant={"secondary"}
-                  borderWidth={"1px"}
-                  onClick={() => {
-                    clearRadiusFilter();
-                    onClose();
-                  }}
-                >
-                  Clear Filter
-                </Button>
-              </HStack>
-            </PopoverBody>
+                  <PopoverCloseButton ref={closeButtonRef} />
+                  <PopoverHeader>Filter Results</PopoverHeader>
+                </Box>
+                <PopoverBody fontSize={"sm"} width={"100%"}>
+                  <Text pb={3}>
+                    Radius: {`${sliderValue} ft. `}
+                    <span
+                      style={{ fontSize: "0.75rem" }}
+                    >{`(${radiusValueInMiles} mi.)`}</span>
+                  </Text>
+                  <Slider
+                    aria-label="slider-radius"
+                    value={sliderValue}
+                    min={ADDRESS_SEARCH_RADIUS.MIN}
+                    max={ADDRESS_SEARCH_RADIUS.MAX}
+                    onChange={(v) => setAddressSearchSliderValue(v)}
+                    onChangeEnd={(v) => {
+                      updateSearchParams({ radius: v });
+                    }}
+                  >
+                    <SliderTrack>
+                      <SliderFilledTrack />
+                    </SliderTrack>
+                    <SliderMark value={sliderValue}>
+                      <SliderThumb />
+                    </SliderMark>
+                  </Slider>
+                  <HStack
+                    justifyContent={"space-between"}
+                    width={"100%"}
+                    pt={3}
+                    fontWeight={400}
+                  >
+                    <Button
+                      variant={"tertiary"}
+                      fontSize={"sm"}
+                      onClick={() => {
+                        resetRadiusFilter();
+                      }}
+                    >
+                      Reset
+                    </Button>
+                    <Button
+                      size={"sm"}
+                      variant={"secondary"}
+                      borderWidth={"1px"}
+                      onClick={() => {
+                        clearRadiusFilter();
+                        onClose();
+                        requestAnimationFrame(() => {
+                          triggerRef.current?.focus();
+                        });
+                      }}
+                    >
+                      Clear Filter
+                    </Button>
+                  </HStack>
+                </PopoverBody>
+              </FocusLock>
+            )}
           </PopoverContent>
         </>
       )}
