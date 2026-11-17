@@ -142,6 +142,7 @@ export const RadiusDropdown = ({
                     >{`(${radiusValueInMiles} mi.)`}</span>
                   </Text>
                   <Slider
+                    role="group"
                     aria-label="slider-radius"
                     value={sliderValue}
                     min={ADDRESS_SEARCH_RADIUS.MIN}
