@@ -19,6 +19,7 @@ import {
 } from "@nycplanning/streetscape";
 import {
   Outlet,
+  useLocation,
   useLoaderData,
   useOutletContext,
   LoaderFunctionArgs,
@@ -285,6 +286,7 @@ export default function MapPage() {
     addressSearchSliderValue,
     clearRadiusFilter,
   } = useOutletContext<RootContextType>();
+  const { pathname } = useLocation();
   const [searchParams, updateSearchParams] = useUpdateSearchParams();
 
   const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
@@ -480,6 +482,7 @@ export default function MapPage() {
 
   return (
     <Grid
+      as="main"
       templateColumns={{
         base: "0 [col-start] 1fr repeat(6, 1fr) 1fr [col-end] 0",
         md: "1.5dvw [col-start] 1fr repeat(10, 1fr) 1fr [col-end] 1.5dvw",
@@ -700,6 +703,8 @@ export default function MapPage() {
           xl: "tabs-start / panels-end",
         }}
         maxHeight={"100%"}
+        role={"region"}
+        aria-label={"Filters"}
         pointerEvents={"none"}
         zIndex={"1"}
         sx={{
@@ -932,6 +937,8 @@ export default function MapPage() {
           lg: "tabs-start / -1",
         }}
         height={"100%"}
+        role={"region"}
+        aria-label={pathname === "/" ? "Welcome" : "Results"}
         pointerEvents={"none"}
         zIndex={"3"}
         sx={{

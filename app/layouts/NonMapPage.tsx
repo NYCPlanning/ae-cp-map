@@ -11,6 +11,7 @@ import { Outlet } from "react-router";
 export default function NonMapHeaderPage() {
   return (
     <Grid
+      as="main"
       templateColumns={"subgrid"}
       gridColumn="1 / -1"
       gridRow="header-end / -1"
