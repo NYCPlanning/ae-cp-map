@@ -745,7 +745,7 @@ export default function MapPage() {
                 </Heading>
                 <AccordionIcon />
               </AccordionButton>
-              <AccordionPanel px={0} pt={2} pb={0}>
+              <AccordionPanel padding={1}>
                 <Box>
                   <Accordion
                     allowMultiple
