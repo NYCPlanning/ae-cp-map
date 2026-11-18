@@ -37,6 +37,7 @@ export function HeaderBar({
 
   return (
     <Grid
+      as="header"
       gridTemplateColumns={"subgrid"}
       alignItems={"center"}
       gridTemplateRows={{
