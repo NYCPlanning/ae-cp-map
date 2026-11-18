@@ -27,6 +27,7 @@ export function ContentPanelAccordion({
     <Accordion
       width={"100%"}
       maxHeight={"100%"}
+      padding={1}
       index={isPanelOpen ? 0 : -1}
       allowToggle
       overflowY={"scroll"}
@@ -60,7 +61,7 @@ export function ContentPanelAccordion({
             </AccordionButton>
 
             <AccordionPanel
-              padding={"0px"}
+              padding={1}
               overflowY={"hidden"}
               overflow={"scroll"}
               sx={{ scrollbarWidth: "none" }}
