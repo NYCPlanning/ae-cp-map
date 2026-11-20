@@ -64,7 +64,7 @@ export default function NonMapHeaderPage() {
           <Heading as="h2" color={"gray.700"} fontWeight={"bold"}>
             Feedback
           </Heading>
-          <Text>
+          <Text mb={4}>
             This tool is in active development and DCP is open to any and all
             feedback. For questions, inquires or feedback on CPP or its content,
             please send us an email to&nbsp;
@@ -75,6 +75,24 @@ export default function NonMapHeaderPage() {
             >
               CAPS@planning.nyc.gov
             </Link>
+            .
+          </Text>
+          <Heading as="h2" color={"gray.700"} fontWeight={"bold"}>
+            Accessibility
+          </Heading>
+          <Text>
+            The Department of City Planning is committed to ensuring its digital
+            content is accessible to and usable by people with disabilities.
+            Please see DCP&apos;s{" "}
+            <Link
+              color={"primary.600"}
+              href="https://www.nyc.gov/content/planning/pages/about-us/policies-notices#accessibility"
+              isExternal
+              textDecoration="underline"
+            >
+              Accessibility Statement
+            </Link>{" "}
+            for more information.
           </Text>
         </VStack>
       </GridItem>
