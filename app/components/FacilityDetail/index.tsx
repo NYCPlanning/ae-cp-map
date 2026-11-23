@@ -13,8 +13,10 @@ import {
   HStack,
   IconButton,
   Link,
+  ListItem,
   Tag,
   Text,
+  UnorderedList,
   VStack,
   Button,
 } from "@nycplanning/streetscape";
@@ -433,35 +435,39 @@ export function FacilityDetail({
             fontSize={"sm"}
           >
             <Text fontWeight={"bold"}>Also at this location</Text>
-            {facility.alsoAtLocation.map((otherFacility) => (
-              <HStack gap={1} key={otherFacility.id}>
-                <Flex
-                  marginX={1}
-                  marginY={1.5}
-                  w={2}
-                  h={2}
-                  bg={FACILITY_CATEGORY_ID_COLORS.get(
-                    otherFacility.categoryId ? otherFacility.categoryId : 1,
-                  )}
-                  borderRadius={"2px"}
-                />
-                <Link
-                  color={"primary.600"}
-                  textDecorationLine={"underline"}
-                  cursor={"pointer"}
-                  href={`/facilities/${otherFacility.id}?${searchParams.toString()}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    navigate({
-                      pathname: `/facilities/${otherFacility.id}`,
-                      search: `?${searchParams.toString()}`,
-                    });
-                  }}
-                >
-                  {otherFacility.name}
-                </Link>
-              </HStack>
-            ))}
+            <UnorderedList listStyleType={"none"} margin={0} padding={0}>
+              {facility.alsoAtLocation.map((otherFacility) => (
+                <ListItem key={otherFacility.id}>
+                  <HStack gap={1}>
+                    <Flex
+                      marginX={1}
+                      marginY={1.5}
+                      w={2}
+                      h={2}
+                      bg={FACILITY_CATEGORY_ID_COLORS.get(
+                        otherFacility.categoryId ? otherFacility.categoryId : 1,
+                      )}
+                      borderRadius={"2px"}
+                    />
+                    <Link
+                      color={"primary.600"}
+                      textDecorationLine={"underline"}
+                      cursor={"pointer"}
+                      href={`/facilities/${otherFacility.id}?${searchParams.toString()}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate({
+                          pathname: `/facilities/${otherFacility.id}`,
+                          search: `?${searchParams.toString()}`,
+                        });
+                      }}
+                    >
+                      {otherFacility.name}
+                    </Link>
+                  </HStack>
+                </ListItem>
+              ))}
+            </UnorderedList>
           </VStack>
         )}
       </VStack>
