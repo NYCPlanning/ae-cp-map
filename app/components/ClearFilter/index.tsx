@@ -28,14 +28,9 @@ export function ClearFilterBtn({
       onClick={handleClear}
       aria-label={ariaLabel}
       fontSize={"sm"}
-      lineHeight={"20px"}
       variant="tertiary"
-      textDecoration={"underline"}
       color={"primary.600"}
-      role={"button"}
       minHeight={"unset"}
-      marginY={3}
-      padding={0}
     >
       {buttonLabel}
     </Button>
