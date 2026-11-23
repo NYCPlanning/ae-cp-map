@@ -13,8 +13,6 @@ export function ClearFilterBtn({
   onClear,
   buttonLabel = "Reset Selections",
   ariaLabel,
-  textAlign = "left",
-  verticalAlign = "initial",
 }: ClearFilterBtnProps) {
   const handleClear = () => {
     try {
@@ -34,12 +32,10 @@ export function ClearFilterBtn({
       variant="tertiary"
       textDecoration={"underline"}
       color={"primary.600"}
-      textAlign={textAlign}
       role={"button"}
       minHeight={"unset"}
       marginY={3}
       padding={0}
-      verticalAlign={verticalAlign}
     >
       {buttonLabel}
     </Button>
