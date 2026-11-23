@@ -162,7 +162,7 @@ describe("MapPage layer filter visibility", () => {
     renderMapPage("layers=");
     await openLayersPanel();
 
-    await userEvent.click(screen.getByLabelText("Toggle Housing Growth layer"));
+    await userEvent.click(screen.getByLabelText("Housing Growth layer"));
 
     expect(
       screen.getByRole("button", {
@@ -292,6 +292,6 @@ describe("MapPage layer filter visibility", () => {
       screen.getByLabelText("Community Board Capital Budget Requests"),
     ).toBeChecked();
     expect(screen.getByLabelText("Facilities")).toBeChecked();
-    expect(screen.getByLabelText("Toggle Housing Growth layer")).toBeChecked();
+    expect(screen.getByLabelText("Housing Growth layer")).toBeChecked();
   });
 });
