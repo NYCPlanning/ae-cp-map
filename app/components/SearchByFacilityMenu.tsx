@@ -110,7 +110,11 @@ export const SearchByFacilityMenu = ({
         display={"flex"}
         flexDirection={"column"}
       >
-        <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
+        <ClearFilterBtn
+          onClear={onClear}
+          buttonLabel="Reset All"
+          ariaLabel="Reset all Facilities filters"
+        />
         <FacilityJurisdictionCheckbox
           onCheckedChange={(value: FacilityJurisdiction | null) => {
             if (value === null)

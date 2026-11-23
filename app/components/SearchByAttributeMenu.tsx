@@ -89,7 +89,11 @@ export const SearchByAttributeMenu = ({
         display={"flex"}
         flexDirection={"column"}
       >
-        <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
+        <ClearFilterBtn
+          onClear={onClear}
+          buttonLabel="Reset All"
+          ariaLabel="Reset all Capital Projects filters"
+        />
         <AgencyDropdown
           selectValue={managingAgency}
           agencies={agencies}

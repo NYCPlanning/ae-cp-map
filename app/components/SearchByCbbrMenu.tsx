@@ -121,7 +121,11 @@ export const SearchByCbbrMenu = ({
         display={"flex"}
         flexDirection={"column"}
       >
-        <ClearFilterBtn onClear={onClear} buttonLabel="Reset All" />
+        <ClearFilterBtn
+          onClear={onClear}
+          buttonLabel="Reset All"
+          ariaLabel="Reset all Community Board Capital Budget Requests filters"
+        />
         <CommunityBoardBudgetRequestPolicyAreaDropdown
           selectValue={cbbrPolicyAreaId}
           cbbrPolicyAreas={cbbrPolicyAreas}
