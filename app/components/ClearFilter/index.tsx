@@ -4,6 +4,7 @@ import type { Property } from "csstype";
 export interface ClearFilterBtnProps {
   onClear: () => void;
   buttonLabel?: string;
+  ariaLabel?: string;
   textAlign?: Property.TextAlign;
   verticalAlign?: string;
 }
@@ -11,8 +12,7 @@ export interface ClearFilterBtnProps {
 export function ClearFilterBtn({
   onClear,
   buttonLabel = "Reset Selections",
-  textAlign = "left",
-  verticalAlign = "initial",
+  ariaLabel,
 }: ClearFilterBtnProps) {
   const handleClear = () => {
     try {
@@ -24,19 +24,13 @@ export function ClearFilterBtn({
 
   return (
     <Button
-      width="full"
+      alignSelf="start"
+      backgroundColor="transparent"
       onClick={handleClear}
+      aria-label={ariaLabel}
       fontSize={"sm"}
-      lineHeight={"20px"}
-      variant="tertiarty"
-      textDecoration={"underline"}
+      variant="tertiary"
       color={"primary.600"}
-      textAlign={textAlign}
-      role={"button"}
-      minHeight={"unset"}
-      marginY={3}
-      padding={0}
-      verticalAlign={verticalAlign}
     >
       {buttonLabel}
     </Button>

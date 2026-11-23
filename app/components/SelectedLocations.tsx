@@ -194,10 +194,9 @@ export function SelectedLocations({
         </Box>
         <Box alignSelf={"center"}>
           <ClearFilterBtn
-            textAlign={"right"}
-            verticalAlign={"text-bottom"}
             onClear={clearSelections}
             buttonLabel="Clear"
+            ariaLabel="Clear selected locations"
           ></ClearFilterBtn>
         </Box>
       </Flex>
