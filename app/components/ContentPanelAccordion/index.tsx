@@ -39,7 +39,7 @@ export function ContentPanelAccordion({
       <AccordionItem border="none">
         {({ isExpanded }) => (
           <>
-            <AccordionButton aria-label="Toggle project list panel" p={0}>
+            <AccordionButton aria-label={`${accordionHeading} panel`} p={0}>
               <Heading
                 flex="1"
                 textAlign="left"

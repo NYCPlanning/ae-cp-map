@@ -10,12 +10,9 @@ import {
 export function HowToUseThisTool() {
   return (
     <AccordionItem borderBottom={"none"}>
-      {({ isExpanded }) => (
+      {() => (
         <>
-          <AccordionButton
-            aria-label={`${isExpanded ? "Close" : "Open"} how to use this tool panel`}
-            p={0}
-          >
+          <AccordionButton p={0}>
             <Heading
               flex="1"
               textAlign="left"
