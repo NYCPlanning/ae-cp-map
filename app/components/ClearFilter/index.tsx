@@ -4,6 +4,7 @@ import type { Property } from "csstype";
 export interface ClearFilterBtnProps {
   onClear: () => void;
   buttonLabel?: string;
+  ariaLabel?: string;
   textAlign?: Property.TextAlign;
   verticalAlign?: string;
 }
@@ -11,6 +12,7 @@ export interface ClearFilterBtnProps {
 export function ClearFilterBtn({
   onClear,
   buttonLabel = "Reset Selections",
+  ariaLabel,
   textAlign = "left",
   verticalAlign = "initial",
 }: ClearFilterBtnProps) {
@@ -26,6 +28,7 @@ export function ClearFilterBtn({
     <Button
       width="full"
       onClick={handleClear}
+      aria-label={ariaLabel}
       fontSize={"sm"}
       lineHeight={"20px"}
       variant="tertiarty"

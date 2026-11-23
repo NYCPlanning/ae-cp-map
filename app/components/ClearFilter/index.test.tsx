@@ -21,6 +21,22 @@ describe("ClearFilterBtn", () => {
     expect(screen.getByText("Clear All Filters")).toBeInTheDocument();
   });
 
+  it("uses a custom accessible name when provided", () => {
+    render(
+      <ClearFilterBtn
+        onClear={() => null}
+        buttonLabel="Reset All"
+        ariaLabel="Reset all Capital Projects filters"
+      />,
+    );
+
+    expect(
+      screen.getByRole("button", {
+        name: "Reset all Capital Projects filters",
+      }),
+    ).toHaveTextContent("Reset All");
+  });
+
   it("calls onClear on click", async () => {
     onClearMock.mockResolvedValue(undefined);
     render(<ClearFilterBtn onClear={onClearMock} />);
