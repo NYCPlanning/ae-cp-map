@@ -31,7 +31,7 @@ export function ClearFilterBtn({
       aria-label={ariaLabel}
       fontSize={"sm"}
       lineHeight={"20px"}
-      variant="tertiarty"
+      variant="tertiary"
       textDecoration={"underline"}
       color={"primary.600"}
       textAlign={textAlign}
