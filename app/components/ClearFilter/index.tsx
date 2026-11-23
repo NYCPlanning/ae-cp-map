@@ -24,13 +24,13 @@ export function ClearFilterBtn({
 
   return (
     <Button
-      width="full"
+      alignSelf="start"
+      backgroundColor="transparent"
       onClick={handleClear}
       aria-label={ariaLabel}
       fontSize={"sm"}
       variant="tertiary"
       color={"primary.600"}
-      minHeight={"unset"}
     >
       {buttonLabel}
     </Button>
