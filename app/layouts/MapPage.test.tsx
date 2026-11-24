@@ -88,7 +88,7 @@ const openLayersPanel = async () => {
   await screen.findByTestId("atlas");
   await userEvent.click(
     screen.getByRole("button", {
-      name: "Toggle layers panel",
+      name: "Capital Planning Data",
       hidden: true,
     }),
   );
@@ -100,14 +100,18 @@ describe("MapPage layer filter visibility", () => {
     await openLayersPanel();
 
     expect(
-      screen.queryByRole("button", { name: /^Capital Projects filters/ }),
+      screen.queryByRole("button", {
+        name: /^Capital Projects filters/,
+      }),
     ).not.toBeInTheDocument();
 
     await userEvent.click(screen.getByLabelText("Capital Projects"));
 
     await waitFor(() => {
       expect(
-        screen.getByRole("button", { name: /^Capital Projects filters/ }),
+        screen.getByRole("button", {
+          name: /^Capital Projects filters/,
+        }),
       ).toBeVisible();
     });
   });
@@ -158,16 +162,16 @@ describe("MapPage layer filter visibility", () => {
     renderMapPage("layers=");
     await openLayersPanel();
 
-    await userEvent.click(screen.getByLabelText("Toggle Housing Growth layer"));
+    await userEvent.click(screen.getByLabelText("Housing Growth layer"));
 
     expect(
       screen.getByRole("button", {
-        name: "Close Housing Growth Supporting Layer options panel",
+        name: "Housing Growth Supporting Layer options panel",
       }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
       screen.getByRole("button", {
-        name: "Open how to use this tool panel",
+        name: "How to use this tool panel",
       }),
     ).toHaveAttribute("aria-expanded", "false");
   });
@@ -189,19 +193,21 @@ describe("MapPage layer filter visibility", () => {
       }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
-      screen.getByRole("button", { name: "Facilities filters (0 applied)" }),
+      screen.getByRole("button", {
+        name: "Facilities filters (0 applied)",
+      }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
-      screen.getByRole("button", { name: "Toggle legend panel" }),
+      screen.getByRole("button", { name: "Legend panel" }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
       screen.getByRole("button", {
-        name: "Close Housing Growth Supporting Layer options panel",
+        name: "Housing Growth Supporting Layer options panel",
       }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
       screen.getByRole("button", {
-        name: "Open how to use this tool panel",
+        name: "How to use this tool panel",
       }),
     ).toHaveAttribute("aria-expanded", "false");
   });
@@ -211,7 +217,7 @@ describe("MapPage layer filter visibility", () => {
     await openLayersPanel();
 
     const howToButton = screen.getByRole("button", {
-      name: "Open how to use this tool panel",
+      name: "How to use this tool panel",
     });
     await userEvent.click(howToButton);
     await userEvent.click(screen.getByText("Collapse All"));
@@ -227,18 +233,20 @@ describe("MapPage layer filter visibility", () => {
       }),
     ).toHaveAttribute("aria-expanded", "false");
     expect(
-      screen.getByRole("button", { name: "Facilities filters (0 applied)" }),
-    ).toHaveAttribute("aria-expanded", "false");
-    expect(
-      screen.getByRole("button", { name: "Toggle legend panel" }),
-    ).toHaveAttribute("aria-expanded", "false");
-    expect(
       screen.getByRole("button", {
-        name: "Open Housing Growth Supporting Layer options panel",
+        name: "Facilities filters (0 applied)",
       }),
     ).toHaveAttribute("aria-expanded", "false");
     expect(
-      screen.getByRole("button", { name: "Close how to use this tool panel" }),
+      screen.getByRole("button", { name: "Legend panel" }),
+    ).toHaveAttribute("aria-expanded", "false");
+    expect(
+      screen.getByRole("button", {
+        name: "Housing Growth Supporting Layer options panel",
+      }),
+    ).toHaveAttribute("aria-expanded", "false");
+    expect(
+      screen.getByRole("button", { name: "How to use this tool panel" }),
     ).toHaveAttribute("aria-expanded", "true");
   });
 
@@ -267,7 +275,9 @@ describe("MapPage layer filter visibility", () => {
     );
     expect(screen.getByText("Filters (2)")).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Facilities filters (2 applied)" }),
+      screen.getByRole("button", {
+        name: "Facilities filters (2 applied)",
+      }),
     ).toBeInTheDocument();
 
     await userEvent.click(screen.getByText("Clear All"));
@@ -282,6 +292,6 @@ describe("MapPage layer filter visibility", () => {
       screen.getByLabelText("Community Board Capital Budget Requests"),
     ).toBeChecked();
     expect(screen.getByLabelText("Facilities")).toBeChecked();
-    expect(screen.getByLabelText("Toggle Housing Growth layer")).toBeChecked();
+    expect(screen.getByLabelText("Housing Growth layer")).toBeChecked();
   });
 });

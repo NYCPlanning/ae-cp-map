@@ -46,7 +46,7 @@ export function WelcomePanel() {
       className={"welcomeContainer"}
     >
       <AccordionItem border={"none"}>
-        <AccordionButton padding="0px" aria-label="Toggle project list panel">
+        <AccordionButton padding="0px" aria-label="Welcome panel">
           <WelcomeHeader />
           <AccordionIcon size={"lg"} />
         </AccordionButton>

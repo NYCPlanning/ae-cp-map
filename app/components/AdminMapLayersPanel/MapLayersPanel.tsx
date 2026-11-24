@@ -11,7 +11,7 @@ import React from "react";
 export function MapLayersPanel({ children }: { children: React.ReactNode }) {
   return (
     <AccordionItem borderTop={"none"}>
-      <AccordionButton p={0} aria-label="Toggle layers panel">
+      <AccordionButton p={0}>
         <Heading
           flex="1"
           textAlign="left"

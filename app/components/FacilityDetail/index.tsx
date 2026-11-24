@@ -160,7 +160,7 @@ export function FacilityDetail({
                   {({ isExpanded }) => (
                     <>
                       <AccordionButton
-                        aria-label={`${isExpanded ? "Close" : "Open"} state of good repair menu`}
+                        aria-label="State of good repair menu"
                         p={0}
                         _hover={{ backgroundColor: "gray.100" }}
                       >
@@ -359,7 +359,6 @@ export function FacilityDetail({
             marginX={0}
           >
             <AccordionButton
-              aria-label="Close source data menu"
               paddingY={0}
               paddingX={3}
               _hover={{ backgroundColor: "gray.100" }}

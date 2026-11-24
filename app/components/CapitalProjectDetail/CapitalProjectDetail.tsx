@@ -164,7 +164,7 @@ export const CapitalProjectDetail = ({
             sx={{ scrollbarWidth: "none" }}
           >
             <AccordionItem border={"none"}>
-              <AccordionButton p={0} aria-label="Toggle layers panel">
+              <AccordionButton p={0}>
                 <Heading
                   flex="1"
                   textAlign="left"

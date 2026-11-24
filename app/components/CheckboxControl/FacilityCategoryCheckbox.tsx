@@ -51,10 +51,9 @@ export function FacilityCategoryCheckbox({
         bg={`${FACILITY_CATEGORY_ID_COLORS.get(facilityCategoryCheckbox.id)}1A`}
         p={0}
       >
-        {({ isExpanded }) => (
+        {() => (
           <>
             <AccordionButton
-              aria-label={`${isExpanded ? "Close" : "Open"} ${facilityCategoryCheckbox.shortName}`}
               p={2}
               _hover={{
                 backgroundColor: `${FACILITY_CATEGORY_ID_COLORS.get(facilityCategoryCheckbox.id)}26`,

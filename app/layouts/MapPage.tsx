@@ -732,7 +732,7 @@ export default function MapPage() {
             }}
           >
             <AccordionItem borderTop={"none"} borderBottom={"none"}>
-              <AccordionButton p={0} aria-label="Toggle layers panel">
+              <AccordionButton p={0}>
                 <Heading
                   flex="1"
                   textAlign="left"

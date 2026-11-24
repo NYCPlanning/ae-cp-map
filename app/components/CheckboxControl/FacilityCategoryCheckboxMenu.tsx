@@ -37,10 +37,10 @@ export function FacilityCategoryCheckboxMenu() {
 
       <Accordion allowToggle width={"100%"} fontSize="xs">
         <AccordionItem border={0} p={0}>
-          {({ isExpanded }) => (
+          {() => (
             <>
               <AccordionButton
-                aria-label={`${isExpanded ? "Close" : "Open"} facility categories menu`}
+                aria-label="Facility categories menu"
                 paddingY={2}
                 paddingRight={2}
                 paddingLeft={0}

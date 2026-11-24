@@ -40,10 +40,9 @@ export function FacilityGroupCheckbox({
   return (
     <Accordion allowToggle width={"100%"} fontSize="xs">
       <AccordionItem p={0} border={0}>
-        {({ isExpanded }) => (
+        {() => (
           <>
             <AccordionButton
-              aria-label={`${isExpanded ? "Close" : "Open"} ${facilityGroupCheckbox.name}`}
               paddingY={2}
               paddingRight={2}
               paddingLeft={5}
