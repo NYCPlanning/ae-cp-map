@@ -16,6 +16,7 @@ import {
   TabList,
   Tabs,
   useBreakpointValue,
+  useMediaQuery,
 } from "@nycplanning/streetscape";
 import {
   Outlet,
@@ -447,6 +448,9 @@ export default function MapPage() {
       md: true,
       lg: true,
     }) ?? false;
+  const isCompactLandscape = useMediaQuery(
+    "(max-width: 991px) and (max-height: 600px) and (orientation: landscape)",
+  )[0];
 
   const [layersAccordionIndex, setLayersAccordionIndex] = useState<number[]>(
     [],
@@ -495,9 +499,13 @@ export default function MapPage() {
         "2xl": "0 0.78dvw",
       }}
       templateRows={{
-        base: "2dvh [tabs-start] 7dvh [panels-start] 2dvh [results-start] minmax(0, 1fr) [panels-end] 2dvh 7dvh",
-        md: "2dvh [tabs-start] 7dvh [panels-start] 2dvh [results-start] minmax(0, 1fr) [panels-end] 2dvh",
-        lg: "2dvh [tabs-start] min-content [tabs-end] [panels-start] minmax(0, 1fr) [panels-end] 2dvh",
+        base: isCompactLandscape
+          ? "2dvh [tabs-start] min-content 1dvh [panels-start] 2dvh [results-start] minmax(0, 1fr) [panels-end] 2dvh 7dvh"
+          : "2dvh [tabs-start] 7dvh [panels-start] 2dvh [results-start] minmax(0, 1fr) [panels-end] 2dvh 7dvh",
+        md: isCompactLandscape
+          ? "2dvh [tabs-start] min-content 1dvh [panels-start] 2dvh [results-start] minmax(0, 1fr) [panels-end] 2dvh"
+          : "2dvh [tabs-start] 7dvh [panels-start] 2dvh [results-start] minmax(0, 1fr) [panels-end] 2dvh",
+        lg: "2dvh [tabs-start] min-content [tabs-end] 1dvh [panels-start] minmax(0, 1fr) [panels-end] 2dvh",
       }}
       width={"100%"}
       height={"100%"}
@@ -908,6 +916,7 @@ export default function MapPage() {
         width={"fit-content"}
         height={"fit-content"}
         alignSelf={"start"}
+        marginTop={{ xl: "1dvh" }}
         zIndex={"2"}
         className={"mapControlsContainer"}
       >
