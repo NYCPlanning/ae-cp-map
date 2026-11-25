@@ -1,8 +1,22 @@
 import { StreetscapeProvider } from "@nycplanning/streetscape";
+import type { TabsProps } from "@chakra-ui/react";
 import { render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { createRoutesStub, Outlet, useLocation } from "react-router";
 import MapPage, { loader } from "./MapPage";
+
+vi.mock("@nycplanning/streetscape", async (importOriginal) => {
+  const streetscape =
+    await importOriginal<typeof import("@nycplanning/streetscape")>();
+
+  return {
+    ...streetscape,
+    // The mapControl variant uses a relative :has() selector that jsdom's
+    // nwsapi engine cannot parse. Keep the real Tabs component but use base
+    // styling so tests don't fail on that unsupported selector.
+    Tabs: (props: TabsProps) => <streetscape.Tabs {...props} variant="base" />,
+  };
+});
 
 vi.mock("../components/atlas.client", () => ({
   Atlas: () => <div data-testid="atlas" />,
