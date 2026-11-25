@@ -5,7 +5,6 @@ import type {
 } from "@nycplanning/streetscape";
 import { Link, useSearchParams, useMatches } from "react-router";
 import { AddressSearch } from "./AddressSearch";
-import { env } from "~/utils/env";
 import { RadiusDropdown } from "./RadiusDropdown";
 
 export function HeaderBar({
@@ -40,7 +39,7 @@ export function HeaderBar({
       gridTemplateColumns={"subgrid"}
       alignItems={"center"}
       gridTemplateRows={{
-        base: env.facDbPhase2 === "ON" ? "auto auto 1dvh" : "auto",
+        base: "auto auto 1dvh",
         lg: "auto",
       }}
       zIndex={"1000"}
@@ -99,56 +98,50 @@ export function HeaderBar({
           </Box>
         </Link>
       </GridItem>
-      {env.facDbPhase2 === "ON" ? (
-        <>
-          <GridItem
-            gridColumn={{
-              base: "2 / span 5",
-              md: "2 / span 5",
-              lg: "5 / span 4",
-              "2xl": "4 / span 3",
-            }}
-            gridRow={{
-              base: "2",
-              lg: "1",
-            }}
-          >
-            {isMapPage && (
-              <AddressSearch
-                combobox={combobox}
-                addressSearchQuery={addressSearchQuery}
-                addressSearchResults={addressSearchResults}
-                addressSearchError={addressSearchError}
-                isLoading={isLoading}
-                aria-label="address search dropdown"
-              />
-            )}
-          </GridItem>
-          <GridItem
-            gridColumn={{
-              base: "7 / span 4",
-              md: "7 / span 4",
-              lg: "9 / span 3",
-              "2xl": "7 / span 2",
-            }}
-            gridRow={{
-              base: "2",
-              lg: "1",
-            }}
-          >
-            {isMapPage && (
-              <RadiusDropdown
-                addressSearchSliderValue={addressSearchSliderValue}
-                setAddressSearchSliderValue={setAddressSearchSliderValue}
-                clearRadiusFilter={clearRadiusFilter}
-                aria-label="radius selection dropdown menu"
-              />
-            )}
-          </GridItem>
-        </>
-      ) : (
-        ""
-      )}
+      <GridItem
+        gridColumn={{
+          base: "2 / span 5",
+          md: "2 / span 5",
+          lg: "5 / span 4",
+          "2xl": "4 / span 3",
+        }}
+        gridRow={{
+          base: "2",
+          lg: "1",
+        }}
+      >
+        {isMapPage && (
+          <AddressSearch
+            combobox={combobox}
+            addressSearchQuery={addressSearchQuery}
+            addressSearchResults={addressSearchResults}
+            addressSearchError={addressSearchError}
+            isLoading={isLoading}
+            aria-label="address search dropdown"
+          />
+        )}
+      </GridItem>
+      <GridItem
+        gridColumn={{
+          base: "7 / span 4",
+          md: "7 / span 4",
+          lg: "9 / span 3",
+          "2xl": "7 / span 2",
+        }}
+        gridRow={{
+          base: "2",
+          lg: "1",
+        }}
+      >
+        {isMapPage && (
+          <RadiusDropdown
+            addressSearchSliderValue={addressSearchSliderValue}
+            setAddressSearchSliderValue={setAddressSearchSliderValue}
+            clearRadiusFilter={clearRadiusFilter}
+            aria-label="radius selection dropdown menu"
+          />
+        )}
+      </GridItem>
       <GridItem
         gridColumn={{
           base: "-4 / -1",
