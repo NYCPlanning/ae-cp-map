@@ -9,9 +9,9 @@ import {
   Heading,
   AccordionIcon,
   AccordionPanel,
+  Button,
   Text,
   HStack,
-  Link,
   Tab,
   TabList,
   Tabs,
@@ -782,34 +782,37 @@ export default function MapPage() {
                         rowGap={0}
                       >
                         <HStack>
-                          <Link
+                          <Button
+                            variant={"tertiary"}
                             color={"primary.600"}
-                            textDecor={"underline"}
-                            cursor={"pointer"}
+                            fontSize={"sm"}
+                            minH={"unset"}
                             onClick={() => {
                               setFiltersAccordionIndex([0, 1, 2, 3]);
                               setIsHousingGrowthExpanded(true);
                             }}
                           >
                             Expand All
-                          </Link>
+                          </Button>
                           <Text>|</Text>
-                          <Link
+                          <Button
+                            variant={"tertiary"}
                             color={"primary.600"}
-                            textDecor={"underline"}
-                            cursor={"pointer"}
+                            fontSize={"sm"}
+                            minH={"unset"}
                             onClick={() => {
                               setFiltersAccordionIndex([]);
                               setIsHousingGrowthExpanded(false);
                             }}
                           >
                             Collapse All
-                          </Link>
+                          </Button>
                         </HStack>
-                        <Link
+                        <Button
+                          variant={"tertiary"}
                           color={"primary.600"}
-                          textDecor={"underline"}
-                          cursor={"pointer"}
+                          fontSize={"sm"}
+                          minH={"unset"}
                           onClick={() => {
                             updateSearchParams({
                               managingAgency: null,
@@ -858,7 +861,7 @@ export default function MapPage() {
                           }}
                         >
                           Clear All
-                        </Link>
+                        </Button>
                       </HStack>
                       <Box display={"flex"} flexDirection={"column"} gap={4}>
                         <Box>
