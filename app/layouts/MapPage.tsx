@@ -441,6 +441,7 @@ export default function MapPage() {
         return 0;
     }
   };
+  const selectedBoundaryIndex = getDefaultIndex(boundaryType);
 
   const isLargeScreen =
     useBreakpointValue({
@@ -517,6 +518,10 @@ export default function MapPage() {
       <GridItem
         gridColumn={"1 / -1"}
         gridRow={"1 / -1"}
+        id={`tabs-boundary-type-tabs--tabpanel-${selectedBoundaryIndex}`}
+        role="tabpanel"
+        aria-labelledby={`tabs-boundary-type-tabs--tab-${selectedBoundaryIndex}`}
+        tabIndex={0}
         className={"atlasContainer"}
       >
         <Atlas
@@ -546,6 +551,7 @@ export default function MapPage() {
         className={"tabsContainer"}
       >
         <Tabs
+          id="boundary-type-tabs"
           variant={"mapControl"}
           style={{
             boxShadow:
@@ -554,7 +560,7 @@ export default function MapPage() {
           }}
           whiteSpace={"nowrap"}
           width={{ base: "100%", md: "fit-content" }}
-          defaultIndex={getDefaultIndex(boundaryType)}
+          index={selectedBoundaryIndex}
         >
           <TabList
             key={"TabList"}

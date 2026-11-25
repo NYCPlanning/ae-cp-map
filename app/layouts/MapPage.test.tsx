@@ -1,20 +1,8 @@
 import { StreetscapeProvider } from "@nycplanning/streetscape";
 import { render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import { createRoutesStub, Outlet } from "react-router";
+import { createRoutesStub, Outlet, useLocation } from "react-router";
 import MapPage, { loader } from "./MapPage";
-
-vi.mock("@nycplanning/streetscape", async (importOriginal) => {
-  const streetscape =
-    await importOriginal<typeof import("@nycplanning/streetscape")>();
-
-  return {
-    ...streetscape,
-    Tab: ({ children }: { children: React.ReactNode }) => (
-      <button type="button">{children}</button>
-    ),
-  };
-});
 
 vi.mock("../components/atlas.client", () => ({
   Atlas: () => <div data-testid="atlas" />,
@@ -43,23 +31,32 @@ const loaderData: Awaited<ReturnType<typeof loader>> = {
   facilitySubgroupIds: [],
 };
 
-const MapPageOutlet = () => (
-  <Outlet
-    context={{
-      viewState: {
-        longitude: -74,
-        latitude: 40.7,
-        zoom: 10,
-        bearing: 0,
-        pitch: 0,
-      },
-      setViewState: vi.fn(),
-      clearCombobox: vi.fn(),
-      addressSearchSliderValue: undefined,
-      clearRadiusFilter: vi.fn(),
-    }}
-  />
-);
+const MapPageOutlet = () => {
+  const { search } = useLocation();
+
+  return (
+    <>
+      <output data-testid="location-search" hidden>
+        {search}
+      </output>
+      <Outlet
+        context={{
+          viewState: {
+            longitude: -74,
+            latitude: 40.7,
+            zoom: 10,
+            bearing: 0,
+            pitch: 0,
+          },
+          setViewState: vi.fn(),
+          clearCombobox: vi.fn(),
+          addressSearchSliderValue: undefined,
+          clearRadiusFilter: vi.fn(),
+        }}
+      />
+    </>
+  );
+};
 
 const renderMapPage = (queryString: string) => {
   const Stub = createRoutesStub([
@@ -93,6 +90,70 @@ const openLayersPanel = async () => {
     }),
   );
 };
+
+describe("MapPage geographic boundary selector", () => {
+  const getSearchParams = () =>
+    new URLSearchParams(
+      screen.getByTestId("location-search").textContent ?? "",
+    );
+
+  it("clears and restores community district params", async () => {
+    renderMapPage("boundaryType=cd&communityDistrictIds=1");
+
+    await userEvent.click(screen.getByRole("tab", { name: "Boroughs" }));
+    await waitFor(() => {
+      expect(getSearchParams().get("boundaryType")).toBe("borough");
+      expect(getSearchParams().get("communityDistrictIds")).toBeNull();
+    });
+
+    await userEvent.click(
+      screen.getByRole("tab", { name: "Community Districts" }),
+    );
+
+    await waitFor(() => {
+      expect(getSearchParams().get("boundaryType")).toBe("cd");
+      expect(getSearchParams().get("communityDistrictIds")).toBe("1");
+    });
+  });
+
+  it("clears and restores city council params", async () => {
+    renderMapPage("boundaryType=ccd&cityCouncilDistrictIds=2");
+
+    await userEvent.click(
+      screen.getByRole("tab", { name: "Community Districts" }),
+    );
+    await waitFor(() => {
+      expect(getSearchParams().get("boundaryType")).toBe("cd");
+      expect(getSearchParams().get("cityCouncilDistrictIds")).toBeNull();
+    });
+
+    await userEvent.click(screen.getByRole("tab", { name: "City Council" }));
+
+    await waitFor(() => {
+      expect(getSearchParams().get("boundaryType")).toBe("ccd");
+      expect(getSearchParams().get("cityCouncilDistrictIds")).toBe("2");
+    });
+  });
+
+  it("clears and restores borough params", async () => {
+    renderMapPage("boundaryType=borough&boroughIds=3");
+
+    await userEvent.click(
+      screen.getByRole("tab", { name: "Community Districts" }),
+    );
+    await waitFor(() => {
+      expect(getSearchParams().get("boundaryType")).toBe("cd");
+      expect(getSearchParams().get("boroughIds")).toBeNull();
+    });
+
+    await userEvent.click(screen.getByRole("tab", { name: "Boroughs" }));
+
+    await waitFor(() => {
+      expect(getSearchParams().get("boundaryType")).toBe("borough");
+      expect(getSearchParams().get("boroughIds")).toBe("3");
+    });
+  });
+});
 
 describe("MapPage layer filter visibility", () => {
   it("shows each layer's filters when the layers are on", async () => {
