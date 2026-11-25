@@ -7,7 +7,7 @@ import {
   useDismissWelcomeAndUpdateSearchParams,
 } from "~/utils/utils";
 
-const { zoningApiUrl, facDbPhase3 } = env;
+const { zoningApiUrl } = env;
 
 export interface BoroughProperties {
   layerName: string;
@@ -58,41 +58,24 @@ export function useBoroughsLayer({
       }
     },
     onClick: (info) => {
-      if (facDbPhase3 == "ON") {
-        const newBoroughId = info.object.properties.id;
-        if (boroughIds?.includes(newBoroughId)) {
-          updateSearchParams({
-            boroughIds:
-              boroughIds.length === 1
-                ? null
-                : boroughIds.filter((id) => id !== newBoroughId).join(","),
-          });
-        } else {
-          clearCombobox();
-          dismissWelcomeAndUpdateSearchParams("/capital-projects", {
-            boroughIds: boroughIds
-              ? boroughIds.concat(newBoroughId).join(",")
-              : newBoroughId,
-            search: undefined,
-            radius: undefined,
-            pin: undefined,
-          });
-        }
+      const newBoroughId = info.object.properties.id;
+      if (boroughIds?.includes(newBoroughId)) {
+        updateSearchParams({
+          boroughIds:
+            boroughIds.length === 1
+              ? null
+              : boroughIds.filter((id) => id !== newBoroughId).join(","),
+        });
       } else {
-        const newBoroughId = info.object.properties.id;
-        if (boroughIds === newBoroughId) {
-          updateSearchParams({
-            boroughIds: null,
-          });
-        } else {
-          clearCombobox();
-          dismissWelcomeAndUpdateSearchParams("/capital-projects", {
-            boroughIds: info.object.properties.id,
-            search: undefined,
-            radius: undefined,
-            pin: undefined,
-          });
-        }
+        clearCombobox();
+        dismissWelcomeAndUpdateSearchParams("/capital-projects", {
+          boroughIds: boroughIds
+            ? boroughIds.concat(newBoroughId).join(",")
+            : newBoroughId,
+          search: undefined,
+          radius: undefined,
+          pin: undefined,
+        });
       }
     },
     pointType: "text",
