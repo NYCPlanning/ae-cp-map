@@ -219,6 +219,20 @@ describe("MapPage layer filter visibility", () => {
     });
   });
 
+  it("allows keyboard focus on the layer filter controls", async () => {
+    renderMapPage("layers=");
+    await openLayersPanel();
+
+    await userEvent.tab();
+    expect(screen.getByRole("button", { name: "Expand All" })).toHaveFocus();
+
+    await userEvent.tab();
+    expect(screen.getByRole("button", { name: "Collapse All" })).toHaveFocus();
+
+    await userEvent.tab();
+    expect(screen.getByRole("button", { name: "Clear All" })).toHaveFocus();
+  });
+
   it("does not open How to Use This Tool when Housing Growth is turned on", async () => {
     renderMapPage("layers=");
     await openLayersPanel();
