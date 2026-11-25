@@ -30,7 +30,7 @@ import { useSearchParams } from "react-router";
 
 export const MAX_ZOOM = 20;
 export const MIN_ZOOM = 10;
-const { basemapUrl, facDbPhase2 } = env;
+const { basemapUrl } = env;
 
 export const INITIAL_VIEW_STATE = {
   longitude: -74.0008,
@@ -123,34 +123,10 @@ export function Atlas({
   const [searchParams] = useSearchParams();
   const supportingLayers = searchParams.get("supportingLayers");
 
-  const LAYER_LIST =
-    facDbPhase2 == "ON"
+  const LAYER_LIST = [
+    boundaryMvtMask,
+    ...(supportingLayers === null
       ? [
-          boundaryMvtMask,
-          ...(supportingLayers === null
-            ? [
-                communityDistrictsOutlinesLayer,
-                cityCouncilDistrictsOutlinesLayer,
-                communityDistrictsLayer,
-                communityDistrictLayer,
-                cityCouncilDistrictsLayer,
-                cityCouncilDistrictLayer,
-                boroughsLayer,
-                boroughsOutlinesLayer,
-                boroughLayer,
-              ]
-            : []),
-          housingGrowthLayer,
-          capitalProjectsLayer,
-          capitalProjectBudgetedGeoJsonLayer,
-          facilitiesLayer,
-          facilitiesGeoJsonLayer,
-          communityBoardBudgetRequestsLayer,
-          communityBoardBudgetRequestGeoJsonLayer,
-          mapPinLayer,
-        ]
-      : [
-          boundaryMvtMask,
           communityDistrictsOutlinesLayer,
           cityCouncilDistrictsOutlinesLayer,
           communityDistrictsLayer,
@@ -160,11 +136,17 @@ export function Atlas({
           boroughsLayer,
           boroughsOutlinesLayer,
           boroughLayer,
-          capitalProjectsLayer,
-          capitalProjectBudgetedGeoJsonLayer,
-          communityBoardBudgetRequestsLayer,
-          communityBoardBudgetRequestGeoJsonLayer,
-        ];
+        ]
+      : []),
+    housingGrowthLayer,
+    capitalProjectsLayer,
+    capitalProjectBudgetedGeoJsonLayer,
+    facilitiesLayer,
+    facilitiesGeoJsonLayer,
+    communityBoardBudgetRequestsLayer,
+    communityBoardBudgetRequestGeoJsonLayer,
+    mapPinLayer,
+  ];
 
   return (
     <DeckGL<MapView>
