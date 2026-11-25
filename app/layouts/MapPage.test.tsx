@@ -72,7 +72,7 @@ const MapPageOutlet = () => {
   );
 };
 
-const renderMapPage = (queryString: string) => {
+const renderMapPage = async (queryString: string) => {
   const Stub = createRoutesStub([
     {
       path: "/",
@@ -88,15 +88,17 @@ const renderMapPage = (queryString: string) => {
     },
   ]);
 
-  return render(
+  const rendered = render(
     <StreetscapeProvider>
       <Stub initialEntries={[`/map?${queryString}`]} />
     </StreetscapeProvider>,
   );
+
+  await screen.findByTestId("atlas");
+  return rendered;
 };
 
 const openLayersPanel = async () => {
-  await screen.findByTestId("atlas");
   await userEvent.click(
     screen.getByRole("button", {
       name: "Capital Planning Data",
@@ -112,7 +114,7 @@ describe("MapPage geographic boundary selector", () => {
     );
 
   it("clears and restores community district params", async () => {
-    renderMapPage("boundaryType=cd&communityDistrictIds=1");
+    await renderMapPage("boundaryType=cd&communityDistrictIds=1");
 
     await userEvent.click(screen.getByRole("tab", { name: "Boroughs" }));
     await waitFor(() => {
@@ -131,7 +133,7 @@ describe("MapPage geographic boundary selector", () => {
   });
 
   it("clears and restores city council params", async () => {
-    renderMapPage("boundaryType=ccd&cityCouncilDistrictIds=2");
+    await renderMapPage("boundaryType=ccd&cityCouncilDistrictIds=2");
 
     await userEvent.click(
       screen.getByRole("tab", { name: "Community Districts" }),
@@ -150,7 +152,7 @@ describe("MapPage geographic boundary selector", () => {
   });
 
   it("clears and restores borough params", async () => {
-    renderMapPage("boundaryType=borough&boroughIds=3");
+    await renderMapPage("boundaryType=borough&boroughIds=3");
 
     await userEvent.click(
       screen.getByRole("tab", { name: "Community Districts" }),
@@ -171,7 +173,7 @@ describe("MapPage geographic boundary selector", () => {
 
 describe("MapPage layer filter visibility", () => {
   it("shows each layer's filters when the layers are on", async () => {
-    renderMapPage("layers=");
+    await renderMapPage("layers=");
     await openLayersPanel();
 
     expect(
@@ -192,7 +194,7 @@ describe("MapPage layer filter visibility", () => {
   });
 
   it("only shows filters for layers that are toggled on", async () => {
-    renderMapPage("layers=");
+    await renderMapPage("layers=");
     await openLayersPanel();
 
     await userEvent.click(screen.getByText("Expand All"));
@@ -234,7 +236,7 @@ describe("MapPage layer filter visibility", () => {
   });
 
   it("does not open How to Use This Tool when Housing Growth is turned on", async () => {
-    renderMapPage("layers=");
+    await renderMapPage("layers=");
     await openLayersPanel();
 
     await userEvent.click(screen.getByLabelText("Housing Growth layer"));
@@ -246,13 +248,13 @@ describe("MapPage layer filter visibility", () => {
     ).toHaveAttribute("aria-expanded", "true");
     expect(
       screen.getByRole("button", {
-        name: "How to use this tool panel",
+        name: "How to Use This Tool",
       }),
     ).toHaveAttribute("aria-expanded", "false");
   });
 
   it("expands all layer accordions except How to Use This Tool", async () => {
-    renderMapPage("layers=capitalProjects,cbbr,facilities");
+    await renderMapPage("layers=capitalProjects,cbbr,facilities");
     await openLayersPanel();
 
     await userEvent.click(screen.getByText("Expand All"));
@@ -273,7 +275,9 @@ describe("MapPage layer filter visibility", () => {
       }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
-      screen.getByRole("button", { name: "Legend panel" }),
+      screen.getByRole("button", {
+        name: "Community Board Budget Request Legend",
+      }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
       screen.getByRole("button", {
@@ -282,17 +286,17 @@ describe("MapPage layer filter visibility", () => {
     ).toHaveAttribute("aria-expanded", "true");
     expect(
       screen.getByRole("button", {
-        name: "How to use this tool panel",
+        name: "How to Use This Tool",
       }),
     ).toHaveAttribute("aria-expanded", "false");
   });
 
   it("collapses all layer accordions without changing How to Use This Tool", async () => {
-    renderMapPage("layers=capitalProjects,cbbr,facilities");
+    await renderMapPage("layers=capitalProjects,cbbr,facilities");
     await openLayersPanel();
 
     const howToButton = screen.getByRole("button", {
-      name: "How to use this tool panel",
+      name: "How to Use This Tool",
     });
     await userEvent.click(howToButton);
     await userEvent.click(screen.getByText("Collapse All"));
@@ -313,7 +317,9 @@ describe("MapPage layer filter visibility", () => {
       }),
     ).toHaveAttribute("aria-expanded", "false");
     expect(
-      screen.getByRole("button", { name: "Legend panel" }),
+      screen.getByRole("button", {
+        name: "Community Board Budget Request Legend",
+      }),
     ).toHaveAttribute("aria-expanded", "false");
     expect(
       screen.getByRole("button", {
@@ -321,12 +327,12 @@ describe("MapPage layer filter visibility", () => {
       }),
     ).toHaveAttribute("aria-expanded", "false");
     expect(
-      screen.getByRole("button", { name: "How to use this tool panel" }),
+      screen.getByRole("button", { name: "How to Use This Tool" }),
     ).toHaveAttribute("aria-expanded", "true");
   });
 
   it("clears applied filters without turning off any layers", async () => {
-    renderMapPage(
+    await renderMapPage(
       "layers=capitalProjects,cbbr,facilities&supportingLayers=housing&commitmentsTotalMin=100&commitmentsTotalMax=500&cbbrPolicyAreaId=1&cbbrNeedGroupId=1&cbbrAgencyInitials=DOT",
     );
     await openLayersPanel();

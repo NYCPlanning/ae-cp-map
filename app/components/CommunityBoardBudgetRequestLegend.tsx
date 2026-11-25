@@ -36,7 +36,7 @@ export const CommunityBoardBudgetRequestLegend = ({
       {({ isExpanded }) => (
         <>
           <AccordionButton
-            aria-label="Community Board Budget Reqeust Legend"
+            aria-label="Community Board Budget Request Legend"
             paddingY={0}
             paddingX={3}
             onClick={updateFiltersAccordion}
