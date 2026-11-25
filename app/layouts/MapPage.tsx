@@ -45,7 +45,6 @@ import {
   CommunityBoardBudgetRequestAgencyCategoryResponseId,
   CommunityBoardBudgetRequestNeedGroupId,
   CommunityBoardBudgetRequestPolicyAreaId,
-  BoundaryId,
   BoundaryType,
   FacilityType,
   FacilityJurisdiction,
@@ -421,8 +420,6 @@ export default function MapPage() {
   const showFacilities = layers.includes("facilities");
 
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
-  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
-  const boroughId = searchParams.get("boroughId") as BoroughId;
   const boroughIds = searchParams.get("boroughIds") as BoroughId;
   const cityCouncilDistrictIds = searchParams.get(
     "cityCouncilDistrictIds",
@@ -580,10 +577,7 @@ export default function MapPage() {
                     ...savedGeoSelection,
                     borough: { boroughIds },
                   });
-                if (
-                  boundaryType === "ccd" &&
-                  (boundaryId !== null || cityCouncilDistrictIds !== null)
-                )
+                if (boundaryType === "ccd" && cityCouncilDistrictIds !== null)
                   setSavedGeoSelection({
                     ...savedGeoSelection,
                     ccd: {
@@ -623,11 +617,7 @@ export default function MapPage() {
                     ...savedGeoSelection,
                     borough: { boroughIds },
                   });
-                if (
-                  boundaryType === "cd" &&
-                  ((boundaryId !== null && boroughId !== null) ||
-                    communityDistrictIds !== null)
-                )
+                if (boundaryType === "cd" && communityDistrictIds !== null)
                   setSavedGeoSelection({
                     ...savedGeoSelection,
                     cd: { communityDistrictIds },
@@ -659,19 +649,12 @@ export default function MapPage() {
               }}
               gridRow={1}
               onClick={() => {
-                if (
-                  boundaryType === "cd" &&
-                  ((boundaryId !== null && boroughId !== null) ||
-                    communityDistrictIds !== null)
-                )
+                if (boundaryType === "cd" && communityDistrictIds !== null)
                   setSavedGeoSelection({
                     ...savedGeoSelection,
                     cd: { communityDistrictIds },
                   });
-                if (
-                  boundaryType === "ccd" &&
-                  (boundaryId !== null || cityCouncilDistrictIds !== null)
-                )
+                if (boundaryType === "ccd" && cityCouncilDistrictIds !== null)
                   setSavedGeoSelection({
                     ...savedGeoSelection,
                     ccd: {
