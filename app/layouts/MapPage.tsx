@@ -45,7 +45,6 @@ import {
   CommunityBoardBudgetRequestAgencyCategoryResponseId,
   CommunityBoardBudgetRequestNeedGroupId,
   CommunityBoardBudgetRequestPolicyAreaId,
-  BoundaryId,
   BoundaryType,
   FacilityType,
   FacilityJurisdiction,
@@ -421,8 +420,6 @@ export default function MapPage() {
   const showFacilities = layers.includes("facilities");
 
   const boundaryType = searchParams.get("boundaryType") as BoundaryType;
-  const boundaryId = searchParams.get("boundaryId") as BoundaryId;
-  const boroughId = searchParams.get("boroughId") as BoroughId;
   const boroughIds = searchParams.get("boroughIds") as BoroughId;
   const cityCouncilDistrictIds = searchParams.get(
     "cityCouncilDistrictIds",
@@ -482,6 +479,49 @@ export default function MapPage() {
     ccd: { cityCouncilDistrictIds: string } | undefined;
     borough: { boroughIds: string } | undefined;
   }>({ cd: undefined, ccd: undefined, borough: undefined });
+
+  const handleBoundaryTypeChange = (
+    nextBoundaryType: Exclude<BoundaryType, null>,
+  ) => {
+    if (boundaryType === "cd" && communityDistrictIds !== null) {
+      setSavedGeoSelection((previous) => ({
+        ...previous,
+        cd: { communityDistrictIds },
+      }));
+    } else if (boundaryType === "ccd" && cityCouncilDistrictIds !== null) {
+      setSavedGeoSelection((previous) => ({
+        ...previous,
+        ccd: { cityCouncilDistrictIds },
+      }));
+    } else if (boundaryType === "borough" && boroughIds !== null) {
+      setSavedGeoSelection((previous) => ({
+        ...previous,
+        borough: { boroughIds },
+      }));
+    }
+
+    const selectionParams = {
+      cd: {
+        communityDistrictIds:
+          savedGeoSelection.cd?.communityDistrictIds ?? null,
+      },
+      ccd: {
+        cityCouncilDistrictIds:
+          savedGeoSelection.ccd?.cityCouncilDistrictIds ?? null,
+      },
+      borough: {
+        boroughIds: savedGeoSelection.borough?.boroughIds ?? null,
+      },
+    }[nextBoundaryType];
+
+    updateSearchParams({
+      boundaryType: nextBoundaryType,
+      boroughIds: null,
+      cityCouncilDistrictIds: null,
+      communityDistrictIds: null,
+      ...selectionParams,
+    });
+  };
 
   return (
     <Grid
@@ -574,39 +614,7 @@ export default function MapPage() {
                 md: "sm",
               }}
               gridRow={1}
-              onClick={() => {
-                if (boundaryType === "borough" && boroughIds !== null)
-                  setSavedGeoSelection({
-                    ...savedGeoSelection,
-                    borough: { boroughIds },
-                  });
-                if (
-                  boundaryType === "ccd" &&
-                  (boundaryId !== null || cityCouncilDistrictIds !== null)
-                )
-                  setSavedGeoSelection({
-                    ...savedGeoSelection,
-                    ccd: {
-                      cityCouncilDistrictIds,
-                    },
-                  });
-                if (savedGeoSelection.cd === undefined) {
-                  updateSearchParams({
-                    boundaryType: "cd",
-                    boroughIds: null,
-                    cityCouncilDistrictIds: null,
-                    communityDistrictIds: null,
-                  });
-                } else {
-                  updateSearchParams({
-                    boundaryType: "cd",
-                    boroughIds: null,
-                    cityCouncilDistrictIds: null,
-                    communityDistrictIds:
-                      savedGeoSelection.cd.communityDistrictIds,
-                  });
-                }
-              }}
+              onClick={() => handleBoundaryTypeChange("cd")}
             >
               Community Districts
             </Tab>
@@ -617,37 +625,7 @@ export default function MapPage() {
                 md: "sm",
               }}
               gridRow={1}
-              onClick={() => {
-                if (boundaryType === "borough" && boroughIds !== null)
-                  setSavedGeoSelection({
-                    ...savedGeoSelection,
-                    borough: { boroughIds },
-                  });
-                if (
-                  boundaryType === "cd" &&
-                  ((boundaryId !== null && boroughId !== null) ||
-                    communityDistrictIds !== null)
-                )
-                  setSavedGeoSelection({
-                    ...savedGeoSelection,
-                    cd: { communityDistrictIds },
-                  });
-                if (savedGeoSelection.ccd === undefined) {
-                  updateSearchParams({
-                    boundaryType: "ccd",
-                    boroughIds: null,
-                    communityDistrictIds: null,
-                  });
-                } else {
-                  updateSearchParams({
-                    boundaryType: "ccd",
-                    boroughIds: null,
-                    cityCouncilDistrictIds:
-                      savedGeoSelection.ccd.cityCouncilDistrictIds,
-                    communityDistrictIds: null,
-                  });
-                }
-              }}
+              onClick={() => handleBoundaryTypeChange("ccd")}
             >
               City Council
             </Tab>
@@ -658,42 +636,7 @@ export default function MapPage() {
                 md: "sm",
               }}
               gridRow={1}
-              onClick={() => {
-                if (
-                  boundaryType === "cd" &&
-                  ((boundaryId !== null && boroughId !== null) ||
-                    communityDistrictIds !== null)
-                )
-                  setSavedGeoSelection({
-                    ...savedGeoSelection,
-                    cd: { communityDistrictIds },
-                  });
-                if (
-                  boundaryType === "ccd" &&
-                  (boundaryId !== null || cityCouncilDistrictIds !== null)
-                )
-                  setSavedGeoSelection({
-                    ...savedGeoSelection,
-                    ccd: {
-                      cityCouncilDistrictIds,
-                    },
-                  });
-                if (savedGeoSelection.borough === undefined) {
-                  updateSearchParams({
-                    boundaryType: "borough",
-                    boroughIds: null,
-                    cityCouncilDistrictIds: null,
-                    communityDistrictIds: null,
-                  });
-                } else {
-                  updateSearchParams({
-                    boundaryType: "borough",
-                    boroughIds: savedGeoSelection.borough.boroughIds,
-                    cityCouncilDistrictIds: null,
-                    communityDistrictIds: null,
-                  });
-                }
-              }}
+              onClick={() => handleBoundaryTypeChange("borough")}
             >
               Boroughs
             </Tab>
