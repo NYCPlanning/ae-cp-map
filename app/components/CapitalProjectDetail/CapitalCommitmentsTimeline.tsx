@@ -86,15 +86,15 @@ export function CapitalCommitmentsTimeline({
             y2="30"
             stroke="var(--dcp-colors-teal-500)"
           />
-          <circle cx="50" cy="30" r="2" fill="var(--dcp-colors-gray-500)" />
-          <circle cx="150" cy="30" r="3" fill="var(--dcp-colors-teal-500)" />
-          <circle cx="250" cy="30" r="2" fill="var(--dcp-colors-gray-500)" />
+          <circle cx="50" cy="30" r="2" fill="var(--dcp-colors-teal-500)" />
+          <circle cx="150" cy="30" r="2" fill="var(--dcp-colors-teal-500)" />
+          <circle cx="250" cy="30" r="2" fill="var(--dcp-colors-teal-500)" />
         </g>
         <g>
           <text
             x="50"
             y="20"
-            fill="var(--dcp-colors-gray-500)"
+            fill="var(--dcp-colors-gray-600)"
             fontSize="var(--dcp-fontSizes-sm)"
             fontWeight={"bold"}
             textAnchor="middle"
@@ -110,7 +110,7 @@ export function CapitalCommitmentsTimeline({
           <text
             x="50"
             y="45"
-            fill="var(--dcp-colors-gray-500)"
+            fill="var(--dcp-colors-gray-600)"
             fontSize="var(--dcp-fontSizes-xs)"
             textAnchor="middle"
           >
@@ -119,7 +119,7 @@ export function CapitalCommitmentsTimeline({
           <text
             x="50"
             y="60"
-            fill="var(--dcp-colors-gray-500)"
+            fill="var(--dcp-colors-gray-600)"
             fontSize="var(--dcp-fontSizes-xs)"
             textAnchor="middle"
           >
@@ -128,7 +128,7 @@ export function CapitalCommitmentsTimeline({
           <text
             x="150"
             y="20"
-            fill="var(--dcp-colors-gray-500)"
+            fill="var(--dcp-colors-gray-600)"
             fontSize="var(--dcp-fontSizes-sm)"
             fontWeight={"bold"}
             textAnchor="middle"
