@@ -11,8 +11,6 @@ import {
   RadioGroup,
   Text,
   Heading,
-  FormControl,
-  FormLabel,
   Box,
   Stack,
   StreetscapeProvider,
@@ -402,117 +400,112 @@ export function ExportDataModal() {
                 )}
               </Box>
               <Box>
-                <FormControl>
-                  <FormLabel htmlFor="export-all-districts">
-                    <Heading
-                      as={"h2"}
-                      fontWeight={"bold"}
-                      fontSize={"xs"}
-                      color={"primary.600"}
-                    >
-                      Datasets
-                    </Heading>
-                  </FormLabel>
-                  <RadioGroup
-                    name="datasets"
-                    value={dataSetForExport}
-                    onChange={(e) =>
-                      updateDataSetForExport({
-                        dataSetForExport:
-                          e as UpdateExportDataModalProps["dataSetForExport"],
-                      })
-                    }
-                  >
-                    <Stack gap={3}>
-                      <Stack gap={0}>
-                        <Radio
-                          name="capital-projects"
-                          size="sm"
-                          value="capital-projects"
-                        >
-                          <Text fontSize="md">Capital Projects</Text>
-                        </Radio>
-                        {selectedDownloadOptions.capitalProjectsAppliedFilters >
-                          0 && (
-                          <HStack justifyContent={"space-between"}>
-                            <Text fontSize="xs" ml={7}>
-                              Applied Filters (
-                              {
-                                selectedDownloadOptions.capitalProjectsAppliedFilters
-                              }
-                              )
-                            </Text>
-                            <Button
-                              variant={"tertiary"}
-                              size="xs"
-                              minH="fit-content"
-                              onClick={clearCapitalProjectFilters}
-                              aria-label="Clear Capital Projects filters"
-                            >
-                              clear
-                            </Button>
-                          </HStack>
-                        )}
-                      </Stack>
-                      <Stack gap={0}>
-                        <Radio
-                          name="community-board-budget-requests"
-                          size="sm"
-                          value="community-board-budget-requests"
-                        >
-                          <Text fontSize="md">
-                            Community Board Budget Requests
+                <Text
+                  id="export-datasets-label"
+                  fontWeight={"bold"}
+                  fontSize={"xs"}
+                  color={"primary.600"}
+                >
+                  Datasets
+                </Text>
+                <RadioGroup
+                  aria-labelledby="export-datasets-label"
+                  name="datasets"
+                  value={dataSetForExport}
+                  onChange={(e) =>
+                    updateDataSetForExport({
+                      dataSetForExport:
+                        e as UpdateExportDataModalProps["dataSetForExport"],
+                    })
+                  }
+                >
+                  <Stack gap={3}>
+                    <Stack gap={0}>
+                      <Radio
+                        name="capital-projects"
+                        size="sm"
+                        value="capital-projects"
+                      >
+                        <Text fontSize="md">Capital Projects</Text>
+                      </Radio>
+                      {selectedDownloadOptions.capitalProjectsAppliedFilters >
+                        0 && (
+                        <HStack justifyContent={"space-between"}>
+                          <Text fontSize="xs" ml={7}>
+                            Applied Filters (
+                            {
+                              selectedDownloadOptions.capitalProjectsAppliedFilters
+                            }
+                            )
                           </Text>
-                        </Radio>
-                        {selectedDownloadOptions.communityBoardBudgetRequestsAppliedFilters >
-                          0 && (
-                          <HStack justifyContent={"space-between"}>
-                            <Text fontSize="xs" ml={7}>
-                              Applied Filters (
-                              {
-                                selectedDownloadOptions.communityBoardBudgetRequestsAppliedFilters
-                              }
-                              )
-                            </Text>
-                            <Button
-                              variant={"tertiary"}
-                              size="xs"
-                              minH="fit-content"
-                              onClick={clearCommunityBoardBudgetRequestFilters}
-                              aria-label="Clear Community Board Budget Requests filters"
-                            >
-                              clear
-                            </Button>
-                          </HStack>
-                        )}
-                      </Stack>
-                      <Stack gap={0}>
-                        <Radio name="facilities" size="sm" value="facilities">
-                          <Text fontSize="md">Facilities</Text>
-                        </Radio>
-                        {selectedDownloadOptions.facilitiesAppliedFilters >
-                          0 && (
-                          <HStack justifyContent={"space-between"}>
-                            <Text fontSize="xs" ml={7}>
-                              Applied Filters (
-                              {selectedDownloadOptions.facilitiesAppliedFilters}
-                              )
-                            </Text>
-                            <Button
-                              variant={"tertiary"}
-                              size="xs"
-                              minH="fit-content"
-                              onClick={clearFacilityFilters}
-                              aria-label="Clear Facilities filters"
-                            >
-                              clear
-                            </Button>
-                          </HStack>
-                        )}
-                      </Stack>
+                          <Button
+                            variant={"tertiary"}
+                            size="xs"
+                            minH="fit-content"
+                            onClick={clearCapitalProjectFilters}
+                            aria-label="Clear Capital Projects filters"
+                          >
+                            clear
+                          </Button>
+                        </HStack>
+                      )}
                     </Stack>
-                  </RadioGroup>
-                </FormControl>
+                    <Stack gap={0}>
+                      <Radio
+                        name="community-board-budget-requests"
+                        size="sm"
+                        value="community-board-budget-requests"
+                      >
+                        <Text fontSize="md">
+                          Community Board Budget Requests
+                        </Text>
+                      </Radio>
+                      {selectedDownloadOptions.communityBoardBudgetRequestsAppliedFilters >
+                        0 && (
+                        <HStack justifyContent={"space-between"}>
+                          <Text fontSize="xs" ml={7}>
+                            Applied Filters (
+                            {
+                              selectedDownloadOptions.communityBoardBudgetRequestsAppliedFilters
+                            }
+                            )
+                          </Text>
+                          <Button
+                            variant={"tertiary"}
+                            size="xs"
+                            minH="fit-content"
+                            onClick={clearCommunityBoardBudgetRequestFilters}
+                            aria-label="Clear Community Board Budget Requests filters"
+                          >
+                            clear
+                          </Button>
+                        </HStack>
+                      )}
+                    </Stack>
+                    <Stack gap={0}>
+                      <Radio name="facilities" size="sm" value="facilities">
+                        <Text fontSize="md">Facilities</Text>
+                      </Radio>
+                      {selectedDownloadOptions.facilitiesAppliedFilters > 0 && (
+                        <HStack justifyContent={"space-between"}>
+                          <Text fontSize="xs" ml={7}>
+                            Applied Filters (
+                            {selectedDownloadOptions.facilitiesAppliedFilters})
+                          </Text>
+                          <Button
+                            variant={"tertiary"}
+                            size="xs"
+                            minH="fit-content"
+                            onClick={clearFacilityFilters}
+                            aria-label="Clear Facilities filters"
+                          >
+                            clear
+                          </Button>
+                        </HStack>
+                      )}
+                    </Stack>
+                  </Stack>
+                </RadioGroup>
               </Box>
             </ModalBody>
             <ModalFooter>
