@@ -1,10 +1,5 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import ResultsPanelMain from "./ResultsPanel";
 import { createRoutesStub, Outlet, useSearchParams } from "react-router";
 import { useState } from "react";
@@ -13,10 +8,12 @@ import {
   createFindBoroughs200,
   createFindCapitalProjects200,
   createFindCommunityBoardBudgetRequests200,
+  createFindFacilities200,
 } from "~/gen/mocks";
 
 const ParentWithContext = () => {
   const [hoveredOverItem, setHoveredOverItem] = useState<string | null>(null);
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [, setSearchParams] = useSearchParams();
 
   const clearRadiusFilter = () => {
@@ -29,21 +26,31 @@ const ParentWithContext = () => {
 
   return (
     <Outlet
-      context={{ hoveredOverItem, setHoveredOverItem, clearRadiusFilter }}
+      context={{
+        hoveredOverItem,
+        setHoveredOverItem,
+        clearRadiusFilter,
+        isPanelOpen,
+        setIsPanelOpen,
+      }}
     />
   );
 };
 
 describe("Results Panel", () => {
   const agenciesResponse = createFindAgencies200();
-  const boroughsResponse = createFindBoroughs200();
+  const boroughsResponse = createFindBoroughs200({
+    boroughs: [{ id: "1", title: "Manhattan", abbr: "MN" }],
+  });
   const budgetRequestsResponse = createFindCommunityBoardBudgetRequests200();
   const capitalProjectsResponse = createFindCapitalProjects200();
+  const facilitiesResponse = createFindFacilities200();
   const loader = async () => {
     return {
       agenciesResponse,
       budgetRequestsResponse,
       capitalProjectsResponse,
+      facilitiesResponse,
       boroughsResponse,
     };
   };
@@ -54,16 +61,18 @@ describe("Results Panel", () => {
       Component: ParentWithContext,
       children: [
         {
-          path: "capital-projects",
+          id: "layouts/ResultsPanel",
           Component: ResultsPanelMain,
           loader,
           HydrateFallback: () => <></>,
-        },
-        {
-          path: "community-board-budget-requests",
-          Component: ResultsPanelMain,
-          loader,
-          HydrateFallback: () => <></>,
+          children: [
+            { path: "capital-projects", Component: () => null },
+            {
+              path: "community-board-budget-requests",
+              Component: () => null,
+            },
+            { path: "facilities", Component: () => null },
+          ],
         },
       ],
     },
@@ -79,17 +88,21 @@ describe("Results Panel", () => {
 
   it("should switch tabs from capital projects to community board budget requests", async () => {
     render(<Stub initialEntries={["/capital-projects"]} />);
+    await userEvent.click(
+      await screen.findByRole("button", { name: "Results panel" }),
+    );
     await waitFor(() =>
       screen.getByText(
         new RegExp(capitalProjectsResponse.totalProjects.toString()),
       ),
     );
-    const budgetRequestTab = screen.getByText(/Budget Requests/);
-    await waitFor(() => budgetRequestTab.click());
+    await userEvent.click(
+      screen.getByRole("tab", { name: /Budget.*Requests/ }),
+    );
     await waitFor(() =>
-      screen.getByText(
-        new RegExp(budgetRequestsResponse.totalBudgetRequests.toString()),
-      ),
+      expect(
+        screen.getByRole("tab", { name: /Budget.*Requests/ }),
+      ).toHaveAttribute("aria-selected", "true"),
     );
   });
 
@@ -154,7 +167,7 @@ describe("Results Panel", () => {
     );
     await waitFor(() => screen.getByText("City Council"));
     const closeIcon = screen.getByLabelText("closeIcon");
-    await act(() => fireEvent.click(closeIcon));
+    await userEvent.click(closeIcon);
     await waitFor(() =>
       expect(screen.queryByText("City Council")).not.toBeInTheDocument(),
     );
@@ -176,7 +189,7 @@ describe("Results Panel", () => {
     await waitFor(() => screen.getByText(title));
     await waitFor(() => screen.getByText(/\| CD 01/));
     const closeIcon = screen.getByLabelText("closeIcon");
-    await act(() => fireEvent.click(closeIcon));
+    await userEvent.click(closeIcon);
     await waitFor(() =>
       expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
@@ -196,7 +209,7 @@ describe("Results Panel", () => {
     await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText(title));
     const closeIcon = screen.getByLabelText("closeIcon");
-    await act(() => fireEvent.click(closeIcon));
+    await userEvent.click(closeIcon);
     await waitFor(() =>
       expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
@@ -214,7 +227,7 @@ describe("Results Panel", () => {
     );
     await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText(title));
-    await act(() => fireEvent.click(screen.getByText("Clear")));
+    await userEvent.click(screen.getByText("Clear"));
     await waitFor(() =>
       expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
@@ -245,7 +258,7 @@ describe("Results Panel", () => {
     await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
     await waitFor(() => screen.getByText("Radius"));
     const closeIcon = screen.getByLabelText("closeIcon");
-    await act(() => fireEvent.click(closeIcon));
+    await userEvent.click(closeIcon);
     await waitFor(() =>
       expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
@@ -260,7 +273,7 @@ describe("Results Panel", () => {
       />,
     );
     await waitFor(() => screen.getByText("SELECTED LOCATIONS"));
-    await act(() => fireEvent.click(screen.getByText("Clear")));
+    await userEvent.click(screen.getByText("Clear"));
     await waitFor(() =>
       expect(screen.queryByText("SELECTED LOCATIONS")).not.toBeInTheDocument(),
     );
