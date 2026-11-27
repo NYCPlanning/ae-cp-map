@@ -390,6 +390,7 @@ export function ExportDataModal() {
                       size="xs"
                       minH="fit-content"
                       onClick={clearGeoFilters}
+                      aria-label="Clear location filters"
                     >
                       clear
                     </Button>
@@ -442,6 +443,7 @@ export function ExportDataModal() {
                               size="xs"
                               minH="fit-content"
                               onClick={clearCapitalProjectFilters}
+                              aria-label="Clear Capital Projects filters"
                             >
                               clear
                             </Button>
@@ -473,6 +475,7 @@ export function ExportDataModal() {
                               size="xs"
                               minH="fit-content"
                               onClick={clearCommunityBoardBudgetRequestFilters}
+                              aria-label="Clear Community Board Budget Requests filters"
                             >
                               clear
                             </Button>
@@ -496,6 +499,7 @@ export function ExportDataModal() {
                               size="xs"
                               minH="fit-content"
                               onClick={clearFacilityFilters}
+                              aria-label="Clear Facilities filters"
                             >
                               clear
                             </Button>
