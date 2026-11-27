@@ -11,18 +11,11 @@ describe("WelcomeContent", () => {
     expect(screen.getByText(/The Capital Projects Portal/)).toBeVisible();
   });
 
-  it("should have a more information section with links", () => {
+  it("should describe the supporting housing growth layers", () => {
     render(<WelcomeContent />);
 
-    expect(screen.getByText(/To learn more/)).toBeVisible();
-
     expect(
-      screen.getByRole("link", {
-        name: "capital planning overview",
-      }),
-    ).toHaveAttribute(
-      "href",
-      "https://www.nyc.gov/content/planning/pages/planning/capital-planning#overview",
-    );
+      screen.getByText(/supporting layers related to housing growth/),
+    ).toBeVisible();
   });
 });

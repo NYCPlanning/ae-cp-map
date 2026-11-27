@@ -1,8 +1,32 @@
 import { StreetscapeProvider } from "@nycplanning/streetscape";
 import { render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import type { ReactNode } from "react";
 import { createRoutesStub, Outlet, useLocation } from "react-router";
 import MapPage, { loader } from "./MapPage";
+
+// JSDOM's selector engine does not support the mapControl variant's :has() selector.
+vi.mock("@nycplanning/streetscape", async (importOriginal) => {
+  const streetscape =
+    await importOriginal<typeof import("@nycplanning/streetscape")>();
+
+  return {
+    ...streetscape,
+    Tabs: ({
+      children,
+      id,
+      index,
+    }: {
+      children: ReactNode;
+      id?: string;
+      index?: number;
+    }) => (
+      <streetscape.Tabs id={id} index={index} variant="base">
+        {children}
+      </streetscape.Tabs>
+    ),
+  };
+});
 
 vi.mock("../components/atlas.client", () => ({
   Atlas: () => <div data-testid="atlas" />,
@@ -83,11 +107,13 @@ const renderMapPage = (queryString: string) => {
 
 const openLayersPanel = async () => {
   await screen.findByTestId("atlas");
-  await userEvent.click(
-    screen.getByRole("button", {
-      name: "Capital Planning Data",
-      hidden: true,
-    }),
+  const panelButton = screen.getByRole("button", {
+    name: "Capital Planning Data",
+    hidden: true,
+  });
+  await userEvent.click(panelButton);
+  await waitFor(() =>
+    expect(panelButton).toHaveAttribute("aria-expanded", "true"),
   );
 };
 
@@ -99,6 +125,7 @@ describe("MapPage geographic boundary selector", () => {
 
   it("clears and restores community district params", async () => {
     renderMapPage("boundaryType=cd&communityDistrictIds=1");
+    await screen.findByTestId("atlas");
 
     await userEvent.click(screen.getByRole("tab", { name: "Boroughs" }));
     await waitFor(() => {
@@ -118,6 +145,7 @@ describe("MapPage geographic boundary selector", () => {
 
   it("clears and restores city council params", async () => {
     renderMapPage("boundaryType=ccd&cityCouncilDistrictIds=2");
+    await screen.findByTestId("atlas");
 
     await userEvent.click(
       screen.getByRole("tab", { name: "Community Districts" }),
@@ -137,6 +165,7 @@ describe("MapPage geographic boundary selector", () => {
 
   it("clears and restores borough params", async () => {
     renderMapPage("boundaryType=borough&boroughIds=3");
+    await screen.findByTestId("atlas");
 
     await userEvent.click(
       screen.getByRole("tab", { name: "Community Districts" }),
@@ -155,68 +184,33 @@ describe("MapPage geographic boundary selector", () => {
   });
 });
 
-describe("MapPage layer filter visibility", () => {
-  it("shows each layer's filters when the layers are on", async () => {
+describe("MapPage layer controls", () => {
+  it("turns a layer on with its switch", async () => {
     renderMapPage("layers=");
     await openLayersPanel();
 
-    expect(
-      screen.queryByRole("button", {
-        name: /^Capital Projects filters/,
-      }),
-    ).not.toBeInTheDocument();
-
-    await userEvent.click(screen.getByLabelText("Capital Projects"));
-
-    await waitFor(() => {
-      expect(
-        screen.getByRole("button", {
-          name: /^Capital Projects filters/,
-        }),
-      ).toBeVisible();
+    const capitalProjectsSwitch = screen.getByRole("checkbox", {
+      name: "Capital Projects",
     });
+    expect(capitalProjectsSwitch).not.toBeChecked();
+
+    await userEvent.click(capitalProjectsSwitch);
+
+    await waitFor(() => expect(capitalProjectsSwitch).toBeChecked());
   });
 
-  it("only shows filters for layers that are toggled on", async () => {
-    renderMapPage("layers=");
+  it("renders layer switch states from the query params", async () => {
+    renderMapPage(
+      "layers=capitalProjects,cbbr,facilities&supportingLayers=housing",
+    );
     await openLayersPanel();
 
-    await userEvent.click(screen.getByText("Expand All"));
-
-    expect(screen.getByText("Managing Agency")).not.toBeVisible();
-    expect(screen.getByText("Policy Area")).not.toBeVisible();
-    expect(screen.getByText("Facility Jurisdiction")).not.toBeVisible();
+    expect(screen.getByLabelText("Capital Projects")).toBeChecked();
     expect(
-      screen.getByText("Health Care and Human Services"),
-    ).not.toBeVisible();
-
-    await userEvent.click(screen.getByLabelText("Capital Projects"));
-    await waitFor(() => {
-      expect(screen.getByText("Managing Agency")).toBeVisible();
-      expect(screen.getByText("Policy Area")).not.toBeVisible();
-      expect(screen.getByText("Facility Jurisdiction")).not.toBeVisible();
-      expect(
-        screen.getByText("Health Care and Human Services"),
-      ).not.toBeVisible();
-    });
-
-    await userEvent.click(
       screen.getByLabelText("Community Board Capital Budget Requests"),
-    );
-    await waitFor(() => {
-      expect(screen.getByText("Managing Agency")).toBeVisible();
-      expect(screen.getByText("Policy Area")).toBeVisible();
-      expect(screen.getByText("Facility Jurisdiction")).not.toBeVisible();
-      expect(screen.getByText("Health Care and Human Services")).toBeVisible();
-    });
-
-    await userEvent.click(screen.getByLabelText("Facilities"));
-    await waitFor(() => {
-      expect(screen.getByText("Managing Agency")).toBeVisible();
-      expect(screen.getByText("Policy Area")).toBeVisible();
-      expect(screen.getByText("Facility Jurisdiction")).toBeVisible();
-      expect(screen.getByText("Health Care and Human Services")).toBeVisible();
-    });
+    ).toBeChecked();
+    expect(screen.getByLabelText("Facilities")).toBeChecked();
+    expect(screen.getByLabelText("Housing Growth layer")).toBeChecked();
   });
 
   it("does not open How to Use This Tool when Housing Growth is turned on", async () => {
@@ -232,7 +226,7 @@ describe("MapPage layer filter visibility", () => {
     ).toHaveAttribute("aria-expanded", "true");
     expect(
       screen.getByRole("button", {
-        name: "How to use this tool panel",
+        name: "How to Use This Tool",
       }),
     ).toHaveAttribute("aria-expanded", "false");
   });
@@ -259,7 +253,9 @@ describe("MapPage layer filter visibility", () => {
       }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
-      screen.getByRole("button", { name: "Legend panel" }),
+      screen.getByRole("button", {
+        name: "Community Board Budget Request Legend",
+      }),
     ).toHaveAttribute("aria-expanded", "true");
     expect(
       screen.getByRole("button", {
@@ -268,7 +264,7 @@ describe("MapPage layer filter visibility", () => {
     ).toHaveAttribute("aria-expanded", "true");
     expect(
       screen.getByRole("button", {
-        name: "How to use this tool panel",
+        name: "How to Use This Tool",
       }),
     ).toHaveAttribute("aria-expanded", "false");
   });
@@ -278,7 +274,7 @@ describe("MapPage layer filter visibility", () => {
     await openLayersPanel();
 
     const howToButton = screen.getByRole("button", {
-      name: "How to use this tool panel",
+      name: "How to Use This Tool",
     });
     await userEvent.click(howToButton);
     await userEvent.click(screen.getByText("Collapse All"));
@@ -299,7 +295,9 @@ describe("MapPage layer filter visibility", () => {
       }),
     ).toHaveAttribute("aria-expanded", "false");
     expect(
-      screen.getByRole("button", { name: "Legend panel" }),
+      screen.getByRole("button", {
+        name: "Community Board Budget Request Legend",
+      }),
     ).toHaveAttribute("aria-expanded", "false");
     expect(
       screen.getByRole("button", {
@@ -307,7 +305,7 @@ describe("MapPage layer filter visibility", () => {
       }),
     ).toHaveAttribute("aria-expanded", "false");
     expect(
-      screen.getByRole("button", { name: "How to use this tool panel" }),
+      screen.getByRole("button", { name: "How to Use This Tool" }),
     ).toHaveAttribute("aria-expanded", "true");
   });
 
