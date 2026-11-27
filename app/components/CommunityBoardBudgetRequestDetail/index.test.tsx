@@ -3,7 +3,6 @@ import {
   createCommunityBoardBudgetRequest,
   CommunityBoardBudgetRequest,
   createAgency,
-  createCommunityBoardBudgetRequestPolicyArea,
   createCommunityBoardBudgetRequestAgencyCategoryResponse,
 } from "~/gen";
 import { CommunityBoardBudgetRequestDetail } from ".";
@@ -16,9 +15,13 @@ describe("CommunityBoardBudgetRequestDetail", () => {
   let onNavigationClick: () => void;
 
   beforeAll(() => {
-    cbbr = createCommunityBoardBudgetRequest();
+    cbbr = {
+      ...createCommunityBoardBudgetRequest(),
+      id: "CB-TEST-42",
+      communityBoardId: "Community Board 42",
+    };
     agencyName = createAgency().name;
-    policyArea = createCommunityBoardBudgetRequestPolicyArea().description;
+    policyArea = "Test policy area";
     agencyCategoryResponse =
       createCommunityBoardBudgetRequestAgencyCategoryResponse().description;
   });

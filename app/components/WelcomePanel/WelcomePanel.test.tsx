@@ -1,4 +1,6 @@
+import { StreetscapeProvider } from "@nycplanning/streetscape";
 import { render, screen } from "@testing-library/react";
+import { createRoutesStub, Outlet } from "react-router";
 import { WelcomePanel } from "./WelcomePanel";
 
 const navigateMock = vi.fn();
@@ -15,20 +17,42 @@ vi.mock("react-router", async () => {
 });
 
 describe("WelcomePanel", () => {
+  const Stub = createRoutesStub([
+    {
+      path: "/",
+      Component: () => (
+        <Outlet
+          context={{
+            isPanelOpen: true,
+            setIsPanelOpen: vi.fn(),
+          }}
+        />
+      ),
+      children: [{ path: "welcome", Component: WelcomePanel }],
+    },
+  ]);
+
+  const renderWelcomePanel = () =>
+    render(
+      <StreetscapeProvider>
+        <Stub initialEntries={["/welcome"]} />
+      </StreetscapeProvider>,
+    );
+
   it("should contain a welcome heading", () => {
-    render(<WelcomePanel />);
+    renderWelcomePanel();
 
     expect(screen.getByText(/Welcome/)).toBeVisible();
   });
 
   it("should contain welcome content", () => {
-    render(<WelcomePanel />);
+    renderWelcomePanel();
 
     expect(
       screen.getAllByText(/Capital Projects Portal/)[0],
     ).toBeInTheDocument();
     expect(
-      screen.getAllByText(/learn more about the capital planning/)[0],
+      screen.getByText(/supporting layers related to housing growth/),
     ).toBeInTheDocument();
   });
 });

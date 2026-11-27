@@ -25,6 +25,7 @@ describe("CapitalProjectDetail", () => {
     ];
     capitalProject = {
       ...createCapitalProjectBudgeted(),
+      description: "Test capital project description",
       managingAgency: "DDC",
       sponsoringAgencies: ["DEP"],
     };
