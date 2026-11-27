@@ -354,31 +354,35 @@ export function ExportDataModal() {
             m={4}
           >
             <Box fontWeight={"bold"} margin={"1rem"}>
-              <ModalHeader padding={"0.5rem"}>
+              <ModalHeader as="h2" padding={"0.5rem"}>
                 Export{" "}
                 {zeroTotalRecords
                   ? 0
                   : totalRecords[dataSetForExport]?.toLocaleString(
                       "en-US",
                     )}{" "}
-                Records
+                records
               </ModalHeader>
               <ModalCloseButton />
             </Box>
             <ModalBody>
               <Box marginBottom={6}>
-                <Heading
-                  as={"h2"}
-                  fontWeight={"bold"}
-                  fontSize={"xs"}
-                  color={"primary.600"}
-                >
-                  Selected Location
-                  {selectedDownloadOptions.multipleLocationsSelected ? "s" : ""}
-                </Heading>
-                <Text fontSize="sm">
-                  {selectedDownloadOptions.selectedLocationText}
-                </Text>
+                <dl>
+                  <Text
+                    as={"dt"}
+                    fontWeight={"bold"}
+                    fontSize={"xs"}
+                    color={"primary.600"}
+                  >
+                    Selected Location
+                    {selectedDownloadOptions.multipleLocationsSelected
+                      ? "s"
+                      : ""}
+                  </Text>
+                  <Text as={"dd"} fontSize="sm">
+                    {selectedDownloadOptions.selectedLocationText}
+                  </Text>
+                </dl>
                 {selectedDownloadOptions.selectedLocationText !==
                   "New York City (all)" && (
                   <HStack justifyContent={"space-between"}>
