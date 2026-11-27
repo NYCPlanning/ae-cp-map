@@ -1,5 +1,4 @@
-import { Link, Text, useToast } from "@nycplanning/streetscape";
-import { LinkBtn } from "../LinkBtn";
+import { Button, Link, Text, useToast } from "@nycplanning/streetscape";
 import { format } from "date-fns";
 
 export interface ExportDataModalLinkButtonProps {
@@ -82,15 +81,13 @@ export function ExportDataModalLinkButton({
   };
 
   return (
-    <LinkBtn
+    <Button
+      variant="primary"
       width={"full"}
-      textAlign={"center"}
-      fontWeight={"bold"}
       aria-disabled={zeroTotalRecords}
-      cursor={"pointer"}
       onClick={onClick}
     >
-      Export Selection <span style={{ fontWeight: 400 }}>(CSV)</span>
-    </LinkBtn>
+      Export selection (CSV)
+    </Button>
   );
 }
