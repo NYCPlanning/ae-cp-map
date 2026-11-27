@@ -122,20 +122,16 @@ export const CapitalProjectDetail = ({
           >
             <Box display={"flex"} flexDirection={"column"} textAlign={"left"}>
               <Text fontSize={"xs"}>Commitments</Text>
-              <Heading color="primary.600" fontWeight={"bold"} fontSize={"sm"}>
+              <Text color="primary.600" fontWeight={"bold"} fontSize={"sm"}>
                 {formatFiscalYearRange(
                   new Date(capitalProject.minDate),
                   new Date(capitalProject.maxDate),
                 )}
-              </Heading>
+              </Text>
             </Box>
             <Box display={"flex"} flexDirection={"column"} textAlign={"right"}>
               <Text fontSize={"xs"}>Total</Text>
-              <Heading
-                color="primary.500"
-                fontWeight={"medium"}
-                fontSize={"sm"}
-              >
+              <Text color="primary.600" fontWeight={"medium"} fontSize={"sm"}>
                 {numbro(capitalProject.commitmentsTotal)
                   .format({
                     average: true,
@@ -144,7 +140,7 @@ export const CapitalProjectDetail = ({
                     spaceSeparated: true,
                   })
                   .toUpperCase()}
-              </Heading>
+              </Text>
             </Box>
           </Box>
           <CapitalCommitmentsTimeline capitalCommitments={capitalCommitments} />
