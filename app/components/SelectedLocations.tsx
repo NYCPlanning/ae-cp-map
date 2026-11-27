@@ -142,6 +142,7 @@ export function SelectedLocations({
       } else {
         updateSearchParams({
           cityCouncilDistrictIds: undefined,
+          boundaryId: undefined,
         });
       }
     } else if (boundaryType === "cd") {
@@ -154,6 +155,8 @@ export function SelectedLocations({
       } else {
         updateSearchParams({
           communityDistrictIds: undefined,
+          boroughId: undefined,
+          boundaryId: undefined,
         });
       }
     } else if (boundaryType === "borough") {
